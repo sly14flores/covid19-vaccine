@@ -12,4 +12,4 @@ const mix = require('laravel-mix');
  */
 
 mix.copy('resources/angularjs/angular.min.js', 'public/angularjs/angular.min.js');
-mix.copy('resources/js/app.js', 'public/js/app.js').version;
+mix.copy('resources/js/app.js', 'public/js/app.js').version();
