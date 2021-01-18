@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a16c3c541bd99241cab1c21ce8e83ac",
+    "content-hash": "c62308704052b3228e1e6ebc9d9423c3",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1568,6 +1568,61 @@
             "time": "2020-12-17T20:55:32+00:00"
         },
         {
+            "name": "netojose/laravel-api-explorer",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/netojose/laravel-api-explorer.git",
+                "reference": "20cac3096d8327283b68aead834a226d76d9a170"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/netojose/laravel-api-explorer/zipball/20cac3096d8327283b68aead834a226d76d9a170",
+                "reference": "20cac3096d8327283b68aead834a226d76d9a170",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NetoJose\\LaravelApiExplorer\\LaravelApiExplorerServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaravelApiExplorer": "NetoJose\\LaravelApiExplorer\\Facades\\LaravelApiExplorer"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NetoJose\\LaravelApiExplorer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "José Neto",
+                    "email": "sputinykster@gmail.com",
+                    "homepage": "https://netojose.github.io/"
+                }
+            ],
+            "description": "API explorer for laravel application",
+            "homepage": "https://github.com/netojose/laravel-api-explorer",
+            "keywords": [
+                "api",
+                "laravel",
+                "laravel-api-explorer",
+                "rest"
+            ],
+            "support": {
+                "issues": "https://github.com/netojose/laravel-api-explorer/issues",
+                "source": "https://github.com/netojose/laravel-api-explorer/tree/v2.0.1"
+            },
+            "time": "2019-12-12T11:28:24+00:00"
+        },
+        {
             "name": "nikic/php-parser",
             "version": "v4.10.4",
             "source": {
@@ -1756,6 +1811,58 @@
                 }
             ],
             "time": "2020-07-20T17:29:33+00:00"
+        },
+        {
+            "name": "protoqol/prequel",
+            "version": "v1.22.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Protoqol/Prequel.git",
+                "reference": "b06d3848a12552193322f2de382856cd5c94fe6d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Protoqol/Prequel/zipball/b06d3848a12552193322f2de382856cd5c94fe6d",
+                "reference": "b06d3848a12552193322f2de382856cd5c94fe6d",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.6",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.7",
+                "phpmd/phpmd": "^2.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Protoqol\\Prequel\\PrequelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Protoqol\\Prequel\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Quinten Schorsij",
+                    "email": "quinten@protoqol.xyz"
+                }
+            ],
+            "description": "Clear and concise database management.",
+            "support": {
+                "issues": "https://github.com/Protoqol/Prequel/issues",
+                "source": "https://github.com/Protoqol/Prequel/tree/master"
+            },
+            "time": "2020-06-27T02:14:30+00:00"
         },
         {
             "name": "psr/container",
