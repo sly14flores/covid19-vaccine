@@ -51,5 +51,18 @@ class Survey extends Model
         'yes_pregnant_baby',
         'no_pregnant_baby',
         'not_sure_pregnant_baby',
+        'yes_vaccine',
+        'no_vaccine',
+        'yes_contribute',
+        'no_contribute',
+        'efficacy_rate_reason',
+        'vaccine_cost_reason',
+        'side_effects_reason',
+        'lack_of_information_reason',
+        'others_reason',
+        'one_hundred_percent_fee',
+        'seventy_five_percent_fee',
+        'fifty_percent_fee',
+        'twenty_five_percent_fee',
     ];    
 }
