@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SurveyResource extends JsonResource
+class SurveysListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,8 +14,6 @@ class SurveyResource extends JsonResource
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
-
         return [
             'qr_pass_id' => $this->qr_pass_id,
             'last_name' => $this->last_name,
@@ -66,6 +64,7 @@ class SurveyResource extends JsonResource
             'seventy_five_percent_fee' => $this->seventy_five_percent_fee,
             'fifty_percent_fee' => $this->fifty_percent_fee,
             'twenty_five_percent_fee' => $this->twenty_five_percent_fee,
+            'date' => $this->create_at,
         ];
     }
 }

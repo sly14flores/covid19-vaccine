@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Carbon\Carbon;
+
 class Survey extends Model
 {
     use HasFactory;
@@ -64,5 +66,18 @@ class Survey extends Model
         'seventy_five_percent_fee',
         'fifty_percent_fee',
         'twenty_five_percent_fee',
+    ];
+    
+    protected $hidden = [
+        'updated_at',
     ];    
+
+    /**
+     * @param $value
+     * @return false|string
+     */
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('F j, Y h:i A');
+    }    
 }

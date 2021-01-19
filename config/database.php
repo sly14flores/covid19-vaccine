@@ -103,7 +103,7 @@ return [
             ]) : [],
         ],
 
-        'production' => [
+        'napanam' => [
             'driver' => 'mysql',
             'url' => env('NAPANAM_DATABASE_URL'),
             'host' => env('NAPANAM_DB_HOST', '127.0.0.1'),
