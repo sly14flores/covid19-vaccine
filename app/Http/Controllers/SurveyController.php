@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Survey;
 use App\Http\Resources\SurveyResource;
 use App\Http\Resources\SurveyResourceCollection;
+use App\Http\Resources\SurveysListResourceCollection;
 use App\Traits\Messages;
 
 class SurveyController extends Controller
@@ -25,7 +26,9 @@ class SurveyController extends Controller
     {
         $surveys = Survey::paginate(25);
 
-        return new SurveyResourceCollection($surveys);
+        $data = new SurveysListResourceCollection($surveys);
+
+        return $this->jsonSuccessResponse($data, 200);         
     }
 
     /**
@@ -60,7 +63,9 @@ class SurveyController extends Controller
 
         $survey->save();
 
-        return new SurveyResource($survey);
+        $data = new SurveyResource($survey);
+
+        return $this->jsonSuccessResponse($data, 200); 
     }
 
     /**
@@ -71,7 +76,19 @@ class SurveyController extends Controller
      */
     public function show($id)
     {
-        //
+        if (filter_var($id, FILTER_VALIDATE_INT) === false ) {
+            return $this->jsonErrorInvalidParameters();
+        }
+
+        $survey = Survey::find($id);        
+
+        if (is_null($survey)) {
+			return $this->jsonErrorResourceNotFound();
+        }
+
+        $data = new SurveyResource($survey);
+
+        return $this->jsonSuccessResponse($data, 200);     
     }
 
     /**
@@ -105,7 +122,19 @@ class SurveyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (filter_var($id, FILTER_VALIDATE_INT) === false ) {
+            return $this->jsonErrorInvalidParameters();
+        }
+
+        $survey = Survey::find($id);        
+
+        if (is_null($survey)) {
+			return $this->jsonErrorResourceNotFound();
+        }        
+
+        $survey->delete();
+
+        return $this->jsonDeleteSuccessResponse();        
     }
 
     /**

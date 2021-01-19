@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Traits\Messages;
+use Illuminate\Support\Facades\DB;
+use App\Models\QrPass;
+
+use App\Http\Resources\QrPassResource;
+
+class NapanamController extends Controller
+{
+
+    use Messages;
+
+    public function checkRegistration($id)
+    {
+
+        $napanam = $this->checkConnection();
+
+        if ($napanam===false) {
+
+            return $this->jsonFailedResponse(null, 500, "Cannot connect to napanam database");
+
+        }
+
+        $qrpass = QrPass::find($id);
+
+        if (is_null($qrpass)) {
+			return $this->jsonErrorResourceNotFound();
+        }
+
+        $data = new QrPassResource($qrpass);
+        return $this->jsonSuccessResponse($data, 200);
+
+    }
+
+    private function checkConnection()
+    {
+        try {
+            $napanam = DB::connection('napanam');
+            return $napanam;         
+        } catch (\Exception $e) {
+           return false;
+        }
+    }
+}

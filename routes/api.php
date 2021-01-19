@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\NapanamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,5 @@ Route::apiResources([
 ],[
     'except' => ['index']
 ]);
+
+Route::get('napanam/check/registration/{id}', [NapanamController::class, 'checkRegistration']);
