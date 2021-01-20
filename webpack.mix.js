@@ -17,6 +17,9 @@ mix.copy('resources/plugins/bootstrap/js/bootstrap.bundle.min.js', 'public/boots
 mix.copy('resources/dist/js/adminlte.min.js', 'public/js/adminlte.min.js');
 mix.copy('resources/dist/js/animate-kontext.js', 'public/js/animate-kontext.js');
 mix.js('resources/js/app.js', 'public/js/app.js').version();
+mix.js('resources/js/register.js', 'public/js/register.js').version();
+mix.js('resources/js/napanam.js', 'public/js/napanam.js').version();
+mix.js('resources/js/survey.js', 'public/js/survey.js').version();
 
 mix.copy('resources/plugins/fontawesome-free/css/all.min.css', 'public/css/all.min.css');
 mix.copy('resources/dist/css/adminlte.min.css', 'public/css/adminlte.min.css');

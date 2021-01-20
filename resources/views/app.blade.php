@@ -10,7 +10,7 @@
 
 		<title>{{ config('app.name', 'Covid-19 Vaccination Survey') }}</title>
     </head>
-    <body class="hold-transition layout-top-nav" ng-app="survey" ng-controller="surveyCtrl">
+    <body class="hold-transition layout-top-nav" ng-app="app" ng-controller="appCtrl">
     <div class="wrapper">
   
         <nav class="main-header navbar navbar-expand-md navbar-light" style="background-color: #215266; color: white;">

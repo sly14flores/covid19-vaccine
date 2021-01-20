@@ -16,7 +16,7 @@
       <nav class="main-header navbar navbar-expand-md navbar-light" style="background-color: #215266; color: white;">
         <div class="container">
             <a href="http://localhost:8000/" class="navbar-brand move-center">
-                <img src="img/launion-logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                <img src="/img/launion-logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                     style="opacity: .8">
                 <span class="brand-text font-weight-light" style="color: white;"> Covid-19 Vaccination Survey</span>
             </a>
@@ -267,7 +267,7 @@
   <script type="text/javascript" src="{{ mix('angularjs/angular.min.js') }}"></script>
   <script type="text/javascript" src="{{ mix('jquery/jquery.min.js') }}"></script>
   <script type="text/javascript" src="{{ mix('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+  <script type="text/javascript" src="{{ mix('js/survey.js') }}"></script>
 
 </body>
 </html>
