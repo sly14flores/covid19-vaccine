@@ -4,7 +4,7 @@
   \*********************************/
 var app = angular.module('napanam', []);
 app.controller('napanamCtrl', function ($scope, $http) {
-  var prod_url = "napanam.launion.gov.ph";
+  var prod_url = "http://napanam.launion.gov.ph";
   var local_url = "http://localhost:8000";
   var api_url = local_url;
   $scope.napanam_id = null; // const napanam_id = 263000

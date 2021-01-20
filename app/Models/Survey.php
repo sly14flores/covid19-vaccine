@@ -41,6 +41,7 @@ class Survey extends Model
         'ofw',
         'others_population_group',
         'lung_disease',
+		'heart_disease',
         'kidney_disease',
         'diabetes',
         'high_blood_pressure',
