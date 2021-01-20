@@ -10,7 +10,7 @@
 
 		<title>{{ config('app.name', 'Covid19 Vaccination Survey') }}</title>
     </head>
-    <body class="hold-transition layout-top-nav" ng-app="survey" ng-controller="surveyCtrl">
+    <body class="hold-transition layout-top-nav" ng-app="napanam" ng-controller="napanamCtrl">
     <div class="wrapper">
   
         <nav class="main-header navbar navbar-expand-md navbar-light" style="background-color: #215266; color: white;">
@@ -66,7 +66,7 @@
                                     <div class="col-lg-10">
                                     <form>
                                         <div class="input-group mb-3">
-                                            <input type="number" class="form-control form-control-lg" placeholder="Napanam ID">
+                                            <input type="number" class="form-control form-control-lg" placeholder="Napanam ID" ng-model="napanam_id">
                                             <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-id-card"></span>
@@ -84,7 +84,7 @@
                                 <div class="col-lg-3 divhide">&nbsp;</div>
                             
                                 <div class="col-lg-6 mt-4">
-                                    <a href="http://localhost:8000/survey"><button type="button" class="btn btn-block btn-outline-success">Proceed </button></a>
+                                    <a href="javascript:;" ng-click="proceed()"><button type="button" class="btn btn-block btn-outline-success">Proceed </button></a>
                                 </div>
                                 
                                 <div class="col-lg-3 divhide">&nbsp;</div>
@@ -101,8 +101,9 @@
     <script type="text/javascript" src="{{ mix('angularjs/angular.min.js') }}"></script>
     <script type="text/javascript" src="{{ mix('jquery/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ mix('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script type="text/javascript" src="{{ mix('js/animate-kontext.js') }}"></script>
-    <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('js/napanam.js') }}"></script>
 
 </body>
 </html>

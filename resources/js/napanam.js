@@ -1,6 +1,6 @@
-const app = angular.module('app', []);
+const app = angular.module('napanam', []);
 
-app.controller('appCtrl', function($scope,$http) {
+app.controller('napanamCtrl', function($scope,$http) {
 	
 	const prod_url = "napanam.launion.gov.ph"
 	const local_url = "http://localhost:8000"

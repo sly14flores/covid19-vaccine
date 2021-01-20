@@ -10,7 +10,7 @@
 
 		<title>{{ config('app.name', 'Covid19 Vaccination Survey') }}</title>
     </head>
-    <body class="hold-transition layout-top-nav" ng-app="survey" ng-controller="surveyCtrl">
+    <body class="hold-transition layout-top-nav" ng-app="register" ng-controller="registerCtrl">
     <div class="wrapper">
   
         <nav class="main-header navbar navbar-expand-md navbar-light" style="background-color: #215266; color: white;">
@@ -105,8 +105,9 @@
     <script type="text/javascript" src="{{ mix('angularjs/angular.min.js') }}"></script>
     <script type="text/javascript" src="{{ mix('jquery/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ mix('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script type="text/javascript" src="{{ mix('js/animate-kontext.js') }}"></script>
-    <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('js/register.js') }}"></script>
 
 </body>
 </html>

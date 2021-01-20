@@ -19,5 +19,10 @@ Route::get('/', function () {
 
 Route::view('/register', 'register');
 Route::view('/napanam', 'napanam');
-Route::view('/survey', 'survey');
+
+Route::get('/survey/{id}', function($id) {
+	
+	return view('survey');
+	
+});
 

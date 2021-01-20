@@ -1,9 +1,9 @@
 /******/ (() => { // webpackBootstrap
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
-var app = angular.module('app', []);
-app.controller('appCtrl', function ($scope, $http) {
+/*!*********************************!*\
+  !*** ./resources/js/napanam.js ***!
+  \*********************************/
+var app = angular.module('napanam', []);
+app.controller('napanamCtrl', function ($scope, $http) {
   var prod_url = "napanam.launion.gov.ph";
   var local_url = "http://localhost:8000";
   var api_url = local_url;
