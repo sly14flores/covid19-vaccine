@@ -12,4 +12,15 @@ const mix = require('laravel-mix');
  */
 
 mix.copy('resources/angularjs/angular.min.js', 'public/angularjs/angular.min.js');
+mix.copy('resources/plugins/jquery/jquery.min.js', 'public/jquery/jquery.min.js');
+mix.copy('resources/plugins/bootstrap/js/bootstrap.bundle.min.js', 'public/bootstrap/js/bootstrap.bundle.min.js');
+mix.copy('resources/dist/js/adminlte.min.js', 'public/js/adminlte.min.js');
+mix.copy('resources/dist/js/animate-kontext.js', 'public/js/animate-kontext.js');
 mix.js('resources/js/app.js', 'public/js/app.js').version();
+
+mix.copy('resources/plugins/fontawesome-free/css/all.min.css', 'public/css/all.min.css');
+mix.copy('resources/dist/css/adminlte.min.css', 'public/css/adminlte.min.css');
+mix.copy('resources/dist/css/animate-kontext.css', 'public/css/animate-kontext.css');
+
+mix.copyDirectory('resources/dist/img','public/img');
+mix.copyDirectory('resources/plugins/fontawesome-free/webfonts','public/webfonts');
