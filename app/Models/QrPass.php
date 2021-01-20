@@ -27,8 +27,19 @@ class QrPass extends Model
         return Carbon::parse($value)->format('F j, Y h:i A');
     }
 
+    public function province()
+    {
+        return $this->belongsTo(Province::class,'addressprovince','provCode');  
+    }
+
+    public function cityMun()
+    {
+        return $this->belongsTo(CityMun::class,'addressmunicity','citymunCode');
+    }
+
     public function barangay()
     {
         return $this->belongsTo(Barangay::class,'addressbrgy','brgyCode');
     }
+
 }
