@@ -22,20 +22,22 @@ app.controller('surveyCtrl', function($scope,$http) {
         province: null,
         town_city: null,
         barangay: null,
-        frontline_health_workers: false,
-        senior_citizens: false,
-        uniformed_personnel: false,
-        teachers: false,
-        social_workers: false,
-        government_employees: false,
-        agriculture_group: false,
-        food_industry: false,
-        tranportation: false,
-        tourism: false,
-        persons_deprived_of_liberty: false,
-        persons_with_disability: false,
-        ofw: false,
-        others_population_group: false,
+		populationGroup: null,
+		populationGroupOther: null,
+        // frontline_health_workers: false,
+        // senior_citizens: false,
+        // uniformed_personnel: false,
+        // teachers: false,
+        // social_workers: false,
+        // government_employees: false,
+        // agriculture_group: false,
+        // food_industry: false,
+        // tranportation: false,
+        // tourism: false,
+        // persons_deprived_of_liberty: false,
+        // persons_with_disability: false,
+        // ofw: false,
+        // others_population_group: false,
         lung_disease: false,
 		heart_disease: false,
         kidney_disease: false,
@@ -45,24 +47,29 @@ app.controller('surveyCtrl', function($scope,$http) {
         leukemia: false,
         hiv: false,
         mental_problem: false,
-        others_health_condition: false,
+        others_health_condition: null,
         none_of_the_above: false,
-        yes_pregnant_baby: false, // Pregnant?
-        no_pregnant_baby: false, // Pregnant?
-        not_sure_pregnant_baby: false, // Pregnant?
-        yes_vaccine: false, // Vaccine?
-        no_vaccine: false, // Vaccine?
-        yes_contribute: false, // Contribute?
-        no_contribute: false, // Contribute?
-        efficacy_rate_reason: false,
-        vaccine_cost_reason: false,
-        side_effects_reason: false,
-        lack_of_information_reason: false,
-        others_reason: false,
-        one_hundred_percent_fee: false,
-        seventy_five_percent_fee: false,
-        fifty_percent_fee: false,
-        twenty_five_percent_fee: false,
+		pregnancy: null,	
+        // yes_pregnant_baby: false, // Pregnant?
+        // no_pregnant_baby: false, // Pregnant?
+        // not_sure_pregnant_baby: false, // Pregnant?
+		vaccine: null,
+        // yes_vaccine: false, // Vaccine?
+        // no_vaccine: false, // Vaccine?
+		contribute: null,
+        // yes_contribute: false, // Contribute?
+        // no_contribute: false, // Contribute?
+		reason: null,
+		other_reason: null,
+        // efficacy_rate_reason: false,
+        // vaccine_cost_reason: false,
+        // side_effects_reason: false,
+        // lack_of_information_reason: false,
+        // others_reason: false,
+        // one_hundred_percent_fee: false,
+        // seventy_five_percent_fee: false,
+        // fifty_percent_fee: false,
+        // twenty_five_percent_fee: false,
 	};
 	$scope.survey = survey;
 	
@@ -83,6 +90,34 @@ app.controller('surveyCtrl', function($scope,$http) {
         others_population_group: "Others",
 	};
 	$scope.populationGroup = populationGroup;
+	
+	const populationGroupValues = {
+        frontline_health_workers: 'frontline_health_workers',
+        senior_citizens: 'senior_citizens',
+        uniformed_personnel: 'uniformed_personnel',
+        teachers: 'teachers',
+        social_workers: 'social_workers',
+        government_employees: 'government_employees',
+        agriculture_group: 'agriculture_group',
+        food_industry: 'food_industry',
+        tranportation: 'tranportation',
+        tourism: 'tourism',
+        persons_deprived_of_liberty: 'persons_deprived_of_liberty',
+        persons_with_disability: 'persons_with_disability',
+        ofw: 'ofw',
+        others_population_group: 'others_population_group',
+        lung_disease: 'lung_disease',
+		heart_disease: 'heart_disease',
+        kidney_disease: 'kidney_disease',
+        diabetes: 'diabetes',
+        high_blood_pressure: 'high_blood_pressure',
+        cancer: 'cancer',
+        leukemia: 'leukemia',
+        hiv: 'hiv',
+        mental_problem: 'mental_problem',
+        others_health_condition: 'others_health_condition',		
+	};
+	$scope.populationGroupValues = populationGroupValues;	
 
 	const healthConditions = {
         lung_disease: "Lung Disease such as Asthma, pulmonary tuberculosis, etc",
@@ -120,7 +155,7 @@ app.controller('surveyCtrl', function($scope,$http) {
 		method: 'GET',
 		url: `${api_url}/api/napanam/check/registration/${napanam_id}`
 	}).then(function mySucces(response) {
-
+		
         $scope.survey.qr_pass_id = response.data.data.id;
         $scope.survey.last_name = response.data.data.lastname;
         $scope.survey.first_name = response.data.data.firstname;
@@ -136,5 +171,21 @@ app.controller('surveyCtrl', function($scope,$http) {
 	}, function myError(response) {
 
 	});
+	
+	$scope.submit = function() {
+		
+		$http({
+			method: 'POST',
+			url: `${api_url}/api/survey`,
+			data: $scope.survey
+		}).then(function mySucces(response) {
+			
+			
+
+		}, function myError(response) {
+
+		});
+	
+    };
 	
 });

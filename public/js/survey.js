@@ -33,7 +33,7 @@ app.controller('surveyCtrl', function ($scope, $http) {
     persons_deprived_of_liberty: false,
     persons_with_disability: false,
     ofw: false,
-    others_population_group: false,
+    others_population_group: '',
     lung_disease: false,
     heart_disease: false,
     kidney_disease: false,
@@ -43,7 +43,7 @@ app.controller('surveyCtrl', function ($scope, $http) {
     leukemia: false,
     hiv: false,
     mental_problem: false,
-    others_health_condition: false,
+    others_health_condition: '',
     none_of_the_above: false,
     yes_pregnant_baby: false,
     // Pregnant?
@@ -63,7 +63,7 @@ app.controller('surveyCtrl', function ($scope, $http) {
     vaccine_cost_reason: false,
     side_effects_reason: false,
     lack_of_information_reason: false,
-    others_reason: false,
+    others_reason: '',
     one_hundred_percent_fee: false,
     seventy_five_percent_fee: false,
     fifty_percent_fee: false,
@@ -120,7 +120,6 @@ app.controller('surveyCtrl', function ($scope, $http) {
     method: 'GET',
     url: "".concat(api_url, "/api/napanam/check/registration/").concat(napanam_id)
   }).then(function mySucces(response) {
-    console.log(response);
     $scope.survey.qr_pass_id = response.data.data.id;
     $scope.survey.last_name = response.data.data.lastname;
     $scope.survey.first_name = response.data.data.firstname;
@@ -132,6 +131,14 @@ app.controller('surveyCtrl', function ($scope, $http) {
     $scope.survey.barangay = response.data.data.barangay;
     console.log($scope.survey);
   }, function myError(response) {});
+
+  $scope.submit = function () {
+    $http({
+      method: 'POST',
+      url: "".concat(api_url, "/api/survey"),
+      data: $scope.survey
+    }).then(function mySucces(response) {}, function myError(response) {});
+  };
 });
 /******/ })()
 ;
