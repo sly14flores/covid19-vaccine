@@ -47,17 +47,14 @@ app.controller('appCtrl', function($scope,$http) {
 				Swal.fire({
 				  title: '<b class="text-danger">NOT FOUND!</b>',
 				  icon: 'warning',
-				  html: 
-					"Are you sure that you're registered to the NAPANAM? ",
+				  html: "Are you sure that you're registered to the NAPANAM? ",
 				  showCancelButton: true,
 				  focusConfirm: false,
 				  confirmButtonText: 'Yes, Try Again!',
 				  cancelButtonText: 'No, I want to register.',
 				}).then((result) => {
 				  if (result.value) {
-					
-					
-					
+					// Close
 				  } else if (result.dismiss === Swal.DismissReason.cancel) {
 					
 					window.location = "https://npnm.launion.gov.ph/#/regqrpass";

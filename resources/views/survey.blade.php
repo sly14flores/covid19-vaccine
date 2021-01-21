@@ -25,99 +25,100 @@
 		  
 		<div class="row mt-2">
 			<div class="col-lg-3 col-sm-2"></div>
-				<div class="col-lg-6 col-sm-8" >
-					<div class="card">
-						<form role="form">
+				<div class="col-lg-6 col-sm-8">
+					
+					<form role="form">
+						<div class="card" style="border-left: 3px solid #215266; padding-bottom: 30px;">
 							<div class="card-body">
-							  
 							  <div class="form-group">
 								<h4 class="text-dark mb-3">1. Population Group</h4>
-								
-								<div class="col-sm-12">
+								<div class="col-lg-12">
 								  <!-- radio -->
 								  <div class="form-group">
 
 									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="frontline_health_workers" name="populationGroup" ng-model="survey.populationGroup" value="@{{ populationGroupValues.frontline_health_workers }}">
+									  <input class="custom-control-input" type="radio" id="frontline_health_workers" name="populationGroup" ng-model="survey.population_group" value="@{{ populationGroupValues.frontline_health_workers }}">
 									  <label for="frontline_health_workers" class="custom-control-label text-dark">@{{ populationGroup.frontline_health_workers }}</label>
 									</div>
 									<hr>
 									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="senior_citizens" name="populationGroup" ng-model="survey.populationGroup" value="@{{ populationGroupValues.senior_citizens }}">
+									  <input class="custom-control-input" type="radio" id="senior_citizens" name="populationGroup" ng-model="survey.population_group" value="@{{ populationGroupValues.senior_citizens }}">
 									  <label for="senior_citizens" class="custom-control-label text-dark">@{{ populationGroup.senior_citizens }}</label>
 									</div>
 									<hr>
 									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="uniformed_personnel" name="populationGroup" ng-model="survey.populationGroup" value="@{{ populationGroupValues.uniformed_personnel }}">
+									  <input class="custom-control-input" type="radio" id="uniformed_personnel" name="populationGroup" ng-model="survey.population_group" value="@{{ populationGroupValues.uniformed_personnel }}">
 									  <label for="uniformed_personnel" class="custom-control-label text-dark">@{{ populationGroup.uniformed_personnel }}</label>
 									</div>
 									<hr>
 									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="teachers" name="populationGroup" ng-model="survey.populationGroup" value="@{{ populationGroupValues.teachers }}">
+									  <input class="custom-control-input" type="radio" id="teachers" name="populationGroup" ng-model="survey.population_group" value="@{{ populationGroupValues.teachers }}">
 									  <label for="teachers" class="custom-control-label text-dark">@{{ populationGroup.teachers }}</label>
 									</div>
 									<hr>
 									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="social_workers" name="populationGroup" ng-model="survey.populationGroup" value="@{{ populationGroupValues.social_workers }}">
+									  <input class="custom-control-input" type="radio" id="social_workers" name="populationGroup" ng-model="survey.population_group" value="@{{ populationGroupValues.social_workers }}">
 									  <label for="social_workers" class="custom-control-label text-dark">@{{ populationGroup.social_workers }}</label>
 									</div>
 									<hr>
 									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="government_employees" name="populationGroup" ng-model="survey.populationGroup" value="@{{ populationGroupValues.government_employees }}">
+									  <input class="custom-control-input" type="radio" id="government_employees" name="populationGroup" ng-model="survey.population_group" value="@{{ populationGroupValues.government_employees }}">
 									  <label for="government_employees" class="custom-control-label text-dark">@{{ populationGroup.government_employees }}</label>
 									</div>
 									<hr>
 									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="agriculture_group" name="populationGroup" ng-model="survey.populationGroup" value="@{{ populationGroupValues.agriculture_group }}">
+									  <input class="custom-control-input" type="radio" id="agriculture_group" name="populationGroup" ng-model="survey.population_group" value="@{{ populationGroupValues.agriculture_group }}">
 									  <label for="agriculture_group" class="custom-control-label text-dark">@{{ populationGroup.agriculture_group }}</label>
 									</div>
 									<hr>
 									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="food_industry" name="populationGroup" ng-model="survey.populationGroup" value="@{{ populationGroupValues.food_industry }}">
+									  <input class="custom-control-input" type="radio" id="food_industry" name="populationGroup" ng-model="survey.population_group" value="@{{ populationGroupValues.food_industry }}">
 									  <label for="food_industry" class="custom-control-label text-dark">@{{ populationGroup.food_industry }}</label>
 									</div>
 									<hr>
 									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="transportation" name="populationGroup" ng-model="survey.populationGroup" value="@{{ populationGroupValues.tranportation }}">
+									  <input class="custom-control-input" type="radio" id="transportation" name="populationGroup" ng-model="survey.population_group" value="@{{ populationGroupValues.tranportation }}">
 									  <label for="transportation" class="custom-control-label text-dark">@{{ populationGroup.tranportation }}</label>
 									</div>
 									<hr>
 									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="tourism" name="populationGroup" ng-model="survey.populationGroup" value="@{{ populationGroupValues.tourism }}">
+									  <input class="custom-control-input" type="radio" id="tourism" name="populationGroup" ng-model="survey.population_group" value="@{{ populationGroupValues.tourism }}">
 									  <label for="tourism" class="custom-control-label text-dark">@{{ populationGroup.tourism }}</label>
 									</div>
 									<hr>
 									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="person_deprived" name="populationGroup" ng-model="survey.populationGroup" value="@{{ populationGroupValues.persons_deprived_of_liberty }}">
+									  <input class="custom-control-input" type="radio" id="person_deprived" name="populationGroup" ng-model="survey.population_group" value="@{{ populationGroupValues.persons_deprived_of_liberty }}">
 									  <label for="person_deprived" class="custom-control-label text-dark">@{{ populationGroup.persons_deprived_of_liberty }}</label>
 									</div>
 									<hr>
 									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="pwd" name="populationGroup" ng-model="survey.populationGroup" value="@{{ populationGroupValues.persons_with_disability }}">
+									  <input class="custom-control-input" type="radio" id="pwd" name="populationGroup" ng-model="survey.population_group" value="@{{ populationGroupValues.persons_with_disability }}">
 									  <label for="pwd" class="custom-control-label text-dark">@{{ populationGroup.persons_with_disability }}</label>
 									</div>
 									<hr>
 									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="ofw" name="populationGroup" ng-model="survey.populationGroup" value="@{{ populationGroupValues.ofw }}">
+									  <input class="custom-control-input" type="radio" id="ofw" name="populationGroup" ng-model="survey.population_group" value="@{{ populationGroupValues.ofw }}">
 									  <label for="ofw" class="custom-control-label text-dark">@{{ populationGroup.ofw }}</label>
 									</div>
 									<hr>
 									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="others" name="populationGroup" ng-model="survey.populationGroup" value="@{{ populationGroupValues.others_population_group }}">
+									  <input class="custom-control-input" type="radio" id="others" name="populationGroup" ng-model="survey.population_group" value="@{{ populationGroupValues.others_population_group }}">
 									  <label for="others" class="custom-control-label text-dark">@{{ populationGroup.others_population_group }}</label>
 									</div>
 									<hr>
-									<div class="input-group" ng-show="survey.populationGroup=='others_population_group'">
+									<div class="input-group" ng-show="survey.population_group=='others_population_group'">
 										<input type="text" class="form-control" placeholder="Others" ng-model="survey.population_group_other">
 									</div>
 								  </div>
 								</div>
 							  </div>
-
-							  <hr>
-
+							</div><!-- /.card-body -->
+						</div><!-- /.card -->
+						
+						<div class="card" style="border-left: 3px solid #215266; padding-bottom: 30px;">
+							<div class="card-body">
 							  <div class="form-group">
-								<h4 class="text-dark mb-3">2. Have you ever had or do you have any of the following health conditions? *</h4>
+								<h4 class="text-dark mb-3">2. Have you ever had or do you have any of the following health conditions?</h4>
 								<div class="col-sm-12">
 								  <!-- checkbox -->
 								  <div class="form-group">
@@ -182,170 +183,168 @@
 								  </div>
 								</div>
 							  </div>
-							  <hr>
-							  
-							  <div class="form-group">
-								<h4 class="text-dark mb-3">3. Are you pregnant or planning to have a baby?</h4>
+							</div><!-- /.card-body -->
+						</div><!-- /.card -->
+						
+						<div class="card" style="border-left: 3px solid #215266; padding-bottom: 30px;">
+							<div class="card-body">
+								<div class="form-group">
+									<h4 class="text-dark mb-3">3. Are you pregnant or planning to have a baby?</h4>
+									<div class="row">
+									  <div class="col-lg-4 col-sm-12">
+										<!-- radio -->
+										<div class="form-group">
+										  <div class="custom-control custom-radio mb-2">
+											<input class="custom-control-input" type="radio" id="baby_yes" name="baby" ng-model="survey.pregnancy" value="@{{ pregnancyValues.yes_pregnant_baby }}">
+											<label for="baby_yes" class="custom-control-label text-dark">Yes</label>
+										  </div>
+										</div>
+									  </div>
+
+									  <div class="col-lg-4 col-sm-12">
+										<!-- radio -->
+										<div class="form-group">
+										  <div class="custom-control custom-radio mb-2">
+											<input class="custom-control-input" type="radio" id="baby_no" name="baby" ng-model="survey.pregnancy" value="@{{ pregnancyValues.no_pregnant_baby }}">
+											<label for="baby_no" class="custom-control-label text-dark">No</label>
+										  </div>
+										</div>
+									  </div>
+
+									  <div class="col-lg-4 col-sm-12">
+										<!-- radio -->
+										<div class="form-group">
+										  <div class="custom-control custom-radio mb-2">
+											<input class="custom-control-input" type="radio" id="baby_not_sure" name="baby" ng-model="survey.pregnancy" value="@{{ pregnancyValues.not_sure_pregnant_baby }}">
+											<label for="baby_not_sure" class="custom-control-label text-dark">Not Sure</label>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>
+							</div><!-- /.card-body -->
+						</div><!-- /.card -->
+						
+						<div class="card" style="border-left: 3px solid #215266; padding-bottom: 30px;">
+							<div class="card-body">
+								<div class="form-group">
+									<h4 class="text-dark mb-3">4. Are you willing to be vaccinated with any available Covid-19 vaccine?</h4>
+									
+									<div class="row">
+										<div class="col-lg-6 col-sm-12">
+											<!-- radio -->
+											<div class="form-group">
+											  <div class="custom-control custom-radio mb-2">
+												<input class="custom-control-input" type="radio" id="yes_vaccine" name="vaccine" ng-model="survey.vaccine" value="@{{ vaccineValues.yes_vaccine }}">
+												<label for="yes_vaccine" class="custom-control-label text-dark">Yes</label>
+											  </div>
+											</div>
+										</div>
+
+										<div class="col-lg-6 col-sm-12">
+											<!-- radio -->
+											<div class="form-group">
+											  <div class="custom-control custom-radio mb-2">
+												<input class="custom-control-input" type="radio" id="no_vaccine" name="vaccine" ng-model="survey.vaccine" value="@{{ vaccineValues.no_vaccine }}">
+												<label for="no_vaccine" class="custom-control-label text-dark">No</label>
+											  </div>
+											</div>
+										</div>
+									</div>
+									
+									<div ng-show="survey.vaccine=='yes_vaccine'" class="form-group">
+										<hr>
+										<h4 class="text-dark mb-3">* Are you willing to contribute to the vaccination fee?</h4>
+										
+										<div class="row">
+										  <div class="col-lg-6 col-sm-12">
+											<div class="form-group">
+											  <div class="custom-control custom-radio mb-2">
+												<input class="custom-control-input" type="radio" id="yes_contribute" name="contribute" ng-model="survey.contribute" value="@{{ contributeValues.yes_contribute }}">
+												<label for="yes_contribute" class="custom-control-label text-dark">Yes</label>
+											  </div>
+											</div>
+										  </div>
+
+										  <div class="col-lg-6 col-sm-12">
+											<div class="form-group">
+											  <div class="custom-control custom-radio mb-2">
+												<input class="custom-control-input" type="radio" id="no_contribute" name="contribute" ng-model="survey.contribute" value="@{{ contributeValues.no_contribute }}">
+												<label for="no_contribute" class="custom-control-label text-dark">No</label>
+											  </div>
+											</div>
+										  </div>
+										</div>
+									</div>
+									
+									<div class="form-group" ng-show="survey.contribute=='yes_contribute' && survey.vaccine=='yes_vaccine' ">
+										<hr>
+										<h4 class="text-dark mb-3">* How much are you willing to pay for the vaccine fee?.</h4>
+										<div class="col-sm-12">
+											<div class="form-group">
+												<div class="custom-control custom-radio mb-2">
+												  <input class="custom-control-input" type="radio" id="one_hundred_percent_fee" name="contribution" ng-model="survey.contribution" value="@{{ contributionValues.one_hundred_percent_fee }}">
+												  <label for="one_hundred_percent_fee" class="custom-control-label text-dark">@{{ contribution.one_hundred_percent_fee }}</label>
+												</div>
+												<hr>
+												<div class="custom-control custom-radio mb-2">
+												  <input class="custom-control-input" type="radio" id="seventy_five_percent_fee" name="contribution" ng-model="survey.contribution" value="@{{ contributionValues.seventy_five_percent_fee }}">
+												  <label for="seventy_five_percent_fee" class="custom-control-label text-dark">@{{ contribution.seventy_five_percent_fee }}</label>
+												</div>
+												<hr>
+												<div class="custom-control custom-radio mb-2">
+												  <input class="custom-control-input" type="radio" id="fifty_percent_fee" name="contribution" ng-model="survey.contribution" value="@{{ contributionValues.fifty_percent_fee }}">
+												  <label for="fifty_percent_fee" class="custom-control-label text-dark">@{{ contribution.fifty_percent_fee }}</label>
+												</div>
+												<hr>
+												<div class="custom-control custom-radio mb-2">
+												  <input class="custom-control-input" type="radio" id="twenty_five_percent_fee" name="contribution" ng-model="survey.contribution" value="@{{ contributionValues.twenty_five_percent_fee }}">
+												  <label for="twenty_five_percent_fee" class="custom-control-label text-dark">@{{ contribution.twenty_five_percent_fee }}</label>
+												</div>
+												<hr>
+											</div>
+										</div>
+									</div>
+								  
+									<div class="form-group" ng-show="survey.vaccine=='no_vaccine'">
+										<hr>
+										<h4 class="text-dark mb-3">* Why? State reasons.</h4>
+										<div class="col-sm-12">
+											<div class="form-group">
+												<div class="custom-control custom-radio mb-2">
+												  <input class="custom-control-input" type="radio" id="efficacy_rate_reason" name="reason" ng-model="survey.reason" value="@{{ reasonValues.efficacy_rate_reason }}">
+												  <label for="efficacy_rate_reason" class="custom-control-label text-dark">@{{ reason.efficacy_rate_reason }}</label>
+												</div>
+												<hr>
+												<div class="custom-control custom-radio mb-2">
+												  <input class="custom-control-input" type="radio" id="vaccine_cost_reason" name="reason" ng-model="survey.reason" value="@{{ reasonValues.vaccine_cost_reason }}">
+												  <label for="vaccine_cost_reason" class="custom-control-label text-dark">@{{ reason.vaccine_cost_reason }}</label>
+												</div>
+												<hr>
+												<div class="custom-control custom-radio mb-2">
+												  <input class="custom-control-input" type="radio" id="side_effects_reason" name="reason" ng-model="survey.reason" value="@{{ reasonValues.side_effects_reason }}">
+												  <label for="side_effects_reason" class="custom-control-label text-dark">@{{ reason.side_effects_reason }}</label>
+												</div>
+												<hr>
+												<div class="custom-control custom-radio mb-2">
+												  <input class="custom-control-input" type="radio" id="lack_of_information_reason" name="reason" ng-model="survey.reason" value="@{{ reasonValues.lack_of_information_reason }}">
+												  <label for="lack_of_information_reason" class="custom-control-label text-dark">@{{ reason.lack_of_information_reason }}</label>
+												</div>
+												<hr>
+												<div class="custom-control custom-radio mb-2">
+												  <input class="custom-control-input" type="radio" id="others_reason" name="reason" ng-model="survey.reason" value="@{{ reasonValues.others_reason }}">
+												  <label for="others_reason" class="custom-control-label text-dark">@{{ reason.others_reason }}</label>
+												</div>
+												<hr>
+												<div class="input-group" ng-show="survey.reason=='others_reason'">
+													<input type="text" class="form-control" placeholder="Others" ng-model="survey.reason_other">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 								
-								<div class="row">
-								  <div class="col-lg-4 col-sm-12">
-									<!-- radio -->
-									<div class="form-group">
-									  <div class="custom-control custom-radio mb-2">
-										<input class="custom-control-input" type="radio" id="baby_yes" name="baby" ng-model="survey.pregnancy" value="@{{ pregnancyValues.yes_pregnant_baby }}">
-										<label for="baby_yes" class="custom-control-label text-dark">Yes</label>
-									  </div>
-									</div>
-								  </div>
-
-								  <div class="col-lg-4 col-sm-12">
-									<!-- radio -->
-									<div class="form-group">
-									  <div class="custom-control custom-radio mb-2">
-										<input class="custom-control-input" type="radio" id="baby_no" name="baby" ng-model="survey.pregnancy" value="@{{ pregnancyValues.no_pregnant_baby }}">
-										<label for="baby_no" class="custom-control-label text-dark">No</label>
-									  </div>
-									</div>
-								  </div>
-
-								  <div class="col-lg-4 col-sm-12">
-									<!-- radio -->
-									<div class="form-group">
-									  <div class="custom-control custom-radio mb-2">
-										<input class="custom-control-input" type="radio" id="baby_not_sure" name="baby" ng-model="survey.pregnancy" value="@{{ pregnancyValues.not_sure_pregnant_baby }}">
-										<label for="baby_not_sure" class="custom-control-label text-dark">Not Sure</label>
-									  </div>
-									</div>
-								  </div>
-								</div>
-
-							  </div>
-
-							  <hr>
-
-							  <div class="form-group">
-								<h4 class="text-dark mb-3">4. Are you willing to be vaccinated with any available Covid-19 vaccine?</h4>
-								
-								<div class="row">
-								  <div class="col-lg-6 col-sm-12">
-									<!-- radio -->
-									<div class="form-group">
-									  <div class="custom-control custom-radio mb-2">
-										<input class="custom-control-input" type="radio" id="yes_vaccine" name="vaccine" ng-model="survey.vaccine" value="@{{ vaccineValues.yes_vaccine }}">
-										<label for="yes_vaccine" class="custom-control-label text-dark">Yes</label>
-									  </div>
-									</div>
-								  </div>
-
-								  <div class="col-lg-6 col-sm-12">
-									<!-- radio -->
-									<div class="form-group">
-									  <div class="custom-control custom-radio mb-2">
-										<input class="custom-control-input" type="radio" id="no_vaccine" name="vaccine" ng-model="survey.vaccine" value="@{{ vaccineValues.no_vaccine }}">
-										<label for="no_vaccine" class="custom-control-label text-dark">No</label>
-									  </div>
-									</div>
-								  </div>
-								</div>
-							  </div>
-							  
-							  <div ng-show="survey.vaccine=='yes_vaccine'" class="form-group">
-								<hr>
-								<h4 class="text-dark mb-3">* Are you willing to contribute to the vaccination fee?</h4>
-								<div class="row">
-								  <div class="col-lg-6 col-sm-12">
-									<!-- radio -->
-									<div class="form-group">
-									  <div class="custom-control custom-radio mb-2">
-										<input class="custom-control-input" type="radio" id="yes_contribute" name="contribute" ng-model="survey.contribute" value="@{{ contributeValues.yes_contribute }}">
-										<label for="yes_contribute" class="custom-control-label text-dark">Yes</label>
-									  </div>
-									</div>
-								  </div>
-
-								  <div class="col-lg-6 col-sm-12">
-									<!-- radio -->
-									<div class="form-group">
-									  <div class="custom-control custom-radio mb-2">
-										<input class="custom-control-input" type="radio" id="no_contribute" name="contribute" ng-model="survey.contribute" value="@{{ contributeValues.no_contribute }}">
-										<label for="no_contribute" class="custom-control-label text-dark">No</label>
-									  </div>
-									</div>
-								  </div>
-								</div>
-							  </div>
-							  
-							  <div class="form-group" ng-show="survey.vaccine=='no_vaccine'">
-							   <hr>
-								<h4 class="text-dark mb-3">* Why? State reasons.</h4>
-								<div class="col-sm-12">
-								  <!-- radio -->
-								  <div class="form-group">
-									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="efficacy_rate_reason" name="reason" ng-model="survey.reason" value="@{{ reasonValues.efficacy_rate_reason }}">
-									  <label for="efficacy_rate_reason" class="custom-control-label text-dark">@{{ reason.efficacy_rate_reason }}</label>
-									</div>
-									<hr>
-									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="vaccine_cost_reason" name="reason" ng-model="survey.reason" value="@{{ reasonValues.vaccine_cost_reason }}">
-									  <label for="vaccine_cost_reason" class="custom-control-label text-dark">@{{ reason.vaccine_cost_reason }}</label>
-									</div>
-									<hr>
-									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="side_effects_reason" name="reason" ng-model="survey.reason" value="@{{ reasonValues.side_effects_reason }}">
-									  <label for="side_effects_reason" class="custom-control-label text-dark">@{{ reason.side_effects_reason }}</label>
-									</div>
-									<hr>
-									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="lack_of_information_reason" name="reason" ng-model="survey.reason" value="@{{ reasonValues.lack_of_information_reason }}">
-									  <label for="lack_of_information_reason" class="custom-control-label text-dark">@{{ reason.lack_of_information_reason }}</label>
-									</div>
-									<hr>
-									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="others_reason" name="reason" ng-model="survey.reason" value="@{{ reasonValues.others_reason }}">
-									  <label for="others_reason" class="custom-control-label text-dark">@{{ reason.others_reason }}</label>
-									</div>
-									<hr>
-									<div class="input-group" ng-show="survey.reason=='others_reason'">
-										<input type="text" class="form-control" placeholder="Others" ng-model="survey.reason_other">
-									</div>
-								  </div>
-								</div>
-							  </div>
-
-							  <div class="form-group" ng-show="survey.contribute=='yes_contribute' && survey.vaccine=='yes_vaccine' ">
-							   <hr>
-								<h4 class="text-dark mb-3">* How much are you willing to pay for the vaccine fee?.</h4>
-								<div class="col-sm-12">
-								  <!-- radio -->
-								  <div class="form-group">
-									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="one_hundred_percent_fee" name="contribution" ng-model="survey.contribution" value="@{{ contributionValues.one_hundred_percent_fee }}">
-									  <label for="one_hundred_percent_fee" class="custom-control-label text-dark">@{{ contribution.one_hundred_percent_fee }}</label>
-									</div>
-									<hr>
-									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="seventy_five_percent_fee" name="contribution" ng-model="survey.contribution" value="@{{ contributionValues.seventy_five_percent_fee }}">
-									  <label for="seventy_five_percent_fee" class="custom-control-label text-dark">@{{ contribution.seventy_five_percent_fee }}</label>
-									</div>
-									<hr>
-									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="fifty_percent_fee" name="contribution" ng-model="survey.contribution" value="@{{ contributionValues.fifty_percent_fee }}">
-									  <label for="fifty_percent_fee" class="custom-control-label text-dark">@{{ contribution.fifty_percent_fee }}</label>
-									</div>
-									<hr>
-									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="twenty_five_percent_fee" name="contribution" ng-model="survey.contribution" value="@{{ contributionValues.twenty_five_percent_fee }}">
-									  <label for="twenty_five_percent_fee" class="custom-control-label text-dark">@{{ contribution.twenty_five_percent_fee }}</label>
-									</div>
-									<hr>
-								  </div>
-								</div>
-							  </div>
-							  
-							</div>
-							<!-- /.card-body -->
-
+							</div><!-- /.card-body -->
 							<div class="card-footer">
 							   <div class="row">
 								  <div class="col-4"></div>
@@ -355,8 +354,9 @@
 								  <div class="col-4"></div>
 								</div>
 							</div>
-						</form>
-					</div>
+						</div><!-- /.card -->
+						
+					</form>
 				</div>
 			<div class="col-lg-3 col-sm-2"></div>
 		</div>
