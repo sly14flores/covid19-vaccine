@@ -8,9 +8,9 @@ app.controller('surveyCtrl', function($scope,$http) {
 	
 	const napanam_id = queryStringSplit[queryStringSplit.length-1];
 	
-	const prod_url = "http://napanam.launion.gov.ph"
+	const prod_url = "https://napanam.launion.gov.ph/lucovacs"
 	const local_url = "http://localhost:8000"
-	const api_url = local_url
+	const api_url = prod_url
 
 	const survey = {
         qr_pass_id: "",
