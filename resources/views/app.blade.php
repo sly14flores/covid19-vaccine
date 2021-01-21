@@ -252,13 +252,13 @@
 			</div>
 		</div>
 	</div>
-    <script type="text/javascript" src="{{ mix('/angularjs/angular.min.js') }}"></script>
-    <script type="text/javascript" src="{{ mix('/jquery/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ mix('/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script type="text/javascript" src="{{ mix('/js/animate-kontext.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('/lucovacs/angularjs/angular.min.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('/lucovacs/jquery/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('/lucovacs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('/lucovacs/js/animate-kontext.js') }}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script type="text/javascript" src="{{ mix('/js/tabs.js') }}"></script>
-    <script type="text/javascript" src="{{ mix('/js/app.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('/lucovacs/js/tabs.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('/lucovacs/js/app.js') }}"></script>
 
 </body>
 </html>
