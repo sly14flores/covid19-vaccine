@@ -12,8 +12,8 @@ app.controller('appCtrl', function ($scope, $http) {
   $scope.napanam = function () {
     //Sweetalert2
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You're about to be directed to Napanam Registration",
+      title: 'Notice',
+      text: "You're about to be redirected to the Napanam Registration",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Confirm'
@@ -35,13 +35,15 @@ app.controller('appCtrl', function ($scope, $http) {
       if (response.status == 404) {
         //Sweetalert2
         Swal.fire({
-          title: 'Awan ti Napanam?',
-          text: 'Agregister ka pay gamin',
+          title: '<b class="text-danger">NOT FOUND!</b>',
           icon: 'warning',
+          html: "Are you sure that you're registered to the NAPANAM? ",
           showCancelButton: true,
-          confirmButtonText: 'Confirm'
+          focusConfirm: false,
+          confirmButtonText: 'Yes, Try Again!',
+          cancelButtonText: 'No, I want to register.'
         }).then(function (result) {
-          if (result.value) {
+          if (result.value) {} else if (result.dismiss === Swal.DismissReason.cancel) {
             window.location = "https://npnm.launion.gov.ph/#/regqrpass";
           }
         });

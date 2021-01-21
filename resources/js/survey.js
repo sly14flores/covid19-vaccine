@@ -13,31 +13,17 @@ app.controller('surveyCtrl', function($scope,$http) {
 	const api_url = local_url
 
 	const survey = {
-        qr_pass_id: null,
-        last_name: null,
-        first_name: null,
-        middle_name: null,
-        birthdate: null,
-        gender: null,
-        province: null,
-        town_city: null,
-        barangay: null,
-		populationGroup: null,
-		populationGroupOther: null,
-        // frontline_health_workers: false,
-        // senior_citizens: false,
-        // uniformed_personnel: false,
-        // teachers: false,
-        // social_workers: false,
-        // government_employees: false,
-        // agriculture_group: false,
-        // food_industry: false,
-        // tranportation: false,
-        // tourism: false,
-        // persons_deprived_of_liberty: false,
-        // persons_with_disability: false,
-        // ofw: false,
-        // others_population_group: false,
+        qr_pass_id: "",
+        last_name: "",
+        first_name: "",
+        middle_name: "",
+        birthdate: "",
+        gender: "",
+        province: "",
+        town_city: "",
+        barangay: "",
+		population_group: "", // frontline_health_workers | senior_citizens | population_group_other
+		population_group_other: "", // if population_group_other is selected this will be the value
         lung_disease: false,
 		heart_disease: false,
         kidney_disease: false,
@@ -47,32 +33,20 @@ app.controller('surveyCtrl', function($scope,$http) {
         leukemia: false,
         hiv: false,
         mental_problem: false,
-        others_health_condition: null,
+        others_health_condition: false,
+		health_condition_other: "", // if others_health_condition is checked this will be the value
         none_of_the_above: false,
-		pregnancy: null,	
-        // yes_pregnant_baby: false, // Pregnant?
-        // no_pregnant_baby: false, // Pregnant?
-        // not_sure_pregnant_baby: false, // Pregnant?
-		vaccine: null,
-        // yes_vaccine: false, // Vaccine?
-        // no_vaccine: false, // Vaccine?
-		contribute: null,
-        // yes_contribute: false, // Contribute?
-        // no_contribute: false, // Contribute?
-		reason: null,
-		other_reason: null,
-        // efficacy_rate_reason: false,
-        // vaccine_cost_reason: false,
-        // side_effects_reason: false,
-        // lack_of_information_reason: false,
-        // others_reason: false,
-        // one_hundred_percent_fee: false,
-        // seventy_five_percent_fee: false,
-        // fifty_percent_fee: false,
-        // twenty_five_percent_fee: false,
+		pregnancy: "", // yes_pregnant_baby | no_pregnant_baby | not_sure_pregnant_baby
+		vaccine: "", // yes_vaccine | no_vaccine
+		reason: "", // if no_vaccine this will be efficacy_rate_reason | vaccine_cost_reason | ... | others_reason
+		reason_other: "", // if others_reason is selected this will be the value
+		contribute: "", // yes_contribute | no_contribute
+		contribution: "", // 	one_hundred_percent_fee | ...
 	};
+	
 	$scope.survey = survey;
 	
+	// Population Group
 	const populationGroup = {
         frontline_health_workers: "Frontline health workers",
         senior_citizens: "Senior citizens",
@@ -119,6 +93,7 @@ app.controller('surveyCtrl', function($scope,$http) {
 	};
 	$scope.populationGroupValues = populationGroupValues;	
 
+	// Health Conditions
 	const healthConditions = {
         lung_disease: "Lung Disease such as Asthma, pulmonary tuberculosis, etc",
 		heart_disease: "Heart Disease",
@@ -133,23 +108,64 @@ app.controller('surveyCtrl', function($scope,$http) {
         none_of_the_above: "None of the above",
 	};
 	$scope.healthConditions = healthConditions;
-
-	const contributions = {
-        one_hundred_percent_fee: "100% of the vaccine fee",
-        seventy_five_percent_fee: "75% of the vaccine fee",
-        fifty_percent_fee: "50% of the vaccine fee",
-        twenty_five_percent_fee: "25% of the vaccine fee",		
+	
+	// Pregnancy
+	const pregnancyValues = {
+        yes_pregnant_baby: 'yes_pregnant_baby',
+        no_pregnant_baby: 'no_pregnant_baby',
+        not_sure_pregnant_baby: 'not_sure_pregnant_baby',
 	};
-	$scope.contributions = contributions;
+	$scope.pregnancyValues = pregnancyValues;
+	
+	// Vaccine
+	const vaccineValues = {
+        yes_vaccine: 'yes_vaccine',
+        no_vaccine: 'no_vaccine',
+	};
+	$scope.vaccineValues = vaccineValues
+	
+	// Contribute
+	const contributeValues = {
+        yes_contribute: 'yes_contribute',
+        no_contribute: 'no_contribute',
+	};
+	$scope.contributeValues = contributeValues;
 
-	const reasons = {
+	// Reason
+	const reason = {
         efficacy_rate_reason: "Efficacy rate",
         vaccine_cost_reason: "Vaccine cost",
         side_effects_reason: "Possible side effects",
         lack_of_information_reason: "Lack of information",
         others_reason: "Others",
 	};
-	$scope.reasons = reasons;
+	$scope.reason = reason;
+	
+	const reasonValues = {
+        efficacy_rate_reason: 'efficacy_rate_reason',
+        vaccine_cost_reason: 'vaccine_cost_reason',
+        side_effects_reason: 'side_effects_reason',
+        lack_of_information_reason: 'lack_of_information_reason',
+        others_reason: 'others_reason',
+	};
+	$scope.reasonValues = reasonValues;
+	
+	// Contributions
+	const contribution = {
+        one_hundred_percent_fee: "100% of the vaccine fee",
+        seventy_five_percent_fee: "75% of the vaccine fee",
+        fifty_percent_fee: "50% of the vaccine fee",
+        twenty_five_percent_fee: "25% of the vaccine fee",		
+	};
+	$scope.contribution = contribution;
+	
+	const contributionValues = {
+        one_hundred_percent_fee: 'one_hundred_percent_fee',
+        seventy_five_percent_fee: 'seventy_five_percent_fee',
+        fifty_percent_fee: 'fifty_percent_fee',
+        twenty_five_percent_fee: 'twenty_five_percent_fee',		
+	};
+	$scope.contributionValues = contributionValues;
 
 	$http({
 		method: 'GET',
@@ -174,7 +190,20 @@ app.controller('surveyCtrl', function($scope,$http) {
 	
 	$scope.submit = function() {
 		
-		$http({
+		Swal.fire({
+		  title: '<p class="text-success">THANK YOU!</p>',
+		  icon: 'success',
+		  html: 
+			'<b>Your Response Has Been Submitted </b><br><br>' +
+			'<b>For inquiries, please contact us on: </b> <br>' +
+			'<b class="text-danger">Tel. No. 607-0146 loc. 237/238/239</b>',
+		  showCancelButton: true,
+		  focusConfirm: false,
+		  confirmButtonText: 'View Summary Report',
+		  cancelButtonText: 'Close',
+		})
+
+		/* $http({
 			method: 'POST',
 			url: `${api_url}/api/survey`,
 			data: $scope.survey
@@ -184,7 +213,7 @@ app.controller('surveyCtrl', function($scope,$http) {
 
 		}, function myError(response) {
 
-		});
+		}); */
 	
     };
 	

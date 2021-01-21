@@ -32,19 +32,19 @@
 		<div id="GetStarted" class="tabcontent">
 			<div class="row">
 				<div class="col-lg-3 col-sm-2"></div>
-					<div class="col-lg-6 col-sm-8">
+				<div class="col-lg-6 col-sm-8">
 					<div class="card">
-						<div class="card-body login-card-body">
-							
-							<div class="row">
-								<div class="col-lg-4 divhide">&nbsp;</div>
+							<div class="card-body login-card-body">
+								
+								<div class="row">
+									<div class="col-lg-3 divhide">&nbsp;</div>
 
-								<div class="col-lg-4">
-									<img class="img-fluid launionlogo" src="img/launion-logo.png">
+									<div class="col-lg-6">
+										<img class="img-fluid launionlogo" src="img/Rugian.png">
+									</div>
+
+									<div class="col-lg-3 divhide">&nbsp;</div>
 								</div>
-
-								<div class="col-lg-4 divhide">&nbsp;</div>
-							 </div>
 
 							<div class="row mt-3">
 								<div class="col-lg-2 divhide">&nbsp;</div>
@@ -60,7 +60,7 @@
 								<div class="col-lg-2 divhide">&nbsp;</div>
 
 								<div class="col-lg-8">
-									 <h2 style="text-align: center;"><label style="color: #215266;">LA UNION</label><label style="color: #ffd966">&nbsp;STRONGER</label></h2>
+									 <h2 style="text-align: center;"><label style="color: #215266;">LA UNION</label><label style="color: #fa6248">&nbsp;STRONGER</label></h2>
 								</div>
 
 								<div class="col-lg-2 divhide">&nbsp;</div>
@@ -70,7 +70,7 @@
 								<div class="col-lg-2 divhide">&nbsp;</div>
 
 								<div class="col-lg-8">
-									<p class="text-dark text-center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+									<p class="text-dark text-center">Ang pagdating ng bakuna - isang magandang balita matapos ang ilang buwan ng health crisis.</p>
 								</div>
 
 								<div class="col-lg-2 divhide">&nbsp;</div>
@@ -88,6 +88,7 @@
 							</div>
 							
 						</div> <!--Card Body End-->
+						
 						<div class="first_line"></div>
 					</div> <!--Card End-->
 				</div>
