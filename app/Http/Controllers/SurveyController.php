@@ -51,14 +51,111 @@ class SurveyController extends Controller
     {
         $validator = Validator::make($request->all(), $this->rules());
         if ($validator->fails()) {
-            // return $validator->errors();
-            return $this->jsonErrorDataValidation();
+            return $validator->errors();
+            // return $this->jsonErrorDataValidation();
         }
+
+        $population_groups = [
+            'frontline_health_workers',
+            'senior_citizens',
+            'uniformed_personnel',
+            'teachers',
+            'social_workers',
+            'government_employees',
+            'agriculture_group',
+            'food_industry',
+            'tranportation',
+            'tourism',
+            'persons_deprived_of_liberty',
+            'persons_with_disability',
+            'ofw',
+            'others_population_group',
+        ];
+
+        $pregnancys = [
+            'yes_pregnant_baby',
+            'no_pregnant_baby',
+            'not_sure_pregnant_baby',            
+        ];
+
+        $vaccines = [
+            'yes_vaccine',
+            'no_vaccine',
+        ];
+
+        $reasons = [
+            'efficacy_rate_reason',
+            'vaccine_cost_reason',
+            'side_effects_reason',
+            'lack_of_information_reason',
+            'others_reason',
+        ];
+
+        $contributes = [
+            'yes_contribute',
+            'no_contribute',
+        ];
+
+        $contributions = [
+            'one_hundred_percent_fee',
+            'seventy_five_percent_fee',
+            'fifty_percent_fee',
+            'twenty_five_percent_fee',
+        ];
 
         /** Get validated data */
         $data = $validator->valid();
 
         $survey = new Survey;
+
+        $population_group = $data['population_group'];
+        $pregnancy = $data['pregnancy'];
+        $vaccine = $data['vaccine'];
+        $reason = $data['reason']; # no
+        $contribute = $data['contribute'];
+        $contribution = $data['contribution']; # yes contribute
+
+        unset($data['population_group']);
+        unset($data['pregnancy']);
+        unset($data['vaccine']);
+        unset($data['reason']);
+        unset($data['contribute']);
+        unset($data['contribution']);
+
+        foreach ($population_groups as $pg) {
+            $data[$pg] = false;
+        }
+        $data[$population_group] = true;
+
+        foreach ($pregnancys as $p) {
+            $data[$p] = false;
+        }
+        $data[$pregnancy] = true;
+
+        foreach ($vaccines as $v) {
+            $data[$v] = false;
+        }
+        $data[$vaccine] = true;
+
+        foreach ($reasons as $r) {
+            $data[$r] = false;
+        }
+        if ($data['no_vaccine']) {
+            $data[$reason] = true;
+        }
+
+        foreach ($contributes as $c) {
+            $data[$c] = false;
+        }
+        $data[$contribute] = true;
+
+        foreach ($contributions as $c) {
+            $data[$c] = false;
+        }
+        $data[$contribution] = true;
+
+        return $data;
+
         $survey->fill($data);
 
         $survey->save();
@@ -152,47 +249,26 @@ class SurveyController extends Controller
             'province' => 'string',
             'town_city' => 'string',
             'barangay' => 'string',
-            // 'frontline_health_workers' => 'boolean',
-            // 'senior_citizens' => 'boolean',
-            // 'uniformed_personnel' => 'boolean',
-            // 'teachers' => 'boolean',
-            // 'social_workers' => 'boolean',
-            // 'government_employees' => 'boolean',
-            // 'agriculture_group' => 'boolean',
-            // 'food_industry' => 'boolean',
-            // 'tranportation' => 'boolean',
-            // 'tourism' => 'boolean',
-            // 'persons_deprived_of_liberty' => 'boolean',
-            // 'persons_with_disability' => 'boolean',
-            // 'ofw' => 'boolean',
-            // 'others_population_group' => 'string',
-            // 'lung_disease' => 'boolean',
-            // 'heart_disease' => 'boolean',
-            // 'kidney_disease' => 'boolean',
-            // 'diabetes' => 'boolean',
-            // 'high_blood_pressure' => 'boolean',
-            // 'cancer' => 'boolean',
-            // 'leukemia' => 'boolean',
-            // 'hiv' => 'boolean',
-            // 'mental_problem' => 'boolean',
-            // 'others_health_condition' => 'string',
-            // 'none_of_the_above' => 'boolean',
-            // 'yes_pregnant_baby' => 'boolean',
-            // 'no_pregnant_baby' => 'boolean',
-            // 'not_sure_pregnant_baby' => 'boolean',
-            // 'yes_vaccine' => 'boolean',
-            // 'no_vaccine' => 'boolean',
-            // 'yes_contribute' => 'boolean',
-            // 'no_contribute' => 'boolean',
-            // 'efficacy_rate_reason' => 'boolean',
-            // 'vaccine_cost_reason' => 'boolean',
-            // 'side_effects_reason' => 'boolean',
-            // 'lack_of_information_reason' => 'boolean',
-            // 'others_reason' => 'string',
-            // 'one_hundred_percent_fee' => 'boolean',
-            // 'seventy_five_percent_fee' => 'boolean',
-            // 'fifty_percent_fee' => 'boolean',
-            // 'twenty_five_percent_fee' => 'boolean',
+            'population_group' => 'string',
+            // 'population_group_other' => 'string',
+            'lung_disease' => 'boolean',
+            'heart_disease' => 'boolean',
+            'kidney_disease' => 'boolean',
+            'diabetes' => 'boolean',
+            'high_blood_pressure' => 'boolean',
+            'cancer' => 'boolean',
+            'leukemia' => 'boolean',
+            'hiv' => 'boolean',
+            'mental_problem' => 'boolean',
+            'others_health_condition' => 'boolean',
+            // 'health_condition_other' => 'string',
+            'none_of_the_above' => 'boolean',
+            'pregnancy' => 'string',
+            'vaccine' => 'string',
+            // 'reason' => 'string',
+            // 'reason_other' => 'string',
+            // 'contribute' => 'string',
+            // 'contribution' => 'string',
         ];
     }
 }
