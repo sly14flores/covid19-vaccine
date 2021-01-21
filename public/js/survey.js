@@ -135,10 +135,9 @@ app.controller('surveyCtrl', function ($scope, $http) {
   $scope.submit = function () {
     $http({
       method: 'POST',
-      url: "".concat(api_url, "/api/survey")
-    }).then(function mySucces(response) {
-      alert(1);
-    }, function myError(response) {});
+      url: "".concat(api_url, "/api/survey"),
+      data: $scope.survey
+    }).then(function mySucces(response) {}, function myError(response) {});
   };
 });
 /******/ })()

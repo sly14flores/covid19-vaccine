@@ -35,7 +35,7 @@ app.controller('surveyCtrl', function($scope,$http) {
         persons_deprived_of_liberty: false,
         persons_with_disability: false,
         ofw: false,
-        others_population_group: false,
+        others_population_group: null,
         lung_disease: false,
 		heart_disease: false,
         kidney_disease: false,
@@ -45,7 +45,7 @@ app.controller('surveyCtrl', function($scope,$http) {
         leukemia: false,
         hiv: false,
         mental_problem: false,
-        others_health_condition: false,
+        others_health_condition: null,
         none_of_the_above: false,
         yes_pregnant_baby: false, // Pregnant?
         no_pregnant_baby: false, // Pregnant?
@@ -58,7 +58,7 @@ app.controller('surveyCtrl', function($scope,$http) {
         vaccine_cost_reason: false,
         side_effects_reason: false,
         lack_of_information_reason: false,
-        others_reason: false,
+        others_reason: null,
         one_hundred_percent_fee: false,
         seventy_five_percent_fee: false,
         fifty_percent_fee: false,
@@ -141,10 +141,11 @@ app.controller('surveyCtrl', function($scope,$http) {
 		
 		$http({
 			method: 'POST',
-			url: `${api_url}/api/survey`
+			url: `${api_url}/api/survey`,
+			data: $scope.survey
 		}).then(function mySucces(response) {
 			
-			alert(1);
+			
 
 		}, function myError(response) {
 
