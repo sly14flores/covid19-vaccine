@@ -210,7 +210,7 @@ app.controller('surveyCtrl', function($scope,$http) {
 				// Close (TBD)
 			  } else if (result.dismiss === Swal.DismissReason.cancel) {
 				
-				window.location = "http://localhost:8000/";
+				window.location = api_url;
 				
 			  }
 			})

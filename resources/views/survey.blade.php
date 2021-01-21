@@ -16,7 +16,7 @@
 		<nav class="main-header navbar navbar-expand-md navbar-light" style="background-color: #215266; color: white;">
 			<div class="container">
 				<a href="{{ env('APP_URL') }}" class="navbar-brand move-center">
-					<img src="/img/launion-logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+					<img src="{{env('APP_URL')}}/img/launion-logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
 						style="opacity: .8">
 					<span class="brand-text font-weight-light" style="color: white;"> Covid-19 Vaccination Survey</span>
 				</a>
