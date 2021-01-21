@@ -152,9 +152,9 @@ class SurveyController extends Controller
         foreach ($contributions as $c) {
             $data[$c] = false;
         }
-        $data[$contribution] = true;
-
-        return $data;
+        if ($data['yes_contribute']) {
+            $data[$contribution] = true;
+        }
 
         $survey->fill($data);
 
