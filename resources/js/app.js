@@ -37,7 +37,7 @@ app.controller('appCtrl', function($scope,$http) {
 			url: `${api_url}/api/napanam/check/registration/${napanam_id}`
 		}).then(function mySucces(response) {
 			
-			window.location = `http://localhost:8000/survey/${napanam_id}`;
+			window.location = `${api_url}/${napanam_id}`;
 
 		}, function myError(response) {
 			
