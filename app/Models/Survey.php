@@ -71,7 +71,11 @@ class Survey extends Model
     
     protected $hidden = [
         'updated_at',
-    ];    
+    ];
+
+    protected $casts = [
+
+    ];
 
     /**
      * @param $value
@@ -80,5 +84,5 @@ class Survey extends Model
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('F j, Y h:i A');
-    }    
+    }
 }

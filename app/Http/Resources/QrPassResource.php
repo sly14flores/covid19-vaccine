@@ -17,8 +17,6 @@ class QrPassResource extends JsonResource
      */
     public function toArray($request)
     {
-        $cityMun = CityMun::where('psgcCode', $this->addressmunicity*1000)->first();
-        $province = Province::where('psgcCode', $this->addressprovince*100000)->first();
 
         return [
             "id" => $this->id,
@@ -32,8 +30,8 @@ class QrPassResource extends JsonResource
             // "addressbrgy" => $this->addressbrgy,
             // "addressmunicity" => $this->addressmunicity,
             // "addressprovince" => $this->addressprovince,
-            "province" => $province->provDesc,    
-            "cityMun" => $cityMun->citymunDesc,
+            "province" => $this->province->provDesc,    
+            "cityMun" => $this->cityMun->citymunDesc,
             "barangay" => $this->barangay->brgyDesc,
         ];
     }
