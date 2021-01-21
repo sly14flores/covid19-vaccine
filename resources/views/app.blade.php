@@ -252,7 +252,7 @@
 			</div>
 		</div>
 	</div>
-    <script type="text/javascript" src="{{ mix('angularjs/angular.min.js') }}"></script>
+    <script type="text/javascript" src="{{ env('APP_URL') }}/angularjs/angular.min.js"></script>
     <script type="text/javascript" src="{{ mix('/jquery/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ mix('/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script type="text/javascript" src="{{ mix('/js/animate-kontext.js') }}"></script>
