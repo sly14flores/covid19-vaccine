@@ -175,28 +175,29 @@ app.controller('surveyCtrl', function ($scope, $http) {
     $scope.survey.province = response.data.data.province;
     $scope.survey.town_city = response.data.data.cityMun;
     $scope.survey.barangay = response.data.data.barangay;
-    console.log($scope.survey);
   }, function myError(response) {});
 
   $scope.submit = function () {
-    Swal.fire({
-      title: '<p class="text-success">THANK YOU!</p>',
-      icon: 'success',
-      html: '<b>Your Response Has Been Submitted </b><br><br>' + '<b>For inquiries, please contact us on: </b> <br>' + '<b class="text-danger">Tel. No. 607-0146 loc. 237/238/239</b>',
-      showCancelButton: true,
-      focusConfirm: false,
-      confirmButtonText: 'View Summary Report',
-      cancelButtonText: 'Close'
-    });
-    /* $http({
-    	method: 'POST',
-    	url: `${api_url}/api/survey`,
-    	data: $scope.survey
+    $http({
+      method: 'POST',
+      url: "".concat(api_url, "/api/survey"),
+      data: $scope.survey
     }).then(function mySucces(response) {
-    	
-    	
-    		}, function myError(response) {
-    		}); */
+      Swal.fire({
+        title: '<p class="text-success">THANK YOU!</p>',
+        icon: 'success',
+        html: '<b>Your Response Has Been Submitted </b><br><br>' + '<b>For inquiries, please contact us on: </b> <br>' + '<b class="text-danger">Tel. No. 607-2633 loc. 299</b>',
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText: 'View Summary Report',
+        cancelButtonText: 'Close'
+      }).then(function (result) {
+        if (result.value) {// Close (TBD)
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          window.location = "http://localhost:8000/";
+        }
+      });
+    }, function myError(response) {});
   };
 });
 /******/ })()

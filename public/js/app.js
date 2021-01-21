@@ -43,7 +43,8 @@ app.controller('appCtrl', function ($scope, $http) {
           confirmButtonText: 'Yes, Try Again!',
           cancelButtonText: 'No, I want to register.'
         }).then(function (result) {
-          if (result.value) {} else if (result.dismiss === Swal.DismissReason.cancel) {
+          if (result.value) {// Close
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
             window.location = "https://npnm.launion.gov.ph/#/regqrpass";
           }
         });
