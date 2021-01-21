@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
-	<link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet">
-	<link href="{{ asset('css/animate-kontext.css') }}" rel="stylesheet">
+	<link href="{{ env('APP_URL') }}/css/all.min.css" rel="stylesheet">
+	<link href="{{ env('APP_URL') }}/css/adminlte.min.css" rel="stylesheet">
+	<link href="{{ env('APP_URL') }}/css/animate-kontext.css" rel="stylesheet">
 	<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">   
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">   
 
@@ -15,7 +15,7 @@
 	<div class="wrapper">
 		<nav class="main-header navbar navbar-expand-md navbar-light" style="background-color: #215266; color: white;">
 			<div class="container">
-				<a href="http://localhost:8000/" class="navbar-brand move-center">
+				<a href="{{ env('APP_URL') }}" class="navbar-brand move-center">
 					<img src="/img/launion-logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
 						style="opacity: .8">
 					<span class="brand-text font-weight-light" style="color: white;"> Covid-19 Vaccination Survey</span>
@@ -362,11 +362,11 @@
 		</div>
 	</div>
 
-	<script type="text/javascript" src="{{ mix('angularjs/angular.min.js') }}"></script>
-	<script type="text/javascript" src="{{ mix('jquery/jquery.min.js') }}"></script>
-	<script type="text/javascript" src="{{ mix('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+	<script type="text/javascript" src="{{ env('APP_URL') }}/angularjs/angular.min.js"></script>
+	<script type="text/javascript" src="{{ env('APP_URL') }}/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ env('APP_URL') }}/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-	<script type="text/javascript" src="{{ mix('js/survey.js') }}"></script>
+	<script type="text/javascript" src="{{ env('APP_URL') }}/js/survey.js"></script>
 
 </body>
 </html>
