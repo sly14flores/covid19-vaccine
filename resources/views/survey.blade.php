@@ -38,12 +38,12 @@
 								  <div class="form-group">
 
 									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="customRadio1" name="population_group" ng-model="survey.frontline_health_workers">
+									  <input class="custom-control-input" type="radio" id="customRadio1" name="population_group" ng-model="survey.populationGroup" value="@{{ populationGroupValues.frontline_health_workers }}">
 									  <label for="customRadio1" class="custom-control-label text-dark">@{{ populationGroup.frontline_health_workers }}</label>
 									</div>
 									<hr>
 									<div class="custom-control custom-radio mb-2">
-									  <input class="custom-control-input" type="radio" id="customRadio2" name="population_group" ng-model="survey.senior_citizens">
+									  <input class="custom-control-input" type="radio" id="customRadio2" name="population_group" ng-model="survey.populationGroup">
 									  <label for="customRadio2" class="custom-control-label text-dark">@{{ populationGroup.senior_citizens }}</label>
 									</div>
 									<hr>

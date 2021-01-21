@@ -32,6 +32,7 @@ class NapanamController extends Controller
 			return $this->jsonErrorResourceNotFound();
         }
 
+
         $data = new QrPassResource($qrpass);
         return $this->jsonSuccessResponse($data, 200);
 
