@@ -20,6 +20,7 @@
                         style="opacity: .8">
                     <span class="brand-text font-weight-light" style="color: white;"> Covid19 Vaccination Survey</span>
                 </a>
+			</div>
         </nav>
 
         <div class="row">
@@ -96,7 +97,7 @@
                 </div>
             </div>
          <!--<ul class="bullets"></ul>-->
-        </div>
+	</div>
 
     <script type="text/javascript" src="{{ mix('angularjs/angular.min.js') }}"></script>
     <script type="text/javascript" src="{{ mix('jquery/jquery.min.js') }}"></script>

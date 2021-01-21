@@ -120,7 +120,6 @@ app.controller('surveyCtrl', function ($scope, $http) {
     method: 'GET',
     url: "".concat(api_url, "/api/napanam/check/registration/").concat(napanam_id)
   }).then(function mySucces(response) {
-    console.log(response);
     $scope.survey.qr_pass_id = response.data.data.id;
     $scope.survey.last_name = response.data.data.lastname;
     $scope.survey.first_name = response.data.data.firstname;
@@ -132,6 +131,15 @@ app.controller('surveyCtrl', function ($scope, $http) {
     $scope.survey.barangay = response.data.data.barangay;
     console.log($scope.survey);
   }, function myError(response) {});
+
+  $scope.submit = function () {
+    $http({
+      method: 'POST',
+      url: "".concat(api_url, "/api/survey")
+    }).then(function mySucces(response) {
+      alert(1);
+    }, function myError(response) {});
+  };
 });
 /******/ })()
 ;

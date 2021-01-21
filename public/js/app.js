@@ -4,10 +4,25 @@
   \*****************************/
 var app = angular.module('app', []);
 app.controller('appCtrl', function ($scope, $http) {
-  var prod_url = "napanam.launion.gov.ph";
+  var prod_url = "http://napanam.launion.gov.ph";
   var local_url = "http://localhost:8000";
   var api_url = local_url;
   $scope.napanam_id = null; // const napanam_id = 263000
+
+  $scope.napanam = function () {
+    //Sweetalert2
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You're about to be directed to Napanam Registration",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm'
+    }).then(function (result) {
+      if (result.value) {
+        window.location = "https://npnm.launion.gov.ph/#/regqrpass";
+      }
+    });
+  };
 
   $scope.proceed = function () {
     var napanam_id = $scope.napanam_id;

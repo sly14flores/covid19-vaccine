@@ -16,6 +16,7 @@ mix.copy('resources/plugins/jquery/jquery.min.js', 'public/jquery/jquery.min.js'
 mix.copy('resources/plugins/bootstrap/js/bootstrap.bundle.min.js', 'public/bootstrap/js/bootstrap.bundle.min.js');
 mix.copy('resources/dist/js/adminlte.min.js', 'public/js/adminlte.min.js');
 mix.copy('resources/dist/js/animate-kontext.js', 'public/js/animate-kontext.js');
+mix.copy('resources/dist/js/tabs.js', 'public/js/tabs.js');
 mix.js('resources/js/app.js', 'public/js/app.js').version();
 mix.js('resources/js/register.js', 'public/js/register.js').version();
 mix.js('resources/js/napanam.js', 'public/js/napanam.js').version();
