@@ -7,9 +7,9 @@ app.controller('surveyCtrl', function ($scope, $http) {
   var queryString = window.location.href;
   var queryStringSplit = queryString.split("/");
   var napanam_id = queryStringSplit[queryStringSplit.length - 1];
-  var prod_url = "http://napanam.launion.gov.ph";
+  var prod_url = "https://napanam.launion.gov.ph/lucovacs";
   var local_url = "http://localhost:8000";
-  var api_url = local_url;
+  var api_url = prod_url;
   var survey = {
     qr_pass_id: "",
     last_name: "",
@@ -184,17 +184,19 @@ app.controller('surveyCtrl', function ($scope, $http) {
       data: $scope.survey
     }).then(function mySucces(response) {
       Swal.fire({
-        title: '<p class="text-success">THANK YOU!</p>',
+        title: '<p class="text-success" style="font-size: 25px;">YOUR RESPONSE HAS BEEN SUBMITTED!</p>',
         icon: 'success',
-        html: '<b>Your Response Has Been Submitted </b><br><br>' + '<b>For inquiries, please contact us on: </b> <br>' + '<b class="text-danger">Tel. No. 607-2633 loc. 299</b>',
-        showCancelButton: true,
+        html: '<b>Thank you for your commitment in stopping the spread of Covid-19!!!! </b><br><br>' + '<b style="font-size: 15px;">For inquiries, please contact us at: </b> <br>' + '<b class="text-danger" style="font-size: 15px;">Tel. No. 607-2633 loc. 299</b>',
+        showCancelButton: false,
+        showCloseButton: true,
+        focusCloseButton: true,
         focusConfirm: false,
         confirmButtonText: 'View Summary Report',
         cancelButtonText: 'Close'
       }).then(function (result) {
         if (result.value) {// Close (TBD)
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-          window.location = "http://localhost:8000/";
+          window.location = api_url;
         }
       });
     }, function myError(response) {});

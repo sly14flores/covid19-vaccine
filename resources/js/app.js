@@ -45,7 +45,7 @@ app.controller('appCtrl', function($scope,$http) {
 				
 				//Sweetalert2
 				Swal.fire({
-				  title: '<b class="text-danger">NOT FOUND!</b>',
+				  title: '<p class="text-danger">NOT FOUND!</p>',
 				  icon: 'warning',
 				  html: "Are you sure that you're registered to the NAPANAM? ",
 				  showCancelButton: true,

@@ -12,6 +12,7 @@
 	<title>{{ config('app.name', 'Covid-19 Vaccination Survey') }}</title>
 </head>
 <body class="hold-transition layout-top-nav" ng-app="survey" ng-controller="surveyCtrl">
+		
 	<div class="wrapper">
 		<nav class="main-header navbar navbar-expand-md navbar-light" style="background-color: #215266; color: white;">
 			<div class="container">
@@ -26,12 +27,12 @@
 		<div class="row mt-2">
 			<div class="col-lg-3 col-sm-2"></div>
 				<div class="col-lg-6 col-sm-8">
-					
+				
 					<form role="form">
-						<div class="card" style="border-left: 3px solid #215266; padding-bottom: 30px;">
+						<div class="card" ng-class="{first_question_active: survey.population_group}">
 							<div class="card-body">
 							  <div class="form-group">
-								<h4 class="text-dark mb-3">1. Population Group</h4>
+								<h4 class="text-dark mb-3">1. Population Group <i class="fa fa-check-circle fa-xs text-success" ng-show="survey.population_group"></i></h4>
 								<div class="col-lg-12">
 								  <!-- radio -->
 								  <div class="form-group">
@@ -115,10 +116,10 @@
 							</div><!-- /.card-body -->
 						</div><!-- /.card -->
 						
-						<div class="card" style="border-left: 3px solid #215266; padding-bottom: 30px;">
+						<div class="card" ng-class="{second_question_active: survey.lung_disease || survey.heart_disease || survey.kidney_disease || survey.diabetes || survey.high_blood_pressure || survey.cancer || survey.leukemia || survey.hiv || survey.mental_problem || survey.others_health_condition ||survey.none_of_the_above}">
 							<div class="card-body">
 							  <div class="form-group">
-								<h4 class="text-dark mb-3">2. Have you ever had or do you have any of the following health conditions?</h4>
+								<h4 class="text-dark mb-3">2. Have you ever had or do you have any of the following health conditions? <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.lung_disease || survey.heart_disease || survey.kidney_disease || survey.diabetes || survey.high_blood_pressure || survey.cancer || survey.leukemia || survey.hiv || survey.mental_problem || survey.others_health_condition ||survey.none_of_the_above"></i></h4>
 								<div class="col-sm-12">
 								  <!-- checkbox -->
 								  <div class="form-group">
@@ -186,10 +187,10 @@
 							</div><!-- /.card-body -->
 						</div><!-- /.card -->
 						
-						<div class="card" style="border-left: 3px solid #215266; padding-bottom: 30px;">
+						<div class="card" ng-class="{ third_question_active:  survey.pregnancy}">
 							<div class="card-body">
 								<div class="form-group">
-									<h4 class="text-dark mb-3">3. Are you pregnant or planning to have a baby?</h4>
+									<h4 class="text-dark mb-3">3. Are you pregnant or planning to have a baby? <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.pregnancy"></i></h4>
 									<div class="row">
 									  <div class="col-lg-4 col-sm-12">
 										<!-- radio -->
@@ -225,10 +226,10 @@
 							</div><!-- /.card-body -->
 						</div><!-- /.card -->
 						
-						<div class="card" style="border-left: 3px solid #215266; padding-bottom: 30px;">
+						<div class="card" ng-class="{ third_question_active:  survey.vaccine}">
 							<div class="card-body">
 								<div class="form-group">
-									<h4 class="text-dark mb-3">4. Are you willing to be vaccinated with any available Covid-19 vaccine?</h4>
+									<h4 class="text-dark mb-3">4. Are you willing to be vaccinated with any available Covid-19 vaccine? <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.vaccine"></i></h4>
 									
 									<div class="row">
 										<div class="col-lg-6 col-sm-12">
@@ -254,7 +255,7 @@
 									
 									<div ng-show="survey.vaccine=='yes_vaccine'" class="form-group">
 										<hr>
-										<h4 class="text-dark mb-3">* Are you willing to contribute to the vaccination fee?</h4>
+										<h4 class="text-dark mb-3">* Are you willing to contribute to the vaccination fee? <i class="fa fa-check-circle text-success" aria-hidden="true" ng-show="survey.contribute"></i></h4>
 										
 										<div class="row">
 										  <div class="col-lg-6 col-sm-12">
@@ -277,9 +278,9 @@
 										</div>
 									</div>
 									
-									<div class="form-group" ng-show="survey.contribute=='yes_contribute' && survey.vaccine=='yes_vaccine' ">
+									<div class="form-group" ng-show="survey.contribute=='yes_contribute' && survey.vaccine=='yes_vaccine'">
 										<hr>
-										<h4 class="text-dark mb-3">* How much are you willing to pay for the vaccine fee?.</h4>
+										<h4 class="text-dark mb-3">* How much are you willing to pay for the vaccine fee?. <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.contribution"></i></h4>
 										<div class="col-sm-12">
 											<div class="form-group">
 												<div class="custom-control custom-radio mb-2">
@@ -308,7 +309,7 @@
 								  
 									<div class="form-group" ng-show="survey.vaccine=='no_vaccine'">
 										<hr>
-										<h4 class="text-dark mb-3">* Why? State reasons.</h4>
+										<h4 class="text-dark mb-3">* Why? State reasons. <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.reason"></i></h4>
 										<div class="col-sm-12">
 											<div class="form-group">
 												<div class="custom-control custom-radio mb-2">
@@ -365,6 +366,7 @@
 	<script type="text/javascript" src="{{ env('APP_URL') }}/angularjs/angular.min.js"></script>
 	<script type="text/javascript" src="{{ env('APP_URL') }}/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="{{ env('APP_URL') }}/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" src="{{ env('APP_URL') }}/js/loader.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	<script type="text/javascript" src="{{ env('APP_URL') }}/js/survey.js"></script>
 

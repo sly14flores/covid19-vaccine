@@ -195,13 +195,15 @@ app.controller('surveyCtrl', function($scope,$http) {
 		}).then(function mySucces(response) {
 			
 			Swal.fire({
-			  title: '<p class="text-success">THANK YOU!</p>',
+			  title: '<p class="text-success" style="font-size: 25px;">YOUR RESPONSE HAS BEEN SUBMITTED!</p>',
 			  icon: 'success',
 			  html: 
-				'<b>Your Response Has Been Submitted </b><br><br>' +
-				'<b>For inquiries, please contact us on: </b> <br>' +
-				'<b class="text-danger">Tel. No. 607-2633 loc. 299</b>',
-			  showCancelButton: true,
+				'<b>Thank you for your commitment in stopping the spread of Covid-19!!!! </b><br><br>' +
+				'<b style="font-size: 15px;">For inquiries, please contact us at: </b> <br>' +
+				'<b class="text-danger" style="font-size: 15px;">Tel. No. 607-2633 loc. 299</b>',
+			  showCancelButton: false,
+			  showCloseButton: true,
+			  focusCloseButton: true,
 			  focusConfirm: false,
 			  confirmButtonText: 'View Summary Report',
 			  cancelButtonText: 'Close',
