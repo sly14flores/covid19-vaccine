@@ -32,7 +32,7 @@
 						<div class="card" ng-class="{first_question_active: survey.population_group}">
 							<div class="card-body">
 							  <div class="form-group">
-								<h4 class="text-dark mb-3">1. Population Group <i class="fa fa-check-circle fa-xs text-success" ng-show="survey.population_group"></i></h4>
+								<h4 class="text-dark mb-3"><i class="text-danger">*</i> 1. Population Group <i class="fa fa-check-circle fa-xs text-success" ng-show="survey.population_group"></i></h4>
 								<div class="col-lg-12">
 								  <!-- radio -->
 								  <div class="form-group">
@@ -119,7 +119,7 @@
 						<div class="card" ng-class="{second_question_active: survey.lung_disease || survey.heart_disease || survey.kidney_disease || survey.diabetes || survey.high_blood_pressure || survey.cancer || survey.leukemia || survey.hiv || survey.mental_problem || survey.others_health_condition ||survey.none_of_the_above}">
 							<div class="card-body">
 							  <div class="form-group">
-								<h4 class="text-dark mb-3">2. Have you ever had or do you have any of the following health conditions? <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.lung_disease || survey.heart_disease || survey.kidney_disease || survey.diabetes || survey.high_blood_pressure || survey.cancer || survey.leukemia || survey.hiv || survey.mental_problem || survey.others_health_condition ||survey.none_of_the_above"></i></h4>
+								<h4 class="text-dark mb-3"><i class="text-danger">*</i> 2. Have you ever had or do you have any of the following health conditions? <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.lung_disease || survey.heart_disease || survey.kidney_disease || survey.diabetes || survey.high_blood_pressure || survey.cancer || survey.leukemia || survey.hiv || survey.mental_problem || survey.others_health_condition ||survey.none_of_the_above"></i></h4>
 								<div class="col-sm-12">
 								  <!-- checkbox -->
 								  <div class="form-group">
@@ -190,7 +190,7 @@
 						<div class="card" ng-class="{ third_question_active:  survey.pregnancy}">
 							<div class="card-body">
 								<div class="form-group">
-									<h4 class="text-dark mb-3">3. Are you pregnant or planning to have a baby? <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.pregnancy"></i></h4>
+									<h4 class="text-dark mb-3"><i class="text-danger">*</i> 3. Are you pregnant or planning to have a baby? <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.pregnancy"></i></h4>
 									<div class="row">
 									  <div class="col-lg-4 col-sm-12">
 										<!-- radio -->
@@ -229,7 +229,7 @@
 						<div class="card" ng-class="{ third_question_active:  survey.vaccine}">
 							<div class="card-body">
 								<div class="form-group">
-									<h4 class="text-dark mb-3">4. Are you willing to be vaccinated with any available Covid-19 vaccine? <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.vaccine"></i></h4>
+									<h4 class="text-dark mb-3"><i class="text-danger">*</i> 4. Are you willing to be vaccinated with any available Covid-19 vaccine? <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.vaccine"></i></h4>
 									
 									<div class="row">
 										<div class="col-lg-6 col-sm-12">
@@ -253,32 +253,7 @@
 										</div>
 									</div>
 									
-									<div ng-show="survey.vaccine=='yes_vaccine'" class="form-group">
-										<hr>
-										<h4 class="text-dark mb-3">* Are you willing to contribute to the vaccination fee? <i class="fa fa-check-circle text-success" aria-hidden="true" ng-show="survey.contribute"></i></h4>
-										
-										<div class="row">
-										  <div class="col-lg-6 col-sm-12">
-											<div class="form-group">
-											  <div class="custom-control custom-radio mb-2">
-												<input class="custom-control-input" type="radio" id="yes_contribute" name="contribute" ng-model="survey.contribute" value="@{{ contributeValues.yes_contribute }}">
-												<label for="yes_contribute" class="custom-control-label text-dark">Yes</label>
-											  </div>
-											</div>
-										  </div>
-
-										  <div class="col-lg-6 col-sm-12">
-											<div class="form-group">
-											  <div class="custom-control custom-radio mb-2">
-												<input class="custom-control-input" type="radio" id="no_contribute" name="contribute" ng-model="survey.contribute" value="@{{ contributeValues.no_contribute }}">
-												<label for="no_contribute" class="custom-control-label text-dark">No</label>
-											  </div>
-											</div>
-										  </div>
-										</div>
-									</div>
-									
-									<div class="form-group" ng-show="survey.contribute=='yes_contribute' && survey.vaccine=='yes_vaccine'">
+									<div class="form-group" ng-show="survey.vaccine=='yes_vaccine'">
 										<hr>
 										<h4 class="text-dark mb-3">* How much are you willing to pay for the vaccine fee?. <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.contribution"></i></h4>
 										<div class="col-sm-12">
@@ -301,6 +276,11 @@
 												<div class="custom-control custom-radio mb-2">
 												  <input class="custom-control-input" type="radio" id="twenty_five_percent_fee" name="contribution" ng-model="survey.contribution" value="@{{ contributionValues.twenty_five_percent_fee }}">
 												  <label for="twenty_five_percent_fee" class="custom-control-label text-dark">@{{ contribution.twenty_five_percent_fee }}</label>
+												</div>
+												<hr>
+												<div class="custom-control custom-radio mb-2">
+												  <input class="custom-control-input" type="radio" id="none_fee" name="contribution" ng-model="survey.contribution" value="@{{ contributionValues.none_fee }}">
+												  <label for="none_fee" class="custom-control-label text-dark">@{{ contribution.none_fee }}</label>
 												</div>
 												<hr>
 											</div>
