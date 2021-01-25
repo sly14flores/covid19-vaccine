@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="{{ env('APP_URL') }}/css/all.min.css" rel="stylesheet">
+		<link href="{{ env('APP_URL') }}/css/all.min.css" rel="stylesheet">
         <link href="{{ env('APP_URL') }}/css/adminlte.min.css" rel="stylesheet">
         <link href="{{ env('APP_URL') }}/css/animate-kontext.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">   
@@ -16,7 +16,7 @@
         <nav class="main-header navbar navbar-expand-md navbar-light" style="background-color: #215266; color: white;">
             <div class="container">
                 <a href="{{env('APP_URL')}}" class="navbar-brand move-center">
-                    <img src="img/launion-logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                    <img src="/img/launion-logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                         style="opacity: .8">
                     <span class="brand-text font-weight-light" style="color: white;"> Covid-19 Vaccination Survey</span>
                 </a>
@@ -46,48 +46,43 @@
 									<div class="col-lg-3 divhide">&nbsp;</div>
 								</div>
 
-							<div class="row mt-3">
-								<div class="col-lg-2 divhide">&nbsp;</div>
-
-								<div class="col-lg-8">
-									<h2 style="text-align: center;"><label style="color: #163d4e;">Help Us Make</label></h2>
+								<div class="row mt-3">
+									<div class="col-lg-12">
+										<h2 style="text-align: center;"><label style="color: #163d4e;">Help Us Make</label></h2>
+									</div>
 								</div>
 
-								<div class="col-lg-2 divhide">&nbsp;</div>
-							</div>
+								<div class="row">
+									<div class="col-lg-12">
+										 <h2 class="text-center"><label style="color: #215266;">LA UNION</label><label style="color: #fa6248">&nbsp;STRONGER</label></h2>
+									</div>
+								 </div>
 
-							<div class="row">
-								<div class="col-lg-2 divhide">&nbsp;</div>
-
-								<div class="col-lg-8">
-									 <h2 style="text-align: center;"><label style="color: #215266;">LA UNION</label><label style="color: #fa6248">&nbsp;STRONGER</label></h2>
-								</div>
-
-								<div class="col-lg-2 divhide">&nbsp;</div>
-							 </div>
-
-							<div class="row">
-								<div class="col-lg-2 divhide">&nbsp;</div>
-
-								<div class="col-lg-8">
-									<p class="text-dark text-center">Ang pagdating ng bakuna - isang magandang balita matapos ang ilang buwan ng health crisis.</p>
-								</div>
-
-								<div class="col-lg-2 divhide">&nbsp;</div>
-							</div>
-
-							<div class="row">
-								<div class="col-lg-3 divhide">&nbsp;</div>
-							
-								<div class="col-lg-6 mt-4">
-									<button type="button" class="btn btn-block btn-outline-success btn-lg" onclick="openCity(event, 'Register')">GET STARTED </button>
+								<div class="row mt-3">
+									<div class="col-lg-12">
+										<h5 class="text-center"><label style="color: #163d4e;">YOUR VOICE MATTERS, KAPROBINSIAAN!</label></h5>
+										<h6 class="text-center" style="margin-top: -10px;"><b><label style="color: #163d4e;">(Your Body, Your Money, Your Choice)</label></b></h6>
+									</div>
 								</div>
 								
-								<div class="col-lg-3 divhide">&nbsp;</div>
+								<div class="row mt-3">
+									<div class="col-lg-12">
+										<p class="text-center" style="color: #163d4e; font-weight: 550; font-size: 15px;">This is a Covid-19 Immunization Survey. Take part and be heard.</p>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-lg-3 divhide">&nbsp;</div>
 								
-							</div>
+									<div class="col-lg-6 mt-4">
+										<button type="button" class="btn btn-block btn-outline-success btn-lg" onclick="openCity(event, 'Register')">GET STARTED </button>
+									</div>
+									
+									<div class="col-lg-3 divhide">&nbsp;</div>
+									
+								</div>
 							
-						</div> <!--Card Body End-->
+							</div> <!--Card Body End-->
 						
 						<div class="first_line"></div>
 					</div> <!--Card End-->
@@ -257,7 +252,7 @@
     <script type="text/javascript" src="{{ env('APP_URL') }}/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="{{ env('APP_URL') }}/js/animate-kontext.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script type="text/javascript" src="{{ env('APP_URL') }}/js/tabs.js"></script>
+	<script type="text/javascript" src="{{ env('APP_URL') }}/js/tabs.js"></script>
     <script type="text/javascript" src="{{ env('APP_URL') }}/js/app.js"></script>
 
 </body>

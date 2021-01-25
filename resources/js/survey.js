@@ -2,6 +2,8 @@ const app = angular.module('survey', []);
 
 app.controller('surveyCtrl', function($scope,$http) {
 	
+	console.log(process.env);
+	
 	const queryString = window.location.href;
 	
 	const queryStringSplit = queryString.split("/");
@@ -156,6 +158,7 @@ app.controller('surveyCtrl', function($scope,$http) {
         seventy_five_percent_fee: "75% of the vaccine fee",
         fifty_percent_fee: "50% of the vaccine fee",
         twenty_five_percent_fee: "25% of the vaccine fee",		
+        none_fee: "None",		
 	};
 	$scope.contribution = contribution;
 	
@@ -163,7 +166,8 @@ app.controller('surveyCtrl', function($scope,$http) {
         one_hundred_percent_fee: 'one_hundred_percent_fee',
         seventy_five_percent_fee: 'seventy_five_percent_fee',
         fifty_percent_fee: 'fifty_percent_fee',
-        twenty_five_percent_fee: 'twenty_five_percent_fee',		
+        twenty_five_percent_fee: 'twenty_five_percent_fee',	
+        none_fee: 'none_fee',	
 	};
 	$scope.contributionValues = contributionValues;
 
@@ -188,6 +192,32 @@ app.controller('surveyCtrl', function($scope,$http) {
 	
 	$scope.submit = function() {
 		
+		const survey = $scope.survey;
+		
+		// Validation required field
+		
+		if(survey.population_group=="" || survey.pregnancy=="" || survey.vaccine=="")	{
+			
+			//Sweetalert2
+				Swal.fire({
+				  title: '<p class="text-danger">NOTICE!</p>',
+				  icon: 'warning',
+				  html: "Please complete required fields",
+				  showCancelButton: false,
+				  focusConfirm: false,
+				  showCloseButton: true,
+				  focusCloseButton: true,
+				  confirmButtonText: 'Close',
+				}).then((result) => {
+				  if (result.value) {
+					// Close
+				  }
+				})	
+			
+			return;
+			
+		}
+		
 		$http({
 			method: 'POST',
 			url: `${api_url}/api/survey`,
@@ -195,13 +225,15 @@ app.controller('surveyCtrl', function($scope,$http) {
 		}).then(function mySucces(response) {
 			
 			Swal.fire({
-			  title: '<p class="text-success">THANK YOU!</p>',
+			  title: '<p class="text-success" style="font-size: 25px;">YOUR RESPONSE HAS BEEN SUBMITTED!</p>',
 			  icon: 'success',
 			  html: 
-				'<b>Your Response Has Been Submitted </b><br><br>' +
-				'<b>For inquiries, please contact us on: </b> <br>' +
-				'<b class="text-danger">Tel. No. 607-2633 loc. 299</b>',
-			  showCancelButton: true,
+				'<b>Thank you for your commitment in stopping the spread of Covid-19!!!! </b><br><br>' +
+				'<b style="font-size: 15px;">For inquiries, please contact us at: </b> <br>' +
+				'<b class="text-danger" style="font-size: 15px;">Tel. No. 607-2633 loc. 299</b>',
+			  showCancelButton: false,
+			  showCloseButton: true,
+			  focusCloseButton: true,
 			  focusConfirm: false,
 			  confirmButtonText: 'View Summary Report',
 			  cancelButtonText: 'Close',

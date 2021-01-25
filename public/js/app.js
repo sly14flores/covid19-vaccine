@@ -4,9 +4,9 @@
   \*****************************/
 var app = angular.module('app', []);
 app.controller('appCtrl', function ($scope, $http) {
-  var prod_url = "http://napanam.launion.gov.ph";
+  var prod_url = "https://napanam.launion.gov.ph/lucovacs";
   var local_url = "http://localhost:8000";
-  var api_url = local_url;
+  var api_url = prod_url;
   $scope.napanam_id = null; // const napanam_id = 263000
 
   $scope.napanam = function () {
@@ -30,12 +30,12 @@ app.controller('appCtrl', function ($scope, $http) {
       method: 'GET',
       url: "".concat(api_url, "/api/napanam/check/registration/").concat(napanam_id)
     }).then(function mySucces(response) {
-      window.location = "http://localhost:8000/survey/".concat(napanam_id);
+      window.location = "".concat(api_url, "/survey/").concat(napanam_id);
     }, function myError(response) {
       if (response.status == 404) {
         //Sweetalert2
         Swal.fire({
-          title: '<b class="text-danger">NOT FOUND!</b>',
+          title: '<p class="text-danger">NOT FOUND!</p>',
           icon: 'warning',
           html: "Are you sure that you're registered to the NAPANAM? ",
           showCancelButton: true,
