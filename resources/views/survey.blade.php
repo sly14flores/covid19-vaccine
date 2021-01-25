@@ -348,7 +348,7 @@
 	<script type="text/javascript" src="{{ env('APP_URL') }}/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript" src="{{ env('APP_URL') }}/js/loader.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-	<script type="text/javascript" src="{{ env('APP_URL') }}/js/survey.js"></script>
+	<script type="text/javascript" src="{{ env('APP_URL') }}/js/survey.js?id={{ rand() }}"></script>
 
 </body>
 </html>
