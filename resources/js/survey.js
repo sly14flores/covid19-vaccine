@@ -2,8 +2,6 @@ const app = angular.module('survey', []);
 
 app.controller('surveyCtrl', function($scope,$http) {
 	
-	console.log(process.env);
-	
 	const queryString = window.location.href;
 	
 	const queryStringSplit = queryString.split("/");
@@ -11,7 +9,7 @@ app.controller('surveyCtrl', function($scope,$http) {
 	const napanam_id = queryStringSplit[queryStringSplit.length-1];
 	
 	const prod_url = "https://napanam.launion.gov.ph/lucovacs"
-	const local_url = "http://localhost:8000"
+	const local_url = "http://vaccines.local"
 	const api_url = prod_url
 
 	const survey = {
@@ -230,7 +228,7 @@ app.controller('surveyCtrl', function($scope,$http) {
 			  html: 
 				'<b>Thank you for your commitment in stopping the spread of Covid-19!!!! </b><br><br>' +
 				'<b style="font-size: 15px;">For inquiries, please contact us at: </b> <br>' +
-				'<b class="text-danger" style="font-size: 15px;">Tel. No. 607-2633 loc. 299</b>',
+				'<b class="text-danger" style="font-size: 15px;">Tel. No. (072) 242-5550 loc. 299</b>',
 			  showCancelButton: false,
 			  showCloseButton: true,
 			  focusCloseButton: true,
