@@ -252,7 +252,7 @@
     <script type="text/javascript" src="{{ env('APP_URL') }}/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="{{ env('APP_URL') }}/js/animate-kontext.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-	<script type="text/javascript" src="{{ env('APP_URL') }}/js/tabs.js"></script>
+	<script type="text/javascript" src="{{ env('APP_URL') }}/js/tabs.js?id={{ ran() }}"></script>
     <script type="text/javascript" src="{{ env('APP_URL') }}/js/app.js"></script>
 
 </body>
