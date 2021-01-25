@@ -101,6 +101,7 @@ class SurveyController extends Controller
             'seventy_five_percent_fee',
             'fifty_percent_fee',
             'twenty_five_percent_fee',
+            'none_fee',
         ];
 
         /** Get validated data */

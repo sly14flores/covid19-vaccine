@@ -70,6 +70,7 @@ class Survey extends Model
         'seventy_five_percent_fee',
         'fifty_percent_fee',
         'twenty_five_percent_fee',
+        'none_fee',
     ];
     
     protected $hidden = [
@@ -116,7 +117,8 @@ class Survey extends Model
 		'one_hundred_percent_fee' => 'boolean',
 		'seventy_five_percent_fee' => 'boolean',
 		'fifty_percent_fee' => 'boolean',
-		'twenty_five_percent_fee' => 'boolean',
+        'twenty_five_percent_fee' => 'boolean',
+        'none_fee',        
     ];
 
     /**
