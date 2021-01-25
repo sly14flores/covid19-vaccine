@@ -3,7 +3,7 @@ const app = angular.module('app', []);
 app.controller('appCtrl', function($scope,$http) {
 	
 	const prod_url = "https://napanam.launion.gov.ph/lucovacs"
-	const local_url = "http://localhost:8000"
+	const local_url = "http://vaccines.local"
 
 	const api_url = prod_url
 	

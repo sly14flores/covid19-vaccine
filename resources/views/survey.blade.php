@@ -253,7 +253,7 @@
 										</div>
 									</div>
 									
-									<div class="form-group" ng-show="survey.vaccine=='yes_vaccine'">
+									<div class="form-group" style="display: none;">
 										<hr>
 										<h4 class="text-dark mb-3">* How much are you willing to pay for the vaccine fee?. <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.contribution"></i></h4>
 										<div class="col-sm-12">
