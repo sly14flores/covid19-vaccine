@@ -72,6 +72,11 @@ class SurveyController extends Controller
             'others_population_group',
         ];
 
+        $currently_pregnants = [
+            'yes_currently_pregnant',
+            'no_currently_pregnant'
+        ];
+
         $pregnancys = [
             'yes_pregnant_baby',
             'no_pregnant_baby',
@@ -85,8 +90,10 @@ class SurveyController extends Controller
 
         $reasons = [
             'efficacy_rate_reason',
-            'vaccine_cost_reason',
-            'side_effects_reason',
+            'safety_reason',
+            'presence_reason',
+            'brand_reason',
+            'pregnant_reason',
             'lack_of_information_reason',
             'others_reason',
         ];
@@ -110,6 +117,7 @@ class SurveyController extends Controller
         $survey = new Survey;
 
         $population_group = $data['population_group'];
+        $currently_pregnant = $data['currently_pregnant'];
         $pregnancy = $data['pregnancy'];
         $vaccine = $data['vaccine'];
         $reason = $data['reason']; # no
@@ -128,10 +136,17 @@ class SurveyController extends Controller
         }
         $data[$population_group] = true;
 
+        foreach ($currently_pregnants as $cp) {
+            $data[$cp] = false;
+        }
+        $data[$currently_pregnant] = true;
+
         foreach ($pregnancys as $p) {
             $data[$p] = false;
         }
-        $data[$pregnancy] = true;
+        if ($data['no_currently_pregnant']) {
+            $data[$pregnancy] = true;
+        }
 
         foreach ($vaccines as $v) {
             $data[$v] = false;

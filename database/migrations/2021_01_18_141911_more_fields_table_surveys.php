@@ -19,9 +19,9 @@ class MoreFieldsTableSurveys extends Migration
             $table->string('yes_contribute')->after('no_vaccine')->nullable()->comment('Are you willing to contribute to the vaccination fee?');
             $table->string('no_contribute')->after('yes_contribute')->nullable()->comment('Are you willing to contribute to the vaccination fee?');
             $table->string('efficacy_rate_reason')->after('no_contribute')->nullable()->comment('Why? State reasons');
-            $table->string('vaccine_cost_reason')->after('efficacy_rate_reason')->nullable()->comment('Why? State reasons');
-            $table->string('side_effects_reason')->after('vaccine_cost_reason')->nullable()->comment('Why? State reasons');
-            $table->string('lack_of_information_reason')->after('side_effects_reason')->nullable()->comment('Why? State reasons');
+            // $table->string('vaccine_cost_reason')->after('efficacy_rate_reason')->nullable()->comment('Why? State reasons');
+            // $table->string('side_effects_reason')->after('vaccine_cost_reason')->nullable()->comment('Why? State reasons');
+            $table->string('lack_of_information_reason')->after('efficacy_rate_reason')->nullable()->comment('Why? State reasons');
             $table->string('others_reason')->after('lack_of_information_reason')->nullable()->comment('Why? State reasons');
             $table->string('one_hundred_percent_fee')->after('others_reason')->nullable()->comment('How much are you willing to pay for the vaccine fee?');
             $table->string('seventy_five_percent_fee')->after('one_hundred_percent_fee')->nullable()->comment('How much are you willing to pay for the vaccine fee?');
