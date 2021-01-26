@@ -126,8 +126,7 @@
 						<div class="card" ng-class="{second_question_active: survey.lung_disease || survey.heart_disease || survey.kidney_disease || survey.diabetes || survey.high_blood_pressure || survey.cancer || survey.leukemia || survey.hiv || survey.mental_problem || survey.others_health_condition ||survey.none_of_the_above}">
 							<div class="card-body">
 							  <div class="form-group">
-								<h4 class="text-dark"> 2. Have you ever had or do you have any of the following health conditions? <i class="text-danger" ng-hide="survey.lung_disease || survey.heart_disease || survey.kidney_disease || survey.diabetes || survey.high_blood_pressure || survey.cancer || survey.leukemia || survey.hiv || survey.mental_problem || survey.others_health_condition ||survey.none_of_the_above">*</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.lung_disease || survey.heart_disease || survey.kidney_disease || survey.diabetes || survey.high_blood_pressure || survey.cancer || survey.leukemia || survey.hiv || survey.mental_problem || survey.others_health_condition ||survey.none_of_the_above"></i></h4>
-								<p class="text-dark"><i class="tagalog-version-size">@{{ tagalogVersion.health_conditions }}</i></p>
+								<h4 class="text-dark"> 2. Have you ever had or do you have any of the following health conditions? <i class="tagalog-version-size">@{{ tagalogVersion.health_conditions }}</i> <i class="text-danger" ng-hide="survey.lung_disease || survey.heart_disease || survey.kidney_disease || survey.diabetes || survey.high_blood_pressure || survey.cancer || survey.leukemia || survey.hiv || survey.mental_problem || survey.others_health_condition ||survey.none_of_the_above">*</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.lung_disease || survey.heart_disease || survey.kidney_disease || survey.diabetes || survey.high_blood_pressure || survey.cancer || survey.leukemia || survey.hiv || survey.mental_problem || survey.others_health_condition ||survey.none_of_the_above"></i></h4>								
 								<div class="col-sm-12">
 								  <!-- checkbox -->
 								  <div class="form-group">
@@ -206,7 +205,7 @@
 										<div class="form-group">
 										  <div class="custom-control custom-radio mb-2">
 											<input class="custom-control-input" type="radio" id="baby_yes" name="pregnancy" ng-model="survey.pregnancy" value="@{{ pregnancyValues.yes_pregnant_baby }}">
-											<label for="baby_yes" class="custom-control-label text-dark">Yes</label>
+											<label for="baby_yes" class="custom-control-label text-dark">Yes <i class="tagalog-version-size text-dark">(Oo)</i></label>
 										  </div>
 										</div>
 									  </div>
@@ -216,7 +215,7 @@
 										<div class="form-group">
 										  <div class="custom-control custom-radio mb-2">
 											<input class="custom-control-input" type="radio" id="baby_no" name="pregnancy" ng-model="survey.pregnancy" value="@{{ pregnancyValues.no_pregnant_baby }}">
-											<label for="baby_no" class="custom-control-label text-dark">No</label>
+											<label for="baby_no" class="custom-control-label text-dark">No <i class="tagalog-version-size text-dark">(Hindi)</i></label>
 										  </div>
 										</div>
 									  </div>
@@ -226,7 +225,7 @@
 										<div class="form-group">
 										  <div class="custom-control custom-radio mb-2">
 											<input class="custom-control-input" type="radio" id="baby_not_sure" name="pregnancy" ng-model="survey.pregnancy" value="@{{ pregnancyValues.not_sure_pregnant_baby }}">
-											<label for="baby_not_sure" class="custom-control-label text-dark">Not Sure</label>
+											<label for="baby_not_sure" class="custom-control-label text-dark">Not Sure <i class="tagalog-version-size text-dark">(Hindi sigurado)</i></label>
 										  </div>
 										</div>
 									  </div>
@@ -242,7 +241,7 @@
 										<div class="form-group">
 										  <div class="custom-control custom-radio mb-2">
 											<input class="custom-control-input" type="radio" id="yes_currently_pregnant" name="currently_pregnant" ng-model="survey.currently_pregnant" value="@{{ currentlyPregnantValues.yes_currently_pregnant }}">
-											<label for="yes_currently_pregnant" class="custom-control-label text-dark">Yes</label>
+											<label for="yes_currently_pregnant" class="custom-control-label text-dark">Yes <i class="tagalog-version-size text-dark">(Oo)</i></label>
 										  </div>
 										</div>
 									  </div>
@@ -252,7 +251,7 @@
 										<div class="form-group">
 										  <div class="custom-control custom-radio mb-2">
 											<input class="custom-control-input" type="radio" id="no_currently_pregnant" name="currently_pregnant" ng-model="survey.currently_pregnant" value="@{{ currentlyPregnantValues.no_currently_pregnant }}">
-											<label for="no_currently_pregnant" class="custom-control-label text-dark">No</label>
+											<label for="no_currently_pregnant" class="custom-control-label text-dark">No <i class="tagalog-version-size text-dark">(Hindi)</i></label>
 										  </div>
 										</div>
 									  </div>
@@ -274,7 +273,7 @@
 											<div class="form-group">
 											  <div class="custom-control custom-radio mb-2">
 												<input class="custom-control-input" type="radio" id="yes_vaccine" name="vaccine" ng-model="survey.vaccine" value="@{{ vaccineValues.yes_vaccine }}">
-												<label for="yes_vaccine" class="custom-control-label text-dark">Yes</label>
+												<label for="yes_vaccine" class="custom-control-label text-dark">Yes (Oo)</label>
 											  </div>
 											</div>
 										</div>
@@ -284,7 +283,7 @@
 											<div class="form-group">
 											  <div class="custom-control custom-radio mb-2">
 												<input class="custom-control-input" type="radio" id="no_vaccine" name="vaccine" ng-model="survey.vaccine" value="@{{ vaccineValues.no_vaccine }}">
-												<label for="no_vaccine" class="custom-control-label text-dark">No</label>
+												<label for="no_vaccine" class="custom-control-label text-dark">No (Hindi)</label>
 											  </div>
 											</div>
 										</div>

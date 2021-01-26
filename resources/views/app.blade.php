@@ -187,23 +187,23 @@
 								<div class="col-lg-1 divhide">&nbsp;</div>
 								
 							</div>
-
+						
 							<div class="row">
 								<div class="col-lg-2 divhide">&nbsp;</div>
 
 								<div class="col-lg-8">
-									<h2 style="text-align: center;"><label style="color: #163d4e;">Enter Your</label></h2>
+									<h4 style="text-align: center;"><label style="color: #163d4e;">Enter Your</label></h4>
 								</div>
 
 								<div class="col-lg-2 divhide">&nbsp;</div>
 								
 							</div>
-
+							
 							<div class="row">
 								<div class="col-lg-2 divhide">&nbsp;</div>
 
 								<div class="col-lg-8">
-									<h2 style="text-align: center;"><label style="color: #fa6248;">NAPANAM ID NO.</label></h2>
+									<h4 style="text-align: center;"><label style="color: #fa6248;">NAPANAM ID NO.</label></h4>
 								</div>
 
 								<div class="col-lg-2 divhide">&nbsp;</div>
@@ -216,7 +216,7 @@
 								<div class="col-lg-10">
 									<form>
 										<div class="input-group mb-3">
-											<input type="number" class="form-control form-control-lg" placeholder="Napanam ID" ng-model="napanam_id">
+											<input type="number" class="form-control form-control-lg" placeholder="Napanam ID (e.g 123456)" ng-model="napanam_id">
 											<div class="input-group-append">
 											<div class="input-group-text">
 												<span class="fas fa-id-card"></span>
@@ -228,8 +228,8 @@
 
 								<div class="col-lg-1 divhide">&nbsp;</div>
 							</div>
-
-							<div class="row">
+							
+							<div class="row" ng-hide="status=='200'">
 
 								<div class="col-lg-3 divhide">&nbsp;</div>
 							
@@ -240,6 +240,31 @@
 								<div class="col-lg-3 divhide">&nbsp;</div>
 								
 							</div>
+							
+							<div class="row" ng-show="status=='200'">
+								<div class="col-lg-2 divhide">&nbsp;</div>
+								<div class="col-lg-8">
+									<h5 style="text-align: center;"><label style="color: #163d4e;"><h6>For verification, please enter your</h6></label><label style="color: #fa6248;">&nbsp;BIRTHDATE</label></h5>
+								</div>
+								<div class="col-lg-2 divhide">&nbsp;</div>
+							
+								<div class="col-lg-1 divhide">&nbsp;</div>
+								<div class="col-lg-10">
+									<form>
+										<div class="form-group mb-3">
+											<input type="date" class="form-control form-control-lg" placeholder="Birthdate" ng-model="birthdate">
+										</div>
+									</form>
+								</div>
+								<div class="col-lg-1 divhide">&nbsp;</div>
+						
+								<div class="col-lg-3 divhide">&nbsp;</div>
+								<div class="col-lg-6 mt-4">
+									<a href="javascript:;" ng-click="checkBirthdate()"><button type="button" class="btn btn-block btn-outline-success">Proceed </button></a>
+								</div>
+								<div class="col-lg-3 divhide">&nbsp;</div>
+							</div>
+							
 						</div>  <!--Card Body End-->
 						<div class="third_line"></div> 
 					</div>  <!--Card End-->
@@ -254,6 +279,5 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	<script type="text/javascript" src="{{ env('APP_URL') }}/js/tabs.js?id={{ rand() }}"></script>
     <script type="text/javascript" src="{{ env('APP_URL') }}/js/app.js?id={{ rand() }}"></script>
-
 </body>
 </html>
