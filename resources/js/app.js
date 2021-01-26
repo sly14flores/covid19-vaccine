@@ -11,6 +11,26 @@ app.controller('appCtrl', function($scope,$http) {
 	
 	// const napanam_id = 263000
 	
+	$scope.privacyNotice = function() {
+		
+		//Sweetalert2 Privacy Notice
+		Swal.fire({
+		  title: '<p class="text-danger">PRIVACY NOTICE!</p>',
+		  icon: 'warning',
+		  html: '<p style="text-align: justify;">PGLU respects and values your right to privacy with utmost importance. Rest assured your responses will be treated with confidentiality in compliance with the Data Privacy Act of 2012 (RA10173).</p>',
+		  showCancelButton: false,
+		  focusConfirm: false,
+		  confirmButtonText: 'OK',
+	      input: 'checkbox',
+		  inputPlaceholder: 'I have read and agree to the Privacy Policy'
+		}).then((result) => {
+		  if (result.value) {
+			// Close
+		  }
+		})
+		
+	}
+	
 	$scope.napanam = function() {
 		
 		//Sweetalert2
