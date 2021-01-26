@@ -135,7 +135,7 @@
                                     <div class="col-lg-2 divhide">&nbsp;</div>
 
                                     <div class="col-lg-8">
-                                        <p class="text-dark text-center">To enable to participate into this community survey, you must be registered to the <label style="color: #fa6248">NAPANAM</label>.</p>
+                                        <p class="text-dark text-center">To participate into this community survey, you must be registered to the <label style="color: #fa6248">NAPANAM</label>.</p>
                                     </div>
 
                                     <div class="col-lg-2 divhide">&nbsp;</div>

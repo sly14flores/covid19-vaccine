@@ -37,6 +37,7 @@ app.controller('surveyCtrl', function ($scope, $http) {
     health_condition_other: "",
     // if others_health_condition is checked this will be the value
     none_of_the_above: false,
+    currently_pregnant: "",
     pregnancy: "",
     // yes_pregnant_baby | no_pregnant_baby | not_sure_pregnant_baby
     vaccine: "",
@@ -50,7 +51,52 @@ app.controller('surveyCtrl', function ($scope, $http) {
     contribution: "" // 	one_hundred_percent_fee | ...
 
   };
-  $scope.survey = survey; // Population Group
+  $scope.survey = survey;
+  var tagalogVersion = {
+    // Population Group
+    frontline_health_workers: "(Manggagawa sa Kalusugan)",
+    senior_citizens: "(Nakatatandang Mamamayan)",
+    uniformed_personnel: "",
+    teachers: "(Guro)",
+    social_workers: "(Manggagawang Panlipunan)",
+    government_employees: "(Kawani ng Gobyerno)",
+    agriculture_group: "(Agrikultura)",
+    food_industry: "(Industriya ng Pagkain)",
+    tranportation: "(Transportasyon)",
+    tourism: "(Turismo)",
+    persons_deprived_of_liberty: "(Taong pinagkaitan ng kalayaan)",
+    persons_with_disability: "(Taong May Kapansanan)",
+    ofw: "(Mga manggagawang Filipino sa ibang bansa)",
+    others_population_group: "(Iba pa)",
+    // Health Conditions
+    health_conditions: "(Ikaw ba ay nagkaroon o mayroong kondisyon sa kalusugan?)",
+    lung_disease: "(Kanser sa Baga – Hal. Hika, Tuberkulosis atbp.)",
+    heart_disease: "(Sakit sa Puso)",
+    kidney_disease: "(Sakit sa Atay)",
+    diabetes: "(Diyabetes)",
+    high_blood_pressure: "(Altapresyon)",
+    cancer: "(Kanser)",
+    leukemia: "(Lukemya)",
+    hiv: "(HIV)",
+    mental_problem: "(Sakit sa Pag-iisip)",
+    others_health_condition: "(Iba pa)",
+    none_of_the_above: "(Wala sa mga nabanggit)",
+    // Currently Pregnant
+    currently_pregnant: '(Nagplaplano ka bang mabuntis ngayong taon na ito?)',
+    pregnancy: '(Ikaw ba ay buntis sa kasalukuyan?)',
+    // Vaccine
+    vaccine: "(Interesado ka bang mabakunahan ng bakuna para sa Covid-19?)",
+    // Best Choice
+    reason: "(Pumili ng isa na pinakamahusay na nalalapat sa iyo)",
+    efficacy_rate_reason: "(bisa ng bakuna)",
+    safety_reason: "(Profile sa kaligtasan at masamang epekto ng bakuna)",
+    presence_reason: "(Pagkakaroon ng komorbididad at iba pang kundisyon sa kalusugan)",
+    brand_reason: "(Aling tatak ng bakuna ang magagamit)",
+    pregnant_reason: "(Kasalukuyang buntis o nagpaplano na mabuntis)",
+    lack_of_information_reason: "(Kakulangan ng pangkalahatang impormasyon ng mga bakuna)",
+    others_reason: "(Iba pa)"
+  };
+  $scope.tagalogVersion = tagalogVersion; // Population Group
 
   var populationGroup = {
     frontline_health_workers: "Frontline health workers",
@@ -110,7 +156,12 @@ app.controller('surveyCtrl', function ($scope, $http) {
     others_health_condition: "Others",
     none_of_the_above: "None of the above"
   };
-  $scope.healthConditions = healthConditions; // Pregnancy
+  $scope.healthConditions = healthConditions;
+  var currentlyPregnantValues = {
+    yes_currently_pregnant: 'yes_currently_pregnant',
+    no_currently_pregnant: 'no_currently_pregnant'
+  };
+  $scope.currentlyPregnantValues = currentlyPregnantValues; // Pregnancy
 
   var pregnancyValues = {
     yes_pregnant_baby: 'yes_pregnant_baby',
@@ -132,17 +183,21 @@ app.controller('surveyCtrl', function ($scope, $http) {
   $scope.contributeValues = contributeValues; // Reason
 
   var reason = {
-    efficacy_rate_reason: "Efficacy rate",
-    vaccine_cost_reason: "Vaccine cost",
-    side_effects_reason: "Possible side effects",
-    lack_of_information_reason: "Lack of information",
+    efficacy_rate_reason: "Efficacy of the vaccines",
+    safety_reason: "Safety profile and adverse effect of the vaccines",
+    presence_reason: "Presence of co-morbidites and other conditions",
+    brand_reason: "Which vaccine brand will be available",
+    pregnant_reason: "Currently pregnant or planning to get pregnant",
+    lack_of_information_reason: "Lacking general infomation of vaccines",
     others_reason: "Others"
   };
   $scope.reason = reason;
   var reasonValues = {
     efficacy_rate_reason: 'efficacy_rate_reason',
-    vaccine_cost_reason: 'vaccine_cost_reason',
-    side_effects_reason: 'side_effects_reason',
+    safety_reason: 'safety_reason',
+    presence_reason: 'presence_reason',
+    brand_reason: 'brand_reason',
+    pregnant_reason: 'pregnant_reason',
     lack_of_information_reason: 'lack_of_information_reason',
     others_reason: 'others_reason'
   };
@@ -192,7 +247,25 @@ app.controller('surveyCtrl', function ($scope, $http) {
         focusConfirm: false,
         showCloseButton: true,
         focusCloseButton: true,
-        confirmButtonText: 'Close'
+        confirmButtonText: 'Confirm'
+      }).then(function (result) {
+        if (result.value) {// Close
+        }
+      });
+      return;
+    }
+
+    if (survey.population_group == "others_population_group" && survey.population_group_other == "" || survey.reason == "others_reason" && survey.reason_other == "" || survey.others_health_condition == true && survey.health_condition_other == "") {
+      console.log($scope); //Sweetalert2
+
+      Swal.fire({
+        title: '<p class="text-danger">NOTICE!</p>',
+        icon: 'warning',
+        text: "Please complete required fields",
+        showCancelButton: false,
+        focusConfirm: false,
+        showCloseButton: true,
+        confirmButtonText: 'Confirm'
       }).then(function (result) {
         if (result.value) {// Close
         }
