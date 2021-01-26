@@ -4,6 +4,7 @@
   \*****************************/
 var app = angular.module('app', []);
 app.controller('appCtrl', function ($scope, $http) {
+  console.log("local");
   var prod_url = "https://napanam.launion.gov.ph/lucovacs";
   var local_url = "http://vaccines.local";
   var api_url = prod_url;
