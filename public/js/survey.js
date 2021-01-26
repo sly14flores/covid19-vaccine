@@ -282,14 +282,13 @@ app.controller('surveyCtrl', function ($scope, $http) {
         title: '<p class="text-success" style="font-size: 25px;">YOUR RESPONSE HAS BEEN SUBMITTED!</p>',
         icon: 'success',
         html: '<b>Thank you for your commitment in stopping the spread of Covid-19!!!! </b><br><br>' + '<b style="font-size: 15px;">For inquiries, please contact us at: </b> <br>' + '<b class="text-danger" style="font-size: 15px;">Tel. No. (072) 242-5550 loc. 299</b>',
-        showCancelButton: false,
-        showCloseButton: true,
-        focusCloseButton: true,
+        showCancelButton: true,
         focusConfirm: false,
         confirmButtonText: 'View Summary Report',
         cancelButtonText: 'Close'
       }).then(function (result) {
-        if (result.value) {// Close (TBD)
+        if (result.value) {
+          window.location = api_url;
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           window.location = api_url;
         }
