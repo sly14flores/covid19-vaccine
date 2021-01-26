@@ -70,7 +70,7 @@ app.controller('surveyCtrl', function ($scope, $http) {
     others_population_group: "(Iba pa)",
     // Health Conditions
     health_conditions: "(Ikaw ba ay nagkaroon o mayroong kondisyon sa kalusugan?)",
-    lung_disease: "(Kanser sa Baga – Hal. Hika, Tuberkulosis atbp.)",
+    lung_disease: "(Sakit sa Baga – Hal. Hika, Tuberkulosis atbp.)",
     heart_disease: "(Sakit sa Puso)",
     kidney_disease: "(Sakit sa Atay)",
     diabetes: "(Diyabetes)",
@@ -82,14 +82,14 @@ app.controller('surveyCtrl', function ($scope, $http) {
     others_health_condition: "(Iba pa)",
     none_of_the_above: "(Wala sa mga nabanggit)",
     // Currently Pregnant
-    currently_pregnant: '(Nagplaplano ka bang mabuntis ngayong taon na ito?)',
+    currently_pregnant: '(Buntis o nagpaplanong ngayong taon na ito?)',
     pregnancy: '(Ikaw ba ay buntis sa kasalukuyan?)',
     // Vaccine
     vaccine: "(Interesado ka bang mabakunahan ng bakuna para sa Covid-19?)",
     // Best Choice
     reason: "(Pumili ng isa na pinakamahusay na nalalapat sa iyo)",
     efficacy_rate_reason: "(bisa ng bakuna)",
-    safety_reason: "(Profile sa kaligtasan at masamang epekto ng bakuna)",
+    safety_reason: "(Impormasyon sa kaligtasan at masamang epekto ng bakuna)",
     presence_reason: "(Pagkakaroon ng komorbididad at iba pang kundisyon sa kalusugan)",
     brand_reason: "(Aling tatak ng bakuna ang magagamit)",
     pregnant_reason: "(Kasalukuyang buntis o nagpaplano na mabuntis)",
