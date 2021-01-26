@@ -146,7 +146,7 @@
                                 <div class="col-lg-2 divhide">&nbsp;</div>
                             
                                 <div class="col-lg-8 mt-3">
-                                    <button type="button" class="btn btn-block btn-outline-success btn-lg" onclick="openCity(event, 'Napanam')">Yes! I have NAPANAM QR ID </button>
+                                    <button type="button" class="btn btn-block btn-outline-success btn-lg" onclick="openCity(event, 'Napanam')" ng-click="privacyNotice()">Yes! I have NAPANAM QR ID </button>
                                 </div>
                                 
                                 <div class="col-lg-2 divhide">&nbsp;</div>
