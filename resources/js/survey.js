@@ -314,15 +314,15 @@ app.controller('surveyCtrl', function($scope,$http) {
 				'<b>Thank you for your commitment in stopping the spread of Covid-19!!!! </b><br><br>' +
 				'<b style="font-size: 15px;">For inquiries, please contact us at: </b> <br>' +
 				'<b class="text-danger" style="font-size: 15px;">Tel. No. (072) 242-5550 loc. 299</b>',
-			  showCancelButton: false,
-			  showCloseButton: true,
-			  focusCloseButton: true,
+			  showCancelButton: true,
 			  focusConfirm: false,
 			  confirmButtonText: 'View Summary Report',
 			  cancelButtonText: 'Close',
 			}).then((result) => {
 			  if (result.value) {
-				// Close (TBD)
+				
+				window.location = api_url;
+				
 			  } else if (result.dismiss === Swal.DismissReason.cancel) {
 				
 				window.location = api_url;
