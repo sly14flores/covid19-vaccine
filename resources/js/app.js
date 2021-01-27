@@ -1,16 +1,15 @@
 const app = angular.module('app', []);
 
 app.controller('appCtrl', function($scope,$http) {
-
+	
 	const prod_url = "https://napanam.launion.gov.ph/lucovacs"
 	const local_url = "http://vaccines.local"
 
-	const ENV = process.env.MIX_ENV	
-	const api_url = (ENV==='local')?local_url:prod_url
+	const api_url = prod_url
 	
 	$scope.napanam_id = null;
 	
-	// const napanam_id = 263000
+	$scope.birthdate = null;
 	
 	$scope.privacyNotice = function() {
 		
@@ -19,15 +18,12 @@ app.controller('appCtrl', function($scope,$http) {
 		  title: '<p class="text-danger">PRIVACY NOTICE!</p>',
 		  icon: 'warning',
 		  html: '<p style="text-align: justify;">PGLU respects and values your right to privacy with utmost importance. Rest assured your responses will be treated with confidentiality in compliance with the Data Privacy Act of 2012 (RA10173).</p>',
-		  showCancelButton: false,
 		  focusConfirm: false,
-		  confirmButtonText: 'OK',
-	      input: 'checkbox',
-		  inputPlaceholder: 'I have read and agree to the Privacy Policy'
-		}).then((result) => {
-		  if (result.value) {
-			// Close
-		  }
+		  confirmButtonText: 'Proceed',
+		  showCancelButton: false,
+		  allowOutsideClick: false,
+		  allowEscapeKey: false,
+		  allowEnterKey: false,
 		})
 		
 	}
@@ -48,6 +44,53 @@ app.controller('appCtrl', function($scope,$http) {
 		})
 		
 	}
+	
+	$scope.checkBirthdate = function() {
+		
+		const napanam_id = $scope.napanam_id
+		
+		const date = new Date($scope.birthdate);
+		
+		// birthdate convert
+		$scope.getBirthdate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )) .toISOString() .split("T")[0];
+
+		$http({
+			method: 'GET',
+			url: `${api_url}/api/napanam/check/registration/${napanam_id}`
+		}).then(function mySucces(response) {
+			
+			$scope.status = response.status;
+			
+			if($scope.getBirthdate==response.data.data.dob){
+				
+				window.location = `${api_url}/survey/${napanam_id}`;
+				
+			} else {
+				
+				//Sweetalert2
+				Swal.fire({
+				  title: '<p class="text-danger">NOTICE!</p>',
+				  icon: 'warning',
+				  html: "The Napanam ID and Birthdate you entered did not match. Please try again.",
+				  showCancelButton: false,
+				  focusConfirm: true,
+				  confirmButtonText: 'Ok',
+				}).then((result) => {
+				  if (result.value) {
+					// Close
+				  }
+				})	
+				
+			}
+			
+		}, function myError(response) {
+			
+			// error
+			
+		});
+		
+	}
+	
 
 	$scope.proceed = function() {
 		
@@ -58,8 +101,8 @@ app.controller('appCtrl', function($scope,$http) {
 			url: `${api_url}/api/napanam/check/registration/${napanam_id}`
 		}).then(function mySucces(response) {
 			
-			window.location = `${api_url}/survey/${napanam_id}`;
-
+			$scope.status = response.status;
+			
 		}, function myError(response) {
 			
 			if (response.status == 404) {
@@ -81,7 +124,7 @@ app.controller('appCtrl', function($scope,$http) {
 					window.location = "https://npnm.launion.gov.ph/#/regqrpass";
 					
 				  }
-				})			
+				})		
 				
 			}
 			
