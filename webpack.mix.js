@@ -30,3 +30,8 @@ mix.copy('resources/dist/css/animate-kontext.css', 'public/css/animate-kontext.c
 
 mix.copyDirectory('resources/dist/img','public/img');
 mix.copyDirectory('resources/plugins/fontawesome-free/webfonts','public/webfonts');
+
+/**
+ * Homepage | SPA | Vue3
+ */
+mix.js('resources/js/home.js', 'public/js/home.js').vue();

@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('app');
 });
 
+Route::get('/home', function () {
+    return view('home');
+});
+
 Route::get('/survey/{id}', function($id) {
 	
 	return view('survey');

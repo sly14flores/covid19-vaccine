@@ -1,9 +1,10 @@
 {
-    "/js/app.js": "/js/app.js?id=0bce569ee4c33457ad06",
+    "/js/app.js": "/js/app.js?id=a46ebc7929c48ec76e1f",
     "/js/register.js": "/js/register.js?id=a1a8e1e5fc618be0f723",
     "/js/napanam.js": "/js/napanam.js?id=2046262f2417270e7def",
-    "/js/survey.js": "/js/survey.js?id=f4173a4b73da899974e9",
-    "/angularjs/angular.min.js": "/angularjs/angular.min.js?id=3768a8a7901bb67b4817",
+    "/js/survey.js": "/js/survey.js?id=e4c973ca303b36fb03ac",
+    "/js/home.js": "/js/home.js?id=88f415207fba22e0838d",
+    "/angularjs/angular.min.js": "/angularjs/angular.min.js?id=be6af23e2a716c006da7",
     "/jquery/jquery.min.js": "/jquery/jquery.min.js?id=a6b6350ee94a3ea74595",
     "/bootstrap/js/bootstrap.bundle.min.js": "/bootstrap/js/bootstrap.bundle.min.js?id=b41fe9374205bd087a4d",
     "/js/adminlte.min.js": "/js/adminlte.min.js?id=26c369c6beaf408ef178",
