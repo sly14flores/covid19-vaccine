@@ -19,7 +19,7 @@ app.controller('appCtrl', function($scope,$http) {
 		  icon: 'warning',
 		  html: '<p style="text-align: justify;">PGLU respects and values your right to privacy with utmost importance. Rest assured your responses will be treated with confidentiality in compliance with the Data Privacy Act of 2012 (RA10173).</p>',
 		  focusConfirm: false,
-		  confirmButtonText: 'I have read and agree to the Privacy Policy',
+		  confirmButtonText: 'Proceed',
 		  showCancelButton: false,
 		  allowOutsideClick: false,
 		  allowEscapeKey: false,
