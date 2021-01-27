@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Breadcrumb :home="home" :model="items" />
+        <Breadcrumb :home="pHome" :model="pItems" />
     </div>
 </template>
 
@@ -11,11 +11,15 @@ export default {
     components: {
         Breadcrumb
     },
+    props: ['home','items'],
     data() {
         return {
-            home: {icon: 'pi pi-home', to: '/'},
-            items: [],            
+            pHome: this.home,
+            pItems: this.items,
         }
+    },
+    mounted() {
+
     }
 }
 </script>

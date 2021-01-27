@@ -1,4 +1,18 @@
 <template>
-    <div>I am Users</div>
-    <router-view />
+    <div>
+        <router-view />
+    </div>
 </template>
+
+<script>
+export default {
+    components: {
+
+    },
+    data() {
+        return {
+
+        }
+    }
+}
+</script>

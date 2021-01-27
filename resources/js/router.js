@@ -6,8 +6,8 @@ import Dashboard from "./pages/dashboard/Dashboard.vue";
  * Users
  */
 import Users from "./pages/users/Users.vue";
-import UsersList from "./pages/users/UsersList.vue";
-import UserForm from "./pages/users/UserForm.vue";
+import UsersList from "./pages/users/List.vue";
+import UserForm from "./pages/users/Form.vue";
 
 const routes = [
   {
