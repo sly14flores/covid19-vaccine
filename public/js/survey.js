@@ -282,9 +282,9 @@ app.controller('surveyCtrl', function ($scope, $http) {
         title: '<p class="text-success" style="font-size: 25px;">YOUR RESPONSE HAS BEEN SUBMITTED!</p>',
         icon: 'success',
         html: '<b>Thank you for your commitment in stopping the spread of Covid-19!!!! </b><br><br>' + '<b style="font-size: 15px;">For inquiries, please contact us at: </b> <br>' + '<b class="text-danger" style="font-size: 15px;">Tel. No. (072) 242-5550 loc. 299</b>',
-        showCancelButton: true,
+        showCancelButton: false,
         focusConfirm: false,
-        confirmButtonText: 'View Summary Report',
+        confirmButtonText: 'Ok',
         cancelButtonText: 'Close'
       }).then(function (result) {
         if (result.value) {

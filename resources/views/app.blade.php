@@ -234,7 +234,7 @@
 								<div class="col-lg-3 divhide">&nbsp;</div>
 							
 								<div class="col-lg-6 mt-4">
-									<a href="javascript:;" ng-click="proceed()"><button type="button" class="btn btn-block btn-outline-success">Proceed </button></a>
+									<a href="javascript:;" ng-click="proceed()"><button type="button" class="btn btn-block btn-outline-success">Next </button></a>
 								</div>
 								
 								<div class="col-lg-3 divhide">&nbsp;</div>
