@@ -9,8 +9,7 @@ app.controller('surveyCtrl', function ($scope, $http) {
   var napanam_id = queryStringSplit[queryStringSplit.length - 1];
   var prod_url = "https://napanam.launion.gov.ph/lucovacs";
   var local_url = "http://vaccines.local";
-  var ENV = "local";
-  var api_url = ENV === 'local' ? local_url : prod_url;
+  var api_url = prod_url;
   var survey = {
     qr_pass_id: "",
     last_name: "",
