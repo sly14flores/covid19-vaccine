@@ -19,7 +19,7 @@
 				<a href="{{ env('APP_URL') }}" class="navbar-brand move-center">
 					<img src="{{env('APP_URL')}}/img/launion-logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
 						style="opacity: .8">
-					<span class="brand-text font-weight-light" style="color: white;"> Covid-19 Vaccination Survey</span>
+					<span class="brand-text font-weight-light" style="color: white;"> La Union CoViD-19 Vaccination Survey</span>
 				</a>
 			</div>
 		</nav>
@@ -36,7 +36,7 @@
 						<div class="card" ng-class="{first_question_active: survey.population_group}">
 							<div class="card-body">
 							  <div class="form-group">
-								<h4 class="text-dark mb-3">1. Population Group <i class="text-danger" ng-hide="survey.population_group">*</i> <i class="fa fa-check-circle fa-xs text-success" ng-show="survey.population_group"></i></h4>
+								<h4 class="text-dark mb-3">1. Population Group <i class="tagalog-version-size">@{{ tagalogVersion.population_group }}</i><i class="text-danger" ng-hide="survey.population_group">*</i> <i class="fa fa-check-circle fa-xs text-success" ng-show="survey.population_group"></i></h4>
 								<div class="col-lg-12">
 								  <!-- radio -->
 								  <div class="form-group">
@@ -126,7 +126,7 @@
 						<div class="card" ng-class="{second_question_active: survey.lung_disease || survey.heart_disease || survey.kidney_disease || survey.diabetes || survey.high_blood_pressure || survey.cancer || survey.leukemia || survey.hiv || survey.mental_problem || survey.others_health_condition ||survey.none_of_the_above}">
 							<div class="card-body">
 							  <div class="form-group">
-								<h4 class="text-dark"> 2. Have you ever had or do you have any of the following health conditions? <i class="tagalog-version-size">@{{ tagalogVersion.health_conditions }}</i> <i class="text-danger" ng-hide="survey.lung_disease || survey.heart_disease || survey.kidney_disease || survey.diabetes || survey.high_blood_pressure || survey.cancer || survey.leukemia || survey.hiv || survey.mental_problem || survey.others_health_condition ||survey.none_of_the_above">*</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.lung_disease || survey.heart_disease || survey.kidney_disease || survey.diabetes || survey.high_blood_pressure || survey.cancer || survey.leukemia || survey.hiv || survey.mental_problem || survey.others_health_condition ||survey.none_of_the_above"></i></h4>								
+								<h4 class="text-dark"> 2. Do you have a history or do you currently have any of the following conditions? <i class="tagalog-version-size">@{{ tagalogVersion.health_conditions }}</i> <i class="text-danger" ng-hide="survey.lung_disease || survey.heart_disease || survey.kidney_disease || survey.diabetes || survey.high_blood_pressure || survey.cancer || survey.leukemia || survey.hiv || survey.mental_problem || survey.others_health_condition ||survey.none_of_the_above">*</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.lung_disease || survey.heart_disease || survey.kidney_disease || survey.diabetes || survey.high_blood_pressure || survey.cancer || survey.leukemia || survey.hiv || survey.mental_problem || survey.others_health_condition ||survey.none_of_the_above"></i></h4>								
 								<div class="col-sm-12">
 								  <!-- checkbox -->
 								  <div class="form-group">
@@ -265,7 +265,7 @@
 						<div class="card" ng-class="{ third_question_active:  survey.vaccine}">
 							<div class="card-body">
 								<div class="form-group">
-									<h4 class="text-dark mb-3">4. Are you interested to be vaccinated with Covid-19 vaccine? <i class="text-sm">@{{ tagalogVersion.vaccine }}</i> <i class="text-danger" ng-hide="survey.vaccine">*</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.vaccine"></i></h4>
+									<h4 class="text-dark mb-3">4. Are you interested to be vaccinated for CoViD-19? <i class="text-sm">@{{ tagalogVersion.vaccine }}</i> <i class="text-danger" ng-hide="survey.vaccine">*</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.vaccine"></i></h4>
 									
 									<div class="row">
 										<div class="col-lg-6 col-sm-12">
@@ -291,7 +291,7 @@
 									
 									<div class="form-group" ng-show="survey.vaccine=='no_vaccine'">
 										<hr>
-										<h4 class="text-dark mb-3">Choose one that best applies to you: <i class="text-sm">@{{ tagalogVersion.reason }}</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.reason"></i></h4>
+										<h4 class="text-dark mb-3">What are your considering for the vaccination? Ano ang iyong isinasaalang-alang para sa pagbabakuna? <i class="text-sm">@{{ tagalogVersion.reason }}</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.reason"></i></h4>
 										<div class="col-sm-12">
 											<div class="form-group">
 												<div class="custom-control custom-radio mb-2">
@@ -340,7 +340,7 @@
 							   <div class="row">
 								  <div class="col-4"></div>
 								  <div class="col-4">
-									<button type="submit" class="btn btn-success btn-block" ng-click="submit()">Submit</button>
+									<button type="submit" class="btn btn-block" ng-click="submit()" style="background-color: #68bca4; color: white;">Submit</button>
 								  </div>
 								  <div class="col-4"></div>
 								</div>

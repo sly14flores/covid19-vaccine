@@ -16,10 +16,11 @@ app.controller('appCtrl', function($scope,$http) {
 		//Sweetalert2 Privacy Notice
 		Swal.fire({
 		  title: '<p class="text-danger">PRIVACY NOTICE!</p>',
-		  icon: 'warning',
-		  html: '<p style="text-align: justify;">PGLU respects and values your right to privacy with utmost importance. Rest assured your responses will be treated with confidentiality in compliance with the Data Privacy Act of 2012 (RA10173).</p>',
+		  icon: '',
+		  html: '<p style="text-align: justify;">The Provincial Government of La Union (PGLU) respects and values your right to privacy. Rest assured your responses shall be treated with utmost confidentiality in compliance with the Data Privacy Act of 2012 (RA10173).</p>',
 		  focusConfirm: false,
 		  confirmButtonText: 'Proceed',
+		  confirmButtonColor: '#68bca4',
 		  showCancelButton: false,
 		  allowOutsideClick: false,
 		  allowEscapeKey: false,
@@ -32,10 +33,12 @@ app.controller('appCtrl', function($scope,$http) {
 		
 		//Sweetalert2
 		Swal.fire({
-		  title: 'Notice',
-		  text: "You're about to be redirected to the Napanam Registration",
+		  title: 'Here we go!',
+		  text: "You are about to be redirected to the NAPANAM Registration page.",
 		  icon: 'warning',
 		  showCancelButton: true,
+		  confirmButtonColor: '#68bca4',
+		  cancelButtonColor: '#ffab5d',
 		  confirmButtonText: 'Confirm',
 		}).then((result) => {
 		  if (result.value) {
@@ -74,6 +77,7 @@ app.controller('appCtrl', function($scope,$http) {
 				  html: "The Napanam ID and Birthdate you entered did not match. Please try again.",
 				  showCancelButton: false,
 				  focusConfirm: true,
+				  confirmButtonColor: '#68bca4',
 				  confirmButtonText: 'Ok',
 				}).then((result) => {
 				  if (result.value) {
@@ -114,6 +118,8 @@ app.controller('appCtrl', function($scope,$http) {
 				  html: "Are you sure that you're registered to the NAPANAM? ",
 				  showCancelButton: true,
 				  focusConfirm: false,
+				  confirmButtonColor: '#68bca4',
+				  cancelButtonColor: '#ffab5d',
 				  confirmButtonText: 'Yes, Try Again!',
 				  cancelButtonText: 'No, I want to register.',
 				}).then((result) => {
