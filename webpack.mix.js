@@ -35,3 +35,4 @@ mix.copyDirectory('resources/plugins/fontawesome-free/webfonts','public/webfonts
  * Homepage | SPA | Vue3
  */
 mix.js('resources/js/home.js', 'public/js/home.js').vue();
+mix.copyDirectory('resources/assets/layout/images', 'public/assets/images');
