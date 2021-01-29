@@ -15,8 +15,9 @@ app.controller('appCtrl', function($scope,$http) {
 		
 		//Sweetalert2 Privacy Notice
 		Swal.fire({
-		  title: '<p class="text-danger">PRIVACY NOTICE!</p>',
-		  icon: '',
+		  title: '<p style="color: #ffab5d">PRIVACY NOTICE!</p>',
+		  icon: 'info',
+		  iconColor: '#ffab5d',
 		  html: '<p style="text-align: justify;">The Provincial Government of La Union (PGLU) respects and values your right to privacy. Rest assured your responses shall be treated with utmost confidentiality in compliance with the Data Privacy Act of 2012 (RA10173).</p>',
 		  focusConfirm: false,
 		  confirmButtonText: 'Proceed',
@@ -33,9 +34,10 @@ app.controller('appCtrl', function($scope,$http) {
 		
 		//Sweetalert2
 		Swal.fire({
-		  title: 'Here we go!',
+		  title: '<p style="color: #ffab5d">Here we go!</p>',
 		  text: "You are about to be redirected to the NAPANAM Registration page.",
-		  icon: '',
+		  icon: 'info',
+		  iconColor: '#ffab5d',
 		  showCancelButton: true,
 		  confirmButtonColor: '#68bca4',
 		  cancelButtonColor: '#ffab5d',
@@ -72,8 +74,9 @@ app.controller('appCtrl', function($scope,$http) {
 				
 				//Sweetalert2
 				Swal.fire({
-				  title: '<p class="text-danger">NOTICE!</p>',
-				  icon: 'warning',
+				  title: '<p style="color: #ffab5d">NOTICE!</p>',
+				  icon: 'info',
+				  iconColor: '#ffab5d',
 				  html: "The Napanam ID and Birthdate you entered did not match. Please try again.",
 				  showCancelButton: false,
 				  focusConfirm: true,
@@ -114,7 +117,7 @@ app.controller('appCtrl', function($scope,$http) {
 				//Sweetalert2
 				Swal.fire({
 				  title: '<p class="text-danger">NOT FOUND!</p>',
-				  icon: 'warning',
+				  icon: 'error',
 				  html: "Are you sure that you're registered to the NAPANAM? ",
 				  showCancelButton: true,
 				  focusConfirm: false,
