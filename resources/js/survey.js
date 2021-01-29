@@ -321,6 +321,9 @@ app.controller('surveyCtrl', function($scope,$http) {
 			  confirmButtonText: 'Ok',
 			  confirmButtonColor: '#68bca4',
 			  cancelButtonText: 'Close',
+			  allowOutsideClick: false,
+			  allowEscapeKey: false,
+			  allowEnterKey: false,
 			}).then((result) => {
 			  if (result.value) {
 				
