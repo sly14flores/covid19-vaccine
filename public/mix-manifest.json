@@ -1,9 +1,9 @@
 {
-    "/js/app.js": "/js/app.js?id=a46ebc7929c48ec76e1f",
+    "/js/app.js": "/js/app.js?id=0bce569ee4c33457ad06",
     "/js/register.js": "/js/register.js?id=a1a8e1e5fc618be0f723",
     "/js/napanam.js": "/js/napanam.js?id=2046262f2417270e7def",
-    "/js/survey.js": "/js/survey.js?id=e4c973ca303b36fb03ac",
-    "/js/home.js": "/js/home.js?id=88f415207fba22e0838d",
+    "/js/survey.js": "/js/survey.js?id=f4173a4b73da899974e9",
+    "/js/home.js": "/js/home.js?id=c93f3907166592a62ecb",
     "/angularjs/angular.min.js": "/angularjs/angular.min.js?id=be6af23e2a716c006da7",
     "/jquery/jquery.min.js": "/jquery/jquery.min.js?id=a6b6350ee94a3ea74595",
     "/bootstrap/js/bootstrap.bundle.min.js": "/bootstrap/js/bootstrap.bundle.min.js?id=b41fe9374205bd087a4d",
@@ -58,5 +58,19 @@
     "/webfonts/fa-solid-900.svg": "/webfonts/fa-solid-900.svg?id=3d102342391af184d5ae",
     "/webfonts/fa-solid-900.ttf": "/webfonts/fa-solid-900.ttf?id=9d5a3dcfd0e683e476a4",
     "/webfonts/fa-solid-900.woff": "/webfonts/fa-solid-900.woff?id=c640f3305d6baed26d81",
-    "/webfonts/fa-solid-900.woff2": "/webfonts/fa-solid-900.woff2?id=743423887f20ef541bdf"
+    "/webfonts/fa-solid-900.woff2": "/webfonts/fa-solid-900.woff2?id=743423887f20ef541bdf",
+    "/assets/images/avatar_1.png": "/assets/images/avatar_1.png?id=66f72972f92cf697feed",
+    "/assets/images/avatar_2.png": "/assets/images/avatar_2.png?id=b28d0eeef6e9f8e8d4b3",
+    "/assets/images/avatar_3.png": "/assets/images/avatar_3.png?id=61143ff5dc870617f53a",
+    "/assets/images/avatar_4.png": "/assets/images/avatar_4.png?id=7a6ef5d2513d76cc81ed",
+    "/assets/images/dots.svg": "/assets/images/dots.svg?id=47201f610cafd92b63fa",
+    "/assets/images/logo-white.png": "/assets/images/logo-white.png?id=c1b2972b35fd0c6065c8",
+    "/assets/images/logo-white.svg": "/assets/images/logo-white.svg?id=c35c524755b8611395c5",
+    "/assets/images/logo-white@2x.png": "/assets/images/logo-white@2x.png?id=02bf8023805942a817ea",
+    "/assets/images/logo.png": "/assets/images/logo.png?id=14624d41edfeaa38e88e",
+    "/assets/images/logo.svg": "/assets/images/logo.svg?id=a1117fc6ff7859a5d55d",
+    "/assets/images/logo@2x.png": "/assets/images/logo@2x.png?id=bbe66b69866f2ff505c0",
+    "/assets/images/preloader.gif": "/assets/images/preloader.gif?id=2986e946bdd7feaa7b67",
+    "/assets/images/profile.png": "/assets/images/profile.png?id=1ef9159c1f33f4e12890",
+    "/assets/images/usercard.png": "/assets/images/usercard.png?id=2558244a2243bd2fde22"
 }
