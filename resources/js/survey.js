@@ -49,6 +49,7 @@ app.controller('surveyCtrl', function($scope,$http) {
 	
 	const tagalogVersion = {
 		// Population Group
+		population_group: "(Saang grupo ka kabilang?)",
 		frontline_health_workers: "(Manggagawa sa Kalusugan)",
         senior_citizens: "(Nakatatandang Mamamayan)",
         uniformed_personnel: "",
@@ -65,7 +66,7 @@ app.controller('surveyCtrl', function($scope,$http) {
         others_population_group: "(Iba pa)",
 		
 		// Health Conditions
-		health_conditions: "(Ikaw ba ay nagkaroon o mayroong kondisyon sa kalusugan?)",
+		health_conditions: "(Ikaw ba ay nagkaroon or mayroon ng mga sumusunod na kondisyon?)",
 		lung_disease: "(Sakit sa Baga – Hal. Hika, Tuberkulosis atbp.)",
 		heart_disease: "(Sakit sa Puso)",
 		kidney_disease: "(Sakit sa Atay)",
@@ -83,15 +84,15 @@ app.controller('surveyCtrl', function($scope,$http) {
 		pregnancy: '(Ikaw ba ay buntis sa kasalukuyan?)',
 		
 		// Vaccine
-		vaccine: "(Interesado ka bang mabakunahan ng bakuna para sa Covid-19?)",
+		vaccine: "(Interesado ka bang mabakunahan para sa Covid-19?)",
 		
 		// Best Choice
 		reason: "(Pumili ng isa na pinakamahusay na nalalapat sa iyo)",
 		efficacy_rate_reason: "(bisa ng bakuna)",
         safety_reason: "(Impormasyon sa kaligtasan at masamang epekto ng bakuna)",
         presence_reason: "(Pagkakaroon ng komorbididad at iba pang kundisyon sa kalusugan)",
-        brand_reason: "(Aling tatak ng bakuna ang magagamit)",
-        pregnant_reason: "(Kasalukuyang buntis o nagpaplano na mabuntis)",
+        brand_reason: "(Pagpipiliang tatak ng bakuna)",
+        pregnant_reason: "(Kasalukuyang buntis o nagpaplanong mabuntis)",
         lack_of_information_reason: "(Kakulangan ng pangkalahatang impormasyon ng mga bakuna)",
         others_reason: "(Iba pa)",
 	}
@@ -190,10 +191,10 @@ app.controller('surveyCtrl', function($scope,$http) {
 
 	// Reason
 	const reason = {
-        efficacy_rate_reason: "Efficacy of the vaccines",
-        safety_reason: "Safety profile and adverse effect of the vaccines",
+        efficacy_rate_reason: "Efficacy of the vaccine",
+        safety_reason: "Safety profile and adverse effect of the vaccine",
         presence_reason: "Presence of co-morbidites and other conditions",
-        brand_reason: "Which vaccine brand will be available",
+        brand_reason: "Available vaccine brand options",
         pregnant_reason: "Currently pregnant or planning to get pregnant",
         lack_of_information_reason: "Lacking general infomation of vaccines",
         others_reason: "Others",
@@ -261,12 +262,13 @@ app.controller('surveyCtrl', function($scope,$http) {
 			//Sweetalert2
 				Swal.fire({
 				  title: '<p class="text-danger">NOTICE!</p>',
-				  icon: 'warning',
+				  icon: '',
 				  html: "Please complete required fields",
 				  showCancelButton: false,
 				  focusConfirm: false,
 				  showCloseButton: true,
 				  focusCloseButton: true,
+				  confirmButtonColor: '#68bca4',
 				  confirmButtonText: 'Confirm',
 				}).then((result) => {
 				  if (result.value) {
@@ -317,6 +319,7 @@ app.controller('surveyCtrl', function($scope,$http) {
 			  showCancelButton: false,
 			  focusConfirm: false,
 			  confirmButtonText: 'Ok',
+			  confirmButtonColor: '#68bca4',
 			  cancelButtonText: 'Close',
 			}).then((result) => {
 			  if (result.value) {

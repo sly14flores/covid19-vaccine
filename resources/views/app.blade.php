@@ -18,7 +18,7 @@
                 <a href="{{env('APP_URL')}}" class="navbar-brand move-center">
                     <img src="{{env('APP_URL')}}/img/launion-logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                         style="opacity: .8">
-                    <span class="brand-text font-weight-light" style="color: white;"> Covid-19 Vaccination Survey</span>
+                    <span class="brand-text font-weight-light" style="color: white;"> La Union CoViD-19 Vaccination Survey</span>
                 </a>
             </div>
         </nav>
@@ -48,26 +48,19 @@
 
 								<div class="row mt-3">
 									<div class="col-lg-12">
-										<h2 style="text-align: center;"><label style="color: #163d4e;">Help Us Make</label></h2>
+										<h2 style="text-align: center;"><label style="color: #163d4e;">CoViD-19 Free La Union</label></h2>
 									</div>
 								</div>
 
-								<div class="row">
+								<div class="row mt-2">
 									<div class="col-lg-12">
-										 <h2 class="text-center"><label style="color: #215266;">LA UNION</label><label style="color: #fa6248">&nbsp;STRONGER</label></h2>
-									</div>
-								 </div>
-
-								<div class="row mt-3">
-									<div class="col-lg-12">
-										<h5 class="text-center"><label style="color: #163d4e;">YOUR VOICE MATTERS, KAPROBINSIAAN!</label></h5>
-										<h6 class="text-center" style="margin-top: -10px;"><b><label style="color: #163d4e;">(Your Body, Your Money, Your Choice)</label></b></h6>
+										<h5 class="text-center"><label style="color: #163d4e;">Makibahagi sa unang hakbang!</label></h5>
 									</div>
 								</div>
 								
-								<div class="row mt-3">
+								<div class="row mt-1">
 									<div class="col-lg-12">
-										<p class="text-center" style="color: #163d4e; font-weight: 550; font-size: 15px;">This is a Covid-19 Immunization Survey. Take part and be heard.</p>
+										<p class="text-center" style="color: #163d4e; font-weight: 550; font-size: 17px;">Share your thoughts on the CoViD-19 Vaccination through this survey.</p>
 									</div>
 								</div>
 
@@ -75,7 +68,7 @@
 									<div class="col-lg-3 divhide">&nbsp;</div>
 								
 									<div class="col-lg-6 mt-4">
-										<button type="button" class="btn btn-block btn-outline-success btn-lg" onclick="openCity(event, 'Register')">GET STARTED </button>
+										<button type="button" class="btn btn-block btn-lg" onclick="openCity(event, 'Register')" style="background-color: #68bca4; color: white;">GET STARTED </button>
 									</div>
 									
 									<div class="col-lg-3 divhide">&nbsp;</div>
@@ -113,18 +106,7 @@
                                 <div class="col-lg-2 divhide">&nbsp;</div>
 
                                 <div class="col-lg-8">
-                                    <h2 style="text-align: center;"><label style="color: #163d4e;">REGISTERED</label></h2>
-                                </div>
-
-                                <div class="col-lg-2 divhide">&nbsp;</div>
-                                
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-2 divhide">&nbsp;</div>
-
-                                <div class="col-lg-8">
-                                    <h2 style="text-align: center;"><label style="color: #fa6248;">NAPANAM</label></h2>
+                                    <h2 style="text-align: center;"><label style="color: #163d4e;">NA<label style="color: #fa6248;">P</label>ANAM REGISTRATION</label></h2>
                                 </div>
 
                                 <div class="col-lg-2 divhide">&nbsp;</div>
@@ -135,7 +117,7 @@
                                     <div class="col-lg-2 divhide">&nbsp;</div>
 
                                     <div class="col-lg-8">
-                                        <p class="text-dark text-center">To participate into this community survey, you must be registered to the <label style="color: #fa6248">NAPANAM</label>.</p>
+                                        <p class="text-dark text-center">To participate, please register to the NAPANAM.</p>
                                     </div>
 
                                     <div class="col-lg-2 divhide">&nbsp;</div>
@@ -146,7 +128,7 @@
                                 <div class="col-lg-2 divhide">&nbsp;</div>
                             
                                 <div class="col-lg-8 mt-3">
-                                    <button type="button" class="btn btn-block btn-outline-success btn-lg" onclick="openCity(event, 'Napanam')" ng-click="privacyNotice()">Yes! I have NAPANAM QR ID </button>
+                                    <button type="button" class="btn btn-block btn-lg" onclick="openCity(event, 'Napanam')" ng-click="privacyNotice()" style="background-color: #68bca4; color: white;">Yes, I already have a NAPANAM QR ID </button>
                                 </div>
                                 
                                 <div class="col-lg-2 divhide">&nbsp;</div>
@@ -158,7 +140,7 @@
                                 <div class="col-lg-2 divhide">&nbsp;</div>
                             
                                 <div class="col-lg-8 mt-3">
-                                    <button type="button" class="btn btn-block btn-outline-warning btn-lg" ng-click="napanam()">Not Yet! I don’t have NAPANAM QR ID </button>
+                                    <button type="button" class="btn btn-block btn-lg" ng-click="napanam()" style="background-color: #ffab5d; color: white;">No, I still do not have a NAPANAM QR ID </button>
                                 </div>
                                 
                                 <div class="col-lg-2 divhide">&nbsp;</div>
@@ -234,7 +216,7 @@
 								<div class="col-lg-3 divhide">&nbsp;</div>
 							
 								<div class="col-lg-6 mt-4">
-									<a href="javascript:;" ng-click="proceed()"><button type="button" class="btn btn-block btn-outline-success">Next </button></a>
+									<a href="javascript:;" ng-click="proceed()"><button type="button" class="btn btn-block" style="background-color: #68bca4; color: white;">Next </button></a>
 								</div>
 								
 								<div class="col-lg-3 divhide">&nbsp;</div>
@@ -244,7 +226,7 @@
 							<div class="row" ng-show="status=='200'">
 								<div class="col-lg-2 divhide">&nbsp;</div>
 								<div class="col-lg-8">
-									<h5 style="text-align: center;"><label style="color: #163d4e;"><h6>For verification, please enter your</h6></label><label style="color: #fa6248;">&nbsp;BIRTHDATE</label></h5>
+									<h5 style="text-align: center;"><label style="color: #163d4e;"><h6>For verification, please enter your</h6></label><label style="color: #fa6248;">&nbsp;BIRTH DATE</label></h5>
 								</div>
 								<div class="col-lg-2 divhide">&nbsp;</div>
 							
@@ -260,7 +242,7 @@
 						
 								<div class="col-lg-3 divhide">&nbsp;</div>
 								<div class="col-lg-6 mt-4">
-									<a href="javascript:;" ng-click="checkBirthdate()"><button type="button" class="btn btn-block btn-outline-success">Proceed </button></a>
+									<a href="javascript:;" ng-click="checkBirthdate()"><button type="button" class="btn btn-block" style="background-color: #68bca4; color: white;">Proceed </button></a>
 								</div>
 								<div class="col-lg-3 divhide">&nbsp;</div>
 							</div>
