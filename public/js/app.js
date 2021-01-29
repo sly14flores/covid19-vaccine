@@ -31,7 +31,7 @@ app.controller('appCtrl', function ($scope, $http) {
     Swal.fire({
       title: 'Here we go!',
       text: "You are about to be redirected to the NAPANAM Registration page.",
-      icon: 'warning',
+      icon: '',
       showCancelButton: true,
       confirmButtonColor: '#68bca4',
       cancelButtonColor: '#ffab5d',

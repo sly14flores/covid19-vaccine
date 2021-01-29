@@ -288,7 +288,10 @@ app.controller('surveyCtrl', function ($scope, $http) {
         focusConfirm: false,
         confirmButtonText: 'Ok',
         confirmButtonColor: '#68bca4',
-        cancelButtonText: 'Close'
+        cancelButtonText: 'Close',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false
       }).then(function (result) {
         if (result.value) {
           window.location = api_url;

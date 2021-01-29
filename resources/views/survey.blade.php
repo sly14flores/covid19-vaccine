@@ -36,7 +36,7 @@
 						<div class="card" ng-class="{first_question_active: survey.population_group}">
 							<div class="card-body">
 							  <div class="form-group">
-								<h4 class="text-dark mb-3">1. Population Group <i class="tagalog-version-size">@{{ tagalogVersion.population_group }}</i><i class="text-danger" ng-hide="survey.population_group">*</i> <i class="fa fa-check-circle fa-xs text-success" ng-show="survey.population_group"></i></h4>
+								<h4 class="text-dark mb-3">1. Which group do you belong to? <i class="tagalog-version-size">@{{ tagalogVersion.population_group }}</i><i class="text-danger" ng-hide="survey.population_group">*</i> <i class="fa fa-check-circle fa-xs text-success" ng-show="survey.population_group"></i></h4>
 								<div class="col-lg-12">
 								  <!-- radio -->
 								  <div class="form-group">
