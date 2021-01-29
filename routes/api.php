@@ -3,8 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\SurveyController;
-use App\Http\Controllers\NapanamController;
+use App\Http\Controllers\Api\SurveyController;
+use App\Http\Controllers\Api\NapanamController;
+use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,14 +19,36 @@ use App\Http\Controllers\NapanamController;
 |
 */
 
+/**
+ * Authentication
+ */
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout']);
+
+/**
+ * Surveys
+ */
 Route::apiResources([
     'surveys' => SurveyController::class,
 ],[
     'only' => ['index']
 ]);
-
 Route::apiResources([
     'survey' => SurveyController::class,
+],[
+    'except' => ['index']
+]);
+
+/**
+ * Users
+ */
+Route::apiResources([
+    'users' => UserController::class,
+],[
+    'only' => ['index']
+]);
+Route::apiResources([
+    'user' => UserController::class,
 ],[
     'except' => ['index']
 ]);
