@@ -55,6 +55,11 @@ export default {
             home: {icon: 'pi pi-home', to: '/users'},
             items: [{label: 'New User', to: '/users/new'}],
         }
+    },
+    computed: {
+        user() {
+            return this.$store.state.user
+        }
     }
 }
 </script>
