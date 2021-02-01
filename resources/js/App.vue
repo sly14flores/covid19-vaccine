@@ -42,8 +42,22 @@ export default {
       overlayMenuActive: false,
       mobileMenuActive: false,
       menu : [
-        {label: 'Survey', icon: 'pi pi-th-large', to: '/'},
-        {label: 'Registrations', icon: 'pi pi-fw pi-users', to: '/registrations'},
+        {
+            label:'Summary',
+            icon:'pi pi-fw pi-users',
+            items:[
+              {
+                  label:'Survey',
+                  icon:'pi pi-th-large',
+                  to: '/'                       
+              },              
+              {
+                  label:'Registrations',
+                  icon:'pi pi-fw pi-users',
+                  to: '/registrations'                
+              },
+            ]
+        },
         {
             label:'Users',
             icon:'pi pi-fw pi-users',
