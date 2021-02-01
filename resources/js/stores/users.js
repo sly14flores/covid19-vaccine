@@ -43,6 +43,9 @@ const mutations = {
 }
 
 const actions = {
+    INIT({commit}) {
+        commit('INIT')
+    },
     USER({commit}, payload) {
         commit('USER', payload)
     },

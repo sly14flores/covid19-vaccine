@@ -10,7 +10,7 @@
                         <Column field="firstname" header="First Name"></Column>
                         <Column field="lastname" header="Last Name"></Column>
                         <Column field="username" header="Username"></Column>
-                        <Column field="actions" header="Actions"></Column>
+                        <Column header="Actions"></Column>
                     </DataTable>
                 </div>
             </div>

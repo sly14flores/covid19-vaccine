@@ -44,6 +44,8 @@ import MyBreadcrumb from '../../components/MyBreadcrumb.vue';
 import InputText from 'primevue/inputtext/sfc';
 import Button from 'primevue/button/sfc';
 
+
+
 export default {
     components: {
         MyBreadcrumb,
@@ -64,10 +66,13 @@ export default {
     methods: {
         save() {
             this.$store.dispatch('users/CREATE', this.user)
+        },
+        init() {
+            this.$store.dispatch('users/INIT')
         }
     },
     mounted() {
-        this.$store.dispatch('users/INIT')
+        this.init()
     }
 }
 </script>
