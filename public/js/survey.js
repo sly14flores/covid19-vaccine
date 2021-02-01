@@ -88,7 +88,7 @@ app.controller('surveyCtrl', function ($scope, $http) {
     // Vaccine
     vaccine: "(Interesado ka bang mabakunahan para sa Covid-19?)",
     // Best Choice
-    reason: "(Pumili ng isa na pinakamahusay na nalalapat sa iyo)",
+    reason: "Ano ang iyong isinasaalang-alang para sa pagbabakuna?",
     efficacy_rate_reason: "(bisa ng bakuna)",
     safety_reason: "(Impormasyon sa kaligtasan at masamang epekto ng bakuna)",
     presence_reason: "(Pagkakaroon ng komorbididad at iba pang kundisyon sa kalusugan)",
@@ -241,8 +241,9 @@ app.controller('surveyCtrl', function ($scope, $http) {
     if (survey.population_group == "" || survey.pregnancy == "" || survey.vaccine == "") {
       //Sweetalert2
       Swal.fire({
-        title: '<p class="text-danger">NOTICE!</p>',
-        icon: '',
+        // title: '<p class="text-danger">NOTICE!</p>',
+        icon: 'info',
+        iconColor: '#ffab5d',
         html: "Please complete required fields",
         showCancelButton: false,
         focusConfirm: false,
@@ -261,8 +262,9 @@ app.controller('surveyCtrl', function ($scope, $http) {
       console.log($scope); //Sweetalert2
 
       Swal.fire({
-        title: '<p class="text-danger">NOTICE!</p>',
-        icon: 'warning',
+        // title: '<p class="text-danger">NOTICE!</p>',
+        icon: 'info',
+        iconColor: '#ffab5d',
         text: "Please complete required fields",
         showCancelButton: false,
         focusConfirm: false,
