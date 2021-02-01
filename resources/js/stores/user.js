@@ -1,3 +1,6 @@
+import axios from 'axios'
+import route from '../library/route'
+
 const state = () => {
     return {
         user: {},
