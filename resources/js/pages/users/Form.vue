@@ -1,6 +1,6 @@
 <template>
-    <UsersBreadcrumb :home="home" :items="items" />
     <div>
+        <UsersBreadcrumb :home="home" :items="items" />
         <div class="p-col-12 p-mt-2">
             <div class="card p-fluid">
                 <h5><i class="pi pi-user"></i> User Information</h5>
