@@ -1,16 +1,10 @@
 {
-    "/js/app.js": "/js/app.js?id=5d30ec49facf58caa96c",
+    "/js/app.js": "/js/app.js?id=21254f97a98ef0f8b2df",
     "/js/register.js": "/js/register.js?id=a1a8e1e5fc618be0f723",
     "/js/napanam.js": "/js/napanam.js?id=2046262f2417270e7def",
-<<<<<<< HEAD
     "/js/survey.js": "/js/survey.js?id=6334326465f7850aaf5e",
-    "/js/home.js": "/js/home.js?id=5fa37e184861d1849233",
+    "/js/home.js": "/js/home.js?id=d3025c2bf31c3e57b0a7",
     "/angularjs/angular.min.js": "/angularjs/angular.min.js?id=3768a8a7901bb67b4817",
-=======
-    "/js/survey.js": "/js/survey.js?id=fbdea212558132a7dd70",
-    "/js/home.js": "/js/home.js?id=4478f9db2ba3bac19105",
-    "/angularjs/angular.min.js": "/angularjs/angular.min.js?id=be6af23e2a716c006da7",
->>>>>>> origin/login
     "/jquery/jquery.min.js": "/jquery/jquery.min.js?id=a6b6350ee94a3ea74595",
     "/bootstrap/js/bootstrap.bundle.min.js": "/bootstrap/js/bootstrap.bundle.min.js?id=b41fe9374205bd087a4d",
     "/js/adminlte.min.js": "/js/adminlte.min.js?id=26c369c6beaf408ef178",
