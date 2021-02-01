@@ -15,6 +15,27 @@ import '../css/layout/flags/flags.css';
 import Ripple from 'primevue/ripple';
 import Tooltip from 'primevue/tooltip';
 
+window.axios = require('axios');
+
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+/**
+ * Add Token
+ */
+window.axios.interceptors.request.use(function (config) {
+
+    const covid19VaccinesStr = localStorage.getItem('covid19Vaccines')
+
+    const covid19Vaccines = JSON.parse(covid19VaccinesStr)
+
+    const token = covid19Vaccines.token
+
+    config.headers.Authorization =  `Bearer ${token}`;
+
+    return config;
+
+});
+
 const app = createApp(App);
 
 app.config.globalProperties.$appState = reactive({ inputStyle: 'outlined' });

@@ -67,7 +67,7 @@ class UserController extends Controller
         $rules = [
             'firstname' => 'string',
             'lastname' => 'string',
-            'email' => ['string','email','max:191','unique:users'],	
+            // 'email' => ['string','email','max:191','unique:users'],	
             'username' => 'string',
             'password' => 'string',
         ];
@@ -79,7 +79,7 @@ class UserController extends Controller
 
         $user = new User;
         $password = Hash::make($data['password']);
-        $user->password = $password;
+        $data['password'] = $password;
         $user->fill($data);
 
         $user->save();
@@ -156,7 +156,7 @@ class UserController extends Controller
         $data = $validator->valid();        
 
         $password = Hash::make($data['password']);
-        $user->password = $password;
+        $data['password'] = $password;
         $user->fill($data);
 
         $user->save();
