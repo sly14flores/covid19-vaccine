@@ -42,9 +42,8 @@ export default {
       overlayMenuActive: false,
       mobileMenuActive: false,
       menu : [
-        {label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/'},
-        {label: 'Responses', icon: 'pi pi-fw pi-th-large', to: '/responses'},
-        {label: 'Registrations', icon: 'pi pi-fw pi-list', to: '/registrations'},
+        {label: 'Survey', icon: 'pi pi-th-large', to: '/'},
+        {label: 'Registrations', icon: 'pi pi-fw pi-users', to: '/registrations'},
         {
             label:'Users',
             icon:'pi pi-fw pi-users',
