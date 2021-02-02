@@ -12,6 +12,7 @@ const ALL_ROUTE = `${api_url}/api/users`
 const DELETE_ROUTE = `${api_url}/api/user/:id`
 
 const user = {
+    id: 0,
     firstname: null,
     middlename: null,
     lastname: null,
@@ -97,10 +98,12 @@ const getters = {
 
 }
 
-export default {
+const usersStore = {
 	namespaced: true,    
     state,
     mutations,
     actions,
     getters
 }
+
+export { user, usersStore };
