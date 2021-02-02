@@ -28,7 +28,8 @@
                     </div>
                     <div class="p-field p-lg-6 p-md-12">
                         <label for="password">Password</label>
-                        <InputText id="password" type="text" placeholder="Enter Password" v-model="user.password" />
+                         <Password placeholder="Enter Password" v-model="user.password"/>
+                       
                     </div>
                 </div>
             </div>
@@ -43,14 +44,14 @@
 import MyBreadcrumb from '../../components/MyBreadcrumb.vue';
 import InputText from 'primevue/inputtext/sfc';
 import Button from 'primevue/button/sfc';
-
-
+import Password from 'primevue/password/sfc';
 
 export default {
     components: {
         MyBreadcrumb,
         InputText,
-        Button
+        Button,
+        Password
     },    
     data() {
         return {
