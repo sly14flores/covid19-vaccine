@@ -7,9 +7,9 @@
                     <h5>List</h5>
                     <hr />
                     <DataTable :value="users">
-                        <Column field="firstname" header="First Name"></Column>
-                        <Column field="lastname" header="Last Name"></Column>
-                        <Column field="username" header="Username"></Column>
+                        <Column field="name" header="Name"></Column>
+                        <Column field="address" header="Address"></Column>
+                        <Column field="schedule" header="Schedule"></Column>
                         <Column header="Actions"></Column>
                     </DataTable>
                 </div>
@@ -31,8 +31,8 @@ export default {
     },
     data() {
         return {
-            home: {icon: 'pi pi-home', to: '/users'},
-            items: []
+            home: {icon: 'pi pi-home', to: '/summary/registrations'},
+            items: [{label: 'Registrations', to: '/summary/registrations'}],
         }
     },
     computed: {

@@ -18,6 +18,8 @@
         "vue-loader": "^16.1.0"
     },
     "dependencies": {
+        "@vuelidate/core": "^2.0.0-alpha.4",
+        "@vuelidate/validators": "^2.0.0-alpha.2",
         "angularjs": "0.0.1",
         "dotenv": "^8.2.0",
         "primeflex": "^2.0.0",
