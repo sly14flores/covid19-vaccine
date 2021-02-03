@@ -4,13 +4,13 @@ import router from './router';
 import PrimeVue from 'primevue/config';
 import store from './store.js';
 
+import '../css/layout/layout.scss';
+import '../css/layout/flags/flags.css';
+
 import 'primevue/resources/themes/saga-blue/theme.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
-
-import '../css/layout/layout.scss';
-import '../css/layout/flags/flags.css';
 
 import Ripple from 'primevue/ripple';
 import Tooltip from 'primevue/tooltip';
