@@ -1,7 +1,7 @@
 <template>
     <div>
         <MyBreadcrumb :home="home" :items="items" />
-     
+         <div class="p-grid">
             <div class="p-col-12 p-mt-2">
             <form @submit="onSubmit">
                 <div class="card p-fluid">
@@ -43,6 +43,7 @@
                 </div>
             </form>
             </div>
+        </div>
     </div>
 </template>
 
