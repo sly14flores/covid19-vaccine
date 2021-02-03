@@ -56,6 +56,7 @@ import { user } from '../../stores/users.js'
 import store from '../../store.js'
 import { useForm, useField } from 'vee-validate'
 import { useRoute } from 'vue-router'
+import { watch } from 'vue'
 
 export default {
     props: ['editOn'],
@@ -73,16 +74,19 @@ export default {
         }
 
         const { setValues, handleSubmit, resetForm } = useForm(init);
-        /**
-         * On Edit
-         */
-        if (editMode) {
-            store.dispatch('users/GET', userId).then(data => {
+
+        watch(
+            () => store.state.users.user,
+            (data, prevData) => {
                 setValues({
                     user: {...data}
                 })
-            })
-        } else {
+            }
+        )
+
+        if (editMode) { // Edit
+            store.dispatch('users/GET', userId)
+        } else { // New
             resetForm();
         }
 
@@ -145,9 +149,9 @@ export default {
     data() {
         return {
             home: {icon: 'pi pi-home', to: '/users'},
-            items: [{label: (eval(this.editOn))?'Edit User':'New User', to: '/users/new'}],
+            items: [{label: (this.editMode)?'Edit User':'New User', to: `${this.$route.fullPath}`}],
         }
-    },     
+    },
     components: {
         MyBreadcrumb,
         InputText,

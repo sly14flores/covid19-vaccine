@@ -12,7 +12,7 @@
                         <Column field="username" header="Username"></Column>
                         <Column field="id" header="Actions">
                             <template #body="slotProps">
-                                <router-link :to="'/users/user/'+slotProps.data.id"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>                            
+                                <router-link :to="`/users/user/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>                            
                                 <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" @click="deleteUser(slotProps.data.id)" />
                             </template>
                         </Column>
@@ -32,6 +32,9 @@ import Button from 'primevue/button/sfc';
 import ConfirmDialog from 'primevue/confirmdialog/sfc';
 
 export default {
+    setup() {
+
+    },
     components: {
         MyBreadcrumb,
         DataTable,
@@ -51,9 +54,6 @@ export default {
         }
     },
     methods: {
-        init() {
-            this.$store.dispatch('users/INIT')
-        },
         fetchUsers() {
             this.$store.dispatch('users/ALL')
         },
@@ -70,9 +70,6 @@ export default {
                 }
             });
         }
-    },
-    created() {
-        this.init()
     },
     mounted() {
         this.fetchUsers()

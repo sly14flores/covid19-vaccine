@@ -35,6 +35,9 @@ const mutations = {
         state.user = user
         state.users = users
     },
+    USER(state, payload) {
+        state.user = payload
+    },
     USERS(state, payload) {
         state.users = payload
     },
@@ -61,11 +64,12 @@ const actions = {
 
         }
     },
-    async GET({}, id) {
+    async GET({commit}, id) {
         try {
             const url =  route(GET_ROUTE, { id })
             const response = await axios.get(url)
-            return response.data.data
+            commit('USER', response.data.data)
+            // return response.data.data
         } catch(error) {
 
         }
