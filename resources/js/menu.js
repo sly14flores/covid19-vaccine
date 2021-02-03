@@ -27,7 +27,7 @@ export default [
           {
               label:'New',
               icon:'pi pi-fw pi-user-plus',
-              to: '/users/new'                  
+              to: '/users/new'          
           },
         ]
     }

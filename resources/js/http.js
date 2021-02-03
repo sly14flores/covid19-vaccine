@@ -13,7 +13,10 @@ window.axios.interceptors.request.use(function (config) {
 
     const token = covid19Vaccines.token
 
-    config.headers.Authorization =  `Bearer ${token}`;
+    config.headers = {
+        'Content-Type': 'application/json',
+        Authorization:  `Bearer ${token}`
+    }
 
     return config;
 

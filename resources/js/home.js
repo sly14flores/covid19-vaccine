@@ -2,6 +2,7 @@ import { createApp, reactive } from 'vue';
 import App from './App.vue';
 import router from './router';
 import PrimeVue from 'primevue/config';
+import ConfirmationService from 'primevue/confirmationservice';
 import store from './store.js';
 
 import '../css/layout/layout.scss';
@@ -24,6 +25,7 @@ app.config.globalProperties.$primevue = reactive({ ripple: true });
 
 app.use(router);
 app.use(PrimeVue);
+app.use(ConfirmationService);
 app.use(store);
 app.directive('ripple', Ripple);
 app.directive('tooltip', Tooltip);

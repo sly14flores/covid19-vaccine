@@ -137,7 +137,7 @@ class UserController extends Controller
             return $this->jsonErrorInvalidParameters();
         }
 
-        $user = User::find($id);        
+        $user = User::find($id);      
 
         if (is_null($user)) {
 			return $this->jsonErrorResourceNotFound();
@@ -147,16 +147,16 @@ class UserController extends Controller
             'firstname' => 'string',
             'lastname' => 'string',
             'username' => 'string',
-            'password' => 'string',
+            // 'password' => 'string',
         ];
 
         $validator = Validator::make($request->all(), $rules);        
 
         /** Get validated data */
         $data = $validator->valid();        
-
-        $password = Hash::make($data['password']);
-        $data['password'] = $password;
+        unset($data['id']);
+        // $password = Hash::make($data['password']);
+        // $data['password'] = $password;
         $user->fill($data);
 
         $user->save();
