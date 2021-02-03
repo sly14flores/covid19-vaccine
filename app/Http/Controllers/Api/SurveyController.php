@@ -287,7 +287,7 @@ class SurveyController extends Controller
             'others_health_condition' => 'boolean',
             // 'health_condition_other' => 'string',
             'none_of_the_above' => 'boolean',
-            'pregnancy' => 'string',
+            // 'pregnancy' => 'string',
             'vaccine' => 'string',
             // 'reason' => 'string',
             // 'reason_other' => 'string',
