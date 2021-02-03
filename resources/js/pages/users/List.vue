@@ -10,7 +10,13 @@
                         <Column field="firstname" header="First Name"></Column>
                         <Column field="lastname" header="Last Name"></Column>
                         <Column field="username" header="Username"></Column>
-                        <Column header="Actions"></Column>
+                        <Column header="Actions">
+                            <template>
+                                <Button icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" />
+                                <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" />
+                            </template>
+                        </Column>
+
                     </DataTable>
                 </div>
             </div>

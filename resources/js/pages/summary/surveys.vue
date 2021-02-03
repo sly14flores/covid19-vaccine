@@ -6,256 +6,48 @@
                 <div class="card summary">
                     <span class="title">Total Response</span>
                     <span class="detail"><h4><b>12,200</b></h4></span>
+                    <span class="count visitors"><i class="pi pi-comment" style="fontSize: 3rem"></i></span>
                 </div>
             </div>
             <div class="p-col-12 p-lg-4">
                 <div class="card summary">
                     <span class="title">Male</span>
                     <span class="detail"><h4><b>9,000</b></h4></span>
+                    <span class="count revenue"><i class="pi pi-user" style="fontSize: 3rem"></i></span>
                 </div>
             </div>
             <div class="p-col-12 p-lg-4">
                 <div class="card summary">
                     <span class="title">Female</span>
                     <span class="detail"><h4><b>3,345</b></h4></span>
+                    <span class="count purchases"><i class="pi pi-user" style="fontSize: 3rem"></i></span>
                 </div>
             </div>
-
             <div class="p-lg-8 p-md-12 p-sm-12">
                 <Panel header="Population Group">
                     <div class="p-grid">
-                        <div class="p-lg-6 p-sm-12">
-                            <ul class="task-list">
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">10,100</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Frontline health workers</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">213</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Senior Citizens</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">213</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Uniformed personnel (PNP, AFP, PCG, BFP, BJMP, ETC)</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">213</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Teachers</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">12,200</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Social workers</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="p-lg-6 p-sm-12">
-                            <ul class="task-list">
-                                <li>
-                                    <div class="p-grid  border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">10,100</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Frontline health workers</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">213</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Senior Citizens</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">213</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Uniformed personnel (PNP, AFP, PCG, BFP, BJMP, ETC)</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">213</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Teachers</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">12,200</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Social workers</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                        <DataTable>
+                            <Column field="code" header="Total" sortable="true"></Column>
+                            <Column field="name" header="Description" sortable="true"></Column>
+                        </DataTable>
                     </div>
                </Panel>
 	        </div>
 
             <div class="p-lg-4 p-md-12 p-sm-12">
-                <DataTable :value="products">
-                    <Column field="city" header="City & Municipality"></Column>
-                    <Column field="total" header="Total"></Column>
+                <DataTable>
+                    <Column field="city" header="City & Municipality" sortable="true"></Column>
+                    <Column field="total" header="Total" sortable="true"></Column>
                 </DataTable>
             </div>
 
             <div class="p-lg-8 p-md-12 p-sm-12">
                 <Panel header="Comorbidities">
                     <div class="p-grid">
-                        <div class="p-lg-6 p-sm-12">
-                            <ul class="task-list">
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">10,100</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Frontline health workers</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">213</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Senior Citizens</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">213</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Uniformed personnel (PNP, AFP, PCG, BFP, BJMP, ETC)</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">213</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Teachers</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">12,200</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Social workers</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="p-lg-6 p-sm-12">
-                            <ul class="task-list">
-                                <li>
-                                    <div class="p-grid  border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">10,100</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Frontline health workers</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">213</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Senior Citizens</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">213</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Uniformed personnel (PNP, AFP, PCG, BFP, BJMP, ETC)</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">213</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Teachers</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="p-grid border-line">
-                                        <div class="p-lg-2 p-sm-12 border-right">
-                                            <span class="task-name total-number">12,200</span>
-                                        </div>
-                                        <div class="p-lg-10 p-sm-12">
-                                            <span class="task-name">Social workers</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                        <DataTable>
+                            <Column field="code" header="Total" sortable="true"></Column>
+                            <Column field="name" header="Description" sortable="true"></Column>
+                        </DataTable>
                     </div>
                </Panel>
 	        </div>
