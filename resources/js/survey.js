@@ -258,8 +258,7 @@ app.controller('surveyCtrl', function($scope,$http) {
 		const survey = $scope.survey;
 		
 		// Validation required field
-		
-		if(survey.population_group=="" || survey.currently_pregnant=="" || survey.vaccine=="")	{
+		if(survey.population_group=="" || survey.vaccine=="")	{
 			
 			//Sweetalert2
 				Swal.fire({
@@ -306,13 +305,13 @@ app.controller('surveyCtrl', function($scope,$http) {
 			return;
 			
 		}
-		
+
 		$http({
 			method: 'POST',
 			url: `${api_url}/api/survey`,
 			data: $scope.survey
 		}).then(function mySucces(response) {
-			
+
 			Swal.fire({
 			  title: '<p class="text-success" style="font-size: 25px;">YOUR RESPONSE HAS BEEN SUBMITTED!</p>',
 			  icon: 'success',
@@ -341,6 +340,26 @@ app.controller('surveyCtrl', function($scope,$http) {
 			})
 
 		}, function myError(response) {
+			
+			if(response.status==500){
+				
+				Swal.fire({
+					title: "<p>You're done!</p>",
+					icon: 'error',
+					html: "<h5>You can take this survey once</h5>",
+					showCancelButton: false,
+					focusConfirm: false,
+					confirmButtonColor: '#68bca4',
+					confirmButtonText: 'Ok',
+				  }).then((result) => {
+					if (result.value) {
+
+						window.location = api_url
+
+					}
+				  })
+
+			}
 
 		});
 	

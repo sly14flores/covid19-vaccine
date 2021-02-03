@@ -195,11 +195,11 @@
 							</div><!-- /.card-body -->
 						</div><!-- /.card -->
 						
-						<div class="card" ng-class="{ third_question_active:  survey.currently_pregnant}">
+						<div class="card" ng-class="{card_disabled: survey.gender=='Male', third_question_active:  survey.currently_pregnant}">
 							<div class="card-body">
 								<div class="form-group">
-									<h4 class="text-dark mb-3"> 3. Are you currently pregnant? <i class="text-sm">@{{ tagalogVersion.currently_pregnant }}</i> <i class="text-danger" ng-hide="survey.currently_pregnant">*</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.currently_pregnant"></i></h4>
-									<div class="row">
+									<h4 class="text-dark mb-3"> 3. Are you currently pregnant? <i class="text-sm">@{{ tagalogVersion.currently_pregnant }}</i> <i class="text-danger" ng-hide="survey.currently_pregnant || survey.gender=='Male'">*</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.currently_pregnant"></i></h4>
+									<div class="row" ng-hide="survey.gender=='Male'">
 									  <div class="col-lg-4 col-sm-12">
 										<!-- radio -->
 										<div class="form-group">
@@ -334,8 +334,8 @@
 										</div>
 									</div>
 								</div>
-								
 							</div><!-- /.card-body -->
+
 							<div class="card-footer">
 							   <div class="row">
 								  <div class="col-4"></div>
