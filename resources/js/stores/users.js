@@ -47,7 +47,7 @@ const actions = {
     INIT({commit}) {
         commit('INIT')
     },
-    async CREATE({commit}, payload) {
+    async CREATE({}, payload) {
         try {
             const create = await axios.post(CREATE_ROUTE, payload)
         } catch(error) {
