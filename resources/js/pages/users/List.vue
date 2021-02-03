@@ -11,12 +11,11 @@
                         <Column field="lastname" header="Last Name"></Column>
                         <Column field="username" header="Username"></Column>
                         <Column header="Actions">
-                            <template>
-                                <Button icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" />
+                            <template #body="slotProps">
+                                <Button icon="pi pi-fw pi-pencil" :class="{'p-button-rounded': true, 'p-button-success': true, 'p-mr-2': true}"></Button>
                                 <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" />
                             </template>
                         </Column>
-
                     </DataTable>
                 </div>
             </div>
@@ -56,7 +55,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>
