@@ -195,46 +195,10 @@
 							</div><!-- /.card-body -->
 						</div><!-- /.card -->
 						
-						<div class="card" ng-class="{ third_question_active:  survey.pregnancy}">
+						<div class="card" ng-class="{ third_question_active:  survey.currently_pregnant}">
 							<div class="card-body">
 								<div class="form-group">
-									<h4 class="text-dark mb-3"> 3. Are you currently pregnant? <i class="text-sm">@{{ tagalogVersion.pregnancy }}</i> <i class="text-danger" ng-hide="survey.pregnancy">*</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.pregnancy"></i></h4>
-									<div class="row">
-									  <div class="col-lg-4 col-sm-12">
-										<!-- radio -->
-										<div class="form-group">
-										  <div class="custom-control custom-radio mb-2">
-											<input class="custom-control-input" type="radio" id="baby_yes" name="pregnancy" ng-model="survey.pregnancy" value="@{{ pregnancyValues.yes_pregnant_baby }}">
-											<label for="baby_yes" class="custom-control-label text-dark">Yes <i class="tagalog-version-size text-dark">(Oo)</i></label>
-										  </div>
-										</div>
-									  </div>
-
-									  <div class="col-lg-4 col-sm-12">
-										<!-- radio -->
-										<div class="form-group">
-										  <div class="custom-control custom-radio mb-2">
-											<input class="custom-control-input" type="radio" id="baby_no" name="pregnancy" ng-model="survey.pregnancy" value="@{{ pregnancyValues.no_pregnant_baby }}">
-											<label for="baby_no" class="custom-control-label text-dark">No <i class="tagalog-version-size text-dark">(Hindi)</i></label>
-										  </div>
-										</div>
-									  </div>
-
-									  <div class="col-lg-4 col-sm-12">
-										<!-- radio -->
-										<div class="form-group">
-										  <div class="custom-control custom-radio mb-2">
-											<input class="custom-control-input" type="radio" id="baby_not_sure" name="pregnancy" ng-model="survey.pregnancy" value="@{{ pregnancyValues.not_sure_pregnant_baby }}">
-											<label for="baby_not_sure" class="custom-control-label text-dark">Not Sure <i class="tagalog-version-size text-dark">(Hindi sigurado)</i></label>
-										  </div>
-										</div>
-									  </div>
-									</div>
-								</div>
-								
-								<div class="form-group" ng-show="survey.pregnancy=='no_pregnant_baby'">
-									<hr>
-									<h4 class="text-dark mb-3"> Are you planning to get pregnant within the year? <i class="text-sm">@{{ tagalogVersion.currently_pregnant }}</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.currently_pregnant"></i></h4>
+									<h4 class="text-dark mb-3"> 3. Are you currently pregnant? <i class="text-sm">@{{ tagalogVersion.currently_pregnant }}</i> <i class="text-danger" ng-hide="survey.currently_pregnant">*</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.currently_pregnant"></i></h4>
 									<div class="row">
 									  <div class="col-lg-4 col-sm-12">
 										<!-- radio -->
@@ -252,6 +216,42 @@
 										  <div class="custom-control custom-radio mb-2">
 											<input class="custom-control-input" type="radio" id="no_currently_pregnant" name="currently_pregnant" ng-model="survey.currently_pregnant" value="@{{ currentlyPregnantValues.no_currently_pregnant }}">
 											<label for="no_currently_pregnant" class="custom-control-label text-dark">No <i class="tagalog-version-size text-dark">(Hindi)</i></label>
+										  </div>
+										</div>
+									  </div>
+
+									  <div class="col-lg-4 col-sm-12">
+										<!-- radio -->
+										<div class="form-group">
+										  <div class="custom-control custom-radio mb-2">
+											<input class="custom-control-input" type="radio" id="note_sure_currently_pregnant" name="currently_pregnant" ng-model="survey.currently_pregnant" value="@{{ currentlyPregnantValues.not_sure_currently_pregnant }}">
+											<label for="note_sure_currently_pregnant" class="custom-control-label text-dark">Not Sure <i class="tagalog-version-size text-dark">(Hindi sigurado)</i></label>
+										  </div>
+										</div>
+									  </div>
+									</div>
+								</div>
+								
+								<div class="form-group" ng-show="survey.currently_pregnant=='no_currently_pregnant'">
+									<hr>
+									<h4 class="text-dark mb-3"> Are you planning to get pregnant within the year? <i class="text-sm">@{{ tagalogVersion.pregnancy }}</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.pregnancy"></i></h4>
+									<div class="row">
+									  <div class="col-lg-4 col-sm-12">
+										<!-- radio -->
+										<div class="form-group">
+										  <div class="custom-control custom-radio mb-2">
+											<input class="custom-control-input" type="radio" id="yes_pregnancy" name="pregnancy" ng-model="survey.pregnancy" value="@{{ pregnancyValues.yes_pregnant_baby }}">
+											<label for="yes_pregnancy" class="custom-control-label text-dark">Yes <i class="tagalog-version-size text-dark">(Oo)</i></label>
+										  </div>
+										</div>
+									  </div>
+
+									  <div class="col-lg-4 col-sm-12">
+										<!-- radio -->
+										<div class="form-group">
+										  <div class="custom-control custom-radio mb-2">
+											<input class="custom-control-input" type="radio" id="no_pregnancy" name="pregnancy" ng-model="survey.pregnancy" value="@{{ pregnancyValues.no_pregnant_baby }}">
+											<label for="no_pregnancy" class="custom-control-label text-dark">No <i class="tagalog-version-size text-dark">(Hindi)</i></label>
 										  </div>
 										</div>
 									  </div>
