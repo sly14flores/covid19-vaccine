@@ -10,7 +10,7 @@
                     <div class="p-grid">
                         <div class="p-field p-lg-4 p-md-12">
                             <label for="firstname">First Name</label>
-                            <InputText id="firstname" type="text" placeholder="Enter First Name" v-model="firstname" :class="{'p-invalid': firstnameError && !firstnameMeta.valid}" />
+                            <InputText id="firstname" type="text" placeholder="Enter First Name" v-model="firstname" :class="{'p-invalid': firstnameError}" />
                             <small class="p-error">{{ firstnameError }}</small>                       
                         </div>
                         <div class="p-field p-lg-4 p-md-12">
@@ -19,7 +19,7 @@
                         </div>
                         <div class="p-field p-lg-4 p-md-12">
                             <label for="lastname">Last Name</label>
-                            <InputText id="lastname" type="text" placeholder="Enter Last Name" v-model="lastname" :class="{'p-invalid': lastnameError && !lastnameMeta.valid}" />
+                            <InputText id="lastname" type="text" placeholder="Enter Last Name" v-model="lastname" :class="{'p-invalid': lastnameError}" />
                             <small class="p-error">{{ lastnameError }}</small>                        
                         </div>
                     </div>
@@ -28,12 +28,12 @@
                     <div class="p-grid">
                         <div class="p-field p-lg-6 p-md-12">
                             <label for="username">Username</label>
-                            <InputText id="username" type="text" placeholder="Enter Username" v-model="username" :class="{'p-invalid': usernameError && !usernameMeta.valid}" />
+                            <InputText id="username" type="text" placeholder="Enter Username" v-model="username" :class="{'p-invalid': usernameError}" />
                             <small class="p-error">{{ usernameError }}</small>                        
                         </div>
                         <div class="p-field p-lg-6 p-md-12">
                             <label for="password">Password</label>
-                            <InputText id="password" type="password" placeholder="Enter Password" v-model="password" :class="{'p-invalid': passwordError && !passwordMeta.valid}" />
+                            <InputText id="password" type="password" placeholder="Enter Password" v-model="password" :class="{'p-invalid': passwordError}" />
                             <small class="p-error">{{ passwordError }}</small>                        
                         </div>
                     </div>
@@ -104,7 +104,7 @@ export default {
 
         function validField(value) {
             return true;
-        }        
+        }
 
         // No need to define rules for fields
         const { value: id } = useField('user.id',validField);
@@ -126,12 +126,8 @@ export default {
             lastnameError,
             usernameError,
             passwordError,
-            firstnameMeta,
-            lastnameMeta,
-            usernameMeta,
-            passwordMeta,
             onSubmit,
-            setValues,
+            // setValues,
         }
     },
     components: {
@@ -153,7 +149,7 @@ export default {
         this.init()
         // this.setValues({
         //     user: {...this.user}
-        // })    
+        // })
     }
 }
 </script>
