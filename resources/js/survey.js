@@ -82,8 +82,8 @@ app.controller('surveyCtrl', function($scope,$http) {
         none_of_the_above: "(Wala sa mga nabanggit)",
 		
 		// Currently Pregnant
-		currently_pregnant: '(Buntis o nagpaplanong ngayong taon na ito?)',
-		pregnancy: '(Ikaw ba ay buntis sa kasalukuyan?)',
+		pregnancy: '(Buntis o nagpaplanong ngayong taon na ito?)',
+		currently_pregnant: '(Ikaw ba ay buntis sa kasalukuyan?)',
 		
 		// Vaccine
 		vaccine: "(Interesado ka bang mabakunahan para sa Covid-19?)",
@@ -166,6 +166,7 @@ app.controller('surveyCtrl', function($scope,$http) {
 	const currentlyPregnantValues = {
 		yes_currently_pregnant: 'yes_currently_pregnant',
 		no_currently_pregnant: 'no_currently_pregnant',
+		not_sure_currently_pregnant: 'not_sure_currently_pregnant',
 	}
 	$scope.currentlyPregnantValues = currentlyPregnantValues;
 	
@@ -173,7 +174,6 @@ app.controller('surveyCtrl', function($scope,$http) {
 	const pregnancyValues = {
         yes_pregnant_baby: 'yes_pregnant_baby',
         no_pregnant_baby: 'no_pregnant_baby',
-        not_sure_pregnant_baby: 'not_sure_pregnant_baby',
 	};
 	$scope.pregnancyValues = pregnancyValues;
 	
@@ -259,7 +259,7 @@ app.controller('surveyCtrl', function($scope,$http) {
 		
 		// Validation required field
 		
-		if(survey.population_group=="" || survey.pregnancy=="" || survey.vaccine=="")	{
+		if(survey.population_group=="" || survey.currently_pregnant=="" || survey.vaccine=="")	{
 			
 			//Sweetalert2
 				Swal.fire({
