@@ -224,8 +224,8 @@
 										<!-- radio -->
 										<div class="form-group">
 										  <div class="custom-control custom-radio mb-2">
-											<input class="custom-control-input" type="radio" id="note_sure_currently_pregnant" name="currently_pregnant" ng-model="survey.currently_pregnant" value="@{{ currentlyPregnantValues.not_sure_currently_pregnant }}">
-											<label for="note_sure_currently_pregnant" class="custom-control-label text-dark">Not Sure <i class="tagalog-version-size text-dark">(Hindi sigurado)</i></label>
+											<input class="custom-control-input" type="radio" id="not_sure_currently_pregnant" name="currently_pregnant" ng-model="survey.currently_pregnant" value="@{{ currentlyPregnantValues.not_sure_currently_pregnant }}">
+											<label for="not_sure_currently_pregnant" class="custom-control-label text-dark">Not Sure <i class="tagalog-version-size text-dark">(Hindi sigurado)</i></label>
 										  </div>
 										</div>
 									  </div>
