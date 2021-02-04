@@ -88,6 +88,11 @@ const actions = {
     },
     async CREATE({}, payload) {
         try {
+            payload.pregnancy_status = eval(payload.pregnancy_status)
+            payload.with_allergy = eval(payload.with_allergy)
+            payload.with_comorbidity = eval(payload.with_comorbidity)
+            payload.diagnosed = eval(payload.diagnosed)
+            payload.consent_vaccination = eval(payload.consent_vaccination)
             const create = await axios.post(CREATE_ROUTE, payload)
         } catch(error) {
 
