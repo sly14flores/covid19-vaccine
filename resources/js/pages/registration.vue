@@ -32,7 +32,7 @@
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Suffix</label>
-                                <InputText class="p-shadow-1" type="text" v-model="suffix"/>
+                                <InputText class="p-shadow-1" type="text" />
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
@@ -236,7 +236,7 @@
                         </div>
                     </div>
                     <div class="card p-fluid p-border">
-                        <h5><center><b>Covid History</b></center></h5> <hr />
+                        <h5><b>Covid History</b></h5> <hr />
                         <div class="p-grid">
                             <div class="p-lg-2 p-sm-12 p-xs-12">
                                 <div class="p-field">
@@ -357,14 +357,27 @@ export default {
         const { value: civil_status, errorMessage: civil_statusError } = useField('registration.civil_status',validateField);
         const { value: category, errorMessage: categoryError } = useField('registration.category',validateField);
         const { value: category_id, errorMessage: category_idError } = useField('registration.category_id',validateField);
+        const { value: employment_status, errorMessage: employment_statusError } = useField('registration.employment_status',validateField);
+        const { value: profession } = useField('registration.profession',validField);
         const { value: philhealth, errorMessage: philhealthError } = useField('registration.philhealth',validateField);
+        const { value: employer_lgu } = useField('registration.employer_lgu',validField);
+        const { value: allergy } = useField('registration.allergy',validField);
+        const { value: comorbidity } = useField('registration.comorbidity',validField);
+        const { value: covid_classification } = useField('registration.covid_classification',validField);
         
         return {
             id,
             civil_status,
             category,
             category_id,
+            employment_status,
+            profession,
             philhealth,
+            employer_lgu,
+            allergy,
+            comorbidity,
+            covid_classification,
+            employment_statusError,
             philhealthError,
             category_idError,
             categoryError,
@@ -387,52 +400,57 @@ export default {
     computed: {
         civil_status_value() {
 
-            this.$store.state.registrations.selections.civil_status_value
+            return this.$store.state.registrations.selections.civil_status_value
 
         },
         category_value() {
 
-            this.$store.state.registrations.selections.category_value
+            return this.$store.state.registrations.selections.category_value
 
         },
         category_id_value() {
 
-            this.$store.state.registrations.selections.category_id_value
+            return this.$store.state.registrations.selections.category_id_value
 
         },
         employment_status_value() {
 
-            this.$store.state.registrations.selections.employment_status_value
+            return this.$store.state.registrations.selections.employment_status_value
 
         },
         profession_value() {
 
-            this.$store.state.registrations.selections.profession_value
+            return this.$store.state.registrations.selections.profession_value
 
         },
         allergy_value() {
 
-            this.$store.state.registrations.selections.allergy_value
+            return this.$store.state.registrations.selections.allergy_value
 
         },
         comorbidity_value() {
 
-            this.$store.state.registrations.selections.comorbidity_value
+            return this.$store.state.registrations.selections.comorbidity_value
 
         },
         covid_classification_value() {
 
-            this.$store.state.registrations.selections.covid_classification_value
+            return this.$store.state.registrations.selections.covid_classification_value
 
         },
         employer_lgu_value() {
 
-            this.$store.state.registrations.selections.employer_lgu_value
+            return this.$store.state.registrations.selections.employer_lgu_value
 
         },
     },
+    methods: {
+        fetchSelections() {
+            this.$store.dispatch('registrations/GET_SELECTIONS')
+        }
+    },
     mounted() {
-        this.$store.dispatch('registrations/GET_SELECTIONS')
+        this.fetchSelections()
     }
 }
 </script>

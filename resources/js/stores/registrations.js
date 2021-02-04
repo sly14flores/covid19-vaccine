@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 import route from '../library/route'
 
 import { api_url } from '../url.js'
@@ -61,9 +61,9 @@ const actions = {
             const response = await axios.get(SELECTIONS_ROUTE)
             commit('SELECTIONS', response.data.data)
         } catch (error) {
-
+            console.log(error)
         }
-    }
+    },
 }
 
 const getters = {
