@@ -23,14 +23,14 @@ class DOHDataSelections extends Controller
     {
         //
         $selections = [
-            "civit_status_value" => $this->civitStatusValue(),
+            "civil_status_value" => $this->civilStatusValue(),
             "category_value" => $this->categoryValue(),
             "category_id_value" => $this->categoryIdValue(),
             "employment_status_value" => $this->employmentStatusValue(),
             "profession_value" => $this->professionValue(),
             "allergy_value" => $this->allergyValue(),
             "comorbidity_value" => $this->comorbidityValue(),
-            "covidClassification_value" => $this->covidClassificationValue(),
+            "covid_classification_value" => $this->covidClassificationValue(),
             "employer_lgu_value" => $this->employerLguValue(),
         ];
 
