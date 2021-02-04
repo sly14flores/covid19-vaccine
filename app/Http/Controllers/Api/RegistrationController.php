@@ -67,17 +67,17 @@ class RegistrationController extends Controller
             'employer_address' => 'string',
             'employer_lgu' => 'string',
             'employer_contact_no' => 'string',
-            'pregnancy_status' => 'string',
-            'with_allergy' => 'string',
+            'pregnancy_status' => 'boolean',
+            'with_allergy' => 'boolean',
             'allergy' => 'string',
             'with_allergy_others' => 'string',
-            'with_comorbidity' => 'string',
+            'with_comorbidity' => 'boolean',
             'comorbidity' => 'string',
             'with_comorbidity_others' => 'string',
-            'diagnosed' => 'string',
+            'diagnosed' => 'boolean',
             'covid_classification' => 'string',
             'diagnosed_date' => 'string',
-            'consent_vaccination' => 'string', 
+            'consent_vaccination' => 'boolean',       
         ];
 
         $validator = Validator::make($request->all(), $rules);
