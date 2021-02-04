@@ -6,7 +6,7 @@ import { api_url } from '../url.js'
  * API urls
  */
 const CREATE_ROUTE = `${api_url}/api/user`
-const UPDATE_ROUTE = `${api_url}/api/user`
+const UPDATE_ROUTE = `${api_url}/api/user/:id`
 const GET_ROUTE = `${api_url}/api/user/:id`
 const ALL_ROUTE = `${api_url}/api/users`
 const DELETE_ROUTE = `${api_url}/api/user/:id`
@@ -40,38 +40,35 @@ const mutations = {
     },
     USERS(state, payload) {
         state.users = payload
-    },    
+    },
 }
 
 const actions = {
     INIT({commit}) {
         commit('INIT')
     },
-    USER({commit}, payload) {
-        commit('USER', payload)
-    },
-    async CREATE({commit}, payload) {
+    async CREATE({}, payload) {
         try {
             const create = await axios.post(CREATE_ROUTE, payload)
-            commit('USER', payload)
         } catch(error) {
 
         }
     },
-    async UPDATE({commit}, payload) {
+    async UPDATE({}, payload) {
         try {
+            const id = payload.id
+            console.log(id)
             const url =  route(UPDATE_ROUTE, { id })
-            const response = await axios.put(url)
-            commit('USER', payload)
+            const response = await axios({url, method: 'put', data: payload})
         } catch(error) {
 
         }
     },
-    async GET({commit}, {id}) {
+    async GET({commit}, id) {
         try {
             const url =  route(GET_ROUTE, { id })
             const response = await axios.get(url)
-            commit('USER',response.data)
+            commit('USER', response.data.data)
         } catch(error) {
 
         }
@@ -84,10 +81,11 @@ const actions = {
 
         }
     },
-    async DELETE({commit}, {id}) {
+    async DELETE({dispatch}, {id}) {
         try {
             const url =  route(DELETE_ROUTE, { id })
-            const del = await axios.get(url)     
+            const del = await axios.delete(url)
+            dispatch('ALL')
         } catch(error) {
             
         }

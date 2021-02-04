@@ -33,7 +33,7 @@
                         </div>
                         <div class="p-field p-lg-6 p-md-12">
                             <label for="password">Password</label>
-                            <InputText id="password" type="password" placeholder="Enter Password" v-model="password" :class="{'p-invalid': passwordError}" />
+                            <InputText id="password" type="password" placeholder="Enter Password" v-model="password" :class="{'p-invalid': passwordError}" :disabled="editMode" />
                             <small class="p-error">{{ passwordError }}</small>                        
                         </div>
                     </div>
@@ -54,16 +54,18 @@ import Button from 'primevue/button/sfc';
 
 import { user } from '../../stores/users.js'
 import store from '../../store.js'
-import { useForm, useField } from 'vee-validate';
+import { useForm, useField } from 'vee-validate'
+import { useRoute } from 'vue-router'
+import { watch } from 'vue'
 
 export default {
-    data() {
-        return {
-            home: {icon: 'pi pi-home', to: '/users'},
-            items: [{label: 'New User', to: '/users/new'}],
-        }
-    },    
-    setup() {
+    props: ['editOn'],
+    setup(props) {
+
+        const editMode = eval(props.editOn)
+        const route = useRoute()
+        const params = route.params
+        const userId = params.id || null
 
         const init = {
             initialValues: {
@@ -71,15 +73,29 @@ export default {
             }
         }
 
-        const { setValues, handleSubmit } = useForm(init);
+        const { setValues, handleSubmit, resetForm } = useForm(init);
+
+        watch(
+            () => store.state.users.user,
+            (data, prevData) => {
+                setValues({
+                    user: {...data}
+                })
+            }
+        )
+
+        if (editMode) { // Edit
+            store.dispatch('users/GET', userId)
+        } else { // New
+            resetForm();
+        }
 
         const onSubmit = handleSubmit((values, actions) => {
-            console.log(values);
-            if (values.user.id == 0) {
+            if (editMode) {
+                store.dispatch('users/UPDATE', values.user)
+            } else {
                 store.dispatch('users/CREATE', values.user)
                 actions.resetForm();
-            } else {
-
             }
         });
 
@@ -108,11 +124,11 @@ export default {
 
         // No need to define rules for fields
         const { value: id } = useField('user.id',validField);
-        const { value: firstname, errorMessage: firstnameError, meta: firstnameMeta } = useField('user.firstname',validateField);
+        const { value: firstname, errorMessage: firstnameError } = useField('user.firstname',validateField);
         const { value: middlename, errorMessage: middlenameError } = useField('user.middlename',validField);
-        const { value: lastname, errorMessage: lastnameError, meta: lastnameMeta } = useField('user.lastname',validateField);
-        const { value: username, errorMessage: usernameError, meta: usernameMeta } = useField('user.username',validateField);
-        const { value: password, errorMessage: passwordError, meta: passwordMeta } = useField('user.password',validatePassword);
+        const { value: lastname, errorMessage: lastnameError } = useField('user.lastname',validateField);
+        const { value: username, errorMessage: usernameError } = useField('user.username',validateField);
+        const { value: password, errorMessage: passwordError } = useField('user.password',(editMode)?validField:validatePassword);
 
         return {
             id,
@@ -127,7 +143,13 @@ export default {
             usernameError,
             passwordError,
             onSubmit,
-            // setValues,
+            editMode,
+        }
+    },
+    data() {
+        return {
+            home: {icon: 'pi pi-home', to: '/users'},
+            items: [{label: (this.editMode)?'Edit User':'New User', to: `${this.$route.fullPath}`}],
         }
     },
     components: {
@@ -135,25 +157,5 @@ export default {
         InputText,
         Button,
     },
-    computed: {
-        user() {
-            return this.$store.state.users.user
-        },
-    },
-    methods: {
-        init() {
-            this.$store.dispatch('users/INIT')
-        },
-    },
-    mounted() {
-        this.init()
-        // this.setValues({
-        //     user: {...this.user}
-        // })
-    }
 }
 </script>
-
-<style scoped>
-
-</style>

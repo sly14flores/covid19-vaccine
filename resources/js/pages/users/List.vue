@@ -6,20 +6,21 @@
                 <div class="card p-fluid">
                     <h5>List</h5>
                     <hr />
-                    <DataTable :value="users">
+                    <DataTable :value="users" dataKey="id">
                         <Column field="firstname" header="First Name"></Column>
                         <Column field="lastname" header="Last Name"></Column>
                         <Column field="username" header="Username"></Column>
-                        <Column header="Actions">
+                        <Column field="id" header="Actions">
                             <template #body="slotProps">
-                                <Button icon="pi pi-fw pi-pencil" :class="{'p-button-rounded': true, 'p-button-success': true, 'p-mr-2': true}"></Button>
-                                <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" />
+                                <router-link :to="`/users/user/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>                            
+                                <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" @click="deleteUser(slotProps.data.id)" />
                             </template>
                         </Column>
                     </DataTable>
                 </div>
             </div>
         </div>
+        <ConfirmDialog></ConfirmDialog>
     </div>
 </template>
 
@@ -27,12 +28,19 @@
 import MyBreadcrumb from '../../components/MyBreadcrumb.vue';
 import DataTable from 'primevue/datatable/sfc';
 import Column from 'primevue/column/sfc';
+import Button from 'primevue/button/sfc';
+import ConfirmDialog from 'primevue/confirmdialog/sfc';
 
 export default {
+    setup() {
+
+    },
     components: {
         MyBreadcrumb,
         DataTable,
-        Column
+        Column,
+        Button,
+        ConfirmDialog
     },
     data() {
         return {
@@ -48,6 +56,19 @@ export default {
     methods: {
         fetchUsers() {
             this.$store.dispatch('users/ALL')
+        },
+        deleteUser(id) {
+            this.$confirm.require({
+                message: 'Are you sure you want to delete this user?',
+                header: 'Confirmation',
+                icon: 'pi pi-exclamation-triangle',
+                accept: () => {
+                    this.$store.dispatch('users/DELETE', {id})
+                },
+                reject: () => {
+                    //callback to execute when user rejects the action
+                }
+            });
         }
     },
     mounted() {

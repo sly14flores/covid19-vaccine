@@ -5,6 +5,8 @@
 </template>
 
 <script>
+
+
 export default {
     components: {
 
@@ -13,6 +15,14 @@ export default {
         return {
 
         }
-    }
+    },
+    methods: {
+        init() {
+            this.$store.dispatch('users/INIT')
+        },
+    },
+    mounted() {
+        this.init()
+    }    
 }
 </script>

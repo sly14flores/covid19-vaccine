@@ -13,7 +13,8 @@ import Login from "./pages/login.vue";
 import Registration from "./pages/registration.vue";
 import Users from "./pages/users/Users.vue";
 import UsersList from "./pages/users/List.vue";
-import UserForm from "./pages/users/Form.vue";
+import UserNew from './pages/users/New.vue';
+import UserEdit from './pages/users/Edit.vue';
 
 const routes = [
   {
@@ -59,12 +60,12 @@ const routes = [
       {
         path: 'new',
         name: 'NewUser',
-        component: UserForm
-      },
+        component: UserNew
+      },      
       {
         path: 'user/:id',
         name: 'ShowUser',
-        component: UserForm
+        component: UserEdit
       }
     ]
   },
