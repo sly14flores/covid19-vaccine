@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\SurveyController;
 use App\Http\Controllers\Api\NapanamController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\DOHDataSelections;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,3 +55,16 @@ Route::apiResources([
 ]);
 
 Route::get('napanam/check/registration/{id}', [NapanamController::class, 'checkRegistration']);
+
+/**
+ * DOH Registration
+ */
+
+Route::prefix('doh')->group(function() {
+
+    /**
+     * Selections
+     */
+    Route::get('selections', DOHDataSelections::class);
+
+});
