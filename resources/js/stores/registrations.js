@@ -4,6 +4,7 @@ import route from '../library/route'
 import { api_url } from '../url.js'
 
 const SELECTIONS_ROUTE = `${api_url}/api/doh/selections`
+const CREATE_ROUTE = `${api_url}/api/doh/registration`
 
 const registration = {
     id: 0,
@@ -51,7 +52,6 @@ const profession_value = [];
 const allergy_value = [];
 const comorbidity_value = [];
 const covid_classification_value = [];
-const employer_lgu_value = [];
 
 const selections = {
     civil_status_value,
@@ -84,6 +84,13 @@ const actions = {
             commit('SELECTIONS', response.data.data)
         } catch (error) {
             console.log(error)
+        }
+    },
+    async CREATE({}, payload) {
+        try {
+            const create = await axios.post(CREATE_ROUTE, payload)
+        } catch(error) {
+
         }
     },
 }

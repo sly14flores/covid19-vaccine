@@ -10,6 +10,7 @@
             <template #end>
             </template>
         </Menubar>
+        <form @submit="onSubmit">
         <div class="p-grid p-jc-center p-mt-4">
             <div class="p-lg-11 p-sm-12 p-xs-12">
                 <div class="card p-fluid">
@@ -78,7 +79,7 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label><i class="p-error">*</i> Civil Status</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="civil_status_value" v-model="civil_status" placeholder="Select a Civil Status" :class="{'p-invalid': civil_statusError}" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="civil_status_value" optionValue="id" v-model="civil_status" placeholder="Select a Civil Status" :class="{'p-invalid': civil_statusError}" />
                                 <small class="p-error">{{ civil_statusError }}</small>
                             </div>
                         </div>
@@ -95,14 +96,14 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label><i class="p-error">*</i> Category</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" v-model="category" placeholder="Select a Category" :class="{'p-invalid': categoryError}" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" v-model="category" optionValue="id" placeholder="Select a Category" :class="{'p-invalid': categoryError}" />
                                 <small class="p-error">{{ categoryError }}</small>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label><i class="p-error">*</i> Category ID</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" v-model="category_id" placeholder="Select a Category ID" :class="{'p-invalid': category_idError}" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" v-model="category_id" optionValue="id" placeholder="Select a Category ID" :class="{'p-invalid': category_idError}" />
                                 <small class="p-error">{{ category_idError }}</small>
                             </div>
                         </div>
@@ -117,13 +118,13 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Employment Status</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employment_status_value" v-model="employment_status" placeholder="Select a Employment Status"/>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status"/>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Profession</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="profession_value" v-model="profession" placeholder="Select a Profession"/>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="profession_value" v-model="profession" optionValue="id" placeholder="Select a Profession"/>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
@@ -178,13 +179,13 @@
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="pregnant" name="pregnancy_status" v-model="pregnancy_status" />
+                                <RadioButton id="pregnant" name="pregnancy_status" v-model="pregnancy_status" value="true" />
                                 <label for="pregnant">Pregnant</label>
                             </div>
                         </div>
                         <div class="p-lg-2 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="not_pregnant" name="pregnancy_status" v-model="pregnancy_status" />
+                                <RadioButton id="not_pregnant" name="pregnancy_status" v-model="pregnancy_status" value="false" />
                                 <label for="not_pregnant">Not Pregnant</label>
                             </div>
                         </div>
@@ -198,19 +199,19 @@
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="yes_allergy" name="with_allergy" v-model="with_allergy" />
+                                <RadioButton id="yes_allergy" name="with_allergy" v-model="with_allergy" value="true" />
                                 <label for="yes_allergy">Yes</label>
                             </div>
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="none_allergy" name="with_allergy" v-model="with_allergy" />
+                                <RadioButton id="none_allergy" name="with_allergy" v-model="with_allergy" value="false" />
                                 <label for="none_allergy">None</label>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <Dropdown class="p-shadow-1" :options="allergy_value" v-model="allergy" optionLabel="name" placeholder="Select a Allergy"/>
+                                <Dropdown class="p-shadow-1" :options="allergy_value" v-model="allergy" optionValue="id" optionLabel="name" placeholder="Select a Allergy"/>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
@@ -228,19 +229,19 @@
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="yes_comorbidities" name="comorbidities" v-model="with_comorbidity" />
+                                <RadioButton id="yes_comorbidities" name="comorbidities" v-model="with_comorbidity" value="true" />
                                 <label for="yes_comorbidities">Yes</label>
                             </div>
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="none_comorbidities" name="comorbidities" v-model="with_comorbidity" />
+                                <RadioButton id="none_comorbidities" name="comorbidities" v-model="with_comorbidity" value="false" />
                                 <label for="none_comorbidities">None</label>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <Dropdown class="p-shadow-1" :options="comorbidity_value" v-model="comorbidity" optionLabel="name" placeholder="Select a Comorbidities"/>
+                                <Dropdown class="p-shadow-1" :options="comorbidity_value" v-model="comorbidity" optionValue="id" optionLabel="name" placeholder="Select a Comorbidities"/>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
@@ -259,20 +260,20 @@
                             </div>
                             <div class="p-lg-1 p-sm-12 p-xs-12">
                                 <div class="p-field-radiobutton">
-                                    <RadioButton id="yes_diagnosed" name="diagnosed" v-model="diagnosed" />
+                                    <RadioButton id="yes_diagnosed" name="diagnosed" v-model="diagnosed" value="true" />
                                     <label for="yes_diagnosed">Yes</label>
                                 </div>
                             </div>
                             <div class="p-lg-1 p-sm-12 p-xs-12">
                                 <div class="p-field-radiobutton">
-                                    <RadioButton id="no_diagnosed" name="diagnosed" v-model="diagnosed" />
+                                    <RadioButton id="no_diagnosed" name="diagnosed" v-model="diagnosed" value="false" />
                                     <label for="no_diagnosed">No</label>
                                 </div>
                             </div>
                             <div class="p-lg-4 p-sm-12 p-xs-12">
                                 <div class="p-field">
                                     <label>Covid Classification</label>
-                                    <Dropdown optionLabel="name" :options="covid_classification_value" v-model="covid_classification" placeholder="Select a Covid Classification"/>
+                                    <Dropdown optionLabel="name" :options="covid_classification_value" v-model="covid_classification" optionValue="id" placeholder="Select a Covid Classification"/>
                                 </div>
                             </div>
                             <div class="p-lg-4 p-sm-12 p-xs-12">
@@ -299,19 +300,19 @@
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="yes_vaccination" name="vaccination" v-model="consent_vaccination" />
+                                <RadioButton id="yes_vaccination" name="vaccination" v-model="consent_vaccination" value="true" />
                                 <label for="yes_vaccination">Yes</label>
                             </div>
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="no_vaccination" name="vaccination" v-model="consent_vaccination" />
+                                <RadioButton id="no_vaccination" name="vaccination" v-model="consent_vaccination" value="false" />
                                 <label for="no_vaccination">No</label>
                             </div>
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="Unknown_vaccination" name="vaccination" v-model="consent_vaccination" />
+                                <RadioButton id="Unknown_vaccination" name="vaccination" v-model="consent_vaccination" value="null" />
                                 <label for="Unknown_vaccination">Unknown</label>
                             </div>
                         </div>
@@ -321,7 +322,7 @@
                             <Button label="Cancel" class="button-cancel" />
                         </div>
                         <div class="p-lg-2 p-sm-12 p-xs-12">
-                            <Button label="Submit" class="button-success" @click="openConfirmation" />
+                            <Button label="Submit" type="submit" class="button-success" />
                         </div>
                     </div>
 
@@ -339,6 +340,7 @@
                 </div>
             </div>
         </div>
+        </form>
     </div>
 </template>
 
@@ -366,6 +368,12 @@ export default {
         }
 
         const { setValues, handleSubmit, resetForm } = useForm(init);
+
+        const onSubmit = handleSubmit((values, actions) => {
+            console.log(values.registration)
+            store.dispatch('registrations/CREATE', values.registration)
+            resetForm();
+        });
 
         resetForm();
 
@@ -401,17 +409,17 @@ export default {
         const { value: employer_address } = useField('registration.employer_address',validField);
         const { value: employer_lgu } = useField('registration.employer_lgu',validField);
         const { value: employer_contact_no } = useField('registration.employer_contact_no',validField);
-        const { value: pregnancy_status } = useField('registration.pregnancy_status',validField);
-        const { value: with_allergy } = useField('registration.with_allergy',validField);
+        const { value: pregnancy_status, errorMessage: pregnancy_statusError } = useField('registration.pregnancy_status',validateField);
+        const { value: with_allergy, errorMessage: with_allergyError } = useField('registration.with_allergy',validateField);
         const { value: allergy } = useField('registration.allergy',validField);
         const { value: with_allergy_others } = useField('registration.with_allergy_others',validField);
-        const { value: with_comorbidity } = useField('registration.with_comorbidity',validField);
+        const { value: with_comorbidity, errorMessage: with_comorbidityError } = useField('registration.with_comorbidity',validateField);
         const { value: comorbidity } = useField('registration.comorbidity',validField);
         const { value: with_comorbidity_others } = useField('registration.with_comorbidity_others',validField);
-        const { value: diagnosed } = useField('registration.diagnosed',validField);
+        const { value: diagnosed, errorMessage: diagnosedError } = useField('registration.diagnosed',validateField);
         const { value: covid_classification } = useField('registration.covid_classification',validField);
         const { value: diagnosed_date } = useField('registration.diagnosed_date',validField);
-        const { value: consent_vaccination } = useField('registration.consent_vaccination',validField);
+        const { value: consent_vaccination, errorMessage: consent_vaccinationError } = useField('registration.consent_vaccination',validateField);
         
         return {
             id,
@@ -450,7 +458,13 @@ export default {
             philhealthError,
             category_idError,
             categoryError,
-            civil_statusError
+            civil_statusError,
+            pregnancy_statusError,
+            with_allergyError,
+            with_comorbidityError,
+            diagnosedError,
+            consent_vaccinationError,
+            onSubmit
         }
 
     },
@@ -464,7 +478,7 @@ export default {
     },
     data() {
         return {
-           displayConfirmation: false,
+           displayConfirmation: false
         }
     },
     computed: {
