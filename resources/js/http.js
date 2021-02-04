@@ -7,11 +7,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  */
 window.axios.interceptors.request.use(function (config) {
 
-    const covid19VaccinesStr = localStorage.getItem('covid19Vaccines')
+    const covid19VaccinesStr = localStorage.getItem('covid19Vaccines') || '{"token": ""}'
 
     const covid19Vaccines = JSON.parse(covid19VaccinesStr)
 
-    const token = covid19Vaccines.token
+    const token = covid19Vaccines.token || ''
 
     config.headers = {
         'Content-Type': 'application/json',
