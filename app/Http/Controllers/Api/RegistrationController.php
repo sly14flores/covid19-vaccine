@@ -76,7 +76,7 @@ class RegistrationController extends Controller
             'with_comorbidity_others' => 'string',
             'diagnosed' => 'boolean',
             'covid_classification' => 'integer',
-            'diagnosed_date' => 'string',
+            'diagnosed_date' => 'date',
             'consent_vaccination' => 'boolean',       
         ];
 
