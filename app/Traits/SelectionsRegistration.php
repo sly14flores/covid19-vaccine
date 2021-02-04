@@ -108,4 +108,12 @@ trait SelectionsRegistration
         ];        
     }
 
+    public function employerLguValue()
+    {
+        return [
+            ["name"=>"Component City", "id"=>1],
+            ["name"=>"Municipality", "id"=>2],
+        ];
+    }
+
 }

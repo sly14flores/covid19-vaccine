@@ -30,6 +30,7 @@ class DOHDataSelections extends Controller
             "allergy_value" => $this->allergyValue(),
             "comorbidity_value" => $this->comorbidityValue(),
             "covidClassification_value" => $this->covidClassificationValue(),
+            "employer_lgu_value" => $this->employerLguValue(),
         ];
 
         return $this->jsonSuccessResponse($selections, 200);
