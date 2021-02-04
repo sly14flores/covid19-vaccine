@@ -189,6 +189,7 @@
                                 <label for="not_pregnant">Not Pregnant</label>
                             </div>
                         </div>
+                        <small class="p-error">{{ pregnancy_statusError }}</small>
                     </div>
                     <hr />
                     <div class="p-grid">
@@ -316,6 +317,7 @@
                                 <label for="Unknown_vaccination">Unknown</label>
                             </div>
                         </div>
+                        <small class="p-error">{{ consent_vaccinationError }}</small>
                     </div>
                     <div class="p-grid p-jc-center p-mt-2">
                         <div class="p-lg-2 p-sm-12 p-xs-12">
@@ -388,6 +390,16 @@ export default {
             return true;
         }
 
+        function validateRadio(value) {
+            if (typeof eval(value) === "object") {
+                return true;
+            }
+            if (typeof eval(value) !== "boolean") {
+                return "This field is required";
+            }
+            return true;
+        }
+
         const { value: id } = useField('registration.id',validField);
         const { value: qr_pass_id } = useField('registration.qr_pass_id',validField);
         const { value: first_name } = useField('registration.first_name',validField);
@@ -409,7 +421,7 @@ export default {
         const { value: employer_address } = useField('registration.employer_address',validField);
         const { value: employer_lgu } = useField('registration.employer_lgu',validField);
         const { value: employer_contact_no } = useField('registration.employer_contact_no',validField);
-        const { value: pregnancy_status, errorMessage: pregnancy_statusError } = useField('registration.pregnancy_status',validateField);
+        const { value: pregnancy_status, errorMessage: pregnancy_statusError } = useField('registration.pregnancy_status',validateRadio);
         const { value: with_allergy, errorMessage: with_allergyError } = useField('registration.with_allergy',validateField);
         const { value: allergy } = useField('registration.allergy',validField);
         const { value: with_allergy_others } = useField('registration.with_allergy_others',validField);
@@ -419,7 +431,7 @@ export default {
         const { value: diagnosed, errorMessage: diagnosedError } = useField('registration.diagnosed',validateField);
         const { value: covid_classification } = useField('registration.covid_classification',validField);
         const { value: diagnosed_date } = useField('registration.diagnosed_date',validField);
-        const { value: consent_vaccination, errorMessage: consent_vaccinationError } = useField('registration.consent_vaccination',validateField);
+        const { value: consent_vaccination, errorMessage: consent_vaccinationError } = useField('registration.consent_vaccination',validateRadio);
         
         return {
             id,
