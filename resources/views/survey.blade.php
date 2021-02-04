@@ -291,7 +291,7 @@
 									
 									<div class="form-group" ng-show="survey.vaccine=='no_vaccine'">
 										<hr>
-										<h4 class="text-dark mb-3">What are your considering for the vaccination? <i class="text-sm">@{{ tagalogVersion.reason }}</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.reason"></i></h4>
+										<h4 class="text-dark mb-3">What are your consideration for the vaccination? <i class="text-sm">@{{ tagalogVersion.reason }}</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.reason"></i></h4>
 										<div class="col-sm-12">
 											<div class="form-group">
 												<div class="custom-control custom-radio mb-2">

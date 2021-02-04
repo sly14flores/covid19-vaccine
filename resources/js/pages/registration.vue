@@ -10,7 +10,7 @@
             <template #end>
             </template>
         </Menubar>
-        <div class="p-grid p-jc-center p-mt-2">
+        <div class="p-grid p-jc-center p-mt-4">
             <div class="p-lg-11 p-sm-12 p-xs-12">
                 <div class="card p-fluid">
                     <h5 class="p-mt-2">Form</h5> <hr />
@@ -18,33 +18,47 @@
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>NAPANAM ID</label>
-                                <InputText class="p-shadow-1" type="text" disabled />
+                                <InputText class="p-shadow-1" type="text" v-model="qr_pass_id" />
                             </div>
                         </div>
                     </div>
                     <div class="p-grid">
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Complete Name</label>
-                                <InputText class="p-shadow-1" type="text" disabled />
+                                <label>First Name</label>
+                                <InputText class="p-shadow-1" type="text" v-model="first_name" />
                             </div>
                         </div>
-                        <div class="p-lg-1 p-sm-12 p-xs-12">
+                        <div class="p-lg-3 p-sm-12 p-xs-12">
+                            <div class="p-field">
+                                <label>Middle Name</label>
+                                <InputText class="p-shadow-1" type="text" v-model="middle_name" />
+                            </div>
+                        </div>
+                        <div class="p-lg-4 p-sm-12 p-xs-12">
+                            <div class="p-field">
+                                <label>Last Name</label>
+                                <InputText class="p-shadow-1" type="text" v-model="last_name" />
+                            </div>
+                        </div>
+                        <div class="p-lg-2 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Suffix</label>
-                                <InputText class="p-shadow-1" type="text" />
+                                <InputText class="p-shadow-1" type="text" v-model="suffix"/>
                             </div>
                         </div>
-                        <div class="p-lg-4 p-sm-12 p-xs-12">
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-lg-6 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Birthdate</label>
-                                <InputText class="p-shadow-1" type="text" disabled />
+                                <InputText class="p-shadow-1" type="date" v-model="birth_date" />
                             </div>
                         </div>
-                        <div class="p-lg-4 p-sm-12 p-xs-12">
+                        <div class="p-lg-6 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Sex</label>
-                                <InputText class="p-shadow-1" type="text" disabled />
+                                <InputText class="p-shadow-1" type="text" v-model="sex" />
                             </div>
                         </div>
                     </div>
@@ -52,13 +66,13 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Address</label>
-                                <InputText class="p-shadow-1" type="text" disabled />
+                                <InputText class="p-shadow-1" type="text" v-model="address" />
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Contact No.:</label>
-                                <InputText class="p-shadow-1" type="text" disabled />
+                                <InputText class="p-shadow-1" type="text" v-model="contact_no" />
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
@@ -95,7 +109,7 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Category ID No.</label>
-                                <InputText class="p-shadow-1" />
+                                <InputText class="p-shadow-1" v-model="category_id_no" />
                             </div>
                         </div>
                     </div>
@@ -124,7 +138,7 @@
                         <div class="p-lg-12 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Employer Name</label>
-                                <InputText class="p-shadow-1" type="text" />
+                                <InputText class="p-shadow-1" type="text" v-model="employer_name" />
                             </div>
                         </div>
                     </div>
@@ -132,19 +146,19 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Employer Address</label>
-                                <InputText class="p-shadow-1" type="text" />
+                                <InputText class="p-shadow-1" type="text" v-model="employer_address" />
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Employer LGU</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employer_lgu_value" v-model="employer_lgu" placeholder="Select a Employer LGU"/>
+                                <InputText class="p-shadow-1" optionLabel="name" v-model="employer_lgu"/>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Employer Contact No.</label>
-                                <InputText class="p-shadow-1" type="text" />
+                                <InputText class="p-shadow-1" type="text" v-model="employer_contact_no" />
                             </div>
                         </div>
                     </div>
@@ -164,13 +178,13 @@
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="pregnant" name="pregnancy_test" />
+                                <RadioButton id="pregnant" name="pregnancy_status" v-model="pregnancy_status" />
                                 <label for="pregnant">Pregnant</label>
                             </div>
                         </div>
                         <div class="p-lg-2 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="not_pregnant" name="pregnancy_test" />
+                                <RadioButton id="not_pregnant" name="pregnancy_status" v-model="pregnancy_status" />
                                 <label for="not_pregnant">Not Pregnant</label>
                             </div>
                         </div>
@@ -184,13 +198,13 @@
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="yes_allergy" name="allergy" />
+                                <RadioButton id="yes_allergy" name="with_allergy" v-model="with_allergy" />
                                 <label for="yes_allergy">Yes</label>
                             </div>
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="none_allergy" name="allergy" />
+                                <RadioButton id="none_allergy" name="with_allergy" v-model="with_allergy" />
                                 <label for="none_allergy">None</label>
                             </div>
                         </div>
@@ -201,7 +215,7 @@
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <InputText class="p-shadow-1" optionLabel="name" placeholder="Others" />
+                                <InputText class="p-shadow-1" optionLabel="name" placeholder="Others" v-model="with_allergy_others" />
                             </div>
                         </div>
                     </div>
@@ -214,13 +228,13 @@
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="yes_comorbidities" name="comorbidities" />
+                                <RadioButton id="yes_comorbidities" name="comorbidities" v-model="with_comorbidity" />
                                 <label for="yes_comorbidities">Yes</label>
                             </div>
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="none_comorbidities" name="comorbidities" />
+                                <RadioButton id="none_comorbidities" name="comorbidities" v-model="with_comorbidity" />
                                 <label for="none_comorbidities">None</label>
                             </div>
                         </div>
@@ -231,7 +245,7 @@
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <InputText class="p-shadow-1" optionLabel="name" placeholder="Others" />
+                                <InputText class="p-shadow-1" optionLabel="name" placeholder="Others" v-model="with_comorbidity_others" />
                             </div>
                         </div>
                     </div>
@@ -245,13 +259,13 @@
                             </div>
                             <div class="p-lg-1 p-sm-12 p-xs-12">
                                 <div class="p-field-radiobutton">
-                                    <RadioButton id="yes_diagnosed" name="diagnosed" />
+                                    <RadioButton id="yes_diagnosed" name="diagnosed" v-model="diagnosed" />
                                     <label for="yes_diagnosed">Yes</label>
                                 </div>
                             </div>
                             <div class="p-lg-1 p-sm-12 p-xs-12">
                                 <div class="p-field-radiobutton">
-                                    <RadioButton id="no_diagnosed" name="diagnosed" />
+                                    <RadioButton id="no_diagnosed" name="diagnosed" v-model="diagnosed" />
                                     <label for="no_diagnosed">No</label>
                                 </div>
                             </div>
@@ -264,7 +278,7 @@
                             <div class="p-lg-4 p-sm-12 p-xs-12">
                                 <div class="p-field">
                                     <label>Date</label>
-                                    <InputText class="p-shadow-1" type="date" />
+                                    <InputText class="p-shadow-1" type="date" v-model="diagnosed_date" />
                                 </div>
                             </div>
                         </div>
@@ -285,19 +299,19 @@
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="yes_vaccination" name="vaccination" />
+                                <RadioButton id="yes_vaccination" name="vaccination" v-model="consent_vaccination" />
                                 <label for="yes_vaccination">Yes</label>
                             </div>
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="no_vaccination" name="vaccination" />
+                                <RadioButton id="no_vaccination" name="vaccination" v-model="consent_vaccination" />
                                 <label for="no_vaccination">No</label>
                             </div>
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="Unknown_vaccination" name="vaccination" />
+                                <RadioButton id="Unknown_vaccination" name="vaccination" v-model="consent_vaccination" />
                                 <label for="Unknown_vaccination">Unknown</label>
                             </div>
                         </div>
@@ -354,29 +368,71 @@ export default {
         }
 
         const { value: id } = useField('registration.id',validField);
+        const { value: qr_pass_id } = useField('registration.qr_pass_id',validField);
+        const { value: first_name } = useField('registration.first_name',validField);
+        const { value: middle_name } = useField('registration.middle_name',validField);
+        const { value: last_name } = useField('registration.last_name',validField);
+        const { value: suffix } = useField('registration.suffix',validField);
+        const { value: birth_date } = useField('registration.birth_date',validField);
+        const { value: sex } = useField('registration.sex',validField);
+        const { value: address } = useField('registration.address',validField);
+        const { value: contact_no } = useField('registration.contact_no',validField);
         const { value: civil_status, errorMessage: civil_statusError } = useField('registration.civil_status',validateField);
         const { value: category, errorMessage: categoryError } = useField('registration.category',validateField);
         const { value: category_id, errorMessage: category_idError } = useField('registration.category_id',validateField);
+        const { value: category_id_no } = useField('registration.category_id_no',validField);
         const { value: employment_status, errorMessage: employment_statusError } = useField('registration.employment_status',validateField);
         const { value: profession } = useField('registration.profession',validField);
         const { value: philhealth, errorMessage: philhealthError } = useField('registration.philhealth',validateField);
+        const { value: employer_name } = useField('registration.employer_name',validField);
+        const { value: employer_address } = useField('registration.employer_address',validField);
         const { value: employer_lgu } = useField('registration.employer_lgu',validField);
+        const { value: employer_contact_no } = useField('registration.employer_contact_no',validField);
+        const { value: pregnancy_status } = useField('registration.pregnancy_status',validField);
+        const { value: with_allergy } = useField('registration.with_allergy',validField);
         const { value: allergy } = useField('registration.allergy',validField);
+        const { value: with_allergy_others } = useField('registration.with_allergy_others',validField);
+        const { value: with_comorbidity } = useField('registration.with_comorbidity',validField);
         const { value: comorbidity } = useField('registration.comorbidity',validField);
+        const { value: with_comorbidity_others } = useField('registration.with_comorbidity_others',validField);
+        const { value: diagnosed } = useField('registration.diagnosed',validField);
         const { value: covid_classification } = useField('registration.covid_classification',validField);
+        const { value: diagnosed_date } = useField('registration.diagnosed_date',validField);
+        const { value: consent_vaccination } = useField('registration.consent_vaccination',validField);
         
         return {
             id,
+            qr_pass_id,
+            first_name,
+            middle_name,
+            last_name,
+            suffix,
+            birth_date,
+            sex,
+            address,
+            contact_no,
             civil_status,
             category,
             category_id,
+            category_id_no,
             employment_status,
             profession,
             philhealth,
+            employer_name,
+            employer_address,
             employer_lgu,
+            employer_contact_no,
+            pregnancy_status,
+            with_allergy,
             allergy,
+            with_allergy_others,
+            with_comorbidity,
             comorbidity,
+            with_comorbidity_others,
+            diagnosed,
             covid_classification,
+            diagnosed_date,
+            consent_vaccination,
             employment_statusError,
             philhealthError,
             category_idError,
@@ -436,11 +492,6 @@ export default {
         covid_classification_value() {
 
             return this.$store.state.registrations.selections.covid_classification_value
-
-        },
-        employer_lgu_value() {
-
-            return this.$store.state.registrations.selections.employer_lgu_value
 
         },
     },

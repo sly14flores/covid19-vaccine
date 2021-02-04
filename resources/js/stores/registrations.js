@@ -8,16 +8,36 @@ const SELECTIONS_ROUTE = `${api_url}/api/doh/selections`
 const registration = {
     id: 0,
     qr_pass_id : null,
-    last_name: null,
     first_name: null,
     middle_name: null,
+    last_name: null,
     suffix: null,
-    birthdate: null,
-    gender: null,
-    province: null,
-    town_city: null,
-    barangay: null,
+    birth_date: null,
+    sex: null,
+    address: null,
+    contact_no: null,
     civil_status: null,
+    category: null,
+    category_id: null,
+    category_id_no: null,
+    employment_status: null,
+    profession: null,
+    philhealth: null,
+    employer_name: null,
+    employer_address: null,
+    employer_lgu: null,
+    employer_contact_no: null,
+    pregnancy_status: null,
+    with_allergy: null,
+    allergy: null,
+    with_allergy_others: null,
+    with_comorbidity: null,
+    comorbidity: null,
+    with_comorbidity_others: null,
+    diagnosed: null,
+    covid_classification: null,
+    diagnosed_date: null,
+    consent_vaccination: null,
 }
 
 const civil_status_value = [];
@@ -38,8 +58,7 @@ const selections = {
     profession_value,
     allergy_value,
     comorbidity_value,
-    covid_classification_value,
-    employer_lgu_value
+    covid_classification_value
 };
 
 const state = () => {
