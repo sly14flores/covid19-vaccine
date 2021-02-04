@@ -133,8 +133,8 @@
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>LGU</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" placeholder="Select a LGU"/>
+                                <label>Employer LGU</label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employer_lgu_value" v-model="employer_lgu" placeholder="Select a Employer LGU"/>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
@@ -335,6 +335,7 @@ export default {
             category_id: null,
             employment_status: null,
             profession: null,
+            employer_lgu: null,
             civil_status_value: [
                 {name: 'Single', id: '01'},
                 {name: 'Married', id: '02'},
@@ -405,6 +406,10 @@ export default {
                 {name: 'Moderate', id: '03'},
                 {name: 'Severe', id: '04'},
                 {name: 'Critical', id: '05'},
+            ],
+            employer_lgu_value: [
+                {name: 'Component City', id: '01'},
+                {name: 'Municipality', id: '02'},
             ],
         }
     }
