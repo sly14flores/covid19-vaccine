@@ -5,7 +5,7 @@ namespace App\Traits;
 trait SelectionsRegistration
 {
 
-    public function civitStatusValue()
+    public function civilStatusValue()
     {
         return [
             ["name"=>"Single", "id"=>1],
