@@ -57,7 +57,6 @@ const actions = {
     async UPDATE({}, payload) {
         try {
             const id = payload.id
-            console.log(id)
             const url =  route(UPDATE_ROUTE, { id })
             const response = await axios({url, method: 'put', data: payload})
         } catch(error) {

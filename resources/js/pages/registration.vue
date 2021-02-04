@@ -387,49 +387,52 @@ export default {
     computed: {
         civil_status_value() {
 
-            this.$store.state.registrations.civil_status_value
+            this.$store.state.registrations.selections.civil_status_value
 
         },
         category_value() {
 
-            this.$store.state.registrations.category_value
+            this.$store.state.registrations.selections.category_value
 
         },
         category_id_value() {
 
-            this.$store.state.registrations.category_id_value
+            this.$store.state.registrations.selections.category_id_value
 
         },
         employment_status_value() {
 
-            this.$store.state.registrations.employment_status_value
+            this.$store.state.registrations.selections.employment_status_value
 
         },
         profession_value() {
 
-            this.$store.state.registrations.profession_value
+            this.$store.state.registrations.selections.profession_value
 
         },
         allergy_value() {
 
-            this.$store.state.registrations.allergy_value
+            this.$store.state.registrations.selections.allergy_value
 
         },
         comorbidity_value() {
 
-            this.$store.state.registrations.comorbidity_value
+            this.$store.state.registrations.selections.comorbidity_value
 
         },
         covid_classification_value() {
 
-            this.$store.state.registrations.covid_classification_value
+            this.$store.state.registrations.selections.covid_classification_value
 
         },
         employer_lgu_value() {
 
-            this.$store.state.registrations.employer_lgu_value
+            this.$store.state.registrations.selections.employer_lgu_value
 
         },
+    },
+    mounted() {
+        this.$store.dispatch('registrations/GET_SELECTIONS')
     }
 }
 </script>
