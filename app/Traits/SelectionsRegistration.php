@@ -19,12 +19,12 @@ trait SelectionsRegistration
     public function categoryValue()
     {
         return [
-            ["name"=>"Health Care Worker", "id"=>"01"],
-            ["name"=>"Senior Citizen", "id"=>"02"],
-            ["name"=>"Indigent", "id"=>"03"],
-            ["name"=>"Uniformed Personnel", "id"=>"04"],
-            ["name"=>"Essential Worker", "id"=>"05"],
-            ["name"=>"Other", "id"=>"06"]
+            ["name"=>"Health Care Worker", "id"=>1],
+            ["name"=>"Senior Citizen", "id"=>2],
+            ["name"=>"Indigent", "id"=>3],
+            ["name"=>"Uniformed Personnel", "id"=>4],
+            ["name"=>"Essential Worker", "id"=>5],
+            ["name"=>"Other", "id"=>6]
         ];
     }
 
