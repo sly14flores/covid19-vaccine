@@ -61,6 +61,7 @@ class Registration extends Model
         'with_comorbidity' => 'boolean',
         'diagnosed' => 'boolean',
         'consent_vaccination' => 'boolean',
+        'diagnosed_date' => 'date',
     ];
 
 }
