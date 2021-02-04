@@ -32,7 +32,7 @@
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Suffix</label>
-                                <InputText class="p-shadow-1" type="text" />
+                                <InputText class="p-shadow-1" type="text" v-model="suffix"/>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
@@ -63,8 +63,9 @@
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Civil Status</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="civil_status_value" v-model="civil_status" placeholder="Select a Civil Status" />
+                                <label><i class="p-error">*</i> Civil Status</label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="civil_status_value" v-model="civil_status" placeholder="Select a Civil Status" :class="{'p-invalid': civil_statusError}" />
+                                <small class="p-error">{{ civil_statusError }}</small>
                             </div>
                         </div>
                     </div>
@@ -79,14 +80,16 @@
                     <div class="p-grid">
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Category</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" v-model="category" placeholder="Select a Category"/>
+                                <label><i class="p-error">*</i> Category</label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" v-model="category" placeholder="Select a Category" :class="{'p-invalid': categoryError}" />
+                                <small class="p-error">{{ categoryError }}</small>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Category ID</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" v-model="civil_status" placeholder="Select a Category ID"/>
+                                <label><i class="p-error">*</i> Category ID</label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" v-model="category_id" placeholder="Select a Category ID" :class="{'p-invalid': category_idError}" />
+                                <small class="p-error">{{ category_idError }}</small>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
@@ -111,8 +114,9 @@
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>PhilHealth ID</label>
-                                <InputText class="p-shadow-1" type="text" placeholder="00-000000000-0" />
+                                <label><i class="p-error">*</i> PhilHealth ID</label>
+                                <InputText class="p-shadow-1" type="text" placeholder="00-000000000-0" v-model="philhealth" :class="{'p-invalid': philhealthError}" />
+                                <small class="p-error">{{ philhealthError }}</small>
                             </div>
                         </div>
                     </div>
@@ -155,7 +159,7 @@
                     <div class="p-grid">
                         <div class="p-lg-2 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Prenancy Status:</label>
+                                <label>* Prenancy Status:</label>
                             </div>
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
@@ -175,7 +179,7 @@
                     <div class="p-grid">
                         <div class="p-lg-2 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>With Allergy:</label>
+                                <label><i class="p-error">*</i> With Allergy:</label>
                             </div>
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
@@ -205,7 +209,7 @@
                     <div class="p-grid">
                         <div class="p-lg-2 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>With Comorbidities:</label>
+                                <label><i class="p-error">*</i> With Comorbidities:</label>
                             </div>
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
@@ -236,7 +240,7 @@
                         <div class="p-grid">
                             <div class="p-lg-2 p-sm-12 p-xs-12">
                                 <div class="p-field">
-                                    <label>Diagnosed with Covid-19</label>
+                                    <label><i class="p-error">*</i> Diagnosed with Covid-19</label>
                                 </div>
                             </div>
                             <div class="p-lg-1 p-sm-12 p-xs-12">
@@ -276,7 +280,7 @@
                     <div class="p-grid">
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Provided electronic informed consent for vaccination?</label>
+                                <label><i class="p-error">*</i> Provided electronic informed consent for vaccination?</label>
                             </div>
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
@@ -320,8 +324,55 @@ import Dropdown from 'primevue/dropdown/sfc';
 import RadioButton from 'primevue/radiobutton/sfc';
 import Menubar from 'primevue/menubar/sfc';
 
+import { registration } from '../stores/registrations.js'
+import store from '../store.js'
+import { useForm, useField } from 'vee-validate'
+import { watch } from 'vue'
+
 export default {
-     components: {
+    setup() {
+        
+        const init = {
+            initialValues: {
+                registration: {...registration}
+            }
+        }
+
+        const { setValues, handleSubmit, resetForm } = useForm(init);
+
+        resetForm();
+
+        function validateField(value) {
+            if (!value) {
+                return "This field is required";
+            }
+            return true;
+        }
+
+        function validField(value) {
+            return true;
+        }
+
+        const { value: id } = useField('registration.id',validField);
+        const { value: civil_status, errorMessage: civil_statusError } = useField('registration.civil_status',validateField);
+        const { value: category, errorMessage: categoryError } = useField('registration.category',validateField);
+        const { value: category_id, errorMessage: category_idError } = useField('registration.category_id',validateField);
+        const { value: philhealth, errorMessage: philhealthError } = useField('registration.philhealth',validateField);
+        
+        return {
+            id,
+            civil_status,
+            category,
+            category_id,
+            philhealth,
+            philhealthError,
+            category_idError,
+            categoryError,
+            civil_statusError
+        }
+
+    },
+    components: {
         Button,
         InputText,
         Dropdown,
@@ -330,88 +381,55 @@ export default {
     },
     data() {
         return {
-            civil_status: null,
-            category: null,
-            category_id: null,
-            employment_status: null,
-            profession: null,
-            employer_lgu: null,
-            civil_status_value: [
-                {name: 'Single', id: '01'},
-                {name: 'Married', id: '02'},
-                {name: 'Widow/Widower', id: '03'},
-                {name: 'Separated/Annulled', id: '04'},
-                {name: 'Living with Partner', id: '05'}
-            ],
-            category_value: [
-                {name: 'Health Care Worker', id: '01'},
-                {name: 'Senior Citizen', id: '02'},
-                {name: 'Indigent', id: '03'},
-                {name: 'Uniformed Personnel', id: '04'},
-                {name: 'Essential Worker', id: '05'},
-                {name: 'Other', id: '06'}
-            ],
-            category_id_value: [
-                {name: 'PRC number', id: '01'},
-                {name: 'OSCA number', id: '02'},
-                {name: 'Facility ID number', id: '03'},
-                {name: 'PWD ID', id: '04'},
-                {name: 'Other ID', id: '05'}
-            ],
-            employment_status_value: [
-                {name: 'Government Employed', id: '01'},
-                {name: 'Private Employed', id: '02'},
-                {name: 'Self-employed', id: '03'},
-                {name: 'Private', id: '04'}
-            ],
-            profession_value: [
-                {name: 'Dental Hygienist', id: '01'},
-                {name: 'Private Employed', id: '02'},
-                {name: 'Dentist', id: '03'},
-                {name: 'Medical Technologist', id: '04'},
-                {name: 'Midwife', id: '05'},
-                {name: 'Nurse', id: '06'},
-                {name: 'Nutritionist-Dietician', id: '07'},
-                {name: 'Occupational Therapist', id: '08'},
-                {name: 'Optometrist', id: '09'},
-                {name: 'Pharmacist', id: '10'},
-                {name: 'Physical Therapist', id: '11'},
-                {name: 'Physician', id: '12'},
-                {name: 'Radiologic Technologist', id: '13'},
-                {name: 'Respiratory Therapist', id: '14'},
-                {name: 'X-ray Technologist', id: '15'},
-                {name: 'Barangay Health Worker', id: '16'},
-            ],
-            allergy_value: [
-                {name: 'Drug', id: '01'},
-                {name: 'Food', id: '02'},
-                {name: 'Insect', id: '03'},
-                {name: 'Latex', id: '04'},
-                {name: 'Mold', id: '05'},
-                {name: 'Pet', id: '06'},
-                {name: 'Pollen', id: '07'},
-            ],
-            comorbidity_value: [
-                {name: 'Hypertension', id: '01'},
-                {name: 'Heart disease', id: '02'},
-                {name: 'Kidney disease', id: '03'},
-                {name: 'Diabetes mellitus', id: '04'},
-                {name: 'Bronchial Asthma', id: '05'},
-                {name: 'Immunodeficiency state', id: '06'},
-                {name: 'Cancer', id: '07'},
-            ],
-            covid_classification_value: [
-                {name: 'Asymptomatic', id: '01'},
-                {name: 'Mild', id: '02'},
-                {name: 'Moderate', id: '03'},
-                {name: 'Severe', id: '04'},
-                {name: 'Critical', id: '05'},
-            ],
-            employer_lgu_value: [
-                {name: 'Component City', id: '01'},
-                {name: 'Municipality', id: '02'},
-            ],
+           
         }
+    },
+    computed: {
+        civil_status_value() {
+
+            this.$store.state.registrations.civil_status_value
+
+        },
+        category_value() {
+
+            this.$store.state.registrations.category_value
+
+        },
+        category_id_value() {
+
+            this.$store.state.registrations.category_id_value
+
+        },
+        employment_status_value() {
+
+            this.$store.state.registrations.employment_status_value
+
+        },
+        profession_value() {
+
+            this.$store.state.registrations.profession_value
+
+        },
+        allergy_value() {
+
+            this.$store.state.registrations.allergy_value
+
+        },
+        comorbidity_value() {
+
+            this.$store.state.registrations.comorbidity_value
+
+        },
+        covid_classification_value() {
+
+            this.$store.state.registrations.covid_classification_value
+
+        },
+        employer_lgu_value() {
+
+            this.$store.state.registrations.employer_lgu_value
+
+        },
     }
 }
 </script>

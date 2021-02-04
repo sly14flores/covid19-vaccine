@@ -146,6 +146,7 @@ export default {
             editMode,
         }
     },
+    
     data() {
         return {
             home: {icon: 'pi pi-home', to: '/users'},
