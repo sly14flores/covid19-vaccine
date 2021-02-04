@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\NapanamController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\DOHDataSelections;
+use App\Http\Controllers\Api\RegistrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,5 +67,19 @@ Route::prefix('doh')->group(function() {
      * Selections
      */
     Route::get('selections', DOHDataSelections::class);
+
+    /**
+     * Registration
+     */
+    Route::apiResources([
+        'registrations' => RegistrationController::class,
+    ],[
+        'only' => ['index']
+    ]);
+    Route::apiResources([
+        'registration' => RegistrationController::class,
+    ],[
+        'except' => ['index']
+    ]);    
 
 });
