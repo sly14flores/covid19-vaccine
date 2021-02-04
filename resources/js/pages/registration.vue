@@ -321,9 +321,21 @@
                             <Button label="Cancel" class="button-cancel" />
                         </div>
                         <div class="p-lg-2 p-sm-12 p-xs-12">
-                            <Button label="Submit" class="button-success" />
+                            <Button label="Submit" class="button-success" @click="openConfirmation" />
                         </div>
                     </div>
+
+                    <Dialog header="Confirmation" v-model:visible="displayConfirmation" :style="{width: '350px'}" :modal="true">
+                        <div class="confirmation-content">
+                            <i class="pi pi-check p-mr-3" style="font-size: 1rem" />
+                            <span>Are you sure you want to save your changes?</span>
+                        </div>
+                        <template #footer>
+                            <Button label="No" @click="closeConfirmation" class="p-button-warning"/>
+                            <Button label="Yes" @click="closeConfirmation" class="p-button-success" autofocus />
+                        </template>
+                    </Dialog>
+
                 </div>
             </div>
         </div>
@@ -337,6 +349,7 @@ import InputText from 'primevue/inputtext/sfc';
 import Dropdown from 'primevue/dropdown/sfc';
 import RadioButton from 'primevue/radiobutton/sfc';
 import Menubar from 'primevue/menubar/sfc';
+import Dialog from 'primevue/dialog/sfc';
 
 import { registration } from '../stores/registrations.js'
 import store from '../store.js'
@@ -446,11 +459,12 @@ export default {
         InputText,
         Dropdown,
         RadioButton,
-        Menubar
+        Menubar,
+        Dialog
     },
     data() {
         return {
-           
+           displayConfirmation: false,
         }
     },
     computed: {
@@ -498,7 +512,13 @@ export default {
     methods: {
         fetchSelections() {
             this.$store.dispatch('registrations/GET_SELECTIONS')
-        }
+        },
+        openConfirmation() {
+            this.displayConfirmation = true;
+        },
+        closeConfirmation() {
+            this.displayConfirmation = false;
+        },
     },
     mounted() {
         this.fetchSelections()
