@@ -372,7 +372,7 @@ export default {
         const onSubmit = handleSubmit((values, actions) => {
             console.log(values.registration)
             store.dispatch('registrations/CREATE', values.registration)
-           // resetForm();
+            resetForm();
         });
 
         resetForm();
