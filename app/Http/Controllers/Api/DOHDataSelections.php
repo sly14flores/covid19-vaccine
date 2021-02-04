@@ -23,6 +23,7 @@ class DOHDataSelections extends Controller
     {
         //
         $selections = [
+            "civit_status_value" => $this->civitStatusValue(),
             "category_value" => $this->categoryValue(),
             "category_id_value" => $this->categoryIdValue(),
             "employment_status_value" => $this->employmentStatusValue(),
