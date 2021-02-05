@@ -99,7 +99,6 @@ app.controller('appCtrl', function($scope,$http) {
 		
 	}
 	
-
 	$scope.proceed = function() {
 		
 		const napanam_id = $scope.napanam_id

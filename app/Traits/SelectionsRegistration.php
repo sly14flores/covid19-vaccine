@@ -116,4 +116,59 @@ trait SelectionsRegistration
         ];
     }
 
+    public function monthValue()
+    {
+        return [
+            ["name"=>"January", "id"=>"01"],
+            ["name"=>"February", "id"=>"02"],
+            ["name"=>"March", "id"=>"03"],
+            ["name"=>"April", "id"=>"04"],
+            ["name"=>"May", "id"=>"05"],
+            ["name"=>"June", "id"=>"06"],
+            ["name"=>"July", "id"=>"07"],
+            ["name"=>"August", "id"=>"08"],
+            ["name"=>"September", "id"=>"09"],
+            ["name"=>"October", "id"=>"10"],
+            ["name"=>"November", "id"=>"11"],
+            ["name"=>"December", "id"=>"12"],
+        ];
+    }
+
+    public function dayValue()
+    {
+        return [
+            ["name"=>"01", "id"=>"01"],
+            ["name"=>"02", "id"=>"02"],
+            ["name"=>"03", "id"=>"03"],
+            ["name"=>"04", "id"=>"04"],
+            ["name"=>"05", "id"=>"05"],
+            ["name"=>"06", "id"=>"06"],
+            ["name"=>"07", "id"=>"07"],
+            ["name"=>"08", "id"=>"08"],
+            ["name"=>"09", "id"=>"09"],
+            ["name"=>"10", "id"=>"10"],
+            ["name"=>"11", "id"=>"11"],
+            ["name"=>"12", "id"=>"12"],
+            ["name"=>"13", "id"=>"13"],
+            ["name"=>"14", "id"=>"14"],
+            ["name"=>"15", "id"=>"15"],
+            ["name"=>"16", "id"=>"16"],
+            ["name"=>"17", "id"=>"17"],
+            ["name"=>"18", "id"=>"18"],
+            ["name"=>"19", "id"=>"19"],
+            ["name"=>"20", "id"=>"20"],
+            ["name"=>"21", "id"=>"21"],
+            ["name"=>"22", "id"=>"22"],
+            ["name"=>"23", "id"=>"23"],
+            ["name"=>"24", "id"=>"24"],
+            ["name"=>"25", "id"=>"25"],
+            ["name"=>"26", "id"=>"26"],
+            ["name"=>"27", "id"=>"27"],
+            ["name"=>"28", "id"=>"28"],
+            ["name"=>"29", "id"=>"29"],
+            ["name"=>"30", "id"=>"30"],
+            ["name"=>"31", "id"=>"31"],
+        ];
+    }
+
 }

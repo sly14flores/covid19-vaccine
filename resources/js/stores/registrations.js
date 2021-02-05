@@ -5,6 +5,7 @@ import { api_url } from '../url.js'
 
 const SELECTIONS_ROUTE = `${api_url}/api/doh/selections`
 const CREATE_ROUTE = `${api_url}/api/doh/registration`
+const GET_NAPANAM_ROUTE = `${api_url}/api/napanam/check/registration/:id/:birthdate`
 
 const registration = {
     id: 0,
@@ -52,6 +53,8 @@ const profession_value = [];
 const allergy_value = [];
 const comorbidity_value = [];
 const covid_classification_value = [];
+const month_value = [];
+const day_value = [];
 
 const selections = {
     civil_status_value,
@@ -61,7 +64,9 @@ const selections = {
     profession_value,
     allergy_value,
     comorbidity_value,
-    covid_classification_value
+    covid_classification_value,
+    month_value,
+    day_value
 };
 
 const state = () => {
@@ -74,6 +79,9 @@ const state = () => {
 const mutations = {
     SELECTIONS(state, payload) {
         state.selections = {...payload}
+    },
+    NAPANAM(state, payload) {
+        state.registration.qr_pass_id = payload.id
     }
 }
 
@@ -98,6 +106,15 @@ const actions = {
 
         }
     },
+    async GET_NAPANAM({commit}, { id, birthdate }) {
+        try {
+            const url =  route(GET_NAPANAM_ROUTE, { id, birthdate })
+            const response = await axios.get(url)
+            commit('NAPANAM', response.data.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 const getters = {
