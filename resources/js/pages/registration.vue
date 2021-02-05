@@ -359,6 +359,11 @@ import { watch } from 'vue'
 
 export default {
     setup() {
+
+        /**
+         * Redirection logic using route and store
+         */
+        
         
         const init = {
             initialValues: {
@@ -429,7 +434,7 @@ export default {
         const { value: comorbidity } = useField('registration.comorbidity',validField);
         const { value: with_comorbidity_others } = useField('registration.with_comorbidity_others',validField);
        
-       const { value: diagnosed, errorMessage: diagnosedError } = useField('registration.diagnosed',validateField);
+        const { value: diagnosed, errorMessage: diagnosedError } = useField('registration.diagnosed',validateField);
         const { value: covid_classification } = useField('registration.covid_classification',validField);
         const { value: diagnosed_date } = useField('registration.diagnosed_date',validField);
         const { value: consent_vaccination, errorMessage: consent_vaccinationError } = useField('registration.consent_vaccination',validateRadio);
@@ -596,8 +601,8 @@ export default {
         color: white;
     }
     input[type="text"]:disabled {
-    background: rgb(219, 219, 219);
-    border-bottom: 1px solid black;
+        background: rgb(219, 219, 219);
+        border-bottom: 1px solid black;
     }
     .button-success {
         background-color: #68bca4;

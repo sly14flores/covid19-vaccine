@@ -4,54 +4,60 @@
             <a href=""><img alt="logo" src="img/launion-logo.png" class="lu-logo" /></a>
             <h5 class="p-mt-3 p-label-white">La Union CoViD-19 Vaccination Survey</h5>
         </div>
-        <div class="p-grid p-jc-center p-mt-4">
-            <div class="p-lg-4 p-sm-12 p-xs-12">
-                <div class="card p-fluid">
-                    <div class="p-grid p-jc-center">
-                        <div class="p-lg-10 p-sm-5 p-xs-5">
-                            <img alt="logo" src="img/napanam_logo.png" class="napanam" />
+        <form @submit="onSubmit">
+            <div class="p-grid p-jc-center p-mt-4">
+                <div class="p-lg-4 p-sm-12 p-xs-12">
+                    <div class="card p-fluid">
+                        <div class="p-grid p-jc-center">
+                            <div class="p-lg-10 p-sm-5 p-xs-5">
+                                <img alt="logo" src="img/napanam_logo.png" class="napanam" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="p-grid p-jc-center p-mt-2">
-                        <h6>Before your proceed to the registration, please complete the form below.</h6>
-                    </div>
-                    <hr />
-                    <div class="p-field">
-                        <label for="napanam_id"><i class="p-error">*</i> Napanam ID No.</label>
-                        <span class="p-input-icon-right">
-                            <i class="pi pi-id-card" />
-                            <InputText class="p-shadow-1" type="number" />
-                        </span>
-                    </div>
-                    <h6><i class="p-error">*</i> Birthdate</h6>
-                     <div class="p-grid">
-                         <div class="p-field p-col-12 p-md-6">
-                            <label for="password">Month</label>
-                            <span class="p-input">
-                                <Dropdown class="p-shadow-1" optionLabel="name" placeholder="Select a month"/>
+                        <div class="p-grid p-jc-center p-mt-2">
+                            <h6>Before your proceed to the registration, please complete the form below.</h6>
+                        </div>
+                        <hr />
+                        <div class="p-field">
+                            <label for="napanam_id"><i class="p-error">*</i> Napanam ID No.</label>
+                            <span class="p-input-icon-right">
+                                <i class="pi pi-id-card" />
+                                <InputText class="p-shadow-1" type="number" placeholder="Enter your Napanam ID No." v-model="id" :class="{'p-invalid': idError}" />
                             </span>
+                            <small class="p-error">{{ idError }}</small>
                         </div>
-                        <div class="p-field p-col-12 p-md-3">
-                            <label for="password">Day</label>
-                            <span class="p-input">
-                                <InputText class="p-shadow-1" type="number" placeholder="DD" />
-                            </span>
+                        <h6><i class="p-error">*</i> Birthdate</h6>
+                        <div class="p-grid">
+                            <div class="p-field p-col-12 p-md-6">
+                                <label for="password">Month</label>
+                                <span class="p-input">
+                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="month_value" optionValue="id" v-model="month" placeholder="Select a month" :class="{'p-invalid': monthError}" />
+                                </span>
+                                <small class="p-error">{{ monthError }}</small>
+                            </div>
+                            <div class="p-field p-col-12 p-md-3">
+                                <label for="password">Day</label>
+                                <span class="p-input">
+                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="day_value" optionValue="id" v-model="day" placeholder="DD" :class="{'p-invalid': dayError}" />
+                                </span>
+                                <small class="p-error">{{ dayError }}</small>
+                            </div>
+                            <div class="p-field p-col-12 p-md-3">
+                                <label for="password">Year</label>
+                                <span class="p-input">
+                                    <InputText class="p-shadow-1" type="number" placeholder="YYYY" v-model="year" :class="{'p-invalid': yearError}" />
+                                </span>
+                                <small class="p-error">{{ yearError }}</small>
+                            </div>
                         </div>
-                         <div class="p-field p-col-12 p-md-3">
-                            <label for="password">Year</label>
-                            <span class="p-input">
-                                <InputText class="p-shadow-1" type="number" placeholder="YYYY" />
-                            </span>
-                        </div>
-                    </div>
-                    <div class="p-grid p-jc-center">
-                        <div class="p-lg-4 p-sm-12 p-xs-12">
-                            <Button label="Proceed" class="p-button-raised p-button-primary" />
+                        <div class="p-grid p-jc-center">
+                            <div class="p-lg-4 p-sm-12 p-xs-12">
+                                <Button label="Proceed" type="submit" class="p-button-raised p-button-primary" />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </template>
 
@@ -62,8 +68,86 @@ import InputText from 'primevue/inputtext/sfc';
 import Dropdown from 'primevue/dropdown/sfc';
 import Menubar from 'primevue/menubar/sfc';
 
+import store from '../store.js'
+import { useForm, useField } from 'vee-validate'
+
+const verification = {
+    id: null,
+    month: null,
+    day: null,
+    year: null
+}
+
 export default {
-     components: {
+    setup() {
+
+        const init = {
+            initialValues: {
+                verification
+            }
+        }
+
+        const { handleSubmit } = useForm(init);
+
+        const onSubmit = handleSubmit((values) => {
+            console.log(values)
+            const birthdate = `${values.registration.year}-${values.registration.month}-${values.registration.day}`
+            store.dispatch('registrations/GET_NAPANAM', { id: values.registration.id, birthdate })
+
+        });
+
+        function validateField(value) {
+            if (!value) {
+                return "This field is required";
+            }
+            return true;
+        }
+
+        const { value: id, errorMessage: idError } = useField('registration.id',validateField);
+        const { value: year, errorMessage: yearError } = useField('registration.year',validateField);
+        const { value: month, errorMessage: monthError } = useField('registration.month',validateField);
+        const { value: day, errorMessage: dayError } = useField('registration.day',validateField);
+
+        return {
+            id,
+            year,
+            month,
+            day,
+            idError,
+            yearError,
+            monthError,
+            dayError,
+            onSubmit,
+        }
+
+    },
+    computed:{
+        month_value() {
+
+            return this.$store.state.registrations.selections.month_value
+
+        },
+        day_value() {
+
+            return this.$store.state.registrations.selections.day_value
+
+        },
+    },
+    methods: {
+        fetchSelections() {
+            this.$store.dispatch('registrations/GET_SELECTIONS')
+        },
+        openConfirmation() {
+            this.displayConfirmation = true;
+        },
+        closeConfirmation() {
+            this.displayConfirmation = false;
+        },
+    },
+    mounted() {
+        this.fetchSelections()
+    },
+    components: {
         Button,
         InputText,
         Dropdown,

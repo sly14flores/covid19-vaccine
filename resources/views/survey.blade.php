@@ -291,9 +291,19 @@
 									
 									<div class="form-group" ng-show="survey.vaccine=='no_vaccine'">
 										<hr>
-										<h4 class="text-dark mb-3">What are your consideration for the vaccination? <i class="text-sm">@{{ tagalogVersion.reason }}</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.reason"></i></h4>
+										<h4 class="text-dark mb-3">What are your considerations toward the CoViD-19 vaccine?  <i class="text-sm">@{{ tagalogVersion.reason }}</i> <i class="fa fa-check-circle fa-xs text-success" aria-hidden="true" ng-show="survey.reason"></i></h4>
 										<div class="col-sm-12">
 											<div class="form-group">
+												<div class="custom-control custom-radio mb-2">
+												  <input class="custom-control-input" type="radio" id="enough_information " name="reason" ng-model="survey.reason" value="@{{ reasonValues.enough_information  }}">
+												  <label for="enough_information " class="custom-control-label text-dark">@{{ reason.enough_information  }} <i class="tagalog-version-size text-dark">@{{ tagalogVersion.enough_information  }}</i></label>
+												</div>
+												<hr>
+												<div class="custom-control custom-radio mb-2">
+												  <input class="custom-control-input" type="radio" id="vaccines_not_thoroughly_studied " name="reason" ng-model="survey.reason" value="@{{ reasonValues.vaccines_not_thoroughly_studied  }}">
+												  <label for="vaccines_not_thoroughly_studied " class="custom-control-label text-dark">@{{ reason.vaccines_not_thoroughly_studied  }} <i class="tagalog-version-size text-dark">@{{ tagalogVersion.vaccines_not_thoroughly_studied  }}</i></label>
+												</div>
+												<hr>
 												<div class="custom-control custom-radio mb-2">
 												  <input class="custom-control-input" type="radio" id="efficacy_rate_reason" name="reason" ng-model="survey.reason" value="@{{ reasonValues.efficacy_rate_reason }}">
 												  <label for="efficacy_rate_reason" class="custom-control-label text-dark">@{{ reason.efficacy_rate_reason }} <i class="tagalog-version-size text-dark">@{{ tagalogVersion.efficacy_rate_reason }}</i></label>
@@ -305,13 +315,13 @@
 												</div>
 												<hr>
 												<div class="custom-control custom-radio mb-2">
-												  <input class="custom-control-input" type="radio" id="brand_reason" name="reason" ng-model="survey.reason" value="@{{ reasonValues.brand_reason }}">
-												  <label for="brand_reason" class="custom-control-label text-dark">@{{ reason.brand_reason }} <i class="tagalog-version-size text-dark">@{{ tagalogVersion.brand_reason }}</i></label>
+												  <input class="custom-control-input" type="radio" id="pregnant_reason" name="reason" ng-model="survey.reason" value="@{{ reasonValues.pregnant_reason }}">
+												  <label for="pregnant_reason" class="custom-control-label text-dark">@{{ reason.pregnant_reason }} <i class="tagalog-version-size text-dark">@{{ tagalogVersion.pregnant_reason }}</i></label>
 												</div>
 												<hr>
 												<div class="custom-control custom-radio mb-2">
-												  <input class="custom-control-input" type="radio" id="pregnant_reason" name="reason" ng-model="survey.reason" value="@{{ reasonValues.pregnant_reason }}">
-												  <label for="pregnant_reason" class="custom-control-label text-dark">@{{ reason.pregnant_reason }} <i class="tagalog-version-size text-dark">@{{ tagalogVersion.pregnant_reason }}</i></label>
+												  <input class="custom-control-input" type="radio" id="brand_reason" name="reason" ng-model="survey.reason" value="@{{ reasonValues.brand_reason }}">
+												  <label for="brand_reason" class="custom-control-label text-dark">@{{ reason.brand_reason }} <i class="tagalog-version-size text-dark">@{{ tagalogVersion.brand_reason }}</i></label>
 												</div>
 												<hr>
 												<div class="custom-control custom-radio mb-2">
