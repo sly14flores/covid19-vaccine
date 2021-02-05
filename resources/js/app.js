@@ -56,9 +56,7 @@ app.controller('appCtrl', function($scope,$http) {
 		
 		const napanam_id = $scope.napanam_id
 		
-		const birthdate = ""+$scope.year+"-"+$scope.month+"-"+$scope.day;
-
-		console.log(birthdate)
+		$scope.birthdate = ""+$scope.year+"-"+$scope.month+"-"+$scope.day;
 
 		$http({
 			method: 'GET',
@@ -66,8 +64,10 @@ app.controller('appCtrl', function($scope,$http) {
 		}).then(function mySucces(response) {
 			
 			$scope.status = response.status;
+
+			console.log($scope.birthdate)
 			
-			if(birthdate==response.data.data.dob){
+			if($scope.birthdate==response.data.data.dob){
 				
 				window.location = `${api_url}/survey/${napanam_id}`;
 
@@ -98,7 +98,7 @@ app.controller('appCtrl', function($scope,$http) {
 		});
 		
 	}
-	
+
 	$scope.proceed = function() {
 		
 		const napanam_id = $scope.napanam_id
