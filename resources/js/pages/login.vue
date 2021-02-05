@@ -1,7 +1,11 @@
 <template>
     <div>
-        <div class="p-grid p-jc-center p-mt-6">
-            <div class="p-lg-4 p-sm-12 p-xs-12">
+        <div class="navbar">
+            <a href=""><img alt="logo" src="img/launion-logo.png" class="lu-logo" /></a>
+            <h5 class="p-mt-3 p-label-white">La Union CoViD-19 Vaccination Survey</h5>
+        </div>
+        <div class="p-grid p-jc-center p-mt-4">
+            <div class="p-lg-4 p-md-12 p-sm-12 p-xs-12">
                 <div class="card p-fluid">
                     <div class="p-grid p-jc-center">
                         <div class="p-lg-5 p-sm-5 p-xs-5">
@@ -49,10 +53,33 @@ export default {
 </script>
 
 <style scoped>
-.rugian {
-    width: 200px;
-}
-.card {
-    border-top: 3px solid #0b7ad1;
-}
+.navbar {
+        overflow: hidden;
+        background-color: #215266;
+        position: relative;
+        top: 0;
+        height: 55px;
+        width: 100%;
+    }
+    .navbar a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 1px 4px;
+        text-decoration: none;
+        font-size: 19px;
+    }
+    .lu-logo {
+        height: 50px;
+    }
+    .p-label-white {
+        color: white;
+    }
+    .rugian {
+        width: 200px;
+    }
+    .card {
+        border-top: 4px solid #215266;
+    }
 </style>

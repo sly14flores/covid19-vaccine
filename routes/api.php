@@ -85,6 +85,6 @@ Route::prefix('doh')->group(function() {
         'registration' => RegistrationController::class,
     ],[
         'except' => ['index']
-    ]);    
+    ]);
 
 });
