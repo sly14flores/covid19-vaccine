@@ -9,9 +9,10 @@ app.controller('appCtrl', function($scope,$http) {
 	const api_url = (ENV==='local')?local_url:prod_url	
 	
 	$scope.napanam_id = null;
-	
-	$scope.birthdate = null;
-	
+	$scope.month = null;
+	$scope.day = null;
+	$scope.year = null;
+
 	$scope.privacyNotice = function() {
 		
 		//Sweetalert2 Privacy Notice
@@ -55,10 +56,9 @@ app.controller('appCtrl', function($scope,$http) {
 		
 		const napanam_id = $scope.napanam_id
 		
-		const date = new Date($scope.birthdate);
-		
-		// birthdate convert
-		$scope.getBirthdate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )) .toISOString() .split("T")[0];
+		const birthdate = ""+$scope.year+"-"+$scope.month+"-"+$scope.day;
+
+		console.log(birthdate)
 
 		$http({
 			method: 'GET',
@@ -67,10 +67,10 @@ app.controller('appCtrl', function($scope,$http) {
 			
 			$scope.status = response.status;
 			
-			if($scope.getBirthdate==response.data.data.dob){
+			if(birthdate==response.data.data.dob){
 				
 				window.location = `${api_url}/survey/${napanam_id}`;
-				
+
 			} else {
 				
 				//Sweetalert2
