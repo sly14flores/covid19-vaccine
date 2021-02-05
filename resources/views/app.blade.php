@@ -193,9 +193,7 @@
 							</div>
 
 							<div class="row">
-								<div class="col-lg-1 divhide">&nbsp;</div>
-
-								<div class="col-lg-10">
+								<div class="col-lg-12">
 									<form>
 										<div class="input-group mb-3">
 											<input type="number" class="form-control form-control-lg" placeholder="Napanam ID (e.g 123456)" ng-model="napanam_id">
@@ -207,8 +205,6 @@
 										</div>
 									</form>
 								</div>
-
-								<div class="col-lg-1 divhide">&nbsp;</div>
 							</div>
 							
 							<div class="row" ng-hide="status=='200'">
@@ -225,21 +221,52 @@
 							
 							<div class="row" ng-show="status=='200'">
 								<div class="col-lg-2 divhide">&nbsp;</div>
+
 								<div class="col-lg-8">
 									<h5 style="text-align: center;"><label style="color: #163d4e;"><h6>For verification, please enter your</h6></label><label style="color: #fa6248;">&nbsp;BIRTH DATE</label></h5>
 								</div>
+
 								<div class="col-lg-2 divhide">&nbsp;</div>
-							
-								<div class="col-lg-1 divhide">&nbsp;</div>
-								<div class="col-lg-10">
+							</div>
+
+							<div class="row" ng-show="status=='200'">
+								<div class="col-lg-4 col-sm-12">
 									<form>
 										<div class="form-group mb-3">
-											<input type="date" class="form-control form-control-lg" placeholder="Birthdate" ng-model="birthdate">
+											<select type="date" class="form-control form-control-lg" placeholder="Month" ng-model="month">
+												<option value=""></option>
+												<option value="01">January</option>
+												<option value="02">February</option>
+												<option value="03">March</option>
+												<option value="04">April</option>
+												<option value="05">May</option>
+												<option value="06">June</option>
+												<option value="07">July</option>
+												<option value="08">August</option>
+												<option value="09">September</option>
+												<option value="10">October</option>
+												<option value="11">November</option>
+												<option value="12">December</option>
+											</select>
 										</div>
 									</form>
 								</div>
-								<div class="col-lg-1 divhide">&nbsp;</div>
-						
+								<div class="col-lg-4 col-sm-12">
+									<form>
+										<div class="form-group mb-3">
+											<input type="text" class="form-control form-control-lg" placeholder="DD" ng-model="day">
+										</div>
+									</form>
+								</div>
+								<div class="col-lg-4 col-sm-12">
+									<form>
+										<div class="form-group mb-3">
+											<input type="text" class="form-control form-control-lg" placeholder="YYYY" ng-model="year">
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="row" ng-show="status=='200'">
 								<div class="col-lg-3 divhide">&nbsp;</div>
 								<div class="col-lg-6 mt-4">
 									<a href="javascript:;" ng-click="checkBirthdate()"><button type="button" class="btn btn-block" style="background-color: #68bca4; color: white;">Proceed </button></a>
