@@ -52,8 +52,8 @@ class SurveyController extends Controller
     {
         $validator = Validator::make($request->all(), $this->rules());
         if ($validator->fails()) {
-            return $validator->errors();
-            // return $this->jsonErrorDataValidation();
+            // return $validator->errors();
+            return $this->jsonErrorDataValidation();
         }
 
         $population_groups = [
@@ -96,6 +96,8 @@ class SurveyController extends Controller
         ];
 
         $reasons = [
+            'enough_information',
+            'vaccines_not_thoroughly_studied',
             'efficacy_rate_reason',
             'safety_reason',
             'presence_reason',
