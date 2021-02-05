@@ -31,7 +31,7 @@ window.axios.interceptors.response.use(
     // eslint-disable-next-line func-names
     async function(error) {
         if (error.response.status === 401) {
-            window.open('home#/login','_self');
+            window.open('home#/admin','_self');
         }
         return Promise.reject(error);
     },

@@ -55,7 +55,12 @@ Route::apiResources([
     'except' => ['index']
 ]);
 
-Route::get('napanam/check/registration/{id}', [NapanamController::class, 'checkRegistration']);
+Route::prefix('napanam')->group(function() {
+
+    Route::get('check/registration/{id}', [NapanamController::class, 'checkRegistration']);
+    Route::get('check/registration/{id}/{birthday}', [NapanamController::class, 'verifyNapanamQR']);
+
+});
 
 /**
  * DOH Registration
