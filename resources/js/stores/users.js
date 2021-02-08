@@ -1,15 +1,39 @@
 import route from '../library/route'
-
 import { api_url } from '../url.js'
 
 /**
- * API urls
+ * APIs
  */
-const CREATE_ROUTE = `${api_url}/api/user`
-const UPDATE_ROUTE = `${api_url}/api/user/:id`
-const GET_ROUTE = `${api_url}/api/user/:id`
-const ALL_ROUTE = `${api_url}/api/users`
-const DELETE_ROUTE = `${api_url}/api/user/:id`
+const CREATE_USER = `${api_url}/api/user`
+const createUser = (payload) => {
+    return axios.post(CREATE_USER, payload)
+}
+
+const UPDATE_USER = `${api_url}/api/user/:id`
+const updateUser = (payload) => {
+    const { id } = payload
+    const url =  route(UPDATE_USER, { id })
+    return axios.put(url, payload)
+}
+
+const GET_USER = `${api_url}/api/user/:id`
+const getUser = (payload) => {
+    const { id } = payload
+    const url =  route(GET_USER, { id })
+    return axios.get(url)
+}
+
+const GET_USERS = `${api_url}/api/users`
+const getUsers = (payload) => {
+    return axios.get(GET_USERS)
+}
+
+const DELETE_USER = `${api_url}/api/user/:id`
+const deleteUser = (payload) => {
+    const { id } = payload
+    const url =  route(DELETE_USER, { id })
+    return axios.delete(url)
+}
 
 const user = {
     id: 0,
@@ -47,47 +71,82 @@ const actions = {
     INIT({commit}) {
         commit('INIT')
     },
-    async CREATE({}, payload) {
+    async CREATE_USER({dispatch}, payload) {
         try {
-            const create = await axios.post(CREATE_ROUTE, payload)
+            const { data: { data } } = createUser(payload)
+            dispatch('CREATE_USER_SUCCESS', data)
         } catch(error) {
-
+            const { response } = error
+            dispatch('CREATE_USER_ERROR', response)
         }
     },
-    async UPDATE({}, payload) {
+    CREATE_USER_SUCCESS({commit}, payload) {
+        console.log(payload)
+    },
+    CREATE_USER_ERROR({commit}, payload) {
+        console.log(payload)
+    },
+    async UPDATE_USER({dispatch}, payload) {
         try {
-            const id = payload.id
-            const url =  route(UPDATE_ROUTE, { id })
-            const response = await axios({url, method: 'put', data: payload})
-        } catch(error) {
-
+            const { data: { data } } = await updateUser(payload)
+            dispatch('UPDATE_USER_SUCCESS', data)
+        } catch (error) {
+            const { response } = error
+            dispatch('UPDATE_USER_ERROR', response)
         }
     },
-    async GET({commit}, id) {
+    UPDATE_USER_SUCCESS({commit}, payload) {
+        commit('USER', payload)
+    },
+    UPDATE_USER_ERROR({commit}, payload) {
+        console.log(payload)
+    },
+    async DELETE_USER({dispatch}, payload) {
+        const { id } = payload
         try {
-            const url =  route(GET_ROUTE, { id })
-            const response = await axios.get(url)
-            commit('USER', response.data.data)
-        } catch(error) {
-
+            const { data: { data } } = await deleteUser({id})
+            dispatch('DELETE_USER_SUCCESS', data)
+        } catch (error) {
+            const { response } = error
+            dispatch('DELETE_USER_ERROR', response)
         }
     },
-    async ALL({commit}) {
+    DELETE_USER_SUCCESS({commit}, payload) {
+        console.log(payload)
+    },
+    DELETE_USER_ERROR({commit}, payload) {
+        console.log(payload)
+    },
+    async GET_USER({dispatch}, payload) {
+        const { id } = payload
         try {
-            const response = await axios.get(ALL_ROUTE, {params: {page: 1}})
-            commit('USERS', response.data.data)
-        } catch(error) {
-
+            const { data: { data } } = await getUser({id})
+            dispatch('GET_USER_SUCCESS', data)
+        } catch (error) {
+            const { response } = error
+            dispatch('GET_USER_ERROR', response)
         }
     },
-    async DELETE({dispatch}, {id}) {
+    GET_USER_SUCCESS({commit}, payload) {
+        commit('USER', payload)
+    },
+    GET_USER_ERROR({commit}, payload) {
+        console.log(payload)
+    },
+    async GET_USERS({dispatch}, payload) {
         try {
-            const url =  route(DELETE_ROUTE, { id })
-            const del = await axios.delete(url)
-            dispatch('ALL')
-        } catch(error) {
-            
+            const { data: { data } } = await getUsers()
+            dispatch('GET_USERS_SUCCESS', data)
+        } catch (error) {
+            const { response } = error
+            dispatch('GET_USERS_ERROR', response)
         }
+    },
+    GET_USERS_SUCCESS({commit}, payload) {
+        commit('USERS',payload)
+    },
+    GET_USERS_ERROR({commit}, payload) {
+        console.log(payload)
     }
 }
 

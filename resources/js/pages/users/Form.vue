@@ -62,10 +62,12 @@ export default {
     props: ['editOn'],
     setup(props) {
 
-        const editMode = eval(props.editOn)
+        const { editOn } = props
+        const editMode = eval(editOn)
         const route = useRoute()
-        const params = route.params
+        const { params } = route
         const userId = params.id || null
+        const { state, dispatch } = store
 
         const init = {
             initialValues: {
@@ -76,7 +78,7 @@ export default {
         const { setValues, handleSubmit, resetForm } = useForm(init);
 
         watch(
-            () => store.state.users.user,
+            () => state.users.user,
             (data, prevData) => {
                 setValues({
                     user: {...data}
@@ -85,17 +87,19 @@ export default {
         )
 
         if (editMode) { // Edit
-            store.dispatch('users/GET', userId)
+            dispatch('users/GET_USER', { id: userId })
         } else { // New
             resetForm();
         }
 
         const onSubmit = handleSubmit((values, actions) => {
+            const { resetForm } = actions
+            const { user } = values
             if (editMode) {
-                store.dispatch('users/UPDATE', values.user)
+                dispatch('users/UPDATE_USER', user)
             } else {
-                store.dispatch('users/CREATE', values.user)
-                actions.resetForm();
+                dispatch('users/CREATE_USER', user)
+                resetForm();
             }
         });
 
