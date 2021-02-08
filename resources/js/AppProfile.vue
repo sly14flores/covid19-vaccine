@@ -4,7 +4,7 @@
 			<img src="assets/images/profile.png" alt="" />
 		</div>
 		<button class="p-link layout-profile-link" @click="onClick">
-			<span class="username">Claire Williams</span>
+			<span class="username">{{ name }}</span>
 			<i class="pi pi-fw pi-cog"></i>
 		</button>
         <transition name="layout-submenu-wrapper">
@@ -29,6 +29,11 @@
 			onClick(event){
 				this.expanded = !this.expanded;
 				event.preventDefault();
+			}
+		},
+		computed: {
+			name() {
+				return `${this.$store.state.profile.firstname} ${this.$store.state.profile.lastname}`
 			}
 		}
 	}
