@@ -93,7 +93,7 @@ export default {
             console.log(values)
             const birthdate = `${values.registration.year}-${values.registration.month}-${values.registration.day}`
             store.dispatch('registrations/GET_NAPANAM', { id: values.registration.id, birthdate })
-
+            
         });
 
         function validateField(value) {

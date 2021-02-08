@@ -71,7 +71,7 @@ app.controller('surveyCtrl', function($scope,$http) {
 		health_conditions: "(Ikaw ba ay nagkaroon or mayroon ng mga sumusunod na kondisyon?)",
 		lung_disease: "(Sakit sa Baga – Hal. Hika, Tuberkulosis atbp.)",
 		heart_disease: "(Sakit sa Puso)",
-		kidney_disease: "(Sakit sa Atay)",
+		kidney_disease: "(Sakit sa Bato)",
         diabetes: "(Diyabetes)",
         high_blood_pressure: "(Altapresyon)",
         cancer: "(Kanser)",
@@ -322,7 +322,7 @@ app.controller('surveyCtrl', function($scope,$http) {
 			  title: '<p class="text-success" style="font-size: 25px;">YOUR RESPONSE HAS BEEN SUBMITTED!</p>',
 			  icon: 'success',
 			  html: 
-				'<b>Thank you for your commitment in stopping the spread of Covid-19!!!! </b><br><br>' +
+				'<b>Thank you for your commitment in stopping the spread of Covid-19! </b><br><br>' +
 				'<b style="font-size: 15px;">For inquiries, please contact us at: </b> <br>' +
 				'<b class="text-danger" style="font-size: 15px;">Tel. No. (072) 242-5550 loc. 299</b>',
 			  showCancelButton: false,

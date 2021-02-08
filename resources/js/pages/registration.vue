@@ -13,7 +13,7 @@
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>NAPANAM ID</label>
-                                <InputText class="p-shadow-1" type="text" v-model="qr_pass_id" />
+                                <InputText class="p-shadow-1" type="text" v-model="qr_pass_id" disabled />
                             </div>
                         </div>
                     </div>
@@ -21,19 +21,19 @@
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>First Name</label>
-                                <InputText class="p-shadow-1" type="text" v-model="first_name" />
+                                <InputText class="p-shadow-1" type="text" v-model="first_name" disabled />
                             </div>
                         </div>
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Middle Name</label>
-                                <InputText class="p-shadow-1" type="text" v-model="middle_name" />
+                                <InputText class="p-shadow-1" type="text" v-model="middle_name" disabled />
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Last Name</label>
-                                <InputText class="p-shadow-1" type="text" v-model="last_name" />
+                                <InputText class="p-shadow-1" type="text" v-model="last_name" disabled />
                             </div>
                         </div>
                         <div class="p-lg-2 p-sm-12 p-xs-12">
@@ -47,13 +47,13 @@
                         <div class="p-lg-6 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Birthdate</label>
-                                <InputText class="p-shadow-1" type="date" v-model="birth_date" />
+                                <InputText class="p-shadow-1" type="date" v-model="birth_date" disabled />
                             </div>
                         </div>
                         <div class="p-lg-6 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Sex</label>
-                                <InputText class="p-shadow-1" type="text" v-model="sex" />
+                                <InputText class="p-shadow-1" type="text" v-model="sex" disabled />
                             </div>
                         </div>
                     </div>
@@ -61,13 +61,13 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Address</label>
-                                <InputText class="p-shadow-1" type="text" v-model="address" />
+                                <InputText class="p-shadow-1" type="text" v-model="address" disabled />
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Contact No.:</label>
-                                <InputText class="p-shadow-1" type="text" v-model="contact_no" />
+                                <InputText class="p-shadow-1" type="text" v-model="contact_no" disabled />
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
@@ -361,9 +361,11 @@ export default {
     setup() {
 
         /**
-         * Redirection logic using route and store
+         * Redirection logic using store
          */
-        
+        if (store.state.registrations.registration.qr_pass_id == null) {
+            window.open('home#/verify','_self');
+        }
         
         const init = {
             initialValues: {
@@ -556,7 +558,7 @@ export default {
         },
     },
     mounted() {
-        this.fetchSelections()
+        // this.fetchSelections()
     }
 }
 </script>
@@ -603,6 +605,12 @@ export default {
     input[type="text"]:disabled {
         background: rgb(219, 219, 219);
         border-bottom: 1px solid black;
+        cursor: not-allowed; 
+    }
+    input[type="date"]:disabled {
+        background: rgb(219, 219, 219);
+        border-bottom: 1px solid black;
+        cursor: not-allowed; 
     }
     .button-success {
         background-color: #68bca4;
