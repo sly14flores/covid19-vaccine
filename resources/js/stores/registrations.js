@@ -82,6 +82,14 @@ const mutations = {
     },
     NAPANAM(state, payload) {
         state.registration.qr_pass_id = payload.id
+        state.registration.first_name = payload.firstname
+        state.registration.middle_name = payload.middlename
+        state.registration.last_name = payload.lastname
+        state.registration.birth_date = payload.dob
+        state.registration.sex = payload.gender
+        state.registration.address = payload.complete_address
+        state.registration.contact_no = payload.contact_no
+
     }
 }
 
@@ -111,6 +119,7 @@ const actions = {
             const url =  route(GET_NAPANAM_ROUTE, { id, birthdate })
             const response = await axios.get(url)
             commit('NAPANAM', response.data.data)
+            window.open('home#/registration','_self')            
         } catch (error) {
             console.log(error)
         }
