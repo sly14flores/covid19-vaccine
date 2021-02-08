@@ -55,7 +55,7 @@ export default {
     },
     methods: {
         fetchUsers() {
-            this.$store.dispatch('users/ALL')
+            this.$store.dispatch('users/GET_USERS')
         },
         deleteUser(id) {
             this.$confirm.require({
@@ -63,7 +63,7 @@ export default {
                 header: 'Confirmation',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    this.$store.dispatch('users/DELETE', {id})
+                    this.$store.dispatch('users/DELETE_USER', {id})
                 },
                 reject: () => {
                     //callback to execute when user rejects the action
