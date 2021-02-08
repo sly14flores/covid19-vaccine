@@ -63,7 +63,7 @@ export default {
         }];
     },
     logo() {
-        return (this.layoutColorMode === 'dark') ? "assets/images/logo-white.svg" : "assets/images/logo.svg";
+        return (this.layoutColorMode === 'dark') ? "img/logo-banner.png" : "img/logo.png";
     }    
   },
   methods: {
@@ -125,3 +125,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+img{
+  height: 53px;
+}
+</style>

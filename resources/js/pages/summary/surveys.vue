@@ -23,34 +23,71 @@
                     <span class="count purchases"><i class="pi pi-user" style="fontSize: 3rem"></i></span>
                 </div>
             </div>
-            <div class="p-lg-8 p-md-12 p-sm-12">
-                <Panel header="Population Group">
-                    <div class="p-grid">
+            <div class="p-grid">
+                <div class="p-lg-8 p-md-12 p-sm-12">
+                    <Panel header="Population Group">
                         <DataTable>
                             <Column field="code" header="Total" sortable="true"></Column>
                             <Column field="name" header="Description" sortable="true"></Column>
                         </DataTable>
-                    </div>
-               </Panel>
-	        </div>
-
-            <div class="p-lg-4 p-md-12 p-sm-12">
-                <DataTable>
-                    <Column field="city" header="City & Municipality" sortable="true"></Column>
-                    <Column field="total" header="Total" sortable="true"></Column>
-                </DataTable>
+                   </Panel>
+                </div>
+                <div class="p-lg-4 p-md-12 p-sm-12">
+                    <DataTable>
+                        <Column field="city" header="City & Municipality" sortable="true"></Column>
+                        <Column field="total" header="Total" sortable="true"></Column>
+                    </DataTable>
+                 </div>
+            </div> 
+            
+            <div class="p-grid">
+                <div class="p-lg-8 p-md-12 p-sm-12">
+                    <Panel header="Comorbidities">
+                        <DataTable>
+                            <Column field="code" header="Total" sortable="true"></Column>
+                            <Column field="name" header="Description" sortable="true"></Column>
+                        </DataTable>
+                    </Panel>
+                </div>
+            </div>
+            <div class="p-grid">
+                <div class="p-lg-4 p-md-12 p-sm-12">
+                    <Panel header="Pregnancy Status">
+                        <DataTable>
+                            <Column field="code" header="Pregnant" sortable="true"></Column>
+                            <Column field="name" header="Not Pregnant" sortable="true"></Column>
+                            <Column field="name" header="Not Sure" sortable="true"></Column>
+                        </DataTable>   
+                    </Panel>
+                </div>
+                <div class="p-lg-4 p-md-12 p-sm-12">
+                    <Panel header="Planning to get pregnant?">
+                        <DataTable>
+                            <Column field="code" header="Yes" sortable="true"></Column>
+                            <Column field="name" header="Not Pregnant" sortable="true"></Column>
+                        </DataTable>   
+                    </Panel>
+                </div>
             </div>
 
-            <div class="p-lg-8 p-md-12 p-sm-12">
-                <Panel header="Comorbidities">
-                    <div class="p-grid">
+            <div class="p-grid">
+                <div class="p-lg-4 p-md-12 p-sm-12">
+                    <Panel header="Interested To Be Vaccinated">
+                        <DataTable>
+                            <Column field="code" header="Interested" sortable="true"></Column>
+                            <Column field="name" header="Not Interested" sortable="true"></Column>
+                        </DataTable>   
+                    </Panel>
+                </div>
+                <div class="p-lg-4 p-md-12 p-sm-12">
+                    <Panel header="Reason">
                         <DataTable>
                             <Column field="code" header="Total" sortable="true"></Column>
                             <Column field="name" header="Description" sortable="true"></Column>
-                        </DataTable>
-                    </div>
-               </Panel>
-	        </div>
+                        </DataTable>   
+                    </Panel>
+                </div>
+            </div>
             
         </div>
     </div>

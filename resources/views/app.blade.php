@@ -233,7 +233,7 @@
 								<div class="col-lg-4 col-sm-12">
 									<form>
 										<div class="form-group mb-3">
-											<h6>Day</h6>
+											<h6>Month</h6>
 											<select type="date" class="form-control form-control-lg" placeholder="Month" ng-model="month">
 												<option value=""></option>
 												<option value="01">January</option>
