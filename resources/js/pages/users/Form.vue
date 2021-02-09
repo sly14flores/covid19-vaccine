@@ -29,7 +29,7 @@
                         <div class="p-field p-lg-6 p-md-12">
                             <label for="username">Username</label>
                             <InputText id="username" type="text" placeholder="Enter Username" v-model="username" :class="{'p-invalid': usernameError}" />
-                            <small class="p-error">{{ usernameError }}</small>                        
+                            <small class="p-error">{{ usernameError }}</small>                     
                         </div>
                         <div class="p-field p-lg-6 p-md-12">
                             <label for="password">Password</label>
