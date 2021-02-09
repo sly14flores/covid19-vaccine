@@ -24,16 +24,16 @@
                                 <InputText class="p-shadow-1" type="text" v-model="first_name" disabled />
                             </div>
                         </div>
-                        <div class="p-lg-3 p-sm-12 p-xs-12">
-                            <div class="p-field">
-                                <label>Middle Name</label>
-                                <InputText class="p-shadow-1" type="text" v-model="middle_name" disabled />
-                            </div>
-                        </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Last Name</label>
                                 <InputText class="p-shadow-1" type="text" v-model="last_name" disabled />
+                            </div>
+                        </div>
+                        <div class="p-lg-3 p-sm-12 p-xs-12">
+                            <div class="p-field">
+                                <label>Middle Name</label>
+                                <InputText class="p-shadow-1" type="text" v-model="middle_name" disabled />
                             </div>
                         </div>
                         <div class="p-lg-2 p-sm-12 p-xs-12">
@@ -44,37 +44,63 @@
                         </div>
                     </div>
                     <div class="p-grid">
-                        <div class="p-lg-6 p-sm-12 p-xs-12">
+                        <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Birthdate</label>
                                 <InputText class="p-shadow-1" type="date" v-model="birth_date" disabled />
                             </div>
                         </div>
-                        <div class="p-lg-6 p-sm-12 p-xs-12">
+                        <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Sex</label>
                                 <InputText class="p-shadow-1" type="text" v-model="sex" disabled />
+                            </div>
+                        </div>
+                        <div class="p-lg-3 p-sm-12 p-xs-12">
+                            <div class="p-field">
+                                <label><i class="p-error">*</i> Civil Status</label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="civil_status_value" optionValue="id" v-model="civil_status" placeholder="Select a Civil Status" :class="{'p-invalid': civil_statusError}" />
+                                <small class="p-error">{{ civil_statusError }}</small>
+                            </div>
+                        </div>
+                        <div class="p-lg-3 p-sm-12 p-xs-12">
+                            <div class="p-field">
+                                <label>Contact No.:</label>
+                                <InputText class="p-shadow-1" type="text" v-model="contact_no" disabled />
                             </div>
                         </div>
                     </div>
                     <div class="p-grid">
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Address</label>
-                                <InputText class="p-shadow-1" type="text" v-model="address" disabled />
+                                <label>Region</label>
+                                <InputText class="p-shadow-1" type="text" v-model="region" disabled />
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Contact No.:</label>
-                                <InputText class="p-shadow-1" type="text" v-model="contact_no" disabled />
+                                <label>Province</label>
+                                <InputText class="p-shadow-1" type="text" v-model="province" disabled />
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label><i class="p-error">*</i> Civil Status</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="civil_status_value" optionValue="id" v-model="civil_status" placeholder="Select a Civil Status" :class="{'p-invalid': civil_statusError}" />
-                                <small class="p-error">{{ civil_statusError }}</small>
+                                <label>Municipality</label>
+                                <InputText class="p-shadow-1" type="text" v-model="town_city" disabled />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-lg-8 p-sm-12 p-xs-12">
+                            <div class="p-field">
+                                <label>Unit/Building/Street/House No.</label>
+                                <InputText class="p-shadow-1" type="text" v-model="street" disabled />
+                            </div>
+                        </div>
+                        <div class="p-lg-4 p-sm-12 p-xs-12">
+                            <div class="p-field">
+                                <label>Barangay</label>
+                                <InputText class="p-shadow-1" type="text" v-model="barangay" disabled />
                             </div>
                         </div>
                     </div>
@@ -108,13 +134,8 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="p-grid">
-                        <div class="p-lg-4 p-sm-12 p-xs-12">
-                            <div class="p-field">
-                                <label>Employment Status</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status"/>
-                            </div>
-                        </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Profession</label>
@@ -128,26 +149,39 @@
                                 <small class="p-error">{{ philhealthError }}</small>
                             </div>
                         </div>
+                        <div class="p-lg-4 p-sm-12 p-xs-12">
+                            <div class="p-field">
+                                <label> PWD ID No.</label>
+                                <InputText class="p-shadow-1" type="text" v-model="pwd_id" />
+                            </div>
+                        </div>
                     </div>
                     <div class="p-grid">
-                        <div class="p-lg-12 p-sm-12 p-xs-12">
+                        <div class="p-lg-4 p-sm-12 p-xs-12">
+                            <div class="p-field">
+                                <label>Employment Status</label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status"/>
+                            </div>
+                        </div>
+                        <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Employer Name</label>
                                 <InputText class="p-shadow-1" type="text" v-model="employer_name" />
                             </div>
                         </div>
-                    </div>
-                    <div class="p-grid">
                         <div class="p-lg-4 p-sm-12 p-xs-12">
+                            <div class="p-field">
+                                <label>Municipality</label>
+                                <InputText class="p-shadow-1" type="text" v-model="employer_municipality" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-grid">
+                        <div class="p-lg-8 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Employer Address</label>
                                 <InputText class="p-shadow-1" type="text" v-model="employer_address" />
-                            </div>
-                        </div>
-                        <div class="p-lg-4 p-sm-12 p-xs-12">
-                            <div class="p-field">
-                                <label>Employer LGU</label>
-                                <InputText class="p-shadow-1" optionLabel="name" v-model="employer_lgu"/>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
@@ -166,7 +200,28 @@
                 <div class="card p-fluid p-border-left">
                     <h4 class="p-mt-2"><b>Health Status</b></h4> <hr />
                     <div class="p-grid">
+                        <div class="p-lg-3 p-sm-12 p-xs-12">
+                            <div class="p-field">
+                                <label><i class="p-error">*</i> Directly in interaction with Covid Patient:</label>
+                                <h6 class="p-error">{{ directly_interactionError }}</h6>
+                            </div>
+                        </div>
+                        <div class="p-lg-1 p-sm-12 p-xs-12">
+                            <div class="p-field-radiobutton">
+                                <RadioButton id="yes_direct_interaction" name="direct_interaction" v-model="direct_interaction" value="01_Yes" />
+                                <label for="yes_direct_interaction">Yes</label>
+                            </div>
+                        </div>
                         <div class="p-lg-2 p-sm-12 p-xs-12">
+                            <div class="p-field-radiobutton">
+                                <RadioButton id="no_direct_interaction" name="direct_interaction" v-model="direct_interaction" value="02_No" />
+                                <label for="no_direct_interaction">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="p-grid">
+                        <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label><i class="p-error">*</i> Prenancy Status:</label>
                                 <h6 class="p-error">{{ pregnancy_statusError }}</h6>
@@ -174,20 +229,20 @@
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="pregnant" name="pregnancy_status" v-model="pregnancy_status" value="true" />
+                                <RadioButton id="pregnant" name="pregnancy_status" v-model="pregnancy_status" value="01_Pregnant" />
                                 <label for="pregnant">Pregnant</label>
                             </div>
                         </div>
                         <div class="p-lg-2 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="not_pregnant" name="pregnancy_status" v-model="pregnancy_status" value="false" />
+                                <RadioButton id="not_pregnant" name="pregnancy_status" v-model="pregnancy_status" value="02_Not_Pregnant" />
                                 <label for="not_pregnant">Not Pregnant</label>
                             </div>
                         </div>
                     </div>
                     <hr />
                     <div class="p-grid">
-                        <div class="p-lg-2 p-sm-12 p-xs-12">
+                        <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label><i class="p-error">*</i> With Allergy:</label>
                                 <h6 class="p-error">{{ with_allergyError }}</h6>
@@ -195,30 +250,53 @@
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="yes_allergy" name="with_allergy" v-model="with_allergy" value="true" v-on:click="with_allergy_hide = true" />
+                                <RadioButton id="yes_allergy" name="with_allergy" v-model="with_allergy" value="01_Yes" v-on:click="with_allergy_hide = true" />
                                 <label for="yes_allergy">Yes</label>
                             </div>
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="none_allergy" name="with_allergy" v-model="with_allergy" value="false"  v-on:click="with_allergy_hide = false" />
+                                <RadioButton id="none_allergy" name="with_allergy" v-model="with_allergy" value="02_None"  v-on:click="with_allergy_hide = false" />
                                 <label for="none_allergy">None</label>
                             </div>
                         </div>
-                        <div class="p-lg-4 p-sm-12 p-xs-12" v-if="with_allergy_hide">
+                        <div class="p-lg-2 p-sm-12 p-xs-12" v-if="with_allergy_hide">
                             <div class="p-field">
-                                <Dropdown class="p-shadow-1" :options="allergy_value" v-model="allergy" optionValue="id" optionLabel="name" placeholder="Select a Allergy"/>
-                            </div>
-                        </div>
-                        <div class="p-lg-4 p-sm-12 p-xs-12" v-if="with_allergy_hide">
-                            <div class="p-field">
-                                <InputText class="p-shadow-1" optionLabel="name" placeholder="Others" v-model="with_allergy_others" />
+                                <h5>Allergies</h5>
+                                <div class="p-field-checkbox">
+                                    <Checkbox id="drug" name="drug" value="01_Yes" v-model="drug_allergy" />
+                                    <label for="drug">Drug</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <Checkbox id="food" name="food" value="01_Yes" v-model="food_allergy" />
+                                    <label for="food">Food</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <Checkbox id="insect" name="insect" value="01_Yes" v-model="insect_allergy" />
+                                    <label for="insect">Insect</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <Checkbox id="latex" name="latex" value="01_Yes" v-model="latex_allergy" />
+                                    <label for="latex">Latex</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <Checkbox id="mold" name="mold" value="01_Yes" v-model="mold_allergy" />
+                                    <label for="mold">Mold</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <Checkbox id="pet" name="pet" value="01_Yes" v-model="pet_allergy" />
+                                    <label for="pet">Pet</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <Checkbox id="pollen" name="pollen" value="01_Yes" v-model="pollen_allergy" />
+                                    <label for="pollen">Pollen</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <hr />
                     <div class="p-grid">
-                        <div class="p-lg-2 p-sm-12 p-xs-12">
+                        <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label><i class="p-error">*</i> With Comorbidities: </label>
                                 <h6 class="p-error">{{ with_comorbidityError }}</h6>
@@ -226,22 +304,54 @@
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="yes_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="true" v-on:click="with_comorbidity_hide = true" />
+                                <RadioButton id="yes_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="01_Yes" v-on:click="with_comorbidity_hide = true" />
                                 <label for="yes_comorbidity">Yes</label>
                             </div>
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="none_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="false" v-on:click="with_comorbidity_hide = false" />
+                                <RadioButton id="none_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="02_None" v-on:click="with_comorbidity_hide = false" />
                                 <label for="none_comorbidity">None</label>
                             </div>
                         </div>
-                        <div class="p-lg-4 p-sm-12 p-xs-12" v-if="with_comorbidity_hide">
+                        <div class="p-lg-2 p-sm-12 p-xs-12" v-if="with_comorbidity_hide">
                             <div class="p-field">
-                                <Dropdown class="p-shadow-1" :options="comorbidity_value" v-model="comorbidity" optionValue="id" optionLabel="name" placeholder="Select a Comorbidities"/>
+                                <h5>Comorbidities</h5>
+                                <div class="p-field-checkbox">
+                                    <Checkbox id="drug" name="drug" value="01_Yes" v-model="hypertension" />
+                                    <label for="drug">Hypertension</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <Checkbox id="food" name="food" value="01_Yes" v-model="heart_disease" />
+                                    <label for="food">Heart disease</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <Checkbox id="insect" name="insect" value="01_Yes" v-model="kidney_disease" />
+                                    <label for="insect">Kidney disease</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <Checkbox id="latex" name="latex" value="01_Yes" v-model="diabetes_mellitus" />
+                                    <label for="latex">Diabetes mellitus</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <Checkbox id="mold" name="mold" value="01_Yes" v-model="bronchial_asthma" />
+                                    <label for="mold">Bronchial Asthma</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <Checkbox id="pet" name="pet" value="01_Yes" v-model="immuno_deficiency_status" />
+                                    <label for="pet">Immunodeficiency Status</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <Checkbox id="pollen" name="pollen" value="01_Yes" v-model="cancer" />
+                                    <label for="pollen">Cancer</label>
+                                </div>
+                                <div class="p-field-checkbox">
+                                    <Checkbox id="comorbidity_others" name="comorbidity_others" value="01_Yes" v-model="comorbidity_others" v-on:click="comorbidity_others_hide = !comorbidity_others_hide" />
+                                    <label for="comorbidity_others">Others</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="p-lg-4 p-sm-12 p-xs-12"  v-if="with_comorbidity_hide">
+                        <div class="p-lg-5 p-sm-12 p-xs-12" v-if="comorbidity_others_hide">
                             <div class="p-field">
                                 <InputText class="p-shadow-1" optionLabel="name" placeholder="Others" v-model="with_comorbidity_others" />
                             </div>
@@ -258,13 +368,13 @@
                             </div>
                             <div class="p-lg-1 p-sm-12 p-xs-12">
                                 <div class="p-field-radiobutton">
-                                    <RadioButton id="yes_diagnosed" name="diagnosed" v-model="diagnosed" value="true"  v-on:click="diagnosed_hide = true" />
+                                    <RadioButton id="yes_diagnosed" name="diagnosed" v-model="diagnosed" value="01_Yes"  v-on:click="diagnosed_hide = true" />
                                     <label for="yes_diagnosed">Yes</label>
                                 </div>
                             </div>
                             <div class="p-lg-1 p-sm-12 p-xs-12">
                                 <div class="p-field-radiobutton">
-                                    <RadioButton id="no_diagnosed" name="diagnosed" v-model="diagnosed" value="false" v-on:click="diagnosed_hide = false" />
+                                    <RadioButton id="no_diagnosed" name="diagnosed" v-model="diagnosed" value="02_No" v-on:click="diagnosed_hide = false" />
                                     <label for="no_diagnosed">No</label>
                                 </div>
                             </div>
@@ -299,19 +409,19 @@
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="yes_vaccination" name="vaccination" v-model="consent_vaccination" value="true" />
+                                <RadioButton id="yes_vaccination" name="vaccination" v-model="consent_vaccination" value="01_Yes" />
                                 <label for="yes_vaccination">Yes</label>
                             </div>
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="no_vaccination" name="vaccination" v-model="consent_vaccination" value="false" />
+                                <RadioButton id="no_vaccination" name="vaccination" v-model="consent_vaccination" value="02_No" />
                                 <label for="no_vaccination">No</label>
                             </div>
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="Unknown_vaccination" name="vaccination" v-model="consent_vaccination" value="null" />
+                                <RadioButton id="Unknown_vaccination" name="vaccination" v-model="consent_vaccination" value="03_Unknown" />
                                 <label for="Unknown_vaccination">Unknown</label>
                             </div>
                         </div>
@@ -351,6 +461,7 @@ import Dropdown from 'primevue/dropdown/sfc';
 import RadioButton from 'primevue/radiobutton/sfc';
 import Menubar from 'primevue/menubar/sfc';
 import Dialog from 'primevue/dialog/sfc';
+import Checkbox from 'primevue/checkbox/sfc';
 
 import { registration } from '../stores/registrations.js'
 import store from '../store.js'
@@ -362,14 +473,14 @@ export default {
 
         /**
          * Redirection logic using store
+         *  if (store.state.registrations.registration.qr_pass_id == null) {
+                window.open('home#/verify','_self');
+            }
          */
-        if (store.state.registrations.registration.qr_pass_id == null) {
-            window.open('home#/verify','_self');
-        }
         
         const init = {
             initialValues: {
-                registration: {...registration}
+                registration: {...registration}              
             }
         }
 
@@ -395,7 +506,6 @@ export default {
         }
 
         function validateRadio(value) {
-            console.log(value)
             if (typeof eval(value) === "object") {
                 return true;
             }
@@ -404,7 +514,7 @@ export default {
             }
             return true;
         }
-
+        // Personal
         const { value: id } = useField('registration.id',validField);
         const { value: qr_pass_id } = useField('registration.qr_pass_id',validField);
         const { value: first_name } = useField('registration.first_name',validField);
@@ -413,36 +523,57 @@ export default {
         const { value: suffix } = useField('registration.suffix',validField);
         const { value: birth_date } = useField('registration.birth_date',validField);
         const { value: sex } = useField('registration.sex',validField);
-        const { value: address } = useField('registration.address',validField);
+        const { value: region } = useField('registration.region',validField);
+        const { value: province } = useField('registration.province',validField);
+        const { value: town_city } = useField('registration.town_city',validField);
+        const { value: street } = useField('registration.street',validField);
+        const { value: barangay } = useField('registration.barangay',validField);
         const { value: contact_no } = useField('registration.contact_no',validField);
         const { value: civil_status, errorMessage: civil_statusError } = useField('registration.civil_status',validateField);
+        // Employment Status
         const { value: category, errorMessage: categoryError } = useField('registration.category',validateField);
         const { value: category_id, errorMessage: category_idError } = useField('registration.category_id',validateField);
         const { value: category_id_no } = useField('registration.category_id_no',validField);
         const { value: employment_status, errorMessage: employment_statusError } = useField('registration.employment_status',validateField);
         const { value: profession } = useField('registration.profession',validField);
         const { value: philhealth, errorMessage: philhealthError } = useField('registration.philhealth',validateField);
+        const { value: pwd_id } = useField('registration.pwd',validField);
         const { value: employer_name } = useField('registration.employer_name',validField);
+        const { value: employer_municipality } = useField('registration.employer_city',validField);
         const { value: employer_address } = useField('registration.employer_address',validField);
-        const { value: employer_lgu } = useField('registration.employer_lgu',validField);
         const { value: employer_contact_no } = useField('registration.employer_contact_no',validField);
+        // Health Status
         const { value: pregnancy_status, errorMessage: pregnancy_statusError } = useField('registration.pregnancy_status',validateRadio);
-
+        const { value: direct_interaction, errorMessage: directly_interactionError } = useField('registration.direct_interaction',validateRadio);
+        // Allergies
         const { value: with_allergy, errorMessage: with_allergyError } = useField('registration.with_allergy',validateRadio);
-        const { value: allergy } = useField('registration.allergy',validField);
+        const { value: drug_allergy} = useField('registration.drug_allergy',validField);
+        const { value: food_allergy} = useField('registration.food_allergy',validField);
+        const { value: insect_allergy} = useField('registration.insect_allergy',validField);
+        const { value: latex_allergy} = useField('registration.latex_allergy',validField);
+        const { value: mold_allergy} = useField('registration.mold_allergy',validField);
+        const { value: pet_allergy} = useField('registration.pet_allergy',validField);
+        const { value: pollen_allergy} = useField('registration.pollen_allergy',validField);
         const { value: with_allergy_others } = useField('registration.with_allergy_others',validField);
-        
+        // Comorbidities
         const { value: with_comorbidity, errorMessage: with_comorbidityError } = useField('registration.with_comorbidity',validateRadio);
-        const { value: comorbidity } = useField('registration.comorbidity',validField);
+        const { value: hypertension } = useField('registration.hypertension',validField);
+        const { value: heart_disease } = useField('registration.heart_disease',validField);
+        const { value: kidney_disease } = useField('registration.kidney_disease',validField);
+        const { value: diabetes_mellitus } = useField('registration.diabetes_mellitus',validField);
+        const { value: bronchial_asthma } = useField('registration.bronchial_asthma',validField);
+        const { value: immuno_deficiency_status } = useField('registration.immuno_deficiency_status',validField);
+        const { value: cancer } = useField('registration.cancer',validField);
+        const { value: comorbidity_others } = useField('registration.comorbidity_others',validField);
         const { value: with_comorbidity_others } = useField('registration.with_comorbidity_others',validField);
-       
         const { value: diagnosed, errorMessage: diagnosedError } = useField('registration.diagnosed',validateField);
         const { value: covid_classification } = useField('registration.covid_classification',validField);
         const { value: diagnosed_date } = useField('registration.diagnosed_date',validField);
+        
         const { value: consent_vaccination, errorMessage: consent_vaccinationError } = useField('registration.consent_vaccination',validateRadio);
         
         return {
-            id,
+            id, // Personal
             qr_pass_id,
             first_name,
             middle_name,
@@ -450,35 +581,59 @@ export default {
             suffix,
             birth_date,
             sex,
-            address,
+            region,
+            province,
+            town_city,
+            street,
+            barangay,
             contact_no,
-            civil_status,
-            category,
+            civil_status, //  End Personal
+
+            category, // Employment Status
             category_id,
             category_id_no,
             employment_status,
             profession,
             philhealth,
+            pwd_id,
             employer_name,
+            employer_municipality,
             employer_address,
-            employer_lgu,
-            employer_contact_no,
+            employer_contact_no, // End Employment Status
+            
+            direct_interaction, // Health Status
             pregnancy_status,
             with_allergy,
-            allergy,
+            drug_allergy,
+            food_allergy,
+            insect_allergy,
+            latex_allergy,
+            mold_allergy,
+            pet_allergy,
+            pollen_allergy,
             with_allergy_others,
+
             with_comorbidity,
-            comorbidity,
+            hypertension,
+            heart_disease,
+            kidney_disease,
+            diabetes_mellitus,
+            bronchial_asthma,
+            immuno_deficiency_status,
+            cancer,
+            comorbidity_others,
             with_comorbidity_others,
             diagnosed,
-            covid_classification,
-            diagnosed_date,
+            covid_classification, 
+            diagnosed_date,  // End Health Status
+
             consent_vaccination,
             employment_statusError,
             philhealthError,
             category_idError,
             categoryError,
             civil_statusError,
+            directly_interactionError,
             pregnancy_statusError,
             with_allergyError,
             with_comorbidityError,
@@ -494,13 +649,15 @@ export default {
         Dropdown,
         RadioButton,
         Menubar,
-        Dialog
+        Dialog,
+        Checkbox
     },
     data() {
         return {
            displayConfirmation: false,
            with_allergy_hide: false,
            with_comorbidity_hide: false,
+           comorbidity_others_hide: false,
            diagnosed_hide: false
         }
     },
