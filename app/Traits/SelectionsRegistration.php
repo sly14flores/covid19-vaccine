@@ -5,114 +5,153 @@ namespace App\Traits;
 trait SelectionsRegistration
 {
 
+    public function suffixValue()
+    {
+        return [
+            ["name"=>"NA", "id"=>"NA"],            
+            ["name"=>"II", "id"=>"II"],
+            ["name"=>"III", "id"=>"III"],
+            ["name"=>"IV", "id"=>"IV"],
+            ["name"=>"V", "id"=>"V"],
+            ["name"=>"JR", "id"=>"JR"],
+            ["name"=>"SR", "id"=>"SR"],
+        ];        
+    }
+
     public function civilStatusValue()
     {
         return [
-            ["name"=>"Single", "id"=>1],
-            ["name"=>"Married", "id"=>2],
-            ["name"=>"Widow/Widower", "id"=>3],
-            ["name"=>"Separated/Annulled", "id"=>4],
-            ["name"=>"Living with Partner", "id"=>5]
+            ["name"=>"Single", "id"=>"01_Single"],
+            ["name"=>"Married", "id"=>"02_Married"],
+            ["name"=>"Widow/Widower", "id"=>"03_Widow/Widower"],
+            ["name"=>"Separated/Annulled", "id"=>"04_Separated/Annulled"],
+            ["name"=>"Living with Partner", "id"=>"05_Living_with_Partner"]
         ];
     }
 
     public function categoryValue()
     {
         return [
-            ["name"=>"Health Care Worker", "id"=>1],
-            ["name"=>"Senior Citizen", "id"=>2],
-            ["name"=>"Indigent", "id"=>3],
-            ["name"=>"Uniformed Personnel", "id"=>4],
-            ["name"=>"Essential Worker", "id"=>5],
-            ["name"=>"Other", "id"=>6]
+            ["name"=>"Health Care Worker", "id"=>"01_Health_Care_Worker"],
+            ["name"=>"Senior Citizen", "id"=>"02_Senior_Citizen"],
+            ["name"=>"Indigent", "id"=>"03_Indigent"],
+            ["name"=>"Uniformed Personnel", "id"=>"04_Uniformed_Personnel"],
+            ["name"=>"Essential Worker", "id"=>"05_Essential_Worker"],
+            ["name"=>"Other", "id"=>"06_Other"]
         ];
     }
 
     public function categoryIdValue()
     {
         return [
-            ["name"=>"PRC number", "id"=>1],
-            ["name"=>"OSCA number", "id"=>2],
-            ["name"=>"Facility ID number", "id"=>3],
-            ["name"=>"PWD ID", "id"=>4],
-            ["name"=>"Other ID", "id"=>5]
+            ["name"=>"PRC number", "id"=>"01_PRC_number"],
+            ["name"=>"OSCA number", "id"=>"02_OSCA_number"],
+            ["name"=>"Facility ID number", "id"=>"03_Facility_ID_number"],
+            ["name"=>"Other ID", "id"=>"04_Other_ID"]
         ];
     }
 
     public function employmentStatusValue()
     {
         return [
-            ["name"=>"Government Employed", "id"=>1],
-            ["name"=>"Private Employed", "id"=>2],
-            ["name"=>"Self-employed", "id"=>3],
-            ["name"=>"Private", "id"=>4]
+            ["name"=>"Government Employed", "id"=>"01_Government_Employed"],
+            ["name"=>"Private Employed", "id"=>"02_Private_Employed"],
+            ["name"=>"Self-employed", "id"=>"03_Self_employed"],
+            ["name"=>"Private Practitioner", "id"=>"04_Private_practitioner"],
+            ["name"=>"Others", "id"=>"05_Others"]
         ];
     }
 
     public function professionValue()
-    {
+    {        
         return [
-            ["name"=>"Dental Hygienist", "id"=>1],
-            ["name"=>"Private Employed", "id"=>2],
-            ["name"=>"Dentist", "id"=>3],
-            ["name"=>"Medical Technologist", "id"=>4],
-            ["name"=>"Midwife", "id"=>5],
-            ["name"=>"Nurse", "id"=>6],
-            ["name"=>"Nutritionist-Dietician", "id"=>7],
-            ["name"=>"Occupational Therapist", "id"=>8],
-            ["name"=>"Optometrist", "id"=>9],
-            ["name"=>"Pharmacist", "id"=>10],
-            ["name"=>"Physical Therapist", "id"=>11],
-            ["name"=>"Physician", "id"=>12],
-            ["name"=>"Radiologic Technologist", "id"=>13],
-            ["name"=>"Respiratory Therapist", "id"=>14],
-            ["name"=>"X-ray Technologist", "id"=>15],
-            ["name"=>"Barangay Health Worker", "id"=>16],
+            ["name"=>"Dental Hygienist", "id"=>"01_Dental_Hygienist"],
+            ["name"=>"Dental Technologist", "id"=>"02_Dental_Technologist"],
+            ["name"=>"Dentist", "id"=>"03_Dentist"],
+            ["name"=>"Medical Technologist", "id"=>"04_Medical_Technologist"],
+            ["name"=>"Midwife", "id"=>"05_Midwife"],
+            ["name"=>"Nurse", "id"=>"06_Nurse"],
+            ["name"=>"Nutritionist Dietician", "id"=>"07_Nutritionist_Dietician"],
+            ["name"=>"Occupational Therapist", "id"=>"08_Occupational_Therapist"],
+            ["name"=>"Optometrist", "id"=>"09_Optometrist"],
+            ["name"=>"Pharmacist", "id"=>"10_Pharmacist"],
+            ["name"=>"Physical", "id"=>"11_Physical Therapist"],
+            ["name"=>"Physician", "id"=>"12_Physician"],
+            ["name"=>"Radiologic Technologist", "id"=>"13_Radiologic_Technologist"],
+            ["name"=>"Respiratory Therapist", "id"=>"14_Respiratory_Therapist"],
+            ["name"=>"X-ray Technologist", "id"=>"15_X_ray_Technologist"],
+            ["name"=>"Barangay Health_Worker", "id"=>"16_Barangay_Health_Worker"],
+            ["name"=>"Maintenance Staff", "id"=>"17_Maintenance_Staff"],
+            ["name"=>"Administrative Staff", "id"=>"18_Administrative_Staff"],
+            ["name"=>"Others", "id"=>"19_Others_"],
         ];
     }
 
     public function allergyValue()
     {
         return [
-            ["name"=>"Drug", "id"=>1],
-            ["name"=>"Food", "id"=>2],
-            ["name"=>"Insect", "id"=>3],
-            ["name"=>"Latex", "id"=>4],
-            ["name"=>"Mold", "id"=>5],
-            ["name"=>"Pet", "id"=>6],
-            ["name"=>"Pollen", "id"=>7]
+            ["name"=>"Drug", "id"=>"01"],
+            ["name"=>"Food", "id"=>"02"],
+            ["name"=>"Insect", "id"=>"03t"],
+            ["name"=>"Latex", "id"=>"04"],
+            ["name"=>"Mold", "id"=>"05"],
+            ["name"=>"Pet", "id"=>"06"],
+            ["name"=>"Pollen", "id"=>"07"]
         ];
     }
 
     public function comorbidityValue()
     {
         return [
-            ["name"=>"Hypertension", "id"=>1],
-            ["name"=>"Heart disease", "id"=>2],
-            ["name"=>"Kidney disease", "id"=>3],
-            ["name"=>"Diabetes mellitus", "id"=>4],
-            ["name"=>"Bronchial Asthma", "id"=>5],
-            ["name"=>"Immunodeficiency state", "id"=>6],
-            ["name"=>"Cancer", "id"=>7],
+            ["name"=>"Hypertension", "id"=>"01"],
+            ["name"=>"Heart disease", "id"=>"02"],
+            ["name"=>"Kidney disease", "id"=>"03"],
+            ["name"=>"Diabetes mellitus", "id"=>"04"],
+            ["name"=>"Bronchial Asthma", "id"=>"05"],
+            ["name"=>"Immunodeficiency state", "id"=>"06"],
+            ["name"=>"Cancer", "id"=>"07"],
         ];
     }
 
     public function covidClassificationValue()
     {
         return [
-            ["name"=>"Asymptomatic", "id"=>1],
-            ["name"=>"Mild", "id"=>2],
-            ["name"=>"Moderate", "id"=>3],
-            ["name"=>"Severe", "id"=>4],
-            ["name"=>"Critical", "id"=>5],
+            ["name"=>"Asymptomatic", "id"=>"01_Asymptomatic"],
+            ["name"=>"Mild", "id"=>"02_Mild"],
+            ["name"=>"Moderate", "id"=>"03_Moderate"],
+            ["name"=>"Severe", "id"=>"04_Severe"],
+            ["name"=>"Critical", "id"=>"05_Critical"],
         ];        
     }
 
     public function employerLguValue()
     {
         return [
-            ["name"=>"Component City", "id"=>1],
-            ["name"=>"Municipality", "id"=>2],
+            ["name"=>"Component City", "id"=>"01"],
+            ["name"=>"Municipality", "id"=>"02"],
+        ];
+    }
+
+    public function regionValue()
+    {
+        return [
+            ["name"=>"Ilocos", "id"=>"Ilocos"],
+            ["name"=>"Cagayan Valley", "id"=>"CagayanValley"],
+            ["name"=>"Central Luzon", "id"=>"CentralLuzon"],
+            ["name"=>"CALABARZON", "id"=>"CALABARZON"],
+            ["name"=>"Bicol Region", "id"=>"BicolRegion"],
+            ["name"=>"Western Visayas", "id"=>"WesternVisayas"],
+            ["name"=>"Central Visayas", "id"=>"CentralVisayas"],
+            ["name"=>"Eastern Visayas", "id"=>"EasternVisayas"],
+            ["name"=>"Zamboanga Peninsula", "id"=>"ZamboangaPeninsula"],
+            ["name"=>"Northern Mindanao", "id"=>"NorthernMindanao"],
+            ["name"=>"Davao Region", "id"=>"DavaoRegion"],
+            ["name"=>"Soccsksargen", "id"=>"Soccsksargen"],
+            ["name"=>"National CapitalRegion", "id"=>"NationalCapitalRegion"],
+            ["name"=>"Cordillera Administrative Region", "id"=>"CordilleraAdministrativeRegion"],
+            ["name"=>"Bangsamoro Autonomous Region", "id"=>"BangsamoroAutonomousRegion"],
+            ["name"=>"CARAGA", "id"=>"CARAGA"],
+            ["name"=>"MIMAROPA", "id"=>"MIMAROPA"],
         ];
     }
 
