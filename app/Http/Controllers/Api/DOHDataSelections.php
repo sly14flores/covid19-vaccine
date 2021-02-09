@@ -7,11 +7,16 @@ use Illuminate\Http\Request;
 
 use App\Traits\Messages;
 use App\Traits\SelectionsRegistration;
+use App\Traits\DOHHelpers;
+
+use App\Models\Province;
+use App\Models\CityMun;
+use App\Models\Barangay;
 
 class DOHDataSelections extends Controller
 {
 
-    use Messages, SelectionsRegistration;
+    use Messages, SelectionsRegistration, DOHHelpers;
 
     /**
      * Handle the incoming request.
@@ -21,8 +26,49 @@ class DOHDataSelections extends Controller
      */
     public function __invoke(Request $request)
     {
+
+        /**
+         * Province
+         */
+        $get_provinces = Province::all();
+        $provinces = [];
+        foreach ($get_provinces as $province) {
+
+            $get_municipalities = CityMun::where('provCode',$province['provCode'])->get();
+            $municipalities = [];
+            foreach ($get_municipalities as $municipality) {
+                $get_barangays = Barangay::where('citymunCode',$municipality['citymunCode'])->get();
+                $barangays = [];
+                foreach ($get_barangays as $barangay) {
+                    $doh_brgy = $this->toDOHBrgy($barangay);
+                    $barangays[] = [
+                        "name"=>$barangay['brgyDesc'],
+                        "id"=>$doh_brgy
+                    ];
+                }
+
+                $doh_municipality = $this->toDOHMun($municipality);
+                $municipalities[] = [
+                    "name"=>$municipality['citymunDesc'],
+                    "id"=>$doh_municipality,
+                    "barangays"=>$barangays
+                ];
+            }
+
+            $doh_province = $this->toDOHProv($province);
+            $provinces[] = [
+                "name"=>$province['provDesc'],
+                "id"=>$doh_province,
+                "municipalities"=>$municipalities,
+            ];
+
+        }
+
         //
         $selections = [
+            "province_value" => $provinces,
+            "employer_municipality_value" => $this->employerMunicipalityValue(),
+            "suffix_value" => $this->suffixValue(),
             "civil_status_value" => $this->civilStatusValue(),
             "category_value" => $this->categoryValue(),
             "category_id_value" => $this->categoryIdValue(),
@@ -32,6 +78,7 @@ class DOHDataSelections extends Controller
             "comorbidity_value" => $this->comorbidityValue(),
             "covid_classification_value" => $this->covidClassificationValue(),
             "employer_lgu_value" => $this->employerLguValue(),
+            "region_value" => $this->regionValue(),
             "month_value" => $this->monthValue(),
             "day_value" => $this->dayValue(),
         ];
