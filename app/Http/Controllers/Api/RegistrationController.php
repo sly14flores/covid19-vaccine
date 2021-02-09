@@ -106,6 +106,7 @@ class RegistrationController extends Controller
         
         $registration = new Registration;
         $registration->fill($data);
+
         $registration->save();
 
         $data = new RegistrationResource($registration);

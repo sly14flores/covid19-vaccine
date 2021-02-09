@@ -132,6 +132,33 @@ trait SelectionsRegistration
         ];
     }
 
+    public function employerMunicipalityValue()
+    {
+        return [
+            ["name"=>"133 - LA_UNION", "id"=>"133 - LA_UNION"],
+            ["name"=>"13301 - AGOO", "id"=>"13301 - AGOO"],
+            ["name"=>"13302 - ARINGAY", "id"=>"13302 - ARINGAY"],
+            ["name"=>"13303 - BACNOTAN", "id"=>"13303 - BACNOTAN"],
+            ["name"=>"13304 - BAGULIN", "id"=>"13304 - BAGULIN"],
+            ["name"=>"13305 - BALAOAN", "id"=>"13305 - BALAOAN"],
+            ["name"=>"13306 - BANGAR", "id"=>"13306 - BANGAR"],
+            ["name"=>"13307 - BAUANG", "id"=>"13307 - BAUANG"],
+            ["name"=>"13308 - BURGOS", "id"=>"13308 - BURGOS"],
+            ["name"=>"13309 - CABA", "id"=>"13309 - CABA"],
+            ["name"=>"13310 - LUNA", "id"=>"13310 - LUNA"],
+            ["name"=>"13311 - NAGUILIAN", "id"=>"13311 - NAGUILIAN"],
+            ["name"=>"13312 - PUGO", "id"=>"13312 - PUGO"],
+            ["name"=>"13313 - ROSARIO", "id"=>"13313 - ROSARIO"],
+            ["name"=>"13314 - CITY_OF_SAN_FERNANDO_", "id"=>"13314 - CITY_OF_SAN_FERNANDO_"],
+            ["name"=>"13315 - SAN_GABRIEL", "id"=>"13315 - SAN_GABRIEL"],
+            ["name"=>"13316 - SAN_JUAN", "id"=>"13316 - SAN_JUAN"],
+            ["name"=>"13317 - SANTO_TOMAS", "id"=>"13317 - SANTO_TOMAS"],
+            ["name"=>"13318 - SANTOL", "id"=>"13318 - SANTOL"],
+            ["name"=>"13319 - SUDIPEN", "id"=>"13319 - SUDIPEN"],
+            ["name"=>"13320 - TUBAO", "id"=>"13320 - TUBAO"],
+        ];
+    }
+
     public function regionValue()
     {
         return [

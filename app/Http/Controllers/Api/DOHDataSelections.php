@@ -67,6 +67,7 @@ class DOHDataSelections extends Controller
         //
         $selections = [
             "province_value" => $provinces,
+            "employer_municipality_value" => $this->employerMunicipalityValue(),
             "suffix_value" => $this->suffixValue(),
             "civil_status_value" => $this->civilStatusValue(),
             "category_value" => $this->categoryValue(),
