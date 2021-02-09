@@ -12,16 +12,19 @@ trait DOHHelpers
         $spaceWithUn = str_replace('(','',$spaceWithUn);
         $spaceWithUn = str_replace(')','',$spaceWithUn);
         $spaceWithUn = str_replace(',','',$spaceWithUn);
+        $spaceWithUn = str_replace('.','',$spaceWithUn);
         return $doh_prov.$spaceWithUn;
     }
 
     public function toDOHMun($municipality)
     {
+        $citymunDesc = ($municipality['citymunCode']==13314)?"CITY OF SAN FERNANDO":$municipality['citymunDesc'];
         $doh_municipality = "_0{$municipality['citymunCode']}_";
-        $spaceWithUn = str_replace(' ','_',$municipality['citymunDesc']);
+        $spaceWithUn = str_replace(' ','_',$citymunDesc);
         $spaceWithUn = str_replace('(','',$spaceWithUn);
         $spaceWithUn = str_replace(')','',$spaceWithUn);
         $spaceWithUn = str_replace(',','',$spaceWithUn);
+        $spaceWithUn = str_replace('.','',$spaceWithUn);
         return $doh_municipality.$spaceWithUn;      
     }
 
@@ -32,6 +35,7 @@ trait DOHHelpers
         $spaceWithUn = str_replace('(','',$spaceWithUn);
         $spaceWithUn = str_replace(')','',$spaceWithUn);
         $spaceWithUn = str_replace(',','',$spaceWithUn);
+        $spaceWithUn = str_replace('.','',$spaceWithUn);
         return strtoupper($doh_barangay.$spaceWithUn);
     }
 

@@ -62,6 +62,11 @@ class NapanamController extends Controller
 			return $this->jsonErrorResourceNotFound();
         }
 
+        $survey = Survey::where('qr_pass_id',$id)->get();
+        if (count($survey)) {
+            return $this->jsonSuccessResponse(null, 406, "Already registered");
+        }        
+
         $data = new QrPassResourceDOH($qrpass);
         return $this->jsonSuccessResponse($data, 200);
 
