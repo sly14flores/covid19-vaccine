@@ -32,7 +32,7 @@ trait DOHHelpers
         $spaceWithUn = str_replace('(','',$spaceWithUn);
         $spaceWithUn = str_replace(')','',$spaceWithUn);
         $spaceWithUn = str_replace(',','',$spaceWithUn);
-        return $doh_barangay.$spaceWithUn;  
+        return strtoupper($doh_barangay.$spaceWithUn);
     }
 
 }
