@@ -8,6 +8,7 @@ const CREATE_ROUTE = `${api_url}/api/doh/registration`
 const GET_NAPANAM_ROUTE = `${api_url}/api/napanam/check/registration/:id/:birthdate`
 
 const registration = {
+    // Personal
     id: 0,
     qr_pass_id : null,
     first_name: null,
@@ -16,28 +17,32 @@ const registration = {
     suffix: null,
     birthdate: null,
     gender: null,
-    region: null,
+    address: null, // street
+    region: "Ilocos",
     province: null,
-    city: null,
-    street: null,
+    town_city: null,
     barangay: null,
     contact_no: null,
     civil_status: null,
+
+    // Employment Status
     category: null,
     category_id: null,
     category_id_no: null,
     employment_status: null,
     profession: null,
     philhealth: null,
-    pwd: null,
+    pwd_id: null,
     employer_name: null,
-    employer_city: null,
+    employer_municipality: null,
     employer_address: null,
-    employer_lgu: null,
     employer_contact_no: null,
-    directly_interaction: null,
+
+    // Health Status
+    direct_interaction: null,
     pregnancy_status: null,
 
+    // Allergies
     with_allergy: null,
     drug_allergy: "02_No",
     food_allergy: "02_No",
@@ -46,8 +51,8 @@ const registration = {
     mold_allergy: "02_No",
     pet_allergy: "02_No",
     pollen_allergy: "02_No",
-    with_allergy_others: null,
 
+    // Comorbidities
     with_comorbidity: null,
     hypertension: "02_No",
     heart_disease: "02_No",
@@ -57,12 +62,12 @@ const registration = {
     immuno_deficiency_status: "02_No",
     cancer: "02_No",
     comorbidity_others: "02_No",
-    with_comorbidity_others: null,
-
+    
     diagnosed: null,
     covid_classification: null,
     diagnosed_date: null,
-    consent_vaccination: null    
+
+    consent_vaccination: null
 }
 
 const civil_status_value = [];

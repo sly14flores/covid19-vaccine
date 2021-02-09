@@ -86,7 +86,7 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Municipality</label>
-                                <InputText class="p-shadow-1" type="text" v-model="city" disabled />
+                                <InputText class="p-shadow-1" type="text" v-model="town_city" disabled />
                             </div>
                         </div>
                     </div>
@@ -214,8 +214,8 @@
                         </div>
                         <div class="p-lg-2 p-sm-12 p-xs-12">
                             <div class="p-field-radiobutton">
-                                <RadioButton id="not_direct_interaction" name="direct_interaction" v-model="direct_interaction" value="02_No" />
-                                <label for="not_direct_interaction">No</label>
+                                <RadioButton id="no_direct_interaction" name="direct_interaction" v-model="direct_interaction" value="02_No" />
+                                <label for="no_direct_interaction">No</label>
                             </div>
                         </div>
                     </div>
@@ -314,7 +314,7 @@
                                 <label for="none_comorbidity">None</label>
                             </div>
                         </div>
-                        <div class="p-lg-4 p-sm-12 p-xs-12" v-if="with_comorbidity_hide">
+                        <div class="p-lg-2 p-sm-12 p-xs-12" v-if="with_comorbidity_hide">
                             <div class="p-field">
                                 <h5>Comorbidities</h5>
                                 <div class="p-field-checkbox">
@@ -346,12 +346,12 @@
                                     <label for="pollen">Cancer</label>
                                 </div>
                                 <div class="p-field-checkbox">
-                                    <Checkbox id="pollen" name="pollen" value="01_Yes" v-model="comorbidity_others" />
-                                    <label for="pollen">Others</label>
+                                    <Checkbox id="comorbidity_others" name="comorbidity_others" value="01_Yes" v-model="comorbidity_others" v-on:click="comorbidity_others_hide = !comorbidity_others_hide" />
+                                    <label for="comorbidity_others">Others</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="p-lg-4 p-sm-12 p-xs-12"  v-if="with_comorbidity_hide">
+                        <div class="p-lg-5 p-sm-12 p-xs-12" v-if="comorbidity_others_hide">
                             <div class="p-field">
                                 <InputText class="p-shadow-1" optionLabel="name" placeholder="Others" v-model="with_comorbidity_others" />
                             </div>
@@ -478,7 +478,6 @@ export default {
             }
          */
         
-
         const init = {
             initialValues: {
                 registration: {...registration}              
@@ -515,7 +514,7 @@ export default {
             }
             return true;
         }
-
+        // Personal
         const { value: id } = useField('registration.id',validField);
         const { value: qr_pass_id } = useField('registration.qr_pass_id',validField);
         const { value: first_name } = useField('registration.first_name',validField);
@@ -526,41 +525,55 @@ export default {
         const { value: sex } = useField('registration.sex',validField);
         const { value: region } = useField('registration.region',validField);
         const { value: province } = useField('registration.province',validField);
-        const { value: city } = useField('registration.city',validField);
+        const { value: town_city } = useField('registration.town_city',validField);
         const { value: street } = useField('registration.street',validField);
         const { value: barangay } = useField('registration.barangay',validField);
         const { value: contact_no } = useField('registration.contact_no',validField);
         const { value: civil_status, errorMessage: civil_statusError } = useField('registration.civil_status',validateField);
+        // Employment Status
         const { value: category, errorMessage: categoryError } = useField('registration.category',validateField);
         const { value: category_id, errorMessage: category_idError } = useField('registration.category_id',validateField);
         const { value: category_id_no } = useField('registration.category_id_no',validField);
         const { value: employment_status, errorMessage: employment_statusError } = useField('registration.employment_status',validateField);
         const { value: profession } = useField('registration.profession',validField);
         const { value: philhealth, errorMessage: philhealthError } = useField('registration.philhealth',validateField);
-        const { value: pwd } = useField('registration.pwd',validField);
+        const { value: pwd_id } = useField('registration.pwd',validField);
         const { value: employer_name } = useField('registration.employer_name',validField);
-        const { value: employer_city } = useField('registration.employer_city',validField);
+        const { value: employer_municipality } = useField('registration.employer_city',validField);
         const { value: employer_address } = useField('registration.employer_address',validField);
-        const { value: employer_lgu } = useField('registration.employer_lgu',validField);
         const { value: employer_contact_no } = useField('registration.employer_contact_no',validField);
+        // Health Status
         const { value: pregnancy_status, errorMessage: pregnancy_statusError } = useField('registration.pregnancy_status',validateRadio);
-        const { value: directly_interaction, errorMessage: directly_interactionError } = useField('registration.directly_interaction',validateRadio);
-
+        const { value: direct_interaction, errorMessage: directly_interactionError } = useField('registration.direct_interaction',validateRadio);
+        // Allergies
         const { value: with_allergy, errorMessage: with_allergyError } = useField('registration.with_allergy',validateRadio);
-        const { value: allergy } = useField('registration.allergy',validField);
+        const { value: drug_allergy} = useField('registration.drug_allergy',validField);
+        const { value: food_allergy} = useField('registration.food_allergy',validField);
+        const { value: insect_allergy} = useField('registration.insect_allergy',validField);
+        const { value: latex_allergy} = useField('registration.latex_allergy',validField);
+        const { value: mold_allergy} = useField('registration.mold_allergy',validField);
+        const { value: pet_allergy} = useField('registration.pet_allergy',validField);
+        const { value: pollen_allergy} = useField('registration.pollen_allergy',validField);
         const { value: with_allergy_others } = useField('registration.with_allergy_others',validField);
-        
+        // Comorbidities
         const { value: with_comorbidity, errorMessage: with_comorbidityError } = useField('registration.with_comorbidity',validateRadio);
-        const { value: comorbidity } = useField('registration.comorbidity',validField);
+        const { value: hypertension } = useField('registration.hypertension',validField);
+        const { value: heart_disease } = useField('registration.heart_disease',validField);
+        const { value: kidney_disease } = useField('registration.kidney_disease',validField);
+        const { value: diabetes_mellitus } = useField('registration.diabetes_mellitus',validField);
+        const { value: bronchial_asthma } = useField('registration.bronchial_asthma',validField);
+        const { value: immuno_deficiency_status } = useField('registration.immuno_deficiency_status',validField);
+        const { value: cancer } = useField('registration.cancer',validField);
+        const { value: comorbidity_others } = useField('registration.comorbidity_others',validField);
         const { value: with_comorbidity_others } = useField('registration.with_comorbidity_others',validField);
-       
         const { value: diagnosed, errorMessage: diagnosedError } = useField('registration.diagnosed',validateField);
         const { value: covid_classification } = useField('registration.covid_classification',validField);
         const { value: diagnosed_date } = useField('registration.diagnosed_date',validField);
+        
         const { value: consent_vaccination, errorMessage: consent_vaccinationError } = useField('registration.consent_vaccination',validateRadio);
         
         return {
-            id,
+            id, // Personal
             qr_pass_id,
             first_name,
             middle_name,
@@ -570,34 +583,50 @@ export default {
             sex,
             region,
             province,
-            city,
+            town_city,
             street,
             barangay,
             contact_no,
-            civil_status,
-            category,
+            civil_status, //  End Personal
+
+            category, // Employment Status
             category_id,
             category_id_no,
             employment_status,
             profession,
             philhealth,
-            pwd,
+            pwd_id,
             employer_name,
-            employer_city,
+            employer_municipality,
             employer_address,
-            employer_lgu,
-            employer_contact_no,
-            directly_interaction,
+            employer_contact_no, // End Employment Status
+            
+            direct_interaction, // Health Status
             pregnancy_status,
             with_allergy,
-            allergy,
+            drug_allergy,
+            food_allergy,
+            insect_allergy,
+            latex_allergy,
+            mold_allergy,
+            pet_allergy,
+            pollen_allergy,
             with_allergy_others,
+
             with_comorbidity,
-            comorbidity,
+            hypertension,
+            heart_disease,
+            kidney_disease,
+            diabetes_mellitus,
+            bronchial_asthma,
+            immuno_deficiency_status,
+            cancer,
+            comorbidity_others,
             with_comorbidity_others,
             diagnosed,
-            covid_classification,
-            diagnosed_date,
+            covid_classification, 
+            diagnosed_date,  // End Health Status
+
             consent_vaccination,
             employment_statusError,
             philhealthError,
@@ -628,6 +657,7 @@ export default {
            displayConfirmation: false,
            with_allergy_hide: false,
            with_comorbidity_hide: false,
+           comorbidity_others_hide: false,
            diagnosed_hide: false
         }
     },
