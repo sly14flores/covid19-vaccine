@@ -486,8 +486,6 @@ export default {
             }
         }
 
-        console.log(init)
-
         const { setValues, handleSubmit, resetForm } = useForm(init);
 
         const onSubmit = handleSubmit((values, actions) => {
