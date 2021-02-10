@@ -57,24 +57,24 @@ const registration = {
 
     // Allergies
     with_allergy: null,
-    drug_allergy: "02_No",
-    food_allergy: "02_No",
-    insect_allergy: "02_No",
-    latex_allergy: "02_No",
-    mold_allergy: "02_No",
-    pet_allergy: "02_No",
-    pollen_allergy: "02_No",
+    drug_allergy: false,
+    food_allergy: false,
+    insect_allergy: false,
+    latex_allergy: false,
+    mold_allergy: false,
+    pet_allergy: false,
+    pollen_allergy: false,
 
     // Comorbidities
     with_comorbidity: null,
-    hypertension: "02_No",
-    heart_disease: "02_No",
-    kidney_disease: "02_No",
-    diabetes_mellitus: "02_No",
-    bronchial_asthma: "02_No",
-    immuno_deficiency_status: "02_No",
-    cancer: "02_No",
-    comorbidity_others: "02_No",
+    hypertension: false,
+    heart_disease: false,
+    kidney_disease: false,
+    diabetes_mellitus: false,
+    bronchial_asthma: false,
+    immuno_deficiency_status: false,
+    cancer: false,
+    comorbidity_others: false,
     
     diagnosed: null,
     covid_classification: null,
@@ -165,10 +165,26 @@ const actions = {
     GET_SELECTIONS_ERROR({commit}, payload) {
         console.log(payload)
     },
-
     async CREATE({commit, dispatch}, payload) {
         commit('SAVING', true)
         try {
+            payload.drug_allergy = (payload.drug_allergy)?"01_Yes":"02_No"
+            payload.food_allergy = (payload.food_allergy)?"01_Yes":"02_No"
+            payload.insect_allergy = (payload.insect_allergy)?"01_Yes":"02_No"
+            payload.latex_allergy = (payload.latex_allergy)?"01_Yes":"02_No"
+            payload.mold_allergy = (payload.mold_allergy)?"01_Yes":"02_No"
+            payload.pet_allergy = (payload.pet_allergy)?"01_Yes":"02_No"
+            payload.pollen_allergy = (payload.pollen_allergy)?"01_Yes":"02_No"
+
+            payload.hypertension = (payload.hypertension)?"01_Yes":"02_No"
+            payload.heart_disease = (payload.heart_disease)?"01_Yes":"02_No"
+            payload.kidney_disease = (payload.kidney_disease)?"01_Yes":"02_No"
+            payload.diabetes_mellitus = (payload.diabetes_mellitus)?"01_Yes":"02_No"
+            payload.bronchial_asthma = (payload.bronchial_asthma)?"01_Yes":"02_No"
+            payload.immuno_deficiency_status = (payload.immuno_deficiency_status)?"01_Yes":"02_No"
+            payload.cancer = (payload.cancer)?"01_Yes":"02_No"
+            payload.comorbidity_others = (payload.comorbidity_others)?"01_Yes":"02_No"
+           
             const { data: { data } } = await createRegistration(payload)
             dispatch('CREATE_SUCCESS', data)
             console.log(data)
