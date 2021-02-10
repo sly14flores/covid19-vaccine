@@ -9,6 +9,7 @@ use App\Traits\Messages;
 use Illuminate\Support\Facades\DB;
 use App\Models\QrPass;
 use App\Models\Survey;
+use App\Models\Registration;
 
 use App\Http\Resources\QrPassResource;
 use App\Http\Resources\QrPassResourceDOH;
@@ -62,8 +63,8 @@ class NapanamController extends Controller
 			return $this->jsonErrorResourceNotFound();
         }
 
-        $survey = Survey::where('qr_pass_id',$id)->get();
-        if (count($survey)) {
+        $registration = Registration::where('qr_pass_id',$id)->get();
+        if (count($registration)) {
             return $this->jsonSuccessResponse(null, 406, "Already registered");
         }        
 

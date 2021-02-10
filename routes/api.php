@@ -72,6 +72,7 @@ Route::prefix('doh')->group(function() {
      * Selections
      */
     Route::get('selections', DOHDataSelections::class);
+    Route::get('selections/addresses', [DOHDataSelections::class, 'addresses']);
 
     /**
      * Registration
