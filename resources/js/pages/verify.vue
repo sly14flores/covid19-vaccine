@@ -2,7 +2,7 @@
     <div>
         <div class="navbar">
             <a href=""><img alt="logo" src="img/launion-logo.png" class="lu-logo" /></a>
-            <h5 class="p-mt-3 p-label-white">La Union CoViD-19 Vaccination Survey</h5>
+            <h5 class="p-mt-3 p-label-white">La Union CoViD-19 Vaccination</h5>
         </div>
         <form @submit="onSubmit">
             <div class="p-grid p-jc-center p-mt-4">
@@ -14,7 +14,7 @@
                             </div>
                         </div>
                         <div class="p-grid p-jc-center p-mt-2">
-                            <h6>Before your proceed to the registration, please complete the form below.</h6>
+                            <h6>Before your proceed to the registration page, please complete the form below.</h6>
                         </div>
                         <hr />
                         <div class="p-field">

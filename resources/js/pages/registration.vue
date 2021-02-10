@@ -2,7 +2,7 @@
     <div>
         <div class="navbar">
             <a href=""><img alt="logo" src="img/launion-logo.png" class="lu-logo" /></a>
-            <h5 class="p-mt-3 p-label-white">La Union CoViD-19 Vaccination Survey</h5>
+            <h5 class="p-mt-3 p-label-white">La Union CoViD-19 Vaccination</h5>
         </div>
         <form @submit="onSubmit">
         <div class="p-grid p-jc-center p-mt-4">
@@ -13,7 +13,7 @@
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>NAPANAM ID</label>
-                                <InputText class="p-shadow-1" type="text" v-model="qr_pass_id" disabled />
+                                <InputText class="p-shadow-1" type="text" name="qr_pass_id" v-model="qr_pass_id" disabled />
                             </div>
                         </div>
                     </div>
@@ -38,8 +38,8 @@
                         </div>
                         <div class="p-lg-2 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Suffix</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="suffix_value" v-model="suffix" optionValue="id" placeholder="Select a Suffix" :class="{'p-invalid': suffixError}" />
+                                <label>Suffix/Extension Name</label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="suffix_value" optionValue="id" v-model="suffix" placeholder="Select a Suffix" />
                             </div>
                         </div>
                     </div>
@@ -47,13 +47,13 @@
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Birthdate</label>
-                                <InputText class="p-shadow-1" type="date" v-model="birth_date" disabled />
+                                <InputText class="p-shadow-1" type="date" v-model="birthdate" disabled />
                             </div>
                         </div>
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Sex</label>
-                                <InputText class="p-shadow-1" type="text" v-model="gender" disabled />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" placeholder="Select a Gender" />
                             </div>
                         </div>
                         <div class="p-lg-3 p-sm-12 p-xs-12">
@@ -152,7 +152,7 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label> PWD ID No.</label>
-                                <InputText class="p-shadow-1" type="text" v-model="pwd_id" />
+                                <InputText class="p-shadow-1" type="text" name="pwd_id" v-model="pwd_id" />
                             </div>
                         </div>
                     </div>
@@ -520,7 +520,7 @@ export default {
         const { value: middle_name } = useField('registration.middle_name',validField);
         const { value: last_name } = useField('registration.last_name',validField);
         const { value: suffix, errorMessage: suffixError } = useField('registration.suffix',validateField);
-        const { value: birth_date } = useField('registration.birth_date',validField);
+        const { value: birthdate } = useField('registration.birthdate',validField);
         const { value: gender } = useField('registration.gender',validField);
         const { value: region } = useField('registration.region',validField);
         const { value: province } = useField('registration.province',validField);
@@ -536,7 +536,7 @@ export default {
         const { value: employment_status, errorMessage: employment_statusError } = useField('registration.employment_status',validateField);
         const { value: profession } = useField('registration.profession',validField);
         const { value: philhealth, errorMessage: philhealthError } = useField('registration.philhealth',validateField);
-        const { value: pwd_id } = useField('registration.pwd',validField);
+        const { value: pwd_id } = useField('registration.pwd_id',validField);
         const { value: employer_name } = useField('registration.employer_name',validField);
         const { value: employer_municipality } = useField('registration.employer_city',validField);
         const { value: employer_address } = useField('registration.employer_address',validField);
@@ -578,7 +578,7 @@ export default {
             middle_name,
             last_name,
             suffix,
-            birth_date,
+            birthdate,
             gender,
             region,
             province,
@@ -661,6 +661,11 @@ export default {
         suffix_value() {
 
             return this.$store.state.registrations.selections.suffix_value
+
+        },
+        gender_value() {
+
+            return this.$store.state.registrations.selections.gender_value
 
         },
         civil_status_value() {

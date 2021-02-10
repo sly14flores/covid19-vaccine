@@ -9,7 +9,7 @@ const getSelections = () => {
 }
 
 const CREATE_ROUTE = `${api_url}/api/doh/registration`
-const creteRegistration = (payload) => {
+const createRegistration = (payload) => {
     return axios.post(CREATE_ROUTE, payload)
 }
 
@@ -84,6 +84,7 @@ const registration = {
 }
 
 const suffix_value = [];
+const gender_value = [];
 const civil_status_value = [];
 const category_value = [];
 const category_id_value = [];
@@ -99,6 +100,7 @@ const day_value = [];
 
 const selections = {
     suffix_value,
+    gender_value,
     civil_status_value,
     category_value,
     category_id_value,
@@ -131,7 +133,7 @@ const mutations = {
         state.registration.first_name = payload.firstname
         state.registration.middle_name = payload.middlename
         state.registration.last_name = payload.lastname
-        state.registration.birth_date = payload.dob
+        state.registration.birthdate = payload.dob
         state.registration.gender = payload.gender
         state.registration.contact_no = payload.contact_no
         state.registration.province = payload.provinceDesc
@@ -163,11 +165,13 @@ const actions = {
     GET_SELECTIONS_ERROR({commit}, payload) {
         console.log(payload)
     },
+
     async CREATE({commit, dispatch}, payload) {
         commit('SAVING', true)
         try {
-            const { data: { data } } = await creteRegistration(payload)
+            const { data: { data } } = await createRegistration(payload)
             dispatch('CREATE_SUCCESS', data)
+            console.log(data)
         } catch(error) {
             const { response } = error
             dispatch('CREATE_ERROR', response)
