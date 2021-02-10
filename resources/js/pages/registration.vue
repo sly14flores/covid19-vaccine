@@ -2,7 +2,7 @@
     <div>
         <div class="navbar">
             <a href=""><img alt="logo" src="img/launion-logo.png" class="lu-logo" /></a>
-            <h5 class="p-mt-3 p-label-white">La Union CoViD-19 Vaccination Survey</h5>
+            <h5 class="p-mt-3 p-label-white">La Union CoViD-19 Vaccination</h5>
         </div>
         <form @submit="onSubmit">
         <div class="p-grid p-jc-center p-mt-4">
@@ -12,60 +12,61 @@
                     <div class="p-grid">
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>NAPANAM ID</label>
-                                <InputText class="p-shadow-1" type="text" v-model="qr_pass_id" disabled />
+                                <label>NAPANAM ID <i class="p-error">*</i></label>
+                                <InputText class="p-shadow-1" type="text" name="qr_pass_id" v-model="qr_pass_id" disabled />
                             </div>
                         </div>
                     </div>
                     <div class="p-grid">
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>First Name</label>
+                                <label>First Name <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" type="text" v-model="first_name" disabled />
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Last Name</label>
+                                <label>Last Name <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" type="text" v-model="last_name" disabled />
                             </div>
                         </div>
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Middle Name</label>
+                                <label>Middle Name <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" type="text" v-model="middle_name" disabled />
                             </div>
                         </div>
                         <div class="p-lg-2 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Suffix</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="suffix_value" v-model="suffix" optionValue="id" placeholder="Select a Suffix" :class="{'p-invalid': suffixError}" />
+                                <label>Suffix/Extension Name <i class="p-error">*</i></label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="suffix_value" optionValue="id" v-model="suffix" placeholder="Select a Suffix" :class="{'p-invalid': suffixError}" />
+                                <small class="p-error">{{ suffixError }}</small>
                             </div>
                         </div>
                     </div>
                     <div class="p-grid">
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Birthdate</label>
-                                <InputText class="p-shadow-1" type="date" v-model="birth_date" disabled />
+                                <label>Birthdate <i class="p-error">*</i></label>
+                                <InputText class="p-shadow-1" type="date" v-model="birthdate" disabled />
                             </div>
                         </div>
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Sex</label>
-                                <InputText class="p-shadow-1" type="text" v-model="gender" disabled />
+                                <label>Sex <i class="p-error">*</i></label>
+                                <Dropdown class="p-shadow-1 disabled" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" placeholder="Select a Gender" disabled />
                             </div>
                         </div>
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label><i class="p-error">*</i> Civil Status</label>
+                                <label>Civil Status <i class="p-error">*</i></label>
                                 <Dropdown class="p-shadow-1" optionLabel="name" :options="civil_status_value" optionValue="id" v-model="civil_status" placeholder="Select a Civil Status" :class="{'p-invalid': civil_statusError}" />
                                 <small class="p-error">{{ civil_statusError }}</small>
                             </div>
                         </div>
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Contact No.:</label>
+                                <label>Contact No.: <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" type="text" v-model="contact_no" disabled />
                             </div>
                         </div>
@@ -73,19 +74,19 @@
                     <div class="p-grid">
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Region</label>
+                                <label>Region <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" type="text" v-model="region" disabled />
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Province</label>
+                                <label>Province <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" type="text" v-model="province" disabled />
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Municipality</label>
+                                <label>Municipality <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" type="text" v-model="town_city" disabled />
                             </div>
                         </div>
@@ -93,13 +94,13 @@
                     <div class="p-grid">
                         <div class="p-lg-8 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Unit/Building/Street/House No.</label>
+                                <label>Unit/Building/Street/House No. <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" type="text" v-model="address" disabled />
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Barangay</label>
+                                <label>Barangay <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" type="text" v-model="barangay" disabled />
                             </div>
                         </div>
@@ -115,22 +116,23 @@
                     <div class="p-grid">
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label><i class="p-error">*</i> Category</label>
+                                <label>Category <i class="p-error">*</i></label>
                                 <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" v-model="category" optionValue="id" placeholder="Select a Category" :class="{'p-invalid': categoryError}" />
                                 <small class="p-error">{{ categoryError }}</small>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label><i class="p-error">*</i> Category ID</label>
+                                <label>Category ID <i class="p-error">*</i></label>
                                 <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" v-model="category_id" optionValue="id" placeholder="Select a Category ID" :class="{'p-invalid': category_idError}" />
                                 <small class="p-error">{{ category_idError }}</small>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Category ID No.</label>
-                                <InputText class="p-shadow-1" v-model="category_id_no" />
+                                <label>Category ID No. <i class="p-error">*</i></label>
+                                <InputText class="p-shadow-1" v-model="category_id_no" :class="{'p-invalid': category_id_noError}" />
+                                <small class="p-error">{{ category_id_noError }}</small>
                             </div>
                         </div>
                     </div>
@@ -138,13 +140,14 @@
                     <div class="p-grid">
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Profession</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="profession_value" v-model="profession" optionValue="id" placeholder="Select a Profession"/>
+                                <label>Profession <i class="p-error">*</i></label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="profession_value" v-model="profession" optionValue="id" placeholder="Select a Profession" :class="{'p-invalid': professionError}" />
+                                <small class="p-error">{{ professionError }}</small>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label><i class="p-error">*</i> PhilHealth ID</label>
+                                <label>PhilHealth ID <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" type="text" placeholder="00-000000000-0" v-model="philhealth" :class="{'p-invalid': philhealthError}" />
                                 <small class="p-error">{{ philhealthError }}</small>
                             </div>
@@ -152,27 +155,30 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label> PWD ID No.</label>
-                                <InputText class="p-shadow-1" type="text" v-model="pwd_id" />
+                                <InputText class="p-shadow-1" type="text" name="pwd_id" v-model="pwd_id" />
                             </div>
                         </div>
                     </div>
                     <div class="p-grid">
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Employment Status</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status"/>
+                                <label>Employment Status <i class="p-error">*</i></label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status" :class="{'p-invalid': employment_statusError}" />
+                                <small class="p-error">{{ employment_statusError }}</small>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Employer Name</label>
-                                <InputText class="p-shadow-1" type="text" v-model="employer_name" />
+                                <label>Employer Name <i class="p-error">*</i></label>
+                                <InputText class="p-shadow-1" type="text" v-model="employer_name" :class="{'p-invalid': employer_nameError}" />
+                                <small class="p-error">{{ employer_nameError }}</small>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Municipality</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employer_municipality_value" v-model="employer_municipality" optionValue="id" placeholder="Select a Employment Municipality"/>
+                                <label>Municipality <i class="p-error">*</i></label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employer_municipality_value" v-model="employer_municipality" optionValue="id" placeholder="Select a Employment Municipality" :class="{'p-invalid': employer_municipalityError}" />
+                                <small class="p-error">{{ employer_municipalityError }}</small>
                             </div>
                         </div>
                     </div>
@@ -180,14 +186,16 @@
                     <div class="p-grid">
                         <div class="p-lg-8 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Employer Address</label>
-                                <InputText class="p-shadow-1" type="text" v-model="employer_address" />
+                                <label>Employer Address <i class="p-error">*</i></label>
+                                <InputText class="p-shadow-1" type="text" v-model="employer_address" :class="{'p-invalid': employer_addressError}" />
+                                <small class="p-error">{{ employer_addressError }}</small>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Employer Contact No.</label>
-                                <InputText class="p-shadow-1" type="text" v-model="employer_contact_no" />
+                                <label>Employer Contact No. <i class="p-error">*</i></label>
+                                <InputText class="p-shadow-1" type="text" v-model="employer_contact_no" :class="{'p-invalid': employer_contact_noError}" />
+                                <small class="p-error">{{ employer_contact_noError }}</small>
                             </div>
                         </div>
                     </div>
@@ -202,7 +210,7 @@
                     <div class="p-grid">
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label><i class="p-error">*</i> Directly in interaction with Covid Patient:</label>
+                                <label>Directly in interaction with Covid Patient: <i class="p-error">*</i></label>
                                 <h6 class="p-error">{{ direct_interactionError }}</h6>
                             </div>
                         </div>
@@ -223,7 +231,7 @@
                     <div class="p-grid">
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label><i class="p-error">*</i> Prenancy Status:</label>
+                                <label>Prenancy Status: <i class="p-error">*</i></label>
                                 <h6 class="p-error">{{ pregnancy_statusError }}</h6>
                             </div>
                         </div>
@@ -244,7 +252,7 @@
                     <div class="p-grid">
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label><i class="p-error">*</i> With Allergy:</label>
+                                <label>With Allergy: <i class="p-error">*</i></label>
                                 <h6 class="p-error">{{ with_allergyError }}</h6>
                             </div>
                         </div>
@@ -264,31 +272,31 @@
                             <div class="p-field">
                                 <h5>Allergies</h5>
                                 <div class="p-field-checkbox">
-                                    <Checkbox id="drug" name="drug" value="01_Yes" v-model="drug_allergy" />
+                                    <Checkbox id="drug" name="drug" value="true" v-model="drug_allergy" :binary="true" />
                                     <label for="drug">Drug</label>
                                 </div>
                                 <div class="p-field-checkbox">
-                                    <Checkbox id="food" name="food" value="01_Yes" v-model="food_allergy" />
+                                    <Checkbox id="food" name="food" value="true" v-model="food_allergy" :binary="true" />
                                     <label for="food">Food</label>
                                 </div>
                                 <div class="p-field-checkbox">
-                                    <Checkbox id="insect" name="insect" value="01_Yes" v-model="insect_allergy" />
+                                    <Checkbox id="insect" name="insect" value="true" v-model="insect_allergy" :binary="true" />
                                     <label for="insect">Insect</label>
                                 </div>
                                 <div class="p-field-checkbox">
-                                    <Checkbox id="latex" name="latex" value="01_Yes" v-model="latex_allergy" />
+                                    <Checkbox id="latex" name="latex" value="true" v-model="latex_allergy" :binary="true" />
                                     <label for="latex">Latex</label>
                                 </div>
                                 <div class="p-field-checkbox">
-                                    <Checkbox id="mold" name="mold" value="01_Yes" v-model="mold_allergy" />
+                                    <Checkbox id="mold" name="mold" value="true" v-model="mold_allergy" :binary="true" />
                                     <label for="mold">Mold</label>
                                 </div>
                                 <div class="p-field-checkbox">
-                                    <Checkbox id="pet" name="pet" value="01_Yes" v-model="pet_allergy" />
+                                    <Checkbox id="pet" name="pet" value="true" v-model="pet_allergy" :binary="true" />
                                     <label for="pet">Pet</label>
                                 </div>
                                 <div class="p-field-checkbox">
-                                    <Checkbox id="pollen" name="pollen" value="01_Yes" v-model="pollen_allergy" />
+                                    <Checkbox id="pollen" name="pollen" value="true" v-model="pollen_allergy" :binary="true" />
                                     <label for="pollen">Pollen</label>
                                 </div>
                             </div>
@@ -298,7 +306,7 @@
                     <div class="p-grid">
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label><i class="p-error">*</i> With Comorbidities: </label>
+                                <label>With Comorbidities: <i class="p-error">*</i> </label>
                                 <h6 class="p-error">{{ with_comorbidityError }}</h6>
                             </div>
                         </div>
@@ -318,35 +326,35 @@
                             <div class="p-field">
                                 <h5>Comorbidities</h5>
                                 <div class="p-field-checkbox">
-                                    <Checkbox id="drug" name="drug" value="01_Yes" v-model="hypertension" />
+                                    <Checkbox id="drug" name="drug" value="true" v-model="hypertension" :binary="true" />
                                     <label for="drug">Hypertension</label>
                                 </div>
                                 <div class="p-field-checkbox">
-                                    <Checkbox id="food" name="food" value="01_Yes" v-model="heart_disease" />
+                                    <Checkbox id="food" name="food" value="true" v-model="heart_disease" :binary="true" />
                                     <label for="food">Heart disease</label>
                                 </div>
                                 <div class="p-field-checkbox">
-                                    <Checkbox id="insect" name="insect" value="01_Yes" v-model="kidney_disease" />
+                                    <Checkbox id="insect" name="insect" value="true" v-model="kidney_disease" :binary="true" />
                                     <label for="insect">Kidney disease</label>
                                 </div>
                                 <div class="p-field-checkbox">
-                                    <Checkbox id="latex" name="latex" value="01_Yes" v-model="diabetes_mellitus" />
+                                    <Checkbox id="latex" name="latex" value="true" v-model="diabetes_mellitus" :binary="true" />
                                     <label for="latex">Diabetes mellitus</label>
                                 </div>
                                 <div class="p-field-checkbox">
-                                    <Checkbox id="mold" name="mold" value="01_Yes" v-model="bronchial_asthma" />
+                                    <Checkbox id="mold" name="mold" value="true" v-model="bronchial_asthma" :binary="true" />
                                     <label for="mold">Bronchial Asthma</label>
                                 </div>
                                 <div class="p-field-checkbox">
-                                    <Checkbox id="pet" name="pet" value="01_Yes" v-model="immuno_deficiency_status" />
+                                    <Checkbox id="pet" name="pet" value="true" v-model="immuno_deficiency_status" :binary="true" />
                                     <label for="pet">Immunodeficiency Status</label>
                                 </div>
                                 <div class="p-field-checkbox">
-                                    <Checkbox id="pollen" name="pollen" value="01_Yes" v-model="cancer" />
-                                    <label for="pollen">Cancer</label>
+                                    <Checkbox id="cancer" name="cancer" value="true" v-model="cancer" :binary="true" />
+                                    <label for="cancer">Cancer</label>
                                 </div>
                                 <div class="p-field-checkbox">
-                                    <Checkbox id="comorbidity_others" name="comorbidity_others" value="01_Yes" v-model="comorbidity_others" v-on:click="comorbidity_others_hide = !comorbidity_others_hide" />
+                                    <Checkbox id="comorbidity_others" name="comorbidity_others" value="true" :binary="true" v-model="comorbidity_others" v-on:click="comorbidity_others_hide = !comorbidity_others_hide" />
                                     <label for="comorbidity_others">Others</label>
                                 </div>
                             </div>
@@ -362,7 +370,7 @@
                         <div class="p-grid">
                             <div class="p-lg-2 p-sm-12 p-xs-12">
                                 <div class="p-field">
-                                    <label><i class="p-error">*</i> Diagnosed with Covid-19</label>
+                                    <label>Diagnosed with Covid-19: <i class="p-error">*</i> </label>
                                     <h6 class="p-error">{{ diagnosedError }}</h6>
                                 </div>
                             </div>
@@ -403,7 +411,7 @@
                     <div class="p-grid">
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label><i class="p-error">*</i> Provided electronic informed consent for vaccination?</label>
+                                <label>Provided electronic informed consent for vaccination? <i class="p-error">*</i> </label>
                                 <h6 class="p-error">{{ consent_vaccinationError }}</h6>
                             </div>
                         </div>
@@ -520,7 +528,7 @@ export default {
         const { value: middle_name } = useField('registration.middle_name',validField);
         const { value: last_name } = useField('registration.last_name',validField);
         const { value: suffix, errorMessage: suffixError } = useField('registration.suffix',validateField);
-        const { value: birth_date } = useField('registration.birth_date',validField);
+        const { value: birthdate } = useField('registration.birthdate',validField);
         const { value: gender } = useField('registration.gender',validField);
         const { value: region } = useField('registration.region',validField);
         const { value: province } = useField('registration.province',validField);
@@ -532,27 +540,29 @@ export default {
         // Employment Status
         const { value: category, errorMessage: categoryError } = useField('registration.category',validateField);
         const { value: category_id, errorMessage: category_idError } = useField('registration.category_id',validateField);
-        const { value: category_id_no } = useField('registration.category_id_no',validField);
+        const { value: category_id_no, errorMessage: category_id_noError } = useField('registration.category_id_no',validateField);
+        
         const { value: employment_status, errorMessage: employment_statusError } = useField('registration.employment_status',validateField);
-        const { value: profession } = useField('registration.profession',validField);
+        const { value: profession, errorMessage: professionError } = useField('registration.profession',validateField);
         const { value: philhealth, errorMessage: philhealthError } = useField('registration.philhealth',validateField);
-        const { value: pwd_id } = useField('registration.pwd',validField);
-        const { value: employer_name } = useField('registration.employer_name',validField);
-        const { value: employer_municipality } = useField('registration.employer_city',validField);
-        const { value: employer_address } = useField('registration.employer_address',validField);
-        const { value: employer_contact_no } = useField('registration.employer_contact_no',validField);
+        const { value: pwd_id } = useField('registration.pwd_id',validField);
+        const { value: employer_name, errorMessage: employer_nameError } = useField('registration.employer_name',validateField);
+        const { value: employer_municipality, errorMessage: employer_municipalityError } = useField('registration.employer_municipality',validateField);
+        const { value: employer_address, errorMessage: employer_addressError } = useField('registration.employer_address',validateField);
+        const { value: employer_contact_no, errorMessage: employer_contact_noError } = useField('registration.employer_contact_no',validateField);
+        
         // Health Status
         const { value: pregnancy_status, errorMessage: pregnancy_statusError } = useField('registration.pregnancy_status',validateRadio);
         const { value: direct_interaction, errorMessage: direct_interactionError } = useField('registration.direct_interaction',validateRadio);
         // Allergies
         const { value: with_allergy, errorMessage: with_allergyError } = useField('registration.with_allergy',validateRadio);
-        const { value: drug_allergy} = useField('registration.drug_allergy',validField);
-        const { value: food_allergy} = useField('registration.food_allergy',validField);
-        const { value: insect_allergy} = useField('registration.insect_allergy',validField);
-        const { value: latex_allergy} = useField('registration.latex_allergy',validField);
-        const { value: mold_allergy} = useField('registration.mold_allergy',validField);
-        const { value: pet_allergy} = useField('registration.pet_allergy',validField);
-        const { value: pollen_allergy} = useField('registration.pollen_allergy',validField);
+        const { value: drug_allergy } = useField('registration.drug_allergy',validField);
+        const { value: food_allergy } = useField('registration.food_allergy',validField);
+        const { value: insect_allergy } = useField('registration.insect_allergy',validField);
+        const { value: latex_allergy } = useField('registration.latex_allergy',validField);
+        const { value: mold_allergy } = useField('registration.mold_allergy',validField);
+        const { value: pet_allergy } = useField('registration.pet_allergy',validField);
+        const { value: pollen_allergy } = useField('registration.pollen_allergy',validField);
         const { value: with_allergy_others } = useField('registration.with_allergy_others',validField);
         // Comorbidities
         const { value: with_comorbidity, errorMessage: with_comorbidityError } = useField('registration.with_comorbidity',validateRadio);
@@ -578,7 +588,7 @@ export default {
             middle_name,
             last_name,
             suffix,
-            birth_date,
+            birthdate,
             gender,
             region,
             province,
@@ -625,8 +635,14 @@ export default {
             consent_vaccination,
             suffixError,
             employment_statusError,
+            employer_nameError,
+            employer_municipalityError,
+            employer_addressError,
+            employer_contact_noError,
+            professionError,
             philhealthError,
             category_idError,
+            category_id_noError,
             categoryError,
             civil_statusError,
             direct_interactionError,
@@ -661,6 +677,11 @@ export default {
         suffix_value() {
 
             return this.$store.state.registrations.selections.suffix_value
+
+        },
+        gender_value() {
+
+            return this.$store.state.registrations.selections.gender_value
 
         },
         civil_status_value() {
@@ -779,7 +800,7 @@ export default {
         border-bottom: 1px solid black;
         cursor: not-allowed; 
     }
-    input[type="date"]:disabled {
+    input[type="date"]:disabled, .disabled {
         background: rgb(219, 219, 219);
         border-bottom: 1px solid black;
         cursor: not-allowed; 
