@@ -9,15 +9,21 @@
 		</button>
         <transition name="layout-submenu-wrapper">
             <ul v-show="expanded">
-                <li><button class="p-link"><i class="pi pi-fw pi-power-off"></i><span>Logout</span></button></li>
+                <li><button class="p-link" @click="logout"><i class="pi pi-fw pi-power-off"></i><span>Logout</span></button></li>
             </ul>
         </transition>
-		
+		<ConfirmDialog></ConfirmDialog>		
 	</div>
 </template>
 
 <script>
+
+	import ConfirmDialog from 'primevue/confirmdialog/sfc';
+
 	export default {
+		components: {
+			ConfirmDialog
+		},
 		data() {
 			return {
 				expanded: false
@@ -27,6 +33,19 @@
 			onClick(event){
 				this.expanded = !this.expanded;
 				event.preventDefault();
+			},
+			logout() {
+				this.$confirm.require({
+					message: 'Are you sure you want to logout?',
+					header: 'Confirmation',
+					icon: 'pi pi-exclamation-triangle',
+					accept: () => {
+						this.$store.dispatch('LOGOUT')
+					},
+					reject: () => {
+						//callback to execute when user rejects the action
+					}
+				});
 			}
 		},
 		computed: {

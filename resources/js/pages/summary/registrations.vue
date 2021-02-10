@@ -23,7 +23,16 @@ import MyBreadcrumb from '../../components/MyBreadcrumb.vue';
 import DataTable from 'primevue/datatable/sfc';
 import Column from 'primevue/column/sfc';
 
+import store from '../../store.js'
+
 export default {
+    setup() {
+
+        const { dispatch } = store
+
+        dispatch('AUTHENTICATE')
+
+    },    
     components: {
         MyBreadcrumb,
         DataTable,
@@ -41,12 +50,10 @@ export default {
         }
     },
     methods: {
-        fetchUsers() {
-            this.$store.dispatch('users/ALL')
-        }
+
     },
     mounted() {
-        this.fetchUsers()
+
     }
 }
 </script>
