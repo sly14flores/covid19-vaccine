@@ -71,6 +71,8 @@ import Menubar from 'primevue/menubar/sfc';
 
 import store from '../store.js'
 import { useForm, useField } from 'vee-validate'
+import { watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 const verification = {
     id: null,
@@ -82,20 +84,30 @@ const verification = {
 export default {
     setup() {
 
+        const router = useRouter()
+
         const init = {
             initialValues: {
                 verification
             }
         }
 
-        const { handleSubmit } = useForm(init);
+        const { handleSubmit, setValues } = useForm(init);
 
         const onSubmit = handleSubmit((values) => {
-            console.log(values)
             const birthdate = `${values.registration.year}-${values.registration.month}-${values.registration.day}`
             store.dispatch('registrations/GET_NAPANAM', { id: values.registration.id, birthdate })
-            
         });
+
+        watch(
+            () => store.state.registrations.fetched,
+            (data, prevData) => {
+                console.log(data)
+                if (data) {
+                    router.push('/registration')
+                }
+            }
+        ) 
 
         function validateField(value) {
             if (!value) {

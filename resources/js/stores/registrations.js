@@ -4,8 +4,21 @@ import route from '../library/route'
 import { api_url } from '../url.js'
 
 const SELECTIONS_ROUTE = `${api_url}/api/doh/selections`
+const getSelections = () => {
+    return axios.get(SELECTIONS_ROUTE)
+}
+
 const CREATE_ROUTE = `${api_url}/api/doh/registration`
+const creteRegistration = (payload) => {
+    return axios.post(CREATE_ROUTE, payload)
+}
+
 const GET_NAPANAM_ROUTE = `${api_url}/api/napanam/check/registration/:id/:birthdate`
+const getNapanam = (payload) => {
+    const { id, birthdate } = payload
+    const url =  route(GET_NAPANAM_ROUTE, { id, birthdate })
+    return axios.get(url)    
+}
 
 const registration = {
     // Personal
@@ -102,6 +115,8 @@ const selections = {
 
 const state = () => {
     return {
+        fetched: false,
+        saving: false,
         registration,
         selections,
     }
@@ -112,46 +127,78 @@ const mutations = {
         state.selections = {...payload}
     },
     NAPANAM(state, payload) {
-        console.log(payload)
         state.registration.qr_pass_id = payload.id
         state.registration.first_name = payload.firstname
         state.registration.middle_name = payload.middlename
         state.registration.last_name = payload.lastname
         state.registration.birth_date = payload.dob
-        state.registration.sex = payload.gender
+        state.registration.gender = payload.gender
         state.registration.contact_no = payload.contact_no
         state.registration.province = payload.provinceDesc
         state.registration.town_city = payload.cityMunDesc
         state.registration.barangay = payload.barangayDesc
         state.registration.address = payload.address // street
+    },
+    FETCH(state, payload) {
+        state.fetched = payload
+    },
+    SAVING(state, payload) {
+        state.saving = payload
     }
 }
 
 const actions = {
-    async GET_SELECTIONS({commit}) {
+    async GET_SELECTIONS({dispatch}) {
         try {
-            const response = await axios.get(SELECTIONS_ROUTE)
-            commit('SELECTIONS', response.data.data)
+            const { data: { data } } = await getSelections()
+            dispatch('GET_SELECTIONS_SUCCESS', data)
         } catch (error) {
-            console.log(error)
+            const { response } = error
+            dispatch('GET_SELECTIONS_ERROR', response)
         }
     },
-    async CREATE({}, payload) {
+    GET_SELECTIONS_SUCCESS({commit}, payload) {
+        commit('SELECTIONS', payload)
+    },
+    GET_SELECTIONS_ERROR({commit}, payload) {
+        console.log(payload)
+    },
+    async CREATE({commit, dispatch}, payload) {
+        commit('SAVING', true)
         try {
-            const create = await axios.post(CREATE_ROUTE, payload)
+            const { data: { data } } = await creteRegistration(payload)
+            dispatch('CREATE_SUCCESS', data)
         } catch(error) {
-
+            const { response } = error
+            dispatch('CREATE_ERROR', response)
         }
     },
-    async GET_NAPANAM({commit}, { id, birthdate }) {
+    CREATE_SUCCESS({commit}, payload) {
+        commit('SAVING', false)
+        console.log(payload)
+    },
+    CREATE_ERROR({commit}, payload) {
+        commit('SAVING', false)
+        console.log(payload)
+    },
+    async GET_NAPANAM({dispatch}, { id, birthdate }) {
         try {
-            const url =  route(GET_NAPANAM_ROUTE, { id, birthdate })
-            const response = await axios.get(url)
-            commit('NAPANAM', response.data.data)
-            window.open('home#/registration','_self')
+            const { data: { data } } = await getNapanam({ id, birthdate })
+            dispatch('GET_NAPANAM_SUCCESS', data)
         } catch (error) {
-            console.log(error)
+            const { response } = error
+            dispatch('GET_NAPANAM_ERROR', response)
         }
+    },
+    GET_NAPANAM_SUCCESS({commit}, payload) {
+        console.log(payload)
+        commit('NAPANAM', payload)
+        commit('FETCH', true)
+        // window.open('home#/registration','_self')
+    },
+    GET_NAPANAM_ERROR({commit}, payload) {
+        console.log(payload)
+        commit('FETCH', false)        
     }
 }
 

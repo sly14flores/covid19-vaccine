@@ -32,6 +32,7 @@ class DOHDataSelections extends Controller
             "region_value" => $this->regionValue(),
             "employer_municipality_value" => $this->employerMunicipalityValue(),
             "suffix_value" => $this->suffixValue(),
+            "gender_value" => $this->genderValue(),
             "civil_status_value" => $this->civilStatusValue(),
             "category_value" => $this->categoryValue(),
             "category_id_value" => $this->categoryIdValue(),
