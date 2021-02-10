@@ -70,6 +70,7 @@ const registration = {
     consent_vaccination: null
 }
 
+const suffix_value = [];
 const civil_status_value = [];
 const category_value = [];
 const category_id_value = [];
@@ -78,10 +79,13 @@ const profession_value = [];
 const allergy_value = [];
 const comorbidity_value = [];
 const covid_classification_value = [];
+const region_value = [];
+const employer_municipality_value = [];
 const month_value = [];
 const day_value = [];
 
 const selections = {
+    suffix_value,
     civil_status_value,
     category_value,
     category_id_value,
@@ -90,6 +94,8 @@ const selections = {
     allergy_value,
     comorbidity_value,
     covid_classification_value,
+    region_value,
+    employer_municipality_value,
     month_value,
     day_value
 };
@@ -106,6 +112,7 @@ const mutations = {
         state.selections = {...payload}
     },
     NAPANAM(state, payload) {
+        console.log(payload)
         state.registration.qr_pass_id = payload.id
         state.registration.first_name = payload.firstname
         state.registration.middle_name = payload.middlename
@@ -113,6 +120,10 @@ const mutations = {
         state.registration.birth_date = payload.dob
         state.registration.sex = payload.gender
         state.registration.contact_no = payload.contact_no
+        state.registration.province = payload.provinceDesc
+        state.registration.town_city = payload.cityMunDesc
+        state.registration.barangay = payload.barangayDesc
+        state.registration.address = payload.address // street
     }
 }
 
@@ -127,11 +138,6 @@ const actions = {
     },
     async CREATE({}, payload) {
         try {
-            payload.pregnancy_status = eval(payload.pregnancy_status)
-            payload.with_allergy = eval(payload.with_allergy)
-            payload.with_comorbidity = eval(payload.with_comorbidity)
-            payload.diagnosed = eval(payload.diagnosed)
-            payload.consent_vaccination = eval(payload.consent_vaccination)
             const create = await axios.post(CREATE_ROUTE, payload)
         } catch(error) {
 

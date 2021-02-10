@@ -30,14 +30,14 @@
                             <div class="p-field p-col-12 p-md-6">
                                 <label for="password">Month</label>
                                 <span class="p-input">
-                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="month_value" optionValue="id" v-model="month" placeholder="Select a month" :class="{'p-invalid': monthError}" />
+                                    <Dropdown class="p-shadow-1" :filter="true" optionLabel="name" :options="month_value" optionValue="id" v-model="month" placeholder="Select a month" :class="{'p-invalid': monthError}" />
                                 </span>
                                 <small class="p-error">{{ monthError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-3">
                                 <label for="password">Day</label>
                                 <span class="p-input">
-                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="day_value" optionValue="id" v-model="day" placeholder="DD" :class="{'p-invalid': dayError}" />
+                                    <Dropdown class="p-shadow-1" :filter="true" optionLabel="name" :options="day_value" optionValue="id" v-model="day" placeholder="DD" :class="{'p-invalid': dayError}" />
                                 </span>
                                 <small class="p-error">{{ dayError }}</small>
                             </div>
@@ -49,6 +49,7 @@
                                 <small class="p-error">{{ yearError }}</small>
                             </div>
                         </div>
+
                         <div class="p-grid p-jc-center">
                             <div class="p-lg-4 p-sm-12 p-xs-12">
                                 <Button label="Proceed" type="submit" class="p-button-raised p-button-primary" />

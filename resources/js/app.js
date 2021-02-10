@@ -135,6 +135,24 @@ app.controller('appCtrl', function($scope,$http) {
 				  }
 				})		
 				
+			} else if(response.status==406){
+				
+				Swal.fire({
+					title: "<p>You're done!</p>",
+					icon: 'error',
+					html: "<h5>You can take this survey once</h5>",
+					showCancelButton: false,
+					focusConfirm: false,
+					confirmButtonColor: '#68bca4',
+					confirmButtonText: 'Ok',
+				  }).then((result) => {
+					if (result.value) {
+
+						window.location = api_url
+
+					}
+				  })
+
 			}
 			
 		});

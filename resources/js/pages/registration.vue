@@ -39,7 +39,7 @@
                         <div class="p-lg-2 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Suffix</label>
-                                <InputText class="p-shadow-1" type="text" v-model="suffix"/>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="suffix_value" v-model="suffix" optionValue="id" placeholder="Select a Suffix" :class="{'p-invalid': suffixError}" />
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                         <div class="p-lg-8 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Unit/Building/Street/House No.</label>
-                                <InputText class="p-shadow-1" type="text" v-model="street" disabled />
+                                <InputText class="p-shadow-1" type="text" v-model="address" disabled />
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
@@ -172,7 +172,7 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Municipality</label>
-                                <InputText class="p-shadow-1" type="text" v-model="employer_municipality" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employer_municipality_value" v-model="employer_municipality" optionValue="id" placeholder="Select a Employment Municipality"/>
                             </div>
                         </div>
                     </div>
@@ -203,7 +203,7 @@
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label><i class="p-error">*</i> Directly in interaction with Covid Patient:</label>
-                                <h6 class="p-error">{{ directly_interactionError }}</h6>
+                                <h6 class="p-error">{{ direct_interactionError }}</h6>
                             </div>
                         </div>
                         <div class="p-lg-1 p-sm-12 p-xs-12">
@@ -473,16 +473,20 @@ export default {
 
         /**
          * Redirection logic using store
-         *  if (store.state.registrations.registration.qr_pass_id == null) {
-                window.open('home#/verify','_self');
-            }
+         *
          */
-        
+
+        if (store.state.registrations.registration.qr_pass_id == null) {
+                window.open('home#/verify','_self');
+        }
+
         const init = {
             initialValues: {
-                registration: {...registration}              
+                registration: {...registration}
             }
         }
+
+        console.log(init)
 
         const { setValues, handleSubmit, resetForm } = useForm(init);
 
@@ -520,13 +524,13 @@ export default {
         const { value: first_name } = useField('registration.first_name',validField);
         const { value: middle_name } = useField('registration.middle_name',validField);
         const { value: last_name } = useField('registration.last_name',validField);
-        const { value: suffix } = useField('registration.suffix',validField);
+        const { value: suffix, errorMessage: suffixError } = useField('registration.suffix',validateField);
         const { value: birth_date } = useField('registration.birth_date',validField);
         const { value: sex } = useField('registration.sex',validField);
         const { value: region } = useField('registration.region',validField);
         const { value: province } = useField('registration.province',validField);
         const { value: town_city } = useField('registration.town_city',validField);
-        const { value: street } = useField('registration.street',validField);
+        const { value: address } = useField('registration.address',validField);
         const { value: barangay } = useField('registration.barangay',validField);
         const { value: contact_no } = useField('registration.contact_no',validField);
         const { value: civil_status, errorMessage: civil_statusError } = useField('registration.civil_status',validateField);
@@ -544,7 +548,7 @@ export default {
         const { value: employer_contact_no } = useField('registration.employer_contact_no',validField);
         // Health Status
         const { value: pregnancy_status, errorMessage: pregnancy_statusError } = useField('registration.pregnancy_status',validateRadio);
-        const { value: direct_interaction, errorMessage: directly_interactionError } = useField('registration.direct_interaction',validateRadio);
+        const { value: direct_interaction, errorMessage: direct_interactionError } = useField('registration.direct_interaction',validateRadio);
         // Allergies
         const { value: with_allergy, errorMessage: with_allergyError } = useField('registration.with_allergy',validateRadio);
         const { value: drug_allergy} = useField('registration.drug_allergy',validField);
@@ -584,7 +588,7 @@ export default {
             region,
             province,
             town_city,
-            street,
+            address, // street
             barangay,
             contact_no,
             civil_status, //  End Personal
@@ -628,12 +632,14 @@ export default {
             diagnosed_date,  // End Health Status
 
             consent_vaccination,
+
+            suffixError,
             employment_statusError,
             philhealthError,
             category_idError,
             categoryError,
             civil_statusError,
-            directly_interactionError,
+            direct_interactionError,
             pregnancy_statusError,
             with_allergyError,
             with_comorbidityError,
@@ -662,6 +668,11 @@ export default {
         }
     },
     computed: {
+        suffix_value() {
+
+            return this.$store.state.registrations.selections.suffix_value
+
+        },
         civil_status_value() {
 
             return this.$store.state.registrations.selections.civil_status_value
@@ -702,6 +713,17 @@ export default {
             return this.$store.state.registrations.selections.covid_classification_value
 
         },
+        region_value() {
+
+            return this.$store.state.registrations.selections.region_value
+
+        },
+        employer_municipality_value() {
+
+            return this.$store.state.registrations.selections.employer_municipality_value
+
+        },
+        
     },
     methods: {
         fetchSelections() {
