@@ -27,7 +27,7 @@ class QrPassResourceDOH extends JsonResource
             "lastname" => $this->lastname,
             "firstname" => $this->firstname,
             "middlename" => $this->middlename,
-            "gender" => $this->gender,
+            "gender" => $this->toDOHGender($this->gender),
             "dob" => $this->dob,
             "age" => $this->age,
             "address" => $this->address,
