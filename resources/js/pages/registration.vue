@@ -53,7 +53,7 @@
                         <div class="p-lg-3 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Sex</label>
-                                <InputText class="p-shadow-1" type="text" v-model="sex" disabled />
+                                <InputText class="p-shadow-1" type="text" v-model="gender" disabled />
                             </div>
                         </div>
                         <div class="p-lg-3 p-sm-12 p-xs-12">
@@ -431,7 +431,7 @@
                             <Button label="Cancel" class="button-cancel" />
                         </div>
                         <div class="p-lg-2 p-sm-12 p-xs-12">
-                            <Button label="Submit" type="submit" class="button-success" />
+                            <Button type="submit" class="button-success"><i class="pi pi-spin pi-spinner" v-show="saving"></i>&nbsp;Submit</Button>
                         </div>
                     </div>
 
@@ -463,38 +463,38 @@ import Menubar from 'primevue/menubar/sfc';
 import Dialog from 'primevue/dialog/sfc';
 import Checkbox from 'primevue/checkbox/sfc';
 
-import { registration } from '../stores/registrations.js'
+// import { registration } from '../stores/registrations.js'
 import store from '../store.js'
 import { useForm, useField } from 'vee-validate'
-import { watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
     setup() {
 
         /**
          * Redirection logic using store
-         *
          */
+        const router = useRouter()
 
         if (store.state.registrations.registration.qr_pass_id == null) {
-                window.open('home#/verify','_self');
+            router.push('/verify')
         }
 
         const init = {
             initialValues: {
-                registration: {...registration}
+                registration: {...store.state.registrations.registration}
             }
         }
 
-        const { setValues, handleSubmit, resetForm } = useForm(init);
+        const { handleSubmit } = useForm(init);
 
         const onSubmit = handleSubmit((values, actions) => {
-            console.log(values.registration)
-            store.dispatch('registrations/CREATE', values.registration)
+            const { resetForm } = actions
+            const { registration } = values
+            console.log('Saving')
+            store.dispatch('registrations/CREATE', registration)
             resetForm();
         });
-
-        resetForm();
 
         function validateField(value) {
             if (!value) {
@@ -508,10 +508,7 @@ export default {
         }
 
         function validateRadio(value) {
-            if (typeof eval(value) === "object") {
-                return true;
-            }
-            if (typeof eval(value) !== "boolean") {
+            if (!value) {
                 return "This field is required";
             }
             return true;
@@ -524,7 +521,7 @@ export default {
         const { value: last_name } = useField('registration.last_name',validField);
         const { value: suffix, errorMessage: suffixError } = useField('registration.suffix',validateField);
         const { value: birth_date } = useField('registration.birth_date',validField);
-        const { value: sex } = useField('registration.sex',validField);
+        const { value: gender } = useField('registration.gender',validField);
         const { value: region } = useField('registration.region',validField);
         const { value: province } = useField('registration.province',validField);
         const { value: town_city } = useField('registration.town_city',validField);
@@ -582,7 +579,7 @@ export default {
             last_name,
             suffix,
             birth_date,
-            sex,
+            gender,
             region,
             province,
             town_city,
@@ -590,7 +587,6 @@ export default {
             barangay,
             contact_no,
             civil_status, //  End Personal
-
             category, // Employment Status
             category_id,
             category_id_no,
@@ -602,7 +598,6 @@ export default {
             employer_municipality,
             employer_address,
             employer_contact_no, // End Employment Status
-            
             direct_interaction, // Health Status
             pregnancy_status,
             with_allergy,
@@ -614,7 +609,6 @@ export default {
             pet_allergy,
             pollen_allergy,
             with_allergy_others,
-
             with_comorbidity,
             hypertension,
             heart_disease,
@@ -628,9 +622,7 @@ export default {
             diagnosed,
             covid_classification, 
             diagnosed_date,  // End Health Status
-
             consent_vaccination,
-
             suffixError,
             employment_statusError,
             philhealthError,
@@ -721,6 +713,9 @@ export default {
             return this.$store.state.registrations.selections.employer_municipality_value
 
         },
+        saving() {
+            return this.$store.state.registrations.saving
+        }
         
     },
     methods: {

@@ -5,6 +5,14 @@ namespace App\Traits;
 trait SelectionsRegistration
 {
 
+    public function genderValue()
+    {
+        return [
+            ["name"=>"Female", "id"=>"01_Female"],
+            ["name"=>"Male", "id"=>"02_Male"]
+        ];
+    }
+
     public function suffixValue()
     {
         return [
