@@ -100,7 +100,16 @@ import Column from 'primevue/column/sfc';
 import ColumnGroup from 'primevue/columngroup/sfc';
 import Panel from 'primevue/panel/sfc';
 
+import store from '../../store.js'
+
 export default {
+    setup() {
+
+        const { dispatch } = store
+
+        dispatch('AUTHENTICATE')
+
+    },
     components: {
         MyBreadcrumb,
         DataTable,

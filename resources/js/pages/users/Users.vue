@@ -6,8 +6,16 @@
 
 <script>
 
+import store from '../../store.js'
 
 export default {
+    setup() {
+
+        const { dispatch } = store
+
+        dispatch('AUTHENTICATE')
+
+    },     
     components: {
 
     },

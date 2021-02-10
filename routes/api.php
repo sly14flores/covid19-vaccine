@@ -26,6 +26,7 @@ use App\Http\Controllers\Api\RegistrationController;
  */
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout']);
+Route::post('authenticate', [LoginController::class, 'authenticate']);
 
 /**
  * Surveys
