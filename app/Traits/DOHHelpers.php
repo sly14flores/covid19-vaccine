@@ -39,4 +39,14 @@ trait DOHHelpers
         return strtoupper($doh_barangay.$spaceWithUn);
     }
 
+    public function toDOHGender($gender)
+    {
+        $toDOH = "01_Femaile";
+        if ($gender=="Male") {
+            $toDOH = "02_Male";
+        }
+
+        return $toDOH;
+    }
+
 }
