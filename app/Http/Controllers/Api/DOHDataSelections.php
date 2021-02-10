@@ -27,6 +27,29 @@ class DOHDataSelections extends Controller
     public function __invoke(Request $request)
     {
 
+        //
+        $selections = [
+            "region_value" => $this->regionValue(),
+            "employer_municipality_value" => $this->employerMunicipalityValue(),
+            "suffix_value" => $this->suffixValue(),
+            "civil_status_value" => $this->civilStatusValue(),
+            "category_value" => $this->categoryValue(),
+            "category_id_value" => $this->categoryIdValue(),
+            "employment_status_value" => $this->employmentStatusValue(),
+            "profession_value" => $this->professionValue(),
+            "allergy_value" => $this->allergyValue(),
+            "comorbidity_value" => $this->comorbidityValue(),
+            "covid_classification_value" => $this->covidClassificationValue(),
+            "employer_lgu_value" => $this->employerLguValue(),
+            "month_value" => $this->monthValue(),
+            "day_value" => $this->dayValue(),            
+        ];
+
+        return $this->jsonSuccessResponse($selections, 200);
+    }
+
+    public function addresses()
+    {
         /**
          * Province
          */
@@ -62,27 +85,11 @@ class DOHDataSelections extends Controller
                 "municipalities"=>$municipalities,
             ];
 
-        }
+        }    
 
-        //
-        $selections = [
+        return [
             "province_value" => $provinces,
-            "employer_municipality_value" => $this->employerMunicipalityValue(),
-            "suffix_value" => $this->suffixValue(),
-            "civil_status_value" => $this->civilStatusValue(),
-            "category_value" => $this->categoryValue(),
-            "category_id_value" => $this->categoryIdValue(),
-            "employment_status_value" => $this->employmentStatusValue(),
-            "profession_value" => $this->professionValue(),
-            "allergy_value" => $this->allergyValue(),
-            "comorbidity_value" => $this->comorbidityValue(),
-            "covid_classification_value" => $this->covidClassificationValue(),
-            "employer_lgu_value" => $this->employerLguValue(),
-            "region_value" => $this->regionValue(),
-            "month_value" => $this->monthValue(),
-            "day_value" => $this->dayValue(),
         ];
-
-        return $this->jsonSuccessResponse($selections, 200);
     }
+
 }
