@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="p-d-flex">
-                    <Button label="Submit" type="submit" class="p-button-primary" />
+                    <Button type="submit" class="p-button-primary"><i v-show="saving" class="pi pi-spin pi-spinner"></i>&nbsp;Submit</Button>
                 </div>
             </form>
             </div>
@@ -162,5 +162,10 @@ export default {
         InputText,
         Button,
     },
+    computed: {
+        saving() {
+            return this.$store.state.users.saving
+        }
+    }
 }
 </script>
