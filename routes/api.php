@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\DOHDataSelections;
 use App\Http\Controllers\Api\RegistrationController;
+use App\Http\Controllers\Api\SurveysSummary;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,5 +89,14 @@ Route::prefix('doh')->group(function() {
     ],[
         'except' => ['index']
     ]);
+
+});
+
+/**
+ * Summary
+ */
+Route::prefix('summary')->group(function() {
+
+    Route::get('surveys', [SurveysSummary::class, 'getSummary']);
 
 });
