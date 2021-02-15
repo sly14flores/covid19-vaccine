@@ -73,7 +73,7 @@ const actions = {
     },
     async CREATE_USER({dispatch}, payload) {
         try {
-            const { data: { data } } = createUser(payload)
+            const { data: { data } } = await createUser(payload)
             dispatch('CREATE_USER_SUCCESS', data)
         } catch(error) {
             const { response } = error
