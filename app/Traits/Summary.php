@@ -99,7 +99,7 @@ trait Summary
             "not_sure_currently_pregnant"=>"Not Sure",
         ];
         foreach ($pregnancy_status as $key => $p) {
-            $current_pregnancy[$key] = $surveys->where($key,1)->count();
+            $current_pregnancy[0][$key] = $surveys->where($key,1)->count();
         }
 
         $planning_pregnant = [];
@@ -108,7 +108,7 @@ trait Summary
             "no_pregnant_baby"=>"No",
         ];
         foreach ($planning_pregnants as $key => $pp) {
-            $planning_pregnant[$key] = $surveys->where($key,1)->count();
+            $planning_pregnant[0][$key] = $surveys->where($key,1)->count();
         }
 
         $interested = [];
@@ -117,7 +117,7 @@ trait Summary
             "no_vaccine"=>"No",
         ];
         foreach ($vaccinated as $key => $v) {
-            $interested[$key] = $surveys->where($key,1)->count();
+            $interested[0][$key] = $surveys->where($key,1)->count();
         }        
 
         $reason = [];
