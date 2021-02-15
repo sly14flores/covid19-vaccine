@@ -56,8 +56,8 @@
 
                  <div class="p-lg-4 p-md-12 p-sm-12">
                     <DataTable :value="municipality" dataKey="id">
-                        <Column field="value" header="City & Municipality" sortable="true"></Column>
-                        <Column field="description" header="Total" sortable="true"></Column>
+                        <Column field="description" header="City & Municipality" sortable="true"></Column>
+                        <Column field="value" header="Total" sortable="true"></Column>
                     </DataTable>
                  </div>
             </div>
@@ -65,18 +65,18 @@
             <div class="p-grid p-lg-8 p-md-12 p-sm-12">
                 <div class="p-lg-6 p-md-12 p-sm-12">
                     <Panel header="Pregnancy Status">
-                        <DataTable>
-                            <Column field="code" header="Pregnant"></Column>
-                            <Column field="name" header="Not Pregnant"></Column>
-                            <Column field="name" header="Not Sure"></Column>
+                        <DataTable :value="current_pregnancy" dataKey="id">
+                            <Column field="yes_currently_pregnant" header="Pregnant"></Column>
+                            <Column field="no_currently_pregnant" header="Not Pregnant"></Column>
+                            <Column field="not_sure_currently_pregnant" header="Not Sure"></Column>
                         </DataTable>
                     </Panel>
                 </div>
                 <div class="p-lg-6 p-md-12 p-sm-12">
                     <Panel header="Planning to get pregnant?">
-                        <DataTable>
-                            <Column field="code" header="Yes"></Column>
-                            <Column field="name" header="Not Pregnant"></Column>
+                        <DataTable :value="planning_pregnant" dataKey="id">
+                            <Column field="yes_pregnant_baby" header="Yes"></Column>
+                            <Column field="no_pregnant_baby" header="Not Pregnant"></Column>
                         </DataTable>
                     </Panel>
                 </div>
@@ -85,9 +85,9 @@
             <div class="p-grid p-lg-8 p-md-12 p-sm-12">
                 <div class="p-lg-12">
                     <Panel header="Interested To Be Vaccinated">
-                        <DataTable>
-                            <Column field="code" header="Interested"></Column>
-                            <Column field="name" header="Not Interested"></Column>
+                        <DataTable :value="interested" dataKey="id">
+                            <Column field="yes_vaccine" header="Interested"></Column>
+                            <Column field="no_vaccine" header="Not Interested"></Column>
                         </DataTable>   
                     </Panel>
                 </div>
@@ -151,26 +151,14 @@ export default {
         female() {
             return this.$store.state.surveys.surveys.female
         },
-        yes_vaccine() {
-            return this.$store.state.surveys.surveys.interested.yes_vaccine
+        interested() {
+            return this.$store.state.surveys.surveys.interested
         },
-        no_vaccine() {
-            return this.$store.state.surveys.surveys.interested.no_vaccine
+        current_pregnancy() {
+            return this.$store.state.surveys.surveys.current_pregnancy
         },
-        yes_currently_pregnant() {
-            return this.$store.state.surveys.surveys.current_pregnancy.yes_currently_pregnant
-        },
-        no_currently_pregnant() {
-            return this.$store.state.surveys.surveys.current_pregnancy.no_currently_pregnant
-        },
-        not_sure_currently_pregnant() {
-            return this.$store.state.surveys.surveys.current_pregnancy.not_sure_currently_pregnant
-        },
-        yes_pregnant_baby() {
-            return this.$store.state.surveys.surveys.planning_pregnant.yes_pregnant_baby
-        },
-        no_pregnant_baby() {
-            return this.$store.state.surveys.surveys.planning_pregnant.no_pregnant_baby
+        planning_pregnant() {
+            return this.$store.state.surveys.surveys.planning_pregnant
         },
         municipality() {
             return this.$store.state.surveys.surveys.municipality
