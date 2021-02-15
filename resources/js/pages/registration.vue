@@ -117,14 +117,14 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Category <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" v-model="category" optionValue="id" placeholder="Select a Category" :class="{'p-invalid': categoryError}" />
+                                <Dropdown :filter="true" class="p-shadow-1" optionLabel="name" :options="category_value" v-model="category" optionValue="id" placeholder="Select a Category" :class="{'p-invalid': categoryError}" />
                                 <small class="p-error">{{ categoryError }}</small>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Category ID <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" v-model="category_id" optionValue="id" placeholder="Select a Category ID" :class="{'p-invalid': category_idError}" />
+                                <Dropdown :filter="true" class="p-shadow-1" optionLabel="name" :options="category_id_value" v-model="category_id" optionValue="id" placeholder="Select a Category ID" :class="{'p-invalid': category_idError}" />
                                 <small class="p-error">{{ category_idError }}</small>
                             </div>
                         </div>
@@ -141,7 +141,7 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Profession <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="profession_value" v-model="profession" optionValue="id" placeholder="Select a Profession" :class="{'p-invalid': professionError}" />
+                                <Dropdown :filter="true" class="p-shadow-1" optionLabel="name" :options="profession_value" v-model="profession" optionValue="id" placeholder="Select a Profession" :class="{'p-invalid': professionError}" />
                                 <small class="p-error">{{ professionError }}</small>
                             </div>
                         </div>
@@ -163,7 +163,7 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Employment Status <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status" :class="{'p-invalid': employment_statusError}" />
+                                <Dropdown :filter="true" class="p-shadow-1" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status" :class="{'p-invalid': employment_statusError}" />
                                 <small class="p-error">{{ employment_statusError }}</small>
                             </div>
                         </div>
@@ -177,7 +177,7 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Municipality <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employer_municipality_value" v-model="employer_municipality" optionValue="id" placeholder="Select a Employment Municipality" :class="{'p-invalid': employer_municipalityError}" />
+                                <Dropdown :filter="true" class="p-shadow-1" optionLabel="name" :options="employer_municipality_value" v-model="employer_municipality" optionValue="id" placeholder="Select a Employment Municipality" :class="{'p-invalid': employer_municipalityError}" />
                                 <small class="p-error">{{ employer_municipalityError }}</small>
                             </div>
                         </div>
@@ -411,7 +411,7 @@
                     <div class="p-grid">
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
-                                <label>Provided electronic informed consent for vaccination? <i class="p-error">*</i> </label>
+                                <label>Are you willing to be vaccinated? <i class="p-error">*</i> </label>
                                 <h6 class="p-error">{{ consent_vaccinationError }}</h6>
                             </div>
                         </div>
@@ -436,10 +436,12 @@
                     </div>
                     <div class="p-grid p-jc-center p-mt-2">
                         <div class="p-lg-2 p-sm-12 p-xs-12">
-                            <Button label="Cancel" class="button-cancel" />
+                            <router-link to="/verify">
+                                <Button label="Cancel" class="p-button-warning" />
+                            </router-link>
                         </div>
                         <div class="p-lg-2 p-sm-12 p-xs-12">
-                            <Button type="submit" class="button-success"><i class="pi pi-spin pi-spinner" v-show="saving"></i>&nbsp;Submit</Button>
+                            <Button class="p-button-success" @click="openConfirmation"><i class="pi pi-spin pi-spinner" v-show="saving"></i>&nbsp;Submit</Button>
                         </div>
                     </div>
 
@@ -450,7 +452,7 @@
                         </div>
                         <template #footer>
                             <Button label="No" @click="closeConfirmation" class="p-button-warning"/>
-                            <Button label="Yes" @click="closeConfirmation" class="p-button-success" autofocus />
+                            <Button type="submit" label="Yes" @click="closeConfirmation" class="p-button-success" autofocus />
                         </template>
                     </Dialog>
 

@@ -16,6 +16,7 @@
                         <div class="p-grid p-jc-center p-mt-2">
                             <h6>Before your proceed to the registration page, please complete the form below.</h6>
                         </div>
+                        <small v-if="message">Doesn't match</small>
                         <hr />
                         <div class="p-field">
                             <label for="napanam_id"><i class="p-error">*</i> Napanam ID No.</label>
@@ -92,6 +93,8 @@ export default {
             }
         }
 
+        console.log(init)
+
         const { handleSubmit, setValues } = useForm(init);
 
         const onSubmit = handleSubmit((values) => {
@@ -134,6 +137,13 @@ export default {
         }
 
     },
+
+    data() {
+        return {
+           message: false,
+        }
+    },
+
     computed:{
         month_value() {
 
@@ -165,7 +175,6 @@ export default {
         InputText,
         Dropdown,
         Menubar
-
     },  
 }
 </script>
