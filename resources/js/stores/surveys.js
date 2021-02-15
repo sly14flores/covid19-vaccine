@@ -15,9 +15,9 @@ const surveys = {
     population_group: [],
     municipality: [],
     comorbidity: [],
-    current_pregnancy: {},
-    planning_pregnant: {},
-    interested: {},
+    current_pregnancy: [],
+    planning_pregnant: [],
+    interested: [],
     reason: []
 }
 
