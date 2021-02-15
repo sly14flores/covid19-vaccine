@@ -49,6 +49,7 @@ const users = []
 
 const state = () => {
     return {
+        saving: false,
         user,
         users,
     }
@@ -65,14 +66,18 @@ const mutations = {
     USERS(state, payload) {
         state.users = payload
     },
+    SAVING(state, payload) {
+        state.saving = payload
+    }
 }
 
 const actions = {
     INIT({commit}) {
         commit('INIT')
     },
-    async CREATE_USER({dispatch}, payload) {
+    async CREATE_USER({commit, dispatch}, payload) {
         try {
+            commit('SAVING',true)
             const { data: { data } } = await createUser(payload)
             dispatch('CREATE_USER_SUCCESS', data)
         } catch(error) {
@@ -81,9 +86,11 @@ const actions = {
         }
     },
     CREATE_USER_SUCCESS({commit}, payload) {
+        commit('SAVING',false)        
         console.log(payload)
     },
     CREATE_USER_ERROR({commit}, payload) {
+        commit('SAVING',false) 
         console.log(payload)
     },
     async UPDATE_USER({dispatch}, payload) {
