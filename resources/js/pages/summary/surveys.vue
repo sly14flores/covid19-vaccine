@@ -11,6 +11,7 @@
             </div>
         </div>
         <div class="p-grid p-fluid dashboard p-mt-2">
+
             <div class="p-col-12 p-lg-4">
                 <div class="card summary">
                     <span class="title">Total Response</span>
@@ -32,6 +33,7 @@
                     <span class="count purchases"><i class="pi pi-user" style="fontSize: 3rem"></i></span>
                 </div>
             </div>
+
             <div class="p-grid">
                 <div class="p-lg-8 p-md-12 p-sm-12">
                     <Panel header="Population Group">
@@ -39,7 +41,7 @@
                             <Column field="code" header="Total" sortable="true"></Column>
                             <Column field="name" header="Description" sortable="true"></Column>
                         </DataTable>
-                   </Panel>
+                    </Panel>
                 </div>
                 <div class="p-lg-4 p-md-12 p-sm-12">
                     <DataTable>
@@ -47,8 +49,8 @@
                         <Column field="total" header="Total" sortable="true"></Column>
                     </DataTable>
                  </div>
-            </div> 
-            
+            </div>
+
             <div class="p-grid">
                 <div class="p-lg-8 p-md-12 p-sm-12">
                     <Panel header="Comorbidities">
@@ -109,7 +111,16 @@ import Column from 'primevue/column/sfc';
 import ColumnGroup from 'primevue/columngroup/sfc';
 import Panel from 'primevue/panel/sfc';
 
+import store from '../../store.js'
+
 export default {
+    setup() {
+
+        const { dispatch } = store
+
+        dispatch('AUTHENTICATE')
+
+    },
     components: {
         MyBreadcrumb,
         DataTable,

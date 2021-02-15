@@ -1,3 +1,4 @@
+import axios from 'axios'
 import route from '../library/route'
 import { api_url } from '../url.js'
 
@@ -8,6 +9,16 @@ const LOGIN_ROUTE = `${api_url}/api/login`
 const login = (payload) => {
     const {username, password} = payload
     return axios.post(LOGIN_ROUTE, {username, password})
+}
+
+const LOGOUT_ROUTE = `${api_url}/api/logout`
+const logout = () => {
+    return axios.post(LOGOUT_ROUTE)
+}
+
+const AUTHENTICATE_ROUTE = `${api_url}/api/authenticate`
+const authenticate = () => {
+    return axios.post(AUTHENTICATE_ROUTE)
 }
 
 /**
@@ -72,6 +83,27 @@ const actions = {
         }
         if (status === 401) {
             commit('UNAUTHENTICATED', true)
+        }
+    },
+    async LOGOUT({dispatch}) {
+        try {
+            const response = await logout()
+            dispatch('LOGOUT_SUCCESS')
+        } catch(error) {
+            dispatch('LOGOUT_ERROR')
+        }
+    },
+    LOGOUT_SUCCESS() {
+        window.open('home#/admin','_self')
+    },
+    LOGOUT_ERROR() {
+
+    },
+    async AUTHENTICATE() {
+        try {
+            const response = await authenticate()
+        } catch (error) {
+            console.log(error)
         }
     }
 }

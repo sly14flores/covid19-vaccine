@@ -90,14 +90,14 @@ app.controller('surveyCtrl', function($scope,$http) {
 		
 		// Best Choice
 		reason: "(Ano ang iyong mga konsiderasyon ukol sa CoViD-19 vaccine?)",
-		enough_information: "(Hindi sapat ang alamkong impormasyon tungkol sa bakuna)",
+		enough_information: "(Hindi sapat ang alam kong impormasyon tungkol sa bakuna)",
 		vaccines_not_thoroughly_studied: "(Sa aking palagay,hindi napag-aralan ng mabuti ang mga bakuna)",
 		efficacy_rate_reason: "(Epekto ng bakuna)",
         safety_reason: "(Kasiguraduhan ng kaligtasan at posibleng masamang epekto ng bakuna)",
         presence_reason: "(Pagkakaroon ng komorbididad at iba pang kundisyon sa kalusugan)",
         pregnant_reason: "(Kasalukuyang buntis/nagpapasuso o binabalak magbuntis)",
 		brand_reason: "(Mga available na pagpipilian na brandng bakuna)",
-        lack_of_information_reason: "(Hindi ako naniniwalangsolusyon ito sa CoViD-19)",
+        lack_of_information_reason: "(Hindi ako naniniwalang solusyon ito sa CoViD-19)",
         others_reason: "(Iba pa)",
 	}
 	$scope.tagalogVersion = tagalogVersion;
