@@ -1,6 +1,15 @@
 <template>
     <div>
         <MyBreadcrumb :home="home" :items="items" />
+         <div class="p-grid p-fluid dashboard p-mt-2">
+            <div class="p-lg-4 p-md-12 p-sm-12">
+                <label class="summary p-ml-2">SUMMARY RESPONSE</label><br />
+                <label class="as-of p-ml-2"> AS OF FEBRUARY 14, 2021</label>
+            </div>
+            <div class="p-lg-4 p-md-12 p-sm-12">
+                    
+            </div>
+        </div>
         <div class="p-grid p-fluid dashboard p-mt-2">
             <div class="p-col-12 p-lg-4">
                 <div class="card summary">
@@ -118,6 +127,16 @@ export default {
 </script>
 
 <style scoped>
+.summary {
+    color: #215266;
+    font-weight: bold;
+    font-size: 20px;
+}
+.as-of {
+    color: #926C2F;
+    font-weight: bold;
+    font-size: 15px;
+}
 .title {
     color: #215266;
 }
