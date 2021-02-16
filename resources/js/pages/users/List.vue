@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <ConfirmDialog></ConfirmDialog>
+        <ConfirmDialog group="confirmDelete"></ConfirmDialog>
     </div>
 </template>
 
@@ -55,10 +55,11 @@ export default {
     },
     methods: {
         fetchUsers() {
-            this.$store.dispatch('users/GET_USERS')
+            this.$store.dispatch('users/GET_USERS', { page: 1 })
         },
         deleteUser(id) {
             this.$confirm.require({
+                key: 'confirmDelete',
                 message: 'Are you sure you want to delete this user?',
                 header: 'Confirmation',
                 icon: 'pi pi-exclamation-triangle',

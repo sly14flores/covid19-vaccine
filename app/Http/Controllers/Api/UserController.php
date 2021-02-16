@@ -43,7 +43,7 @@ class UserController extends Controller
 
         $data = new UsersListResourceCollection($users);
 
-        return $this->jsonSuccessResponse($data, 200);  
+        return $this->jsonSuccessResponse($data, 200);
     }
 
     /**
