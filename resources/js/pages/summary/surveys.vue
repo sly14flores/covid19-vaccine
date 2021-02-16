@@ -2,12 +2,12 @@
     <div>
         <MyBreadcrumb :home="home" :items="items" />
          <div class="p-grid p-fluid dashboard p-mt-2">
-            <div class="p-lg-4 p-md-12 p-sm-12">
+            <div class="p-lg-10 p-md-12 p-sm-12">
                 <label class="summary p-ml-2">SUMMARY RESPONSE</label><br />
                 <label class="as-of p-ml-2"> AS OF FEBRUARY 14, 2021</label>
             </div>
-            <div class="p-lg-4 p-md-12 p-sm-12">
-                    
+            <div class="p-lg-2 p-md-12 p-sm-12">
+                <Button label="Export File" class="p-button-raised p-button-success" />
             </div>
         </div>
         <div class="p-grid p-fluid dashboard p-mt-2">
@@ -15,91 +15,94 @@
             <div class="p-col-12 p-lg-4">
                 <div class="card summary">
                     <span class="title">Total Response</span>
-                    <span class="detail"><h4><b>12,200</b></h4></span>
+                    <span class="detail"><h4><b>{{total_responses}}</b></h4></span>
                     <span class="count visitors"><i class="pi pi-comment" style="fontSize: 3rem"></i></span>
                 </div>
             </div>
             <div class="p-col-12 p-lg-4">
                 <div class="card summary">
                     <span class="title">Male</span>
-                    <span class="detail"><h4><b>9,000</b></h4></span>
+                    <span class="detail"><h4><b>{{male}}</b></h4></span>
                     <span class="count revenue"><i class="pi pi-user" style="fontSize: 3rem"></i></span>
                 </div>
             </div>
             <div class="p-col-12 p-lg-4">
                 <div class="card summary">
                     <span class="title">Female</span>
-                    <span class="detail"><h4><b>3,345</b></h4></span>
+                    <span class="detail"><h4><b>{{female}}</b></h4></span>
                     <span class="count purchases"><i class="pi pi-user" style="fontSize: 3rem"></i></span>
                 </div>
             </div>
 
             <div class="p-grid">
                 <div class="p-lg-8 p-md-12 p-sm-12">
-                    <Panel header="Population Group">
-                        <DataTable>
-                            <Column field="code" header="Total" sortable="true"></Column>
-                            <Column field="name" header="Description" sortable="true"></Column>
-                        </DataTable>
-                    </Panel>
+                    <div class="p-lg-12">
+                        <Panel header="Population Group">
+                            <DataTable :value="population_group" dataKey="id">
+                                <Column field="value" header="Total" sortable="true"></Column>
+                                <Column field="description" header="Description" sortable="true"></Column>
+                            </DataTable>
+                        </Panel>
+                    </div>
+                    <div class="p-lg-12">
+                        <Panel header="Comorbidities">
+                            <DataTable :value="comorbidity" dataKey="id">
+                                <Column field="value" header="Total" sortable="true"></Column>
+                                <Column field="description" header="Description" sortable="true"></Column>
+                            </DataTable>
+                        </Panel>
+                    </div>
                 </div>
-                <div class="p-lg-4 p-md-12 p-sm-12">
-                    <DataTable>
-                        <Column field="city" header="City & Municipality" sortable="true"></Column>
-                        <Column field="total" header="Total" sortable="true"></Column>
+
+                 <div class="p-lg-4 p-md-12 p-sm-12">
+                    <DataTable :value="municipality" dataKey="id">
+                        <Column field="description" header="City & Municipality" sortable="true"></Column>
+                        <Column field="value" header="Total" sortable="true"></Column>
                     </DataTable>
                  </div>
             </div>
 
-            <div class="p-grid">
-                <div class="p-lg-8 p-md-12 p-sm-12">
-                    <Panel header="Comorbidities">
-                        <DataTable>
-                            <Column field="code" header="Total" sortable="true"></Column>
-                            <Column field="name" header="Description" sortable="true"></Column>
+            <div class="p-grid p-lg-8 p-md-12 p-sm-12">
+                <div class="p-lg-6 p-md-12 p-sm-12">
+                    <Panel header="Pregnancy Status">
+                        <DataTable :value="current_pregnancy" dataKey="id">
+                            <Column field="yes_currently_pregnant" header="Pregnant"></Column>
+                            <Column field="no_currently_pregnant" header="Not Pregnant"></Column>
+                            <Column field="not_sure_currently_pregnant" header="Not Sure"></Column>
+                        </DataTable>
+                    </Panel>
+                </div>
+                <div class="p-lg-6 p-md-12 p-sm-12">
+                    <Panel header="Planning to get pregnant?">
+                        <DataTable :value="planning_pregnant" dataKey="id">
+                            <Column field="yes_pregnant_baby" header="Yes"></Column>
+                            <Column field="no_pregnant_baby" header="Not Pregnant"></Column>
                         </DataTable>
                     </Panel>
                 </div>
             </div>
-            <div class="p-grid">
-                <div class="p-lg-4 p-md-12 p-sm-12">
-                    <Panel header="Pregnancy Status">
-                        <DataTable>
-                            <Column field="code" header="Pregnant" sortable="true"></Column>
-                            <Column field="name" header="Not Pregnant" sortable="true"></Column>
-                            <Column field="name" header="Not Sure" sortable="true"></Column>
+           
+            <div class="p-grid p-lg-8 p-md-12 p-sm-12">
+                <div class="p-lg-12">
+                    <Panel header="Interested To Be Vaccinated">
+                        <DataTable :value="interested" dataKey="id">
+                            <Column field="yes_vaccine" header="Interested"></Column>
+                            <Column field="no_vaccine" header="Not Interested"></Column>
                         </DataTable>   
                     </Panel>
                 </div>
-                <div class="p-lg-4 p-md-12 p-sm-12">
-                    <Panel header="Planning to get pregnant?">
-                        <DataTable>
-                            <Column field="code" header="Yes" sortable="true"></Column>
-                            <Column field="name" header="Not Pregnant" sortable="true"></Column>
+            </div>
+            <div class="p-grid p-lg-8 p-md-12 p-sm-12">
+                <div class="p-lg-12">
+                    <Panel header="Reason">
+                        <DataTable :value="reason" dataKey="id">
+                            <Column field="value" header="Total" sortable="true"></Column>
+                            <Column field="description" header="Description" sortable="true"></Column>
                         </DataTable>   
                     </Panel>
                 </div>
             </div>
 
-            <div class="p-grid">
-                <div class="p-lg-4 p-md-12 p-sm-12">
-                    <Panel header="Interested To Be Vaccinated">
-                        <DataTable>
-                            <Column field="code" header="Interested" sortable="true"></Column>
-                            <Column field="name" header="Not Interested" sortable="true"></Column>
-                        </DataTable>   
-                    </Panel>
-                </div>
-                <div class="p-lg-4 p-md-12 p-sm-12">
-                    <Panel header="Reason">
-                        <DataTable>
-                            <Column field="code" header="Total" sortable="true"></Column>
-                            <Column field="name" header="Description" sortable="true"></Column>
-                        </DataTable>   
-                    </Panel>
-                </div>
-            </div>
-            
         </div>
     </div>
 </template>
@@ -110,6 +113,8 @@ import DataTable from 'primevue/datatable/sfc';
 import Column from 'primevue/column/sfc';
 import ColumnGroup from 'primevue/columngroup/sfc';
 import Panel from 'primevue/panel/sfc';
+import Button from 'primevue/button/sfc';
+import Paginator from 'primevue/paginator/sfc';
 
 import store from '../../store.js'
 
@@ -126,14 +131,53 @@ export default {
         DataTable,
         Column,
         ColumnGroup,
-        Panel
+        Panel,
+        Button,
+        Paginator
     },
     data() {
         return {
             home: {icon: 'pi pi-home', to: '/summary/surveys'},
             items: [{label: 'Survey', to: '/summary/surveys'}],
         }
-    }
+    },
+    computed: {
+        total_responses() {
+            return this.$store.state.surveys.surveys.total_responses
+        },
+        male() {
+            return this.$store.state.surveys.surveys.male
+        },
+        female() {
+            return this.$store.state.surveys.surveys.female
+        },
+        interested() {
+            return this.$store.state.surveys.surveys.interested
+        },
+        current_pregnancy() {
+            return this.$store.state.surveys.surveys.current_pregnancy
+        },
+        planning_pregnant() {
+            return this.$store.state.surveys.surveys.planning_pregnant
+        },
+        municipality() {
+            return this.$store.state.surveys.surveys.municipality
+        },
+        population_group() {
+            return this.$store.state.surveys.surveys.population_group
+        },
+        comorbidity() {
+            return this.$store.state.surveys.surveys.comorbidity
+        },
+        reason() {
+            return this.$store.state.surveys.surveys.reason
+        },
+    },
+    created() {
+
+        this.$store.dispatch('surveys/GET_SURVEYS')
+
+    },
 }
 </script>
 
