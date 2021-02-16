@@ -45,11 +45,13 @@ const user = {
     password: null
 }
 
+const saving = false
+
 const users = []
 
 const state = () => {
     return {
-        saving: false,
+        saving,
         user,
         users,
     }

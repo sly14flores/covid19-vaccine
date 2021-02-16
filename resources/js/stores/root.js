@@ -70,7 +70,7 @@ const actions = {
     LOGIN_SUCCESS({commit}, payload) {
         const { data } = payload
         commit('PROFILE',data)
-        window.open('/home','_self')
+        window.open('home','_self')
     },
     LOGIN_ERROR({commit}, payload) {
         /**
