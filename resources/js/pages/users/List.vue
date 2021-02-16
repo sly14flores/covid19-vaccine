@@ -17,6 +17,7 @@
                             </template>
                         </Column>
                     </DataTable>
+                    <Paginator :rows="pagination.per_page" :totalRecords="pagination.total" @page="fetchUsers($event)"></Paginator>
                 </div>
             </div>
         </div>
@@ -30,6 +31,7 @@ import DataTable from 'primevue/datatable/sfc';
 import Column from 'primevue/column/sfc';
 import Button from 'primevue/button/sfc';
 import ConfirmDialog from 'primevue/confirmdialog/sfc';
+import Paginator from 'primevue/paginator/sfc';
 
 export default {
     setup() {
@@ -38,6 +40,7 @@ export default {
     components: {
         MyBreadcrumb,
         DataTable,
+        Paginator,
         Column,
         Button,
         ConfirmDialog
@@ -51,11 +54,19 @@ export default {
     computed: {
         users() {
             return this.$store.state.users.users
+        },
+        pagination() {
+            return this.$store.state.users.pagination
         }
     },
     methods: {
-        fetchUsers() {
-            this.$store.dispatch('users/GET_USERS', { page: 1 })
+        fetchUsers(event) {
+            // event.page: New page number
+            // event.first: Index of first record
+            // event.rows: Number of rows to display in new page
+            // event.pageCount: Total number of pages
+            const { page } = event
+            this.$store.dispatch('users/GET_USERS', { page })
         },
         deleteUser(id) {
             this.$confirm.require({
@@ -73,7 +84,7 @@ export default {
         }
     },
     mounted() {
-        this.fetchUsers()
+        this.fetchUsers({ page: 0 })
     }
 }
 </script>
