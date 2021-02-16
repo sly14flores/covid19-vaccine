@@ -25,7 +25,8 @@ const getUser = (payload) => {
 
 const GET_USERS = `${api_url}/api/users`
 const getUsers = (payload) => {
-    return axios.get(GET_USERS)
+    const { page } = payload
+    return axios.get(GET_USERS, {params: {page}})
 }
 
 const DELETE_USER = `${api_url}/api/user/:id`
@@ -44,16 +45,16 @@ const user = {
     username: null,
     password: null
 }
-
 const saving = false
-
 const users = []
+const pagination = {}
 
 const state = () => {
     return {
         saving,
         user,
         users,
+        pagination
     }
 }
 
@@ -67,6 +68,9 @@ const mutations = {
     },
     USERS(state, payload) {
         state.users = payload
+    },
+    PAGINATION(state, payload) {
+        state.pagination = {...payload}
     },
     SAVING(state, payload) {
         state.saving = payload
@@ -144,15 +148,18 @@ const actions = {
     },
     async GET_USERS({dispatch}, payload) {
         try {
-            const { data: { data } } = await getUsers()
-            dispatch('GET_USERS_SUCCESS', data)
+            const { page } = payload
+            const { data: { data: { data, pagination } } } = await getUsers({ page })
+            dispatch('GET_USERS_SUCCESS', { data, pagination })
         } catch (error) {
             const { response } = error
             dispatch('GET_USERS_ERROR', response)
         }
     },
     GET_USERS_SUCCESS({commit}, payload) {
-        commit('USERS',payload)
+        const { data, pagination } = payload
+        commit('USERS',data)
+        commit('PAGINATION',pagination)
     },
     GET_USERS_ERROR({commit}, payload) {
         console.log(payload)

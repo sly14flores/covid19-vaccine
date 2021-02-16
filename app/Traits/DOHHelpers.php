@@ -41,7 +41,7 @@ trait DOHHelpers
 
     public function toDOHGender($gender)
     {
-        $toDOH = "01_Femaile";
+        $toDOH = "01_Female";
         if ($gender=="Male") {
             $toDOH = "02_Male";
         }
