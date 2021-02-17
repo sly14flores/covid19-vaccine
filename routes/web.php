@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ExportSurveys;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +26,8 @@ Route::get('/login', function () {
 Route::get('/home', function () {
     return view('home');
 });
+
+Route::get('/home/reports/surveys', ExportSurveys::class);
 
 Route::get('/survey/{id}', function($id) {
 	
