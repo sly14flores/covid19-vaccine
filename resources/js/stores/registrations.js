@@ -1,6 +1,8 @@
 import axios from 'axios'
 import route from '../library/route'
 
+import Swal from 'sweetalert2'
+
 import { api_url } from '../url.js'
 
 const SELECTIONS_ROUTE = `${api_url}/api/doh/selections`
@@ -196,6 +198,33 @@ const actions = {
     CREATE_SUCCESS({commit}, payload) {
         commit('SAVING', false)
         console.log(payload)
+
+        Swal.fire({
+            title: '<p class="text-success" style="font-size: 25px;">Registration completed successfully</p>',
+            icon: 'success',
+            html: 
+              '<b style="font-size: 15px;">For inquiries, please contact us at: </b> <br>' +
+              '<b class="text-danger" style="font-size: 15px;">Tel. No. (072) 242-5550 loc. 299</b>',
+            showCancelButton: false,
+            focusConfirm: false,
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#68bca4',
+            cancelButtonText: 'Close',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+          }).then((result) => {
+            if (result.value) {
+              
+              window.location = api_url;
+              
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+              
+              window.location = api_url;
+              
+            }
+          })
+
     },
     CREATE_ERROR({commit}, payload) {
         commit('SAVING', false)
@@ -218,7 +247,43 @@ const actions = {
     },
     GET_NAPANAM_ERROR({commit}, payload) {
         console.log(payload)
-        commit('FETCH', false)        
+        commit('FETCH', false)
+        
+        // Not Found
+        if(payload.status==404){
+            Swal.fire({
+                title: '<p>Error</p>',
+                icon: 'error',
+                html: '<h5 style="font-size: 18px;">The Napanam ID and Birthdate you entered did not match. Please try again.</h5>',
+                showCancelButton: false,
+                focusConfirm: true,
+                confirmButtonText: 'Ok',
+            }).then((result) => {
+                if (result.value) {
+                // Close
+                }
+            })	
+        }
+        
+        // if Exist
+        if(payload.status==406){
+            Swal.fire({
+                title: "<p>Error</p>",
+                icon: 'error',
+                html: '<h5 style="font-size: 18px;">The Napanam ID No. you have entered is already registered</h5>',
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonColor: '#68bca4',
+                confirmButtonText: 'Ok',
+            }).then((result) => {
+                if (result.value) {
+    
+                   // Close
+    
+                }
+            })
+        }
+        
     }
 }
 
