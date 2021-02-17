@@ -2,12 +2,15 @@
     <div>
         <MyBreadcrumb :home="home" :items="items" />
          <div class="p-grid p-fluid dashboard p-mt-2">
-            <div class="p-lg-10 p-md-12 p-sm-12">
+            <div class="p-lg-9 p-md-12 p-sm-12">
                 <label class="summary p-ml-2">SUMMARY RESPONSE</label><br />
-                <label class="as-of p-ml-2"> AS OF FEBRUARY 14, 2021</label>
+                <label class="as-of p-ml-2"> AS OF {{currentDate()}}</label>
+            </div>
+            <div class="p-lg-1 p-md-12 p-sm-12">
+                <Button class="p-button-raised p-button-primary"><i class="pi pi-refresh p-mr-1"></i>Refresh</Button>
             </div>
             <div class="p-lg-2 p-md-12 p-sm-12">
-                <Button label="Export File" class="p-button-raised p-button-success" />
+                <Button class="p-button-raised p-button-success"><i class="pi pi-download p-mr-1 p-ml-4"></i>Export to Excel</Button>
             </div>
         </div>
         <div class="p-grid p-fluid dashboard p-mt-2">
@@ -102,7 +105,6 @@
                     </Panel>
                 </div>
             </div>
-
         </div>
     </div>
 </template>
@@ -125,6 +127,7 @@ export default {
 
         dispatch('AUTHENTICATE')
 
+        
     },
     components: {
         MyBreadcrumb,
@@ -173,6 +176,21 @@ export default {
             return this.$store.state.surveys.surveys.reason
         },
     },
+    methods: {
+        currentDate() {
+            
+            const month_names = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+            ];
+
+            const current = new Date();
+
+            const date = month_names[current.getMonth()]+' '+current.getDate()+', '+current.getFullYear();
+            const dateNow = date;
+            
+            return dateNow;
+        }
+    },
     created() {
 
         this.$store.dispatch('surveys/GET_SURVEYS')
@@ -190,7 +208,7 @@ export default {
 .as-of {
     color: #926C2F;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 17px;
 }
 .title {
     color: #215266;

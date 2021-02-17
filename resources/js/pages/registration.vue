@@ -441,20 +441,11 @@
                             </router-link>
                         </div>
                         <div class="p-lg-2 p-sm-12 p-xs-12">
-                            <Button class="p-button-success" @click="openConfirmation"><i class="pi pi-spin pi-spinner" v-show="saving"></i>&nbsp;Submit</Button>
+                            <Button class="p-button-success" type="submit"><i class="pi pi-spin pi-spinner" v-show="saving"></i>&nbsp;Submit</Button>
                         </div>
                     </div>
 
-                    <Dialog header="Confirmation" v-model:visible="displayConfirmation" :style="{width: '350px'}" :modal="true">
-                        <div class="confirmation-content">
-                            <i class="pi pi-check p-mr-3" style="font-size: 1rem" />
-                            <span>Are you sure you want to save your changes?</span>
-                        </div>
-                        <template #footer>
-                            <Button label="No" @click="closeConfirmation" class="p-button-warning"/>
-                            <Button type="submit" label="Yes" @click="closeConfirmation" class="p-button-success" autofocus />
-                        </template>
-                    </Dialog>
+                    <ConfirmDialog></ConfirmDialog>
 
                 </div>
             </div>
@@ -470,13 +461,14 @@ import InputText from 'primevue/inputtext/sfc';
 import Dropdown from 'primevue/dropdown/sfc';
 import RadioButton from 'primevue/radiobutton/sfc';
 import Menubar from 'primevue/menubar/sfc';
-import Dialog from 'primevue/dialog/sfc';
+import ConfirmDialog from 'primevue/confirmdialog/sfc';
 import Checkbox from 'primevue/checkbox/sfc';
 
 // import { registration } from '../stores/registrations.js'
 import store from '../store.js'
 import { useForm, useField } from 'vee-validate'
 import { useRouter } from 'vue-router'
+import { useConfirm } from "primevue/useconfirm";
 
 export default {
     setup() {
@@ -497,13 +489,30 @@ export default {
         }
 
         const { handleSubmit } = useForm(init);
-
+        
+        const confirm = useConfirm();
+        
         const onSubmit = handleSubmit((values, actions) => {
-            const { resetForm } = actions
-            const { registration } = values
-            console.log('Saving')
-            store.dispatch('registrations/CREATE', registration)
-            resetForm();
+            
+            confirm.require({
+                message: 'Are you sure you want to proceed?',
+                header: 'Confirmation',
+                icon: 'pi pi-exclamation-triangle',
+                accept: () => {
+
+                    const { resetForm } = actions
+                    const { registration } = values
+                    store.dispatch('registrations/CREATE', registration)
+                    resetForm();
+                    
+                },
+                reject: () => {
+                    //callback to execute when user rejects the action
+                }
+            });
+
+            
+
         });
 
         function validateField(value) {
@@ -663,8 +672,8 @@ export default {
         Dropdown,
         RadioButton,
         Menubar,
-        Dialog,
-        Checkbox
+        ConfirmDialog,
+        Checkbox,
     },
     data() {
         return {
