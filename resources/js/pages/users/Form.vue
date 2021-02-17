@@ -65,6 +65,8 @@ import store from '../../store.js'
 import { useForm, useField } from 'vee-validate'
 import { useRoute } from 'vue-router'
 import { watch } from 'vue'
+import { useConfirm } from "primevue/useconfirm"
+import { useToast } from "primevue/usetoast"
 
 export default {
     props: ['editOn'],
@@ -76,6 +78,8 @@ export default {
         const { params } = route
         const userId = params.id || null
         const { state, dispatch } = store
+        const confirm = useConfirm()
+        const toast = useToast()
 
         const init = {
             initialValues: {
@@ -101,14 +105,27 @@ export default {
         }
 
         const onSubmit = handleSubmit((values, actions) => {
+
             const { resetForm } = actions
             const { user } = values
-            if (editMode) {
-                dispatch('users/UPDATE_USER', user)
-            } else {
-                dispatch('users/CREATE_USER', user)
-                resetForm();
-            }
+
+            confirm.require({
+                message: (editMode)?"Are you sure you want to add update this user's info?":'Are you sure you want to add this new user?',
+                header: 'Confirmation',
+                icon: 'pi pi-exclamation-triangle',
+                accept: () => {
+                    if (editMode) {
+                        dispatch('users/UPDATE_USER', user)
+                    } else {
+                        dispatch('users/CREATE_USER', user)
+                        resetForm();
+                    }
+                },
+                reject: () => {
+                    //callback to execute when user rejects the action
+                }
+            });
+
         });
 
         function validateField(value) {
