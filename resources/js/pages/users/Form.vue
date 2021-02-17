@@ -8,18 +8,23 @@
                     <h5><i class="pi pi-user"></i> User Information</h5>
                     <hr />
                     <div class="p-grid">
+                        <div class="p-col-1 p-offset-11">
+                            <ToggleButton v-if="editMode" v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" />
+                        </div>
+                    </div>
+                    <div class="p-grid">
                         <div class="p-field p-lg-4 p-md-12">
                             <label for="firstname">First Name</label>
-                            <InputText id="firstname" type="text" placeholder="Enter First Name" v-model="firstname" :class="{'p-invalid': firstnameError}" />
+                            <InputText id="firstname" type="text" placeholder="Enter First Name" v-model="firstname" :class="{'p-invalid': firstnameError}" :disabled="editMode && !writeOn" />
                             <small class="p-error">{{ firstnameError }}</small>                       
                         </div>
                         <div class="p-field p-lg-4 p-md-12">
                             <label for="middlename">Middle Name</label>
-                            <InputText id="middlename" type="text" placeholder="Enter Middle Name" v-model="middlename" />
+                            <InputText id="middlename" type="text" placeholder="Enter Middle Name" v-model="middlename" :disabled="editMode && !writeOn" />
                         </div>
                         <div class="p-field p-lg-4 p-md-12">
                             <label for="lastname">Last Name</label>
-                            <InputText id="lastname" type="text" placeholder="Enter Last Name" v-model="lastname" :class="{'p-invalid': lastnameError}" />
+                            <InputText id="lastname" type="text" placeholder="Enter Last Name" v-model="lastname" :class="{'p-invalid': lastnameError}" :disabled="editMode && !writeOn" />
                             <small class="p-error">{{ lastnameError }}</small>                        
                         </div>
                     </div>
@@ -28,7 +33,7 @@
                     <div class="p-grid">
                         <div class="p-field p-lg-6 p-md-12">
                             <label for="username">Username</label>
-                            <InputText id="username" type="text" placeholder="Enter Username" v-model="username" :class="{'p-invalid': usernameError}" />
+                            <InputText id="username" type="text" placeholder="Enter Username" v-model="username" :class="{'p-invalid': usernameError}" :disabled="editMode && !writeOn" />
                             <small class="p-error">{{ usernameError }}</small>                     
                         </div>
                         <div class="p-field p-lg-6 p-md-12">
@@ -39,7 +44,8 @@
                     </div>
                 </div>
                 <div class="p-d-flex">
-                    <Button label="Submit" type="submit" class="p-button-primary" />
+                    <Button type="submit" class="p-button-primary" :disabled="!writeOn && editMode"><i v-if="saving" class="pi pi-spin pi-spinner"></i>&nbsp;{{(editMode)?'Update':'Save'}}</Button>
+                    <Button type="button" :label="(editMode)?'Close':'Cancel'" class="p-button-danger p-ml-2" @click="close" />
                 </div>
             </form>
             </div>
@@ -51,6 +57,8 @@
 import MyBreadcrumb from '../../components/MyBreadcrumb.vue';
 import InputText from 'primevue/inputtext/sfc';
 import Button from 'primevue/button/sfc';
+import Divider from 'primevue/divider/sfc';
+import ToggleButton from 'primevue/togglebutton/sfc';
 
 import { user } from '../../stores/users.js'
 import store from '../../store.js'
@@ -150,9 +158,9 @@ export default {
             editMode,
         }
     },
-    
     data() {
         return {
+            // writeOn: false,
             home: {icon: 'pi pi-home', to: '/users'},
             items: [{label: (this.editMode)?'Edit User':'New User', to: `${this.$route.fullPath}`}],
         }
@@ -161,6 +169,30 @@ export default {
         MyBreadcrumb,
         InputText,
         Button,
+        Divider,
+        ToggleButton
+    },
+    computed: {
+        saving() {
+            return this.$store.state.users.saving
+        },
+        writeOn: {
+            set(value) {
+                this.$store.dispatch('users/TOGGLE_WRITE', value)
+            },
+            get() {
+                return this.$store.state.users.writeOn
+            }
+        }
+    },
+    methods: {
+        close() {
+            this.$store.dispatch('users/INIT')
+            this.$router.push('/users')
+        },
+        toggleWrite() {
+            this.writeOn = !this.writeOn
+        }
     },
 }
 </script>

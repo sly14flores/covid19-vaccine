@@ -17,10 +17,11 @@
                             </template>
                         </Column>
                     </DataTable>
+                    <Paginator :rows="pagination.per_page" :totalRecords="pagination.total" @page="fetchUsers($event)"></Paginator>
                 </div>
             </div>
         </div>
-        <ConfirmDialog></ConfirmDialog>
+        <ConfirmDialog group="confirmDelete"></ConfirmDialog>
     </div>
 </template>
 
@@ -30,6 +31,7 @@ import DataTable from 'primevue/datatable/sfc';
 import Column from 'primevue/column/sfc';
 import Button from 'primevue/button/sfc';
 import ConfirmDialog from 'primevue/confirmdialog/sfc';
+import Paginator from 'primevue/paginator/sfc';
 
 export default {
     setup() {
@@ -38,6 +40,7 @@ export default {
     components: {
         MyBreadcrumb,
         DataTable,
+        Paginator,
         Column,
         Button,
         ConfirmDialog
@@ -51,14 +54,23 @@ export default {
     computed: {
         users() {
             return this.$store.state.users.users
+        },
+        pagination() {
+            return this.$store.state.users.pagination
         }
     },
     methods: {
-        fetchUsers() {
-            this.$store.dispatch('users/GET_USERS')
+        fetchUsers(event) {
+            // event.page: New page number
+            // event.first: Index of first record
+            // event.rows: Number of rows to display in new page
+            // event.pageCount: Total number of pages
+            const { page } = event
+            this.$store.dispatch('users/GET_USERS', { page })
         },
         deleteUser(id) {
             this.$confirm.require({
+                key: 'confirmDelete',
                 message: 'Are you sure you want to delete this user?',
                 header: 'Confirmation',
                 icon: 'pi pi-exclamation-triangle',
@@ -72,7 +84,7 @@ export default {
         }
     },
     mounted() {
-        this.fetchUsers()
+        this.fetchUsers({ page: 0 })
     }
 }
 </script>

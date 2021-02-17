@@ -25,7 +25,9 @@ const getUser = (payload) => {
 
 const GET_USERS = `${api_url}/api/users`
 const getUsers = (payload) => {
-    return axios.get(GET_USERS)
+    const { page } = payload
+    const pageNo = page + 1
+    return axios.get(GET_USERS, {params: { page: pageNo } })
 }
 
 const DELETE_USER = `${api_url}/api/user/:id`
@@ -44,13 +46,17 @@ const user = {
     username: null,
     password: null
 }
-
+const saving = false
 const users = []
+const pagination = {}
 
 const state = () => {
     return {
+        saving,
+        writeOn: false,
         user,
         users,
+        pagination
     }
 }
 
@@ -65,13 +71,26 @@ const mutations = {
     USERS(state, payload) {
         state.users = payload
     },
+    PAGINATION(state, payload) {
+        state.pagination = {...payload}
+    },
+    SAVING(state, payload) {
+        state.saving = payload
+    },
+    TOGGLE_WRITE(state,payload) {
+        state.writeOn = payload
+    }
 }
 
 const actions = {
     INIT({commit}) {
         commit('INIT')
     },
-    async CREATE_USER({dispatch}, payload) {
+    TOGGLE_WRITE({commit}, payload) {
+        commit('TOGGLE_WRITE', payload)
+    },
+    async CREATE_USER({commit, dispatch}, payload) {
+        commit('SAVING',true)        
         try {
             const { data: { data } } = await createUser(payload)
             dispatch('CREATE_USER_SUCCESS', data)
@@ -81,12 +100,16 @@ const actions = {
         }
     },
     CREATE_USER_SUCCESS({commit}, payload) {
+        commit('SAVING',false)        
         console.log(payload)
     },
     CREATE_USER_ERROR({commit}, payload) {
+        commit('SAVING',false) 
         console.log(payload)
     },
-    async UPDATE_USER({dispatch}, payload) {
+    async UPDATE_USER({commit,dispatch}, payload) {
+        commit('SAVING',true)
+        commit('TOGGLE_WRITE', true)
         try {
             const { data: { data } } = await updateUser(payload)
             dispatch('UPDATE_USER_SUCCESS', data)
@@ -96,9 +119,12 @@ const actions = {
         }
     },
     UPDATE_USER_SUCCESS({commit}, payload) {
-        commit('USER', payload)
+        commit('SAVING',false)
+        commit('TOGGLE_WRITE', false)
     },
     UPDATE_USER_ERROR({commit}, payload) {
+        commit('SAVING',false)
+        commit('TOGGLE_WRITE', false)    
         console.log(payload)
     },
     async DELETE_USER({dispatch}, payload) {
@@ -111,8 +137,9 @@ const actions = {
             dispatch('DELETE_USER_ERROR', response)
         }
     },
-    DELETE_USER_SUCCESS({commit}, payload) {
+    DELETE_USER_SUCCESS({commit, dispatch}, payload) {
         console.log(payload)
+        dispatch('GET_USERS', { page: 0 })
     },
     DELETE_USER_ERROR({commit}, payload) {
         console.log(payload)
@@ -135,15 +162,18 @@ const actions = {
     },
     async GET_USERS({dispatch}, payload) {
         try {
-            const { data: { data } } = await getUsers()
-            dispatch('GET_USERS_SUCCESS', data)
+            const { page } = payload
+            const { data: { data: { data, pagination } } } = await getUsers({ page })
+            dispatch('GET_USERS_SUCCESS', { data, pagination })
         } catch (error) {
             const { response } = error
             dispatch('GET_USERS_ERROR', response)
         }
     },
     GET_USERS_SUCCESS({commit}, payload) {
-        commit('USERS',payload)
+        const { data, pagination } = payload
+        commit('USERS',data)
+        commit('PAGINATION',pagination)
     },
     GET_USERS_ERROR({commit}, payload) {
         console.log(payload)
