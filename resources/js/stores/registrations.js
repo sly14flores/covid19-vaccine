@@ -129,7 +129,7 @@ const mutations = {
         state.selections = {...payload}
     },
     NAPANAM(state, payload) {
-        state.registration.qr_pass_id = payload.id
+        state.registration.qr_pass_id = String(payload.id)
         state.registration.first_name = payload.firstname
         state.registration.middle_name = payload.middlename
         state.registration.last_name = payload.lastname
