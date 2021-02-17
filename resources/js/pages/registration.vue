@@ -465,7 +465,7 @@ import ConfirmDialog from 'primevue/confirmdialog/sfc';
 import Checkbox from 'primevue/checkbox/sfc';
 
 // import { registration } from '../stores/registrations.js'
-import store from '../store.js'
+import { useStore } from 'vuex'
 import { useForm, useField } from 'vee-validate'
 import { useRouter } from 'vue-router'
 import { useConfirm } from "primevue/useconfirm";
@@ -473,6 +473,7 @@ import { useConfirm } from "primevue/useconfirm";
 export default {
     setup() {
 
+        const store = useStore()
         /**
          * Redirection logic using store
          */

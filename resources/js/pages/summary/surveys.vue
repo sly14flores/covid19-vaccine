@@ -116,17 +116,7 @@ import Panel from 'primevue/panel/sfc';
 import Button from 'primevue/button/sfc';
 import Paginator from 'primevue/paginator/sfc';
 
-import store from '../../store.js'
-
 export default {
-    setup() {
-
-        const { dispatch } = store
-
-        dispatch('AUTHENTICATE')
-
-        
-    },
     components: {
         MyBreadcrumb,
         DataTable,
