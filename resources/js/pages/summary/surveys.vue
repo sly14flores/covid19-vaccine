@@ -1,18 +1,19 @@
 <template>
     <div>
         <MyBreadcrumb :home="home" :items="items" />
-        <div class="card p-grid p-col-12 p-mt-2">
-            <div class="p-col-9 p-md-6 p-lg-10">
-                <label class="summary p-ml-2">SUMMARY RESPONSE</label><br />
-                <label class="as-of p-ml-2"> AS OF {{currentDate()}}</label>
-            </div>
-            <div class="p-col-12 p-md-6 p-lg-2">
-                <Button class="p-button-primary"><i class="pi pi-refresh icon-size"></i></Button>
-                <Button label="Export to Excel" class="p-button-raised p-ml-2 p-button-success" />
+        <div class="card p-mt-2">
+            <div class="p-grid p-col-12">
+                <div class="p-col-9 p-md-6 p-lg-10">
+                    <label class="summary p-ml-2">SUMMARY RESPONSE</label><br />
+                    <label class="as-of p-ml-2"> AS OF {{currentDate()}}</label>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-2">
+                    <Button class="p-button-primary" @click="refresh"><i class="pi pi-refresh icon-size"></i></Button>
+                    <Button label="Export to Excel" class="p-button-raised p-ml-2 p-button-success" @click="exportToExcel" />
+                </div>
             </div>
         </div>
-        <div class="p-grid p-fluid dashboard p-mt-2">
-
+        <div class="p-grid p-fluid dashboard p-mt-1">
             <div class="p-col-12 p-lg-4">
                 <div class="card summary">
                     <span class="title">Total Response</span>
@@ -116,7 +117,18 @@ import Panel from 'primevue/panel/sfc';
 import Button from 'primevue/button/sfc';
 import Paginator from 'primevue/paginator/sfc';
 
+import { api_url } from '../../url.js'
+
 export default {
+    setup() {
+
+        const downloadUrl = `${api_url}/home/reports/surveys`
+
+        return {
+            downloadUrl
+        }
+
+    },
     components: {
         MyBreadcrumb,
         DataTable,
@@ -177,6 +189,16 @@ export default {
             const dateNow = date;
             
             return dateNow;
+        },
+        exportToExcel() {
+
+            window.open(this.downloadUrl)
+
+        },
+        refresh() {
+
+            this.$store.dispatch('surveys/GET_SURVEYS')
+
         }
     },
     created() {
