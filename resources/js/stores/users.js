@@ -94,9 +94,11 @@ const actions = {
         try {
             const { data: { data } } = await createUser(payload)
             dispatch('CREATE_USER_SUCCESS', data)
+            return true
         } catch(error) {
             const { response } = error
             dispatch('CREATE_USER_ERROR', response)
+            return false
         }
     },
     CREATE_USER_SUCCESS({commit}, payload) {
@@ -113,9 +115,11 @@ const actions = {
         try {
             const { data: { data } } = await updateUser(payload)
             dispatch('UPDATE_USER_SUCCESS', data)
+            return true
         } catch (error) {
             const { response } = error
             dispatch('UPDATE_USER_ERROR', response)
+            return false
         }
     },
     UPDATE_USER_SUCCESS({commit}, payload) {
@@ -124,7 +128,7 @@ const actions = {
     },
     UPDATE_USER_ERROR({commit}, payload) {
         commit('SAVING',false)
-        commit('TOGGLE_WRITE', false)    
+        commit('TOGGLE_WRITE', false)
         console.log(payload)
     },
     async DELETE_USER({dispatch}, payload) {
