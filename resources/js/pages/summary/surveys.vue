@@ -8,7 +8,7 @@
             </div>
             <div class="p-col-12 p-md-6 p-lg-2">
                 <Button class="p-button-primary"><i class="pi pi-refresh icon-size"></i></Button>
-                <Button label="Export to Excel" class="p-button-raised p-ml-2 p-button-success" />
+                <Button label="Export to Excel" class="p-button-raised p-ml-2 p-button-success" @click="exportToExcel" />
             </div>
         </div>
         <div class="p-grid p-fluid dashboard p-mt-2">
@@ -116,7 +116,18 @@ import Panel from 'primevue/panel/sfc';
 import Button from 'primevue/button/sfc';
 import Paginator from 'primevue/paginator/sfc';
 
+import { api_url } from '../../url.js'
+
 export default {
+    setup() {
+
+        const downloadUrl = `${api_url}/home/reports/surveys`
+
+        return {
+            downloadUrl
+        }
+
+    },
     components: {
         MyBreadcrumb,
         DataTable,
@@ -177,6 +188,11 @@ export default {
             const dateNow = date;
             
             return dateNow;
+        },
+        exportToExcel() {
+
+            window.open(this.downloadUrl)
+
         }
     },
     created() {
