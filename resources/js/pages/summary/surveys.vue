@@ -3,13 +3,17 @@
         <MyBreadcrumb :home="home" :items="items" />
         <div class="card p-mt-2">
             <div class="p-grid p-col-12">
-                <div class="p-col-9 p-md-6 p-lg-10">
+                <div class="p-sm-12 p-md-9 p-lg-10">
                     <label class="summary p-ml-2">SUMMARY RESPONSE</label><br />
                     <label class="as-of p-ml-2"> AS OF {{currentDate()}}</label>
                 </div>
-                <div class="p-col-12 p-md-6 p-lg-2">
-                    <Button class="p-button-primary" @click="refresh"><i class="pi pi-refresh icon-size"></i></Button>
-                    <Button label="Export to Excel" class="p-button-raised p-ml-2 p-button-success" @click="exportToExcel" />
+                <div class="p-sm-12 p-md-3 p-lg-2">
+                    <button  type="button" class="p-mr-2 p-mb-2 p-button p-component p-button-icon-only" @click="refresh">
+                        <i class="pi pi-refresh icon-size"></i>
+                    </button>
+                    <button  type="button" class="p-mr-2 p-mb-2 p-button p-component p-button-success" @click="exportToExcel">
+                            Export to Excel
+                    </button>   
                 </div>
             </div>
         </div>
@@ -236,5 +240,8 @@ export default {
 }
 .icon-size{
     height: 18px;
+}
+.float-right{
+    margin-left: 50%;
 }
 </style>
