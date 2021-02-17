@@ -117,14 +117,14 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Category <i class="p-error">*</i></label>
-                                <Dropdown :filter="true" class="p-shadow-1" optionLabel="name" :options="category_value" v-model="category" optionValue="id" placeholder="Select a Category" :class="{'p-invalid': categoryError}" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" v-model="category" optionValue="id" placeholder="Select a Category" :class="{'p-invalid': categoryError}" />
                                 <small class="p-error">{{ categoryError }}</small>
                             </div>
                         </div>
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Category ID <i class="p-error">*</i></label>
-                                <Dropdown :filter="true" class="p-shadow-1" optionLabel="name" :options="category_id_value" v-model="category_id" optionValue="id" placeholder="Select a Category ID" :class="{'p-invalid': category_idError}" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" v-model="category_id" optionValue="id" placeholder="Select a Category ID" :class="{'p-invalid': category_idError}" />
                                 <small class="p-error">{{ category_idError }}</small>
                             </div>
                         </div>
@@ -141,7 +141,7 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Profession <i class="p-error">*</i></label>
-                                <Dropdown :filter="true" class="p-shadow-1" optionLabel="name" :options="profession_value" v-model="profession" optionValue="id" placeholder="Select a Profession" :class="{'p-invalid': professionError}" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="profession_value" v-model="profession" optionValue="id" placeholder="Select a Profession" :class="{'p-invalid': professionError}" />
                                 <small class="p-error">{{ professionError }}</small>
                             </div>
                         </div>
@@ -163,7 +163,7 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Employment Status <i class="p-error">*</i></label>
-                                <Dropdown :filter="true" class="p-shadow-1" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status" :class="{'p-invalid': employment_statusError}" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status" :class="{'p-invalid': employment_statusError}" />
                                 <small class="p-error">{{ employment_statusError }}</small>
                             </div>
                         </div>
@@ -177,7 +177,7 @@
                         <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class="p-field">
                                 <label>Municipality <i class="p-error">*</i></label>
-                                <Dropdown :filter="true" class="p-shadow-1" optionLabel="name" :options="employer_municipality_value" v-model="employer_municipality" optionValue="id" placeholder="Select a Employment Municipality" :class="{'p-invalid': employer_municipalityError}" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employer_municipality_value" v-model="employer_municipality" optionValue="id" placeholder="Select a Employment Municipality" :class="{'p-invalid': employer_municipalityError}" />
                                 <small class="p-error">{{ employer_municipalityError }}</small>
                             </div>
                         </div>
