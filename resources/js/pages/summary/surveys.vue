@@ -196,9 +196,7 @@ export default {
 
         },
         refresh() {
-
             this.$store.dispatch('surveys/GET_SURVEYS')
-
         }
     },
     created() {
