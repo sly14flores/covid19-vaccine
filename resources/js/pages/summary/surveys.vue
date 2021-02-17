@@ -1,16 +1,14 @@
 <template>
     <div>
         <MyBreadcrumb :home="home" :items="items" />
-         <div class="p-grid p-fluid dashboard p-mt-2">
-            <div class="p-lg-9 p-md-12 p-sm-12">
+        <div class="card p-grid p-col-12 p-mt-2">
+            <div class="p-col-9 p-md-6 p-lg-10">
                 <label class="summary p-ml-2">SUMMARY RESPONSE</label><br />
                 <label class="as-of p-ml-2"> AS OF {{currentDate()}}</label>
             </div>
-            <div class="p-lg-1 p-md-12 p-sm-12">
-                <Button class="p-button-raised p-button-primary"><i class="pi pi-refresh p-mr-1"></i>Refresh</Button>
-            </div>
-            <div class="p-lg-2 p-md-12 p-sm-12">
-                <Button class="p-button-raised p-button-success"><i class="pi pi-download p-mr-1 p-ml-4"></i>Export to Excel</Button>
+            <div class="p-col-12 p-md-6 p-lg-2">
+                <Button class="p-button-primary"><i class="pi pi-refresh icon-size"></i></Button>
+                <Button label="Export to Excel" class="p-button-raised p-ml-2 p-button-success" />
             </div>
         </div>
         <div class="p-grid p-fluid dashboard p-mt-2">
@@ -225,5 +223,8 @@ export default {
 }
 .border-right {
     border-right: 1px solid #5c5c5c!important;
+}
+.icon-size{
+    height: 18px;
 }
 </style>
