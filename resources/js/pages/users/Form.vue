@@ -61,12 +61,11 @@ import Divider from 'primevue/divider/sfc';
 import ToggleButton from 'primevue/togglebutton/sfc';
 
 import { user } from '../../stores/users.js'
-import store from '../../store.js'
+import { useStore } from 'vuex'
 import { useForm, useField } from 'vee-validate'
 import { useRoute } from 'vue-router'
 import { watch } from 'vue'
 import { useConfirm } from "primevue/useconfirm"
-import { useToast } from "primevue/usetoast"
 
 export default {
     props: ['editOn'],
@@ -77,9 +76,9 @@ export default {
         const route = useRoute()
         const { params } = route
         const userId = params.id || null
+        const store = useStore()
         const { state, dispatch } = store
         const confirm = useConfirm()
-        const toast = useToast()
 
         const init = {
             initialValues: {
