@@ -31,6 +31,7 @@
         "vee-validate": "^4.1.13",
         "vue": "^3.0.5",
         "vue-router": "^4.0.3",
+        "vue-sweetalert2": "^4.2.0",
         "vuex": "^4.0.0-rc.2",
         "vuex-persist": "^3.1.3"
     }
