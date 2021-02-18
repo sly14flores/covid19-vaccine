@@ -14,8 +14,15 @@ trait Summary
         $collect = collect($surveys);
 
         $total_responses = $surveys->count();
+
         $male = $surveys->where('gender','Male')->count();
         $female = $surveys->where('gender','Female')->count();
+        $gender = [
+            [
+                'male'=>$male,
+                'female'=>$female,
+            ]
+        ];
 
         $population_group = [];
         $population_groups = [
@@ -118,7 +125,9 @@ trait Summary
         ];
         foreach ($vaccinated as $key => $v) {
             $interested[0][$key] = $surveys->where($key,1)->count();
-        }        
+        }
+        $yes_vaccine = $surveys->where('yes_vaccine',1)->count();
+        $no_vaccine = $surveys->where('no_vaccine',1)->count();
 
         $reason = [];
         $reasons = [
@@ -140,6 +149,7 @@ trait Summary
 
         $data = [
             'total_responses'=>$total_responses,
+            'gender'=>$gender,
             'male'=>$male,
             'female'=>$female,
             'population_group'=>$population_group,
@@ -148,6 +158,8 @@ trait Summary
             'current_pregnancy'=>$current_pregnancy,
             'planning_pregnant'=>$planning_pregnant,
             'interested'=>$interested,
+            'yes_vaccine'=>$yes_vaccine,
+            'no_vaccine'=>$no_vaccine,
             'reason'=>$reason,
         ];
 
