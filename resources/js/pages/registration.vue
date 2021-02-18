@@ -10,7 +10,7 @@
                 <div class="card">
                     <h5 class="p-mt-2">Form</h5> <hr />
                     <div class="p-fluid p-formgrid p-grid">
-                        <div class="p-field p-col-12 p-md-4">
+                        <div class="p-field p-col-12 p-md-3">
                             <label>NAPANAM ID <i class="p-error">*</i></label>
                             <InputText class="p-shadow-1" type="text" name="qr_pass_id" v-model="qr_pass_id" disabled />
                         </div>
