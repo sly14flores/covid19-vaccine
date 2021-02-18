@@ -14,43 +14,39 @@
                             </div>
                         </div>
                         <div class="p-grid p-jc-center p-mt-2">
-                            <h6>Before your proceed to the registration page, please complete the form below.</h6>
+                            <h6 class="text-center">Before your proceed to the registration page, please complete the form below.</h6>
                         </div>
-                        <small v-if="message">Doesn't match</small>
                         <hr />
-                        <div class="p-field">
-                            <label for="napanam_id"><i class="p-error">*</i> Napanam ID No.</label>
-                            <span class="p-input-icon-right">
-                                <i class="pi pi-id-card" />
-                                <InputText class="p-shadow-1" type="number" placeholder="Enter your Napanam ID No." v-model="id" :class="{'p-invalid': idError}" />
-                            </span>
-                            <small class="p-error">{{ idError }}</small>
-                        </div>
-                        <h6><i class="p-error">*</i> Birthdate</h6>
-                        <div class="p-grid">
-                            <div class="p-field p-col-12 p-md-6">
-                                <label for="password">Month</label>
-                                <span class="p-input">
-                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="month_value" optionValue="id" v-model="month" placeholder="Select a month" :class="{'p-invalid': monthError}" />
+                        <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-12">
+                                <label for="napanam_id">Napanam ID No.: <i class="p-error">*</i></label>
+                                <span class="p-input-icon-right">
+                                    <i class="pi pi-id-card" />
+                                    <InputText class="p-shadow-1" type="number" placeholder="Enter your Napanam ID No." v-model="id" :class="{'p-invalid': idError}" />
                                 </span>
-                                <small class="p-error">{{ monthError }}</small>
-                            </div>
-                            <div class="p-field p-col-12 p-md-3">
-                                <label for="password">Day</label>
-                                <span class="p-input">
-                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="day_value" optionValue="id" v-model="day" placeholder="DD" :class="{'p-invalid': dayError}" />
-                                </span>
-                                <small class="p-error">{{ dayError }}</small>
-                            </div>
-                            <div class="p-field p-col-12 p-md-3">
-                                <label for="password">Year</label>
-                                <span class="p-input">
-                                    <InputText class="p-shadow-1" type="number" placeholder="YYYY" v-model="year" :class="{'p-invalid': yearError}" />
-                                </span>
-                                <small class="p-error">{{ yearError }}</small>
+                                <small class="p-error">{{ idError }}</small>
                             </div>
                         </div>
 
+                        <h6>Birthdate: <i class="p-error">*</i></h6>
+                        <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-4">
+                                <label for="month"><small>Month</small></label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="month_value" optionValue="id" v-model="month" placeholder="Select a month" :class="{'p-invalid': monthError}" />
+                                <small class="p-error">{{ monthError }}</small>
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label for="day"><small>Day</small></label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="day_value" optionValue="id" v-model="day" placeholder="DD" :class="{'p-invalid': dayError}" />
+                                <small class="p-error">{{ dayError }}</small>
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label for="year"><small>Year</small></label>
+                                <InputText class="p-shadow-1" type="number" placeholder="YYYY" v-model="year" :class="{'p-invalid': yearError}" />
+                                <small class="p-error">{{ yearError }}</small>
+                            </div>
+                        </div>
+                        <hr />
                         <div class="p-grid p-jc-center">
                             <div class="p-lg-4 p-sm-12 p-xs-12">
                                 <Button label="Proceed" type="submit" class="p-button-raised p-button-primary" />
@@ -138,12 +134,6 @@ export default {
 
     },
 
-    data() {
-        return {
-           message: false,
-        }
-    },
-
     computed:{
         month_value() {
 
@@ -203,13 +193,16 @@ export default {
     .napanam {
         height: 100px;
     }
+    .text-center {
+        text-align: center;
+    }
     @media screen and (max-width: 400px) {
         .napanam {
         height: 80px;
         }
     }
     .card {
-        border-top: 3px solid #0b7ad1;
+        border-top: 3px solid #215266;
     }
     .menu-bar{
         background-color: #215266;
