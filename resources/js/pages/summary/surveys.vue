@@ -22,21 +22,21 @@
                 <div class="card summary">
                     <span class="title">Total Response</span>
                     <span class="detail"><h4><b>{{total_responses}}</b></h4></span>
-                    <span class="count visitors"><i class="pi pi-comment" style="fontSize: 3rem"></i></span>
+                    <span class="count revenue"><i class="pi pi-comment" style="fontSize: 3rem"></i></span>
                 </div>
             </div>
             <div class="p-col-12 p-lg-4">
                 <div class="card summary">
-                    <span class="title">Male</span>
-                    <span class="detail"><h4><b>{{male}}</b></h4></span>
-                    <span class="count revenue"><i class="pi pi-user" style="fontSize: 3rem"></i></span>
+                    <span class="title">Interested</span>
+                    <span class="detail"><h4><b>{{yes_vaccine}}</b></h4></span>
+                    <span class="count visitors"><i class="pi pi-check-circle" style="fontSize: 3rem"></i></span>
                 </div>
             </div>
             <div class="p-col-12 p-lg-4">
                 <div class="card summary">
-                    <span class="title">Female</span>
-                    <span class="detail"><h4><b>{{female}}</b></h4></span>
-                    <span class="count purchases"><i class="pi pi-user" style="fontSize: 3rem"></i></span>
+                    <span class="title">Not Interested</span>
+                    <span class="detail"><h4><b>{{no_vaccine}}</b></h4></span>
+                    <span class="count purchases"><i class="pi pi-times-circle" style="fontSize: 3rem"></i></span>
                 </div>
             </div>
 
@@ -90,10 +90,10 @@
            
             <div class="p-grid p-lg-8 p-md-12 p-sm-12">
                 <div class="p-lg-12">
-                    <Panel header="Interested To Be Vaccinated">
-                        <DataTable :value="interested" dataKey="id">
-                            <Column field="yes_vaccine" header="Interested"></Column>
-                            <Column field="no_vaccine" header="Not Interested"></Column>
+                    <Panel header="Gender">
+                        <DataTable :value="gender" dataKey="id">
+                            <Column field="male" header="Male"></Column>
+                            <Column field="female" header="Female"></Column>
                         </DataTable>   
                     </Panel>
                 </div>
@@ -152,11 +152,11 @@ export default {
         total_responses() {
             return this.$store.state.surveys.surveys.total_responses
         },
-        male() {
-            return this.$store.state.surveys.surveys.male
+        yes_vaccine() {
+            return this.$store.state.surveys.surveys.yes_vaccine
         },
-        female() {
-            return this.$store.state.surveys.surveys.female
+        no_vaccine() {
+            return this.$store.state.surveys.surveys.no_vaccine
         },
         interested() {
             return this.$store.state.surveys.surveys.interested
@@ -178,6 +178,9 @@ export default {
         },
         reason() {
             return this.$store.state.surveys.surveys.reason
+        },
+        gender() {
+            return this.$store.state.surveys.surveys.gender
         },
     },
     methods: {
