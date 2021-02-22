@@ -23,72 +23,74 @@ class ExportSurveys extends Controller
      */
     public function __invoke(Request $request)
     {
-        $template = storage_path().'/Surveys.xlsx';
+        $template = storage_path().'/app/Surveys.xlsx';
         $data = Summary::surveys([]);   
 
         $spreadsheet = IOFactory::load($template);
         $sheet = $spreadsheet->getActiveSheet();
         
         $now = Carbon::now()->format('F j, Y');        
-        $sheet->setCellValue('A3', "AS OF {$now}"); # Date
-        $sheet->setCellValue('A6', $data['total_responses']); # Total Responses
-        $sheet->setCellValue('E6', $data['male']); # Male
-        $sheet->setCellValue('G6', $data['female']); # Female
+        $sheet->setCellValue('A8', "AS OF {$now}"); # Date
+        $sheet->setCellValue('A12', $data['total_responses']); # Total Responses
+        $sheet->setCellValue('E12', $data['male']); # Male
+        $sheet->setCellValue('G12', $data['female']); # Female
         /**
          * Interested
          */
-        $sheet->setCellValue('J6', $data['interested'][0]['yes_vaccine']); # Yes
-        $sheet->setCellValue('L6', $data['interested'][0]['no_vaccine']); # No
+        $sheet->setCellValue('J12', $data['interested'][0]['yes_vaccine']); # Yes
+        $sheet->setCellValue('L12', $data['interested'][0]['no_vaccine']); # No
         /**
          * Currently Pregnant
          */
-        $sheet->setCellValue('J12', $data['current_pregnancy'][0]['yes_currently_pregnant']); # Yes
-        $sheet->setCellValue('L12', $data['current_pregnancy'][0]['no_currently_pregnant']); # No
-        $sheet->setCellValue('N12', $data['current_pregnancy'][0]['not_sure_currently_pregnant']); # Not Interested
+        $sheet->setCellValue('C16', $data['current_pregnancy'][0]['yes_currently_pregnant']); # Yes
+        $sheet->setCellValue('C17', $data['current_pregnancy'][0]['no_currently_pregnant']); # No
+        $sheet->setCellValue('C18', $data['current_pregnancy'][0]['not_sure_currently_pregnant']); # Not Interested
         /**
          * Planning to get pregnant
          */
-        $sheet->setCellValue('J16', $data['planning_pregnant'][0]['yes_pregnant_baby']); # Yes        
-        $sheet->setCellValue('M16', $data['planning_pregnant'][0]['no_pregnant_baby']); # No
+        $sheet->setCellValue('E17', $data['planning_pregnant'][0]['yes_pregnant_baby']); # Yes        
+        $sheet->setCellValue('G17', $data['planning_pregnant'][0]['no_pregnant_baby']); # No
 
         /**
          * Population groups
          */
         $population_groups = [
-            ["cell"=>"H11"],
-            ["cell"=>"H12"],
-            ["cell"=>"H13"],
-            ["cell"=>"H14"],
-            ["cell"=>"H15"],
-            ["cell"=>"H16"],
-            ["cell"=>"H17"],
-            ["cell"=>"H18"],
-            ["cell"=>"H19"],
-            ["cell"=>"H20"],
-            ["cell"=>"H21"],
-            ["cell"=>"H22"],
-            ["cell"=>"H23"],
-            ["cell"=>"H24"],
+            ["total"=>"H22","yes"=>"I22","no"=>"K22"],
+            ["total"=>"H23","yes"=>"I23","no"=>"K23"],
+            ["total"=>"H24","yes"=>"I24","no"=>"K24"],
+            ["total"=>"H25","yes"=>"I25","no"=>"K25"],
+            ["total"=>"H26","yes"=>"I26","no"=>"K26"],
+            ["total"=>"H27","yes"=>"I27","no"=>"K27"],
+            ["total"=>"H28","yes"=>"I28","no"=>"K28"],
+            ["total"=>"H29","yes"=>"I29","no"=>"K29"],
+            ["total"=>"H30","yes"=>"I30","no"=>"K30"],
+            ["total"=>"H31","yes"=>"I31","no"=>"K31"],
+            ["total"=>"H32","yes"=>"I32","no"=>"K32"],
+            ["total"=>"H33","yes"=>"I33","no"=>"K33"],
+            ["total"=>"H34","yes"=>"I34","no"=>"K34"],
+            ["total"=>"H35","yes"=>"I35","no"=>"K35"],
         ];        
         foreach ($data['population_group'] as $i => $pg) {
-            $sheet->setCellValue($population_groups[$i]['cell'], $pg['value']);
+            $sheet->setCellValue($population_groups[$i]['total'], $pg['value']);
+            $sheet->setCellValue($population_groups[$i]['yes'], $pg['yes']);
+            $sheet->setCellValue($population_groups[$i]['no'], $pg['no']);
         }
 
         /**
          * Health Conditions
          */
         $health_conditions = [
-            ["cell"=>"H28"],
-            ["cell"=>"H29"],
-            ["cell"=>"H30"],
-            ["cell"=>"H31"],
-            ["cell"=>"H32"],
-            ["cell"=>"H33"],
-            ["cell"=>"H34"],
-            ["cell"=>"H35"],
-            ["cell"=>"H36"],
-            ["cell"=>"H37"],
-            ["cell"=>"H38"],
+            ["cell"=>"H39"],
+            ["cell"=>"H40"],
+            ["cell"=>"H41"],
+            ["cell"=>"H42"],
+            ["cell"=>"H43"],
+            ["cell"=>"H44"],
+            ["cell"=>"H45"],
+            ["cell"=>"H46"],
+            ["cell"=>"H47"],
+            ["cell"=>"H48"],
+            ["cell"=>"H49"],
         ];
         foreach ($data['comorbidity'] as $i => $c) {
             $sheet->setCellValue($health_conditions[$i]['cell'], $c['value']);
@@ -98,14 +100,14 @@ class ExportSurveys extends Controller
          * Reasons
          */
         $reasons = [
-            ["cell"=>"H42"],
-            ["cell"=>"H43"],
-            ["cell"=>"H44"],
-            ["cell"=>"H45"],
-            ["cell"=>"H46"],
-            ["cell"=>"H47"],
-            ["cell"=>"H48"],
-            ["cell"=>"H49"],
+            ["cell"=>"H53"],
+            ["cell"=>"H54"],
+            ["cell"=>"H55"],
+            ["cell"=>"H56"],
+            ["cell"=>"H57"],
+            ["cell"=>"H58"],
+            ["cell"=>"H59"],
+            ["cell"=>"H60"],
         ];
         foreach ($data['reason'] as $i => $r) {
             $sheet->setCellValue($reasons[$i]['cell'], $r['value']);

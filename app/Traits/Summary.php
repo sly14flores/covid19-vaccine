@@ -44,7 +44,9 @@ trait Summary
         foreach ($population_groups as $key => $pg) {
             $population_group[] = [
                 "description"=>$pg,
-                "value"=>$surveys->where($key,1)->count()
+                "value"=>$surveys->where($key,1)->count(),
+                "yes"=>$surveys->where($key,1)->where('yes_vaccine',1)->count(),
+                "no"=>$surveys->where($key,1)->where('no_vaccine',1)->count()
             ];
         }
 
