@@ -22,6 +22,13 @@ const getNapanam = (payload) => {
     return axios.get(url)    
 }
 
+const GET_REGISTRATIONS = `${api_url}/api/doh/registrations`
+const getRegistrations = (payload) => {
+    const { page } = payload
+    const pageNo = page + 1
+    return axios.get(GET_REGISTRATIONS, {params: { page: pageNo } })
+}
+
 const registration = {
     // Personal
     id: 0,
@@ -117,12 +124,17 @@ const selections = {
     day_value
 };
 
+const registrations = []
+const pagination = {}
+
 const state = () => {
     return {
         fetched: false,
         saving: false,
         registration,
+        registrations,
         selections,
+        pagination
     }
 }
 
@@ -143,6 +155,12 @@ const mutations = {
         state.registration.barangay = payload.barangayDesc
         state.registration.address = payload.address // street
     },
+    REGISTRATIONS(state, payload) {
+        state.registrations = payload
+    },
+    PAGINATION(state, payload) {
+        state.pagination = {...payload}
+    },
     FETCH(state, payload) {
         state.fetched = payload
     },
@@ -152,6 +170,24 @@ const mutations = {
 }
 
 const actions = {
+    async GET_REGISTRATIONS({dispatch}, payload) {
+        try {
+            const { page } = payload
+            const { data: { data: { data, pagination } } } = await getRegistrations({ page })
+            dispatch('GET_REGISTRATIONS_SUCCESS', { data, pagination })
+        } catch (error) {
+            const { response } = error
+            dispatch('GET_REGISTRATIONS_ERROR', response)
+        }
+    },
+    GET_REGISTRATIONS_SUCCESS({commit}, payload) {
+        const { data, pagination } = payload
+        commit('REGISTRATIONS',data)
+        commit('PAGINATION',pagination)
+    },
+    GET_REGISTRATIONS_ERROR({commit}, payload) {
+        console.log(payload)
+    },
     async GET_SELECTIONS({dispatch}) {
         try {
             const { data: { data } } = await getSelections()

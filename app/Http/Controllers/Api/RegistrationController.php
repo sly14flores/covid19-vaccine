@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Models\Registration;
 use App\Http\Resources\RegistrationResource;
+use App\Http\Resources\RegistrationsListResourceCollection;
 
 class RegistrationController extends Controller
 {
@@ -22,7 +23,11 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        //
+        $registrations = Registration::paginate(10);
+
+        $data = new RegistrationsListResourceCollection($registrations);
+
+        return $this->jsonSuccessResponse($data, 200);
     }
 
     /**
