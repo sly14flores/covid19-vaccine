@@ -17,6 +17,7 @@ class HospitalsListResource extends JsonResource
         return [
             'id' => $this->id,
             'description' => $this->description,
+            'slots' => $this->slots
         ];
     }
 }

@@ -8,6 +8,7 @@
                     <hr />
                     <DataTable :value="hospitals" dataKey="id">
                         <Column field="description" header="Description"></Column>
+                        <Column field="slots" header="Slots"></Column>
                         <Column field="id" header="Actions">
                             <template #body="slotProps">
                                 <router-link :to="`/hospitals/hospital/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>
@@ -56,7 +57,6 @@ export default {
         pagination(){
             return this.$store.state.hospitals.pagination
         }
-
     },
     methods: {
         fetchHospitals(event) {

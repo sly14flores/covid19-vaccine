@@ -19,6 +19,7 @@ class Hospital extends Model
      */
     protected $fillable = [
         'description',
+        'slots'
     ];
 
     protected $hidden = [

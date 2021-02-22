@@ -44,17 +44,20 @@
                 <div class="p-lg-8 p-md-12 p-sm-12">
                     <div class="p-lg-12">
                         <Panel header="Population Group">
+                            <h6 class="p-text-right">(Interested to be vaccinated)</h6>
                             <DataTable :value="population_group" dataKey="id">
-                                <Column field="value" header="Total" sortable="true"></Column>
                                 <Column field="description" header="Description" sortable="true"></Column>
+                                <Column field="value" header="Total" sortable="true"></Column>
+                                <Column field="yes" header="Yes" sortable="true"></Column>
+                                <Column field="no" header="No" sortable="true"></Column>
                             </DataTable>
                         </Panel>
                     </div>
                     <div class="p-lg-12">
                         <Panel header="Comorbidities">
                             <DataTable :value="comorbidity" dataKey="id">
-                                <Column field="value" header="Total" sortable="true"></Column>
                                 <Column field="description" header="Description" sortable="true"></Column>
+                                <Column field="value" header="Total" sortable="true"></Column>
                             </DataTable>
                         </Panel>
                     </div>
