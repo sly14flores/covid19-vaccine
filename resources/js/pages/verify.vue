@@ -14,7 +14,7 @@
                             </div>
                         </div>
                         <div class="p-grid p-jc-center p-mt-2">
-                            <h6 class="text-center">Before your proceed to the registration page, please complete the form below.</h6>
+                            <h6 class="p-text-center">Before your proceed to the registration page, please complete the form below.</h6>
                         </div>
                         <hr />
                         <div class="p-fluid p-formgrid p-grid">
@@ -192,9 +192,6 @@ export default {
     }
     .napanam {
         height: 100px;
-    }
-    .text-center {
-        text-align: center;
     }
     @media screen and (max-width: 400px) {
         .napanam {

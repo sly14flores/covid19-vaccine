@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\SurveyController;
 use App\Http\Controllers\Api\NapanamController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\HospitalController;
 use App\Http\Controllers\Api\DOHDataSelections;
 use App\Http\Controllers\Api\RegistrationController;
 use App\Http\Controllers\Api\SurveysSummary;
@@ -53,6 +54,20 @@ Route::apiResources([
 ]);
 Route::apiResources([
     'user' => UserController::class,
+],[
+    'except' => ['index']
+]);
+
+/**
+ * Hospitals
+ */
+Route::apiResources([
+    'hospitals' => HospitalController::class,
+],[
+    'only' => ['index']
+]);
+Route::apiResources([
+    'hospital' => HospitalController::class,
 ],[
     'except' => ['index']
 ]);

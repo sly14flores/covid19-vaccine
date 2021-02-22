@@ -11,17 +11,30 @@ import Surveys from "./pages/summary/surveys.vue";
  */
 import Login from "./pages/login.vue";
 import Registration from "./pages/registration.vue";
+import Booking from "./pages/booking.vue";
 import Verify from "./pages/verify.vue";
 import Users from "./pages/users/Users.vue";
 import UsersList from "./pages/users/List.vue";
 import UserNew from './pages/users/New.vue';
 import UserEdit from './pages/users/Edit.vue';
+/**
+ * Hospitals
+ */
+import Hospitals from "./pages/hospitals/Hospitals.vue";
+import HospitalsList from "./pages/hospitals/List.vue";
+import HospitalNew from './pages/hospitals/New.vue';
+import HospitalEdit from './pages/hospitals/Edit.vue';
 
 const routes = [
   {
     path: "/admin",
     name: "Login",
     component: Login
+  },
+  {
+    path: "/booking",
+    name: "Booking",
+    component: Booking
   },
   {
     path: "/verify",
@@ -72,6 +85,29 @@ const routes = [
         path: 'user/:id',
         name: 'ShowUser',
         component: UserEdit
+      }
+    ]
+  },
+  {
+    path: "/hospitals",
+    name: "Hospitals",
+    component: PageWrapper,
+    props: {pageComponent: Hospitals},
+    children: [
+      {
+        path: '',
+        name: 'HospitalsList',
+        component: HospitalsList
+      },
+      {
+        path: 'new',
+        name: 'NewHospital',
+        component: HospitalNew
+      },      
+      {
+        path: 'hospital/:id',
+        name: 'ShowHospital',
+        component: HospitalEdit
       }
     ]
   },

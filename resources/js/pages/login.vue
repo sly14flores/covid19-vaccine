@@ -4,8 +4,9 @@
             <a href=""><img alt="logo" src="img/launion-logo.png" class="lu-logo" /></a>
             <h5 class="p-mt-3 p-label-white">La Union CoViD-19 Vaccination</h5>
         </div>
-        <div class="p-grid p-jc-center p-mt-4">
-            <div class="p-lg-4 p-md-12 p-sm-12 p-xs-12">
+        <div class="p-fluid p-formgrid p-grid p-mt-4">
+            <div class="p-field p-col-12 p-md-4"></div>
+            <div class="p-field p-col-12 p-md-4">
                 <form @submit.prevent="login">
                     <div class="card p-fluid">
                         <div class="p-grid p-jc-center">
@@ -13,7 +14,7 @@
                                 <img alt="logo" src="img/Rugian.png" class="rugian">
                             </div>
                         </div>
-                        <h5 class="p-mt-2"><center>Sign in to start your session</center></h5> <hr />
+                        <h5 class="p-mt-2 p-text-center">Sign in to start your session</h5> <hr />
                         <div class="p-field">
                             <label for="username">Username</label>
                             <span class="p-input-icon-right">
@@ -41,6 +42,7 @@
                     </div>
                 </form>
             </div>
+            <div class="p-field p-col-12 p-md-4"></div>
         </div>
     </div>
 </template>
