@@ -30,5 +30,21 @@ export default [
               to: '/users/new'          
           },
         ]
+    },
+    {
+        label:'Hospitals',
+        icon:'pi pi-fw pi-sitemap',
+        items:[
+          {
+              label:'List',
+              icon:'pi pi-fw pi-list',
+              to: '/hospitals'                       
+          },              
+          {
+              label:'New',
+              icon:'pi pi-fw pi-plus-circle',
+              to: '/hospitals/new'          
+          },
+        ]
     }
 ]

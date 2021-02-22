@@ -12,40 +12,53 @@
                             <ToggleButton v-if="editMode" v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" />
                         </div>
                     </div>
-                    <div class="p-grid">
-                        <div class="p-field p-lg-4 p-md-12">
-                            <label for="firstname">First Name</label>
-                            <InputText id="firstname" type="text" placeholder="Enter First Name" v-model="firstname" :class="{'p-invalid': firstnameError}" :disabled="editMode && !writeOn" />
-                            <small class="p-error">{{ firstnameError }}</small>                       
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-4">
+                            <label for="firstname">First Name <i class="p-error">*</i></label>
+                            <InputText class="p-shadow-1" id="firstname" type="text" placeholder="Enter First Name" v-model="firstname" :class="{'p-invalid': firstnameError}" :disabled="editMode && !writeOn" />
+                            <small class="p-error">{{ firstnameError }}</small> 
                         </div>
-                        <div class="p-field p-lg-4 p-md-12">
+                        <div class="p-field p-col-12 p-md-4">
                             <label for="middlename">Middle Name</label>
-                            <InputText id="middlename" type="text" placeholder="Enter Middle Name" v-model="middlename" :disabled="editMode && !writeOn" />
+                            <InputText class="p-shadow-1" id="middlename" type="text" placeholder="Enter Middle Name" v-model="middlename" :disabled="editMode && !writeOn" />
                         </div>
-                        <div class="p-field p-lg-4 p-md-12">
-                            <label for="lastname">Last Name</label>
-                            <InputText id="lastname" type="text" placeholder="Enter Last Name" v-model="lastname" :class="{'p-invalid': lastnameError}" :disabled="editMode && !writeOn" />
+                        <div class="p-field p-col-12 p-md-4">
+                            <label for="lastname">Last Name <i class="p-error">*</i></label>
+                            <InputText class="p-shadow-1" id="lastname" type="text" placeholder="Enter Last Name" v-model="lastname" :class="{'p-invalid': lastnameError}" :disabled="editMode && !writeOn" />
                             <small class="p-error">{{ lastnameError }}</small>                        
                         </div>
                     </div>
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-12">
+                            <label>Office <i class="p-error">*</i></label>
+                            <Dropdown class="p-shadow-1" placeholder="Select a Office" />
+                        </div>
+                    </div>
+
                     <h5><i class="pi pi-lock"></i> Login Credentials</h5>
                     <hr />
                     <div class="p-grid">
                         <div class="p-field p-lg-6 p-md-12">
-                            <label for="username">Username</label>
-                            <InputText id="username" type="text" placeholder="Enter Username" v-model="username" :class="{'p-invalid': usernameError}" :disabled="editMode && !writeOn" />
+                            <label for="username">Username <i class="p-error">*</i></label>
+                            <InputText class="p-shadow-1" id="username" type="text" placeholder="Enter Username" v-model="username" :class="{'p-invalid': usernameError}" :disabled="editMode && !writeOn" />
                             <small class="p-error">{{ usernameError }}</small>                     
                         </div>
                         <div class="p-field p-lg-6 p-md-12">
-                            <label for="password">Password</label>
-                            <InputText id="password" type="password" placeholder="Enter Password" v-model="password" :class="{'p-invalid': passwordError}" :disabled="editMode" />
+                            <label for="password">Password <i class="p-error">*</i></label>
+                            <InputText class="p-shadow-1" id="password" type="password" placeholder="Enter Password" v-model="password" :class="{'p-invalid': passwordError}" :disabled="editMode" />
                             <small class="p-error">{{ passwordError }}</small>                        
                         </div>
                     </div>
-                </div>
-                <div class="p-d-flex">
-                    <Button type="submit" class="p-button-primary" :disabled="!writeOn && editMode"><i v-if="saving" class="pi pi-spin pi-spinner"></i>&nbsp;{{(editMode)?'Update':'Save'}}</Button>
-                    <Button type="button" :label="(editMode)?'Close':'Cancel'" class="p-button-danger p-ml-2" @click="close" />
+                    <hr />
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-10"></div>
+                        <div class="p-field p-col-12 p-md-1">
+                            <Button type="submit" class="p-button-primary" :disabled="!writeOn && editMode"><i v-if="saving" class="pi pi-spin pi-spinner"></i>&nbsp;{{(editMode)?'Update':'Save'}}</Button>
+                        </div>
+                        <div class="p-field p-col-12 p-md-1">
+                            <Button type="button" :label="(editMode)?'Close':'Cancel'" class="p-button-danger p-ml-2" @click="close" />
+                        </div>
+                    </div>
                 </div>
             </form>
             </div>
@@ -56,6 +69,7 @@
 <script>
 import MyBreadcrumb from '../../components/MyBreadcrumb.vue';
 import InputText from 'primevue/inputtext/sfc';
+import Dropdown from 'primevue/dropdown/sfc';
 import Button from 'primevue/button/sfc';
 import Divider from 'primevue/divider/sfc';
 import ToggleButton from 'primevue/togglebutton/sfc';
@@ -186,7 +200,8 @@ export default {
         InputText,
         Button,
         Divider,
-        ToggleButton
+        ToggleButton,
+        Dropdown
     },
     computed: {
         saving() {
