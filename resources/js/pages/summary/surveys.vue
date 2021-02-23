@@ -44,7 +44,12 @@
                 <div class="p-lg-8 p-md-12 p-sm-12">
                     <div class="p-lg-12">
                         <Panel header="Population Group">
-                            <h6 class="p-text-right">(Interested to be vaccinated)</h6>
+                             <div class="p-grid">
+                                <div class="p-lg-7 p-md-7 p-sm-7"></div>
+                                <div class="p-lg-5 p-md-5 p-sm-5">
+                                    <h6>(Interested to be vaccinated)</h6>
+                                </div>
+                            </div>
                             <DataTable :value="population_group" dataKey="id">
                                 <Column field="description" header="Description" sortable="true"></Column>
                                 <Column field="value" header="Total" sortable="true"></Column>

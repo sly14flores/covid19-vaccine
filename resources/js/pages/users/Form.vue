@@ -25,8 +25,8 @@
                     </div>
                     <div class="p-fluid p-formgrid p-grid">
                         <div class="p-field p-col-12 p-md-12">
-                            <label>Office <i class="p-error">*</i></label>
-                            <Dropdown class="p-shadow-1" placeholder="Select a Office" />
+                            <label>Hospital</label>
+                            <Dropdown class="p-shadow-1" placeholder="Select a Hospital" :disabled="editMode && !writeOn" />
                         </div>
                     </div>
 
