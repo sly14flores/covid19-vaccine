@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\HospitalController;
 use App\Http\Controllers\Api\DOHDataSelections;
+use App\Http\Controllers\Api\GeneralDataSelections;
 use App\Http\Controllers\Api\RegistrationController;
 use App\Http\Controllers\Api\SurveysSummary;
 
@@ -104,6 +105,22 @@ Route::prefix('doh')->group(function() {
     ],[
         'except' => ['index']
     ]);
+
+});
+
+/**
+ * General data selections
+ */
+Route::prefix('general')->group(function() {
+
+    Route::prefix('selections')->group(function() {
+        
+        /**
+         * Hospitals
+         */
+        Route::get('hospitals', [GeneralDataSelections::class, 'hospitals']);
+
+    });
 
 });
 
