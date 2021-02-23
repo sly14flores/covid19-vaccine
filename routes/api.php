@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\HospitalController;
 use App\Http\Controllers\Api\DOHDataSelections;
 use App\Http\Controllers\Api\GeneralDataSelections;
 use App\Http\Controllers\Api\RegistrationController;
+use App\Http\Controllers\Api\RegistrationImportController;
 use App\Http\Controllers\Api\SurveysSummary;
 
 /*
@@ -105,6 +106,13 @@ Route::prefix('doh')->group(function() {
     ],[
         'except' => ['index']
     ]);
+
+    /**
+     * Upload excel for import
+     */
+    Route::post('upload/excel', [RegistrationImportController::class, 'upload']);
+    Route::post('excel/data/structure', [RegistrationImportController::class, 'check']);
+    Route::post('excel/data/import', [RegistrationImportController::class, 'import']);
 
 });
 
