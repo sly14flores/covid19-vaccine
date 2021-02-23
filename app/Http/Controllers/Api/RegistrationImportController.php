@@ -34,6 +34,10 @@ class RegistrationImportController extends Controller
     public function upload(Request $request)
     {
 
+        if (is_null($request->file('excel'))) {
+            return $this->jsonErrorDataValidation();
+        }
+
 		$rules = [
 			'excel' => ['required',new ExcelRule($request->file('excel'))],
 		];
@@ -63,6 +67,7 @@ class RegistrationImportController extends Controller
 
     /**
      * Check if excel file has correct structures
+     * Validation
      */
     public function check()
     {
@@ -70,7 +75,7 @@ class RegistrationImportController extends Controller
     }
 
     /**
-     * Import row from excel file
+     * Import rows from excel file
      */
     public function import()
     {
