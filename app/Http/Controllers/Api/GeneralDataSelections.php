@@ -19,9 +19,9 @@ class GeneralDataSelections extends Controller
      */
     public function hospitals()
     {
-        $hopistals = hospital::select(['id','description'])->get();
+        $hospitals = hospital::select(['id','description'])->get();
 
-        return $this->jsonSuccessResponse($hopistals, 200);
+        return $this->jsonSuccessResponse($hospitals, 200);
     }
 
 }

@@ -26,7 +26,7 @@
                     <div class="p-fluid p-formgrid p-grid">
                         <div class="p-field p-col-12 p-md-12">
                             <label>Hospital</label>
-                            <Dropdown class="p-shadow-1" placeholder="Select a Hospital" :disabled="editMode && !writeOn" />
+                            <Dropdown class="p-shadow-1" :options="hospitals" optionLabel="description" optionValue="id" v-model="hospital" placeholder="Select a Hospital" :disabled="editMode && !writeOn" />
                         </div>
                     </div>
 
@@ -164,6 +164,7 @@ export default {
         const { value: firstname, errorMessage: firstnameError } = useField('user.firstname',validateField);
         const { value: middlename, errorMessage: middlenameError } = useField('user.middlename',validField);
         const { value: lastname, errorMessage: lastnameError } = useField('user.lastname',validateField);
+        const { value: hospital } = useField('user.hospital',validField);
         const { value: username, errorMessage: usernameError } = useField('user.username',validateField);
         const { value: password, errorMessage: passwordError } = useField('user.password',(editMode)?validField:validatePassword);
 
@@ -172,6 +173,7 @@ export default {
             firstname,
             middlename,
             lastname,
+            hospital,
             username,
             password,
             firstnameError,
@@ -209,6 +211,9 @@ export default {
             get() {
                 return this.$store.state.users.writeOn
             }
+        },
+        hospitals() {
+            return this.$store.state.users.hospitals
         }
     },
     methods: {
@@ -220,6 +225,9 @@ export default {
             this.writeOn = !this.writeOn
         }
     },
+    mounted() {
+        this.$store.dispatch('users/GET_HOSPITALS')
+    }
 }
 </script>
 <style scoped>
