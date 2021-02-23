@@ -39,7 +39,8 @@ const deleteHospital = (payload) => {
 
 const hospital = {
     id: 0,
-    description: null
+    description: null,
+    slots: null
 }
 
 const saving = false

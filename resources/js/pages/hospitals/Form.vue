@@ -5,18 +5,18 @@
             <div class="p-col-12 p-mt-2">
             <form @submit="onSubmit">
                 <div class="card p-fluid">
-                    <h5><i class="pi pi-plus-circle"></i> Hospital Information</h5>
+                    <h5><i class="pi pi-plus-circle"></i> Hospital Information <ToggleButton class="float-right" v-if="editMode" v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" /></h5>
                     <hr />
-                    <div class="p-grid">
-                        <div class="p-col-1 p-offset-11">
-                            <ToggleButton v-if="editMode" v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" />
-                        </div>
-                    </div>
                     <div class="p-fluid p-formgrid p-grid">
                         <div class="p-field p-col-12 p-md-6">
                             <label for="description">Description <i class="p-error">*</i></label>
                             <InputText class="p-shadow-1" id="description" type="text" placeholder="Enter Description" v-model="description" :class="{'p-invalid': descriptionError}" :disabled="editMode && !writeOn" />
-                            <small class="p-error"></small> 
+                            <small class="p-error">{{ descriptionError }}</small>
+                        </div>
+                        <div class="p-field p-col-12 p-md-6">
+                            <label for="slots">Slots <i class="p-error">*</i></label>
+                            <InputText class="p-shadow-1" id="slots" type="number" placeholder="Enter Slots" v-model="slots" :class="{'p-invalid': slotsError}" :disabled="editMode && !writeOn" />
+                            <small class="p-error">{{ slotsError }}</small>
                         </div>
                     </div>
                     <hr />
@@ -124,19 +124,21 @@ export default {
 
         // No need to define rules for fields
         const { value: id } = useField('hospital.id',validField);
-        const { value: desccription, errorMessage: desccriptionError } = useField('hospital.desccription',validateField);
+        const { value: description, errorMessage: descriptionError } = useField('hospital.description',validateField);
+        const { value: slots, errorMessage: slotsError } = useField('hospital.slots',validateField);
 
         return {
             id,
-            desccription,
-            desccriptionError,
+            description,
+            slots,
+            descriptionError,
+            slotsError,
             onSubmit,
             editMode,
         }
     },
     data() {
         return {
-            // writeOn: false,
             home: {icon: 'pi pi-home', to: '/hospitals'},
             items: [{label: (this.editMode)?'Edit Hospital':'New Hospital', to: `${this.$route.fullPath}`}],
         }
@@ -173,3 +175,21 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+
+.float-right {
+    position: absolute; right: 3%;
+}
+input[type="text"]:disabled {
+    background: rgb(219, 219, 219);
+    border-bottom: 1px solid black;
+    cursor: not-allowed; 
+}
+input[type="number"]:disabled {
+    background: rgb(219, 219, 219);
+    border-bottom: 1px solid black;
+    cursor: not-allowed; 
+}
+
+</style>

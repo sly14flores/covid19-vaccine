@@ -5,13 +5,8 @@
             <div class="p-col-12 p-mt-2">
             <form @submit="onSubmit">
                 <div class="card p-fluid">
-                    <h5><i class="pi pi-user"></i> User Information</h5>
+                    <h5><i class="pi pi-user"></i> User Information <ToggleButton class="float-right" v-if="editMode" v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" /></h5>
                     <hr />
-                    <div class="p-grid">
-                        <div class="p-col-1 p-offset-11">
-                            <ToggleButton v-if="editMode" v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" />
-                        </div>
-                    </div>
                     <div class="p-fluid p-formgrid p-grid">
                         <div class="p-field p-col-12 p-md-4">
                             <label for="firstname">First Name <i class="p-error">*</i></label>
@@ -227,3 +222,20 @@ export default {
     },
 }
 </script>
+<style scoped>
+
+.float-right {
+    position: absolute; right: 3%;
+}
+input[type="text"]:disabled {
+    background: rgb(219, 219, 219);
+    border-bottom: 1px solid black;
+    cursor: not-allowed; 
+}
+input[type="password"]:disabled, .disabled {
+    background: rgb(219, 219, 219);
+    border-bottom: 1px solid black;
+    cursor: not-allowed; 
+}
+
+</style>

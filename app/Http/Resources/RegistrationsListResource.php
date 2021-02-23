@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class HospitalResource extends JsonResource
+class RegistrationsListResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,12 @@ class HospitalResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'description' => $this->description,
-            'slots' => $this->slots,
+            'qr_pass_id' => $this->qr_pass_id,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'town_city' => $this->town_city,
+            'barangay' => $this->barangay,
+            'address' => $this->address,
         ];
     }
 }
