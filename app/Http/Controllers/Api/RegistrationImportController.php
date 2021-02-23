@@ -44,9 +44,13 @@ class RegistrationImportController extends Controller
             return $this->jsonErrorDataValidation();
         };
 
-        $office = 1;
+        $hospital = Auth::user()->hospital;
 
-        $path = "imports/$office/";
+        if (is_null($hospital)) {
+            return $this->jsonFailedResponse(null, 400, $message = "You have no assigned hospital, uploading is not possible");
+        }
+
+        $path = "imports/$hospital/";
         $filename = Str::random(40).".".$request->file('excel')->getClientOriginalExtension();
 
         $request->file('excel')->storeAs($path, $filename);
