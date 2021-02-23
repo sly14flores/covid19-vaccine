@@ -51,7 +51,7 @@ class RegistrationImportController extends Controller
         }
 
         $path = "imports/$hospital/";
-        $filename = Str::random(40).".".$request->file('excel')->getClientOriginalExtension();
+        $filename = Str::random(10).".".$request->file('excel')->getClientOriginalExtension();
 
         $request->file('excel')->storeAs($path, $filename);
 
