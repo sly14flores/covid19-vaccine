@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
 use Carbon\Carbon;
+use App\Models\Hospital;
 
 class User extends Authenticatable
 {
@@ -24,6 +25,7 @@ class User extends Authenticatable
         'middlename',
         'lastname',
         'email',
+        'hospital',
         'username',
         'password',
     ];
@@ -54,5 +56,10 @@ class User extends Authenticatable
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('F j, Y h:i A');
-    }      
+    }
+
+    public function userHospital()
+    {
+        return $this->belongsTo(Hospital::class, 'hospital');
+    }
 }

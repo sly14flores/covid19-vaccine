@@ -37,6 +37,11 @@ const deleteUser = (payload) => {
     return axios.delete(url)
 }
 
+const GET_HOSPITALS = `${api_url}/api/general/selections/hospitals`
+const getHospitals = () => {
+    return axios.get(GET_HOSPITALS)
+}
+
 const user = {
     id: 0,
     firstname: null,
@@ -48,6 +53,7 @@ const user = {
 }
 const saving = false
 const users = []
+const hospitals = []
 const pagination = {}
 
 const state = () => {
@@ -56,6 +62,7 @@ const state = () => {
         writeOn: false,
         user,
         users,
+        hospitals,
         pagination
     }
 }
@@ -70,6 +77,9 @@ const mutations = {
     },
     USERS(state, payload) {
         state.users = payload
+    },
+    HOSPITALS(state, payload) {
+        state.hospitals = payload
     },
     PAGINATION(state, payload) {
         state.pagination = {...payload}
@@ -180,6 +190,21 @@ const actions = {
         commit('PAGINATION',pagination)
     },
     GET_USERS_ERROR({commit}, payload) {
+        console.log(payload)
+    },
+    async GET_HOSPITALS({dispatch}) {
+        try {
+            const { data: { data } } = await getHospitals()
+            dispatch('GET_HOSPITALS_SUCCESS', data)
+        } catch (error) {
+            const { response } = error
+            dispatch('GET_HOSPITALS_ERROR', response)
+        }
+    },
+    GET_HOSPITALS_SUCCESS({commit}, payload) {
+        commit('HOSPITALS', payload)
+    },
+    GET_HOSPITALS_ERROR({commit}, payload) {
         console.log(payload)
     }
 }
