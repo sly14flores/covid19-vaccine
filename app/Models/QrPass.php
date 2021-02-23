@@ -14,6 +14,30 @@ class QrPass extends Model
 
     protected $table = 'qrpasses';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'qr_pass_id',
+        'type', # Person
+        'category', # Resident
+        'lastname',
+        'firstname',
+        'middlename',
+        'gender',
+        'nationality', # PHL
+        'dob',
+        'age',
+        'mobile_number',
+        'email',
+        'address', # Street / Road
+        'addressbrgy',
+        'addressmunicity',
+        'addressprovince',
+    ];
+
     protected $hidden = [
         'updated_at',
     ];
