@@ -20,10 +20,17 @@ class RegistrationImportController extends Controller
 
     public function __construct()
 	{
+
 		$this->middleware(['auth:api']);
-		
+
         $this->http_code_ok = 200;
         $this->http_code_error = 500;
 
 	}
+
+    public function upload(Request $request)
+    {
+
+    }
+
 }
