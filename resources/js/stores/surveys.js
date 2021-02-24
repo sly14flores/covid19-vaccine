@@ -5,7 +5,8 @@ import { api_url } from '../url.js'
 
 const GET_SURVEYS = `${api_url}/api/summary/surveys`
 const getSurveys = (payload) => {
-    return axios.get(GET_SURVEYS)
+    const { start_date, end_date } = payload
+    return axios.get(GET_SURVEYS, { params: {start_date, end_date} })
 }
 
 const surveys = {
@@ -34,9 +35,9 @@ const mutations = {
 }
 
 const actions = {
-    async GET_SURVEYS({dispatch}) {
+    async GET_SURVEYS({dispatch}, payload) {
         try {
-            const { data: { data } } = await getSurveys()
+            const { data: { data } } = await getSurveys(payload)
             dispatch('GET_SURVEYS_SUCCESS', data)
         } catch (error) {
             const { response } = error

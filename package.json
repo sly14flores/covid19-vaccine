@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "angularjs": "0.0.1",
+        "chart.js": "^2.9.4",
         "dotenv": "^8.2.0",
         "mitt": "^2.1.0",
         "primeflex": "^2.0.0",
