@@ -1,6 +1,8 @@
 import route from '../library/route'
 import { api_url } from '../url.js'
 
+import Swal from 'sweetalert2'
+
 /**
  * APIs
  */
@@ -114,6 +116,15 @@ const actions = {
     CREATE_USER_SUCCESS({commit}, payload) {
         commit('SAVING',false)        
         console.log(payload)
+        Swal.fire({
+            title: '<p class="text-success" style="font-size: 25px;">Successfully saved!</p>',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+        })
     },
     CREATE_USER_ERROR({commit}, payload) {
         commit('SAVING',false) 
@@ -135,6 +146,15 @@ const actions = {
     UPDATE_USER_SUCCESS({commit}, payload) {
         commit('SAVING',false)
         commit('TOGGLE_WRITE', false)
+        Swal.fire({
+            title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+        })
     },
     UPDATE_USER_ERROR({commit}, payload) {
         commit('SAVING',false)
@@ -154,6 +174,12 @@ const actions = {
     DELETE_USER_SUCCESS({commit, dispatch}, payload) {
         console.log(payload)
         dispatch('GET_USERS', { page: 0 })
+        Swal.fire({
+            title: '<p class="text-success" style="font-size: 25px;">Successfully deleted!</p>',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+        })
     },
     DELETE_USER_ERROR({commit}, payload) {
         console.log(payload)

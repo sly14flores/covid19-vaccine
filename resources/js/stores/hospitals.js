@@ -103,6 +103,17 @@ const actions = {
     CREATE_HOSPITAL_SUCCESS({commit}, payload) {
         commit('SAVING',false)        
         console.log(payload)
+
+        Swal.fire({
+            title: '<p class="text-success" style="font-size: 25px;">Successfully saved!</p>',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+        })
+
     },
     CREATE_HOSPITAL_ERROR({commit}, payload) {
         commit('SAVING',false) 
@@ -124,6 +135,15 @@ const actions = {
     UPDATE_HOSPITAL_SUCCESS({commit}, payload) {
         commit('SAVING',false)
         commit('TOGGLE_WRITE', false)
+        Swal.fire({
+            title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+        })
     },
     UPDATE_HOSPITAL_ERROR({commit}, payload) {
         commit('SAVING',false)
@@ -143,6 +163,12 @@ const actions = {
     DELETE_HOSPITAL_SUCCESS({commit, dispatch}, payload) {
         console.log(payload)
         dispatch('GET_HOSPITALS', { page: 0 })
+        Swal.fire({
+            title: '<p class="text-success" style="font-size: 25px;">Successfully deleted!</p>',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+        })
     },
     DELETE_HOSPITAL_ERROR({commit}, payload) {
         console.log(payload)
