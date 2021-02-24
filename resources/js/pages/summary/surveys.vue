@@ -29,7 +29,7 @@
                 </div>
                 <div class="p-field p-col-12 p-md-1">
                     <label for="basic">&nbsp;</label>
-                    <Button label="Go!" />
+                    <Button label="Go!" @click="fetchSurveys" />
                 </div>
             </div>
         </div>
@@ -181,32 +181,24 @@ export default {
         return {
             home: {icon: 'pi pi-home', to: '/summary/surveys'},
             items: [{label: 'Survey', to: '/summary/surveys'}],
-            basicData: {
-				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            start_date: null,
+            end_date: new Date()
+        }
+    },
+    computed: {
+        basicData() {
+            return {
+				labels: this.$store.state.surveys.surveys.total_responses_line_chart.labels,
 				datasets: [
 					{
-						label: 'Data',
-						data: [65, 59, 500, 81, 56, 55, 40],
+						// label: `${this.$store.state.surveys.surveys.total_responses} Total Responses`,
+						label: `Total Responses`,
+						data: this.$store.state.surveys.surveys.total_responses_line_chart.responses,
 						fill: false,
 						borderColor: '#42A5F5'
 					},
 				]
 			}
-        }
-    },
-    computed: {
-        start_date() {
-
-            const date = new Date()
-            date.setDate(1)
-
-            return date
-
-        },
-        end_date() {
-
-            return new Date()
-
         },
         total_responses() {
             return this.$store.state.surveys.surveys.total_responses
@@ -258,18 +250,33 @@ export default {
         },
         exportToExcel() {
 
-            window.open(this.downloadUrl)
+            window.open(`${this.downloadUrl}?start_date=${this.start_date.toLocaleDateString()}&end_date=${this.end_date.toLocaleDateString()}`)
+
+        },
+        fetchSurveys() {
+
+            this.$store.dispatch('surveys/GET_SURVEYS', { start_date: this.start_date.toLocaleDateString(), end_date: this.end_date.toLocaleDateString() })
 
         },
         refresh() {
-            this.$store.dispatch('surveys/GET_SURVEYS')
+            
+            this.fetchSurveys()
+
         }
     },
     created() {
 
-        this.$store.dispatch('surveys/GET_SURVEYS', { start_date: this.start_date, end_date: this.end_date })
+        const date = new Date()
+        date.setDate(1)
+
+        this.start_date = date
 
     },
+    mounted() {
+
+        this.fetchSurveys()
+
+    }
 }
 </script>
 

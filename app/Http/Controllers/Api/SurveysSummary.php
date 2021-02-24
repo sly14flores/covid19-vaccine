@@ -21,7 +21,12 @@ class SurveysSummary extends Controller
     public function getSummary(Request $request)
     {
 
-        $data = Summary::surveys([]);
+        $filter = [
+            "start" => $request->start_date,
+            "end" => $request->end_date,
+        ];
+
+        $data = Summary::surveys($filter);
 
         return $this->jsonSuccessResponse($data, 200);         
 

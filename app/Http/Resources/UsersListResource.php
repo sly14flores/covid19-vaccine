@@ -15,8 +15,6 @@ class UsersListResource extends JsonResource
     public function toArray($request)
     {
 
-
-
         return [
             'id' => $this->id,
             'firstname' => $this->firstname,
@@ -24,7 +22,7 @@ class UsersListResource extends JsonResource
             'lastname' => $this->lastname,
             'email' => $this->email,
             'username' => $this->username,
-            'hospital' => $this->userHospital,
+            'hospital' => (is_null($this->userHospital))?null:$this->userHospital->description,
             'date_created' => $this->created_at,
         ];
     }
