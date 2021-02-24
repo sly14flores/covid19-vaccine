@@ -10,6 +10,10 @@ const getSurveys = (payload) => {
 }
 
 const surveys = {
+    total_responses_line_chart: {
+        labels: 0,
+        responses: 0
+    },
     total_responses: 0,
     male: 0,
     female: 0,

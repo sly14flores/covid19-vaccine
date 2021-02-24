@@ -24,7 +24,13 @@ class ExportSurveys extends Controller
     public function __invoke(Request $request)
     {
         $template = storage_path().'/app/Surveys.xlsx';
-        $data = Summary::surveys([]);   
+
+        $filter = [
+            "start" => $request->start_date,
+            "end" => $request->end_date,
+        ];        
+
+        $data = Summary::surveys($filter);   
 
         $spreadsheet = IOFactory::load($template);
         $sheet = $spreadsheet->getActiveSheet();
