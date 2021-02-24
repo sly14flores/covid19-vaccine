@@ -1,6 +1,8 @@
 import route from '../library/route'
 import { api_url } from '../url.js'
 
+import Swal from 'sweetalert2'
+
 /**
  * APIs
  */

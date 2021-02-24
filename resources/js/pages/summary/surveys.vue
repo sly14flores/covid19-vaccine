@@ -17,6 +17,29 @@
                 </div>
             </div>
         </div>
+        <div class="card p-mt-2">
+            <div class=" p-fluid p-grid p-formgrid">
+                <div class="p-field p-col-12 p-md-4">
+                    <label for="basic">Start Date:</label>
+                    <Calendar class="p-shadow-1" id="start_date" v-model="start_date" />
+                </div>
+                <div class="p-field p-col-12 p-md-4">
+                    <label for="basic">End Date:</label>
+                    <Calendar class="p-shadow-1" id="end_date" v-model="end_date" />
+                </div>
+                <div class="p-field p-col-12 p-md-1">
+                    <label for="basic">&nbsp;</label>
+                    <Button label="Go!" />
+                </div>
+            </div>
+        </div>
+        <div class="card p-mt-2">
+            <div class="p-grid p-col-12">
+                <div class="p-sm-12">
+                    <Chart type="line" :data="basicData" :height="70"/>
+                </div>
+            </div>
+        </div>
         <div class="p-grid p-fluid dashboard p-mt-1">
             <div class="p-col-12 p-lg-4">
                 <div class="card summary">
@@ -128,6 +151,8 @@ import ColumnGroup from 'primevue/columngroup/sfc';
 import Panel from 'primevue/panel/sfc';
 import Button from 'primevue/button/sfc';
 import Paginator from 'primevue/paginator/sfc';
+import Chart from 'primevue/chart/sfc';
+import Calendar from 'primevue/calendar/sfc';
 
 import { api_url } from '../../url.js'
 
@@ -148,15 +173,41 @@ export default {
         ColumnGroup,
         Panel,
         Button,
-        Paginator
+        Paginator,
+        Chart,
+        Calendar
     },
     data() {
         return {
             home: {icon: 'pi pi-home', to: '/summary/surveys'},
             items: [{label: 'Survey', to: '/summary/surveys'}],
+            basicData: {
+				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+				datasets: [
+					{
+						label: 'Data',
+						data: [65, 59, 500, 81, 56, 55, 40],
+						fill: false,
+						borderColor: '#42A5F5'
+					},
+				]
+			}
         }
     },
     computed: {
+        start_date() {
+
+            const date = new Date()
+            date.setDate(1)
+
+            return date
+
+        },
+        end_date() {
+
+            return new Date()
+
+        },
         total_responses() {
             return this.$store.state.surveys.surveys.total_responses
         },
@@ -216,7 +267,7 @@ export default {
     },
     created() {
 
-        this.$store.dispatch('surveys/GET_SURVEYS')
+        this.$store.dispatch('surveys/GET_SURVEYS', { start_date: this.start_date, end_date: this.end_date })
 
     },
 }
