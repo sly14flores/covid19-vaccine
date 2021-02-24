@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Survey;
+use Carbon\Carbon;
 
 trait Summary
 {
@@ -10,8 +11,29 @@ trait Summary
     public static function surveys($filter)
     {
 
-        $surveys = Survey::all();
+        $startFilter = Carbon::parse($filter['start'])->format("Y-m-d 00:00:00");
+        $endFilter = Carbon::parse($filter['end'])->addDays(1)->format("Y-m-d 00:00:00");
+
+        $surveys = Survey::whereBetween('created_at',[$startFilter,$endFilter])->get();
         $collect = collect($surveys);
+
+        $startDay = Carbon::parse($filter['start'])->format("Y-m-d");
+        $endDay = Carbon::parse($filter['end'])->format("Y-m-d");
+        $day = $startDay;
+
+        $line_chart_labels = [];
+        $total_responses_values = [];
+
+        while (strtotime($day) <= strtotime($endDay)) {
+
+            $line_chart_labels[] = Carbon::parse($day)->format("M j");
+            $total_responses_values[] = $surveys->filter(function($value) use ($day) {
+                return (Carbon::parse($value['created_at'])->format('Y-m-d')===$day);
+            })->count();
+
+            $day = Carbon::parse($day)->addDays(1)->format("Y-m-d");
+
+        }
 
         $total_responses = $surveys->count();
 
@@ -150,6 +172,10 @@ trait Summary
         }
 
         $data = [
+            'total_responses_line_chart'=>[
+                'labels' => $line_chart_labels,
+                'responses' => $total_responses_values
+            ],
             'total_responses'=>$total_responses,
             'gender'=>$gender,
             'male'=>$male,
