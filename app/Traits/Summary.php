@@ -15,7 +15,7 @@ trait Summary
         $endFilter = Carbon::parse($filter['end'])->addDays(1)->format("Y-m-d 00:00:00");
 
         $surveys = Survey::whereBetween('created_at',[$startFilter,$endFilter])->get();
-        $collect = collect($surveys);
+        // $collect = collect($surveys);
 
         $startDay = Carbon::parse($filter['start'])->format("Y-m-d");
         $endDay = Carbon::parse($filter['end'])->format("Y-m-d");
