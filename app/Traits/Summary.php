@@ -23,13 +23,26 @@ trait Summary
 
         $line_chart_labels = [];
         $total_responses_values = [];
+        $total_interested = [];
+        $total_not_interested = [];
 
         while (strtotime($day) <= strtotime($endDay)) {
 
             $line_chart_labels[] = Carbon::parse($day)->format("M j");
+
             $total_responses_values[] = $surveys->filter(function($value) use ($day) {
                 return (Carbon::parse($value['created_at'])->format('Y-m-d')===$day);
             })->count();
+            
+            $total_interested[] = $surveys->where('yes_vaccine','1')->filter(function($value) use ($day) {
+                return (Carbon::parse($value['created_at'])->format('Y-m-d')===$day);
+            })->count();
+
+            $total_not_interested[] = $surveys->where('no_vaccine','1')->filter(function($value) use ($day) {
+                return (Carbon::parse($value['created_at'])->format('Y-m-d')===$day);
+            })->count();
+
+            //$total_interested = $surveys->where('yes_vaccine','1')->count();
 
             $day = Carbon::parse($day)->addDays(1)->format("Y-m-d");
 
@@ -174,7 +187,9 @@ trait Summary
         $data = [
             'total_responses_line_chart'=>[
                 'labels' => $line_chart_labels,
-                'responses' => $total_responses_values
+                'responses' => $total_responses_values,
+                'total_interested' => $total_interested,
+                'total_not_interested' => $total_not_interested
             ],
             'total_responses'=>$total_responses,
             'gender'=>$gender,
