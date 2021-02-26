@@ -685,7 +685,7 @@ export default {
         height: 55px;
         width: 100%;
     }
-        .navbar a {
+    .navbar a {
         float: left;
         display: block;
         color: #f2f2f2;

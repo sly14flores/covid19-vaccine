@@ -91,8 +91,14 @@
                     </div>
                 </div>
 
-                 <div class="p-lg-4 p-md-12 p-sm-12">
-                    <DataTable :value="municipality" dataKey="id">
+                 <div class="p-lg-4 p-md-12 p-sm-12 p-mt-2">
+                    <Panel header="Gender">
+                        <DataTable :value="gender" dataKey="id">
+                            <Column field="male" header="Male"></Column>
+                            <Column field="female" header="Female"></Column>
+                        </DataTable>   
+                    </Panel>
+                    <DataTable :value="municipality" dataKey="id" class="p-mt-2">
                         <Column field="description" header="City & Municipality" sortable="true"></Column>
                         <Column field="value" header="Total" sortable="true"></Column>
                     </DataTable>
@@ -119,16 +125,6 @@
                 </div>
             </div>
            
-            <div class="p-grid p-lg-8 p-md-12 p-sm-12">
-                <div class="p-lg-12">
-                    <Panel header="Gender">
-                        <DataTable :value="gender" dataKey="id">
-                            <Column field="male" header="Male"></Column>
-                            <Column field="female" header="Female"></Column>
-                        </DataTable>   
-                    </Panel>
-                </div>
-            </div>
             <div class="p-grid p-lg-8 p-md-12 p-sm-12">
                 <div class="p-lg-12">
                     <Panel header="Reason">
@@ -196,6 +192,18 @@ export default {
 						data: this.$store.state.surveys.surveys.total_responses_line_chart.responses,
 						fill: false,
 						borderColor: '#42A5F5'
+					},
+                    {
+						label: `Interested to be vaccinated`,
+						data: this.$store.state.surveys.surveys.total_responses_line_chart.total_interested,
+						fill: false,
+						borderColor: '#66BB6A'
+					},
+                    {
+						label: `Not Interested to be vaccinated`,
+						data: this.$store.state.surveys.surveys.total_responses_line_chart.total_not_interested,
+						fill: false,
+						borderColor: '#FFA726',
 					},
 				]
 			}
