@@ -32,8 +32,6 @@
                     <Button label="Go!" @click="fetchSurveys" />
                 </div>
             </div>
-        </div>
-        <div class="card p-mt-2">
             <div class="p-grid p-col-12">
                 <div class="p-sm-12">
                     <Chart type="line" :data="basicData" :height="70"/>
@@ -270,7 +268,7 @@ export default {
             
             this.fetchSurveys()
 
-        }
+        },
     },
     created() {
 
