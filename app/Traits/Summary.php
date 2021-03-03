@@ -14,8 +14,9 @@ trait Summary
         $startFilter = Carbon::parse($filter['start'])->format("Y-m-d 00:00:00");
         $endFilter = Carbon::parse($filter['end'])->addDays(1)->format("Y-m-d 00:00:00");
 
-        $surveys = Survey::whereBetween('created_at',[$startFilter,$endFilter])->get();
+        // $surveys = Survey::whereBetween('created_at',[$startFilter,$endFilter])->get();
         // $collect = collect($surveys);
+        $surveys = Survey::all();
 
         $startDay = Carbon::parse($filter['start'])->format("Y-m-d");
         $endDay = Carbon::parse($filter['end'])->format("Y-m-d");
@@ -41,8 +42,6 @@ trait Summary
             $total_not_interested[] = $surveys->where('no_vaccine','1')->filter(function($value) use ($day) {
                 return (Carbon::parse($value['created_at'])->format('Y-m-d')===$day);
             })->count();
-
-            //$total_interested = $surveys->where('yes_vaccine','1')->count();
 
             $day = Carbon::parse($day)->addDays(1)->format("Y-m-d");
 

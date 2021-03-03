@@ -63,7 +63,7 @@ export default {
         }];
     },
     logo() {
-        return (this.layoutColorMode === 'dark') ? "img/logo-banner.png" : "img/logo.png";
+        return (this.layoutColorMode === 'dark') ? "img/logo-banner2.png" : "img/logo.png";
     }    
   },
   methods: {

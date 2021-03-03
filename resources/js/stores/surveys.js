@@ -1,6 +1,8 @@
 import axios from 'axios'
 import route from '../library/route'
 
+import Swal from 'sweetalert2'
+
 import { api_url } from '../url.js'
 
 const GET_SURVEYS = `${api_url}/api/summary/surveys`
@@ -43,18 +45,38 @@ const mutations = {
 const actions = {
     async GET_SURVEYS({dispatch}, payload) {
         try {
+            Swal.fire({
+                title: 'Loading...',
+
+                onBeforeOpen () {
+                  Swal.showLoading ()
+                },
+                onAfterClose () {
+                  Swal.hideLoading()
+                },
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false
+            })
+
             const { data: { data } } = await getSurveys(payload)
             dispatch('GET_SURVEYS_SUCCESS', data)
+            Swal.close()
+
         } catch (error) {
             const { response } = error
             dispatch('GET_SURVEYS_ERROR', response)
+            Swal.close()
         }
     },
     GET_SURVEYS_SUCCESS({commit}, payload) {
         commit('SUMMARY',payload)
+        Swal.close()
     },
     GET_SURVEYS_ERROR({commit}, payload) {
         console.log(payload)
+        Swal.close()
     }
 }
 
