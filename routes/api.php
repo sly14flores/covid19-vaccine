@@ -111,7 +111,7 @@ Route::prefix('doh')->group(function() {
      * Upload excel for import
      */
     Route::post('upload/excel', [RegistrationImportController::class, 'upload']);
-    // Route::post('excel/data/structure', [RegistrationImportController::class, 'check']);
+    Route::post('excel/data/structure', [RegistrationImportController::class, 'check']);
     Route::post('excel/data/import', [RegistrationImportController::class, 'import']);
 
 });

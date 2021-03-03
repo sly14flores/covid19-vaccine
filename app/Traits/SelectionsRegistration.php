@@ -2,8 +2,15 @@
 
 namespace App\Traits;
 
+use App\Models\Province;
+use App\Models\CityMun;
+use App\Models\Barangay;
+use App\Traits\DOHHelpers;
+
 trait SelectionsRegistration
 {
+
+    use DOHHelpers;
 
     public function genderValue()
     {
@@ -241,6 +248,83 @@ trait SelectionsRegistration
             ["name"=>"29", "id"=>"29"],
             ["name"=>"30", "id"=>"30"],
             ["name"=>"31", "id"=>"31"],
+        ];
+    }
+
+    public function provinceValue()
+    {
+        $provinces = Province::where('regCode',1)->select(['provCode','provDesc'])->get();
+
+        $provinces = $provinces->map(function($province) {
+
+            $province->doh = $this->toDOHProv($province->toArray());
+            return $province;
+
+        });
+
+        return $provinces->pluck('doh');
+    }
+
+    public function munCityValue()
+    {
+        $city_muns = CityMun::where('provCode',133)->select(['citymunCode','citymunDesc'])->get();
+
+        $city_muns = $city_muns->map(function($cm) {
+
+            $cm->doh = $this->toDOHMun($cm);
+            return $cm;
+
+        });
+
+        return $city_muns->pluck('doh');
+    }
+
+    public function barangayValue($doh_code)
+    {
+        $doh_code_exploded = explode("_",$doh_code);
+        $code = intval($doh_code_exploded[1]);
+        $barangays = Barangay::where('citymunCode',$code)->select(['brgyCode','brgyDesc'])->get();
+
+        $barangays = $barangays->map(function($barangay) {
+
+            $barangay->doh = $this->toDOHBrgy($barangay);
+            return $barangay;
+
+        });
+
+        return $barangays->pluck('doh');
+    }
+
+    public function yesNo()
+    {
+        return [
+            "01_Yes",
+            "02_No",
+        ];
+    }
+
+    public function yesNone()
+    {
+        return [
+            "01_Yes",
+            "02_None",
+        ];
+    }
+
+    public function yesNoUnknown()
+    {
+        return [
+            "01_Yes",
+            "02_No",
+            "03_Unknown",
+        ];
+    }    
+
+    public function pregnantStatus()
+    {
+        return [
+            '01_Pregnant',
+            '02_Not_Pregnant',
         ];
     }
 
