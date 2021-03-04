@@ -1,8 +1,7 @@
 <template>
 	<div class="layout-footer">
-		<span class="footer-text" style="margin-right: 5px">PrimeVue</span>
-		<img src="assets/images/logo.svg" alt="sigma" width="80"/>
-		<span class="footer-text" style="margin-left: 5px">Theme and Layout</span>
+		<img src="img/Rugian.png" alt="sigma" width="50"/>
+		<span class="footer-text" style="margin-left: 5px">La Union CoViD-19 Vaccination.</span>
 	</div>
 </template>
 

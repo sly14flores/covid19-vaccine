@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddNoneFeeTableSurveys extends Migration
+class MoreFieldsTableSurvey extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,9 @@ class AddNoneFeeTableSurveys extends Migration
     public function up()
     {
         Schema::table('surveys', function (Blueprint $table) {
-            $table->string('none_fee')->after('twenty_five_percent_fee')->nullable()->comment('How much are you willing to pay for the vaccine fee?');
+            //
+            $table->string('enough_information')->nullable()->after('no_contribute');          
+            $table->string('vaccines_not_thoroughly_studied')->nullable()->after('enough_information');
         });
     }
 
@@ -25,7 +27,7 @@ class AddNoneFeeTableSurveys extends Migration
      */
     public function down()
     {
-        Schema::table('surveys', function (Blueprint $table) {
+        Schema::table('survey', function (Blueprint $table) {
             //
         });
     }

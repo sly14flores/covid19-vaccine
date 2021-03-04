@@ -5,7 +5,17 @@
 </template>
 
 <script>
+
+import store from '../../store.js'
+
 export default {
+    setup() {
+
+        const { dispatch } = store
+
+        dispatch('AUTHENTICATE')
+
+    },     
     components: {
 
     },
@@ -13,6 +23,14 @@ export default {
         return {
 
         }
-    }
+    },
+    methods: {
+        init() {
+            this.$store.dispatch('users/INIT')
+        },
+    },
+    mounted() {
+        this.init()
+    }    
 }
 </script>

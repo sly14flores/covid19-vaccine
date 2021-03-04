@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ModifyUniqueQrPassTableSurveys extends Migration
+class AddSlotsHospitals extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class ModifyUniqueQrPassTableSurveys extends Migration
      */
     public function up()
     {
-        Schema::table('surveys', function (Blueprint $table) {
-            $table->unique('qr_pass_id');
+        Schema::table('hospitals', function (Blueprint $table) {
+            $table->integer('slots')->nullable()->after('description');
         });
     }
 
@@ -25,7 +25,7 @@ class ModifyUniqueQrPassTableSurveys extends Migration
      */
     public function down()
     {
-        Schema::table('surveys', function (Blueprint $table) {
+        Schema::table('hospitals', function (Blueprint $table) {
             //
         });
     }

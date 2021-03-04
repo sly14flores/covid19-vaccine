@@ -64,14 +64,14 @@ app.controller('surveyCtrl', function($scope,$http) {
         tourism: "(Turismo)",
         persons_deprived_of_liberty: "(Taong pinagkaitan ng kalayaan)",
         persons_with_disability: "(Taong May Kapansanan)",
-        ofw: "(Mga manggagawang Filipino sa ibang bansa)",
+        ofw: "(Manggagawang Pilipino sa ibang bansa)",
         others_population_group: "(Iba pa)",
 		
 		// Health Conditions
 		health_conditions: "(Ikaw ba ay nagkaroon or mayroon ng mga sumusunod na kondisyon?)",
 		lung_disease: "(Sakit sa Baga – Hal. Hika, Tuberkulosis atbp.)",
 		heart_disease: "(Sakit sa Puso)",
-		kidney_disease: "(Sakit sa Atay)",
+		kidney_disease: "(Sakit sa Bato)",
         diabetes: "(Diyabetes)",
         high_blood_pressure: "(Altapresyon)",
         cancer: "(Kanser)",
@@ -82,20 +82,22 @@ app.controller('surveyCtrl', function($scope,$http) {
         none_of_the_above: "(Wala sa mga nabanggit)",
 		
 		// Currently Pregnant
-		currently_pregnant: '(Buntis o nagpaplanong ngayong taon na ito?)',
-		pregnancy: '(Ikaw ba ay buntis sa kasalukuyan?)',
+		pregnancy: '(Buntis o nagpaplanong ngayong taon na ito?)',
+		currently_pregnant: '(Ikaw ba ay buntis sa kasalukuyan?)',
 		
 		// Vaccine
 		vaccine: "(Interesado ka bang mabakunahan para sa Covid-19?)",
 		
 		// Best Choice
-		reason: "Ano ang iyong isinasaalang-alang para sa pagbabakuna?",
-		efficacy_rate_reason: "(bisa ng bakuna)",
-        safety_reason: "(Impormasyon sa kaligtasan at masamang epekto ng bakuna)",
+		reason: "(Ano ang iyong mga konsiderasyon ukol sa CoViD-19 vaccine?)",
+		enough_information: "(Hindi sapat ang alam kong impormasyon tungkol sa bakuna)",
+		vaccines_not_thoroughly_studied: "(Sa aking palagay,hindi napag-aralan ng mabuti ang mga bakuna)",
+		efficacy_rate_reason: "(Epekto ng bakuna)",
+        safety_reason: "(Kasiguraduhan ng kaligtasan at posibleng masamang epekto ng bakuna)",
         presence_reason: "(Pagkakaroon ng komorbididad at iba pang kundisyon sa kalusugan)",
-        brand_reason: "(Pagpipiliang tatak ng bakuna)",
-        pregnant_reason: "(Kasalukuyang buntis o nagpaplanong mabuntis)",
-        lack_of_information_reason: "(Kakulangan ng pangkalahatang impormasyon ng mga bakuna)",
+        pregnant_reason: "(Kasalukuyang buntis/nagpapasuso o binabalak magbuntis)",
+		brand_reason: "(Mga available na pagpipilian na brandng bakuna)",
+        lack_of_information_reason: "(Hindi ako naniniwalang solusyon ito sa CoViD-19)",
         others_reason: "(Iba pa)",
 	}
 	$scope.tagalogVersion = tagalogVersion;
@@ -157,7 +159,7 @@ app.controller('surveyCtrl', function($scope,$http) {
         cancer: "Cancer",
         leukemia: "Leukemia",
         hiv: "HIV",
-        mental_problem: "Mental Problem/Seizure disorder",
+        mental_problem: "Mental Problem / Seizure disorder",
         others_health_condition: "Others",
         none_of_the_above: "None of the above",
 	};
@@ -166,6 +168,7 @@ app.controller('surveyCtrl', function($scope,$http) {
 	const currentlyPregnantValues = {
 		yes_currently_pregnant: 'yes_currently_pregnant',
 		no_currently_pregnant: 'no_currently_pregnant',
+		not_sure_currently_pregnant: 'not_sure_currently_pregnant',
 	}
 	$scope.currentlyPregnantValues = currentlyPregnantValues;
 	
@@ -173,7 +176,6 @@ app.controller('surveyCtrl', function($scope,$http) {
 	const pregnancyValues = {
         yes_pregnant_baby: 'yes_pregnant_baby',
         no_pregnant_baby: 'no_pregnant_baby',
-        not_sure_pregnant_baby: 'not_sure_pregnant_baby',
 	};
 	$scope.pregnancyValues = pregnancyValues;
 	
@@ -193,17 +195,21 @@ app.controller('surveyCtrl', function($scope,$http) {
 
 	// Reason
 	const reason = {
+		enough_information: "I don’t know enough information on vaccines",
+		vaccines_not_thoroughly_studied: "I think that the vaccines are not thoroughly studied",
         efficacy_rate_reason: "Efficacy of the vaccine",
         safety_reason: "Safety profile and adverse effect of the vaccine",
         presence_reason: "Presence of co-morbidites and other conditions",
+		pregnant_reason: "Currently pregnant/lactating or planning to get pregnant",
         brand_reason: "Available vaccine brand options",
-        pregnant_reason: "Currently pregnant or planning to get pregnant",
-        lack_of_information_reason: "Lacking general infomation of vaccines",
+        lack_of_information_reason: "I don’t believe it is a solution to CoViD-19.",
         others_reason: "Others",
 	};
 	$scope.reason = reason;
 	
 	const reasonValues = {
+		enough_information: 'enough_information',
+		vaccines_not_thoroughly_studied: 'vaccines_not_thoroughly_studied',
         efficacy_rate_reason: 'efficacy_rate_reason',
         safety_reason: 'safety_reason',
         presence_reason: 'presence_reason',
@@ -258,8 +264,7 @@ app.controller('surveyCtrl', function($scope,$http) {
 		const survey = $scope.survey;
 		
 		// Validation required field
-		
-		if(survey.population_group=="" || survey.pregnancy=="" || survey.vaccine=="")	{
+		if(survey.population_group=="" || survey.vaccine=="")	{
 			
 			//Sweetalert2
 				Swal.fire({
@@ -306,18 +311,18 @@ app.controller('surveyCtrl', function($scope,$http) {
 			return;
 			
 		}
-		
+
 		$http({
 			method: 'POST',
 			url: `${api_url}/api/survey`,
 			data: $scope.survey
 		}).then(function mySucces(response) {
-			
+
 			Swal.fire({
 			  title: '<p class="text-success" style="font-size: 25px;">YOUR RESPONSE HAS BEEN SUBMITTED!</p>',
 			  icon: 'success',
 			  html: 
-				'<b>Thank you for your commitment in stopping the spread of Covid-19!!!! </b><br><br>' +
+				'<b>Thank you for your commitment in stopping the spread of Covid-19! </b><br><br>' +
 				'<b style="font-size: 15px;">For inquiries, please contact us at: </b> <br>' +
 				'<b class="text-danger" style="font-size: 15px;">Tel. No. (072) 242-5550 loc. 299</b>',
 			  showCancelButton: false,
@@ -341,6 +346,26 @@ app.controller('surveyCtrl', function($scope,$http) {
 			})
 
 		}, function myError(response) {
+			
+			if(response.status==500){
+				
+				Swal.fire({
+					title: "<p>You're done!</p>",
+					icon: 'error',
+					html: "<h5>You can take this survey once</h5>",
+					showCancelButton: false,
+					focusConfirm: false,
+					confirmButtonColor: '#68bca4',
+					confirmButtonText: 'Ok',
+				  }).then((result) => {
+					if (result.value) {
+
+						window.location = api_url
+
+					}
+				  })
+
+			}
 
 		});
 	

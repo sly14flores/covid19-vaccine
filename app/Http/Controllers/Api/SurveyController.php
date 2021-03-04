@@ -52,8 +52,8 @@ class SurveyController extends Controller
     {
         $validator = Validator::make($request->all(), $this->rules());
         if ($validator->fails()) {
-            return $validator->errors();
-            // return $this->jsonErrorDataValidation();
+            // return $validator->errors();
+            return $this->jsonErrorDataValidation();
         }
 
         $population_groups = [
@@ -73,15 +73,21 @@ class SurveyController extends Controller
             'others_population_group',
         ];
 
+        /**
+         * Currently
+         */
         $currently_pregnants = [
             'yes_currently_pregnant',
-            'no_currently_pregnant'
+            'no_currently_pregnant',
+            'not_sure_currently_pregnant',
         ];
 
+        /**
+         * Planning
+         */
         $pregnancys = [
             'yes_pregnant_baby',
-            'no_pregnant_baby',
-            'not_sure_pregnant_baby',            
+            'no_pregnant_baby',        
         ];
 
         $vaccines = [
@@ -90,6 +96,8 @@ class SurveyController extends Controller
         ];
 
         $reasons = [
+            'enough_information',
+            'vaccines_not_thoroughly_studied',
             'efficacy_rate_reason',
             'safety_reason',
             'presence_reason',
@@ -118,15 +126,16 @@ class SurveyController extends Controller
         $survey = new Survey;
 
         $population_group = $data['population_group'];
-        $currently_pregnant = $data['currently_pregnant'];
-        $pregnancy = $data['pregnancy'];
+        $currently_pregnant = $data['currently_pregnant']; # Currently
+        $pregnancy = $data['pregnancy']; # Planning
         $vaccine = $data['vaccine'];
         $reason = $data['reason']; # no
         $contribute = $data['contribute'];
         $contribution = $data['contribution']; # yes contribute
 
         unset($data['population_group']);
-        unset($data['pregnancy']);
+        unset($data['currently_pregnant']); # Currently
+        unset($data['pregnancy']); # Planning
         unset($data['vaccine']);
         unset($data['reason']);
         unset($data['contribute']);
@@ -137,12 +146,12 @@ class SurveyController extends Controller
         }
         $data[$population_group] = true;
 
-        foreach ($currently_pregnants as $cp) {
+        foreach ($currently_pregnants as $cp) { # Currently
             $data[$cp] = false;
         }
         $data[$currently_pregnant] = true;
 
-        foreach ($pregnancys as $p) {
+        foreach ($pregnancys as $p) { # Planning
             $data[$p] = false;
         }
         if ($data['no_currently_pregnant']) {
@@ -280,7 +289,7 @@ class SurveyController extends Controller
             'others_health_condition' => 'boolean',
             // 'health_condition_other' => 'string',
             'none_of_the_above' => 'boolean',
-            'pregnancy' => 'string',
+            // 'pregnancy' => 'string',
             'vaccine' => 'string',
             // 'reason' => 'string',
             // 'reason_other' => 'string',

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ModifyEmailTableUsers extends Migration
+class ModifyDiagonsedDateTableRegistration extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class ModifyEmailTableUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('email')->nullable()->change();
+        Schema::table('registrations', function (Blueprint $table) {
+            $table->date('diagnosed_date')->change();
         });
     }
 
@@ -25,7 +25,7 @@ class ModifyEmailTableUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('registrations', function (Blueprint $table) {
             //
         });
     }

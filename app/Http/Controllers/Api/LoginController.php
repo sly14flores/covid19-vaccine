@@ -18,7 +18,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api')->only('logout');
+        $this->middleware('auth:api')->only(['logout','authenticate']);
     }
 
     public function login(Request $request)
@@ -26,6 +26,9 @@ class LoginController extends Controller
         $validator = Validator::make($request->all(), [
             'username' => 'required|string',
             'password' => 'required|string'
+        ],[
+            'username.required' => 'Username is required',
+            'password.required' => 'Password is required'
         ]);
 
         if ($validator->fails()) {
@@ -54,5 +57,10 @@ class LoginController extends Controller
             return $this->jsonSuccessLogout();
         }
         return $this->jsonFailedResponse(null, $this->http_code_error, 'Something went wrong.');
+    }
+
+    public function authenticate()
+    {
+        return response()->json([], 200);
     }
 }

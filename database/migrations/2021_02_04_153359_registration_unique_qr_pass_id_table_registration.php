@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ModifyPasswordTableUsers extends Migration
+class RegistrationUniqueQrPassIdTableRegistration extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class ModifyPasswordTableUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('password')->nullable()->change();
+        Schema::table('registrations', function (Blueprint $table) {
+            $table->unique('qr_pass_id');
         });
     }
 
@@ -25,7 +25,7 @@ class ModifyPasswordTableUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('registrations', function (Blueprint $table) {
             //
         });
     }

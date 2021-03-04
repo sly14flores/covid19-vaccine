@@ -547,6 +547,11 @@
 	background-color:white;
 }
 
+.card_disabled{
+	background-color: rgb(202, 202, 202);
+	cursor: not-allowed; 
+}
+
 /* Remove arrow for input="number"*/
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

@@ -24,6 +24,8 @@ import AppProfile from './AppProfile.vue';
 import AppMenu from './AppMenu.vue';
 import AppFooter from './AppFooter.vue';
 
+import menu from './menu.js';
+
 export default {
   props: ['pageComponent'],
   components: {
@@ -39,40 +41,7 @@ export default {
       staticMenuInactive: false,
       overlayMenuActive: false,
       mobileMenuActive: false,
-      menu : [
-        {
-            label:'Summary',
-            icon:'pi pi-fw pi-users',
-            items:[
-              {
-                  label:'Survey',
-                  icon:'pi pi-th-large',
-                  to: '/summary/surveys'                       
-              },              
-              {
-                  label:'Registrations',
-                  icon:'pi pi-fw pi-users',
-                  to: '/summary/registrations'                
-              },
-            ]
-        },
-        {
-            label:'Users',
-            icon:'pi pi-fw pi-users',
-            items:[
-              {
-                  label:'List',
-                  icon:'pi pi-fw pi-users',
-                  to: '/users'                       
-              },              
-              {
-                  label:'New',
-                  icon:'pi pi-fw pi-user-plus',
-                  to: '/users/new'                  
-              },
-            ]
-        }
-      ]             
+      menu,     
     }
   },
   computed: {
@@ -94,7 +63,7 @@ export default {
         }];
     },
     logo() {
-        return (this.layoutColorMode === 'dark') ? "assets/images/logo-white.svg" : "assets/images/logo.svg";
+        return (this.layoutColorMode === 'dark') ? "img/logo-banner.png" : "img/logo.png";
     }    
   },
   methods: {
@@ -156,3 +125,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+img{
+  height: 45px;
+}
+</style>

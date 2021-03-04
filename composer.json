@@ -16,7 +16,11 @@
         "laravel/framework": "^8.12",
         "laravel/passport": "^10.1",
         "laravel/tinker": "^2.5",
-        "netojose/laravel-api-explorer": "^2.0"
+        "lcobucci/jwt": "^3.3.3",
+        "maatwebsite/excel": "^3.1",
+        "netojose/laravel-api-explorer": "^2.0",
+        "phpoffice/phpspreadsheet": "^1.16",
+        "spatie/simple-excel": "^1.13"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
