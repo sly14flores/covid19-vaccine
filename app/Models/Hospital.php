@@ -8,6 +8,8 @@ use Laravel\Passport\HasApiTokens;
 
 use Carbon\Carbon;
 
+use App\Models\User;
+
 class Hospital extends Model
 {
     use HasApiTokens, HasFactory;
@@ -33,5 +35,10 @@ class Hospital extends Model
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('F j, Y h:i A');
-    }    
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'hospital');
+    }
 }

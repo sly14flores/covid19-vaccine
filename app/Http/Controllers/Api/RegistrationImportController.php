@@ -34,6 +34,10 @@ class RegistrationImportController extends Controller
     public function upload(Request $request)
     {
 
+        if (is_null($request->file('excel'))) {
+            return $this->jsonErrorDataValidation();
+        }
+
 		$rules = [
 			'excel' => ['required',new ExcelRule($request->file('excel'))],
 		];
@@ -44,10 +48,14 @@ class RegistrationImportController extends Controller
             return $this->jsonErrorDataValidation();
         };
 
-        $office = 1;
+        $hospital = Auth::user()->hospital;
 
-        $path = "imports/$office/";
-        $filename = Str::random(40).".".$request->file('excel')->getClientOriginalExtension();
+        if (is_null($hospital)) {
+            return $this->jsonFailedResponse(null, 400, $message = "You have no assigned hospital, uploading is not possible");
+        }
+
+        $path = "imports/$hospital/";
+        $filename = Str::random(10).".".$request->file('excel')->getClientOriginalExtension();
 
         $request->file('excel')->storeAs($path, $filename);
 
@@ -59,6 +67,7 @@ class RegistrationImportController extends Controller
 
     /**
      * Check if excel file has correct structures
+     * Validation
      */
     public function check()
     {
@@ -66,7 +75,7 @@ class RegistrationImportController extends Controller
     }
 
     /**
-     * Import row from excel file
+     * Import rows from excel file
      */
     public function import()
     {
