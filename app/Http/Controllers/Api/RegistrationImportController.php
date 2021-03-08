@@ -95,34 +95,44 @@ class RegistrationImportController extends Controller
                 'formatted' => false,
                 'formats' => [],
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #0
             'category' => [
                 'header' => 'Category',                
                 'required' => true,
                 'formatted' => true,
                 'formats' => collect($this->categoryValue())->pluck('id'),
-                'na_if_empty' => false,                
+                'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,                     
             ], #1
             'category_id' => [
                 'header' => 'Category_ID',                
                 'required' => true,
                 'formatted' => true,
                 'formats' => collect($this->categoryIdValue())->pluck('id'),
-                'na_if_empty' => false,                
+                'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => true,         
             ], #2
             'category_id_no' => [
                 'header' => 'Category_ID_Number',                
-                'required' => true,
+                'required' => false,
                 'formatted' => false,
                 'formats' => [],
-                'na_if_empty' => false,                
+                'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #3
             'philhealth' => [
                 'header' => 'PhilHealth_ID',                
                 'required' => true,
                 'formatted' => false,
                 'formats' => [],
-                'na_if_empty' => false,                
+                'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,           
             ], #4
             'pwd_id' => [
                 'header' => 'PWD ID',                
@@ -130,20 +140,26 @@ class RegistrationImportController extends Controller
                 'formatted' => false,
                 'formats' => [],
                 'na_if_empty' => true,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #5
             'last_name' => [
                 'header' => 'Last_Name',                
                 'required' => true,
                 'formatted' => false,
                 'formats' => [],
-                'na_if_empty' => false,                
+                'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #6
             'first_name' => [
                 'header' => 'First_Name',                
                 'required' => true,
                 'formatted' => false,
                 'formats' => [],
-                'na_if_empty' => false,                
+                'na_if_empty' => false, 
+                'default_unknown' => false,
+                'default_category_id' => false,             
             ], #7
             'middle_name' => [
                 'header' => 'Middle_Name',                
@@ -151,6 +167,8 @@ class RegistrationImportController extends Controller
                 'formatted' => false,
                 'formats' => [],
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #8
             'suffix' => [
                 'header' => 'Suffix',                
@@ -158,6 +176,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => collect($this->suffixValue())->pluck('id'),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #9
             'contact_no' => [
                 'header' => 'Contact_No',                
@@ -165,13 +185,17 @@ class RegistrationImportController extends Controller
                 'formatted' => false,
                 'formats' => [],
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #10
             'address' => [
                 'header' => 'Current_Residence:_Unit/Building/House_Number,_Street_Name',
-                'required' => true,
+                'required' => false,
                 'formatted' => false,
                 'formats' => [],
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #11
             'region' => [
                 'header' => 'Current_Residence:_Region',                
@@ -179,6 +203,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => collect($this->regionValue())->pluck('id'),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #12
             'province' => [
                 'header' => 'Current_Residence:Province',
@@ -186,6 +212,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->provinceValue(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #13
             'town_city' => [
                 'header' => 'Current_Residence:Municipality/City',                
@@ -193,6 +221,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->munCityValue(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #14
             'barangay' => [
                 'header' => 'Current_Residence:Barangay',                
@@ -200,6 +230,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => [],
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #15
             'gender' => [
                 'header' => 'Sex',                
@@ -207,6 +239,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => collect($this->genderValue())->pluck('id'),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #16
             'birthdate' => [
                 'header' => 'Birthdate',                
@@ -214,6 +248,8 @@ class RegistrationImportController extends Controller
                 'formatted' => false,
                 'formats' => [],
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #17
             'civil_status' => [
                 'header' => 'Civil_Status',                
@@ -221,13 +257,17 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => collect($this->civilStatusValue())->pluck('id'),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #18
             'employment_status' => [
                 'header' => 'Employment_Status',                
                 'required' => true,
                 'formatted' => true,
                 'formats' => collect($this->employmentStatusValue())->pluck('id'),
-                'na_if_empty' => false,                
+                'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,           
             ], #19
             'direct_interaction' => [
                 'header' => 'Directly_in_interaction_with_COVID_patient',                
@@ -235,6 +275,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->yesNo(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #20
             'profession' => [
                 'header' => 'Profession',                
@@ -242,6 +284,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => collect($this->professionValue())->pluck('id'),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #21
             'employer_name' => [
                 'header' => 'Name_of_Employer',                
@@ -249,6 +293,8 @@ class RegistrationImportController extends Controller
                 'formatted' => false,
                 'formats' => [],
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #22
             'employer_municipality' => [
                 'header' => 'Province/HUC/ICC_of_Employer',                
@@ -256,6 +302,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => collect($this->employerMunicipalityValue())->pluck('id'),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #23
             'employer_address' => [
                 'header' => 'Address_of_Employer',                
@@ -263,6 +311,8 @@ class RegistrationImportController extends Controller
                 'formatted' => false,
                 'formats' => [],
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #24
             'employer_contact_no' => [
                 'header' => 'Contact_number_of_employer',                
@@ -270,6 +320,8 @@ class RegistrationImportController extends Controller
                 'formatted' => false,
                 'formats' => [],
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #25
             'pregnancy_status' => [
                 'header' => 'Pregnancy_status',                
@@ -277,6 +329,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->pregnantStatus(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #26
             'drug_allergy' => [
                 'header' => 'Drug_Allergy',               
@@ -284,6 +338,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->yesNo(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #27
             'food_allergy' => [
                 'header' => 'Food_Allergy',              
@@ -291,13 +347,17 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->yesNo(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #28
             'insect_allergy' => [
                 'header' => 'Insect_Allergy',            
                 'required' => true,
                 'formatted' => true,
                 'formats' => $this->yesNo(),
-                'na_if_empty' => false,                
+                'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,           
             ], #29
             'latex_allergy' => [
                 'header' => 'Latex_Allergy',           
@@ -305,6 +365,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->yesNo(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #30
             'mold_allergy' => [
                 'header' => 'Mold_Allergy',            
@@ -312,6 +374,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->yesNo(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #31
             'pet_allergy' => [
                 'header' => 'Pet_Allergy',                
@@ -319,6 +383,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->yesNo(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #32
             'pollen_allergy' => [
                 'header' => 'Pollen_Allergy',                
@@ -326,6 +392,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->yesNo(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #33
             'with_comorbidity' => [
                 'header' => 'With_Comorbidity',                
@@ -333,6 +401,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->yesNone(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #34
             'hypertension' => [
                 'header' => 'Hypertension',                
@@ -340,6 +410,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->yesNo(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #35
             'heart_disease' => [
                 'header' => 'Heart_Disease',                
@@ -347,6 +419,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->yesNo(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #36
             'kidney_disease' => [
                 'header' => 'Kidney_Disease',                
@@ -354,6 +428,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->yesNo(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #37
             'diabetes_mellitus' => [
                 'header' => 'Diabetes_Mellitus',                
@@ -361,6 +437,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->yesNo(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #38
             'bronchial_asthma' => [
                 'header' => 'Bronchial_Asthma',                
@@ -368,6 +446,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->yesNo(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #39
             'immuno_deficiency_status' => [
                 'header' => 'Immunodeficiency_Status',                
@@ -375,6 +455,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->yesNo(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #40
             'cancer' => [
                 'header' => 'Cancer',                
@@ -382,6 +464,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->yesNo(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #41
             'comorbidity_others' => [
                 'header' => 'Others',                
@@ -389,6 +473,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->yesNo(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #42
             'diagnosed' => [
                 'header' => 'Patient_was_diagnosed_with_COVID_19',                
@@ -396,6 +482,8 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => $this->yesNo(),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
             ], #43
             'diagnosed_date' => [
                 'header' => 'Date_of_first_positive_result',                
@@ -403,6 +491,8 @@ class RegistrationImportController extends Controller
                 'formatted' => false,
                 'formats' => [],
                 'na_if_empty' => true,
+                'default_unknown' => false,
+                'default_category_id' => false,               
             ], #44
             'covid_classification' => [
                 'header' => 'Classification_of_COVID_19',                
@@ -410,13 +500,17 @@ class RegistrationImportController extends Controller
                 'formatted' => true,
                 'formats' => collect($this->covidClassificationValue())->pluck('id'),
                 'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,               
             ], #45
             'consent_vaccination'  => [
-                'header' => 'Provided_Electronic_Informed_Consent',                
+                'header' => 'Willing to be vaccinated?',                
                 'required' => true,
                 'formatted' => true,
                 'formats' => $this->yesNoUnknown(),
                 'na_if_empty' => false,
+                'default_unknown' => true,
+                'default_category_id' => false,
             ] #46
         ];
 
@@ -534,28 +628,79 @@ class RegistrationImportController extends Controller
                     $header = $validations[$p]['header'];
                     $formatted = $validations[$p]['formatted'];
                     $formats = $validations[$p]['formats'];
+
+                    $default_unknown = $validations[$p]['default_unknown'];
+                    if ($default_unknown) {
+                        if ($value == "") {
+                            $row[$p] = "03_Unknown";
+                            $value = "03_Unknown";
+                        }
+                    }
+
+                    $default_category_id = $validations[$p]['default_category_id'];
+                    if ($default_category_id) {
+                        if ($value == "") {
+                            $row[$p] = "04_Other_ID";
+                            $value = "04_Other_ID";
+                        }
+                    }
+                    
+                    if ($p == "comorbidity_others") {
+                        if ($value != "") {
+                            $row[$p] = "01_Yes";
+                            $value = "01_Yes";
+                        }
+                    }
+
                     if (gettype($formats)=='object') {
                         $formats = $formats->toArray();
                     }
                     if ($formatted) {
-                        if ($p=="barangay") {
-                            // town_city
-                            $formats = $validations['town_city']['formats'];
+                        if ($p=="town_city") {
+                            // province
+                            $formats = $validations['province']['formats'];
                             if (gettype($formats)=='object') {
                                 $formats = $formats->toArray();
-                            }                            
-                            if (!in_array($row['town_city'],$formats)) { # City/Municipality is invalid
-                                $validate[] = "Invalid value for {$header}";
-                            } else { # City/Municipality is valid
-                                $formats = $this->barangayValue($row['town_city']);
+                            }
+                            if (!in_array($row['province'],$formats)) { # Province is invalid
+                                // $validate[] = "Invalid value for {$header}";
+                            } else { # Province is valid
+                                $formats = $this->provMunCityValue($row['province']);
                                 if (gettype($formats)=='object') {
                                     $formats = $formats->toArray();
                                 }
                                 if (!in_array($value,$formats)) {
                                     $validate[] = "Invalid value for {$header}";
                                 }                                
+                            }    
+                        } elseif ($p=="barangay") {
+                            // province
+                            $formats = $validations['province']['formats'];
+                            if (gettype($formats)=='object') {
+                                $formats = $formats->toArray();
                             }
-                        } else {
+                            if (!in_array($row['province'],$formats)) { # Province is invalid
+                                // $validate[] = "Invalid value for {$header}";
+                            } else { # Province is valid               
+                                // town_city
+                                // $formats = $validations['town_city']['formats'];
+                                $formats = $this->provMunCityValue($row['province']);                                
+                                if (gettype($formats)=='object') {
+                                    $formats = $formats->toArray();
+                                }
+                                if (!in_array($row['town_city'],$formats)) { # City/Municipality is invalid
+                                    // $validate[] = "Invalid value for {$header}";
+                                } else { # City/Municipality is valid
+                                    $formats = $this->barangayValue($row['town_city']);
+                                    if (gettype($formats)=='object') {
+                                        $formats = $formats->toArray();
+                                    }
+                                    if (!in_array($value,$formats)) {
+                                        $validate[] = "Invalid value for {$header}";
+                                    }                                
+                                }
+                            }
+                        } else {                           
                             if (!in_array($value,$formats)) {
                                 $validate[] = "Invalid value for {$header}";
                             }
@@ -570,23 +715,32 @@ class RegistrationImportController extends Controller
                 $na_if_empty = $validations[$p]['na_if_empty'];
                 if ($na_if_empty) {
                     if ($value == "") {
-                        $row[$p] = "N/A";      
+                        $row[$p] = "N/A";  
                     }
                 }
             }
 
             $filtered[$i] = $row;
 
-            $validated[] = $validate;
+            if (count($validate)) {
+                $validation = [
+                    "for" => "Correction(s) for {$row['last_name']} {$row['first_name']} {$row['middle_name']}",
+                    "invalid" => $validate,
+                ];
+                $validated[] = $validation;
+            }
 
         }
 
         /**
          * If $validation is empty then all rows have valid values
          */
-        
-        return $validations;
-        return $validated;
+        $response = [];
+        if (count($validated)) {
+            return $this->jsonErrorDataValidation($validated);            
+        } else {
+            return $this->jsonCreateSuccessResponse($filtered->values()->all());         
+        }
 
     }
 
@@ -609,6 +763,105 @@ class RegistrationImportController extends Controller
     public function import(Request $request)
     {
 
-    }    
+        $data = $request->registration;
+
+        $fullname = "{$data['last_name']} {$data['first_name']} {$data['middle_name']}";
+
+        $messages = [];
+        $qr_pass_id = $data['qr_pass_id'];
+
+        if ($qr_pass_id=="") {
+
+            /**
+             * Import to NAPANAM
+             */
+
+            // Check info in NAPANAM
+            $lastname = strtoupper($data['last_name']);
+            $firstname = strtoupper($data['first_name']);
+            $middlename = strtoupper($data['middle_name']);
+
+            $get_qr_pass = QrPass::where([
+                ['lastname',$lastname],
+                ['firstname',$firstname],
+                ['middlename',$middlename],
+                ['dob',$data['birthdate']],
+                ['qrpass_status','Active']
+            ])->first();
+
+            // No NAPANAM yet
+            if (is_null($get_qr_pass)) {
+
+                // Map data
+                $napanam = [
+                    'type' => 'Person', # Person
+                    'category' => 'Resident', # Resident
+                    'lastname' => $lastname,
+                    'firstname' => $firstname,
+                    'middlename' => $middlename,
+                    'gender' => $this->dohToGender($data['gender']),
+                    'nationality' => 'PHL', # PHL
+                    'dob' => $data['birthdate'],
+                    'age' => $this->computeAge($data['birthdate']),
+                    'mobile_number' => $data['contact_no'],
+                    'email' => null,
+                    'address' => $data['address'], # Street / Road
+                    'addressbrgy' => $this->dohToBrgy($data['barangay']),
+                    'addressmunicity' => $this->dohToMun($data['town_city']),
+                    'addressprovince' => $this->dohToProv($data['province']),
+                ];
+
+                $qr_pass = new QrPass;
+                $qr_pass->fill($napanam);
+                $qr_pass->save();
+
+                $generated_qr = $qr_pass->id;
+                $data['qr_pass_id'] = $generated_qr;  
+                $messages[] = "No information found in NAPANAM. Information imported with generated ID: {$generated_qr}";
+                $messages[] = $this->postRegistration($data);
+
+            } else {
+
+                $get_qr_pass_id = $get_qr_pass->id;
+                $messages[] = "NAPANAM information found, using ID: $get_qr_pass_id";
+                $data['qr_pass_id'] = $get_qr_pass_id;
+                
+                $messages[] = $this->postRegistration($data);              
+
+            }            
+
+        } else {
+
+            $messages[] = $this->postRegistration($data);
+
+        }
+
+        return $this->jsonCreateSuccessResponse($messages);
+
+    }
+
+    private function postRegistration($data)
+    {
+        $message = "";
+
+        if ($data['diagnosed_date']=="NA") {
+            unset($data['diagnosed_date']);
+        }
+
+        $get_registration = Registration::where('qr_pass_id',$data['qr_pass_id'])->first();
+
+        $fullname = "{$data['last_name']} {$data['first_name']} {$data['middle_name']}";        
+        if (is_null($get_registration)) {
+            $registration = new Registration;
+            $registration->fill($data);
+            $registration->save();
+            $message = "Registration imported for $fullname";
+        } else {
+            $message = "Existing registration for $fullname, skipping import";
+        }        
+
+        return $message;
+        
+    }
 
 }

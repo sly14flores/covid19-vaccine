@@ -170,6 +170,7 @@ trait SelectionsRegistration
             ["name"=>"SANTOL", "id"=>"13318 - SANTOL"],
             ["name"=>"SUDIPEN", "id"=>"13319 - SUDIPEN"],
             ["name"=>"TUBAO", "id"=>"13320 - TUBAO"],
+            ["name"=>"LA UNION", "id"=>"133 - LA_UNION"],            
         ];
     }
 
@@ -278,6 +279,24 @@ trait SelectionsRegistration
 
         return $city_muns->pluck('doh');
     }
+
+
+    public function provMunCityValue($doh_code)
+    {
+
+        $doh_code_exploded = explode("_",$doh_code);
+        $code = intval($doh_code_exploded[1]);    
+        $city_muns = CityMun::where('provCode',$code)->select(['citymunCode','citymunDesc'])->get();
+
+        $city_muns = $city_muns->map(function($cm) {
+
+            $cm->doh = $this->toDOHMun($cm);
+            return $cm;
+
+        });
+
+        return $city_muns->pluck('doh');
+    }    
 
     public function barangayValue($doh_code)
     {
