@@ -12,7 +12,7 @@ const getSelections = () => {
 
 const CREATE_ROUTE = `${api_url}/api/doh/registration`
 const createRegistration = (payload) => {
-    return axios.post(CREATE_ROUTE, payload)
+  return axios.post(CREATE_ROUTE, payload)
 }
 
 const GET_NAPANAM_ROUTE = `${api_url}/api/napanam/check/registration/:id/:birthdate`
@@ -27,6 +27,11 @@ const getRegistrations = (payload) => {
     const { page } = payload
     const pageNo = page + 1
     return axios.get(GET_REGISTRATIONS, {params: { page: pageNo } })
+}
+
+const CREATE_REGISTRATION = `${api_url}/api/doh/registration`
+const storeRegistration = (payload) => {
+    return axios.post(CREATE_REGISTRATION, payload)
 }
 
 const registration = {
@@ -139,6 +144,10 @@ const state = () => {
 }
 
 const mutations = {
+    INIT(state) {
+        state.registration = registration
+        state.registrations = registrations
+    },
     SELECTIONS(state, payload) {
         state.selections = {...payload}
     },
@@ -155,6 +164,9 @@ const mutations = {
         state.registration.barangay = payload.barangayDesc
         state.registration.address = payload.address // street
     },
+    REGISTRATION(state, payload) {
+        state.registration = payload
+    },
     REGISTRATIONS(state, payload) {
         state.registrations = payload
     },
@@ -166,10 +178,67 @@ const mutations = {
     },
     SAVING(state, payload) {
         state.saving = payload
+    },
+    TOGGLE_WRITE(state,payload) {
+        state.writeOn = payload
     }
 }
 
 const actions = {
+    INIT({commit}) {
+        commit('INIT')
+    },
+    TOGGLE_WRITE({commit}, payload) {
+        commit('TOGGLE_WRITE', payload)
+    },
+    async CREATE_REGISTRATION({commit, dispatch}, payload) {
+        commit('SAVING',true)   
+        try {
+            payload.drug_allergy = (payload.drug_allergy)?"01_Yes":"02_No"
+            payload.food_allergy = (payload.food_allergy)?"01_Yes":"02_No"
+            payload.insect_allergy = (payload.insect_allergy)?"01_Yes":"02_No"
+            payload.latex_allergy = (payload.latex_allergy)?"01_Yes":"02_No"
+            payload.mold_allergy = (payload.mold_allergy)?"01_Yes":"02_No"
+            payload.pet_allergy = (payload.pet_allergy)?"01_Yes":"02_No"
+            payload.pollen_allergy = (payload.pollen_allergy)?"01_Yes":"02_No"
+
+            payload.hypertension = (payload.hypertension)?"01_Yes":"02_No"
+            payload.heart_disease = (payload.heart_disease)?"01_Yes":"02_No"
+            payload.kidney_disease = (payload.kidney_disease)?"01_Yes":"02_No"
+            payload.diabetes_mellitus = (payload.diabetes_mellitus)?"01_Yes":"02_No"
+            payload.bronchial_asthma = (payload.bronchial_asthma)?"01_Yes":"02_No"
+            payload.immuno_deficiency_status = (payload.immuno_deficiency_status)?"01_Yes":"02_No"
+            payload.cancer = (payload.cancer)?"01_Yes":"02_No"
+            payload.comorbidity_others = (payload.comorbidity_others)?"01_Yes":"02_No"
+
+            const { data: { data } } = await storeRegistration(payload)
+            dispatch('CREATE_REGISTRATION_SUCCESS', data)
+            return true
+        } catch(error) {
+            const { response } = error
+            dispatch('CREATE_REGISTRATION_ERROR', response)
+            return false
+        }
+    },
+    CREATE_REGISTRATION_SUCCESS({commit}, payload) {
+        commit('SAVING',false)        
+        console.log(payload)
+
+        Swal.fire({
+            title: '<p class="text-success" style="font-size: 25px;">Successfully saved!</p>',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+        })
+
+    },
+    CREATE_REGISTRATION_ERROR({commit}, payload) {
+        commit('SAVING',false)
+        console.log(payload)
+    },
     async GET_REGISTRATIONS({dispatch}, payload) {
         try {
             const { page } = payload
@@ -199,10 +268,12 @@ const actions = {
     },
     GET_SELECTIONS_SUCCESS({commit}, payload) {
         commit('SELECTIONS', payload)
+        console.log(payload)
     },
     GET_SELECTIONS_ERROR({commit}, payload) {
         console.log(payload)
     },
+
     async CREATE({commit, dispatch}, payload) {
         commit('SAVING', true)
         try {

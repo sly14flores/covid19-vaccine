@@ -174,6 +174,6 @@ class HospitalController extends Controller
 
         $hospital->delete();
 
-        return $this->jsonDeleteSuccessResponse(); 
+        return $this->jsonDeleteSuccessResponse();
     }
 }
