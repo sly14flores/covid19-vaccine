@@ -5,6 +5,7 @@ import PageWrapper from './PageWrapper.vue';
 import Dashboard from "./pages/dashboard/Dashboard.vue";
 import Registrations from "./pages/summary/registrations.vue";
 import Surveys from "./pages/summary/surveys.vue";
+import Scan from "./pages/scanners/scan.vue";
 
 /**
  * Users
@@ -26,6 +27,12 @@ import HospitalNew from './pages/hospitals/New.vue';
 import HospitalEdit from './pages/hospitals/Edit.vue';
 
 const routes = [
+  {
+    path: "/scanners/scan",
+    name: "Scan",
+    component: PageWrapper,
+    props: {pageComponent: Scan}
+  },
   {
     path: "/admin",
     name: "Login",

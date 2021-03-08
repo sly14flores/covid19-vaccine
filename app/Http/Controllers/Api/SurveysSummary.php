@@ -22,8 +22,10 @@ class SurveysSummary extends Controller
     {
 
         $filter = [
+            "start_chart" => $request->start_date_chart,
+            "end_chart" => $request->end_date_chart,
             "start" => $request->start_date,
-            "end" => $request->end_date,
+            "end" => $request->end_date
         ];
 
         $data = Summary::surveys($filter);
