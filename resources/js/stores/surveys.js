@@ -7,8 +7,8 @@ import { api_url } from '../url.js'
 
 const GET_SURVEYS = `${api_url}/api/summary/surveys`
 const getSurveys = (payload) => {
-    const { start_date, end_date } = payload
-    return axios.get(GET_SURVEYS, { params: {start_date, end_date} })
+    const { start_date_chart, end_date_chart, start_date, end_date } = payload
+    return axios.get(GET_SURVEYS, { params: {start_date_chart, end_date_chart, start_date, end_date} })
 }
 
 const surveys = {

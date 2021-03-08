@@ -46,5 +46,10 @@ export default [
               to: '/hospitals/new'          
           },
         ]
+    },
+    {
+        label:'Scan',
+        icon:'pi pi-fw pi-desktop',
+        to: '/scanners/scan'
     }
 ]
