@@ -9,7 +9,7 @@
                         </div>
                     </div>
                     <div class="p-grid p-jc-center p-mt-2">
-                        <h1 class="p-label-red">Napanam QR Scanning</h1>
+                        <h1 class="p-label-red">QR Code Scanning</h1>
                     </div>
                     <div class="p-grid">
                         <div class="p-field p-col-12 p-md-12">

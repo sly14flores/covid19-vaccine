@@ -441,6 +441,7 @@ export default {
             }
             return true;
         }
+        
         // Personal
         const { value: id } = useField('registration.id',validField);
         const { value: qr_pass_id } = useField('registration.qr_pass_id',validField);
