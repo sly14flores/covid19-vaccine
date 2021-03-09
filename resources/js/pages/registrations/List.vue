@@ -6,7 +6,25 @@
                 <Panel header="Upload">
                     <FileUpload name="excel" :url="uploadUrl" :multiple="false" withCredentials="true" @before-send="setBeforeSend" @upload="uploadComplete" @error="uploadError" :maxFileSize="24000000">
                         <template #empty>
-                            <p>Drag and drop files to here to upload.</p>
+                            <div v-if="showTerminal">
+                                <div class="p-d-flex p-p-3">
+                                    <Button type="Button" label="Start Import" class="p-ml-auto" :disabled="checking" @click="checkData" />
+                                </div>                     
+                                <div class="terminal">
+                                    <div class=fakeMenu>
+                                        <div class="fakeButtons fakeClose"></div>
+                                        <div class="fakeButtons fakeMinimize"></div>
+                                        <div class="fakeButtons fakeZoom"></div>
+                                    </div>
+                                    <div class="fakeScreen">
+                                        <p class="info" v-if="infoMessage!=null">{{ infoMessage }}</p>
+                                        <div class="parent-error"  v-for="errorLog in errorLogs" :key="errorLog.index">
+                                            {{ errorLog.for }}                                            
+                                            <p class="child-error" v-for="(log,i) in errorLog.invalid" :key="i">{{ log }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </template>
                     </FileUpload>
                 </Panel>
@@ -46,6 +64,7 @@ import Column from 'primevue/column/sfc';
 import FileUpload from 'primevue/fileupload/sfc';
 import Paginator from 'primevue/paginator/sfc';
 import Panel from 'primevue/panel/sfc';
+import Button from 'primevue/button/sfc';
 
 import { api_url } from '../../url.js'
 const uploadUrl = `${api_url}/api/doh/upload/excel`
@@ -64,7 +83,8 @@ export default {
         Column,
         FileUpload,
         Paginator,
-        Panel
+        Panel,
+        Button
     },
     data() {
         return {
@@ -76,8 +96,20 @@ export default {
         registrations() {
             return this.$store.state.registrations.registrations
         },
-        pagination(){
+        pagination() {
             return this.$store.state.registrations.pagination
+        },
+        showTerminal() {
+            return this.$store.state.importData.excel != null
+        },
+        errorLogs() {
+            return this.$store.state.importData.errorLogs
+        },
+        checking() {
+            return this.$store.state.importData.checking
+        },
+        infoMessage() {
+            return this.$store.state.importData.infoMessage
         }
     },
     methods: {
@@ -103,7 +135,7 @@ export default {
 
             const { data: { filename } } = data
 
-            console.log(filename)
+            this.$store.dispatch('importData/EXCEL',filename)
 
         },
         uploadError(e) {
@@ -116,16 +148,92 @@ export default {
 
             console.log(message)
 
-        }        
+        },
+        checkData() {
+
+            this.$store.dispatch('importData/CHECK_DATA')
+
+        },
     },
     mounted() {
-        this.fetchRegistrations({ page: 0 })
-    }
+        this.fetchRegistrations({ page: 0 })     
+    },
 }
 </script>
 
 <style scoped>
-.icon-size{
-    height: 18px;
-}
+
+    .icon-size{
+        height: 18px;
+    }
+    
+    .terminal {
+        background-color: #272727;
+        padding: 10px;
+    }
+
+    .fakeButtons {
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        border: 1px solid #000;
+        position: relative;
+        top: 6px;
+        left: 6px;
+        background-color: #ff3b47;
+        border-color: #9d252b;
+        display: inline-block;
+    }
+
+    .fakeMinimize {
+        left: 11px;
+        background-color: #ffc100;
+        border-color: #9d802c;
+    }
+
+    .fakeZoom {
+        left: 16px;
+        background-color: #00d742;
+        border-color: #049931;
+    }
+
+    .fakeMenu {
+        box-sizing: border-box;
+        height: 25px;
+        background-color: #bbb;
+        margin: 0 auto;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+    }
+
+    .fakeScreen {
+        background-color: #151515;
+        box-sizing: border-box;
+        margin: 0 auto;
+        padding: 20px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    .terminal .info {
+        color:#1899aa;
+        font-size: 1em;
+        font-family: monospace;
+        white-space: normal;
+    }
+
+    .terminal .parent-error {
+        color:#db343f;
+        font-size: 1em;
+        font-family: monospace;
+        white-space: normal;
+    }
+
+    .terminal .child-error {
+        color:#b11018;        
+        margin-left: 1.5rem;
+        font-size: 1.1em;
+        font-family: monospace;
+        white-space: normal; 
+    }    
 </style>

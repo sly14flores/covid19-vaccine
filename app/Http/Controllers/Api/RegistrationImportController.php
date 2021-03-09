@@ -620,8 +620,11 @@ class RegistrationImportController extends Controller
         foreach ($filtered as $i => $row) {
 
             $validate = [];
+            $index = 0;
             foreach ($row as $p => $value) {
                 if ($p=="valid") continue;
+
+                $index++;
 
                 $required = $validations[$p]['required'];
                 if ($required) {
@@ -714,7 +717,7 @@ class RegistrationImportController extends Controller
 
                 $na_if_empty = $validations[$p]['na_if_empty'];
                 if ($na_if_empty) {
-                    if ($value == "") {
+                    if ($value == "Initiating import") {
                         $row[$p] = "N/A";  
                     }
                 }
@@ -724,6 +727,7 @@ class RegistrationImportController extends Controller
 
             if (count($validate)) {
                 $validation = [
+                    "index" => $index,
                     "for" => "Correction(s) for {$row['last_name']} {$row['first_name']} {$row['middle_name']}",
                     "invalid" => $validate,
                 ];
@@ -739,7 +743,11 @@ class RegistrationImportController extends Controller
         if (count($validated)) {
             return $this->jsonErrorDataValidation($validated);            
         } else {
-            return $this->jsonCreateSuccessResponse($filtered->values()->all());         
+            $response = [
+                "message" => "",
+                "rows" => $filtered->values()->all()
+            ];
+            return $this->jsonCreateSuccessResponse($response);
         }
 
     }
