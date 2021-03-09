@@ -18,7 +18,9 @@
                                     </div>
                                     <div class="fakeScreen">
                                         <p class="info" v-if="infoMessage!=null">{{ infoMessage }}</p>
-                                        <div class="parent-error"  v-for="errorLog in errorLogs" :key="errorLog.index">
+                                        <p class="success" v-if="successMessage!=null">{{ successMessage }}</p>
+                                        <p class="success" v-for="(importLog,i) in importLogs" :key="i">{{importLog}}</p>
+                                        <div class="parent-error" v-for="errorLog in errorLogs" :key="errorLog.index">
                                             {{ errorLog.for }}                                            
                                             <p class="child-error" v-for="(log,i) in errorLog.invalid" :key="i">{{ log }}</p>
                                         </div>
@@ -66,11 +68,26 @@ import Paginator from 'primevue/paginator/sfc';
 import Panel from 'primevue/panel/sfc';
 import Button from 'primevue/button/sfc';
 
+import { useStore } from 'vuex'
+import { watch } from 'vue'
+
 import { api_url } from '../../url.js'
 const uploadUrl = `${api_url}/api/doh/upload/excel`
 
 export default {
     setup() {
+
+        const store = useStore()
+        const { state, dispatch } = store
+
+        watch(
+            () => state.importData.excel,
+            (data, prevData) => {
+                if (data==null) {
+                    dispatch('registrations/GET_REGISTRATIONS',{ page: 0 })
+                }
+            }
+        )
 
         return {
             uploadUrl
@@ -110,7 +127,16 @@ export default {
         },
         infoMessage() {
             return this.$store.state.importData.infoMessage
-        }
+        },
+        successMessage() {
+            return this.$store.state.importData.successMessage
+        },
+        data() {
+            return this.$store.state.importData.data
+        },
+        importLogs() {
+            return this.$store.state.importData.importLogs
+        },        
     },
     methods: {
         fetchRegistrations(event) {
@@ -136,6 +162,7 @@ export default {
             const { data: { filename } } = data
 
             this.$store.dispatch('importData/EXCEL',filename)
+            this.$store.dispatch('importData/INFO',"Excel uploaded, click 'START IMPORT' to begin")
 
         },
         uploadError(e) {
@@ -207,6 +234,8 @@ export default {
     }
 
     .fakeScreen {
+        height: 350px;
+        overflow: scroll;
         background-color: #151515;
         box-sizing: border-box;
         margin: 0 auto;
@@ -221,6 +250,13 @@ export default {
         font-family: monospace;
         white-space: normal;
     }
+
+    .terminal .success {
+        color:#0bdb0b;
+        font-size: 1em;
+        font-family: monospace;
+        white-space: normal;
+    }    
 
     .terminal .parent-error {
         color:#db343f;
