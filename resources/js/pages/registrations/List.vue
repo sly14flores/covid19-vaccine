@@ -8,7 +8,7 @@
                         <template #empty>
                             <div v-if="showTerminal">
                                 <div class="p-d-flex p-p-3">
-                                    <Button type="Button" label="Start Import" class="p-ml-auto" :disabled="checking" @click="checkData" />
+                                    <Button type="Button" label="Start Import" class="p-button-danger p-ml-auto" :disabled="checking" @click="checkData" />
                                 </div>                     
                                 <div class="terminal">
                                     <div class=fakeMenu>
