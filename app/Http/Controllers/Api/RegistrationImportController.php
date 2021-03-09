@@ -34,6 +34,7 @@ class RegistrationImportController extends Controller
 	{
 
 		$this->middleware(['auth:api']);
+        $this->middleware('throttle:import')->only(['import','postRegistration']);
 
         $this->http_code_ok = 200;
         $this->http_code_error = 500;
@@ -620,8 +621,11 @@ class RegistrationImportController extends Controller
         foreach ($filtered as $i => $row) {
 
             $validate = [];
+            $index = 0;
             foreach ($row as $p => $value) {
                 if ($p=="valid") continue;
+
+                $index++;
 
                 $required = $validations[$p]['required'];
                 if ($required) {
@@ -714,7 +718,7 @@ class RegistrationImportController extends Controller
 
                 $na_if_empty = $validations[$p]['na_if_empty'];
                 if ($na_if_empty) {
-                    if ($value == "") {
+                    if ($value == "Initiating import...") {
                         $row[$p] = "N/A";  
                     }
                 }
@@ -724,6 +728,7 @@ class RegistrationImportController extends Controller
 
             if (count($validate)) {
                 $validation = [
+                    "index" => $index,
                     "for" => "Correction(s) for {$row['last_name']} {$row['first_name']} {$row['middle_name']}",
                     "invalid" => $validate,
                 ];
@@ -739,7 +744,11 @@ class RegistrationImportController extends Controller
         if (count($validated)) {
             return $this->jsonErrorDataValidation($validated);            
         } else {
-            return $this->jsonCreateSuccessResponse($filtered->values()->all());         
+            $response = [
+                "message" => "Initiating import",
+                "rows" => $filtered->values()->all()
+            ];
+            return $this->jsonCreateSuccessResponse($response);
         }
 
     }
@@ -763,76 +772,80 @@ class RegistrationImportController extends Controller
     public function import(Request $request)
     {
 
-        $data = $request->registration;
-
-        $fullname = "{$data['last_name']} {$data['first_name']} {$data['middle_name']}";
+        $registrations = $request->registrations;
 
         $messages = [];
-        $qr_pass_id = $data['qr_pass_id'];
+        foreach ($registrations as $data) {
 
-        if ($qr_pass_id=="") {
+            $fullname = "{$data['last_name']} {$data['first_name']} {$data['middle_name']}";
 
-            /**
-             * Import to NAPANAM
-             */
-
-            // Check info in NAPANAM
-            $lastname = strtoupper($data['last_name']);
-            $firstname = strtoupper($data['first_name']);
-            $middlename = strtoupper($data['middle_name']);
-
-            $get_qr_pass = QrPass::where([
-                ['lastname',$lastname],
-                ['firstname',$firstname],
-                ['middlename',$middlename],
-                ['dob',$data['birthdate']],
-                ['qrpass_status','Active']
-            ])->first();
-
-            // No NAPANAM yet
-            if (is_null($get_qr_pass)) {
-
-                // Map data
-                $napanam = [
-                    'type' => 'Person', # Person
-                    'category' => 'Resident', # Resident
-                    'lastname' => $lastname,
-                    'firstname' => $firstname,
-                    'middlename' => $middlename,
-                    'gender' => $this->dohToGender($data['gender']),
-                    'nationality' => 'PHL', # PHL
-                    'dob' => $data['birthdate'],
-                    'age' => $this->computeAge($data['birthdate']),
-                    'mobile_number' => $data['contact_no'],
-                    'email' => null,
-                    'address' => $data['address'], # Street / Road
-                    'addressbrgy' => $this->dohToBrgy($data['barangay']),
-                    'addressmunicity' => $this->dohToMun($data['town_city']),
-                    'addressprovince' => $this->dohToProv($data['province']),
-                ];
-
-                $qr_pass = new QrPass;
-                $qr_pass->fill($napanam);
-                $qr_pass->save();
-
-                $generated_qr = $qr_pass->id;
-                $data['qr_pass_id'] = $generated_qr;  
-                $messages[] = "No information found in NAPANAM. Information imported with generated ID: {$generated_qr}";
-                $messages[] = $this->postRegistration($data);
-
+            $qr_pass_id = $data['qr_pass_id'];
+    
+            if ($qr_pass_id=="") {
+    
+                /**
+                 * Import to NAPANAM
+                 */
+    
+                // Check info in NAPANAM
+                $lastname = strtoupper($data['last_name']);
+                $firstname = strtoupper($data['first_name']);
+                $middlename = strtoupper($data['middle_name']);
+    
+                $get_qr_pass = QrPass::where([
+                    ['lastname',$lastname],
+                    ['firstname',$firstname],
+                    ['middlename',$middlename],
+                    ['dob',$data['birthdate']],
+                    ['qrpass_status','Active']
+                ])->first();
+    
+                // No NAPANAM yet
+                if (is_null($get_qr_pass)) {
+    
+                    // Map data
+                    $napanam = [
+                        'type' => 'Person', # Person
+                        'category' => 'Resident', # Resident
+                        'lastname' => $lastname,
+                        'firstname' => $firstname,
+                        'middlename' => $middlename,
+                        'gender' => $this->dohToGender($data['gender']),
+                        'nationality' => 'PHL', # PHL
+                        'dob' => $data['birthdate'],
+                        'age' => $this->computeAge($data['birthdate']),
+                        'mobile_number' => $data['contact_no'],
+                        'email' => null,
+                        'address' => $data['address'], # Street / Road
+                        'addressbrgy' => $this->dohToBrgy($data['barangay']),
+                        'addressmunicity' => $this->dohToMun($data['town_city']),
+                        'addressprovince' => $this->dohToProv($data['province']),
+                    ];
+    
+                    $qr_pass = new QrPass;
+                    $qr_pass->fill($napanam);
+                    $qr_pass->save();
+    
+                    $generated_qr = $qr_pass->id;
+                    $data['qr_pass_id'] = $generated_qr;  
+                    $messages[] = "No information found in NAPANAM. Information imported with generated ID: {$generated_qr}";
+                    $messages[] = $this->postRegistration($data);
+    
+                } else {
+    
+                    $get_qr_pass_id = $get_qr_pass->id;
+                    $messages[] = "NAPANAM information found, using ID: $get_qr_pass_id";
+                    $data['qr_pass_id'] = $get_qr_pass_id;
+                    
+                    $messages[] = $this->postRegistration($data);              
+    
+                }            
+    
             } else {
-
-                $get_qr_pass_id = $get_qr_pass->id;
-                $messages[] = "NAPANAM information found, using ID: $get_qr_pass_id";
-                $data['qr_pass_id'] = $get_qr_pass_id;
-                
-                $messages[] = $this->postRegistration($data);              
-
+    
+                $messages[] = $this->postRegistration($data);
+    
             }            
-
-        } else {
-
-            $messages[] = $this->postRegistration($data);
 
         }
 
