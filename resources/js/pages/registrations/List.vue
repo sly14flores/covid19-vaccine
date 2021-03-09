@@ -4,7 +4,7 @@
         <div class="p-grid p-mt-1">
             <div class="p-lg-12 p-md-12 p-sm-12">
                 <Panel header="Upload">
-                    <FileUpload name="demo[]" url="./upload.php" @upload="onUpload" :multiple="true" accept="image/*" :maxFileSize="1000000">
+                    <FileUpload name="excel" :url="uploadUrl" :multiple="false" withCredentials="true" @before-send="setBeforeSend" @upload="uploadComplete" @error="uploadError" :maxFileSize="24000000">
                         <template #empty>
                             <p>Drag and drop files to here to upload.</p>
                         </template>
@@ -47,16 +47,17 @@ import FileUpload from 'primevue/fileupload/sfc';
 import Paginator from 'primevue/paginator/sfc';
 import Panel from 'primevue/panel/sfc';
 
-import store from '../../store.js'
+import { api_url } from '../../url.js'
+const uploadUrl = `${api_url}/api/doh/upload/excel`
 
 export default {
     setup() {
 
-        const { dispatch } = store
+        return {
+            uploadUrl
+        }
 
-        dispatch('AUTHENTICATE')
-
-    },    
+    },  
     components: {
         MyBreadcrumb,
         DataTable,
@@ -88,6 +89,34 @@ export default {
             const { page } = event
             this.$store.dispatch('registrations/GET_REGISTRATIONS', { page })
         },
+        setBeforeSend(e) {
+            
+            e.xhr.setRequestHeader('Accept', 'application/json')
+            e.xhr.setRequestHeader('Authorization', `Bearer ${this.$store.state.profile.token}`)
+
+        },
+        uploadComplete(e) {
+
+            const { xhr: { response } } = e
+
+            const data = JSON.parse(response)
+
+            const { data: { filename } } = data
+
+            console.log(filename)
+
+        },
+        uploadError(e) {
+            
+            const { xhr: { response } } = e
+
+            const data = JSON.parse(response)
+
+            const { message } = data
+
+            console.log(message)
+
+        }        
     },
     mounted() {
         this.fetchRegistrations({ page: 0 })
