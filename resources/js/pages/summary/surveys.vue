@@ -17,6 +17,7 @@
                 </div>
             </div>
         </div>
+
         <div class="card p-mt-2">
             <div class=" p-fluid p-grid p-formgrid">
                 <div class="p-field p-col-12 p-md-4">
@@ -32,12 +33,9 @@
                     <Button label="Go!" @click="fetchSurveysChart" />
                 </div>
             </div>
-            <div class="p-grid p-col-12">
-                <div class="p-sm-12">
-                    <Chart type="line" :data="basicData" :height="70"/>
-                </div>
-            </div>
+            <Chart type="line" :data="basicData" />
         </div>
+
         <div class="card p-mt-2">
             <div class="card p-mt-2">
                 <div class=" p-fluid p-grid p-formgrid">
@@ -152,6 +150,7 @@
                 </div>
             </div>
         </div>
+        <ScrollTop />
     </div>
 </template>
 
@@ -165,6 +164,7 @@ import Button from 'primevue/button/sfc';
 import Paginator from 'primevue/paginator/sfc';
 import Chart from 'primevue/chart/sfc';
 import Calendar from 'primevue/calendar/sfc';
+import ScrollTop from 'primevue/scrolltop/sfc';
 
 import { api_url } from '../../url.js'
 
@@ -187,7 +187,8 @@ export default {
         Button,
         Paginator,
         Chart,
-        Calendar
+        Calendar,
+        ScrollTop
     },
     data() {
         return {
@@ -220,8 +221,9 @@ export default {
                     {
 						label: `Not Interested to be vaccinated`,
 						data: this.$store.state.surveys.surveys.total_responses_line_chart.total_not_interested,
-						fill: false,
+						fill: true,
 						borderColor: '#FFA726',
+                        backgroundColor: 'rgba(255,167,38,0.2)'
 					},
 				]
 			}
