@@ -531,6 +531,9 @@ class RegistrationImportController extends Controller
         };
 
         $hospital = Auth::user()->hospital;
+        if (is_null($hospital)) {
+            $hospital = Str::random(10);
+        }
 
         $path = "imports/$hospital/";
         $filename = Str::random(40).".".$request->file('excel')->getClientOriginalExtension();
@@ -538,7 +541,8 @@ class RegistrationImportController extends Controller
         $request->file('excel')->storeAs($path, $filename);
 
         return $this->jsonCreateSuccessResponse([
-            'filename' => $filename
+            'filename' => $filename,
+            'path' => $path
         ]);
 
     }
@@ -551,13 +555,14 @@ class RegistrationImportController extends Controller
     {
 
         $excel = $request->excel;
+        $path = $request->path;
 
         if (is_null($excel)) {
             return $this->jsonErrorDataValidation();
         }
 
         $hospital = Auth::user()->hospital;
-        $file_path = storage_path()."/app/imports/$hospital/$excel";
+        $file_path = storage_path()."/app/{$path}{$excel}";
 
         $reader = IOFactory::createReader('Xlsx');
         $reader->setReadDataOnly(TRUE);

@@ -17,6 +17,7 @@ const importData = (payload) => {
 }
 
 const excel = null
+const path = null
 const data = []
 const checking = false
 const infoMessage = null
@@ -27,6 +28,7 @@ const errorLogs = []
 const state = () => {
     return {
         excel,
+        path,
         data,
         checking,
         infoMessage,
@@ -48,6 +50,9 @@ const mutations = {
     },  
     EXCEL(state,payload) {
         state.excel = payload
+    },
+    PATH(state,payload) {
+        state.path = payload
     },
     CHECKING(state,payload) {
         state.checking = payload
@@ -74,7 +79,9 @@ const actions = {
         commit('INIT')
     },
     EXCEL({commit},payload) {
-        commit('EXCEL',payload)
+        const { excel, path } = payload
+        commit('EXCEL',excel)
+        commit('PATH',path)
     }, 
     IMPORT_LOGS({commit},payload) {
         commit('IMPORT_LOGS',payload)
@@ -88,7 +95,7 @@ const actions = {
         commit('SUCCESS',null)
         commit('INFO',"Analyzing data to be imported...")
         try {
-            const { data: { data } } = await checkData({ excel:  state.excel})
+            const { data: { data } } = await checkData({ excel: state.excel, path: state.path})
             dispatch('CHECK_DATA_SUCCESS', data)
         } catch(error) {
             const { response } = error
@@ -134,7 +141,7 @@ const actions = {
             allowEnterKey: false,
         }).then((result) => {
             
-            commit('INIT',null)
+            // commit('INIT',null)
 
         })
     },
@@ -142,6 +149,8 @@ const actions = {
 
     },
     INFO({commit},payload) {
+        commit('SUCCESS',null)
+        commit('IMPORT_LOGS',[])                
         commit('INFO',payload)
     }
 }
