@@ -2,7 +2,7 @@ import { createWebHashHistory, createRouter } from "vue-router";
 
 import PageWrapper from './PageWrapper.vue';
 
-import Dashboard from "./pages/dashboard/Dashboard.vue";
+// import Dashboard from "./pages/dashboard/Dashboard.vue";
 import SummaryRegistrations from "./pages/summary/registrations.vue";
 import Surveys from "./pages/summary/surveys.vue";
 import Scan from "./pages/scanners/scan.vue";
@@ -44,7 +44,7 @@ const routes = [
     props: {pageComponent: Scan}
   },
   {
-    path: "/admin",
+    path: "/login",
     name: "Login",
     component: Login
   },
