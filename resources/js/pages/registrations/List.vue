@@ -184,7 +184,7 @@ export default {
         },
         closeTerminal() {
 
-            
+            this.$store.dispatch('importData/INIT')
 
         }
     },
