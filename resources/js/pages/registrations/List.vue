@@ -8,6 +8,7 @@
                         <template #empty>
                             <div v-if="showTerminal">
                                 <div class="p-d-flex p-p-3">
+                                    <Button type="Button" class="p-button-warning p-mr-2" :disabled="checking" @click="closeTerminal">Close</Button>
                                     <Button type="Button" label="Start Import" class="p-button-danger p-ml-auto" :disabled="checking" @click="checkData" />
                                 </div>                     
                                 <div class="terminal">
@@ -159,9 +160,9 @@ export default {
 
             const data = JSON.parse(response)
 
-            const { data: { filename } } = data
+            const { data: { filename, path } } = data
 
-            this.$store.dispatch('importData/EXCEL',filename)
+            this.$store.dispatch('importData/EXCEL',{ excel: filename, path })
             this.$store.dispatch('importData/INFO',"Excel uploaded, click 'START IMPORT' to begin")
 
         },
@@ -181,6 +182,11 @@ export default {
             this.$store.dispatch('importData/CHECK_DATA')
 
         },
+        closeTerminal() {
+
+            
+
+        }
     },
     mounted() {
         this.fetchRegistrations({ page: 0 })     
