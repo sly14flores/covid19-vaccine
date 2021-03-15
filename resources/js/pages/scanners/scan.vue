@@ -1,31 +1,51 @@
 <template>
-    <div>           
-        <div class="p-grid p-jc-center p-mt-2">
-            <div class="p-lg-6 p-md-12 p-xs-12">
-                <div class="card p-fluid">
-                    <div class="p-grid p-jc-center">
-                        <div class="p-lg-2 p-md-2 p-xs-5">
-                            <img alt="logo" src="img/qr-code.png" class="qr-code" />
+    <div>
+        <div class="card">
+            <h5>Vaccines</h5>
+            <TabView>
+                <TabPanel header="QR Code Scanning">
+                     <div class="p-grid p-jc-center p-mt-2">
+                        <div class="p-lg-8 p-sm-12 p-xs-12">
+                            <div class=" p-fluid p-shadow-2">
+                                <div class="p-grid p-jc-center">
+                                    <div class="p-lg-1 p-md-1 p-xs-5">
+                                        <img alt="logo" src="img/qr-code.png" class="qr-code" />
+                                    </div>
+                                </div>
+                                <div class="p-grid p-jc-center p-mt-2">
+                                    <h2 class="p-label-blue">QR Code Scanning</h2>
+                                </div>
+                                <div class="p-grid">
+                                    <div class="p-field p-col-12 p-md-12">
+                                        <div class="center stream">
+                                            <qr-stream @decode="onDecode" class="mb p-shadow-3">
+                                                <div style="color: #fe664f;" class="frame"></div>
+                                            </qr-stream>
+                                        </div>
+                                        <div class="center">
+                                            Result: {{data}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="p-grid p-jc-center p-mt-2">
-                        <h1 class="p-label-red">QR Code Scanning</h1>
-                    </div>
-                    <div class="p-grid">
-                        <div class="p-field p-col-12 p-md-12">
-                            <div class="center stream">
-                                <qr-stream @decode="onDecode" class="mb p-shadow-3">
-                                    <div style="color: #fe664f;" class="frame"></div>
-                                </qr-stream>
-                            </div>
-                            <div class="center">
-                                Result: {{data}}
+                </TabPanel>
+                <TabPanel header="Search">
+                    <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-4">
+                                <label for="qr_pass_id">Napanam ID No.: <i class="p-error">*</i></label>
+                                <div class="p-inputgroup">
+                                    <InputText class="p-shadow-1" id="qr_pass_id " type="text" placeholder="Enter Napanam ID No." />
+                                    <Button label="Go!" class="p-button-primary"/>
+                                </div>
+                                <small class="p-error">Error here</small>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                </TabPanel>
+            </TabView>
+        </div>   
+       
     </div>
 </template>
 
@@ -35,13 +55,15 @@ import Button from 'primevue/button/sfc';
 import InputText from 'primevue/inputtext/sfc';
 import Dropdown from 'primevue/dropdown/sfc';
 import Menubar from 'primevue/menubar/sfc';
+import TabView from 'primevue/tabview';
+import TabPanel from 'primevue/tabpanel';
 
 import { QrStream, QrCapture, QrDropzone } from 'vue3-qr-reader';
 import { reactive, toRefs } from 'vue';
  
 export default {
     data() {
-       
+      
     },
     components: {
         Button,
@@ -50,7 +72,9 @@ export default {
         Menubar,
         QrStream,
         QrCapture,
-        QrDropzone
+        QrDropzone,
+        TabView,
+        TabPanel
     },
     setup() {
     const state = reactive({
@@ -83,7 +107,7 @@ export default {
     .p-label-white {
         color: white;
     }
-    .p-label-red {
+    .p-label-blue {
         color: #215266;
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
@@ -92,8 +116,11 @@ export default {
         .calendar {
             height: 80px;
         }
-        .p-label-red {
+        .p-label-blue {
             font-size: 20px;
+        }
+        .qr-code{
+            height: 60px;
         }
     }
     /* Remove arrow for input="number"*/

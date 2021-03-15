@@ -64,7 +64,7 @@ export default [
         ]
     },
     {
-        label:'Scan',
+        label:'Vaccines',
         icon:'pi pi-fw pi-desktop',
         to: '/scanners/scan'
     }
