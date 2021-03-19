@@ -716,4 +716,7 @@ export default {
         border-bottom: 1px solid black;
         cursor: not-allowed; 
     }
+    .p-border {
+        border: 1px solid #215266;
+    }
 </style>
