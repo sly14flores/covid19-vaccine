@@ -22,9 +22,6 @@
                                                 <div style="color: #fe664f;" class="frame"></div>
                                             </qr-stream>
                                         </div>
-                                        <div class="center">
-                                            Result: {{data}}
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -391,8 +388,8 @@ import RadioButton from 'primevue/radiobutton/sfc';
 import ConfirmDialog from 'primevue/confirmdialog/sfc';
 
 import { QrStream, QrCapture, QrDropzone } from 'vue3-qr-reader';
-import { reactive, toRefs } from 'vue';
- 
+import { useStore } from 'vuex'
+
 export default {
     data() {
       
@@ -412,17 +409,20 @@ export default {
         ConfirmDialog
     },
     setup() {
-    const state = reactive({
-      data: null
-    })
-    function onDecode(data) {
-      state.data = data
+
+        const store = useStore()
+
+        function onDecode(data) {
+            const str = data.split('r')
+            const qr = str[1]
+            store.dispatch('vaccines/GET_BY_QR',{ id: qr })
+        }
+
+        return {
+            onDecode
+        }
+
     }
-    return {
-      ...toRefs(state),
-      onDecode
-    }
-  }
 }
 </script>
 
