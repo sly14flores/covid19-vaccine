@@ -11,10 +11,10 @@
                             <div class="p-field p-col-12 p-md-3">
                                 <label for="qr_pass_id">Napanam ID No.: <i class="p-error">*</i></label>
                                 <div class="p-inputgroup">
-                                    <InputText class="p-shadow-1" id="qr_pass_id " type="text" placeholder="Enter Napanam ID No." v-model="qr_pass_id" :class="{'p-invalid': qr_pass_idError}" :disabled="editMode && !writeOn" />
-                                    <Button label="Fetch" class="p-button-primary"/>
+                                    <InputText class="p-shadow-1" id="qr_pass_id " type="text" placeholder="Enter Napanam ID No." v-model="qr_pass_id" :class="{'p-invalid': qr_pass_idError}"/>
+                                    <Button label="Fetch" v-on:click="getNapanam" class="p-button-primary" />
                                 </div>
-                                <small class="p-error">{{ first_nameError }}</small>
+                                <small class="p-error">{{ qr_pass_idError }}</small>
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
@@ -381,7 +381,7 @@ export default {
 
         const init = {
             initialValues: {
-                registration: {...registration}
+                registration: {...store.state.registrations.registration}
             }
         }
 
@@ -400,6 +400,11 @@ export default {
             dispatch('registrations/GET_REGISTRATION', { id: registrationId })
         } else { // New
             resetForm();
+        }
+
+         const getNapanam = () => {
+            //console.log(qr_pass_id._value)
+            store.dispatch('registrations/GET_NAPANAM', { id: qr_pass_id._value })
         }
 
         const onSubmit = handleSubmit((values, actions) => {
@@ -578,7 +583,8 @@ export default {
             diagnosedError,
             consent_vaccinationError,
             onSubmit,
-            editMode
+            editMode,
+            getNapanam
         }
 
     },
@@ -590,7 +596,7 @@ export default {
             comorbidity_others_hide: false,
             diagnosed_hide: false,
             home: {icon: 'pi pi-home', to: '/registrations'},
-            items: [{label: (this.editMode)?'Edit Registration':'New Registration', to: `${this.$route.fullPath}`}],
+            items: [{label: (this.editMode)?'Edit Registration':'New Registration', to: `${this.$route.fullPath}`}]
         }
     },
     components: {
@@ -694,7 +700,7 @@ export default {
         },
         toggleWrite() {
             this.writeOn = !this.writeOn
-        }
+        },
     },
     mounted() {
         this.fetchSelections()
