@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\HospitalController;
 use App\Http\Controllers\Api\DOHDataSelections;
 use App\Http\Controllers\Api\GeneralDataSelections;
 use App\Http\Controllers\Api\RegistrationController;
+use App\Http\Controllers\Api\VaccineController;
 use App\Http\Controllers\Api\RegistrationImportController;
 use App\Http\Controllers\Api\SurveysSummary;
 
@@ -107,6 +108,22 @@ Route::prefix('doh')->group(function() {
     ],[
         'except' => ['index']
     ]);
+
+    /**
+     * Vaccines
+     */
+    Route::apiResources([
+        'vaccines' => VaccineController::class,
+    ],[
+        'only' => ['index']
+    ]);
+    Route::apiResources([
+        'vaccine' => VaccineController::class,
+    ],[
+        'except' => ['index']
+    ]);
+    Route::get('vaccines/qr/{id}', [VaccineController::class, 'qrRegistration']);
+
 
     /**
      * Upload excel for import
