@@ -92,6 +92,7 @@ Route::prefix('doh')->group(function() {
      */
     Route::get('selections', DOHDataSelections::class);
     Route::get('selections/addresses', [DOHDataSelections::class, 'addresses']);
+    Route::get('selections/vaccines', [DOHDataSelections::class, 'vaccines']);
 
     /**
      * Registration
@@ -127,6 +128,11 @@ Route::prefix('general')->group(function() {
          * Hospitals
          */
         Route::get('hospitals', [GeneralDataSelections::class, 'hospitals']);
+
+        /**
+         * Groups
+         */
+        Route::get('groups', [GeneralDataSelections::class, 'groups']);
 
     });
 

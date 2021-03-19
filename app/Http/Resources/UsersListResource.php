@@ -23,6 +23,8 @@ class UsersListResource extends JsonResource
             'email' => $this->email,
             'username' => $this->username,
             'hospital' => (is_null($this->userHospital))?null:$this->userHospital->description,
+            'group_name' => $this->groupName($this->group_id),
+            'profession' => $this->profession,
             'date_created' => $this->created_at,
         ];
     }
