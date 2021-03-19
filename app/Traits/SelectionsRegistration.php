@@ -314,6 +314,29 @@ trait SelectionsRegistration
         return $barangays->pluck('doh');
     }
 
+    public function vaccineValue()
+    {
+        /**
+         * Vaccines
+         */
+        $vaccines = [
+            [
+                'id' => 1,
+                'name' => 'Pfizer'
+            ],
+            [
+                'id' => 2,
+                'name' => 'Astrazeneca'
+            ],
+            [
+                'id' => 3,
+                'name' => 'Sinovac'
+            ],
+        ];
+
+        return $vaccines;
+    }
+
     public function yesNo()
     {
         return [
