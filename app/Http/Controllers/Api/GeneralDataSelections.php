@@ -24,4 +24,9 @@ class GeneralDataSelections extends Controller
         return $this->jsonSuccessResponse($hospitals, 200);
     }
 
+    public function groups()
+    {
+        return config('constants.groups');
+    }
+
 }

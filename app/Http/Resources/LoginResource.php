@@ -19,7 +19,9 @@ class LoginResource extends JsonResource
             'firstname' => $this->firstname,
             'lastname' => $this->lastname,
             'token' => $this->token,
-            'hospital' => $this->hospital
+            'hospital' => $this->hospital,
+            'group_id' => $this->group_id,
+            'group_name' => $this->groupName($this->group_id)
         ];
     }
 }

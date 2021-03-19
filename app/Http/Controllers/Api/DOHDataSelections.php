@@ -43,7 +43,7 @@ class DOHDataSelections extends Controller
             "covid_classification_value" => $this->covidClassificationValue(),
             "employer_lgu_value" => $this->employerLguValue(),
             "month_value" => $this->monthValue(),
-            "day_value" => $this->dayValue(),            
+            "day_value" => $this->dayValue(),
         ];
 
         return $this->jsonSuccessResponse($selections, 200);
@@ -91,6 +91,12 @@ class DOHDataSelections extends Controller
         return [
             "province_value" => $provinces,
         ];
+    }
+
+    public function vaccines()
+    {
+        $vaccines = $this->vaccineValue();
+        return $this->jsonSuccessResponse($vaccines, 200);        
     }
 
 }
