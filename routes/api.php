@@ -79,6 +79,7 @@ Route::prefix('napanam')->group(function() {
 
     Route::get('check/registration/{id}', [NapanamController::class, 'checkRegistration']);
     Route::get('check/registration/{id}/{birthday}', [NapanamController::class, 'verifyNapanamQR']);
+    Route::get('check/registrationID/{id}', [NapanamController::class, 'getNapanamIDNO']);
 
 });
 

@@ -9,6 +9,7 @@
 		</button>
         <transition name="layout-submenu-wrapper">
             <ul v-show="expanded">
+				<router-link to="/change-password"><li><button class="p-link"><i class="pi pi-fw pi-lock"></i><span>Change Password</span></button></li></router-link>
                 <li><button class="p-link" @click="logout"><i class="pi pi-fw pi-power-off"></i><span>Logout</span></button></li>
             </ul>
         </transition>

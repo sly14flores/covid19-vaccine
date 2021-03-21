@@ -50,6 +50,12 @@
                             <Column field="qr_pass_id" header="Napanam ID No" sortable="true"></Column>
                             <Column field="first_name" header="First Name" sortable="true"></Column>
                             <Column field="last_name" header="Last Name" sortable="true"></Column>
+                            <Column field="id" header="Actions">
+                                <template #body="slotProps">
+                                    <router-link :to="`/registrations/registration/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>
+                                    <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" @click="deleteRegistration(slotProps.data.id)" />
+                                </template>
+                            </Column>
                         </DataTable>
                         <Paginator :rows="pagination.per_page" :totalRecords="pagination.total" @page="fetchRegistrations($event)"></Paginator>
                     </Panel>
@@ -147,6 +153,20 @@ export default {
             // event.pageCount: Total number of pages
             const { page } = event
             this.$store.dispatch('registrations/GET_REGISTRATIONS', { page })
+        },
+        deleteRegistration(id) {
+            this.$confirm.require({
+                key: 'confirmDelete',
+                message: 'Are you sure you want to delete this record?',
+                header: 'Confirmation',
+                icon: 'pi pi-exclamation-triangle',
+                accept: () => {
+                    this.$store.dispatch('registrations/DELETE_REGISTRATION', {id})
+                },
+                reject: () => {
+                    //callback to execute when hospital rejects the action
+                }
+            });
         },
         setBeforeSend(e) {
             
