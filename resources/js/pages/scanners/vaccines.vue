@@ -6,6 +6,7 @@
                 <TabPanel header="QR Code Scanning">
                     <div class="p-grid">
                         <div class="p-lg-4 p-sm-12 p-xs-12 p-mt-2">
+                            <Button icon="pi pi-refresh" @click="reset" />
                             <div class=" p-fluid p-shadow-2">
                                 <div class="p-grid p-jc-center">
                                     <div class="p-lg-2 p-md-2 p-xs-5">
@@ -18,7 +19,7 @@
                                 <div class="p-grid">
                                     <div class="p-field p-col-11 p-md-12">
                                         <div class="center stream">
-                                            <qr-stream @decode="onDecode" class="mb p-shadow-3">
+                                            <qr-stream :camera="camera" @decode="onDecode" class="mb p-shadow-3">
                                                 <div style="color: #fe664f;" class="frame"></div>
                                             </qr-stream>
                                         </div>
@@ -368,7 +369,9 @@ export default {
 
     },
     data() {
-      
+      return {
+          camera: 'auto'
+      }
     },
     components: {
         Button,
@@ -451,6 +454,40 @@ export default {
         fetchSelections() {
             this.$store.dispatch('vaccines/GET_SELECTIONS')
         },
+        async onInit (promise) {
+            try {
+                await promise
+            } catch (e) {
+                console.error(e)
+            } finally {
+            }
+        },        
+        async onDecode(data) {
+            const str = data.split('r')
+            const qr = str[1]
+            this.$store.dispatch('vaccines/GET_BY_QR',{ id: qr })
+            // reset
+            // this.pause()
+            // await this.timeout(500)
+            // this.unpause()
+            //
+        },
+        async reset() {
+            this.pause()
+            await this.timeout(500)
+            this.unpause()
+        },
+        unpause () {
+            this.camera = 'auto'
+        },
+        pause () {
+            this.camera = 'off'
+        },
+        timeout (ms) {
+            return new Promise(resolve => {
+                window.setTimeout(resolve, ms)
+            })
+        }        
     },
     mounted() {
         this.fetchSelections()
