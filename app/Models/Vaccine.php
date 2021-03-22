@@ -18,21 +18,11 @@ class Vaccine extends Model
      */
     protected $fillable = [
         'user_id',
+        'qr_pass_id',
         'vaccine_name',
         'batch_number',
         'lot_number',
         'dose',
     ];
-
-    /**
-     * @param $value
-     * @return false|string
-     */
-    public function getCreatedAtAttribute($value)
-    {
-        return Carbon::parse($value)->format('F j, Y h:i A');
-    }
-
-    
 
 }

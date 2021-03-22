@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Vaccine;
+use App\Http\Resources\VaccineResource;
+use App\Http\Resources\VaccineResourceCollection;
+use App\Http\Resources\VaccinesListResourceCollection;
+
 use App\Models\Registration;
 use App\Http\Resources\RegistrationVaccineResource;
 
@@ -33,9 +37,17 @@ class VaccineController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $id)
     {
-        //
+        $vaccines = Vaccine::where('qr_pass_id',$id)->get();
+
+        if (is_null($vaccines)) {
+			return $this->jsonErrorResourceNotFound();
+        }   
+
+        $data = new VaccinesListResourceCollection($vaccines);
+
+        return $this->jsonSuccessResponse($data, 200);
     }
 
     /**
@@ -56,7 +68,28 @@ class VaccineController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'qr_pass_id' => 'string',
+            'vaccine_name' => 'integer',
+            'batch_number' => 'integer',
+            'lot_number' => 'integer',
+            'lot_number' => 'integer',
+            'dose' => 'integer',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        /** Get validated data */
+        $data = $validator->valid();
+
+        $vaccine = new Vaccine;
+        $vaccine->fill($data);
+
+        $vaccine->save();
+
+        $data = new VaccineResource($vaccine);
+
+        return $this->jsonSuccessResponse($data, 200); 
     }
 
     /**
@@ -67,7 +100,19 @@ class VaccineController extends Controller
      */
     public function show($id)
     {
-        //
+        if (filter_var($id, FILTER_VALIDATE_INT) === false ) {
+            return $this->jsonErrorInvalidParameters();
+        }
+
+        $vaccine = Vaccine::find($id);        
+
+        if (is_null($vaccine)) {
+			return $this->jsonErrorResourceNotFound();
+        }
+
+        $data = new VaccineResource($vaccine);
+
+        return $this->jsonSuccessResponse($data, 200, 'Vaccine added successfully');
     }
 
     /**
@@ -90,7 +135,38 @@ class VaccineController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (filter_var($id, FILTER_VALIDATE_INT) === false ) {
+            return $this->jsonErrorInvalidParameters();
+        }
+
+        $vaccine = Vaccine::find($id);      
+
+        if (is_null($vaccine)) {
+			return $this->jsonErrorResourceNotFound();
+        }
+
+        $rules = [
+            'qr_pass_id' => 'string',
+            'vaccine_name' => 'integer',
+            'batch_number' => 'integer',
+            'lot_number' => 'integer',
+            'lot_number' => 'integer',
+            'dose' => 'integer',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);        
+
+        /** Get validated data */
+        $data = $validator->valid();        
+        unset($data['id']);
+
+        $vaccine->fill($data);
+
+        $vaccine->save();
+
+        $data = new VaccineResource($vaccine);
+
+        return $this->jsonSuccessResponse($data, 200, 'Vaccine info updated successfully'); 
     }
 
     /**
@@ -101,7 +177,19 @@ class VaccineController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (filter_var($id, FILTER_VALIDATE_INT) === false ) {
+            return $this->jsonErrorInvalidParameters();
+        }
+
+        $vaccine = Vaccine::find($id);        
+
+        if (is_null($vaccine)) {
+			return $this->jsonErrorResourceNotFound();
+        }        
+
+        $vaccine->delete();
+
+        return $this->jsonDeleteSuccessResponse();
     }
 
     public function qrRegistration(Request $request, $id)
