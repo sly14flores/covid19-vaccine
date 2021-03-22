@@ -6,7 +6,8 @@
                 <TabPanel header="QR Code Scanning">
                      <div class="p-grid p-jc-center p-mt-2">
                         <div class="p-lg-8 p-sm-12 p-xs-12">
-                            <div class=" p-fluid p-shadow-2">
+                            <Button icon="pi pi-refresh" @click="reset" />
+                            <div class="p-mt-4 p-fluid p-shadow-2">
                                 <div class="p-grid p-jc-center">
                                     <div class="p-lg-1 p-md-1 p-xs-5">
                                         <img alt="logo" src="img/qr-code.png" class="qr-code" />
@@ -18,7 +19,7 @@
                                 <div class="p-grid">
                                     <div class="p-field p-col-12 p-md-12">
                                         <div class="center stream">
-                                            <qr-stream @decode="onDecode" class="mb p-shadow-3">
+                                            <qr-stream :camera="camera" @decode="onDecode" class="mb p-shadow-3">
                                                 <div style="color: #fe664f;" class="frame"></div>
                                             </qr-stream>
                                         </div>
@@ -392,7 +393,9 @@ import { useStore } from 'vuex'
 
 export default {
     data() {
-      
+      return {
+          camera: 'auto'
+      }
     },
     components: {
         Button,
@@ -412,16 +415,46 @@ export default {
 
         const store = useStore()
 
-        function onDecode(data) {
+        async function onInit() {
+
+        }
+
+    },
+    methods: {
+        async onInit (promise) {
+            try {
+                await promise
+            } catch (e) {
+                console.error(e)
+            } finally {
+            }
+        },        
+        async onDecode(data) {
             const str = data.split('r')
             const qr = str[1]
-            store.dispatch('vaccines/GET_BY_QR',{ id: qr })
-        }
-
-        return {
-            onDecode
-        }
-
+            this.$store.dispatch('vaccines/GET_BY_QR',{ id: qr })
+            // reset
+            // this.pause()
+            // await this.timeout(500)
+            // this.unpause()
+            //
+        },
+        async reset() {
+            this.pause()
+            await this.timeout(500)
+            this.unpause()
+        },
+        unpause () {
+            this.camera = 'auto'
+        },
+        pause () {
+            this.camera = 'off'
+        },
+        timeout (ms) {
+            return new Promise(resolve => {
+                window.setTimeout(resolve, ms)
+            })
+        }        
     }
 }
 </script>
