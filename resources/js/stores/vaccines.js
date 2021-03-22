@@ -51,12 +51,18 @@ const selections = {
     day_value
 };
 
+const dosages = [
+    {id: 1, name: 'First'},
+    {id: 2, name: 'Second'},
+]
+
 const state = () => {
     return {
         fetched: false,
         saving: false,
         selections,
-        registration
+        registration,
+        dosages,
     }
 }
 
