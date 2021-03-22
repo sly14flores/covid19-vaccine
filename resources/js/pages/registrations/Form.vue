@@ -11,8 +11,8 @@
                             <div class="p-field p-col-12 p-md-3">
                                 <label for="qr_pass_id">Napanam ID No.: <i class="p-error">*</i></label>
                                 <div class="p-inputgroup">
-                                    <InputText class="p-shadow-1" id="qr_pass_id " type="text" placeholder="Enter Napanam ID No." v-model="qr_pass_id" :class="{'p-invalid': qr_pass_idError}"/>
-                                    <Button label="Fetch" v-on:click="getNapanam" class="p-button-primary" />
+                                    <InputText class="p-shadow-1" id="qr_pass_id " type="text" placeholder="Enter Napanam ID No." v-model="qr_pass_id" :class="{'p-invalid': qr_pass_idError}" :disabled="editMode && !writeOn"/>
+                                    <Button label="Fetch" @click="getNapanam" class="p-button-primary" />
                                 </div>
                                 <small class="p-error">{{ qr_pass_idError }}</small>
                             </div>
@@ -25,60 +25,61 @@
                             </div>
                             <div class="p-field p-col-12 p-md-3">
                                 <label for="last_name">Last Name <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" id="last_name " type="text" placeholder="Enter Last Name" v-model="last_name" :class="{'p-invalid': last_nameError}" :disabled="editMode && !writeOn" />
+                                <InputText class="p-shadow-1" id="last_name" type="text" placeholder="Enter Last Name" v-model="last_name" :class="{'p-invalid': last_nameError}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ last_nameError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-3">
-                                <label for="middle_name">Middle Name <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" id="middle_name " type="text" placeholder="Enter Middle Name" v-model="middle_name" :disabled="editMode && !writeOn" />
+                                <label for="middle_name">Middle Name </label>
+                                <InputText class="p-shadow-1" id="middle_name" type="text" placeholder="Enter Middle Name" v-model="middle_name" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-3">
                                 <label>Suffix/Extension Name <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="suffix_value" optionValue="id" v-model="suffix" placeholder="Select a Suffix" :class="{'p-invalid': suffixError}" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="suffix_value" optionValue="id" v-model="suffix" placeholder="Select a Suffix" :class="{'p-invalid': suffixError}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ suffixError }}</small>    
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-3">
                                 <label>Birthdate <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="date" v-model="birthdate" />
+                                <InputText class="p-shadow-1" type="date" v-model="birthdate" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-3">
                                 <label>Sex <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" placeholder="Select a Gender" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" :class="{'p-invalid': genderError}" placeholder="Select a Gender" :disabled="editMode && !writeOn" />
+                                <small class="p-error">{{ genderError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-3">
                                 <label>Civil Status <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="civil_status_value" optionValue="id" v-model="civil_status" placeholder="Select a Civil Status" :class="{'p-invalid': civil_statusError}" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="civil_status_value" optionValue="id" v-model="civil_status" placeholder="Select a Civil Status" :class="{'p-invalid': civil_statusError}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ civil_statusError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-3">
                                 <label>Contact No.: <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="text" v-model="contact_no" />
+                                <InputText class="p-shadow-1" type="text" v-model="contact_no" :disabled="editMode && !writeOn" />
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Region <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="text" v-model="region" />
+                                <InputText class="p-shadow-1" type="text" v-model="region" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Province <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="text" v-model="province" />
+                                <InputText class="p-shadow-1" type="text" v-model="province" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Municipality <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="text" v-model="town_city" />
+                                <InputText class="p-shadow-1" type="text" v-model="town_city" :disabled="editMode && !writeOn" />
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-8">
                                 <label>Unit/Building/Street/House No. <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="text" v-model="address" />
+                                <InputText class="p-shadow-1" type="text" v-model="address" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Barangay <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="text" v-model="barangay" />
+                                <InputText class="p-shadow-1" type="text" v-model="barangay" :disabled="editMode && !writeOn" />
                             </div>
                         </div>
                     </div>
@@ -88,17 +89,17 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Category <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" v-model="category" optionValue="id" placeholder="Select a Category" :class="{'p-invalid': categoryError}" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" v-model="category" optionValue="id" placeholder="Select a Category" :class="{'p-invalid': categoryError}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ categoryError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Category ID <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" v-model="category_id" optionValue="id" placeholder="Select a Category ID" :class="{'p-invalid': category_idError}" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" v-model="category_id" optionValue="id" placeholder="Select a Category ID" :class="{'p-invalid': category_idError}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ category_idError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Category ID No. <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" v-model="category_id_no" :class="{'p-invalid': category_id_noError}" />
+                                <InputText class="p-shadow-1" v-model="category_id_no" :class="{'p-invalid': category_id_noError}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ category_id_noError }}</small>
                             </div>
                         </div>
@@ -106,34 +107,34 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Profession <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="profession_value" v-model="profession" optionValue="id" placeholder="Select a Profession" :class="{'p-invalid': professionError}" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="profession_value" v-model="profession" optionValue="id" placeholder="Select a Profession" :class="{'p-invalid': professionError}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ professionError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>PhilHealth ID <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="text" placeholder="00-000000000-0" v-model="philhealth" :class="{'p-invalid': philhealthError}" />
+                                <InputText class="p-shadow-1" type="text" placeholder="00-000000000-0" v-model="philhealth" :class="{'p-invalid': philhealthError}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ philhealthError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label> PWD ID No.</label>
-                                <InputText class="p-shadow-1" type="text" name="pwd_id" v-model="pwd_id" />
+                                <InputText class="p-shadow-1" type="text" name="pwd_id" v-model="pwd_id" :disabled="editMode && !writeOn" />
                             </div>
                         </div>
 
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Employment Status <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status" :class="{'p-invalid': employment_statusError}" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status" :class="{'p-invalid': employment_statusError}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ employment_statusError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Employer Name <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="text" v-model="employer_name" :class="{'p-invalid': employer_nameError}" />
+                                <InputText class="p-shadow-1" type="text" v-model="employer_name" :class="{'p-invalid': employer_nameError}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ employer_nameError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Municipality <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employer_municipality_value" v-model="employer_municipality" optionValue="id" placeholder="Select a Employment Municipality" :class="{'p-invalid': employer_municipalityError}" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employer_municipality_value" v-model="employer_municipality" optionValue="id" placeholder="Select a Employment Municipality" :class="{'p-invalid': employer_municipalityError}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ employer_municipalityError }}</small>
                             </div>
                         </div>
@@ -141,12 +142,12 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-8">
                                 <label>Employer Address <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="text" v-model="employer_address" :class="{'p-invalid': employer_addressError}" />
+                                <InputText class="p-shadow-1" type="text" v-model="employer_address" :class="{'p-invalid': employer_addressError}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ employer_addressError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Employer Contact No. <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="text" v-model="employer_contact_no" :class="{'p-invalid': employer_contact_noError}" />
+                                <InputText class="p-shadow-1" type="text" v-model="employer_contact_no" :class="{'p-invalid': employer_contact_noError}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ employer_contact_noError }}</small>
                             </div>
                         </div>
@@ -160,11 +161,11 @@
                                 <p class="p-error"><small>{{ direct_interactionError }}</small></p>
                             </div>
                             <div class="p-field p-col-12 p-md-1">
-                                <RadioButton class="p-mb-2" id="yes_direct_interaction" name="direct_interaction" v-model="direct_interaction" value="01_Yes" />
+                                <RadioButton class="p-mb-2" id="yes_direct_interaction" name="direct_interaction" v-model="direct_interaction" value="01_Yes" :disabled="editMode && !writeOn" />
                                 <label for="yes_direct_interaction" class="p-ml-1">Yes</label>
                             </div>
                             <div class="p-field p-col-12 p-md-1">
-                                <RadioButton class="p-mb-2" id="no_direct_interaction" name="direct_interaction" v-model="direct_interaction" value="02_No" />
+                                <RadioButton class="p-mb-2" id="no_direct_interaction" name="direct_interaction" v-model="direct_interaction" value="02_No" :disabled="editMode && !writeOn" />
                                 <label for="no_direct_interaction" class="p-ml-1">No</label>
                             </div>
                         </div>
@@ -175,11 +176,11 @@
                                 <p class="p-error"><small>{{ pregnancy_statusError }}</small></p>
                             </div>
                             <div class="p-field p-col-12 p-md-1">
-                                <RadioButton class="p-mb-2" id="pregnant" name="pregnancy_status" v-model="pregnancy_status" value="01_Pregnant" />
+                                <RadioButton class="p-mb-2" id="pregnant" name="pregnancy_status" v-model="pregnancy_status" value="01_Pregnant" :disabled="editMode && !writeOn" />
                                 <label for="pregnant" class="p-ml-1">Pregnant</label>
                             </div>
                             <div class="p-field p-col-12 p-md-8">
-                                <RadioButton class="p-mb-2" id="not_pregnant" name="pregnancy_status" v-model="pregnancy_status" value="02_Not_Pregnant" />
+                                <RadioButton class="p-mb-2" id="not_pregnant" name="pregnancy_status" v-model="pregnancy_status" value="02_Not_Pregnant" :disabled="editMode && !writeOn" />
                                 <label for="not_pregnant" class="p-ml-1">Not Pregnant</label>
                             </div>
                         </div>
@@ -190,11 +191,11 @@
                                 <p class="p-error"><small>{{ with_allergyError }}</small></p>
                             </div>
                             <div class="p-field p-col-12 p-md-1">
-                                <RadioButton class="p-mb-2" id="yes_allergy" name="with_allergy" v-model="with_allergy" value="01_Yes" v-on:click="with_allergy_hide = true" />
+                                <RadioButton class="p-mb-2" id="yes_allergy" name="with_allergy" v-model="with_allergy" value="01_Yes" v-on:click="with_allergy_hide = true" :disabled="editMode && !writeOn" />
                                 <label for="yes_allergy" class="p-ml-1">Yes</label>
                             </div>
                             <div class="p-field p-col-12 p-md-1">
-                            <RadioButton class="p-mb-2" id="none_allergy" name="with_allergy" v-model="with_allergy" value="02_None"  v-on:click="with_allergy_hide = false" />
+                            <RadioButton class="p-mb-2" id="none_allergy" name="with_allergy" v-model="with_allergy" value="02_None"  v-on:click="with_allergy_hide = false" :disabled="editMode && !writeOn" />
                                 <label for="none_allergy" class="p-ml-1">None</label>
                             </div>
                             <div class="p-field p-col-12 p-md-4" v-if="with_allergy_hide">
@@ -236,11 +237,11 @@
                                 <p class="p-error"><small>{{ with_comorbidityError }}</small></p>
                             </div>
                             <div class="p-field p-col-12 p-md-1">
-                                <RadioButton class="p-mb-2" id="yes_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="01_Yes" v-on:click="with_comorbidity_hide = true" />
+                                <RadioButton class="p-mb-2" id="yes_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="01_Yes" v-on:click="with_comorbidity_hide = true" :disabled="editMode && !writeOn" />
                                 <label for="yes_comorbidity" class="p-ml-1">Yes</label>
                             </div>
                             <div class="p-field p-col-12 p-md-1">
-                                <RadioButton class="p-mb-2" id="none_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="02_None" v-on:click="with_comorbidity_hide = false" />
+                                <RadioButton class="p-mb-2" id="none_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="02_None" v-on:click="with_comorbidity_hide = false" :disabled="editMode && !writeOn" />
                                 <label for="none_comorbidity" class="p-ml-1">None</label>
                             </div>
                             <div class="p-field p-col-12 p-md-3" v-if="with_comorbidity_hide">
@@ -292,20 +293,20 @@
                                 <p class="p-error"><small>{{ diagnosedError }}</small></p>
                             </div>
                             <div class="p-field p-col-12 p-md-1">
-                                <RadioButton class="p-mb-2" id="yes_diagnosed" name="diagnosed" v-model="diagnosed" value="01_Yes"  v-on:click="diagnosed_hide = true" />
+                                <RadioButton class="p-mb-2" id="yes_diagnosed" name="diagnosed" v-model="diagnosed" value="01_Yes"  v-on:click="diagnosed_hide = true" :disabled="editMode && !writeOn" />
                                 <label for="yes_diagnosed" class="p-ml-1">Yes</label>
                             </div>
                             <div class="p-field p-col-12 p-md-1">
-                                <RadioButton class="p-mb-2" id="no_diagnosed" name="diagnosed" v-model="diagnosed" value="02_No" v-on:click="diagnosed_hide = false" />
+                                <RadioButton class="p-mb-2" id="no_diagnosed" name="diagnosed" v-model="diagnosed" value="02_No" v-on:click="diagnosed_hide = false" :disabled="editMode && !writeOn" />
                                 <label for="no_diagnosed" class="p-ml-1">No</label>
                             </div>
                             <div class="p-field p-col-12 p-md-3" v-if="diagnosed_hide">
                                 <label>Covid Classification</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="covid_classification_value" v-model="covid_classification" optionValue="id" placeholder="Select a Covid Classification" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="covid_classification_value" v-model="covid_classification" optionValue="id" placeholder="Select a Covid Classification" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-3" v-if="diagnosed_hide">
                                 <label>Date</label>
-                                <InputText class="p-shadow-1" type="date" v-model="diagnosed_date" />
+                                <InputText class="p-shadow-1" type="date" v-model="diagnosed_date" :disabled="editMode && !writeOn" />
                             </div>
                         </div>
                     </div>
@@ -318,15 +319,15 @@
                                 <p class="p-error"><small>{{ consent_vaccinationError }}</small></p>
                             </div>
                             <div class="p-field p-col-12 p-md-1">
-                                <RadioButton class="p-mb-2" id="yes_vaccination" name="vaccination" v-model="consent_vaccination" value="01_Yes" />
+                                <RadioButton class="p-mb-2" id="yes_vaccination" name="vaccination" v-model="consent_vaccination" value="01_Yes" :disabled="editMode && !writeOn" />
                                 <label for="yes_vaccination" class="p-ml-1">Yes</label>
                             </div>
                             <div class="p-field p-col-12 p-md-1">
-                                <RadioButton class="p-mb-2" id="no_vaccination" name="vaccination" v-model="consent_vaccination" value="02_No" />
+                                <RadioButton class="p-mb-2" id="no_vaccination" name="vaccination" v-model="consent_vaccination" value="02_No" :disabled="editMode && !writeOn" />
                                 <label for="no_vaccination" class="p-ml-1">No</label>
                             </div>
                             <div class="p-field p-col-12 p-md-3">
-                                <RadioButton class="p-mb-2" id="Unknown_vaccination" name="vaccination" v-model="consent_vaccination" value="03_Unknown" />
+                                <RadioButton class="p-mb-2" id="Unknown_vaccination" name="vaccination" v-model="consent_vaccination" value="03_Unknown" :disabled="editMode && !writeOn" />
                                 <label for="Unknown_vaccination" class="p-ml-1">Unknown</label>
                             </div>
                         </div>
@@ -387,15 +388,26 @@ export default {
 
         const { setValues, handleSubmit, resetForm } = useForm(init);
 
-        watch(
-            () => state.registrations.registration,
-            (data, prevData) => {
-                setValues({
-                    registration: {...data}
-                })
-            }
-        )
-
+        if (editMode) { // Edit
+            watch(
+                () => state.registrations.registration,
+                (data, prevData) => {
+                    setValues({
+                        registration: {...store.state.registrations.registration}
+                    })
+                }
+            )
+        } else { // New
+            watch(
+                () => store.state.registrations.fetched,
+                (data, prevData) => {
+                    setValues({
+                        registration: {...store.state.registrations.registration}
+                    })
+                }
+            )
+        }
+        
         if (editMode) { // Edit
             dispatch('registrations/GET_REGISTRATION', { id: registrationId })
         } else { // New
@@ -404,7 +416,7 @@ export default {
 
          const getNapanam = () => {
             //console.log(qr_pass_id._value)
-            store.dispatch('registrations/GET_NAPANAM', { id: qr_pass_id._value })
+            store.dispatch('registrations/GET_NAPANAM_ID', { id: qr_pass_id._value })
         }
 
         const onSubmit = handleSubmit((values, actions) => {
@@ -457,7 +469,7 @@ export default {
         const { value: last_name, errorMessage: last_nameError } = useField('registration.last_name',validateField);
         const { value: suffix, errorMessage: suffixError } = useField('registration.suffix',validateField);
         const { value: birthdate } = useField('registration.birthdate',validField);
-        const { value: gender } = useField('registration.gender',validField);
+        const { value: gender, errorMessage: genderError } = useField('registration.gender',validateField);
         const { value: region } = useField('registration.region',validField);
         const { value: province } = useField('registration.province',validField);
         const { value: town_city } = useField('registration.town_city',validField);
@@ -565,6 +577,7 @@ export default {
             first_nameError,
             last_nameError,
             suffixError,
+            genderError,
             employment_statusError,
             employer_nameError,
             employer_municipalityError,
@@ -709,6 +722,9 @@ export default {
 </script>
 
 <style scoped>
+    .card {
+        border-top: 5px solid #215266;
+    }
     .float-right {
         position: absolute; right: 3%;
     }
@@ -718,6 +734,11 @@ export default {
         cursor: not-allowed; 
     }
     input[type="number"]:disabled {
+        background: rgb(219, 219, 219);
+        border-bottom: 1px solid black;
+        cursor: not-allowed; 
+    }
+    .dropdown-disabled {
         background: rgb(219, 219, 219);
         border-bottom: 1px solid black;
         cursor: not-allowed; 

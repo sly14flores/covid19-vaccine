@@ -15,10 +15,24 @@ const createRegistration = (payload) => {
   return axios.post(CREATE_ROUTE, payload)
 }
 
+const UPDATE_REGISTRATION = `${api_url}/api/doh/registration/:id`
+const updateRegistration = (payload) => {
+    const { id } = payload
+    const url =  route(UPDATE_REGISTRATION, { id })
+    return axios.put(url, payload)
+}
+
 const GET_NAPANAM_ROUTE = `${api_url}/api/napanam/check/registration/:id/:birthdate`
 const getNapanam = (payload) => {
     const { id, birthdate } = payload
     const url =  route(GET_NAPANAM_ROUTE, { id, birthdate })
+    return axios.get(url)    
+}
+
+const GET_NAPANAM_ID = `${api_url}/api/napanam/check/registrationID/:id`
+const getNapanamID = (payload) => {
+    const { id } = payload
+    const url =  route(GET_NAPANAM_ID, { id })
     return axios.get(url)    
 }
 
@@ -29,9 +43,23 @@ const getRegistrations = (payload) => {
     return axios.get(GET_REGISTRATIONS, {params: { page: pageNo } })
 }
 
+const GET_REGISTRATION = `${api_url}/api/doh/registration/:id`
+const getRegistration = (payload) => {
+    const { id } = payload
+    const url =  route(GET_REGISTRATION, { id })
+    return axios.get(url)
+}
+
 const CREATE_REGISTRATION = `${api_url}/api/doh/registration`
 const storeRegistration = (payload) => {
     return axios.post(CREATE_REGISTRATION, payload)
+}
+
+const DELETE_REGISTRATION = `${api_url}/api/doh/registration/:id`
+const deleteRegistration = (payload) => {
+    const { id } = payload
+    const url =  route(DELETE_REGISTRATION, { id })
+    return axios.delete(url)
 }
 
 const registration = {
@@ -273,7 +301,6 @@ const actions = {
     GET_SELECTIONS_ERROR({commit}, payload) {
         console.log(payload)
     },
-
     async CREATE({commit, dispatch}, payload) {
         commit('SAVING', true)
         try {
@@ -336,6 +363,131 @@ const actions = {
     CREATE_ERROR({commit}, payload) {
         commit('SAVING', false)
         console.log(payload)
+    },
+    async UPDATE_REGISTRATION({commit,dispatch}, payload) {
+        commit('SAVING',true)
+        commit('TOGGLE_WRITE', true)
+        try {
+            const { data: { data } } = await updateRegistration(payload)
+            dispatch('UPDATE_REGISTRATION_SUCCESS', data)
+            return true
+        } catch (error) {
+            const { response } = error
+            dispatch('UPDATE_REGISTRATION_ERROR', response)
+            return false
+        }
+    },
+    UPDATE_REGISTRATION_SUCCESS({commit}, payload) {
+        commit('SAVING',false)
+        commit('TOGGLE_WRITE', false)
+        Swal.fire({
+            title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+        })
+    },
+    UPDATE_REGISTRATION_ERROR({commit}, payload) {
+        commit('SAVING',false)
+        commit('TOGGLE_WRITE', false)
+        console.log(payload)
+    },
+    async GET_REGISTRATION({dispatch}, payload) {
+        const { id } = payload
+        try {
+            const { data: { data } } = await getRegistration({id})
+            dispatch('GET_REGISTRATION_SUCCESS', data)
+        } catch (error) {
+            const { response } = error
+            dispatch('GET_REGISTRATION_ERROR', response)
+        }
+    },
+    GET_REGISTRATION_SUCCESS({commit}, payload) {
+        commit('REGISTRATION', payload)
+    },
+    GET_REGISTRATION_ERROR({commit}, payload) {
+        console.log(payload)
+    },
+    async DELETE_REGISTRATION({dispatch}, payload) {
+        const { id } = payload
+        try {
+            const { data: { data } } = await deleteRegistration({id})
+            dispatch('DELETE_REGISTRATION_SUCCESS', data)
+        } catch (error) {
+            const { response } = error
+            dispatch('DELETE_REGISTRATION_ERROR', response)
+        }
+    },
+    DELETE_REGISTRATION_SUCCESS({commit, dispatch}, payload) {
+        console.log(payload)
+        dispatch('GET_REGISTRATIONS', { page: 0 })
+        Swal.fire({
+            title: '<p class="text-success" style="font-size: 25px;">Successfully deleted!</p>',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+        })
+    },
+    DELETE_REGISTRATION_ERROR({commit}, payload) {
+        console.log(payload)
+    },
+    async GET_NAPANAM_ID({dispatch}, { id }) {
+        try {
+            const { data: { data } } = await getNapanamID({ id })
+            dispatch('GET_NAPANAM_ID_SUCCESS', data)
+        } catch (error) {
+            const { response } = error
+            dispatch('GET_NAPANAM_ID_ERROR', response)
+        }
+    },
+    GET_NAPANAM_ID_SUCCESS({commit}, payload) {
+        console.log(payload)
+        commit('NAPANAM', payload)
+        commit('FETCH', true)
+        // window.open('home#/registration','_self')
+    },
+    GET_NAPANAM_ID_ERROR({commit}, payload) {
+        console.log(payload)
+        commit('FETCH', false)
+
+        // if Not found
+        if(payload.status==404){
+            Swal.fire({
+                // title: '<p>Error</p>',
+                icon: 'error',
+                html: '<h5 style="font-size: 18px;">The Napanam ID No. you entered does not exist. Please try again.</h5>',
+                showCancelButton: false,
+                focusConfirm: true,
+                confirmButtonText: 'Ok',
+            }).then((result) => {
+                if (result.value) {
+                // Close
+                }
+            })	
+        }
+
+        // if Exist
+        if(payload.status==406){
+            Swal.fire({
+                // title: "<p>Opss</p>",
+                icon: 'warning',
+                html: '<h5 style="font-size: 18px;">The Napanam ID No. you have entered is already registered</h5>',
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonColor: '#68bca4',
+                confirmButtonText: 'Ok',
+            }).then((result) => {
+                if (result.value) {
+    
+                   // Close
+    
+                }
+            })
+        }
+        
     },
     async GET_NAPANAM({dispatch}, { id, birthdate }) {
         try {
