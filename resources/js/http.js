@@ -32,7 +32,9 @@ window.axios.interceptors.response.use(
     response => response,
     // eslint-disable-next-line func-names
     async function(error) {
-        if (error.response.status === 401) {
+        const { response } = error || {}
+        const { status } = response || {}
+        if (status && status === 401) {
             window.open('admin#/login','_self');
         }
         return Promise.reject(error);
