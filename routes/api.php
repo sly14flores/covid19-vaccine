@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\RegistrationController;
 use App\Http\Controllers\Api\VaccineController;
 use App\Http\Controllers\Api\RegistrationImportController;
 use App\Http\Controllers\Api\SurveysSummary;
+use App\Http\Controllers\Api\ChangePassword;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,11 @@ use App\Http\Controllers\Api\SurveysSummary;
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout']);
 Route::post('authenticate', [LoginController::class, 'authenticate']);
+
+/**
+ * Change password
+ */
+Route::post('change/password', ChangePassword::class);
 
 /**
  * Surveys

@@ -6,6 +6,7 @@ import { surveyStore } from './stores/surveys.js'
 import { hospitalsStore } from './stores/hospitals.js'
 import importData from './stores/importData.js'
 import vaccines from './stores/vaccines.js'
+import password from './stores/password.js'
 
 import VuexPersistence from 'vuex-persist'
 const vuexLocal = new VuexPersistence({
@@ -24,6 +25,7 @@ export default createStore({
         hospitals: hospitalsStore,
         importData,
         vaccines,
+        password
     },
     state,
     mutations,
