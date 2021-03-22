@@ -25,7 +25,7 @@
                     <div class="p-fluid p-formgrid p-grid">
                         <div class="p-field p-col-12 p-md-10"></div>
                         <div class="p-field p-col-12 p-md-1">
-                            <Button label="Save" type="submit" class="p-button-success" />
+                            <Button label="Save" type="submit" class="p-button-primary" />
                         </div>
                         <div class="p-field p-col-12 p-md-1">
                             <router-link to="/"><Button type="button" label="Close" class="p-button-danger p-ml-2" /></router-link>

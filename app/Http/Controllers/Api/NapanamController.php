@@ -93,7 +93,7 @@ class NapanamController extends Controller
         $registration = Registration::where('qr_pass_id',$id)->get();
         if (count($registration)) {
             return $this->jsonSuccessResponse(null, 406, "Already registered");
-        }        
+        }
 
         $data = new QrPassResourceDOH($qrpass);
         return $this->jsonSuccessResponse($data, 200);
