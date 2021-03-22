@@ -5,12 +5,13 @@ import PageWrapper from './PageWrapper.vue';
 // import Dashboard from "./pages/dashboard/Dashboard.vue";
 import SummaryRegistrations from "./pages/summary/registrations.vue";
 import Surveys from "./pages/summary/surveys.vue";
-import Scan from "./pages/scanners/scan.vue";
+import Vaccines from "./pages/scanners/vaccines.vue";
 
 import Login from "./pages/login.vue";
 import Registration from "./pages/registration.vue";
 import Booking from "./pages/booking.vue";
 import Verify from "./pages/verify.vue";
+import ChangePassword from "./pages/change-password.vue";
 
 /**
  * Admin - Registrations
@@ -38,10 +39,16 @@ import HospitalEdit from './pages/hospitals/Edit.vue';
 
 const routes = [
   {
-    path: "/scanners/scan",
-    name: "Scan",
+    path: "/change-password",
+    name: "ChangePassword",
     component: PageWrapper,
-    props: {pageComponent: Scan}
+    props: {pageComponent: ChangePassword}
+  },
+  {
+    path: "/scanners/vaccines",
+    name: "Vaccines",
+    component: PageWrapper,
+    props: {pageComponent: Vaccines}
   },
   {
     path: "/login",
