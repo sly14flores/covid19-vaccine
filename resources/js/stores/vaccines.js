@@ -17,7 +17,7 @@ const getByQr = (payload) => {
     return axios.get(url)
 }
 
-const registration = {}
+const vaccine = {}
 
 const suffix_value = [];
 const gender_value = [];
@@ -61,14 +61,14 @@ const state = () => {
         fetched: false,
         saving: false,
         selections,
-        registration,
+        vaccine,
         dosages,
     }
 }
 
 const mutations = {
-    REGISTRATION(state,payload) {
-        state.registration
+    VACCINE(state,payload) {
+        state.vaccine
     },
     SELECTIONS(state, payload) {
         state.selections = {...payload}
@@ -77,38 +77,44 @@ const mutations = {
         state.fetched = payload
     },
     NAPANAM(state, payload) {
-        state.registration.qr_pass_id = payload.qr_pass_id
-        state.registration.first_name = payload.first_name
-        state.registration.middle_name = payload.middle_name
-        state.registration.last_name = payload.last_name
-        state.registration.birthdate = payload.birthdate
-        state.registration.suffix = payload.suffix
-        state.registration.gender = payload.gender
-        state.registration.civil_status = payload.civil_status
-        state.registration.contact_no = payload.contact_no
-        state.registration.region = payload.region
-        state.registration.province = payload.province
-        state.registration.town_city = payload.town_city
-        state.registration.barangay = payload.barangay
-        state.registration.address = payload.address // street
-        state.registration.category = payload.category
-        state.registration.category_id = payload.category_id
-        state.registration.category_id_no = payload.category_id_no
-        state.registration.profession = payload.profession
-        state.registration.philhealth = payload.philhealth
-        state.registration.pwd_id = payload.pwd_id
-        state.registration.employment_status = payload.employment_status
-        state.registration.employer_name = payload.employer_name
-        state.registration.employer_municipality = payload.employer_municipality
-        state.registration.employer_address = payload.employer_address
-        state.registration.employer_contact_no = payload.employer_contact_no
+        state.vaccine.qr_pass_id = payload.qr_pass_id
+        state.vaccine.first_name = payload.first_name
+        state.vaccine.middle_name = payload.middle_name
+        state.vaccine.last_name = payload.last_name
+        state.vaccine.birthdate = payload.birthdate
+        state.vaccine.suffix = payload.suffix
+        state.vaccine.gender = payload.gender
+        state.vaccine.civil_status = payload.civil_status
+        state.vaccine.contact_no = payload.contact_no
+        state.vaccine.region = payload.region
+        state.vaccine.province = payload.province
+        state.vaccine.town_city = payload.town_city
+        state.vaccine.barangay = payload.barangay
+        state.vaccine.address = payload.address // street
+        state.vaccine.category = payload.category
+        state.vaccine.category_id = payload.category_id
+        state.vaccine.category_id_no = payload.category_id_no
+        state.vaccine.profession = payload.profession
+        state.vaccine.philhealth = payload.philhealth
+        state.vaccine.pwd_id = payload.pwd_id
+        state.vaccine.employment_status = payload.employment_status
+        state.vaccine.employer_name = payload.employer_name
+        state.vaccine.employer_municipality = payload.employer_municipality
+        state.vaccine.employer_address = payload.employer_address
+        state.vaccine.employer_contact_no = payload.employer_contact_no
     },
     SAVING(state, payload) {
         state.saving = payload
     },
+    TOGGLE_WRITE(state,payload) {
+        state.writeOn = payload
+    }
 }
 
 const actions = {
+    TOGGLE_WRITE({commit}, payload) {
+        commit('TOGGLE_WRITE', payload)
+    },
     async GET_SELECTIONS({dispatch}) {
         try {
             const { data: { data } } = await getSelections()
@@ -120,12 +126,13 @@ const actions = {
     },
     GET_SELECTIONS_SUCCESS({commit}, payload) {
         commit('SELECTIONS', payload)
-        console.log(payload)
+        // console.log(payload)
     },
     GET_SELECTIONS_ERROR({commit}, payload) {
-        console.log(payload)
+        // console.log(payload)
     },
-    async GET_BY_QR({dispatch},payload) {
+    async GET_BY_QR({dispatch, commit},payload) {
+        commit('FETCH', false)
         const { id } = payload
         try {
             const { data: { data } } = await getByQr({ id })
@@ -136,13 +143,15 @@ const actions = {
         }
     },
     GET_BY_QR_SUCCESS({commit},payload) {
-        console.log(payload)
-        // commit('REGISTRATION',payload)
+        // console.log(payload)
+        // commit('VACCINE',payload)
         commit('NAPANAM', payload)
         commit('FETCH', true)
+        commit('TOGGLE_WRITE', true)
     },
     GET_BY_QR_ERROR({commit},payload) {
         commit('FETCH', false)
+        commit('TOGGLE_WRITE', false)
         const { data: { message } } = payload
         Swal.fire({
             text: message,

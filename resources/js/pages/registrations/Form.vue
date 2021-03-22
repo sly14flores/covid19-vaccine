@@ -12,7 +12,7 @@
                                 <label for="qr_pass_id">Napanam ID No.: <i class="p-error">*</i></label>
                                 <div class="p-inputgroup">
                                     <InputText class="p-shadow-1" id="qr_pass_id " type="text" placeholder="Enter Napanam ID No." v-model="qr_pass_id" :class="{'p-invalid': qr_pass_idError}" :disabled="editMode && !writeOn"/>
-                                    <Button label="Fetch" @click="getNapanam" class="p-button-primary" />
+                                    <Button label="Fetch" v-if="!editMode" @click="getNapanam" class="p-button-primary" />
                                 </div>
                                 <small class="p-error">{{ qr_pass_idError }}</small>
                             </div>
@@ -34,23 +34,23 @@
                             </div>
                             <div class="p-field p-col-12 p-md-3">
                                 <label>Suffix/Extension Name <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="suffix_value" optionValue="id" v-model="suffix" placeholder="Select a Suffix" :class="{'p-invalid': suffixError}" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="suffix_value" optionValue="id" v-model="suffix" placeholder="Select a Suffix" :class="{'p-invalid': suffixError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ suffixError }}</small>    
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-3">
                                 <label>Birthdate <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="date" v-model="birthdate" :disabled="editMode && !writeOn" />
+                                <InputText class="p-shadow-1" type="date" v-model="birthdate" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-3">
                                 <label>Sex <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" :class="{'p-invalid': genderError}" placeholder="Select a Gender" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" :class="{'p-invalid': genderError, 'disabled': editMode && !writeOn}" placeholder="Select a Gender" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ genderError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-3">
                                 <label>Civil Status <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="civil_status_value" optionValue="id" v-model="civil_status" placeholder="Select a Civil Status" :class="{'p-invalid': civil_statusError}" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="civil_status_value" optionValue="id" v-model="civil_status" placeholder="Select a Civil Status" :class="{'p-invalid': civil_statusError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ civil_statusError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-3">
@@ -89,17 +89,17 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Category <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" v-model="category" optionValue="id" placeholder="Select a Category" :class="{'p-invalid': categoryError}" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" v-model="category" optionValue="id" placeholder="Select a Category" :class="{'p-invalid': categoryError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ categoryError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Category ID <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" v-model="category_id" optionValue="id" placeholder="Select a Category ID" :class="{'p-invalid': category_idError}" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" v-model="category_id" optionValue="id" placeholder="Select a Category ID" :class="{'p-invalid': category_idError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ category_idError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Category ID No. <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" v-model="category_id_no" :class="{'p-invalid': category_id_noError}" :disabled="editMode && !writeOn" />
+                                <InputText class="p-shadow-1" v-model="category_id_no" :class="{'p-invalid': category_id_noError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ category_id_noError }}</small>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Profession <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="profession_value" v-model="profession" optionValue="id" placeholder="Select a Profession" :class="{'p-invalid': professionError}" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="profession_value" v-model="profession" optionValue="id" placeholder="Select a Profession" :class="{'p-invalid': professionError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ professionError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
@@ -124,7 +124,7 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Employment Status <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status" :class="{'p-invalid': employment_statusError}" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status" :class="{'p-invalid': employment_statusError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ employment_statusError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
@@ -134,7 +134,7 @@
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Municipality <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employer_municipality_value" v-model="employer_municipality" optionValue="id" placeholder="Select a Employment Municipality" :class="{'p-invalid': employer_municipalityError}" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employer_municipality_value" v-model="employer_municipality" optionValue="id" placeholder="Select a Employment Municipality" :class="{'p-invalid': employer_municipalityError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ employer_municipalityError }}</small>
                             </div>
                         </div>
@@ -302,11 +302,11 @@
                             </div>
                             <div class="p-field p-col-12 p-md-3" v-if="diagnosed_hide">
                                 <label>Covid Classification</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="covid_classification_value" v-model="covid_classification" optionValue="id" placeholder="Select a Covid Classification" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="covid_classification_value" v-model="covid_classification" optionValue="id" placeholder="Select a Covid Classification" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-3" v-if="diagnosed_hide">
                                 <label>Date</label>
-                                <InputText class="p-shadow-1" type="date" v-model="diagnosed_date" :disabled="editMode && !writeOn" />
+                                <InputText class="p-shadow-1" type="date" v-model="diagnosed_date" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                             </div>
                         </div>
                     </div>
@@ -738,7 +738,7 @@ export default {
         border-bottom: 1px solid black;
         cursor: not-allowed; 
     }
-    .dropdown-disabled {
+    .disabled {
         background: rgb(219, 219, 219);
         border-bottom: 1px solid black;
         cursor: not-allowed; 
