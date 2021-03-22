@@ -6,7 +6,8 @@
                 <TabPanel header="QR Code Scanning">
                      <div class="p-grid p-jc-center p-mt-2">
                         <div class="p-lg-8 p-sm-12 p-xs-12">
-                            <div class=" p-fluid p-shadow-2">
+                            <Button icon="pi pi-refresh" @click="reset" />
+                            <div class="p-mt-4 p-fluid p-shadow-2">
                                 <div class="p-grid p-jc-center">
                                     <div class="p-lg-1 p-md-1 p-xs-5">
                                         <img alt="logo" src="img/qr-code.png" class="qr-code" />
