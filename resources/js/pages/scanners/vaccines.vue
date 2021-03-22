@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="card">
-            <h5>Vaccines </h5>
+            <h5>Vaccination </h5>
             <TabView>
                 <TabPanel header="QR Code Scanning">
                     <div class="p-grid">
@@ -31,14 +31,14 @@
                             <div class="p-fluid p-shadow-2">
                                 <form @submit="onSubmit">
                                     <div class="card p-shadow-2">
-                                        <h5><i class="pi pi-user"></i> Personal Information <ToggleButton class="float-right" v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" /></h5>
+                                        <h6><i class="pi pi-user"></i> Personal Information <ToggleButton class="float-right" v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" /></h6>
                                         <hr />
                                         <div class="p-fluid p-formgrid p-grid">
                                             <div class="p-field p-col-12 p-md-6">
                                                 <label for="qr_pass_id">Napanam ID No.: <i class="p-error">*</i></label>
                                                 <div class="p-inputgroup">
-                                                    <InputText class="p-shadow-1" id="qr_pass_id " type="text" placeholder="Enter Napanam ID No." v-model="qr_pass_id" :class="{'p-invalid': qr_pass_idError}" />
-                                                    <Button label="Fetch" class="p-shadow-1 p-button-primary" @click="getNapanam" />
+                                                    <InputText class="p-shadow-1 p-inputtext-sm" id="qr_pass_id " type="text" placeholder="Enter Napanam ID No." v-model="qr_pass_id" :class="{'p-invalid': qr_pass_idError}" />
+                                                    <Button label="Fetch" class="p-button-sm p-shadow-1 p-button-primary" @click="getNapanam" />
                                                 </div>
                                                 <small class="p-error">{{ first_nameError }}</small>
                                             </div>
@@ -46,84 +46,84 @@
                                         <div class="p-fluid p-formgrid p-grid">
                                             <div class="p-field p-col-12 p-md-3">
                                                 <label for="first_name">First Name <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" id="first_name " type="text" v-model="first_name" :class="{'p-invalid': first_nameError}" :disabled="!writeOn" />
+                                                <InputText class="p-shadow-1 p-inputtext-sm" id="first_name " type="text" v-model="first_name" :class="{'p-invalid': first_nameError}" :disabled="!writeOn" />
                                                 <small class="p-error">{{ first_nameError }}</small>
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <label for="last_name">Last Name <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" id="last_name " type="text" v-model="last_name" :class="{'p-invalid': last_nameError}" :disabled="!writeOn" />
+                                                <InputText class="p-shadow-1 p-inputtext-sm" id="last_name " type="text" v-model="last_name" :class="{'p-invalid': last_nameError}" :disabled="!writeOn" />
                                                 <small class="p-error">{{ last_nameError }}</small>
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <label for="middle_name">Middle Name </label>
-                                                <InputText class="p-shadow-1" id="middle_name " type="text" v-model="middle_name" :disabled="!writeOn" />
+                                                <InputText class="p-shadow-1 p-inputtext-sm" id="middle_name " type="text" v-model="middle_name" :disabled="!writeOn" />
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <label>Suffix/Extension Name <i class="p-error">*</i></label>
-                                                <Dropdown class="p-shadow-1" optionLabel="name" :options="suffix_value" optionValue="id" v-model="suffix" placeholder="Select a Suffix" :class="{'p-invalid': suffixError, 'disabled': !writeOn}" :disabled="!writeOn" />
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="suffix_value" optionValue="id" v-model="suffix" placeholder="Select a Suffix" :class="{'p-invalid': suffixError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                 <small class="p-error">{{ suffixError }}</small>    
                                             </div>
                                         </div>
                                         <div class="p-fluid p-formgrid p-grid">
                                             <div class="p-field p-col-12 p-md-3">
                                                 <label>Birthdate <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" type="date" v-model="birthdate" :class="{disabled: !writeOn}" :disabled="!writeOn" />
+                                                <InputText class="p-shadow-1 p-inputtext-sm" type="date" v-model="birthdate" :class="{disabled: !writeOn}" :disabled="!writeOn" />
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <label>Sex <i class="p-error">*</i></label>
-                                                <Dropdown class="p-shadow-1" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" placeholder="Select a Gender" :class="{disabled: !writeOn}" :disabled="!writeOn" />
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" placeholder="Select a Gender" :class="{disabled: !writeOn}" :disabled="!writeOn" />
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <label>Civil Status <i class="p-error">*</i></label>
-                                                <Dropdown class="p-shadow-1" optionLabel="name" :options="civil_status_value" optionValue="id" v-model="civil_status" placeholder="Select a Civil Status" :class="{'p-invalid': civil_statusError, 'disabled': !writeOn}" :disabled="!writeOn" />
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="civil_status_value" optionValue="id" v-model="civil_status" placeholder="Select a Civil Status" :class="{'p-invalid': civil_statusError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                 <small class="p-error">{{ civil_statusError }}</small>
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <label>Contact No.: <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" type="text" v-model="contact_no" :disabled="!writeOn" />
+                                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="contact_no" :disabled="!writeOn" />
                                             </div>
                                         </div>
                                         <div class="p-fluid p-formgrid p-grid">
                                             <div class="p-field p-col-12 p-md-4">
                                                 <label>Region <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" type="text" v-model="region" :disabled="!writeOn" />
+                                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="region" :disabled="!writeOn" />
                                             </div>
                                             <div class="p-field p-col-12 p-md-4">
                                                 <label>Province <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" type="text" v-model="province" :disabled="!writeOn" />
+                                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="province" :disabled="!writeOn" />
                                             </div>
                                             <div class="p-field p-col-12 p-md-4">
                                                 <label>Municipality <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" type="text" v-model="town_city" :disabled="!writeOn" />
+                                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="town_city" :disabled="!writeOn" />
                                             </div>
                                         </div>
                                         <div class="p-fluid p-formgrid p-grid">
                                             <div class="p-field p-col-12 p-md-8">
                                                 <label>Unit/Building/Street/House No. <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" type="text" v-model="address" :disabled="!writeOn" />
+                                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="address" :disabled="!writeOn" />
                                             </div>
                                             <div class="p-field p-col-12 p-md-4">
                                                 <label>Barangay <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" type="text" v-model="barangay" :disabled="!writeOn" />
+                                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="barangay" :disabled="!writeOn" />
                                             </div>
                                         </div>
-                                        
+                                        <hr />
                                         <div class="p-fluid">
-                                            <h5><i class="pi pi-user"></i> Employment Status</h5><hr />
+                                            <h6><i class="pi pi-user"></i> Employment Status</h6>
                                             <div class="p-fluid p-formgrid p-grid">
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Category <i class="p-error">*</i></label>
-                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" v-model="category" optionValue="id" placeholder="Select a Category" :class="{'p-invalid': categoryError, 'disabled': !writeOn}" :disabled="!writeOn" />
+                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="category_value" v-model="category" optionValue="id" placeholder="Select a Category" :class="{'p-invalid': categoryError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ categoryError }}</small>
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Category ID <i class="p-error">*</i></label>
-                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" v-model="category_id" optionValue="id" placeholder="Select a Category ID" :class="{'p-invalid': category_idError, 'disabled': !writeOn}" :disabled="!writeOn" />
+                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="category_id_value" v-model="category_id" optionValue="id" placeholder="Select a Category ID" :class="{'p-invalid': category_idError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ category_idError }}</small>
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Category ID No. <i class="p-error">*</i></label>
-                                                    <InputText class="p-shadow-1" v-model="category_id_no" :class="{'p-invalid': category_id_noError, 'disabled': !writeOn}" :disabled="!writeOn" />
+                                                    <InputText class="p-shadow-1 p-inputtext-sm" v-model="category_id_no" :class="{'p-invalid': category_id_noError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ category_id_noError }}</small>
                                                 </div>
                                             </div>
@@ -131,34 +131,34 @@
                                             <div class="p-fluid p-formgrid p-grid">
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Profession <i class="p-error">*</i></label>
-                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="profession_value" v-model="profession" optionValue="id" placeholder="Select a Profession" :class="{'p-invalid': professionError, 'disabled': !writeOn}" :disabled="!writeOn" />
+                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="profession_value" v-model="profession" optionValue="id" placeholder="Select a Profession" :class="{'p-invalid': professionError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ professionError }}</small>
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>PhilHealth ID <i class="p-error">*</i></label>
-                                                    <InputText class="p-shadow-1" type="text" placeholder="00-000000000-0" v-model="philhealth" :class="{'p-invalid': philhealthError, 'disabled': !writeOn}" :disabled="!writeOn" />
+                                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" placeholder="00-000000000-0" v-model="philhealth" :class="{'p-invalid': philhealthError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ philhealthError }}</small>
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label> PWD ID No.</label>
-                                                    <InputText class="p-shadow-1" type="text" name="pwd_id" v-model="pwd_id" :disabled="!writeOn" />
+                                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" name="pwd_id" v-model="pwd_id" :disabled="!writeOn" />
                                                 </div>
                                             </div>
 
                                             <div class="p-fluid p-formgrid p-grid">
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Employment Status <i class="p-error">*</i></label>
-                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status" :class="{'p-invalid': employment_statusError, 'disabled': !writeOn}" :disabled="!writeOn" />
+                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status" :class="{'p-invalid': employment_statusError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ employment_statusError }}</small>
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Employer Name <i class="p-error">*</i></label>
-                                                    <InputText class="p-shadow-1" type="text" v-model="employer_name" :class="{'p-invalid': employer_nameError}" :disabled="!writeOn" />
+                                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="employer_name" :class="{'p-invalid': employer_nameError}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ employer_nameError }}</small>
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Municipality <i class="p-error">*</i></label>
-                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="employer_municipality_value" v-model="employer_municipality" optionValue="id" placeholder="Select a Employment Municipality" :class="{'p-invalid': employer_municipalityError, 'disabled': !writeOn}" :disabled="!writeOn" />
+                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="employer_municipality_value" v-model="employer_municipality" optionValue="id" placeholder="Select a Employment Municipality" :class="{'p-invalid': employer_municipalityError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ employer_municipalityError }}</small>
                                                 </div>
                                             </div>
@@ -166,22 +166,41 @@
                                             <div class="p-fluid p-formgrid p-grid">
                                                 <div class="p-field p-col-12 p-md-8">
                                                     <label>Employer Address <i class="p-error">*</i></label>
-                                                    <InputText class="p-shadow-1" type="text" v-model="employer_address" :class="{'p-invalid': employer_addressError}" :disabled="!writeOn" />
+                                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="employer_address" :class="{'p-invalid': employer_addressError}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ employer_addressError }}</small>
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Employer Contact No. <i class="p-error">*</i></label>
-                                                    <InputText class="p-shadow-1" type="text" v-model="employer_contact_no" :class="{'p-invalid': employer_contact_noError}" :disabled="!writeOn" />
+                                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="employer_contact_no" :class="{'p-invalid': employer_contact_noError}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ employer_contact_noError }}</small>
                                                 </div>
                                             </div>
-
                                             <hr />
-                                            <div class="p-fluid p-formgrid p-grid">
-                                                <div class="p-field p-col-12 p-md-10"></div>
-                                                <div class="p-field p-col-12 p-md-2">
-                                                    <Button type="submit" class="p-button-primary" :disabled="!writeOn"><i v-if="saving" class="pi pi-spin pi-spinner"></i>&nbsp;Save</Button>
+                                            <div class="p-fluid">
+                                                <div class="p-fluid p-formgrid p-grid">
+                                                    <div class="p-field p-col-12 p-md-11">
+                                                            <h6><i class="pi pi-list"></i> Vaccines </h6>
+                                                    </div>
+                                                    <div class="p-field p-col-12 p-md-1">
+                                                        <Button label="Add" class="p-button-success" />
+                                                    </div>
                                                 </div>
+                                                <div class="p-fluid p-formgrid p-grid">
+                                                    <DataTable>
+                                                        <Column field="" header="Vaccine Name"></Column>
+                                                        <Column field="" header="Batch No."></Column>
+                                                        <Column field="" header="Lot No."></Column>
+                                                        <Column field="" header="Dosage"></Column>
+                                                    </DataTable>
+                                                </div>
+                                            </div>
+
+                                            <div class="p-fluid p-formgrid p-grid p-mt-2">
+                                                <div class="p-field p-col-12 p-md-5"></div>
+                                                <div class="p-field p-col-12 p-md-2">
+                                                    <Button type="submit" class="p-button-primary" :disabled="!writeOn"><label class="p-ml-4"><i v-if="saving" class="pi pi-spin pi-spinner"></i>&nbsp;Save</label></Button>
+                                                </div>
+                                                <div class="p-field p-col-12 p-md-5"></div>
                                             </div>
                                         </div>
 
@@ -209,6 +228,9 @@ import Checkbox from 'primevue/checkbox/sfc';
 import ToggleButton from 'primevue/togglebutton/sfc';
 import RadioButton from 'primevue/radiobutton/sfc';
 import ConfirmDialog from 'primevue/confirmdialog/sfc';
+import DataTable from 'primevue/datatable/sfc';
+import Column from 'primevue/column/sfc';
+import Paginator from 'primevue/paginator/sfc';
 
 import { QrStream, QrCapture, QrDropzone } from 'vue3-qr-reader';
 import { useStore } from 'vuex'
@@ -386,7 +408,10 @@ export default {
         Checkbox,
         RadioButton,
         ConfirmDialog,
-        ToggleButton
+        ToggleButton,
+        DataTable,
+        Column,
+        Paginator
     },
     computed: {
         suffix_value() {
