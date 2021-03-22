@@ -26,11 +26,11 @@
                     <div class="p-fluid p-formgrid p-grid">
                         <div class="p-field p-col-12 p-md-4">
                             <label>Hospital</label>
-                            <Dropdown class="p-shadow-1" :options="hospitals" optionLabel="description" optionValue="id" v-model="hospital" placeholder="Select a Hospital" :disabled="editMode && !writeOn" />
+                            <Dropdown class="p-shadow-1" :options="hospitals" optionLabel="description" optionValue="id" v-model="hospital" placeholder="Select a Hospital" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                         </div>
                         <div class="p-field p-col-12 p-md-4">
                             <label>Group</label>
-                            <Dropdown class="p-shadow-1" :options="groups" optionLabel="name" optionValue="id" v-model="group_id" placeholder="Select a Group" :class="{'p-invalid': group_idError}" :disabled="editMode && !writeOn" />
+                            <Dropdown class="p-shadow-1" :options="groups" optionLabel="name" optionValue="id" v-model="group_id" placeholder="Select a Group" :class="{'p-invalid': group_idError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                             <small class="p-error">{{ group_idError }}</small>   
                         </div>
                         <div class="p-field p-col-12 p-md-4">
@@ -259,6 +259,11 @@ input[type="text"]:disabled {
     cursor: not-allowed; 
 }
 input[type="password"]:disabled, .disabled {
+    background: rgb(219, 219, 219);
+    border-bottom: 1px solid black;
+    cursor: not-allowed; 
+}
+.disabled {
     background: rgb(219, 219, 219);
     border-bottom: 1px solid black;
     cursor: not-allowed; 

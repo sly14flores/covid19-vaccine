@@ -5,9 +5,9 @@
             <TabView>
                 <TabPanel header="QR Code Scanning">
                     <div class="p-grid">
-                        <div class="p-lg-4 p-sm-12 p-xs-12 p-mt-2">
-                            <Button icon="pi pi-refresh" @click="reset" />
+                        <div class="p-lg-4 p-sm-12 p-xs-12">
                             <div class=" p-fluid p-shadow-2">
+                                <Button icon="pi pi-refresh float-right" @click="reset" />
                                 <div class="p-grid p-jc-center">
                                     <div class="p-lg-2 p-md-2 p-xs-5">
                                         <img alt="logo" src="img/qr-code.png" class="qr-code" />
@@ -37,7 +37,7 @@
                                             <div class="p-field p-col-12 p-md-6">
                                                 <label for="qr_pass_id">Napanam ID No.: <i class="p-error">*</i></label>
                                                 <div class="p-inputgroup">
-                                                    <InputText class="p-shadow-1" id="qr_pass_id " type="text" placeholder="Enter Napanam ID No." v-model="qr_pass_id" :class="{'p-invalid': qr_pass_idError}" :disabled="editMode && !writeOn" />
+                                                    <InputText class="p-shadow-1" id="qr_pass_id " type="text" placeholder="Enter Napanam ID No." v-model="qr_pass_id" :class="{'p-invalid': qr_pass_idError}" />
                                                     <Button label="Fetch" class="p-shadow-1 p-button-primary" @click="getNapanam" />
                                                 </div>
                                                 <small class="p-error">{{ first_nameError }}</small>
@@ -46,65 +46,65 @@
                                         <div class="p-fluid p-formgrid p-grid">
                                             <div class="p-field p-col-12 p-md-3">
                                                 <label for="first_name">First Name <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" id="first_name " type="text" placeholder="Enter First Name" v-model="first_name" :class="{'p-invalid': first_nameError}" :disabled="editMode && !writeOn" />
+                                                <InputText class="p-shadow-1" id="first_name " type="text" v-model="first_name" :class="{'p-invalid': first_nameError}" :disabled="!writeOn" />
                                                 <small class="p-error">{{ first_nameError }}</small>
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <label for="last_name">Last Name <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" id="last_name " type="text" placeholder="Enter Last Name" v-model="last_name" :class="{'p-invalid': last_nameError}" :disabled="editMode && !writeOn" />
+                                                <InputText class="p-shadow-1" id="last_name " type="text" v-model="last_name" :class="{'p-invalid': last_nameError}" :disabled="!writeOn" />
                                                 <small class="p-error">{{ last_nameError }}</small>
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
-                                                <label for="middle_name">Middle Name <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" id="middle_name " type="text" placeholder="Enter Middle Name" v-model="middle_name" :disabled="editMode && !writeOn" />
+                                                <label for="middle_name">Middle Name </label>
+                                                <InputText class="p-shadow-1" id="middle_name " type="text" v-model="middle_name" :disabled="!writeOn" />
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <label>Suffix/Extension Name <i class="p-error">*</i></label>
-                                                <Dropdown class="p-shadow-1" optionLabel="name" :options="suffix_value" optionValue="id" v-model="suffix" placeholder="Select a Suffix" :class="{'p-invalid': suffixError}" />
+                                                <Dropdown class="p-shadow-1" optionLabel="name" :options="suffix_value" optionValue="id" v-model="suffix" placeholder="Select a Suffix" :class="{'p-invalid': suffixError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                 <small class="p-error">{{ suffixError }}</small>    
                                             </div>
                                         </div>
                                         <div class="p-fluid p-formgrid p-grid">
                                             <div class="p-field p-col-12 p-md-3">
                                                 <label>Birthdate <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" type="date" v-model="birthdate" />
+                                                <InputText class="p-shadow-1" type="date" v-model="birthdate" :class="{disabled: !writeOn}" :disabled="!writeOn" />
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <label>Sex <i class="p-error">*</i></label>
-                                                <Dropdown class="p-shadow-1" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" placeholder="Select a Gender" />
+                                                <Dropdown class="p-shadow-1" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" placeholder="Select a Gender" :class="{disabled: !writeOn}" :disabled="!writeOn" />
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <label>Civil Status <i class="p-error">*</i></label>
-                                                <Dropdown class="p-shadow-1" optionLabel="name" :options="civil_status_value" optionValue="id" v-model="civil_status" placeholder="Select a Civil Status" :class="{'p-invalid': civil_statusError}" />
+                                                <Dropdown class="p-shadow-1" optionLabel="name" :options="civil_status_value" optionValue="id" v-model="civil_status" placeholder="Select a Civil Status" :class="{'p-invalid': civil_statusError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                 <small class="p-error">{{ civil_statusError }}</small>
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <label>Contact No.: <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" type="text" v-model="contact_no" />
+                                                <InputText class="p-shadow-1" type="text" v-model="contact_no" :disabled="!writeOn" />
                                             </div>
                                         </div>
                                         <div class="p-fluid p-formgrid p-grid">
                                             <div class="p-field p-col-12 p-md-4">
                                                 <label>Region <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" type="text" v-model="region" />
+                                                <InputText class="p-shadow-1" type="text" v-model="region" :disabled="!writeOn" />
                                             </div>
                                             <div class="p-field p-col-12 p-md-4">
                                                 <label>Province <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" type="text" v-model="province" />
+                                                <InputText class="p-shadow-1" type="text" v-model="province" :disabled="!writeOn" />
                                             </div>
                                             <div class="p-field p-col-12 p-md-4">
                                                 <label>Municipality <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" type="text" v-model="town_city" />
+                                                <InputText class="p-shadow-1" type="text" v-model="town_city" :disabled="!writeOn" />
                                             </div>
                                         </div>
                                         <div class="p-fluid p-formgrid p-grid">
                                             <div class="p-field p-col-12 p-md-8">
                                                 <label>Unit/Building/Street/House No. <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" type="text" v-model="address" />
+                                                <InputText class="p-shadow-1" type="text" v-model="address" :disabled="!writeOn" />
                                             </div>
                                             <div class="p-field p-col-12 p-md-4">
                                                 <label>Barangay <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1" type="text" v-model="barangay" />
+                                                <InputText class="p-shadow-1" type="text" v-model="barangay" :disabled="!writeOn" />
                                             </div>
                                         </div>
                                         
@@ -113,17 +113,17 @@
                                             <div class="p-fluid p-formgrid p-grid">
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Category <i class="p-error">*</i></label>
-                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" v-model="category" optionValue="id" placeholder="Select a Category" :class="{'p-invalid': categoryError}" />
+                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" v-model="category" optionValue="id" placeholder="Select a Category" :class="{'p-invalid': categoryError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ categoryError }}</small>
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Category ID <i class="p-error">*</i></label>
-                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" v-model="category_id" optionValue="id" placeholder="Select a Category ID" :class="{'p-invalid': category_idError}" />
+                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" v-model="category_id" optionValue="id" placeholder="Select a Category ID" :class="{'p-invalid': category_idError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ category_idError }}</small>
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Category ID No. <i class="p-error">*</i></label>
-                                                    <InputText class="p-shadow-1" v-model="category_id_no" :class="{'p-invalid': category_id_noError}" />
+                                                    <InputText class="p-shadow-1" v-model="category_id_no" :class="{'p-invalid': category_id_noError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ category_id_noError }}</small>
                                                 </div>
                                             </div>
@@ -131,34 +131,34 @@
                                             <div class="p-fluid p-formgrid p-grid">
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Profession <i class="p-error">*</i></label>
-                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="profession_value" v-model="profession" optionValue="id" placeholder="Select a Profession" :class="{'p-invalid': professionError}" />
+                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="profession_value" v-model="profession" optionValue="id" placeholder="Select a Profession" :class="{'p-invalid': professionError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ professionError }}</small>
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>PhilHealth ID <i class="p-error">*</i></label>
-                                                    <InputText class="p-shadow-1" type="text" placeholder="00-000000000-0" v-model="philhealth" :class="{'p-invalid': philhealthError}" />
+                                                    <InputText class="p-shadow-1" type="text" placeholder="00-000000000-0" v-model="philhealth" :class="{'p-invalid': philhealthError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ philhealthError }}</small>
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label> PWD ID No.</label>
-                                                    <InputText class="p-shadow-1" type="text" name="pwd_id" v-model="pwd_id" />
+                                                    <InputText class="p-shadow-1" type="text" name="pwd_id" v-model="pwd_id" :disabled="!writeOn" />
                                                 </div>
                                             </div>
 
                                             <div class="p-fluid p-formgrid p-grid">
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Employment Status <i class="p-error">*</i></label>
-                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status" :class="{'p-invalid': employment_statusError}" />
+                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status" :class="{'p-invalid': employment_statusError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ employment_statusError }}</small>
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Employer Name <i class="p-error">*</i></label>
-                                                    <InputText class="p-shadow-1" type="text" v-model="employer_name" :class="{'p-invalid': employer_nameError}" />
+                                                    <InputText class="p-shadow-1" type="text" v-model="employer_name" :class="{'p-invalid': employer_nameError}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ employer_nameError }}</small>
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Municipality <i class="p-error">*</i></label>
-                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="employer_municipality_value" v-model="employer_municipality" optionValue="id" placeholder="Select a Employment Municipality" :class="{'p-invalid': employer_municipalityError}" />
+                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="employer_municipality_value" v-model="employer_municipality" optionValue="id" placeholder="Select a Employment Municipality" :class="{'p-invalid': employer_municipalityError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ employer_municipalityError }}</small>
                                                 </div>
                                             </div>
@@ -166,12 +166,12 @@
                                             <div class="p-fluid p-formgrid p-grid">
                                                 <div class="p-field p-col-12 p-md-8">
                                                     <label>Employer Address <i class="p-error">*</i></label>
-                                                    <InputText class="p-shadow-1" type="text" v-model="employer_address" :class="{'p-invalid': employer_addressError}" />
+                                                    <InputText class="p-shadow-1" type="text" v-model="employer_address" :class="{'p-invalid': employer_addressError}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ employer_addressError }}</small>
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Employer Contact No. <i class="p-error">*</i></label>
-                                                    <InputText class="p-shadow-1" type="text" v-model="employer_contact_no" :class="{'p-invalid': employer_contact_noError}" />
+                                                    <InputText class="p-shadow-1" type="text" v-model="employer_contact_no" :class="{'p-invalid': employer_contact_noError}" :disabled="!writeOn" />
                                                     <small class="p-error">{{ employer_contact_noError }}</small>
                                                 </div>
                                             </div>
@@ -180,7 +180,7 @@
                                             <div class="p-fluid p-formgrid p-grid">
                                                 <div class="p-field p-col-12 p-md-10"></div>
                                                 <div class="p-field p-col-12 p-md-2">
-                                                    <Button type="submit" class="p-button-primary" :disabled="!writeOn && editMode"><i v-if="saving" class="pi pi-spin pi-spinner"></i>&nbsp;Update</Button>
+                                                    <Button type="submit" class="p-button-primary" :disabled="!writeOn"><i v-if="saving" class="pi pi-spin pi-spinner"></i>&nbsp;Save</Button>
                                                 </div>
                                             </div>
                                         </div>
@@ -238,37 +238,38 @@ export default {
 
         const init = {
             initialValues: {
-                registration: {...store.state.vaccines.registration}
+                vaccine: {...store.state.vaccines.vaccine}
             }
         }
 
         const { setValues, handleSubmit, resetForm } = useForm(init);
 
-         watch(
+        watch(
             () => store.state.vaccines.fetched,
             (data, prevData) => {
-                setValues({
-                    registration: {...store.state.vaccines.registration}
-                })
+                if (data) {
+                    setValues({
+                        vaccine: {...store.state.vaccines.vaccine}
+                    })
+                }
             }
-        )
+        )      
         
-         const getNapanam = () => {
-            console.log(qr_pass_id._value)
-            store.dispatch('vaccines/GET_BY_QR', { id: qr_pass_id._value })
+        const getNapanam = () => {
+            store.dispatch('vaccines/GET_BY_QR', { id: qr_pass_id.value })
         }
 
         const onSubmit = handleSubmit((values, actions) => {
 
             const { resetForm } = actions
-            const { registration } = values
+            const { vaccine } = values
 
             confirm.require({
-                message: "Are you sure you want to add update this registration's info?",
+                message: "Are you sure you want to add this registration's info?",
                 header: 'Confirmation',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    dispatch('vaccines/UPDATE_REGISTRATION', registration)
+                    dispatch('vaccines/CREATE_REGISTRATION', vaccine)
                 },
                 reject: () => {
                     //callback to execute when registration rejects the action
@@ -289,34 +290,33 @@ export default {
         }
 
         // Personal
-        const { value: id } = useField('registration.id',validField);
-        const { value: qr_pass_id, errorMessage: qr_pass_idError } = useField('registration.qr_pass_id',validateField);
-        const { value: first_name, errorMessage: first_nameError } = useField('registration.first_name',validateField);
-        const { value: middle_name } = useField('registration.middle_name',validField);
-        const { value: last_name, errorMessage: last_nameError } = useField('registration.last_name',validateField);
-        const { value: suffix, errorMessage: suffixError } = useField('registration.suffix',validateField);
-        const { value: birthdate } = useField('registration.birthdate',validField);
-        const { value: gender, errorMessage: genderError } = useField('registration.gender',validateField);
-        const { value: region } = useField('registration.region',validField);
-        const { value: province } = useField('registration.province',validField);
-        const { value: town_city } = useField('registration.town_city',validField);
-        const { value: address } = useField('registration.address',validField);
-        const { value: barangay } = useField('registration.barangay',validField);
-        const { value: contact_no } = useField('registration.contact_no',validField);
-        const { value: civil_status, errorMessage: civil_statusError } = useField('registration.civil_status',validateField);
+        const { value: id } = useField('vaccine.id',validField);
+        const { value: qr_pass_id, errorMessage: qr_pass_idError } = useField('vaccine.qr_pass_id',validateField);
+        const { value: first_name, errorMessage: first_nameError } = useField('vaccine.first_name',validateField);
+        const { value: middle_name } = useField('vaccine.middle_name',validField);
+        const { value: last_name, errorMessage: last_nameError } = useField('vaccine.last_name',validateField);
+        const { value: suffix, errorMessage: suffixError } = useField('vaccine.suffix',validateField);
+        const { value: birthdate } = useField('vaccine.birthdate',validField);
+        const { value: gender, errorMessage: genderError } = useField('vaccine.gender',validateField);
+        const { value: region } = useField('vaccine.region',validField);
+        const { value: province } = useField('vaccine.province',validField);
+        const { value: town_city } = useField('vaccine.town_city',validField);
+        const { value: address } = useField('vaccine.address',validField);
+        const { value: barangay } = useField('vaccine.barangay',validField);
+        const { value: contact_no } = useField('vaccine.contact_no',validField);
+        const { value: civil_status, errorMessage: civil_statusError } = useField('vaccine.civil_status',validateField);
         // Employment Status
-        const { value: category, errorMessage: categoryError } = useField('registration.category',validateField);
-        const { value: category_id, errorMessage: category_idError } = useField('registration.category_id',validateField);
-        const { value: category_id_no, errorMessage: category_id_noError } = useField('registration.category_id_no',validateField);
-        
-        const { value: employment_status, errorMessage: employment_statusError } = useField('registration.employment_status',validateField);
-        const { value: profession, errorMessage: professionError } = useField('registration.profession',validateField);
-        const { value: philhealth, errorMessage: philhealthError } = useField('registration.philhealth',validateField);
-        const { value: pwd_id } = useField('registration.pwd_id',validField);
-        const { value: employer_name, errorMessage: employer_nameError } = useField('registration.employer_name',validateField);
-        const { value: employer_municipality, errorMessage: employer_municipalityError } = useField('registration.employer_municipality',validateField);
-        const { value: employer_address, errorMessage: employer_addressError } = useField('registration.employer_address',validateField);
-        const { value: employer_contact_no, errorMessage: employer_contact_noError } = useField('registration.employer_contact_no',validateField);
+        const { value: category, errorMessage: categoryError } = useField('vaccine.category',validateField);
+        const { value: category_id, errorMessage: category_idError } = useField('vaccine.category_id',validateField);
+        const { value: category_id_no, errorMessage: category_id_noError } = useField('vaccine.category_id_no',validateField);
+        const { value: employment_status, errorMessage: employment_statusError } = useField('vaccine.employment_status',validateField);
+        const { value: profession, errorMessage: professionError } = useField('vaccine.profession',validateField);
+        const { value: philhealth, errorMessage: philhealthError } = useField('vaccine.philhealth',validateField);
+        const { value: pwd_id } = useField('vaccine.pwd_id',validField);
+        const { value: employer_name, errorMessage: employer_nameError } = useField('vaccine.employer_name',validateField);
+        const { value: employer_municipality, errorMessage: employer_municipalityError } = useField('vaccine.employer_municipality',validateField);
+        const { value: employer_address, errorMessage: employer_addressError } = useField('vaccine.employer_address',validateField);
+        const { value: employer_contact_no, errorMessage: employer_contact_noError } = useField('vaccine.employer_contact_no',validateField);
         
         return {
             id, // Personal
@@ -449,6 +449,17 @@ export default {
             return this.$store.state.vaccines.selections.employer_municipality_value
 
         },
+        saving() {
+            return this.$store.state.vaccines.saving
+        },
+        writeOn: {
+            set(value) {
+                this.$store.dispatch('vaccines/TOGGLE_WRITE', value)
+            },
+            get() {
+                return this.$store.state.vaccines.writeOn
+            }
+        }
     },
     methods: {
         fetchSelections() {
@@ -487,7 +498,10 @@ export default {
             return new Promise(resolve => {
                 window.setTimeout(resolve, ms)
             })
-        }        
+        },
+        toggleWrite() {
+            this.writeOn = !this.writeOn
+        },     
     },
     mounted() {
         this.fetchSelections()
@@ -557,5 +571,20 @@ export default {
     }
     .float-right {
         position: absolute; right: 5%;
+    }
+    input[type="text"]:disabled {
+        background: rgb(219, 219, 219);
+        border-bottom: 1px solid black;
+        cursor: not-allowed; 
+    }
+    input[type="number"]:disabled {
+        background: rgb(219, 219, 219);
+        border-bottom: 1px solid black;
+        cursor: not-allowed; 
+    }
+    .disabled {
+        background: rgb(219, 219, 219);
+        border-bottom: 1px solid black;
+        cursor: not-allowed; 
     }
 </style>
