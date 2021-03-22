@@ -44,7 +44,6 @@ import Button from 'primevue/button/sfc';
 import Divider from 'primevue/divider/sfc';
 import ToggleButton from 'primevue/togglebutton/sfc';
 
-import { hospital } from '../../stores/hospitals.js'
 import { useStore } from 'vuex'
 import { useForm, useField } from 'vee-validate'
 import { useRoute } from 'vue-router'
@@ -66,7 +65,7 @@ export default {
 
         const init = {
             initialValues: {
-                hospital: {...hospital}
+                hospital: {...store.hospitals.hospital}
             }
         }
 
