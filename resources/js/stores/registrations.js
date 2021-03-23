@@ -220,7 +220,7 @@ const actions = {
         commit('TOGGLE_WRITE', payload)
     },
     async CREATE_REGISTRATION({commit, dispatch}, payload) {
-        commit('SAVING',true)   
+        commit('SAVING',true)
         try {
             payload.drug_allergy = (payload.drug_allergy)?"01_Yes":"02_No"
             payload.food_allergy = (payload.food_allergy)?"01_Yes":"02_No"
@@ -266,6 +266,22 @@ const actions = {
     CREATE_REGISTRATION_ERROR({commit}, payload) {
         commit('SAVING',false)
         console.log(payload)
+
+        // if Not found
+        if(payload.status==500){
+            Swal.fire({
+                // title: '<p>Error</p>',
+                icon: 'error',
+                html: '<h5 style="font-size: 18px;">The Napanam ID No. you entered is already registered</h5>',
+                showCancelButton: false,
+                focusConfirm: true,
+                confirmButtonText: 'Ok',
+            }).then((result) => {
+                if (result.value) {
+                // Close
+                }
+            })	
+        }
     },
     async GET_REGISTRATIONS({dispatch}, payload) {
         try {
@@ -347,17 +363,17 @@ const actions = {
             allowOutsideClick: false,
             allowEscapeKey: false,
             allowEnterKey: false,
-          }).then((result) => {
-            if (result.value) {
-              
-              window.location = api_url;
-              
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-              
-              window.location = api_url;
-              
-            }
-          })
+        }).then((result) => {
+        if (result.value) {
+            
+            window.location = api_url;
+            
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            
+            window.location = api_url;
+            
+        }
+        })
 
     },
     CREATE_ERROR({commit}, payload) {
@@ -434,7 +450,8 @@ const actions = {
     DELETE_REGISTRATION_ERROR({commit}, payload) {
         console.log(payload)
     },
-    async GET_NAPANAM_ID({dispatch}, { id }) {
+    async GET_NAPANAM_ID({dispatch, commit}, { id }) {
+        commit('FETCH', false)
         try {
             const { data: { data } } = await getNapanamID({ id })
             dispatch('GET_NAPANAM_ID_SUCCESS', data)
@@ -474,7 +491,7 @@ const actions = {
             Swal.fire({
                 // title: "<p>Opss</p>",
                 icon: 'warning',
-                html: '<h5 style="font-size: 18px;">The Napanam ID No. you have entered is already registered</h5>',
+                html: '<h5 style="font-size: 18px;">The Napanam ID No. you entered is already registered</h5>',
                 showCancelButton: false,
                 focusConfirm: false,
                 confirmButtonColor: '#68bca4',

@@ -401,9 +401,11 @@ export default {
             watch(
                 () => store.state.registrations.fetched,
                 (data, prevData) => {
-                    setValues({
-                        registration: {...store.state.registrations.registration}
-                    })
+                    if(data){
+                        setValues({
+                            registration: {...store.state.registrations.registration}
+                        })
+                    }
                 }
             )
         }
@@ -414,11 +416,10 @@ export default {
             resetForm();
         }
 
-         const getNapanam = () => {
+        const getNapanam = () => {
             //console.log(qr_pass_id._value)
             store.dispatch('registrations/GET_NAPANAM_ID', { id: qr_pass_id._value })
         }
-
         const onSubmit = handleSubmit((values, actions) => {
 
             const { resetForm } = actions
