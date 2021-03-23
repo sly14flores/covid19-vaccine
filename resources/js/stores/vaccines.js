@@ -54,6 +54,14 @@ const selections = {
 const dosages = [
     {id: 1, name: 'First'},
     {id: 2, name: 'Second'},
+    {id: 3, name: 'Third'}
+]
+
+const professions = [
+    {id: 1, name: 'Doctor'},
+    {id: 2, name: 'Nurse'},
+    {id: 3, name: 'Midwife'},
+    {id: 4, name: 'Pharmacies'}
 ]
 
 const state = () => {
@@ -63,6 +71,7 @@ const state = () => {
         selections,
         vaccine,
         dosages,
+        professions
     }
 }
 
@@ -152,9 +161,9 @@ const actions = {
     GET_BY_QR_ERROR({commit},payload) {
         commit('FETCH', false)
         commit('TOGGLE_WRITE', false)
-        const { data: { message } } = payload
+        // const { data: { message } } = payload
         Swal.fire({
-            text: message,
+            text: 'The Napanam ID No. you entered does not exist. Please register first to proceed.',
             icon: 'error',
             confirmButtonText: 'Ok'
         })

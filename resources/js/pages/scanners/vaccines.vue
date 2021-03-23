@@ -27,7 +27,7 @@
                                 </div>
                             </div>
                         </div>
-                         <div class="p-lg-8 p-sm-12 p-xs-12">
+                        <div class="p-lg-8 p-sm-12 p-xs-12">
                             <div class="p-fluid p-shadow-2">
                                 <form @submit="onSubmit">
                                     <div class="card p-shadow-2">
@@ -179,10 +179,10 @@
                                             <div class="p-fluid">
                                                 <div class="p-fluid p-formgrid p-grid">
                                                     <div class="p-field p-col-12 p-md-11">
-                                                            <h6><i class="pi pi-list"></i> Vaccines </h6>
+                                                            <h6><i class="pi pi-list"></i> Vaccine Administered </h6>
                                                     </div>
                                                     <div class="p-field p-col-12 p-md-1">
-                                                        <Button label="Add" class="p-button-success" />
+                                                        <Button label="Add" class="p-button-success" @click="openVaccine" />
                                                     </div>
                                                 </div>
                                                 <div class="p-fluid p-formgrid p-grid">
@@ -191,9 +191,53 @@
                                                         <Column field="" header="Batch No."></Column>
                                                         <Column field="" header="Lot No."></Column>
                                                         <Column field="" header="Dosage"></Column>
+                                                        <Column field="" header="Administered by"></Column>
+                                                        <Column field="" header="Date"></Column>
                                                     </DataTable>
                                                 </div>
                                             </div>
+
+                                            <Dialog header="Vaccine" v-model:visible="displayVaccine" :closeOnEscape="true" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">
+                                                <hr />
+                                                <div class="p-fluid p-formgrid p-grid">
+                                                    <div class="p-field p-col-12 p-md-4">
+                                                        <label>Date of Vaccination <i class="p-error">*</i></label>
+                                                        <Calendar />
+                                                    </div>
+                                                </div>
+                                                <div class="p-fluid p-formgrid p-grid">
+                                                    <div class="p-field p-col-12 p-md-4">
+                                                        <label>Vaccine Manufacturer Name </label>
+                                                        <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                                    </div>
+                                                    <div class="p-field p-col-12 p-md-4">
+                                                        <label>Vaccine Name</label>
+                                                        <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                                    </div>
+                                                    <div class="p-field p-col-12 p-md-4">
+                                                        <label>Profession of Vaccinator</label>
+                                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="professions" v-model="profession" optionValue="id" placeholder="Select a profession" />
+                                                    </div>
+                                                </div>
+                                                <div class="p-fluid p-formgrid p-grid">
+                                                    <div class="p-field p-col-12 p-md-4">
+                                                        <label>Batch No.</label>
+                                                        <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                                    </div>
+                                                    <div class="p-field p-col-12 p-md-4">
+                                                        <label>Lot No.</label>
+                                                        <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                                    </div>
+                                                    <div class="p-field p-col-12 p-md-4">
+                                                        <label>Dose <i class="p-error">*</i></label>
+                                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="dosages" v-model="dose" optionValue="id" placeholder="Select a dose" />
+                                                    </div>
+                                                </div><br /><br /><br /><br />
+                                                <template #footer>
+                                                    <Button label="Close" icon="pi pi-times" @click="closeVaccine" class="p-button-text"/>
+                                                    <Button label="Save" icon="pi pi-check" @click="closeVaccine" autofocus />
+                                                </template>
+                                            </Dialog>
 
                                             <div class="p-fluid p-formgrid p-grid p-mt-2">
                                                 <div class="p-field p-col-12 p-md-5"></div>
@@ -231,6 +275,8 @@ import ConfirmDialog from 'primevue/confirmdialog/sfc';
 import DataTable from 'primevue/datatable/sfc';
 import Column from 'primevue/column/sfc';
 import Paginator from 'primevue/paginator/sfc';
+import Dialog from 'primevue/dialog/sfc';
+import Calendar from 'primevue/calendar/sfc';
 
 import { QrStream, QrCapture, QrDropzone } from 'vue3-qr-reader';
 import { useStore } from 'vuex'
@@ -392,7 +438,8 @@ export default {
     },
     data() {
       return {
-          camera: 'auto'
+          camera: 'auto',
+          displayVaccine: false
       }
     },
     components: {
@@ -411,7 +458,9 @@ export default {
         ToggleButton,
         DataTable,
         Column,
-        Paginator
+        Paginator,
+        Dialog,
+        Calendar
     },
     computed: {
         suffix_value() {
@@ -474,6 +523,12 @@ export default {
             return this.$store.state.vaccines.selections.employer_municipality_value
 
         },
+        dosages() {
+            return this.$store.state.vaccines.dosages
+        },
+        professions() {
+            return this.$store.state.vaccines.professions
+        },
         saving() {
             return this.$store.state.vaccines.saving
         },
@@ -487,6 +542,12 @@ export default {
         }
     },
     methods: {
+        openVaccine() {
+            this.displayVaccine = true;
+        },
+        closeVaccine() {
+            this.displayVaccine = false;
+        },
         fetchSelections() {
             this.$store.dispatch('vaccines/GET_SELECTIONS')
         },

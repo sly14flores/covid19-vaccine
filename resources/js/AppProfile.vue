@@ -1,7 +1,7 @@
 <template>
 	<div class="layout-profile">
 		<div>
-			<img src="assets/images/profile.png" alt="" />
+			<img src="img/icons/avatar.png" alt="" />
 		</div>
 		<button class="p-link layout-profile-link" @click="onClick">
 			<span>{{ name }}</span>
