@@ -120,7 +120,7 @@ Route::prefix('doh')->group(function() {
      * Vaccines
      */
     Route::apiResources([
-        'vaccines' => VaccineController::class,
+        'vaccines/{id}' => VaccineController::class,
     ],[
         'only' => ['index']
     ]);
