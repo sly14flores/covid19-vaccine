@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 use App\Models\Vaccine;
 use App\Http\Resources\VaccineResource;
 use App\Http\Resources\VaccineResourceCollection;
@@ -81,6 +84,8 @@ class VaccineController extends Controller
 
         /** Get validated data */
         $data = $validator->valid();
+        $id = Auth::guard('api')->id();
+        $data['user_id'] = $id;
 
         $vaccine = new Vaccine;
         $vaccine->fill($data);
@@ -150,7 +155,6 @@ class VaccineController extends Controller
             'vaccine_name' => 'integer',
             'batch_number' => 'integer',
             'lot_number' => 'integer',
-            'lot_number' => 'integer',
             'dose' => 'integer',
         ];
 
@@ -158,7 +162,8 @@ class VaccineController extends Controller
 
         /** Get validated data */
         $data = $validator->valid();        
-        unset($data['id']);
+        $id = Auth::guard('api')->id();
+        $data['user_id'] = $id;
 
         $vaccine->fill($data);
 

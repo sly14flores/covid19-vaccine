@@ -20,7 +20,6 @@ class VaccineResource extends JsonResource
             'batch_number' => $this->batch_number,
             'lot_number' => $this->lot_number,
             'dose' => $this->dose,
-            'create_at' => $this->created_at
         ];
     }
 }
