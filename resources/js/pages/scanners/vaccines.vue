@@ -20,7 +20,7 @@
                                     <div class="p-field p-col-11 p-md-12">
                                         <div class="center stream">
                                             <qr-stream :camera="camera" @decode="onDecode" class="mb p-shadow-3">
-                                                <div style="color: #fe664f;" class="frame"></div>
+                                                <div class="frame"></div>
                                             </qr-stream>
                                         </div>
                                     </div>
@@ -31,7 +31,14 @@
                             <div class="p-fluid p-shadow-2">
                                 <form @submit="onSubmit">
                                     <div class="card p-shadow-2">
-                                        <h6><i class="pi pi-user"></i> Personal Information <ToggleButton class="float-right" v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" /></h6>
+                                        <div class="p-fluid p-formgrid p-grid">
+                                            <div class="p-field p-col-10 p-md-11">
+                                                <h6><i class="pi pi-user"></i> Personal Information </h6>
+                                            </div>
+                                            <div class="p-field p-col-2 p-md-1">
+                                                <ToggleButton v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" />
+                                            </div>
+                                        </div>
                                         <hr />
                                         <div class="p-fluid p-formgrid p-grid">
                                             <div class="p-field p-col-12 p-md-6">
@@ -757,9 +764,17 @@ export default {
         margin: auto;
     }
     .frame {
-        border-style: solid;
-        border-width: 2px;
-        border-color: #fe664f;
+        background-image: linear-gradient(#fe664f, #fe664f),
+                linear-gradient(#fe664f, #fe664f),
+                linear-gradient(#fe664f, #fe664f),
+                linear-gradient(#fe664f, #fe664f),
+                linear-gradient(#fe664f, #fe664f),
+                linear-gradient(#fe664f, #fe664f),
+                linear-gradient(#fe664f, #fe664f),
+                linear-gradient(#fe664f, #fe664f);
+        background-repeat: no-repeat;
+        background-size:  4px 30%, 30% 4px, 4px 30%, 30% 4px, 4px 30%, 30% 4px, 4px 30%, 30% 4px, 4px 30%, 30% 4px, calc(100% - 8px) calc(100% - 8px);
+        background-position:  left top, left top, left bottom, left bottom, right bottom, right bottom , right top, right top, 4px 4px;
         height: 200px;
         width: 200px;
         position: absolute;
@@ -769,6 +784,20 @@ export default {
         left: 0px;
         margin: auto;
     }
+    /* .frame {
+        border-style: solid;
+        border-width: 2px;
+        border-color: #fe664f;
+        background-position: left bottom, left bottom, right top, right top, 4px 4px;
+        height: 200px;
+        width: 200px;
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+        left: 0px;
+        margin: auto;
+    } */
     .p-border {
         border: 1px solid #215266;
     }
