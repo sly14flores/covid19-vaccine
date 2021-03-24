@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Vaccine;
+use App\Models\Barangay;
+use App\Models\CityMun;
+use App\Models\Province;
+
 use App\Http\Resources\VaccineResource;
 use App\Http\Resources\VaccineResourceCollection;
 use App\Http\Resources\VaccinesListResourceCollection;
@@ -17,10 +21,11 @@ use App\Models\Registration;
 use App\Http\Resources\RegistrationVaccineResource;
 
 use App\Traits\Messages;
+use App\Traits\DOHHelpers;
 
 class VaccineController extends Controller
 {
-    use Messages;
+    use Messages, DOHHelpers;
 
     private $http_code_ok;
     private $http_code_error;    
@@ -211,5 +216,90 @@ class VaccineController extends Controller
         $data = new RegistrationVaccineResource($registration);
 
         return $this->jsonSuccessResponse($data, 200);
+    }
+
+    public function updateRegistration(Request $request, $id) # qr_pass_id
+    {
+
+        $rules = [
+            'qr_pass_id' => 'string',
+            'first_name' => 'string',
+            'middle_name' => 'string',
+            'last_name' => 'string',
+            'suffix' => 'string',
+            'birthdate' => 'string',
+            'gender' => 'string',
+            'address' => 'string',
+            'barangay' => 'integer',
+            'town_city' => 'integer',
+            'province' => 'integer',
+            'contact_no' => 'string',
+            'civil_status' => 'string',
+            'category' => 'string',
+            'category_id' => 'string',
+            'category_id_no' => 'string',
+            'employment_status' => 'string',
+            'profession' => 'string',
+            'philhealth' => 'string',
+            'employer_name' => 'string',
+            'employer_address' => 'string',
+            // 'employer_lgu' => 'string',
+            'employer_contact_no' => 'string',
+            'pregnancy_status' => 'string',
+            'with_allergy' => 'string',
+            // 'allergy' => 'string',
+            // 'with_allergy_others' => 'string',
+            'with_comorbidity' => 'string',
+            // 'comorbidity' => 'string',
+            // 'with_comorbidity_others' => 'string',
+            'diagnosed' => 'string',
+            'covid_classification' => 'string',
+            'diagnosed_date' => 'date',
+            'consent_vaccination' => 'string',
+            'region' => 'string',
+            'employer_municipality' => 'string',
+            'pwd_id' => 'string',
+            'direct_interaction' => 'string',
+            'drug_allergy' => 'string',
+            'food_allergy' => 'string',
+            'insect_allergy' => 'string',
+            'latex_allergy' => 'string',
+            'mold_allergy' => 'string',
+            'pet_allergy' => 'string',
+            'pollen_allergy' => 'string',
+            'hypertension' => 'string',
+            'heart_disease' => 'string',
+            'kidney_disease' => 'string',
+            'diabetes_mellitus' => 'string',
+            'bronchial_asthma' => 'string',
+            'immuno_deficiency_status' => 'string',
+            'cancer' => 'string',
+            'comorbidity_others' => 'string',          
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        /** Get validated data */
+        $data = $validator->valid();
+
+        // return $data;
+
+        $barangay = Barangay::where('brgyCode',$data['barangay'])->first();
+        $data['barangay'] = $this->toDOHBrgy($barangay);
+        $town_city = CityMun::where('citymunCode',$data['town_city'])->first();
+        $data['town_city'] = $this->toDOHMun($town_city);
+        $province = Province::where('provCode',$data['province'])->first();
+        $data['province'] = $this->toDOHProv($province);
+
+        $registration = Registration::where('qr_pass_id',$id)->first();
+        $registration->fill($data);
+        $registration->save();
+
+        /**
+         * Update NAPANAM Info
+         */        
+
+        return $this->jsonSuccessResponse($data, 200, 'Registration info updated successfully');         
+
     }
 }

@@ -130,6 +130,7 @@ Route::prefix('doh')->group(function() {
         'except' => ['index']
     ]);
     Route::get('vaccines/qr/{id}', [VaccineController::class, 'qrRegistration']);
+    Route::put('vaccines/update/registration/{id}', [VaccineController::class, 'updateRegistration']);
 
 
     /**

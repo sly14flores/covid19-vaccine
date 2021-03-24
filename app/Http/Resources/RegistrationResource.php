@@ -3,9 +3,12 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Traits\DOHHelpers;
 
 class RegistrationResource extends JsonResource
 {
+    use DOHHelpers;
+
     /**
      * Transform the resource into an array.
      *
@@ -25,9 +28,9 @@ class RegistrationResource extends JsonResource
             'gender' => $this->gender,
             'region' => $this->region,
             'address' => $this->address,
-            'barangay' => $this->barangay,
-            'town_city' => $this->town_city,
-            'province' => $this->province,
+            'barangay' => $this->dohToBrgy($this->barangay),
+            'town_city' => $this->dohToMun($this->town_city),
+            'province' => $this->dohToProv($this->province),
             'contact_no' => $this->contact_no,
             'civil_status' => $this->civil_status,
             'category' => $this->category,
