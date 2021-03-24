@@ -15,7 +15,7 @@
                         <Column field="id" header="Actions">
                             <template #body="slotProps">
                                 <router-link :to="`/users/user/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>                            
-                                <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" @click="deleteUser(slotProps.data.id)" />
+                                <Button icon="pi pi-trash" class="p-button-rounded p-button-danger" @click="deleteUser(slotProps.data.id)" />
                             </template>
                         </Column>
                     </DataTable>

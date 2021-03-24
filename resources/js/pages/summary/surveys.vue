@@ -12,7 +12,7 @@
                         <i class="pi pi-refresh icon-size"></i>
                     </button>
                     <button  type="button" class="p-mr-2 p-mb-2 p-button p-component p-button-success" @click="exportToExcel">
-                            Export to Excel
+                        <i class="pi pi-upload"></i>&nbsp; Export to Excel
                     </button> 
                 </div>
             </div>

@@ -76,7 +76,6 @@ class VaccineController extends Controller
             'vaccine_name' => 'integer',
             'batch_number' => 'integer',
             'lot_number' => 'integer',
-            'lot_number' => 'integer',
             'dose' => 'integer',
         ];
 

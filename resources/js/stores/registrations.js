@@ -284,6 +284,20 @@ const actions = {
         }
     },
     async GET_REGISTRATIONS({dispatch}, payload) {
+        Swal.fire({
+            title: 'Loading...',
+
+            onBeforeOpen () {
+              Swal.showLoading ()
+            },
+            onAfterClose () {
+              Swal.hideLoading()
+            },
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false
+        })
         try {
             const { page } = payload
             const { data: { data: { data, pagination } } } = await getRegistrations({ page })
@@ -297,6 +311,7 @@ const actions = {
         const { data, pagination } = payload
         commit('REGISTRATIONS',data)
         commit('PAGINATION',pagination)
+        Swal.close()
     },
     GET_REGISTRATIONS_ERROR({commit}, payload) {
         console.log(payload)

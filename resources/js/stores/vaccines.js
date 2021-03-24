@@ -17,7 +17,52 @@ const getByQr = (payload) => {
     return axios.get(url)
 }
 
+const GET_VACCINATIONS = `${api_url}/api/doh/vaccines/:id`
+const getVaccinations = (payload) => {
+    const { id } = payload
+    const url =  route(GET_VACCINATIONS, { id })
+    return axios.get(url)
+}
+
+const CREATE_VACCINATION = `${api_url}/api/doh/vaccine`
+const createVaccination = (payload) => {
+    return axios.post(CREATE_VACCINATION, payload)
+}
+
+const UPDATE_VACCINATION = `${api_url}/api/doh/vaccine/:id`
+const updateVaccination = (payload) => {
+    const { id } = payload
+    const url =  route(UPDATE_VACCINATION, { id })
+    return axios.put(url, payload)
+}
+
+const DELETE_VACCINATION = `${api_url}/api/doh/vaccine/:id`
+const deleteVaccination = (payload) => {
+    const { id } = payload
+    const url =  route(DELETE_VACCINATION, { id })
+    return axios.delete(url)
+}
+
+const GET_VACCINATION = `${api_url}/api/doh/vaccine/:id`
+const getVaccination = (payload) => {
+    const { id } = payload
+    const url =  route(GET_VACCINATION, { id })
+    return axios.get(url)
+}
+
+const vaccination = {
+    id: 0,
+    qr_pass_id: null,
+    vaccine_name: null,
+    batch_number: null,
+    lot_number: null,
+    dose: null
+}
+
 const vaccine = {}
+
+const vaccinations = []
+const pagination = {}
 
 const suffix_value = [];
 const gender_value = [];
@@ -57,11 +102,10 @@ const dosages = [
     {id: 3, name: 'Third'}
 ]
 
-const professions = [
-    {id: 1, name: 'Doctor'},
-    {id: 2, name: 'Nurse'},
-    {id: 3, name: 'Midwife'},
-    {id: 4, name: 'Pharmacies'}
+const manufactures = [
+    {id: 1, name: 'Pfizer'},
+    {id: 2, name: 'Astrazeneca'},
+    {id: 3, name: 'Sinovac'}
 ]
 
 const state = () => {
@@ -70,14 +114,28 @@ const state = () => {
         saving: false,
         selections,
         vaccine,
+        vaccination,
+        vaccinations,
+        pagination,
         dosages,
-        professions
+        manufactures
     }
 }
 
 const mutations = {
-    VACCINE(state,payload) {
-        state.vaccine
+    INIT(state) {
+        state.vaccine = vaccine
+        state.vaccination = vaccination
+        state.vaccinations = vaccinations
+    },
+    VACCINATION(state,payload) {
+        state.vaccination = payload
+    },
+    VACCINATIONS(state, payload) {
+        state.vaccinations = payload
+    },
+    PAGINATION(state, payload) {
+        state.pagination = {...payload}
     },
     SELECTIONS(state, payload) {
         state.selections = {...payload}
@@ -121,6 +179,9 @@ const mutations = {
 }
 
 const actions = {
+    INIT({commit}) {
+        commit('INIT')
+    },
     TOGGLE_WRITE({commit}, payload) {
         commit('TOGGLE_WRITE', payload)
     },
@@ -143,20 +204,35 @@ const actions = {
     async GET_BY_QR({dispatch, commit},payload) {
         commit('FETCH', false)
         const { id } = payload
+        Swal.fire({
+            title: 'Loading...',
+
+            onBeforeOpen () {
+              Swal.showLoading ()
+            },
+            onAfterClose () {
+              Swal.hideLoading()
+            },
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false
+        })
         try {
             const { data: { data } } = await getByQr({ id })
-            dispatch('GET_BY_QR_SUCCESS',data)
+            dispatch('GET_BY_QR_SUCCESS',{id, data})
         } catch (error) {
             const { response } = error
             dispatch('GET_BY_QR_ERROR',response)
         }
     },
-    GET_BY_QR_SUCCESS({commit},payload) {
-        // console.log(payload)
-        // commit('VACCINE',payload)
-        commit('NAPANAM', payload)
+    GET_BY_QR_SUCCESS({dispatch,commit},payload) {
+        const { id, data } = payload
+        dispatch('GET_VACCINATIONS', {id})
+        commit('NAPANAM', data)
         commit('FETCH', true)
         commit('TOGGLE_WRITE', true)
+        Swal.close()
     },
     GET_BY_QR_ERROR({commit},payload) {
         commit('FETCH', false)
@@ -167,7 +243,140 @@ const actions = {
             icon: 'error',
             confirmButtonText: 'Ok'
         })
-    }
+    },
+    async GET_VACCINATIONS({dispatch}, payload) {
+        try {
+            const { id } = payload
+            const { data: { data } } = await getVaccinations({ id })
+            dispatch('GET_VACCINATIONS_SUCCESS', data)
+        } catch (error) {
+            const { response } = error
+            dispatch('GET_VACCINATIONS_ERROR', response)
+        }
+    },
+    GET_VACCINATIONS_SUCCESS({commit}, payload) {
+        commit('VACCINATIONS',payload)
+    },
+    GET_VACCINATIONS_ERROR({commit}, payload) {
+        console.log(payload)
+    },
+    async CREATE_VACCINATION({state, commit, dispatch}, payload) {
+        commit('SAVING',true)        
+        try {
+            const { data: { data } } = await createVaccination({qr_pass_id: state.vaccine.qr_pass_id, ...payload})
+            dispatch('CREATE_VACCINATION_SUCCESS', data)
+            return true
+        } catch(error) {
+            dispatch('CREATE_VACCINATION_ERROR', error)
+            return false
+        }
+    },
+    CREATE_VACCINATION_SUCCESS({state,commit,dispatch}, payload) {
+        dispatch('GET_VACCINATIONS', { id: state.vaccine.qr_pass_id })
+        commit('SAVING',false)
+        Swal.fire({
+            title: '<p class="text-success" style="font-size: 25px;">Successfully saved!</p>',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+        })
+
+    },
+    CREATE_VACCINATION_ERROR({commit}, error) {
+        const { response } = error || {}
+        const { message, status } = response || {}
+        commit('SAVING',false) 
+        if (message) {
+            console.log(message)
+        }
+    },
+    async UPDATE_VACCINATION({commit,dispatch}, payload) {
+        
+        commit('SAVING',true)
+        commit('TOGGLE_WRITE', true)
+        try {
+            const { data: { data } } = await updateVaccination(payload)
+            dispatch('UPDATE_VACCINATION_SUCCESS', data)
+            return true
+        } catch (error) {
+            const { response } = error
+            dispatch('UPDATE_VACCINATION_ERROR', response)
+            return false
+        }
+    },
+    UPDATE_VACCINATION_SUCCESS({state,commit,dispatch}, payload) {
+        dispatch('GET_VACCINATIONS', {id: state.vaccine.qr_pass_id})
+        commit('SAVING',false)
+        commit('TOGGLE_WRITE', false)
+        Swal.fire({
+            title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+        })
+    },
+    UPDATE_VACCINATION_ERROR({commit}, error) {
+        const { response } = error || {}
+        const { message, status } = response || {}
+        commit('SAVING',false) 
+        if (message) {
+            console.log(message)
+        }
+    },
+    async DELETE_VACCINATION({state,dispatch}, payload) {
+        const { id } = payload
+        try {
+            const { data: { data } } = await deleteVaccination({id})
+            dispatch('DELETE_VACCINATION_SUCCESS', data)
+            dispatch('GET_VACCINATIONS', { id: state.vaccine.qr_pass_id })
+        } catch (error) {
+            const { response } = error
+            dispatch('DELETE_VACCINATION_ERROR', response)
+        }
+    },
+    DELETE_VACCINATION_SUCCESS({}, payload) {
+        Swal.fire({
+            title: '<p class="text-success" style="font-size: 25px;">Successfully deleted!</p>',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+        })
+    },
+    DELETE_VACCINATION_ERROR({commit}, error) {
+        const { response } = error || {}
+        const { message, status } = response || {}
+        commit('SAVING',false) 
+        if (message) {
+            console.log(message)
+        }
+    },
+    async GET_VACCINATION({dispatch}, payload) {
+        const { id } = payload
+        try {
+            const { data: { data } } = await getVaccination({id})
+            dispatch('GET_VACCINATION_SUCCESS', data)
+        } catch (error) {
+            const { response } = error
+            dispatch('GET_VACCINATION_ERROR', response)
+        }
+    },
+    GET_VACCINATION_SUCCESS({commit}, payload) {
+        commit('VACCINATION', payload)
+    },
+    GET_VACCINATION_ERROR({commit}, error) {
+        const { response } = error || {}
+        const { message, status } = response || {}
+        commit('SAVING',false) 
+        if (message) {
+            console.log(message)
+        }
+    },
 }
 
 const getters = {}
