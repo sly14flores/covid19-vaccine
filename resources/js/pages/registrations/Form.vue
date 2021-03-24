@@ -420,6 +420,7 @@ export default {
             //console.log(qr_pass_id._value)
             store.dispatch('registrations/GET_NAPANAM_ID', { id: qr_pass_id._value })
         }
+        
         const onSubmit = handleSubmit((values, actions) => {
 
             const { resetForm } = actions

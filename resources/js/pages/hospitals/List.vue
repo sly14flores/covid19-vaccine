@@ -12,7 +12,7 @@
                         <Column field="id" header="Actions">
                             <template #body="slotProps">
                                 <router-link :to="`/hospitals/hospital/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>
-                                <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" @click="deleteHospital(slotProps.data.id)" />
+                                <Button icon="pi pi-trash" class="p-button-rounded p-button-danger" @click="deleteHospital(slotProps.data.id)" />
                             </template>
                         </Column>
                     </DataTable>

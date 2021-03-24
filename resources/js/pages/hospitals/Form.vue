@@ -65,7 +65,7 @@ export default {
 
         const init = {
             initialValues: {
-                hospital: {...store.hospitals.hospital}
+                hospital: {...store.state.hospitals.hospital}
             }
         }
 

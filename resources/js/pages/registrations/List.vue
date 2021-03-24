@@ -42,7 +42,7 @@
                             <div class="p-sm-12 p-md-9 p-lg-10"></div>
                             <div class="p-sm-12 p-md-3 p-lg-2">
                                 <button  type="button" class="p-mr-2 p-mb-2 p-button p-component p-button-success" @click="exportToExcel">
-                                        Export to Excel
+                                        <i class="pi pi-upload"></i>&nbsp; Export to Excel
                                 </button>   
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                             <Column field="id" header="Actions">
                                 <template #body="slotProps">
                                     <router-link :to="`/registrations/registration/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>
-                                    <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" @click="deleteRegistration(slotProps.data.id)" />
+                                    <Button icon="pi pi-trash" class="p-button-rounded p-button-danger" @click="deleteRegistration(slotProps.data.id)" />
                                 </template>
                             </Column>
                         </DataTable>
