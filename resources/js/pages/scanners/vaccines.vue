@@ -20,7 +20,7 @@
                                     <div class="p-field p-col-11 p-md-12">
                                         <div class="center stream">
                                             <qr-stream :camera="camera" @decode="onDecode" class="mb p-shadow-3">
-                                                <div style="color: #fe664f;" class="frame"></div>
+                                                <div class="frame"></div>
                                             </qr-stream>
                                         </div>
                                     </div>
@@ -31,7 +31,14 @@
                             <div class="p-fluid p-shadow-2">
                                 <form @submit="onSubmit">
                                     <div class="card p-shadow-2">
-                                        <h6><i class="pi pi-user"></i> Personal Information <ToggleButton class="float-right" v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" /></h6>
+                                        <div class="p-fluid p-formgrid p-grid">
+                                            <div class="p-field p-col-10 p-md-11">
+                                                <h6><i class="pi pi-user"></i> Personal Information </h6>
+                                            </div>
+                                            <div class="p-field p-col-2 p-md-1">
+                                                <ToggleButton v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" />
+                                            </div>
+                                        </div>
                                         <hr />
                                         <div class="p-fluid p-formgrid p-grid">
                                             <div class="p-field p-col-12 p-md-6">
@@ -107,82 +114,13 @@
                                                 <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="barangay" :disabled="!writeOn" />
                                             </div>
                                         </div>
-                                        <hr />
                                         <div class="p-fluid">
-                                            <h6><i class="pi pi-user"></i> Employment Status</h6>
-                                            <div class="p-fluid p-formgrid p-grid">
-                                                <div class="p-field p-col-12 p-md-4">
-                                                    <label>Category <i class="p-error">*</i></label>
-                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="category_value" v-model="category" optionValue="id" placeholder="Select a Category" :class="{'p-invalid': categoryError, 'disabled': !writeOn}" :disabled="!writeOn" />
-                                                    <small class="p-error">{{ categoryError }}</small>
-                                                </div>
-                                                <div class="p-field p-col-12 p-md-4">
-                                                    <label>Category ID <i class="p-error">*</i></label>
-                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="category_id_value" v-model="category_id" optionValue="id" placeholder="Select a Category ID" :class="{'p-invalid': category_idError, 'disabled': !writeOn}" :disabled="!writeOn" />
-                                                    <small class="p-error">{{ category_idError }}</small>
-                                                </div>
-                                                <div class="p-field p-col-12 p-md-4">
-                                                    <label>Category ID No. <i class="p-error">*</i></label>
-                                                    <InputText class="p-shadow-1 p-inputtext-sm" v-model="category_id_no" :class="{'p-invalid': category_id_noError, 'disabled': !writeOn}" :disabled="!writeOn" />
-                                                    <small class="p-error">{{ category_id_noError }}</small>
-                                                </div>
-                                            </div>
-
-                                            <div class="p-fluid p-formgrid p-grid">
-                                                <div class="p-field p-col-12 p-md-4">
-                                                    <label>Profession <i class="p-error">*</i></label>
-                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="profession_value" v-model="profession" optionValue="id" placeholder="Select a Profession" :class="{'p-invalid': professionError, 'disabled': !writeOn}" :disabled="!writeOn" />
-                                                    <small class="p-error">{{ professionError }}</small>
-                                                </div>
-                                                <div class="p-field p-col-12 p-md-4">
-                                                    <label>PhilHealth ID <i class="p-error">*</i></label>
-                                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" placeholder="00-000000000-0" v-model="philhealth" :class="{'p-invalid': philhealthError, 'disabled': !writeOn}" :disabled="!writeOn" />
-                                                    <small class="p-error">{{ philhealthError }}</small>
-                                                </div>
-                                                <div class="p-field p-col-12 p-md-4">
-                                                    <label> PWD ID No.</label>
-                                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" name="pwd_id" v-model="pwd_id" :disabled="!writeOn" />
-                                                </div>
-                                            </div>
-
-                                            <div class="p-fluid p-formgrid p-grid">
-                                                <div class="p-field p-col-12 p-md-4">
-                                                    <label>Employment Status <i class="p-error">*</i></label>
-                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="employment_status_value" v-model="employment_status" optionValue="id" placeholder="Select a Employment Status" :class="{'p-invalid': employment_statusError, 'disabled': !writeOn}" :disabled="!writeOn" />
-                                                    <small class="p-error">{{ employment_statusError }}</small>
-                                                </div>
-                                                <div class="p-field p-col-12 p-md-4">
-                                                    <label>Employer Name <i class="p-error">*</i></label>
-                                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="employer_name" :class="{'p-invalid': employer_nameError}" :disabled="!writeOn" />
-                                                    <small class="p-error">{{ employer_nameError }}</small>
-                                                </div>
-                                                <div class="p-field p-col-12 p-md-4">
-                                                    <label>Municipality <i class="p-error">*</i></label>
-                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="employer_municipality_value" v-model="employer_municipality" optionValue="id" placeholder="Select a Employment Municipality" :class="{'p-invalid': employer_municipalityError, 'disabled': !writeOn}" :disabled="!writeOn" />
-                                                    <small class="p-error">{{ employer_municipalityError }}</small>
-                                                </div>
-                                            </div>
-
-                                            <div class="p-fluid p-formgrid p-grid">
-                                                <div class="p-field p-col-12 p-md-8">
-                                                    <label>Employer Address <i class="p-error">*</i></label>
-                                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="employer_address" :class="{'p-invalid': employer_addressError}" :disabled="!writeOn" />
-                                                    <small class="p-error">{{ employer_addressError }}</small>
-                                                </div>
-                                                <div class="p-field p-col-12 p-md-4">
-                                                    <label>Employer Contact No. <i class="p-error">*</i></label>
-                                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="employer_contact_no" :class="{'p-invalid': employer_contact_noError}" :disabled="!writeOn" />
-                                                    <small class="p-error">{{ employer_contact_noError }}</small>
-                                                </div>
-                                            </div>
-                                            
                                             <div class="p-fluid p-formgrid p-grid p-mt-2">
                                                 <div class="p-field p-col-12 p-md-10"></div>
                                                 <div class="p-field p-col-12 p-md-2">
                                                     <Button label="Update" type="submit" class="p-button-primary p-button-sm" :disabled="!writeOn"></Button>
                                                 </div>
                                             </div>
-                                            <hr />
                                             <TabView>
                                                 <TabPanel header="Pre-Assessment" :disabled="!writeOn">
                                                     <div class="p-fluid">
@@ -399,14 +337,12 @@ export default {
         const saveVaccine = handleSubmit((values) => {
 
             const { vaccination } = values || {}
-            const { vaccination_id } = vaccination || {}
+            const { id } = vaccination || {}
             
-            console.log(vaccination_id)
-
-            if(vaccination_id){
-                dispatch('vaccines/CREATE_VACCINATION', vaccination)
-            } else {
+            if(id){
                 dispatch('vaccines/UPDATE_VACCINATION', vaccination)
+            } else {
+                dispatch('vaccines/CREATE_VACCINATION', vaccination)
             }
             
         });
@@ -660,6 +596,7 @@ export default {
         },
         openVaccine() {
             this.displayVaccine = true;
+            this.$store.dispatch('vaccines/RESET_VACCINE')
         },
         showVaccine(id) {
             this.displayVaccine = true;
@@ -757,9 +694,17 @@ export default {
         margin: auto;
     }
     .frame {
-        border-style: solid;
-        border-width: 2px;
-        border-color: #fe664f;
+        background-image: linear-gradient(#fe664f, #fe664f),
+                linear-gradient(#fe664f, #fe664f),
+                linear-gradient(#fe664f, #fe664f),
+                linear-gradient(#fe664f, #fe664f),
+                linear-gradient(#fe664f, #fe664f),
+                linear-gradient(#fe664f, #fe664f),
+                linear-gradient(#fe664f, #fe664f),
+                linear-gradient(#fe664f, #fe664f);
+        background-repeat: no-repeat;
+        background-size:  4px 30%, 30% 4px, 4px 30%, 30% 4px, 4px 30%, 30% 4px, 4px 30%, 30% 4px, 4px 30%, 30% 4px, calc(100% - 8px) calc(100% - 8px);
+        background-position:  left top, left top, left bottom, left bottom, right bottom, right bottom , right top, right top, 4px 4px;
         height: 200px;
         width: 200px;
         position: absolute;
@@ -769,6 +714,20 @@ export default {
         left: 0px;
         margin: auto;
     }
+    /* .frame {
+        border-style: solid;
+        border-width: 2px;
+        border-color: #fe664f;
+        background-position: left bottom, left bottom, right top, right top, 4px 4px;
+        height: 200px;
+        width: 200px;
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+        left: 0px;
+        margin: auto;
+    } */
     .p-border {
         border: 1px solid #215266;
     }

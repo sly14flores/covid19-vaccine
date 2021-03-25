@@ -128,6 +128,9 @@ const mutations = {
         state.vaccination = vaccination
         state.vaccinations = vaccinations
     },
+    RESET_VACCINE(state) {
+        state.vaccination = vaccination
+    },
     VACCINATION(state,payload) {
         state.vaccination = payload
     },
@@ -377,6 +380,9 @@ const actions = {
             console.log(message)
         }
     },
+    RESET_VACCINE({commit}) {
+        commit('RESET_VACCINE')
+    }
 }
 
 const getters = {}
