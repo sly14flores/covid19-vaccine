@@ -8,24 +8,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+use App\Models\Registration;
 use App\Models\Vaccine;
 use App\Models\Barangay;
 use App\Models\CityMun;
 use App\Models\Province;
+use App\Models\QrPass;
 
 use App\Http\Resources\VaccineResource;
 use App\Http\Resources\VaccineResourceCollection;
 use App\Http\Resources\VaccinesListResourceCollection;
-
-use App\Models\Registration;
 use App\Http\Resources\RegistrationVaccineResource;
 
 use App\Traits\Messages;
 use App\Traits\DOHHelpers;
+use App\Traits\SelectionsRegistration;
 
 class VaccineController extends Controller
 {
-    use Messages, DOHHelpers;
+    use Messages, DOHHelpers, SelectionsRegistration;
 
     private $http_code_ok;
     private $http_code_error;    
@@ -222,6 +223,7 @@ class VaccineController extends Controller
     {
 
         $rules = [
+            'id' => 'integer',
             'qr_pass_id' => 'string',
             'first_name' => 'string',
             'middle_name' => 'string',
@@ -297,9 +299,31 @@ class VaccineController extends Controller
 
         /**
          * Update NAPANAM Info
-         */        
+         */
+        // Map data
+        $napanam = [
+            'id' => $data['id'],
+            'name' => "{$data['last_name']} {$data['first_name']} {$data['middle_name']}",
+            'lastname' => $data['last_name'],
+            'firstname' => $data['first_name'],
+            'middlename' => $data['middle_name'],
+            'gender' => $this->dohToGender($data['gender']),
+            'nationality' => 'PHL', # PHL
+            'dob' => $data['birthdate'],
+            'age' => $this->computeAge($data['birthdate']),
+            'mobile_number' => $data['contact_no'],
+            'email' => null,
+            'address' => $data['address'], # Street / Road
+            'addressbrgy' => $this->dohToBrgy($data['barangay']),
+            'addressmunicity' => $this->dohToMun($data['town_city']),
+            'addressprovince' => $this->dohToProv($data['province']),
+        ];
 
-        return $this->jsonSuccessResponse($data, 200, 'Registration info updated successfully');         
+        $update_napanam = QrPass::find($data['qr_pass_id']);
+        $update_napanam->fill($napanam);
+        $update_napanam->save();
+
+        return $this->jsonSuccessResponse(new RegistrationVaccineResource($registration), 200, 'Registration info updated successfully');         
 
     }
 }
