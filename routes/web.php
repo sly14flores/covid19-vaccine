@@ -27,6 +27,10 @@ Route::get('/admin', function () {
     return view('home');
 });
 
+Route::get('/registration', function () {
+    return view('registration');
+});
+
 Route::get('/home/reports/surveys', ExportSurveys::class);
 
 Route::get('/survey/{id}', function($id) {
