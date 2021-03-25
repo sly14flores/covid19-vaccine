@@ -811,6 +811,7 @@ class RegistrationImportController extends Controller
                     // Map data
                     $napanam = [
                         'type' => 'Person', # Person
+                        'name' => "$lastname $firstname $middlename",
                         'category' => 'Resident', # Resident
                         'lastname' => $lastname,
                         'firstname' => $firstname,

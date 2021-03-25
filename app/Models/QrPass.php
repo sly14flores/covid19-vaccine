@@ -21,6 +21,7 @@ class QrPass extends Model
      */
     protected $fillable = [
         // 'qr_pass_id',
+        'name', # lastname firstname middlename
         'type', # Person
         'category', # Resident
         'lastname',
