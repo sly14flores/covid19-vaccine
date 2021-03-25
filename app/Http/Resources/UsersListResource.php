@@ -25,6 +25,7 @@ class UsersListResource extends JsonResource
             'hospital' => (is_null($this->userHospital))?null:$this->userHospital->description,
             'group_name' => $this->groupName($this->group_id),
             'profession' => $this->profession,
+            'prc_number' => $this->prc_number,
             'date_created' => $this->created_at,
         ];
     }

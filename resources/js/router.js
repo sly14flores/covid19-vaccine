@@ -8,9 +8,9 @@ import Surveys from "./pages/summary/surveys.vue";
 import Vaccines from "./pages/scanners/vaccines.vue";
 
 import Login from "./pages/login.vue";
-import Registration from "./pages/registration.vue";
+// import Registration from "./pages/registration.vue";
 import Booking from "./pages/booking.vue";
-import Verify from "./pages/verify.vue";
+// import Verify from "./pages/verify.vue";
 import ChangePassword from "./pages/change-password.vue";
 
 /**
@@ -60,16 +60,16 @@ const routes = [
     name: "Booking",
     component: Booking
   },
-  {
-    path: "/verify",
-    name: "Verify",
-    component: Verify
-  },
-  {
-    path: "/registration",
-    name: "Registration",
-    component: Registration
-  },  
+  // {
+  //   path: "/verify",
+  //   name: "Verify",
+  //   component: Verify
+  // },
+  // {
+  //   path: "/registration",
+  //   name: "Registration",
+  //   component: Registration
+  // },  
   {
     path: "/",
     redirect: "/summary/surveys",

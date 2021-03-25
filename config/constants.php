@@ -12,8 +12,16 @@ return [
         ],
         [
             'id' => 2,
-            'name' => 'Vaccinator'
-        ],     
+            'name' => 'Team Leader'
+        ],
+        [
+            'id' => 3,
+            'name' => 'Counseling Nurse'
+        ],
+        [
+            'id' => 4,
+            'name' => 'Encoder'
+        ],        
     ],
 
 ];

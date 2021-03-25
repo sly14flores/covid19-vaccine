@@ -41,6 +41,21 @@ class Vaccine extends Model
         return $this->user->profession;
     }
 
+    public function facility()
+    {
+        return (is_null($this->user->userHospital))?null:$this->user->userHospital->description;
+    }
+
+    public function prc()
+    {
+        return $this->user->prc_number;
+    }
+
+    public function role()
+    {
+        return $this->user->groupName($this->user->id);
+    }    
+
     public function vaccine($id)
     {
         $vaccines = $this->vaccineValue();

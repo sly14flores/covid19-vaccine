@@ -176,6 +176,9 @@ const mutations = {
         state.registration = registration
         state.registrations = registrations
     },
+    INIT_REGISTRATION(state) {
+        state.registration = registration
+    },
     SELECTIONS(state, payload) {
         state.selections = {...payload}
     },
@@ -216,6 +219,9 @@ const actions = {
     INIT({commit}) {
         commit('INIT')
     },
+    INIT_REGISTRATION({commit}) {
+        commit('INIT_REGISTRATION')
+    },
     TOGGLE_WRITE({commit}, payload) {
         commit('TOGGLE_WRITE', payload)
     },
@@ -250,7 +256,7 @@ const actions = {
     },
     CREATE_REGISTRATION_SUCCESS({commit}, payload) {
         commit('SAVING',false)        
-        console.log(payload)
+        // console.log(payload)
 
         Swal.fire({
             title: '<p class="text-success" style="font-size: 25px;">Successfully saved!</p>',
@@ -265,7 +271,7 @@ const actions = {
     },
     CREATE_REGISTRATION_ERROR({commit}, payload) {
         commit('SAVING',false)
-        console.log(payload)
+        // console.log(payload)
 
         // if Not found
         if(payload.status==500){
@@ -314,7 +320,7 @@ const actions = {
         Swal.close()
     },
     GET_REGISTRATIONS_ERROR({commit}, payload) {
-        console.log(payload)
+        // console.log(payload)
     },
     async GET_SELECTIONS({dispatch}) {
         try {
@@ -327,10 +333,10 @@ const actions = {
     },
     GET_SELECTIONS_SUCCESS({commit}, payload) {
         commit('SELECTIONS', payload)
-        console.log(payload)
+        // console.log(payload)
     },
     GET_SELECTIONS_ERROR({commit}, payload) {
-        console.log(payload)
+        // console.log(payload)
     },
     async CREATE({commit, dispatch}, payload) {
         commit('SAVING', true)
@@ -354,7 +360,7 @@ const actions = {
            
             const { data: { data } } = await createRegistration(payload)
             dispatch('CREATE_SUCCESS', data)
-            console.log(data)
+            // console.log(data)
         } catch(error) {
             const { response } = error
             dispatch('CREATE_ERROR', response)
@@ -362,7 +368,7 @@ const actions = {
     },
     CREATE_SUCCESS({commit}, payload) {
         commit('SAVING', false)
-        console.log(payload)
+        // console.log(payload)
 
         Swal.fire({
             title: '<p class="text-success" style="font-size: 25px;">Registration completed successfully</p>',
@@ -393,7 +399,7 @@ const actions = {
     },
     CREATE_ERROR({commit}, payload) {
         commit('SAVING', false)
-        console.log(payload)
+        // console.log(payload)
     },
     async UPDATE_REGISTRATION({commit,dispatch}, payload) {
         commit('SAVING',true)
@@ -424,7 +430,7 @@ const actions = {
     UPDATE_REGISTRATION_ERROR({commit}, payload) {
         commit('SAVING',false)
         commit('TOGGLE_WRITE', false)
-        console.log(payload)
+        // console.log(payload)
     },
     async GET_REGISTRATION({dispatch}, payload) {
         const { id } = payload
@@ -440,7 +446,7 @@ const actions = {
         commit('REGISTRATION', payload)
     },
     GET_REGISTRATION_ERROR({commit}, payload) {
-        console.log(payload)
+        // console.log(payload)
     },
     async DELETE_REGISTRATION({dispatch}, payload) {
         const { id } = payload
@@ -453,7 +459,7 @@ const actions = {
         }
     },
     DELETE_REGISTRATION_SUCCESS({commit, dispatch}, payload) {
-        console.log(payload)
+        // console.log(payload)
         dispatch('GET_REGISTRATIONS', { page: 0 })
         Swal.fire({
             title: '<p class="text-success" style="font-size: 25px;">Successfully deleted!</p>',
@@ -463,7 +469,7 @@ const actions = {
         })
     },
     DELETE_REGISTRATION_ERROR({commit}, payload) {
-        console.log(payload)
+        // console.log(payload)
     },
     async GET_NAPANAM_ID({dispatch, commit}, { id }) {
         commit('FETCH', false)
@@ -476,13 +482,13 @@ const actions = {
         }
     },
     GET_NAPANAM_ID_SUCCESS({commit}, payload) {
-        console.log(payload)
+        // console.log(payload)
         commit('NAPANAM', payload)
         commit('FETCH', true)
         // window.open('home#/registration','_self')
     },
     GET_NAPANAM_ID_ERROR({commit}, payload) {
-        console.log(payload)
+        // console.log(payload)
         commit('FETCH', false)
 
         // if Not found
@@ -531,13 +537,12 @@ const actions = {
         }
     },
     GET_NAPANAM_SUCCESS({commit}, payload) {
-        console.log(payload)
+        // console.log(payload)
         commit('NAPANAM', payload)
         commit('FETCH', true)
-        // window.open('home#/registration','_self')
     },
     GET_NAPANAM_ERROR({commit}, payload) {
-        console.log(payload)
+        // console.log(payload)
         commit('FETCH', false)
         
         // Not Found
