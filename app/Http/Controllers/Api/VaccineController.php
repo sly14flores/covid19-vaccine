@@ -34,7 +34,6 @@ class VaccineController extends Controller
 	public function __construct()
 	{
 		$this->middleware(['auth:api']);
-		// $this->authorizeResource(Vaccine::class, Vaccine::class);
 		
         $this->http_code_ok = 200;
         $this->http_code_error = 500;
@@ -86,6 +85,10 @@ class VaccineController extends Controller
         ];
 
         $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }         
 
         /** Get validated data */
         $data = $validator->valid();
