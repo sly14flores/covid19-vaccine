@@ -192,10 +192,10 @@ const actions = {
     async GET_HOSPITALS({dispatch}, payload) {
         Swal.fire({
             title: 'Loading...',
-            onBeforeOpen () {
+            willOpen() {
               Swal.showLoading ()
             },
-            onAfterClose () {
+            didClose() {
               Swal.hideLoading()
             },
             showConfirmButton: false,

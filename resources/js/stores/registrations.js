@@ -574,8 +574,7 @@ const actions = {
                 }
             })
         }
-        
-    }
+    },
 }
 
 const getters = {
