@@ -159,6 +159,12 @@ Route::prefix('general')->group(function() {
          */
         Route::get('groups', [GeneralDataSelections::class, 'groups']);
 
+        /**
+         * Users
+         */
+        Route::get('users', [GeneralDataSelections::class, 'users']);
+
+
     });
 
 });
