@@ -133,6 +133,8 @@ Route::prefix('doh')->group(function() {
     Route::get('vaccines/qr/{id}', [VaccineController::class, 'qrRegistration']);
     Route::put('vaccines/update/registration/{id}', [VaccineController::class, 'updateRegistration']);
     Route::get('vaccines/default/vaccinator', DefaultVaccinator::class);
+    Route::get('selections/vaccine/refusals', [DOHDataSelections::class, 'refusalValue']);   
+    Route::get('selections/vaccine/deferrals', [DOHDataSelections::class, 'deferalValue']);
 
     /**
      * Upload excel for import
