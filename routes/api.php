@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\VaccineController;
 use App\Http\Controllers\Api\RegistrationImportController;
 use App\Http\Controllers\Api\SurveysSummary;
 use App\Http\Controllers\Api\ChangePassword;
+use App\Http\Controllers\Api\DefaultVaccinator;
 
 /*
 |--------------------------------------------------------------------------
@@ -131,7 +132,7 @@ Route::prefix('doh')->group(function() {
     ]);
     Route::get('vaccines/qr/{id}', [VaccineController::class, 'qrRegistration']);
     Route::put('vaccines/update/registration/{id}', [VaccineController::class, 'updateRegistration']);
-
+    Route::get('vaccines/default/vaccinator', DefaultVaccinator::class);
 
     /**
      * Upload excel for import
