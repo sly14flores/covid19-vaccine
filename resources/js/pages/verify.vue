@@ -66,7 +66,7 @@ import InputText from 'primevue/inputtext/sfc';
 import Dropdown from 'primevue/dropdown/sfc';
 import Menubar from 'primevue/menubar/sfc';
 
-import store from '../store.js'
+import { useStore } from 'vuex'
 import { useForm, useField } from 'vee-validate'
 import { watch } from 'vue'
 import { useRouter } from 'vue-router'
@@ -82,14 +82,15 @@ export default {
     setup() {
 
         const router = useRouter()
+        const store = useStore()
+
+        store.dispatch('registrations/INIT_REGISTRATION')
 
         const init = {
             initialValues: {
                 verification
             }
         }
-
-        console.log(init)
 
         const { handleSubmit, setValues } = useForm(init);
 
@@ -99,14 +100,14 @@ export default {
         });
 
         watch(
-            () => store.state.registrations.fetched,
+            () => store.state.registrations.registration.qr_pass_id,
             (data, prevData) => {
-                console.log(data)
+                console.log(store.state.registrations.registration)
                 if (data) {
-                    router.push('/registration')
+                    router.push('/')
                 }
             }
-        ) 
+        )
 
         function validateField(value) {
             if (!value) {

@@ -1,7 +1,7 @@
 export default [
     {
         label:'Summary',
-        icon:'pi pi-fw pi-users',
+        icon:'pi pi-fw pi-chart-line',
         items:[
           {
               label:'Survey',
@@ -12,6 +12,22 @@ export default [
               label:'Registrations',
               icon:'pi pi-fw pi-users',
               to: '/summary/registrations'                
+          },
+        ]
+    },
+    {
+        label:'Registrations',
+        icon:'pi pi-fw pi-users',
+        items:[
+          {
+              label:'List',
+              icon:'pi pi-fw pi-users',
+              to: '/registrations'                       
+          },              
+          {
+              label:'New',
+              icon:'pi pi-fw pi-user-plus',
+              to: '/registrations/new' 
           },
         ]
     },
@@ -46,5 +62,10 @@ export default [
               to: '/hospitals/new'          
           },
         ]
+    },
+    {
+        label:'Vaccines',
+        icon:'pi pi-fw pi-desktop',
+        to: '/scanners/vaccines'
     }
 ]

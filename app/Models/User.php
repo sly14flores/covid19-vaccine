@@ -28,6 +28,9 @@ class User extends Authenticatable
         'hospital',
         'username',
         'password',
+        'group_id',
+        'profession',
+        'prc_number',
     ];
 
     /**
@@ -61,5 +64,21 @@ class User extends Authenticatable
     public function userHospital()
     {
         return $this->belongsTo(Hospital::class, 'hospital');
+    }
+
+    public function groupName($id)
+    {
+
+        if (is_null($id)) {
+            return null;
+        }
+
+        $groups = config('constants.groups');
+
+        $group = collect($groups)->filter(function($group) use ($id) {
+            return $group['id'] == $id;
+        })->first();
+
+        return $group['name'];
     }
 }

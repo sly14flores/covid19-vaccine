@@ -26,11 +26,14 @@ class ExportSurveys extends Controller
         $template = storage_path().'/app/Surveys.xlsx';
 
         $filter = [
+            "start_chart" => $request->start_date_chart,
+            "end_chart" => $request->end_date_chart,
             "start" => $request->start_date,
-            "end" => $request->end_date,
-        ];        
+            "end" => $request->end_date
+        ];
 
-        $data = Summary::surveys($filter);   
+        // $data = Summary::surveys([]);
+        $data = Summary::surveys($filter);
 
         $spreadsheet = IOFactory::load($template);
         $sheet = $spreadsheet->getActiveSheet();

@@ -441,6 +441,7 @@ export default {
             }
             return true;
         }
+        
         // Personal
         const { value: id } = useField('registration.id',validField);
         const { value: qr_pass_id } = useField('registration.qr_pass_id',validField);
@@ -685,7 +686,7 @@ export default {
         height: 55px;
         width: 100%;
     }
-        .navbar a {
+    .navbar a {
         float: left;
         display: block;
         color: #f2f2f2;

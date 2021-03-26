@@ -11,8 +11,12 @@ use App\Http\Controllers\Api\HospitalController;
 use App\Http\Controllers\Api\DOHDataSelections;
 use App\Http\Controllers\Api\GeneralDataSelections;
 use App\Http\Controllers\Api\RegistrationController;
+use App\Http\Controllers\Api\VaccineController;
+use App\Http\Controllers\Api\PreAssessmentController;
 use App\Http\Controllers\Api\RegistrationImportController;
 use App\Http\Controllers\Api\SurveysSummary;
+use App\Http\Controllers\Api\ChangePassword;
+use App\Http\Controllers\Api\DefaultVaccinator;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +35,11 @@ use App\Http\Controllers\Api\SurveysSummary;
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout']);
 Route::post('authenticate', [LoginController::class, 'authenticate']);
+
+/**
+ * Change password
+ */
+Route::post('change/password', ChangePassword::class);
 
 /**
  * Surveys
@@ -78,6 +87,7 @@ Route::prefix('napanam')->group(function() {
 
     Route::get('check/registration/{id}', [NapanamController::class, 'checkRegistration']);
     Route::get('check/registration/{id}/{birthday}', [NapanamController::class, 'verifyNapanamQR']);
+    Route::get('check/registrationID/{id}', [NapanamController::class, 'getNapanamIDNO']);
 
 });
 
@@ -92,6 +102,7 @@ Route::prefix('doh')->group(function() {
      */
     Route::get('selections', DOHDataSelections::class);
     Route::get('selections/addresses', [DOHDataSelections::class, 'addresses']);
+    Route::get('selections/vaccines', [DOHDataSelections::class, 'vaccines']);
 
     /**
      * Registration
@@ -106,6 +117,39 @@ Route::prefix('doh')->group(function() {
     ],[
         'except' => ['index']
     ]);
+
+    /**
+     * Vaccines
+     */
+    Route::apiResources([
+        'vaccines/{id}' => VaccineController::class,
+    ],[
+        'only' => ['index']
+    ]);
+    Route::apiResources([
+        'vaccine' => VaccineController::class,
+    ],[
+        'except' => ['index']
+    ]);
+    Route::get('vaccines/qr/{id}', [VaccineController::class, 'qrRegistration']);
+    Route::put('vaccines/update/registration/{id}', [VaccineController::class, 'updateRegistration']);
+    Route::get('vaccines/default/vaccinator', DefaultVaccinator::class);
+    Route::get('selections/vaccine/refusals', [DOHDataSelections::class, 'refusalValue']);   
+    Route::get('selections/vaccine/deferrals', [DOHDataSelections::class, 'deferalValue']);
+
+    /**
+     * Pre Assessments
+     */
+    Route::apiResources([
+        'pres/{id}' => PreAssessmentController::class,
+    ],[
+        'only' => ['index']
+    ]);
+    Route::apiResources([
+        'pre' => PreAssessmentController::class,
+    ],[
+        'except' => ['index']
+    ]);    
 
     /**
      * Upload excel for import
@@ -127,6 +171,17 @@ Route::prefix('general')->group(function() {
          * Hospitals
          */
         Route::get('hospitals', [GeneralDataSelections::class, 'hospitals']);
+
+        /**
+         * Groups
+         */
+        Route::get('groups', [GeneralDataSelections::class, 'groups']);
+
+        /**
+         * Users
+         */
+        Route::get('users', [GeneralDataSelections::class, 'users']);
+
 
     });
 

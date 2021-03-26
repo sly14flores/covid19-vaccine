@@ -1,11 +1,18 @@
 <template>
     <div>
         <MyBreadcrumb :home="home" :items="items" />
-         <div class="p-grid">
+        <div class="p-grid">
             <div class="p-col-12 p-mt-2">
             <form @submit="onSubmit">
                 <div class="card p-fluid">
-                    <h5><i class="pi pi-user"></i> User Information <ToggleButton class="float-right" v-if="editMode" v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" /></h5>
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-10 p-md-11">
+                            <h6><i class="pi pi-user"></i> User Information </h6>
+                        </div>
+                        <div class="p-field p-col-2 p-md-1">
+                            <ToggleButton class="p-ml-3" v-if="editMode" v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" />
+                        </div>
+                    </div>
                     <hr />
                     <div class="p-fluid p-formgrid p-grid">
                         <div class="p-field p-col-12 p-md-4">
@@ -24,9 +31,18 @@
                         </div>
                     </div>
                     <div class="p-fluid p-formgrid p-grid">
-                        <div class="p-field p-col-12 p-md-12">
+                        <div class="p-field p-col-12 p-md-4">
                             <label>Hospital</label>
-                            <Dropdown class="p-shadow-1" :options="hospitals" optionLabel="description" optionValue="id" v-model="hospital" placeholder="Select a Hospital" :disabled="editMode && !writeOn" />
+                            <Dropdown class="p-shadow-1" :options="hospitals" optionLabel="description" optionValue="id" v-model="hospital" placeholder="Select a Hospital" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
+                        </div>
+                        <div class="p-field p-col-12 p-md-4">
+                            <label>Group</label>
+                            <Dropdown class="p-shadow-1" :options="groups" optionLabel="name" optionValue="id" v-model="group_id" placeholder="Select a Group" :class="{'p-invalid': group_idError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
+                            <small class="p-error">{{ group_idError }}</small>   
+                        </div>
+                        <div class="p-field p-col-12 p-md-4">
+                            <label>Profession</label>
+                            <InputText class="p-shadow-1" id="profession" type="text" placeholder="Enter Profession" v-model="profession" :disabled="editMode && !writeOn" />
                         </div>
                     </div>
 
@@ -165,6 +181,8 @@ export default {
         const { value: middlename, errorMessage: middlenameError } = useField('user.middlename',validField);
         const { value: lastname, errorMessage: lastnameError } = useField('user.lastname',validateField);
         const { value: hospital } = useField('user.hospital',validField);
+        const { value: group_id, errorMessage: group_idError } = useField('user.group_id',validateField);
+        const { value: profession } = useField('user.profession',validField);
         const { value: username, errorMessage: usernameError } = useField('user.username',validateField);
         const { value: password, errorMessage: passwordError } = useField('user.password',(editMode)?validField:validatePassword);
 
@@ -174,11 +192,14 @@ export default {
             middlename,
             lastname,
             hospital,
+            group_id,
+            profession,
             username,
             password,
             firstnameError,
             middlenameError,
             lastnameError,
+            group_idError,
             usernameError,
             passwordError,
             onSubmit,
@@ -190,6 +211,10 @@ export default {
             // writeOn: false,
             home: {icon: 'pi pi-home', to: '/users'},
             items: [{label: (this.editMode)?'Edit User':'New User', to: `${this.$route.fullPath}`}],
+            groups: [
+                {name: 'Administrator', id: 1},
+                {name: 'Vaccinator', id: 2},
+            ]
         }
     },
     components: {
@@ -241,6 +266,11 @@ input[type="text"]:disabled {
     cursor: not-allowed; 
 }
 input[type="password"]:disabled, .disabled {
+    background: rgb(219, 219, 219);
+    border-bottom: 1px solid black;
+    cursor: not-allowed; 
+}
+.disabled {
     background: rgb(219, 219, 219);
     border-bottom: 1px solid black;
     cursor: not-allowed; 

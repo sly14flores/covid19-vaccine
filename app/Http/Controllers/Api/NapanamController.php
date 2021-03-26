@@ -73,6 +73,33 @@ class NapanamController extends Controller
 
     }
 
+    public function getNapanamIDNO($id)
+    {
+
+        $napanam = $this->checkConnection();
+
+        if ($napanam===false) {
+
+            return $this->jsonFailedResponse(null, 500, "Cannot connect to napanam database");
+
+        }
+
+        $qrpass = QrPass::where([['id',intval($id)]])->first();
+
+        if (is_null($qrpass)) {
+			return $this->jsonErrorResourceNotFound();
+        }
+
+        $registration = Registration::where('qr_pass_id',$id)->get();
+        if (count($registration)) {
+            return $this->jsonSuccessResponse(null, 406, "Already registered");
+        }
+
+        $data = new QrPassResourceDOH($qrpass);
+        return $this->jsonSuccessResponse($data, 200);
+
+    }
+
     private function checkConnection()
     {
         try {

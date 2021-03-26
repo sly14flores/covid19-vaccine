@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Traits\Messages;
 
 use App\Models\Hospital;
+use App\Models\User;
 
 class GeneralDataSelections extends Controller
 {
@@ -22,6 +23,28 @@ class GeneralDataSelections extends Controller
         $hospitals = hospital::select(['id','description'])->get();
 
         return $this->jsonSuccessResponse($hospitals, 200);
+    }
+
+    public function groups()
+    {
+        $groups = config('constants.groups');
+
+        return $this->jsonSuccessResponse($groups, 200);
+    }
+
+    public function users()
+    {
+        $users = User::all();
+
+        $users = $users->map(function($user) {
+            $map = [
+                'id' => $user['id'],
+                'name' => "{$user['firstname']} {$user['lastname']}"
+            ];
+            return $map;
+        })->values();
+
+        return $users;
     }
 
 }

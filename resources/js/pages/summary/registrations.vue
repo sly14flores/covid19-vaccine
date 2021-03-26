@@ -1,41 +1,64 @@
 <template>
     <div>
         <MyBreadcrumb :home="home" :items="items" />
-        <div class="p-grid p-mt-1">
-            <div class="p-lg-12 p-md-12 p-sm-12">
-                <Panel header="Upload">
-                    <FileUpload name="excel" :url="uploadUrl" :multiple="false" withCredentials="true" @before-send="setBeforeSend" @upload="uploadComplete" @error="uploadError" :maxFileSize="24000000">
-                        <template #empty>
-                            <p>Drag and drop files to here to upload.</p>
-                        </template>
-                    </FileUpload>
-                </Panel>
-            </div>
-        </div>
-        
-        <div class="p-grid">
-            <div class="p-col-12 p-mt-2">
-                <div class="p-grid p-col-12">
-                    <Panel header="List">
-                        <div class="p-grid">
-                            <div class="p-sm-12 p-md-9 p-lg-10"></div>
-                            <div class="p-sm-12 p-md-3 p-lg-2">
-                                <button  type="button" class="p-mr-2 p-mb-2 p-button p-component p-button-success" @click="exportToExcel">
-                                        Export to Excel
-                                </button>   
-                            </div>
-                        </div>
-                        <DataTable :value="registrations">
-                            <Column field="qr_pass_id" header="Napanam ID No" sortable="true"></Column>
-                            <Column field="first_name" header="First Name" sortable="true"></Column>
-                            <Column field="last_name" header="Last Name" sortable="true"></Column>
-                        </DataTable>
-                        <Paginator :rows="pagination.per_page" :totalRecords="pagination.total" @page="fetchRegistrations($event)"></Paginator>
-                    </Panel>
-                    
+        <div class="card p-mt-2">
+            <div class="p-grid p-col-12">
+                <div class="p-sm-12 p-md-9 p-lg-10">
+                    <label class="summary p-ml-2">SUMMARY RESPONSE</label><br />
+                    <label class="as-of p-ml-2"> AS OF {{currentDate()}}</label>
+                </div>
+                <div class="p-sm-12 p-md-3 p-lg-2">
+                    <button  type="button" class="p-mr-2 p-mb-2 p-button p-button-secondary p-component p-button-icon-only" @click="refresh">
+                        <i class="pi pi-refresh icon-size"></i>
+                    </button>
+                    <button  type="button" class="p-mr-2 p-mb-2 p-button p-component p-button-success">
+                        <i class="pi pi-upload"></i>&nbsp; Export to Excel
+                    </button> 
                 </div>
             </div>
         </div>
+        <div class="card p-mt-1">
+            <div class="card">
+                <div class=" p-fluid p-grid p-formgrid">
+                    <div class="p-field p-col-12 p-md-4">
+                        <label for="basic">Start Date:</label>
+                        <Calendar class="p-shadow-1" id="start_date" v-model="start_date" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <label for="basic">End Date:</label>
+                        <Calendar class="p-shadow-1" id="end_date" v-model="end_date" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-1">
+                        <label for="basic">&nbsp;</label>
+                        <Button label="Go!" @click="fetchSurveys" />
+                    </div>
+                </div>
+            </div>
+            <div class="p-grid p-fluid dashboard">
+                <div class="p-col-12 p-lg-4">
+                    <div class="card summary p-shadow-1">
+                        <span class="title">Registered</span>
+                        <span class="detail"><h4><b>100</b></h4></span>
+                        <span class="count revenue"><i class="pi pi-users" style="fontSize: 3rem"></i></span>
+                    </div>
+                </div>
+                <div class="p-col-12 p-lg-4">
+                    <div class="card summary p-shadow-1">
+                        <span class="title">Male</span>
+                        <span class="detail"><h4><b>124</b></h4></span>
+                        <span class="count visitors"><i class="pi pi-check-circle" style="fontSize: 3rem"></i></span>
+                    </div>
+                </div>
+                <div class="p-col-12 p-lg-4">
+                    <div class="card summary p-shadow-1">
+                        <span class="title">Female</span>
+                        <span class="detail"><h4><b>123</b></h4></span>
+                        <span class="count purchases"><i class="pi pi-times-circle" style="fontSize: 3rem"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -43,33 +66,40 @@
 import MyBreadcrumb from '../../components/MyBreadcrumb.vue';
 import DataTable from 'primevue/datatable/sfc';
 import Column from 'primevue/column/sfc';
-import FileUpload from 'primevue/fileupload/sfc';
-import Paginator from 'primevue/paginator/sfc';
+import ColumnGroup from 'primevue/columngroup/sfc';
 import Panel from 'primevue/panel/sfc';
+import Button from 'primevue/button/sfc';
+import Paginator from 'primevue/paginator/sfc';
+import Chart from 'primevue/chart/sfc';
+import Calendar from 'primevue/calendar/sfc';
 
-import { api_url } from '../../url.js'
-const uploadUrl = `${api_url}/api/doh/upload/excel`
+import store from '../../store.js'
 
 export default {
     setup() {
 
-        return {
-            uploadUrl
-        }
+        const { dispatch } = store
+
+        dispatch('AUTHENTICATE')
 
     },    
     components: {
         MyBreadcrumb,
         DataTable,
         Column,
-        FileUpload,
         Paginator,
-        Panel
+        ColumnGroup,
+        Panel,
+        Button,
+        Chart,
+        Calendar
     },
     data() {
         return {
             home: {icon: 'pi pi-home', to: '/summary/registrations'},
             items: [{label: 'Registrations', to: '/summary/registrations'}],
+            start_date: null,
+            end_date: new Date()
         }
     },
     computed: {
@@ -80,48 +110,68 @@ export default {
             return this.$store.state.registrations.pagination
         }
     },
-    methods: {
-        fetchRegistrations(event) {
-            const { page } = event
-            this.$store.dispatch('registrations/GET_REGISTRATIONS', { page })
-        },
-        setBeforeSend(e) {
+   methods: {
+        currentDate() {
             
-            e.xhr.setRequestHeader('Accept', 'application/json')
-            e.xhr.setRequestHeader('Authorization', `Bearer ${this.$store.state.profile.token}`)
+            const month_names = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
+            "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
+            ];
 
-        },
-        uploadComplete(e) {
+            const current = new Date();
 
-            const { xhr: { response } } = e
-
-            const data = JSON.parse(response)
-
-            const { data: { filename } } = data
-
-            console.log(filename)
-
-        },
-        uploadError(e) {
+            const date = month_names[current.getMonth()]+' '+current.getDate()+', '+current.getFullYear();
+            const dateNow = date;
             
-            const { xhr: { response } } = e
+            return dateNow;
+        },
+        refresh() {
+            
+            this.fetchSurveys()
 
-            const data = JSON.parse(response)
-
-            const { message } = data
-
-            console.log(message)
-
-        }
+        },
     },
-    mounted() {
-        this.fetchRegistrations({ page: 0 })
-    }
+    created() {
+        
+        const date = new Date()
+        date.setDate(1)
+
+        this.start_date = date
+
+    },
 }
 </script>
 
 <style scoped>
-.icon-size{
-    height: 18px;
-}
+    .summary {
+        color: #215266;
+        font-weight: bold;
+        font-size: 20px;
+    }
+    .as-of {
+        color: #926C2F;
+        font-weight: bold;
+        font-size: 17px;
+    }
+    .title {
+        color: #215266;
+    }
+    .detail {
+        color: #926C2F!important;
+    }
+    .total-number {
+        color: #b52d2f!important;
+        font-weight: bold;
+    }
+    .border-line {
+        border: 1px solid #5c5c5c!important;
+    }
+    .border-right {
+        border-right: 1px solid #5c5c5c!important;
+    }
+    .icon-size{
+        height: 18px;
+    }
+    .float-right{
+        margin-left: 50%;
+    }
 </style>

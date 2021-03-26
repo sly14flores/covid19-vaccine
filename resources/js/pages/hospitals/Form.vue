@@ -5,7 +5,14 @@
             <div class="p-col-12 p-mt-2">
             <form @submit="onSubmit">
                 <div class="card p-fluid">
-                    <h5><i class="pi pi-plus-circle"></i> Hospital Information <ToggleButton class="float-right" v-if="editMode" v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" /></h5>
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-10 p-md-11">
+                            <h6><i class="pi pi-user"></i> Hospital Information </h6>
+                        </div>
+                        <div class="p-field p-col-2 p-md-1">
+                            <ToggleButton class="p-ml-3" v-if="editMode" v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" />
+                        </div>
+                    </div>
                     <hr />
                     <div class="p-fluid p-formgrid p-grid">
                         <div class="p-field p-col-12 p-md-6">
@@ -82,8 +89,10 @@ export default {
         )
 
         if (editMode) { // Edit
+        console.log(editMode)
             dispatch('hospitals/GET_HOSPITAL', { id: hospitalId })
         } else { // New
+        console.log(editMode)
             resetForm();
         }
 
@@ -134,7 +143,7 @@ export default {
             descriptionError,
             slotsError,
             onSubmit,
-            editMode,
+            editMode
         }
     },
     data() {

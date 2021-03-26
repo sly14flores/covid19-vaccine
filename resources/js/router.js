@@ -2,21 +2,33 @@ import { createWebHashHistory, createRouter } from "vue-router";
 
 import PageWrapper from './PageWrapper.vue';
 
-import Dashboard from "./pages/dashboard/Dashboard.vue";
-import Registrations from "./pages/summary/registrations.vue";
+// import Dashboard from "./pages/dashboard/Dashboard.vue";
+import SummaryRegistrations from "./pages/summary/registrations.vue";
 import Surveys from "./pages/summary/surveys.vue";
+import Vaccines from "./pages/scanners/vaccines.vue";
+
+import Login from "./pages/login.vue";
+// import Registration from "./pages/registration.vue";
+import Booking from "./pages/booking.vue";
+// import Verify from "./pages/verify.vue";
+import ChangePassword from "./pages/change-password.vue";
+
+/**
+ * Admin - Registrations
+ */
+ import Registrations from "./pages/registrations/Registrations.vue";
+ import RegistrationsList from "./pages/registrations/List.vue";
+ import RegistrationNew from './pages/registrations/New.vue';
+ import RegistrationEdit from './pages/registrations/Edit.vue';
 
 /**
  * Users
  */
-import Login from "./pages/login.vue";
-import Registration from "./pages/registration.vue";
-import Booking from "./pages/booking.vue";
-import Verify from "./pages/verify.vue";
 import Users from "./pages/users/Users.vue";
 import UsersList from "./pages/users/List.vue";
 import UserNew from './pages/users/New.vue';
 import UserEdit from './pages/users/Edit.vue';
+
 /**
  * Hospitals
  */
@@ -27,7 +39,19 @@ import HospitalEdit from './pages/hospitals/Edit.vue';
 
 const routes = [
   {
-    path: "/admin",
+    path: "/change-password",
+    name: "ChangePassword",
+    component: PageWrapper,
+    props: {pageComponent: ChangePassword}
+  },
+  {
+    path: "/scanners/vaccines",
+    name: "Vaccines",
+    component: PageWrapper,
+    props: {pageComponent: Vaccines}
+  },
+  {
+    path: "/login",
     name: "Login",
     component: Login
   },
@@ -36,16 +60,16 @@ const routes = [
     name: "Booking",
     component: Booking
   },
-  {
-    path: "/verify",
-    name: "Verify",
-    component: Verify
-  },
-  {
-    path: "/registration",
-    name: "Registration",
-    component: Registration
-  },  
+  // {
+  //   path: "/verify",
+  //   name: "Verify",
+  //   component: Verify
+  // },
+  // {
+  //   path: "/registration",
+  //   name: "Registration",
+  //   component: Registration
+  // },  
   {
     path: "/",
     redirect: "/summary/surveys",
@@ -61,10 +85,33 @@ const routes = [
   },
   {
     path: "/summary/registrations",
+    name: "SummaryRegistrations",
+    component: PageWrapper,
+    props: {pageComponent: SummaryRegistrations}
+  },
+  {
+    path: "/registrations",
     name: "Registrations",
     component: PageWrapper,
-    props: {pageComponent: Registrations}
-  },   
+    props: {pageComponent: Registrations},
+    children: [
+      {
+        path: '',
+        name: 'RegistrationsList',
+        component: RegistrationsList
+      },
+      {
+        path: 'new',
+        name: 'NewRegistration',
+        component: RegistrationNew
+      },      
+      {
+        path: 'registration/:id',
+        name: 'ShowRegistration',
+        component: RegistrationEdit
+      }
+    ]
+  }, 
   {
     path: "/users",
     name: "Users",

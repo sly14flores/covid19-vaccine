@@ -190,6 +190,19 @@ const actions = {
         console.log(payload)
     },
     async GET_HOSPITALS({dispatch}, payload) {
+        Swal.fire({
+            title: 'Loading...',
+            willOpen() {
+              Swal.showLoading ()
+            },
+            didClose() {
+              Swal.hideLoading()
+            },
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false
+        })
         try {
             const { page } = payload
             const { data: { data: { data, pagination } } } = await getHospitals({ page })
@@ -203,6 +216,7 @@ const actions = {
         const { data, pagination } = payload
         commit('HOSPITALS',data)
         commit('PAGINATION',pagination)
+        Swal.close()
     },
     GET_HOSPITALS_ERROR({commit}, payload) {
         console.log(payload)

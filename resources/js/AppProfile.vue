@@ -1,14 +1,16 @@
 <template>
 	<div class="layout-profile">
 		<div>
-			<img src="assets/images/profile.png" alt="" />
+			<img src="img/icons/avatar.png" alt="" />
 		</div>
 		<button class="p-link layout-profile-link" @click="onClick">
-			<span class="username">{{ name }}</span>
+			<span>{{ name }}</span>
 			<i class="pi pi-fw pi-cog"></i>
 		</button>
+		<p class="profile">{{ groupName }}</p>
         <transition name="layout-submenu-wrapper">
             <ul v-show="expanded">
+				<router-link to="/change-password"><li><button class="p-link"><i class="pi pi-fw pi-lock"></i><span>Change Password</span></button></li></router-link>
                 <li><button class="p-link" @click="logout"><i class="pi pi-fw pi-power-off"></i><span>Logout</span></button></li>
             </ul>
         </transition>
@@ -51,11 +53,24 @@
 		computed: {
 			name() {
 				return `${this.$store.state.profile.firstname} ${this.$store.state.profile.lastname}`
+			},
+			groupName() {
+				return this.$store.state.profile.group_name
 			}
 		}
 	}
 </script>
 
 <style scoped>
+
+.profile {
+	text-align: center;
+	line-height: 24px;
+	color:aliceblue;
+}
+
+.fullname {
+	letter-spacing: 2px;
+}
 
 </style>

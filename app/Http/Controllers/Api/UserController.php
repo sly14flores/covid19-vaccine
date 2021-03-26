@@ -67,12 +67,19 @@ class UserController extends Controller
         $rules = [
             'firstname' => 'string',
             'lastname' => 'string',
-            // 'email' => ['string','email','max:191','unique:users'],	
+            // 'email' => ['string','email','max:191','unique:users'],
             'username' => 'string',
             'password' => 'string',
+            'group_id' => 'integer',
+            'profession' => 'string',
+            'prc_number' => 'string',
         ];
 
         $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }        
 
         /** Get validated data */
         $data = $validator->valid();
@@ -147,7 +154,9 @@ class UserController extends Controller
             'firstname' => 'string',
             'lastname' => 'string',
             'username' => 'string',
-            // 'password' => 'string',
+            'group_id' => 'integer',
+            'profession' => 'string',
+            'prc_number' => 'string',
         ];
 
         $validator = Validator::make($request->all(), $rules);        

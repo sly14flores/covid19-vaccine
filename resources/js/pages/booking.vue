@@ -2,7 +2,7 @@
     <div>
         <div class="navbar">
             <a href=""><img alt="logo" src="img/launion-logo.png" class="lu-logo" /></a>
-            <h5 class="p-mt-3 p-label-white">La Union CoViD-19 Vaccination Survey</h5>
+            <h5 class="p-mt-3 p-label-white">La Union CoViD-19 Vaccination</h5>
         </div>
         <div class="p-grid p-jc-center p-mt-4">
             <div class="p-lg-6 p-md-12 p-xs-12">

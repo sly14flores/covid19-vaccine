@@ -201,6 +201,20 @@ const actions = {
         console.log(payload)
     },
     async GET_USERS({dispatch}, payload) {
+        Swal.fire({
+            title: 'Loading...',
+
+            onBeforeOpen () {
+              Swal.showLoading ()
+            },
+            onAfterClose () {
+              Swal.hideLoading()
+            },
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false
+        })
         try {
             const { page } = payload
             const { data: { data: { data, pagination } } } = await getUsers({ page })
@@ -214,6 +228,7 @@ const actions = {
         const { data, pagination } = payload
         commit('USERS',data)
         commit('PAGINATION',pagination)
+        Swal.close()
     },
     GET_USERS_ERROR({commit}, payload) {
         console.log(payload)

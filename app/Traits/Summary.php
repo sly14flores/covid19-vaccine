@@ -14,20 +14,37 @@ trait Summary
         $startFilter = Carbon::parse($filter['start'])->format("Y-m-d 00:00:00");
         $endFilter = Carbon::parse($filter['end'])->addDays(1)->format("Y-m-d 00:00:00");
 
-        $surveys = Survey::whereBetween('created_at',[$startFilter,$endFilter])->get();
-        // $collect = collect($surveys);
+        $startFilterChart = Carbon::parse($filter['start_chart'])->format("Y-m-d 00:00:00");
+        $endFilterChart = Carbon::parse($filter['end_chart'])->addDays(1)->format("Y-m-d 00:00:00");
 
-        $startDay = Carbon::parse($filter['start'])->format("Y-m-d");
-        $endDay = Carbon::parse($filter['end'])->format("Y-m-d");
+        $surveysChart = Survey::whereBetween('created_at',[$startFilterChart,$endFilterChart])->get();
+        $surveys = Survey::whereBetween('created_at',[$startFilter,$endFilter])->get();
+
+        // $collect = collect($surveys);
+        // $surveys = Survey::all();
+
+        $startDay = Carbon::parse($filter['start_chart'])->format("Y-m-d");
+        $endDay = Carbon::parse($filter['end_chart'])->format("Y-m-d");
         $day = $startDay;
 
         $line_chart_labels = [];
         $total_responses_values = [];
+        $total_interested = [];
+        $total_not_interested = [];
 
         while (strtotime($day) <= strtotime($endDay)) {
 
             $line_chart_labels[] = Carbon::parse($day)->format("M j");
-            $total_responses_values[] = $surveys->filter(function($value) use ($day) {
+
+            $total_responses_values[] = $surveysChart->filter(function($value) use ($day) {
+                return (Carbon::parse($value['created_at'])->format('Y-m-d')===$day);
+            })->count();
+            
+            $total_interested[] = $surveysChart->where('yes_vaccine','1')->filter(function($value) use ($day) {
+                return (Carbon::parse($value['created_at'])->format('Y-m-d')===$day);
+            })->count();
+
+            $total_not_interested[] = $surveysChart->where('no_vaccine','1')->filter(function($value) use ($day) {
                 return (Carbon::parse($value['created_at'])->format('Y-m-d')===$day);
             })->count();
 
@@ -174,7 +191,9 @@ trait Summary
         $data = [
             'total_responses_line_chart'=>[
                 'labels' => $line_chart_labels,
-                'responses' => $total_responses_values
+                'responses' => $total_responses_values,
+                'total_interested' => $total_interested,
+                'total_not_interested' => $total_not_interested
             ],
             'total_responses'=>$total_responses,
             'gender'=>$gender,
