@@ -71,30 +71,37 @@ class DOHDataSelections extends Controller
         $provinces = [];
         foreach ($get_provinces as $province) {
 
+            $doh_province = $this->toDOHProv($province);
+
             $get_municipalities = CityMun::where('provCode',$province['provCode'])->get();
             $municipalities = [];
             foreach ($get_municipalities as $municipality) {
+
+                $doh_municipality = $this->toDOHMun($municipality);                
+
                 $get_barangays = Barangay::where('citymunCode',$municipality['citymunCode'])->get();
                 $barangays = [];
                 foreach ($get_barangays as $barangay) {
                     $doh_brgy = $this->toDOHBrgy($barangay);
                     $barangays[] = [
                         "code"=>$barangay['brgyCode'],
+                        "citymunCode"=>$municipality['citymunCode'],
+                        "citymunId"=>$doh_municipality,
                         "name"=>$barangay['brgyDesc'],
                         "id"=>$doh_brgy
                     ];
                 }
 
-                $doh_municipality = $this->toDOHMun($municipality);
                 $municipalities[] = [
                     "code"=>$municipality['citymunCode'],
+                    "provCode"=>$province['provCode'],
+                    "provId"=>$doh_province,
                     "name"=>$municipality['citymunDesc'],
                     "id"=>$doh_municipality,
                     "barangays"=>$barangays
                 ];
             }
 
-            $doh_province = $this->toDOHProv($province);
             $provinces[] = [
                 "code"=>$province['provCode'],
                 "name"=>$province['provDesc'],
