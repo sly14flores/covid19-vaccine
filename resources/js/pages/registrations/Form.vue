@@ -67,7 +67,7 @@
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Province <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="addresses" optionValue="id" v-model="province" :class="{'p-invalid': provinceError, 'disabled': editMode && !writeOn}" placeholder="Select a province" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="provinces" optionValue="id" v-model="province" :class="{'p-invalid': provinceError, 'disabled': editMode && !writeOn}" placeholder="Select a province" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ provinceError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
@@ -504,11 +504,21 @@ export default {
             return this.$store.state.registrations.selections.employer_municipality_value
 
         },
-        addresses() {
+        provinces() {
 
             return this.$store.state.registrations.selections.addresses.province_value
 
         },
+        municipalities() {
+
+            return this.province.municipalities
+
+        },
+        barangays() {
+
+            return this.town_city.barangays
+
+        },                     
         saving() {
             return this.$store.state.registrations.saving
         },
