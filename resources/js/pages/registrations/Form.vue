@@ -67,12 +67,12 @@
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Province <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="addresses" optionValue="id" v-model="province" :class="{'p-invalid': provinceError, 'disabled': editMode && !writeOn}" placeholder="Select a province" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="provinces" optionValue="id" v-model="province" :class="{'p-invalid': provinceError, 'disabled': editMode && !writeOn}" placeholder="Select a province" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ provinceError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Municipality <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="text" v-model="town_city" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="municipalities" optionValue="id" v-model="town_city" :class="{'p-invalid': false, 'disabled': editMode && !writeOn}" placeholder="Select a municipality" :disabled="editMode && !writeOn" />
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
@@ -86,7 +86,7 @@
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Barangay <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="text" v-model="barangay" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="barangays" optionValue="id" v-model="barangay" :class="{'p-invalid': false, 'disabled': editMode && !writeOn}" placeholder="Select a barangay" :disabled="editMode && !writeOn" />
                             </div>
                         </div>
                     </div>
@@ -188,6 +188,8 @@ export default {
         const store = useStore()
         const { state, dispatch } = store
         const confirm = useConfirm()
+
+        store.dispatch('registrations/GET_SELECTIONS')
 
         const init = {
             initialValues: {
@@ -504,11 +506,42 @@ export default {
             return this.$store.state.registrations.selections.employer_municipality_value
 
         },
-        addresses() {
+        provinces() {
 
             return this.$store.state.registrations.selections.addresses.province_value
 
         },
+        municipalities() {
+
+            if (!this.provinces) return []
+
+            const province = this.provinces.filter(province => {
+                return province.id == this.province
+            })
+
+            if (province.length==0) return []
+
+            const municipalities = province[0].municipalities
+
+            return municipalities
+
+
+        },
+        barangays() {
+
+            if (!this.municipalities) return []
+
+            const municipality = this.municipalities.filter(mun => {
+                return mun.id == this.town_city
+            })
+
+            if (municipality.length==0) return []
+
+            const barangays = municipality[0].barangays
+            
+            return barangays
+
+        },                     
         saving() {
             return this.$store.state.registrations.saving
         },
@@ -540,7 +573,7 @@ export default {
         },
     },
     mounted() {
-        this.fetchSelections()
+
     }
 }
 </script>
