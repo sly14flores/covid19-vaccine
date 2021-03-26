@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Registration;
+use App\Models\PreAssessment;
 use App\Models\Vaccine;
 use App\Models\Barangay;
 use App\Models\CityMun;
@@ -34,7 +35,6 @@ class VaccineController extends Controller
 	public function __construct()
 	{
 		$this->middleware(['auth:api']);
-		// $this->authorizeResource(Vaccine::class, Vaccine::class);
 		
         $this->http_code_ok = 200;
         $this->http_code_error = 500;
@@ -86,6 +86,10 @@ class VaccineController extends Controller
         ];
 
         $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }         
 
         /** Get validated data */
         $data = $validator->valid();
@@ -214,6 +218,22 @@ class VaccineController extends Controller
 			return $this->jsonErrorResourceNotFound();
         }
 
+        /**
+         * Create Pre Assessment
+         */
+        $check_assessment = PreAssessment::where('qr_pass_id',$id)->get();
+        if (count($check_assessment)==0) {
+            $assessment = [
+                'qr_pass_id' => $id,
+                'consent' => false,
+                'reason' => '',
+                'assessments' => config('constants.assessments')
+            ];
+            $pre = new PreAssessment;
+            $pre->fill($assessment);
+            $pre->save();
+        }
+
         $data = new RegistrationVaccineResource($registration);
 
         return $this->jsonSuccessResponse($data, 200);
@@ -280,11 +300,12 @@ class VaccineController extends Controller
         ];
 
         $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }
 
         /** Get validated data */
         $data = $validator->valid();
-
-        // return $data;
 
         $barangay = Barangay::where('brgyCode',$data['barangay'])->first();
         $data['barangay'] = $this->toDOHBrgy($barangay);
@@ -319,7 +340,7 @@ class VaccineController extends Controller
             'addressprovince' => $this->dohToProv($data['province']),
         ];
 
-        $update_napanam = QrPass::find($data['qr_pass_id']);
+        $update_napanam = QrPass::find($id);
         $update_napanam->fill($napanam);
         $update_napanam->save();
 

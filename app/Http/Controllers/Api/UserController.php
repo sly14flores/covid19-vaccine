@@ -77,6 +77,10 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
 
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }        
+
         /** Get validated data */
         $data = $validator->valid();
 

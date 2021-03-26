@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\DOHDataSelections;
 use App\Http\Controllers\Api\GeneralDataSelections;
 use App\Http\Controllers\Api\RegistrationController;
 use App\Http\Controllers\Api\VaccineController;
+use App\Http\Controllers\Api\PreAssessmentController;
 use App\Http\Controllers\Api\RegistrationImportController;
 use App\Http\Controllers\Api\SurveysSummary;
 use App\Http\Controllers\Api\ChangePassword;
@@ -133,6 +134,22 @@ Route::prefix('doh')->group(function() {
     Route::get('vaccines/qr/{id}', [VaccineController::class, 'qrRegistration']);
     Route::put('vaccines/update/registration/{id}', [VaccineController::class, 'updateRegistration']);
     Route::get('vaccines/default/vaccinator', DefaultVaccinator::class);
+    Route::get('selections/vaccine/refusals', [DOHDataSelections::class, 'refusalValue']);   
+    Route::get('selections/vaccine/deferrals', [DOHDataSelections::class, 'deferalValue']);
+
+    /**
+     * Pre Assessments
+     */
+    Route::apiResources([
+        'pres/{id}' => PreAssessmentController::class,
+    ],[
+        'only' => ['index']
+    ]);
+    Route::apiResources([
+        'pre' => PreAssessmentController::class,
+    ],[
+        'except' => ['index']
+    ]);    
 
     /**
      * Upload excel for import
