@@ -97,7 +97,7 @@
                                             </div>
                                             <div class="p-field p-col-12 p-md-4">
                                                 <label>Province <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="province" :disabled="!writeOn" />
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="addresses" optionValue="id" v-model="province" placeholder="Select a province" :class="{'p-invalid': provinceError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                             </div>
                                             <div class="p-field p-col-12 p-md-4">
                                                 <label>Municipality <i class="p-error">*</i></label>
@@ -490,12 +490,12 @@
                                             
                                             <Dialog header="Vaccine" v-model:visible="displayVaccine" :closeOnEscape="true" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">
                                                 <hr />
-                                                <!-- <div class="p-fluid p-formgrid p-grid">
+                                                <div class="p-fluid p-formgrid p-grid">
                                                     <div class="p-field p-col-12 p-md-6">
                                                         <label>Vaccinator </label>
-                                                        <Dropdown class="p-shadow-1 p-inputtext-sm" id="vaccinator" optionLabel="name" :options="manufactures" v-model="vaccinator" optionValue="id" placeholder="Select a vaccinator" />
+                                                        <Dropdown class="p-shadow-1 p-inputtext-sm" id="vaccinator" optionLabel="name" :options="vaccinators" v-model="vaccinator" optionValue="id" placeholder="Select a vaccinator" />
                                                     </div>
-                                                </div> -->
+                                                </div>
                                                 <div class="p-fluid p-formgrid p-grid">
                                                     <div class="p-field p-col-12 p-md-6">
                                                         <label>Vaccine Manufacturer Name </label>
@@ -670,24 +670,24 @@ export default {
         const { value: birthdate } = useField('vaccine.birthdate',validField);
         const { value: gender, errorMessage: genderError } = useField('vaccine.gender',validateField);
         const { value: region } = useField('vaccine.region',validField);
-        const { value: province } = useField('vaccine.province',validField);
+        const { value: province, errorMessage: provinceError } = useField('vaccine.province',validateField);
         const { value: town_city } = useField('vaccine.town_city',validField);
         const { value: address } = useField('vaccine.address',validField);
         const { value: barangay } = useField('vaccine.barangay',validField);
         const { value: contact_no } = useField('vaccine.contact_no',validField);
         const { value: civil_status, errorMessage: civil_statusError } = useField('vaccine.civil_status',validateField);
         // Employment Status
-        const { value: category, errorMessage: categoryError } = useField('vaccine.category',validateField);
-        const { value: category_id, errorMessage: category_idError } = useField('vaccine.category_id',validateField);
-        const { value: category_id_no, errorMessage: category_id_noError } = useField('vaccine.category_id_no',validateField);
-        const { value: employment_status, errorMessage: employment_statusError } = useField('vaccine.employment_status',validateField);
-        const { value: profession, errorMessage: professionError } = useField('vaccine.profession',validateField);
-        const { value: philhealth, errorMessage: philhealthError } = useField('vaccine.philhealth',validateField);
-        const { value: pwd_id } = useField('vaccine.pwd_id',validField);
-        const { value: employer_name, errorMessage: employer_nameError } = useField('vaccine.employer_name',validateField);
-        const { value: employer_municipality, errorMessage: employer_municipalityError } = useField('vaccine.employer_municipality',validateField);
-        const { value: employer_address, errorMessage: employer_addressError } = useField('vaccine.employer_address',validateField);
-        const { value: employer_contact_no, errorMessage: employer_contact_noError } = useField('vaccine.employer_contact_no',validateField);
+        // const { value: category, errorMessage: categoryError } = useField('vaccine.category',validateField);
+        // const { value: category_id, errorMessage: category_idError } = useField('vaccine.category_id',validateField);
+        // const { value: category_id_no, errorMessage: category_id_noError } = useField('vaccine.category_id_no',validateField);
+        // const { value: employment_status, errorMessage: employment_statusError } = useField('vaccine.employment_status',validateField);
+        // const { value: profession, errorMessage: professionError } = useField('vaccine.profession',validateField);
+        // const { value: philhealth, errorMessage: philhealthError } = useField('vaccine.philhealth',validateField);
+        // const { value: pwd_id } = useField('vaccine.pwd_id',validField);
+        // const { value: employer_name, errorMessage: employer_nameError } = useField('vaccine.employer_name',validateField);
+        // const { value: employer_municipality, errorMessage: employer_municipalityError } = useField('vaccine.employer_municipality',validateField);
+        // const { value: employer_address, errorMessage: employer_addressError } = useField('vaccine.employer_address',validateField);
+        // const { value: employer_contact_no, errorMessage: employer_contact_noError } = useField('vaccine.employer_contact_no',validateField);
         
         // Vaccine Administered
         const { value: vaccination_id } = useField('vaccination.id',validField);
@@ -713,17 +713,17 @@ export default {
             barangay,
             contact_no,
             civil_status, //  End Personal
-            category, // Employment Status
-            category_id,
-            category_id_no,
-            employment_status,
-            profession,
-            philhealth,
-            pwd_id,
-            employer_name,
-            employer_municipality,
-            employer_address,
-            employer_contact_no, // End Employment Status
+            // category, // Employment Status
+            // category_id,
+            // category_id_no,
+            // employment_status,
+            // profession,
+            // philhealth,
+            // pwd_id,
+            // employer_name,
+            // employer_municipality,
+            // employer_address,
+            // employer_contact_no, // End Employment Status
             vaccine_name, // Vaccine
             batch_number,
             lot_number,
@@ -733,16 +733,17 @@ export default {
             last_nameError,
             suffixError,
             genderError,
-            employment_statusError,
-            employer_nameError,
-            employer_municipalityError,
-            employer_addressError,
-            employer_contact_noError,
-            professionError,
-            philhealthError,
-            category_idError,
-            category_id_noError,
-            categoryError,
+            provinceError,
+            // employment_statusError,
+            // employer_nameError,
+            // employer_municipalityError,
+            // employer_addressError,
+            // employer_contact_noError,
+            // professionError,
+            // philhealthError,
+            // category_idError,
+            // category_id_noError,
+            // categoryError,
             civil_statusError,
             onSubmit,
             editMode,
@@ -841,6 +842,12 @@ export default {
             return this.$store.state.vaccines.selections.employer_municipality_value
 
         },
+        addresses() {
+            return this.$store.state.vaccines.selections.addresses.province_value
+        },
+        vaccinators() {
+            return this.$store.state.vaccines.vaccinators
+        },
         dosages() {
             return this.$store.state.vaccines.dosages
         },
@@ -876,6 +883,9 @@ export default {
         },
         fetchSelections() {
             this.$store.dispatch('vaccines/GET_SELECTIONS')
+        },
+        fetchVaccinators() {
+            this.$store.dispatch('vaccines/GET_VACCINATORS')
         },
         openVaccine() {
             this.displayVaccine = true;
@@ -927,7 +937,8 @@ export default {
         },
     },
     mounted() {
-        this.fetchSelections()
+        this.fetchSelections(),
+        this.fetchVaccinators()
     }
 }
 </script>
