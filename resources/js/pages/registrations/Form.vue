@@ -67,7 +67,8 @@
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Province <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="text" v-model="province" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="addresses" optionValue="id" v-model="province" :class="{'p-invalid': provinceError, 'disabled': editMode && !writeOn}" placeholder="Select a province" :disabled="editMode && !writeOn" />
+                                <small class="p-error">{{ provinceError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Municipality <i class="p-error">*</i></label>
@@ -280,7 +281,7 @@ export default {
         const { value: birthdate } = useField('registration.birthdate',validField);
         const { value: gender, errorMessage: genderError } = useField('registration.gender',validateField);
         const { value: region } = useField('registration.region',validField);
-        const { value: province } = useField('registration.province',validField);
+        const { value: province, errorMessage: provinceError } = useField('registration.province',validateField);
         const { value: town_city } = useField('registration.town_city',validField);
         const { value: address } = useField('registration.address',validField);
         const { value: barangay } = useField('registration.barangay',validField);
@@ -393,6 +394,7 @@ export default {
             last_nameError,
             suffixError,
             genderError,
+            provinceError,
             priority_groupError,
             sub_priority_groupError,
             // employment_statusError,
@@ -500,6 +502,11 @@ export default {
         employer_municipality_value() {
 
             return this.$store.state.registrations.selections.employer_municipality_value
+
+        },
+        addresses() {
+
+            return this.$store.state.registrations.selections.addresses.province_value
 
         },
         saving() {

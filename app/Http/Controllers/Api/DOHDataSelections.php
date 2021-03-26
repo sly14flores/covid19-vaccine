@@ -44,6 +44,7 @@ class DOHDataSelections extends Controller
             "employer_lgu_value" => $this->employerLguValue(),
             "month_value" => $this->monthValue(),
             "day_value" => $this->dayValue(),
+            "addresses"=>$this->addresses()
         ];
 
         return $this->jsonSuccessResponse($selections, 200);

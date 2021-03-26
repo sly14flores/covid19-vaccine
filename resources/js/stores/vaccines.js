@@ -10,6 +10,11 @@ const getSelections = () => {
     return axios.get(SELECTIONS_ROUTE)
 }
 
+const SELECTION_VACCINATORS = `${api_url}/api/general/selections/users`
+const getVaccinators = () => {
+    return axios.get(SELECTION_VACCINATORS)
+}
+
 const GET_BY_QR = `${api_url}/api/doh/vaccines/qr/:id`
 const getByQr = (payload) => {
     const { id } = payload
@@ -78,6 +83,7 @@ const region_value = [];
 const employer_municipality_value = [];
 const month_value = [];
 const day_value = [];
+const addresses = [];
 
 const selections = {
     suffix_value,
@@ -93,8 +99,11 @@ const selections = {
     region_value,
     employer_municipality_value,
     month_value,
-    day_value
+    day_value,
+    addresses
 };
+
+const vaccinators = [];
 
 const dosages = [
     {id: 1, name: 'First'},
@@ -118,6 +127,7 @@ const state = () => {
         vaccinations,
         pagination,
         dosages,
+        vaccinators,
         manufactures
     }
 }
@@ -136,6 +146,9 @@ const mutations = {
     },
     VACCINATIONS(state, payload) {
         state.vaccinations = payload
+    },
+    VACCINATORS(state, payload) {
+        state.vaccinators = {...payload}
     },
     PAGINATION(state, payload) {
         state.pagination = {...payload}
@@ -188,6 +201,22 @@ const actions = {
     TOGGLE_WRITE({commit}, payload) {
         commit('TOGGLE_WRITE', payload)
     },
+    async GET_VACCINATORS({dispatch}) {
+        try {
+            const { data: { data } } = await getVaccinators()
+            dispatch('GET_VACCINATORS_SUCCESS', data)
+        } catch (error) {
+            const { response } = error
+            dispatch('GET_VACCINATORS_ERROR', response)
+        }
+    },
+    GET_VACCINATORS_SUCCESS({commit}, payload) {
+        commit('VACCINATORS', payload)
+        console.log(payload)
+    },
+    GET_VACCINATORS_ERROR({commit}, payload) {
+        // console.log(payload)
+    },
     async GET_SELECTIONS({dispatch}) {
         try {
             const { data: { data } } = await getSelections()
@@ -199,7 +228,7 @@ const actions = {
     },
     GET_SELECTIONS_SUCCESS({commit}, payload) {
         commit('SELECTIONS', payload)
-        // console.log(payload)
+        console.log(payload)
     },
     GET_SELECTIONS_ERROR({commit}, payload) {
         // console.log(payload)
@@ -209,11 +238,10 @@ const actions = {
         const { id } = payload
         Swal.fire({
             title: 'Loading...',
-
-            onBeforeOpen () {
+            willOpen () {
               Swal.showLoading ()
             },
-            onAfterClose () {
+            didClose () {
               Swal.hideLoading()
             },
             showConfirmButton: false,
