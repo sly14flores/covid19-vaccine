@@ -78,6 +78,7 @@ class DOHDataSelections extends Controller
                 foreach ($get_barangays as $barangay) {
                     $doh_brgy = $this->toDOHBrgy($barangay);
                     $barangays[] = [
+                        "code"=>$barangay['brgyCode'],
                         "name"=>$barangay['brgyDesc'],
                         "id"=>$doh_brgy
                     ];
@@ -85,6 +86,7 @@ class DOHDataSelections extends Controller
 
                 $doh_municipality = $this->toDOHMun($municipality);
                 $municipalities[] = [
+                    "code"=>$municipality['citymunCode'],
                     "name"=>$municipality['citymunDesc'],
                     "id"=>$doh_municipality,
                     "barangays"=>$barangays
@@ -93,6 +95,7 @@ class DOHDataSelections extends Controller
 
             $doh_province = $this->toDOHProv($province);
             $provinces[] = [
+                "code"=>$province['provCode'],
                 "name"=>$province['provDesc'],
                 "id"=>$doh_province,
                 "municipalities"=>$municipalities,

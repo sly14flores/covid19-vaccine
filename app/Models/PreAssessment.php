@@ -18,11 +18,22 @@ class PreAssessment extends Model
      */
     protected $fillable = [
         'qr_pass_id',
+        'consent',
+        'reason',
         'assessments',
     ];
 
     protected $hidden = [
         'updated_at',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'consent' => 'boolean',
     ];
     
     /**

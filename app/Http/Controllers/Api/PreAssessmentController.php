@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\PreAssessment;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\PreAssessmentResource;
 
 use App\Traits\Messages;
 
@@ -16,7 +17,6 @@ class PreAssessmentController extends Controller
 
     private $http_code_ok;
     private $http_code_error;
-    private $assessments;
 
 	public function __construct()
 	{
@@ -24,24 +24,6 @@ class PreAssessmentController extends Controller
 		
         $this->http_code_ok = 200;
         $this->http_code_error = 500;
-
-        $this->assessments = [
-            ["key"=>1,"description"=>"Age more than 16 years old?","value"=>false],
-            ["key"=>2,"description"=>"Has no allergies to PEG or polysorbate?","value"=>false],
-            ["key"=>3,"description"=>"Has no severe allergic reaction after the 1st dose of the vaccine?","value"=>false],
-            ["key"=>4,"description"=>"Has no allergy to food, egg, medicines, and no asthma?","value"=>false],
-            ["key"=>5,"description"=>"Has no history of bleeding disorders or currently taking anti-coagulants?","value"=>false],
-            ["key"=>6,"description"=>"If with bleeding history, is a gauge 23 - 25 syringe available for injection?","value"=>false],
-            ["key"=>7,"description"=>"Has no history of exposure to a confirmed or suspected COVID-19 case in the past 2 weeks?","value"=>false],
-            ["key"=>8,"description"=>"Has not been previously treated for COVID-19 in the past 90 days?","value"=>false],
-            ["key"=>9,"description"=>"Has not received any vaccine in the past 2 weeks?","value"=>false],
-            ["key"=>10,"description"=>"Has not received convalescent plasma or monoclonal antibodies for COVID-19 in the past 90 days?","value"=>false],
-            ["key"=>11,"description"=>"Not Pregnant?","value"=>false],
-            ["key"=>12,"description"=>"If pregnant, 2nd or 3rd Trimester?","value"=>false],
-            ["key"=>13,"description"=>"Does not have any of the following: HIV, Cancer/ Malignancy, Underwent Transplant, Under Steroid Medication/ Treatment, Bed Ridden, terminal illness, less than 6 months prognosis","value"=>false],
-            ["key"=>14,"description"=>"If with mentioned condition/s, specify.","value"=>false],
-            ["key"=>15,"description"=>"If with mentioned condition, has presented medical clearance prior to vaccination day?","value"=>false],
-        ];
 
 	}
 
@@ -79,24 +61,7 @@ class PreAssessmentController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'assessments' => 'json', # array
-        ];
 
-        $validator = Validator::make($request->all(), $rules);
-        
-        if ($validator->fails()) {
-            return $this->jsonErrorDataValidation();
-        }
-        
-        /** Get validated data */
-        $data = $validator->valid();
-        $data['qr_pass_id'] = "263000";
-        $data['assessments'] = $this->assessments;
-
-        $assessment = new PreAssessment;
-        $assessment->fill($data);
-        $assessment->save();
     }
 
     /**
@@ -107,7 +72,20 @@ class PreAssessmentController extends Controller
      */
     public function show($id)
     {
-        //
+        if (filter_var($id, FILTER_VALIDATE_INT) === false ) {
+            return $this->jsonErrorInvalidParameters();
+        }
+
+        $pre = PreAssessment::where('qr_pass_id',$id)->first();
+
+        if (is_null($pre)) {
+			return $this->jsonErrorResourceNotFound();
+        }
+
+        $data = new PreAssessmentResource($pre);
+
+        return $this->jsonSuccessResponse($data, 200);
+
     }
 
     /**
@@ -130,23 +108,28 @@ class PreAssessmentController extends Controller
      */
     public function update(Request $request, $id)
     { 
+        if (filter_var($id, FILTER_VALIDATE_INT) === false ) {
+            return $this->jsonErrorInvalidParameters();
+        }
 
         $rules = [
-            'assessments' => 'json', # array
+            'consent' => 'integer',
+            'assessments' => 'array', # array
         ];
 
         $validator = Validator::make($request->all(), $rules);
-        
         if ($validator->fails()) {
             return $this->jsonErrorDataValidation();
+            // return $validator->errors();
         }
-        
+
         /** Get validated data */
         $data = $validator->valid();
-
         $assessment = PreAssessment::where('qr_pass_id',$id)->first();
+        $assessment->fill($data);
+        $assessment->save();
 
-        return $assessment;
+        return $this->jsonSuccessResponse(new PreAssessmentResource($assessment), 200, 'User info updated successfully');
 
     }
 

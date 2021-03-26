@@ -141,7 +141,7 @@ Route::prefix('doh')->group(function() {
      * Pre Assessments
      */
     Route::apiResources([
-        'pre/{id}' => PreAssessmentController::class,
+        'pres/{id}' => PreAssessmentController::class,
     ],[
         'only' => ['index']
     ]);
