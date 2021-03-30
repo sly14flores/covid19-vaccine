@@ -69,9 +69,10 @@ const getPre = (payload) => {
 
 const UPDATE_PRE = `${api_url}/api/doh/pre/:id`
 const updatePre = (payload) => {
-    const { id } = payload
+    const { id, pre } = payload
     const url =  route(UPDATE_PRE, { id })
-    return axios.put(url, payload)
+    console.log(url)
+    return axios.put(url, pre)
 }
 
 const SELECTION_REASONS = `${api_url}/api/doh/selections/vaccine/refusals`
@@ -334,9 +335,9 @@ const actions = {
     GET_PRE_ERROR({commit},payload) {
         console.log(payload)
     },
-    async UPDATE_PRE({commit,dispatch}, payload) {
+    async UPDATE_PRE({state,dispatch}, payload) {
         try {
-            const { data: { data } } = await updatePre(payload)
+            const { data: { data } } = await updatePre({id: state.vaccine.qr_pass_id, pre: payload})
             dispatch('UPDATE_PRE_SUCCESS', data)
             return true
         } catch (error) {

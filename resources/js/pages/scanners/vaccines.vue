@@ -122,48 +122,52 @@
                                             </div>
                                             <TabView>
                                                  <TabPanel header="Pre-Assessment" :disabled="!writeOn">
-                                                    <div class="p-fluid">
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <p class="p-text-sm">Consent</p>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="yes_consent" name="consent" value="true" v-model="consent" />
-                                                                    <label for="yes_consent">Yes</label>
+                                                    <Card>
+                                                        <template #content>
+                                                            <div class="p-fluid">
+                                                                <div class="p-fluid p-formgrid p-grid p-mt-2">
+                                                                    <div class="p-field p-col-12 p-md-2">
+                                                                        <p>Consent</p>
+                                                                    </div>
+                                                                    <div class="p-field p-col-12 p-md-2">
+                                                                        <div class="p-field-radiobutton">
+                                                                            <RadioButton id="yes_consent" name="consent" :value="true" v-model="consent" v-on:click="consent_hide = false" :disabled="!writeOn" />
+                                                                            <label for="yes_consent">Yes</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="p-field p-col-12 p-md-2">
+                                                                        <div class="p-field-radiobutton">
+                                                                            <RadioButton id="no_consent" name="consent" :value="false" v-model="consent" v-on:click="consent_hide = true" :disabled="!writeOn" />
+                                                                            <label for="no_consent">No</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="p-fluid p-formgrid p-grid p-mt-2" v-if="consent_hide">       
+                                                                    <div class="p-field p-col-12 p-md-2">
+                                                                        <p>Reason</p>
+                                                                    </div>
+                                                                    <div class="p-field p-col-12 p-md-6">
+                                                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="reason_value" optionValue="id" v-model="reason" placeholder="Select a reason" :disabled="!writeOn" />
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="no_consent" name="consent" value="false" v-model="consent" />
-                                                                    <label for="no_consent">No</label>
+                                                            <DataTable class="p-datatable-sm" :value="pre.assessments" dataKey="key" v-show="consent" >
+                                                                <Column field="description" header="Description"></Column>
+                                                                <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
+                                                                    <template #body="slotProps">
+                                                                        <RadioButton name="assessments" :value="true" v-model="slotProps.data['value']" />
+                                                                        <RadioButton class="p-ml-4" name="assessments" :value="false" v-model="slotProps.data['value']" />
+                                                                    </template>
+                                                                </Column>
+                                                            </DataTable>
+                                                            <div class="p-fluid p-formgrid p-grid p-mt-2">
+                                                                <div class="p-field p-col-12 p-md-10"></div>
+                                                                <div class="p-field p-col-12 p-md-2">
+                                                                    <Button label="Save" type="submit" class="p-button-primary p-button-sm" :disabled="!writeOn" @click="savePre"></Button>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">       
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <p class="p-text-sm">* Reason</p>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="reason_value" optionValue="id" v-model="reason" placeholder="Select a reason" :disabled="!writeOn" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <DataTable class="p-datatable-sm" :value="pre.assessments" dataKey="key">
-                                                        <Column field="description" header="Description"></Column>
-                                                        <Column field="value" header="Yes  /  No" headerStyle="width: 10%">
-                                                            <template #body="slotProps">
-                                                                <RadioButton name="assessments" value="true" v-model="slotProps.data['value']" />
-                                                                <RadioButton class="p-ml-4" name="assessments" value="false" v-model="slotProps.data['value']" />
-                                                            </template>
-                                                        </Column>
-                                                    </DataTable>
-                                                    <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                        <div class="p-field p-col-12 p-md-10"></div>
-                                                        <div class="p-field p-col-12 p-md-2">
-                                                            <Button label="Save" type="submit" class="p-button-primary p-button-sm" :disabled="!writeOn" @click="savePre"></Button>
-                                                        </div>
-                                                    </div>
+                                                        </template>
+                                                    </Card>
                                                 </TabPanel>
                                                 <TabPanel header="Vaccine Administration" :disabled="!writeOn">
                                                     <div class="p-fluid">
@@ -258,6 +262,7 @@ import Paginator from 'primevue/paginator/sfc';
 import Dialog from 'primevue/dialog/sfc';
 import Calendar from 'primevue/calendar/sfc';
 import ScrollTop from 'primevue/scrolltop/sfc';
+import Card from 'primevue/card/sfc';
 
 import { QrStream, QrCapture, QrDropzone } from 'vue3-qr-reader';
 import { useStore } from 'vuex'
@@ -503,7 +508,9 @@ export default {
     data() {
       return {
           camera: 'auto',
-          displayVaccine: false
+          displayVaccine: false,
+          consent_hide: false,
+          datatable_hide: false
       }
     },
     components: {
@@ -525,6 +532,7 @@ export default {
         Paginator,
         Dialog,
         Calendar,
+        Card,
         ScrollTop
     },
     computed: {
