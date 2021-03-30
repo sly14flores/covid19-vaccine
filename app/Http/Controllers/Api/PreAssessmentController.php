@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\PreAssessment;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\PreAssessmentResource;
+use App\Http\Resources\PreAssessmentResourceCollection;
 
 use App\Traits\Messages;
 

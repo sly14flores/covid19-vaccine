@@ -72,20 +72,15 @@
                                             </div>
                                         </div>
                                         <div class="p-fluid p-formgrid p-grid">
-                                            <div class="p-field p-col-12 p-md-3">
+                                            <div class="p-field p-col-12 p-md-4">
                                                 <label>Birthdate <i class="p-error">*</i></label>
                                                 <InputText class="p-shadow-1 p-inputtext-sm" type="date" v-model="birthdate" :class="{disabled: !writeOn}" :disabled="!writeOn" />
                                             </div>
-                                            <div class="p-field p-col-12 p-md-3">
+                                            <div class="p-field p-col-12 p-md-4">
                                                 <label>Sex <i class="p-error">*</i></label>
                                                 <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" placeholder="Select a Gender" :class="{disabled: !writeOn}" :disabled="!writeOn" />
                                             </div>
-                                            <div class="p-field p-col-12 p-md-3">
-                                                <label>Civil Status <i class="p-error">*</i></label>
-                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="civil_status_value" optionValue="id" v-model="civil_status" placeholder="Select a Civil Status" :class="{'p-invalid': civil_statusError, 'disabled': !writeOn}" :disabled="!writeOn" />
-                                                <small class="p-error">{{ civil_statusError }}</small>
-                                            </div>
-                                            <div class="p-field p-col-12 p-md-3">
+                                            <div class="p-field p-col-12 p-md-4">
                                                 <label>Contact No.: <i class="p-error">*</i></label>
                                                 <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="contact_no" :disabled="!writeOn" />
                                             </div>
@@ -97,21 +92,25 @@
                                             </div>
                                             <div class="p-field p-col-12 p-md-4">
                                                 <label>Province <i class="p-error">*</i></label>
-                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="addresses" optionValue="id" v-model="province" placeholder="Select a province" :class="{'p-invalid': provinceError, 'disabled': !writeOn}" :disabled="!writeOn" />
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="provinces" optionValue="id" v-model="province" placeholder="Select a province" :class="{'p-invalid': provinceError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                             </div>
                                             <div class="p-field p-col-12 p-md-4">
                                                 <label>Municipality <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="town_city" :disabled="!writeOn" />
+                                                <Dropdown class="p-shadow-1" optionLabel="name" :options="municipalities" optionValue="id" v-model="town_city" :class="{'p-invalid': town_cityError, 'disabled': !writeOn}" placeholder="Select a municipality" :disabled="!writeOn" />
                                             </div>
                                         </div>
                                         <div class="p-fluid p-formgrid p-grid">
-                                            <div class="p-field p-col-12 p-md-8">
+                                            <div class="p-field p-col-12 p-md-4">
+                                                <label>Barangay <i class="p-error">*</i></label>
+                                                <Dropdown class="p-shadow-1" optionLabel="name" :options="barangays" optionValue="id" v-model="barangay" :class="{'p-invalid': barangayError, 'disabled': !writeOn}" placeholder="Select a barangay" :disabled="!writeOn" />
+                                            </div>
+                                            <div class="p-field p-col-12 p-md-4">
                                                 <label>Unit/Building/Street/House No. <i class="p-error">*</i></label>
                                                 <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="address" :disabled="!writeOn" />
                                             </div>
                                             <div class="p-field p-col-12 p-md-4">
-                                                <label>Barangay <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="barangay" :disabled="!writeOn" />
+                                                <label>Occupation</label>
+                                                <InputText class="p-shadow-1" type="text" v-model="occupation" :disabled="!writeOn" />
                                             </div>
                                         </div>
                                         <div class="p-fluid">
@@ -122,7 +121,7 @@
                                                 </div>
                                             </div>
                                             <TabView>
-                                                <TabPanel header="Pre-Assessment" :disabled="!writeOn">
+                                                 <TabPanel header="Pre-Assessment" :disabled="!writeOn">
                                                     <div class="p-fluid">
                                                         <div class="p-fluid p-formgrid p-grid p-mt-2">
                                                             <div class="p-field p-col-12 p-md-6">
@@ -130,333 +129,39 @@
                                                             </div>
                                                             <div class="p-field p-col-12 p-md-2">
                                                                 <div class="p-field-radiobutton">
-                                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
+                                                                    <RadioButton id="yes_consent" name="consent" value="true" v-model="consent" />
                                                                     <label for="yes_consent">Yes</label>
                                                                 </div>
                                                             </div>
                                                             <div class="p-field p-col-12 p-md-2">
                                                                 <div class="p-field-radiobutton">
-                                                                    <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
+                                                                    <RadioButton id="no_consent" name="consent" value="false" v-model="consent" />
                                                                     <label for="no_consent">No</label>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">
+                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">       
                                                             <div class="p-field p-col-12 p-md-6">
                                                                 <p class="p-text-sm">* Reason</p>
                                                             </div>
                                                             <div class="p-field p-col-12 p-md-6">
-                                                                <Dropdown />
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <p class="p-text-sm">Age more than 16 years old?</p>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
-                                                                    <label for="yes_consent">Yes</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
-                                                                    <label for="no_consent">No</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <p class="p-text-sm">Has no allergies to PEG or polysorbate?</p>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
-                                                                    <label for="yes_consent">Yes</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
-                                                                    <label for="no_consent">No</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <p class="p-text-sm">Has no allergy to food, egg, medicines, and no asthma?</p>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
-                                                                    <label for="yes_consent">Yes</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
-                                                                    <label for="no_consent">No</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <p class="p-text-sm">Has no history of bleeding disorders or currently taking anti-coagulants?</p>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
-                                                                    <label for="yes_consent">Yes</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
-                                                                    <label for="no_consent">No</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <p class="p-text-sm">* if with bleeding history, is a gauge 23 - 25 syringe available for injection?</p>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
-                                                                    <label for="yes_consent">Yes</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
-                                                                    <label for="no_consent">No</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <p class="p-text-sm">Has no history of exposure to a confirmed or suspected COVID-19 case in the past 2 weeks?</p>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
-                                                                    <label for="yes_consent">Yes</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
-                                                                    <label for="no_consent">No</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <p class="p-text-sm">Has not been previously treated for COVID-19 in the past 90 days?</p>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
-                                                                    <label for="yes_consent">Yes</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
-                                                                    <label for="no_consent">No</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <p class="p-text-sm">Has not received any vaccine in the past 2 weeks?</p>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
-                                                                    <label for="yes_consent">Yes</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
-                                                                    <label for="no_consent">No</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <p class="p-text-sm">Has not received convalescent plasma or monoclonal antibodies for COVID-19 in the past 90 days?</p>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
-                                                                    <label for="yes_consent">Yes</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
-                                                                    <label for="no_consent">No</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <p class="p-text-sm">Not Pregnant?</p>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
-                                                                    <label for="yes_consent">Yes</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
-                                                                    <label for="no_consent">No</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <p class="p-text-sm">* if pregnant, 2nd or 3rd Trimester?</p>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
-                                                                    <label for="yes_consent">Yes</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
-                                                                    <label for="no_consent">No</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <p class="p-text-sm">Does not have any of the following: HIV, Cancer/ Malignancy, Underwent Transplant, Under Steroid Medication/ Treatment, Bed Ridden, terminal illness, less than 6 months prognosis</p>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
-                                                                    <label for="yes_consent">Yes</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
-                                                                    <label for="no_consent">No</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <p class="p-text-sm">* If with mentioned condition/s, specify.</p>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
-                                                                    <label for="yes_consent">Yes</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
-                                                                    <label for="no_consent">No</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <p class="p-text-sm">* If with mentioned condition, has presented medical clearance prior to vaccination day?</p>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
-                                                                    <label for="yes_consent">Yes</label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-2">
-                                                                <div class="p-field-radiobutton">
-                                                                    <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
-                                                                    <label for="no_consent">No</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <p class="p-text-sm">Deferral</p>
-                                                            </div>
-                                                            <div class="p-field p-col-12 p-md-6">
-                                                                <Dropdown />
+                                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="reason_value" optionValue="id" v-model="reason" placeholder="Select a reason" :disabled="!writeOn" />
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </TabPanel>
-                                                <TabPanel header="Post-Assessment Monitoring" :disabled="!writeOn">
+                                                    <DataTable class="p-datatable-sm" :value="pre.assessments" dataKey="key">
+                                                        <Column field="description" header="Description"></Column>
+                                                        <Column field="value" header="Yes  /  No" headerStyle="width: 10%">
+                                                            <template #body="slotProps">
+                                                                <RadioButton name="assessments" value="true" v-model="slotProps.data['value']" />
+                                                                <RadioButton class="p-ml-4" name="assessments" value="false" v-model="slotProps.data['value']" />
+                                                            </template>
+                                                        </Column>
+                                                    </DataTable>
                                                     <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                        <div class="p-field p-col-12 p-md-6">
-                                                            <p class="p-text-sm">Has no severe allergic reaction after the 1st dose of the vaccine?</p>
-                                                        </div>
+                                                        <div class="p-field p-col-12 p-md-10"></div>
                                                         <div class="p-field p-col-12 p-md-2">
-                                                            <div class="p-field-radiobutton">
-                                                                <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
-                                                                <label for="yes_consent">Yes</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-field p-col-12 p-md-2">
-                                                            <div class="p-field-radiobutton">
-                                                                <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
-                                                                <label for="no_consent">No</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                        <div class="p-field p-col-12 p-md-6">
-                                                            <p class="p-text-sm">* If with allergy or asthma, will the vaccinator able to monitor the patient for 30 minutes?</p>
-                                                        </div>
-                                                        <div class="p-field p-col-12 p-md-2">
-                                                            <div class="p-field-radiobutton">
-                                                                <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
-                                                                <label for="yes_consent">Yes</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-field p-col-12 p-md-2">
-                                                            <div class="p-field-radiobutton">
-                                                                <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
-                                                                <label for="no_consent">No</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                        <div class="p-field p-col-12 p-md-6">
-                                                            <p class="p-text-sm">Does not manifest any of the following symptoms: Fever/chills, Headache, Cough, Colds, Sore throat, Myalgia, Fatigue, Weakness, Loss of smell/taste, Diarrhea, Shortness of breath/ difficulty in breathing</p>
-                                                        </div>
-                                                        <div class="p-field p-col-12 p-md-2">
-                                                            <div class="p-field-radiobutton">
-                                                                <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="consent" />
-                                                                <label for="yes_consent">Yes</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="p-field p-col-12 p-md-2">
-                                                            <div class="p-field-radiobutton">
-                                                                <RadioButton id="no_consent" name="consent" value="02_No" v-model="consent" />
-                                                                <label for="no_consent">No</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                        <div class="p-field p-col-12 p-md-6">
-                                                            <p class="p-text-sm">* If manifesting any of the mentioned symptom/s, specify all that apply</p>
-                                                        </div>
-                                                        <div class="p-field p-col-12 p-md-6">
-                                                            <div class="p-field-radiobutton">
-                                                                <InputText />
-                                                            </div>
+                                                            <Button label="Save" type="submit" class="p-button-primary p-button-sm" :disabled="!writeOn" @click="savePre"></Button>
                                                         </div>
                                                     </div>
                                                 </TabPanel>
@@ -473,7 +178,7 @@
                                                                 <Column field="lot_number" header="Lot No."></Column>
                                                                 <Column field="dose" header="Dosage"></Column>
                                                                 <Column field="vaccinator" header="Administered by"></Column>
-                                                                <Column field="profession" header="Profession"></Column>
+                                                                <Column field="position" header="Profession"></Column>
                                                                 <Column field="date" header="Date"></Column>
                                                                 <Column field="id" header="Actions">
                                                                     <template #body="slotProps">
@@ -486,6 +191,7 @@
                                                         </div>
                                                     </div>
                                                 </TabPanel>
+                                                
                                             </TabView>
                                             
                                             <Dialog header="Vaccine" v-model:visible="displayVaccine" :closeOnEscape="true" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">
@@ -493,7 +199,7 @@
                                                 <div class="p-fluid p-formgrid p-grid">
                                                     <div class="p-field p-col-12 p-md-6">
                                                         <label>Vaccinator </label>
-                                                        <Dropdown class="p-shadow-1 p-inputtext-sm" id="vaccinator" optionLabel="name" :options="vaccinators" v-model="vaccinator" optionValue="id" placeholder="Select a vaccinator" />
+                                                        <Dropdown class="p-shadow-1 p-inputtext-sm" id="user_id" optionLabel="name" :options="users" v-model="user_id" optionValue="id" placeholder="Select a vaccinator" />
                                                     </div>
                                                 </div>
                                                 <div class="p-fluid p-formgrid p-grid">
@@ -518,7 +224,7 @@
                                                 </div><br />
                                                 <template #footer>
                                                     <Button label="Close" icon="pi pi-times" @click="closeVaccine" class="p-button-text"/>
-                                                    <Button label="Save" icon="pi pi-check" @click="saveVaccine" autofocus />
+                                                    <Button :label="textLabel" icon="pi pi-check" @click="saveVaccine" autofocus />
                                                 </template>
                                             </Dialog>
                                         </div>
@@ -573,10 +279,15 @@ export default {
         const { state, dispatch } = store
         const confirm = useConfirm()
 
+        store.dispatch('vaccines/GET_SELECTIONS')
+        store.dispatch('vaccines/GET_DEFAULT_ID')
+        
         function onDecode(data) {
             const str = data.split('r')
             const qr = str[1]
             store.dispatch('vaccines/GET_BY_QR',{ id: qr })
+            store.dispatch('vaccines/GET_PRE', { id: qr })
+            store.dispatch('vaccines/GET_REASONS')
         }
 
         const init = {
@@ -606,15 +317,36 @@ export default {
                 })
             }
         )
-        
+
+        watch(
+            () => store.state.vaccines.pre,
+            (data, prevData) => {
+                setValues({
+                    pre: {...data}
+                })
+            }
+        )
+
         const getNapanam = () => {
             store.dispatch('vaccines/GET_BY_QR', { id: qr_pass_id.value })
+            store.dispatch('vaccines/GET_PRE', { id: qr_pass_id.value })
+            store.dispatch('vaccines/GET_REASONS')
         }
 
         const vaccinations = computed(() => {
 
             return store.state.vaccines.vaccinations
 
+        });
+
+        const savePre = handleSubmit((values) => {
+
+            const { pre } = values || {}
+            
+            dispatch('vaccines/UPDATE_PRE', pre)
+            
+            console.log(pre)
+            
         });
 
         const saveVaccine = handleSubmit((values) => {
@@ -671,11 +403,12 @@ export default {
         const { value: gender, errorMessage: genderError } = useField('vaccine.gender',validateField);
         const { value: region } = useField('vaccine.region',validField);
         const { value: province, errorMessage: provinceError } = useField('vaccine.province',validateField);
-        const { value: town_city } = useField('vaccine.town_city',validField);
+        const { value: town_city, errorMessage: town_cityError } = useField('vaccine.town_city',validateField);
+        const { value: barangay, errorMessage: barangayError } = useField('vaccine.barangay',validateField);
         const { value: address } = useField('vaccine.address',validField);
-        const { value: barangay } = useField('vaccine.barangay',validField);
         const { value: contact_no } = useField('vaccine.contact_no',validField);
-        const { value: civil_status, errorMessage: civil_statusError } = useField('vaccine.civil_status',validateField);
+        const { value: occupation } = useField('vaccine.occupation',validField);
+        // const { value: civil_status, errorMessage: civil_statusError } = useField('vaccine.civil_status',validateField);
         // Employment Status
         // const { value: category, errorMessage: categoryError } = useField('vaccine.category',validateField);
         // const { value: category_id, errorMessage: category_idError } = useField('vaccine.category_id',validateField);
@@ -691,10 +424,15 @@ export default {
         
         // Vaccine Administered
         const { value: vaccination_id } = useField('vaccination.id',validField);
+        const { value: user_id } = useField('vaccination.user_id',validField);
         const { value: vaccine_name } = useField('vaccination.vaccine_name',validField);
         const { value: batch_number } = useField('vaccination.batch_number',validField);
         const { value: lot_number } = useField('vaccination.lot_number',validField);
         const { value: dose } = useField('vaccination.dose',validField);
+
+        const { value: assessments } = useField('pre.assessments',validField);
+        const { value: consent } = useField('pre.consent',validField);
+        const { value: reason } = useField('pre.reason',validField);
 
         return {
             id, // Personal
@@ -712,7 +450,8 @@ export default {
             address, // street
             barangay,
             contact_no,
-            civil_status, //  End Personal
+            occupation,
+            // civil_status, //  End Personal
             // category, // Employment Status
             // category_id,
             // category_id_no,
@@ -725,15 +464,21 @@ export default {
             // employer_address,
             // employer_contact_no, // End Employment Status
             vaccine_name, // Vaccine
+            user_id,
             batch_number,
             lot_number,
             dose, // End Vaccine
+            consent,
+            reason,
+            assessments,
             qr_pass_idError,
             first_nameError,
             last_nameError,
             suffixError,
             genderError,
             provinceError,
+            town_cityError,
+            barangayError,
             // employment_statusError,
             // employer_nameError,
             // employer_municipalityError,
@@ -744,13 +489,14 @@ export default {
             // category_idError,
             // category_id_noError,
             // categoryError,
-            civil_statusError,
+            // civil_statusError,
             onSubmit,
             editMode,
             onDecode,
             getNapanam,
             saveVaccine,
-            vaccinations
+            vaccinations,
+            savePre
         }
 
     },
@@ -842,14 +588,66 @@ export default {
             return this.$store.state.vaccines.selections.employer_municipality_value
 
         },
-        addresses() {
+        provinces() {
+
             return this.$store.state.vaccines.selections.addresses.province_value
+
         },
-        vaccinators() {
-            return this.$store.state.vaccines.vaccinators
+        default_id() {
+
+            return this.$store.state.vaccines.default_id
+
+        },
+        reason_value() {
+
+            return this.$store.state.vaccines.reason_value
+
         },
         dosages() {
+
             return this.$store.state.vaccines.dosages
+
+        },
+        users() {
+
+            return this.$store.state.vaccines.users
+
+        },
+        pre() {
+
+            return this.$store.state.vaccines.pre
+            
+        },
+        municipalities() {
+
+            if (!this.provinces) return []
+
+            const province = this.provinces.filter(province => {
+                return province.id == this.province
+            })
+
+            if (province.length==0) return []
+
+            const municipalities = province[0].municipalities
+
+            return municipalities
+
+
+        },
+        barangays() {
+
+            if (!this.municipalities) return []
+
+            const municipality = this.municipalities.filter(mun => {
+                return mun.id == this.town_city
+            })
+
+            if (municipality.length==0) return []
+
+            const barangays = municipality[0].barangays
+            
+            return barangays
+
         },
         manufactures() {
             return this.$store.state.vaccines.manufactures
@@ -881,19 +679,21 @@ export default {
                 }
             });
         },
-        fetchSelections() {
-            this.$store.dispatch('vaccines/GET_SELECTIONS')
-        },
-        fetchVaccinators() {
-            this.$store.dispatch('vaccines/GET_VACCINATORS')
-        },
         openVaccine() {
             this.displayVaccine = true;
             this.$store.dispatch('vaccines/RESET_VACCINE')
+            this.$store.dispatch('vaccines/GET_USERS')
+            this.textLabel = "Save"
+            this.$store.state.vaccines.vaccination.user_id = this.$store.state.vaccines.default_id.id;
         },
         showVaccine(id) {
             this.displayVaccine = true;
             this.$store.dispatch('vaccines/GET_VACCINATION', {id})
+            this.$store.dispatch('vaccines/GET_USERS')
+            this.textLabel = "Update"
+
+            console.log(this.$store.state)
+            
         },
         closeVaccine() {
             this.displayVaccine = false;
@@ -937,8 +737,7 @@ export default {
         },
     },
     mounted() {
-        this.fetchSelections(),
-        this.fetchVaccinators()
+
     }
 }
 </script>

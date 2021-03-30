@@ -201,8 +201,8 @@ const mutations = {
         state.registration.gender = payload.gender
         state.registration.contact_no = payload.contact_no
         state.registration.province = payload.province
-        state.registration.town_city = payload.cityMunDesc
-        state.registration.barangay = payload.barangayDesc
+        state.registration.town_city = payload.cityMun
+        state.registration.barangay = payload.barangay
         state.registration.address = payload.address // street
     },
     REGISTRATION(state, payload) {

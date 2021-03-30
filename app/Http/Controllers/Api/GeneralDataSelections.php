@@ -44,7 +44,7 @@ class GeneralDataSelections extends Controller
             return $map;
         })->values();
 
-        return $users;
+        return $this->jsonSuccessResponse($users, 200);
     }
 
 }

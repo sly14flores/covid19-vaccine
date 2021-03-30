@@ -72,10 +72,14 @@
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Municipality <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="municipalities" optionValue="id" v-model="town_city" :class="{'p-invalid': false, 'disabled': editMode && !writeOn}" placeholder="Select a municipality" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="municipalities" optionValue="id" v-model="town_city" :class="{'p-invalid': town_cityError, 'disabled': editMode && !writeOn}" placeholder="Select a municipality" :disabled="editMode && !writeOn" />
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Barangay <i class="p-error">*</i></label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="barangays" optionValue="id" v-model="barangay" :class="{'p-invalid': barangayError, 'disabled': editMode && !writeOn}" placeholder="Select a barangay" :disabled="editMode && !writeOn" />
+                            </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Unit/Building/Street/House No. <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" type="text" v-model="address" :disabled="editMode && !writeOn" />
@@ -83,10 +87,6 @@
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Occupation</label>
                                 <InputText class="p-shadow-1" type="text" v-model="occupation" :disabled="editMode && !writeOn" />
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Barangay <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="barangays" optionValue="id" v-model="barangay" :class="{'p-invalid': false, 'disabled': editMode && !writeOn}" placeholder="Select a barangay" :disabled="editMode && !writeOn" />
                             </div>
                         </div>
                     </div>
@@ -284,9 +284,9 @@ export default {
         const { value: gender, errorMessage: genderError } = useField('registration.gender',validateField);
         const { value: region } = useField('registration.region',validField);
         const { value: province, errorMessage: provinceError } = useField('registration.province',validateField);
-        const { value: town_city } = useField('registration.town_city',validField);
+        const { value: town_city, errorMessage: town_cityError } = useField('registration.town_city',validateField);
+        const { value: barangay, errorMessage: barangayError } = useField('registration.barangay',validateField);
         const { value: address } = useField('registration.address',validField);
-        const { value: barangay } = useField('registration.barangay',validField);
         const { value: contact_no } = useField('registration.contact_no',validField);
         const { value: occupation } = useField('registration.occupation',validField);
         const { value: priority_group, errorMessage: priority_groupError } = useField('registration.priority_group',validateField);
@@ -397,6 +397,8 @@ export default {
             suffixError,
             genderError,
             provinceError,
+            town_cityError,
+            barangayError,
             priority_groupError,
             sub_priority_groupError,
             // employment_statusError,
