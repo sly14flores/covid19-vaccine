@@ -197,6 +197,11 @@ Route::prefix('general')->group(function() {
          */
         Route::get('users', [GeneralDataSelections::class, 'users']);
 
+        /**
+         * Users
+         */
+        Route::get('vaccinators', [GeneralDataSelections::class, 'vaccinators']);        
+
 
     });
 
