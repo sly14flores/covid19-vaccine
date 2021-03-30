@@ -75,6 +75,21 @@ const updatePre = (payload) => {
     return axios.put(url, pre)
 }
 
+const GET_POST = `${api_url}/api/doh/post/:id`
+const getPost = (payload) => {
+    const { id } = payload
+    const url =  route(GET_POST, { id })
+    return axios.get(url)
+}
+
+const UPDATE_POST = `${api_url}/api/doh/post/:id`
+const updatePost = (payload) => {
+    const { id, post } = payload
+    const url =  route(UPDATE_POST, { id })
+    console.log(url)
+    return axios.put(url, post)
+}
+
 const SELECTION_REASONS = `${api_url}/api/doh/selections/vaccine/refusals`
 const getReasons = () => {
     return axios.get(SELECTION_REASONS)
@@ -141,6 +156,12 @@ const pre = {
     reason: ""
 }
 
+const post_assessments = [];
+
+const post = {
+    post_assessments
+}
+
 const dosages = [
     {id: 1, name: 'First'},
     {id: 2, name: 'Second'},
@@ -163,6 +184,7 @@ const state = () => {
         vaccinations,
         pagination,
         pre,
+        post,
         default_id,
         reason_value,
         users,
@@ -174,6 +196,7 @@ const state = () => {
 const mutations = {
     INIT(state) {
         state.pre = pre
+        state.post = post
         state.vaccine = vaccine
         state.vaccination = vaccination
         state.vaccinations = vaccinations
@@ -198,6 +221,9 @@ const mutations = {
     },
     PRE(state, payload) {
         state.pre = {...payload}
+    },
+    POST(state, payload) {
+        state.post = {...payload}
     },
     PAGINATION(state, payload) {
         state.pagination = {...payload}
@@ -334,6 +360,54 @@ const actions = {
     },
     GET_PRE_ERROR({commit},payload) {
         console.log(payload)
+    },
+    async GET_POST({dispatch, commit},payload) {
+        const { id } = payload
+        try {
+            const { data: { data } } = await getPost({ id })
+            dispatch('GET_POST_SUCCESS', data)
+        } catch (error) {
+            const { response } = error
+            dispatch('GET_POST_ERROR', response)
+        }
+    },
+    GET_POST_SUCCESS({commit},payload) {
+        commit('POST', payload)
+        console.log(payload)
+    },
+    GET_POST_ERROR({commit},payload) {
+        //console.log(payload)
+    },
+    async UPDATE_POST({state,dispatch}, payload) {
+        try {
+            const { data: { data } } = await updatePost({id: state.vaccine.qr_pass_id, post: payload})
+            dispatch('UPDATE_POST_SUCCESS', data)
+            return true
+        } catch (error) {
+            const { response } = error
+            dispatch('UPDATE_POST_ERROR', response)
+            return false
+        }
+    },
+    UPDATE_POST_SUCCESS({}, payload) {
+        console.log(payload)
+        Swal.fire({
+            title: '<p class="text-success" style="font-size: 25px;">Successfully saved!</p>',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+        })
+    },
+    UPDATE_POST_ERROR({commit}, error) {
+        const { response } = error || {}
+        const { message, status } = response || {}
+
+        if (message) {
+            console.log(message)
+        }
     },
     async UPDATE_PRE({state,dispatch}, payload) {
         try {
