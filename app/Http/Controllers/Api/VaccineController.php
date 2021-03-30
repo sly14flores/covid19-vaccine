@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Models\Registration;
 use App\Models\PreAssessment;
+use App\Models\PostAssessment;
 use App\Models\Vaccine;
 use App\Models\Barangay;
 use App\Models\CityMun;
@@ -223,16 +224,30 @@ class VaccineController extends Controller
         /**
          * Create Pre Assessment
          */
-        $check_assessment = PreAssessment::where('qr_pass_id',$id)->get();
-        if (count($check_assessment)==0) {
-            $assessment = [
+        $check_pre_assessment = PreAssessment::where('qr_pass_id',$id)->get();
+        if (count($check_pre_assessment)==0) {
+            $pre_assessment = [
                 'qr_pass_id' => $id,
                 'consent' => false,
                 'reason' => '',
-                'assessments' => config('constants.assessments')
+                'assessments' => config('constants.pre_assessments')
             ];
             $pre = new PreAssessment;
-            $pre->fill($assessment);
+            $pre->fill($pre_assessment);
+            $pre->save();
+        }
+
+        /**
+         * Create Post Assessment
+         */
+        $check_post_assessment = PostAssessment::where('qr_pass_id',$id)->get();
+        if (count($check_post_assessment)==0) {
+            $post_assessment = [
+                'qr_pass_id' => $id,
+                'assessments' => config('constants.post_assessments')
+            ];
+            $pre = new PostAssessment;
+            $pre->fill($post_assessment);
             $pre->save();
         }
 

@@ -24,7 +24,7 @@ return [
         ],        
     ],
 
-    'assessments' => [
+    'pre_assessments' => [
         ["key"=>1,"description"=>"Age more than 16 years old?","value"=>false],
         ["key"=>2,"description"=>"Has no allergies to PEG or polysorbate?","value"=>false],
         ["key"=>3,"description"=>"Has no severe allergic reaction after the 1st dose of the vaccine?","value"=>false],
@@ -40,6 +40,12 @@ return [
         ["key"=>13,"description"=>"Does not have any of the following: HIV, Cancer/ Malignancy, Underwent Transplant, Under Steroid Medication/ Treatment, Bed Ridden, terminal illness, less than 6 months prognosis","value"=>false],
         ["key"=>14,"description"=>"If with mentioned condition/s, specify.","value"=>false],
         ["key"=>15,"description"=>"If with mentioned condition, has presented medical clearance prior to vaccination day?","value"=>false],
-    ]
+    ],
+
+    'post_assessments' => [
+        ["key"=>1,"description"=>"If with allergy or asthma, will the vaccinator able to monitor the patient for 30 minutes?","value"=>false],
+        ["key"=>2,"description"=>"Does not manifest any of the following symptoms: Fever/chills, Headache, Cough, Colds, Sore throat,  Myalgia, Fatigue, Weakness, Loss of smell/taste, Diarrhea, Shortness of breath/ difficulty in breathing","value"=>false],
+        ["key"=>3,"description"=>"If manifesting any of the mentioned symptom/s, specify all that apply","value"=>false],
+    ],
 
 ];

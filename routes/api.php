@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\GeneralDataSelections;
 use App\Http\Controllers\Api\RegistrationController;
 use App\Http\Controllers\Api\VaccineController;
 use App\Http\Controllers\Api\PreAssessmentController;
+use App\Http\Controllers\Api\PostAssessmentController;
 use App\Http\Controllers\Api\RegistrationImportController;
 use App\Http\Controllers\Api\SurveysSummary;
 use App\Http\Controllers\Api\ChangePassword;
@@ -147,6 +148,20 @@ Route::prefix('doh')->group(function() {
     ]);
     Route::apiResources([
         'pre' => PreAssessmentController::class,
+    ],[
+        'except' => ['index']
+    ]);
+
+    /**
+     * Post Assessments
+     */
+    Route::apiResources([
+        'posts/{id}' => PostAssessmentController::class,
+    ],[
+        'only' => ['index']
+    ]);
+    Route::apiResources([
+        'post' => PostAssessmentController::class,
     ],[
         'except' => ['index']
     ]);    
