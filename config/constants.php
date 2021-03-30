@@ -21,6 +21,10 @@ return [
         [
             'id' => 4,
             'name' => 'Encoder'
+        ],
+        [
+            'id' => 5,
+            'name' => 'Vaccinator'
         ],        
     ],
 
