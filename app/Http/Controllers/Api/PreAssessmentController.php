@@ -130,7 +130,7 @@ class PreAssessmentController extends Controller
         $assessment->fill($data);
         $assessment->save();
 
-        return $this->jsonSuccessResponse(new PreAssessmentResource($assessment), 200, 'User info updated successfully');
+        return $this->jsonSuccessResponse(new PreAssessmentResource($assessment), 200, 'Pre assessment info updated successfully');
 
     }
 

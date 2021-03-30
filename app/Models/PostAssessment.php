@@ -18,6 +18,7 @@ class PostAssessment extends Model
      */
     protected $fillable = [
         'qr_pass_id',
+        'dose',
         'assessments',
     ];    
 
@@ -38,6 +39,11 @@ class PostAssessment extends Model
     public function getAssessmentsAttribute($value)
     {
         return unserialize($value);
+    }
+
+    public function vaccine()
+    {
+        return $this->belongsTo(PostAssessment::class);
     }
 
 }

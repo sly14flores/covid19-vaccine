@@ -91,7 +91,7 @@ class VaccineController extends Controller
 
         if ($validator->fails()) {
             return $this->jsonErrorDataValidation();
-        }         
+        }  
 
         /** Get validated data */
         $data = $validator->valid();
@@ -102,6 +102,22 @@ class VaccineController extends Controller
         $vaccine->fill($data);
 
         $vaccine->save();
+
+        /**
+         * Create Post Assessment
+         */
+        $check_post_assessment = PostAssessment::where([['dose',$data['dose']],['qr_pass_id',$data['qr_pass_id']]])->get();
+        if (count($check_post_assessment)==0) {
+            $post_assessment = [
+                'qr_pass_id' => $data['qr_pass_id'],
+                'dose' => $data['dose'],
+                'assessments' => config('constants.post_assessments')
+            ];
+            $post = new PostAssessment;
+            $post->fill($post_assessment); 
+            $vaccine->post_assessment()->save($post);
+            $post->save();
+        }
 
         $data = new VaccineResource($vaccine);
 
@@ -234,20 +250,6 @@ class VaccineController extends Controller
             ];
             $pre = new PreAssessment;
             $pre->fill($pre_assessment);
-            $pre->save();
-        }
-
-        /**
-         * Create Post Assessment
-         */
-        $check_post_assessment = PostAssessment::where('qr_pass_id',$id)->get();
-        if (count($check_post_assessment)==0) {
-            $post_assessment = [
-                'qr_pass_id' => $id,
-                'assessments' => config('constants.post_assessments')
-            ];
-            $pre = new PostAssessment;
-            $pre->fill($post_assessment);
             $pre->save();
         }
 
