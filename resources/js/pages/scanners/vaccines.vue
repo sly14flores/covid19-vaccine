@@ -195,6 +195,27 @@
                                                         </div>
                                                     </div>
                                                 </TabPanel>
+                                                <TabPanel header="Post-Assessment Monitoring" :disabled="!writeOn">
+                                                    <Card>
+                                                        <template #content>
+                                                            <DataTable class="p-datatable-sm" :value="post.assessments" dataKey="key">
+                                                                <Column field="description" header="Description"></Column>
+                                                                <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
+                                                                    <template #body="slotProps">
+                                                                        <RadioButton name="post_assessments" :value="true" v-model="slotProps.data['value']" />
+                                                                        <RadioButton class="p-ml-4" name="post_assessments" :value="false" v-model="slotProps.data['value']" />
+                                                                    </template>
+                                                                </Column>
+                                                            </DataTable>
+                                                            <div class="p-fluid p-formgrid p-grid p-mt-2">
+                                                                <div class="p-field p-col-12 p-md-10"></div>
+                                                                <div class="p-field p-col-12 p-md-2">
+                                                                    <Button label="Save" type="submit" class="p-button-primary p-button-sm" :disabled="!writeOn" @click="savePost"></Button>
+                                                                </div>
+                                                            </div>
+                                                        </template>
+                                                    </Card>
+                                                </TabPanel>
                                                 
                                             </TabView>
                                             
@@ -292,6 +313,7 @@ export default {
             const qr = str[1]
             store.dispatch('vaccines/GET_BY_QR',{ id: qr })
             store.dispatch('vaccines/GET_PRE', { id: qr })
+            store.dispatch('vaccines/GET_POST', { id: qr })
             store.dispatch('vaccines/GET_REASONS')
         }
 
@@ -332,9 +354,19 @@ export default {
             }
         )
 
+        watch(
+            () => store.state.vaccines.post,
+            (data, prevData) => {
+                setValues({
+                    post: {...data}
+                })
+            }
+        )
+
         const getNapanam = () => {
             store.dispatch('vaccines/GET_BY_QR', { id: qr_pass_id.value })
             store.dispatch('vaccines/GET_PRE', { id: qr_pass_id.value })
+            store.dispatch('vaccines/GET_POST', { id: qr_pass_id.value })
             store.dispatch('vaccines/GET_REASONS')
         }
 
@@ -351,6 +383,16 @@ export default {
             dispatch('vaccines/UPDATE_PRE', pre)
             
             console.log(pre)
+            
+        });
+
+        const savePost = handleSubmit((values) => {
+
+            const { post } = values || {}
+            
+            dispatch('vaccines/UPDATE_POST', post)
+            
+            console.log(post)
             
         });
 
@@ -439,6 +481,8 @@ export default {
         const { value: consent } = useField('pre.consent',validField);
         const { value: reason } = useField('pre.reason',validField);
 
+        const { value: post_assessments } = useField('post.assessments',validField);
+
         return {
             id, // Personal
             vaccination_id,
@@ -476,6 +520,7 @@ export default {
             consent,
             reason,
             assessments,
+            post_assessments,
             qr_pass_idError,
             first_nameError,
             last_nameError,
@@ -501,7 +546,8 @@ export default {
             getNapanam,
             saveVaccine,
             vaccinations,
-            savePre
+            savePre,
+            savePost
         }
 
     },
@@ -624,6 +670,11 @@ export default {
         pre() {
 
             return this.$store.state.vaccines.pre
+            
+        },
+        post() {
+
+            return this.$store.state.vaccines.post
             
         },
         municipalities() {
