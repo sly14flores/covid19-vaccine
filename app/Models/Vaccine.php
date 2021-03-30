@@ -53,7 +53,7 @@ class Vaccine extends Model
 
     public function role()
     {
-        return $this->user->groupName($this->user->id);
+        return $this->user->groupName($this->user->group_id);
     }    
 
     public function vaccine($id)

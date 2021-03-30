@@ -75,9 +75,7 @@ class User extends Authenticatable
 
         $groups = config('constants.groups');
 
-        $group = collect($groups)->filter(function($group) use ($id) {
-            return $group['id'] == $id;
-        })->first();
+        $group = collect($groups)->where('id',$id)->first();
 
         return $group['name'];
     }
