@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 use Carbon\Carbon;
 
-class PostAssessment extends Model
+class VaccineAdministration extends Model
 {
     use HasFactory;
+
+    protected $table = 'vaccines';
 
     /**
      * The attributes that are mass assignable.
@@ -17,11 +19,11 @@ class PostAssessment extends Model
      * @var array
      */
     protected $fillable = [
-        'dosage_id',
         'qr_pass_id',
-        'dose',
-        'assessments',
-    ];    
+        'vaccination_facility',
+        'facility_others',
+        'vaccination_session',
+    ];
 
     /**
      * @param $value
@@ -32,19 +34,13 @@ class PostAssessment extends Model
         return Carbon::parse($value)->format('F j, Y h:i A');
     }
 
-    public function setAssessmentsAttribute($value)
+    public function facility()
     {
-        $this->attributes['assessments'] = serialize($value);
+        return (is_null($this->user->userHospital))?null:$this->user->userHospital->description;
     }
 
-    public function getAssessmentsAttribute($value)
+    public function dosages()
     {
-        return unserialize($value);
+        return $this->hasMany(Vaccine::class);
     }
-
-    public function dosage()
-    {
-        return $this->belongsTo(Vaccine::class,'dosage_id');
-    }
-
 }

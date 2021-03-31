@@ -122,6 +122,12 @@ class DOHDataSelections extends Controller
         return $this->jsonSuccessResponse($brands, 200);        
     }
 
+    public function vaccinationSession()
+    {
+        $sessions = $this->vaccinationSessionValue();
+        return $this->jsonSuccessResponse($sessions, 200);        
+    }    
+
     public function refusalValue()
     {
         $values = [

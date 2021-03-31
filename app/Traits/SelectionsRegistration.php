@@ -341,6 +341,32 @@ trait SelectionsRegistration
         return $brands;
     }
 
+    public function vaccinationSessionValue()
+    {
+        return [
+            [
+                'id' => 1,
+                'name' => 'Routine session',
+            ],
+            [
+                'id' => 2,
+                'name' => 'Clinic',
+            ],
+            [
+                'id' => 3,
+                'name' => 'Mass Campaign',
+            ],
+            [
+                'id' => 4,
+                'name' => 'School based',
+            ],
+            [
+                'id' => 5,
+                'name' => 'Others',
+            ],
+        ];
+    }
+
     public function yesNo()
     {
         return [

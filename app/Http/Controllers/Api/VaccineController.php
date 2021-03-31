@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Registration;
+use App\Models\VaccineAdministration;
 use App\Models\PreAssessment;
 use App\Models\PostAssessment;
 use App\Models\Vaccine;
@@ -49,11 +50,11 @@ class VaccineController extends Controller
      */
     public function index(Request $request, $id)
     {
-        $vaccines = Vaccine::where('qr_pass_id',$id)->get();
+        $vaccines = Vaccine::where('vaccine_id',$id)->get();
 
         if (is_null($vaccines)) {
 			return $this->jsonErrorResourceNotFound();
-        }   
+        }
 
         $data = new VaccinesListResourceCollection($vaccines);
 
@@ -79,6 +80,7 @@ class VaccineController extends Controller
     public function store(Request $request)
     {
         $rules = [
+            'vaccine_id' => 'integer',
             'qr_pass_id' => 'string',
             'user_id' => 'integer',
             'brand_name' => 'integer',
@@ -98,11 +100,6 @@ class VaccineController extends Controller
 
         /** Get validated data */
         $data = $validator->valid();
-        // $id = Auth::guard('api')->id();
-        // $data['user_id'] = $id;
-
-
-
 
         $vaccine = new Vaccine;
         $vaccine->fill($data);
@@ -168,7 +165,7 @@ class VaccineController extends Controller
 
         $data = new VaccineResource($vaccine);
 
-        return $this->jsonSuccessResponse($data, 200, 'Vaccine added successfully');
+        return $this->jsonSuccessResponse($data, 200, 'Vaccine dosage added successfully');
     }
 
     /**
@@ -202,6 +199,7 @@ class VaccineController extends Controller
         }
 
         $rules = [
+            'vaccine_id' => 'integer',            
             'user_id' => 'integer',
             'brand_name' => 'integer',
             'vaccine_name' => 'string',
@@ -223,7 +221,7 @@ class VaccineController extends Controller
 
         $data = new VaccineResource($vaccine);
 
-        return $this->jsonSuccessResponse($data, 200, 'Vaccine info updated successfully'); 
+        return $this->jsonSuccessResponse($data, 200, 'Vaccine dosage info updated successfully'); 
     }
 
     /**
@@ -260,6 +258,19 @@ class VaccineController extends Controller
         if (is_null($registration)) {
 			return $this->jsonErrorResourceNotFound();
         }
+
+        /**
+         * Create Vaccine (VaccineAdministration)
+         */
+        $user = Auth::guard('api')->user();
+        $vaccine = [
+            'qr_pass_id' => $id,
+            'vaccination_facility' => $user->userHospital->hospital,
+        ];
+
+        $vaccine_administration = new VaccineAdministration;
+        $vaccine_administration->fill($vaccine);
+        $vaccine_administration->save();
 
         $data = new RegistrationVaccineResource($registration);
 

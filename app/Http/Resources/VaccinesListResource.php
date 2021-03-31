@@ -18,8 +18,10 @@ class VaccinesListResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'facility' => $this->facility(),
-            'vaccine_name' => $this->vaccine($this->vaccine_name),
+            'brand_name' => $this->brand($this->brand_name),
+            'vaccine_name' => $this->vaccine_name,
+            'site_of_injection' => $this->site_of_injection,
+            'expiry_date' => $this->expiry_date,
             'vaccinator' => $this->vaccinator(),
             'prc_number' => $this->prc(),
             'position' => $this->proffession(),

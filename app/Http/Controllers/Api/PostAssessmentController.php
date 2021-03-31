@@ -77,7 +77,7 @@ class PostAssessmentController extends Controller
             return $this->jsonErrorInvalidParameters();
         }
 
-        $post = PostAssessment::where('vaccine_id',$id)->first();
+        $post = PostAssessment::where('dosage_id',$id)->first();
 
         if (is_null($post)) {
 			return $this->jsonErrorResourceNotFound();
@@ -125,7 +125,7 @@ class PostAssessmentController extends Controller
 
         /** Get validated data */
         $data = $validator->valid();
-        $assessment = PostAssessment::where('vaccine_id',$id)->first();
+        $assessment = PostAssessment::where('dosage_id',$id)->first();
         $assessment->fill($data);
         $assessment->save();
 

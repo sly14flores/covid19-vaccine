@@ -104,6 +104,7 @@ Route::prefix('doh')->group(function() {
     Route::get('selections', DOHDataSelections::class);
     Route::get('selections/addresses', [DOHDataSelections::class, 'addresses']);
     Route::get('selections/brands', [DOHDataSelections::class, 'brands']);
+    Route::get('selections/vaccination/sessions', [DOHDataSelections::class, 'vaccinationSession']);
 
     /**
      * Registration

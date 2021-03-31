@@ -77,7 +77,7 @@ class PreAssessmentController extends Controller
             return $this->jsonErrorInvalidParameters();
         }
 
-        $pre = PreAssessment::where('vaccine_id',$id)->first();
+        $pre = PreAssessment::where('dosage_id',$id)->first();
 
         if (is_null($pre)) {
 			return $this->jsonErrorResourceNotFound();
@@ -126,7 +126,7 @@ class PreAssessmentController extends Controller
 
         /** Get validated data */
         $data = $validator->valid();
-        $assessment = PreAssessment::where('vaccine_id',$id)->first();
+        $assessment = PreAssessment::where('dosage_id',$id)->first();
         $assessment->fill($data);
         $assessment->save();
 

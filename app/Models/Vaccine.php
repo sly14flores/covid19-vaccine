@@ -12,12 +12,15 @@ class Vaccine extends Model
 {
     use HasFactory, SelectionsRegistration;
 
+    protected $table = 'dosages';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
+        'vaccine_id',
         'user_id',
         'qr_pass_id',
         'brand_name',
@@ -44,11 +47,6 @@ class Vaccine extends Model
         return $this->user->profession;
     }
 
-    public function facility()
-    {
-        return (is_null($this->user->userHospital))?null:$this->user->userHospital->description;
-    }
-
     public function prc()
     {
         return $this->user->prc_number;
@@ -59,25 +57,30 @@ class Vaccine extends Model
         return $this->user->groupName($this->user->group_id);
     }    
 
-    public function vaccine($id)
+    public function brand($id)
     {
-        $vaccines = $this->vaccineValue();
+        $brands = $this->brandValue();
 
-        $vaccine = collect($vaccines)->filter(function($vaccine) use ($id) {
-            return $vaccine['id'] == $id;
+        $brand = collect($brands)->filter(function($brand) use ($id) {
+            return $brand['id'] == $id;
         })->first();
 
-        return $vaccine['name'];
+        return $brand['name'];
+    }
+
+    public function vaccine()
+    {
+        return $this->belongsTo(VaccineAdministration::class);
     }
 
     public function pre_assessment()
     {
-        return $this->hasOne(Vaccine::class);
+        return $this->hasOne(PreAssessment::class,'dosage_id');
     }
 
     public function post_assessment()
     {
-        return $this->hasOne(Vaccine::class);
+        return $this->hasOne(PostAssessment::class,'dosage_id');
     }
 
     /**

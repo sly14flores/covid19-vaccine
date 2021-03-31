@@ -17,6 +17,7 @@ class PreAssessment extends Model
      * @var array
      */
     protected $fillable = [
+        'dosage_id',
         'qr_pass_id',
         'consent',
         'reason',
@@ -56,9 +57,9 @@ class PreAssessment extends Model
         return unserialize($value);
     }
 
-    public function vaccine()
+    public function dosage()
     {
-        return $this->belongsTo(PostAssessment::class);
+        return $this->belongsTo(Vaccine::class,'dosage_id');
     }
 
 }
