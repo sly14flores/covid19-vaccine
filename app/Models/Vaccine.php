@@ -20,7 +20,10 @@ class Vaccine extends Model
     protected $fillable = [
         'user_id',
         'qr_pass_id',
+        'brand_name',
         'vaccine_name',
+        'site_of_injection',
+        'expiry_date',
         'batch_number',
         'lot_number',
         'dose',
@@ -71,5 +74,23 @@ class Vaccine extends Model
     {
         return $this->hasOne(Vaccine::class);
     }
+
+    /**
+     * @param $value
+     * @return false|string
+     */
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('F j, Y h:i A');
+    }    
+
+    /**
+     * @param $value
+     * @return false|string
+     */
+    public function getExpiryDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('F j, Y');
+    }    
 
 }

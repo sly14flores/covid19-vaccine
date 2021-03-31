@@ -81,7 +81,10 @@ class VaccineController extends Controller
         $rules = [
             'qr_pass_id' => 'string',
             'user_id' => 'integer',
-            'vaccine_name' => 'integer',
+            'brand_name' => 'integer',
+            'vaccine_name' => 'string',
+            'site_of_injection' => 'string',
+            'expiry_date' => 'date',
             'batch_number' => 'integer',
             'lot_number' => 'integer',
             'dose' => 'integer',
@@ -178,9 +181,11 @@ class VaccineController extends Controller
         }
 
         $rules = [
-            'qr_pass_id' => 'string',
             'user_id' => 'integer',
-            'vaccine_name' => 'integer',
+            'brand_name' => 'integer',
+            'vaccine_name' => 'string',
+            'site_of_injection' => 'string',
+            'expiry_date' => 'date',
             'batch_number' => 'integer',
             'lot_number' => 'integer',
             'dose' => 'integer',
@@ -189,9 +194,7 @@ class VaccineController extends Controller
         $validator = Validator::make($request->all(), $rules);        
 
         /** Get validated data */
-        $data = $validator->valid();        
-        // $id = Auth::guard('api')->id();
-        // $data['user_id'] = $id;
+        $data = $validator->valid();
 
         $vaccine->fill($data);
 
