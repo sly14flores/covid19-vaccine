@@ -18,6 +18,7 @@ class PreAssessmentResource extends JsonResource
             'id' => $this->id,
             'consent' => $this->consent,
             'reason' => $this->reason,
+            'dose' => $this->dose,            
             'assessments' => $this->assessments,
         ];
     }

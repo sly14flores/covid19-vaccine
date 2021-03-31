@@ -70,6 +70,11 @@ class Vaccine extends Model
         return $vaccine['name'];
     }
 
+    public function pre_assessment()
+    {
+        return $this->hasOne(Vaccine::class);
+    }
+
     public function post_assessment()
     {
         return $this->hasOne(Vaccine::class);

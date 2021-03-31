@@ -101,10 +101,30 @@ class VaccineController extends Controller
         // $id = Auth::guard('api')->id();
         // $data['user_id'] = $id;
 
+
+
+
         $vaccine = new Vaccine;
         $vaccine->fill($data);
 
         $vaccine->save();
+
+        /**
+         * Create Pre Assessment
+         */
+        $check_pre_assessment = PreAssessment::where([['dose',$data['dose']],['qr_pass_id',$data['qr_pass_id']]])->get();
+        if (count($check_pre_assessment)==0) {
+            $pre_assessment = [
+                'qr_pass_id' => $data['qr_pass_id'],
+                'consent' => false,
+                'reason' => '',
+                'dose' => $data['dose'],             
+                'assessments' => config('constants.pre_assessments')
+            ];
+            $pre = new PreAssessment;
+            $pre->fill($pre_assessment);
+            $vaccine->pre_assessment()->save($pre);
+        }     
 
         /**
          * Create Post Assessment
@@ -119,12 +139,13 @@ class VaccineController extends Controller
             $post = new PostAssessment;
             $post->fill($post_assessment); 
             $vaccine->post_assessment()->save($post);
-            $post->save();
         }
 
         $data = new VaccineResource($vaccine);
 
         return $this->jsonSuccessResponse($data, 200); 
+
+        
     }
 
     /**
@@ -238,22 +259,6 @@ class VaccineController extends Controller
 
         if (is_null($registration)) {
 			return $this->jsonErrorResourceNotFound();
-        }
-
-        /**
-         * Create Pre Assessment
-         */
-        $check_pre_assessment = PreAssessment::where('qr_pass_id',$id)->get();
-        if (count($check_pre_assessment)==0) {
-            $pre_assessment = [
-                'qr_pass_id' => $id,
-                'consent' => false,
-                'reason' => '',
-                'assessments' => config('constants.pre_assessments')
-            ];
-            $pre = new PreAssessment;
-            $pre->fill($pre_assessment);
-            $pre->save();
         }
 
         $data = new RegistrationVaccineResource($registration);

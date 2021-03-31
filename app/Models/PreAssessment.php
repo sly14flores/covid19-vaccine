@@ -20,6 +20,7 @@ class PreAssessment extends Model
         'qr_pass_id',
         'consent',
         'reason',
+        'dose',
         'assessments',
     ];
 
@@ -53,6 +54,11 @@ class PreAssessment extends Model
     public function getAssessmentsAttribute($value)
     {
         return unserialize($value);
+    }
+
+    public function vaccine()
+    {
+        return $this->belongsTo(PostAssessment::class);
     }
 
 }
