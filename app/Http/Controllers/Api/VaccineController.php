@@ -265,12 +265,18 @@ class VaccineController extends Controller
         $user = Auth::guard('api')->user();
         $vaccine = [
             'qr_pass_id' => $id,
-            'vaccination_facility' => $user->userHospital->hospital,
+            'vaccination_facility' => $user->userHospital->id,
         ];
 
-        $vaccine_administration = new VaccineAdministration;
-        $vaccine_administration->fill($vaccine);
-        $vaccine_administration->save();
+        $check_va = VaccineAdministration::where('qr_pass_id',$id)->first();
+
+        if (is_null($check_va)) {
+
+            $vaccine_administration = new VaccineAdministration;
+            $vaccine_administration->fill($vaccine);
+            $vaccine_administration->save();
+
+        }
 
         $data = new RegistrationVaccineResource($registration);
 
