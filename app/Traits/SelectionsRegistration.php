@@ -319,52 +319,16 @@ trait SelectionsRegistration
         /**
          * Brands
          */
-        $brands = [
-            [
-                'id' => 1,
-                'name' => 'Pfizer',
-            ],
-            [
-                'id' => 2,
-                'name' => 'Astrazeneca'                
-            ],
-            [
-                'id' => 3,
-                'name' => 'Sinovac'
-            ],
-            [
-                'id' => 4,
-                'name' => 'Moderna'
-            ], 
-        ];
+        $brands = config('constants.brands');
 
         return $brands;
     }
 
     public function vaccinationSessionValue()
     {
-        return [
-            [
-                'id' => 1,
-                'name' => 'Routine session',
-            ],
-            [
-                'id' => 2,
-                'name' => 'Clinic',
-            ],
-            [
-                'id' => 3,
-                'name' => 'Mass Campaign',
-            ],
-            [
-                'id' => 4,
-                'name' => 'School based',
-            ],
-            [
-                'id' => 5,
-                'name' => 'Others',
-            ],
-        ];
+        $sessions = config('constants.sessions');
+
+        return $sessions;
     }
 
     public function yesNo()

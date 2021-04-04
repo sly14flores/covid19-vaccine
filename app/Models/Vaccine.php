@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use Carbon\Carbon;
-use App\Traits\SelectionsRegistration;
 
 class Vaccine extends Model
 {
-    use HasFactory, SelectionsRegistration;
+    use HasFactory;
 
-    protected $table = 'dosages';
+    protected $table = 'vaccines';
 
     /**
      * The attributes that are mass assignable.
@@ -20,68 +19,15 @@ class Vaccine extends Model
      * @var array
      */
     protected $fillable = [
-        'vaccine_id',
-        'user_id',
         'qr_pass_id',
-        'brand_name',
-        'vaccine_name',
-        'site_of_injection',
-        'expiry_date',
-        'batch_number',
-        'lot_number',
-        'dose',
+        'vaccination_facility',
+        'facility_others',
+        'vaccination_session',
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function vaccinator()
-    {
-        return "{$this->user->firstname} {$this->user->lastname}";
-    }
-
-    public function proffession()
-    {
-        return $this->user->profession;
-    }
-
-    public function prc()
-    {
-        return $this->user->prc_number;
-    }
-
-    public function role()
-    {
-        return $this->user->groupName($this->user->group_id);
-    }    
-
-    public function brand($id)
-    {
-        $brands = $this->brandValue();
-
-        $brand = collect($brands)->filter(function($brand) use ($id) {
-            return $brand['id'] == $id;
-        })->first();
-
-        return $brand['name'];
-    }
-
-    public function vaccine()
-    {
-        return $this->belongsTo(VaccineAdministration::class);
-    }
-
-    public function pre_assessment()
-    {
-        return $this->hasOne(PreAssessment::class,'dosage_id');
-    }
-
-    public function post_assessment()
-    {
-        return $this->hasOne(PostAssessment::class,'dosage_id');
-    }
+    protected $hidden = [
+        'updated_at',
+    ];    
 
     /**
      * @param $value
@@ -90,15 +36,23 @@ class Vaccine extends Model
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('F j, Y h:i A');
-    }    
+    }
 
-    /**
-     * @param $value
-     * @return false|string
-     */
-    public function getExpiryDateAttribute($value)
+    public function facility()
     {
-        return Carbon::parse($value)->format('F j, Y');
-    }    
+        return $this->belongsTo(Hospital::class, 'vaccination_facility');
+    }
 
+    public function session($id)
+    {
+        $sessions = config('constants.sessions');
+
+        $session = collect($sessions)->where('id',$id);
+        return (count($session))?$session->first()['name']:null;
+    }
+
+    public function dosages()
+    {
+        return $this->hasMany(Dosage::class);
+    }
 }

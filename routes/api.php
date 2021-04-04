@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\DOHDataSelections;
 use App\Http\Controllers\Api\GeneralDataSelections;
 use App\Http\Controllers\Api\RegistrationController;
 use App\Http\Controllers\Api\VaccineController;
+use App\Http\Controllers\Api\DosageController;
 use App\Http\Controllers\Api\PreAssessmentController;
 use App\Http\Controllers\Api\PostAssessmentController;
 use App\Http\Controllers\Api\RegistrationImportController;
@@ -124,12 +125,14 @@ Route::prefix('doh')->group(function() {
      * Vaccines
      */
     Route::apiResources([
-        'vaccines/{id}' => VaccineController::class,
+        'vaccines' => VaccineController::class,
+        'dosages/{id}' => DosageController::class,
     ],[
         'only' => ['index']
     ]);
     Route::apiResources([
         'vaccine' => VaccineController::class,
+        'dosage' => DosageController::class,
     ],[
         'except' => ['index']
     ]);

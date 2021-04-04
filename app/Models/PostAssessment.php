@@ -21,6 +21,10 @@ class PostAssessment extends Model
         'qr_pass_id',
         'dose',
         'assessments',
+    ];
+
+    protected $hidden = [
+        'updated_at',
     ];    
 
     /**

@@ -28,6 +28,48 @@ return [
         ],        
     ],
 
+    'brands' => [
+        [
+            'id' => 1,
+            'name' => 'Pfizer',
+        ],
+        [
+            'id' => 2,
+            'name' => 'Astrazeneca'                
+        ],
+        [
+            'id' => 3,
+            'name' => 'Sinovac'
+        ],
+        [
+            'id' => 4,
+            'name' => 'Moderna'
+        ],
+    ],
+
+    'sessions' => [
+        [
+            'id' => 1,
+            'name' => 'Routine session',
+        ],
+        [
+            'id' => 2,
+            'name' => 'Clinic',
+        ],
+        [
+            'id' => 3,
+            'name' => 'Mass Campaign',
+        ],
+        [
+            'id' => 4,
+            'name' => 'School based',
+        ],
+        [
+            'id' => 5,
+            'name' => 'Others',
+        ],        
+    ],
+
     'pre_assessments' => [
         ["key"=>1,"description"=>"Age more than 16 years old?","value"=>false],
         ["key"=>2,"description"=>"Has no allergies to PEG or polysorbate?","value"=>false],
