@@ -215,7 +215,8 @@ export default {
                 {name: 'Administrator', id: 1},
                 {name: 'Team Leader', id: 2},
                 {name: 'Counseling Nurse', id: 3},
-                {name: 'Encoder', id: 4}
+                {name: 'Encoder', id: 4},
+                {name: 'Vaccinator', id: 4}
             ]
         }
     },

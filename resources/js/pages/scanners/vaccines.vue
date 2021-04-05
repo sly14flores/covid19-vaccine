@@ -182,7 +182,7 @@
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-2">
                                                     <label>Site of Injection</label>
-                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" id="site_of_injection" optionLabel="name" :options="manufactures" v-model="site_of_injection" optionValue="id" placeholder="Select a Site of Injection" />
+                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" id="site_of_injection" optionLabel="name" :options="sites" v-model="site_of_injection" optionValue="id" placeholder="Select a Site of Injection" />
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-2">
                                                     <label>Expiry Date</label>
@@ -592,6 +592,11 @@ export default {
         sessions() {
 
             return this.$store.state.vaccines.sessions
+
+        },
+        sites() {
+
+            return this.$store.state.vaccines.sites
 
         },
         doses() {

@@ -187,6 +187,11 @@ const post = {
     post_assessments
 }
 
+const sites = [
+    {id: 'Left', name: 'Left'},
+    {id: 'Right', name: 'Right'}
+]
+
 const doses = [
     {id: 1, name: 'First'},
     {id: 2, name: 'Second'},
@@ -216,6 +221,7 @@ const state = () => {
         reason_value,
         users,
         doses,
+        sites,
         manufactures
     }
 }
