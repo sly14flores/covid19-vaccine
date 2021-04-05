@@ -30,6 +30,11 @@ class Dosage extends Model
         'batch_number',
         'lot_number',
         'dose',
+        'diluent',
+        'date_of_reconstitution',
+        'time_of_reconstitution',
+        'diluent_batch_number',
+        'diluent_lot_number',
     ];
 
     protected $hidden = [
@@ -103,6 +108,24 @@ class Dosage extends Model
     public function getExpiryDateAttribute($value)
     {
         return Carbon::parse($value)->format('F j, Y');
-    }    
+    }
+
+    /**
+     * @param $value
+     * @return false|string
+     */
+    public function getDateOfReconstitutionAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d');
+    }
+    
+    /**
+     * @param $value
+     * @return false|string
+     */
+    public function getTimeOfReconstitutionAttribute($value)
+    {
+        return Carbon::parse($value)->format('H:i:s');
+    }
 
 }

@@ -24,6 +24,11 @@ class DosageResource extends JsonResource
             'batch_number' => $this->batch_number,
             'lot_number' => $this->lot_number,
             'dose' => $this->dose,
+            'diluent' => $this->diluent,
+            'date_of_reconstitution' => $this->date_of_reconstitution,
+            'time_of_reconstitution' => $this->time_of_reconstitution,
+            'diluent_batch_number' => $this->diluent_batch_number,
+            'diluent_lot_number' => $this->diluent_lot_number,
         ];
     }
 }
