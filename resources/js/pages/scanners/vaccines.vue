@@ -33,7 +33,7 @@
                                     <div class="card p-shadow-2">
                                         <div class="p-fluid p-formgrid p-grid">
                                             <div class="p-field p-col-10 p-md-11">
-                                                <h6><i class="pi pi-user"></i> Personal Information </h6>
+                                                <h6><i class="pi pi-user"></i> Personal Information</h6>
                                             </div>
                                             <div class="p-field p-col-2 p-md-1">
                                                 <ToggleButton v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" />
@@ -120,139 +120,141 @@
                                                     <Button label="Update" type="submit" class="p-button-primary p-button-sm" :disabled="!writeOn"></Button>
                                                 </div>
                                             </div>
-                                            <TabView>
-                                                 <TabPanel header="Pre-Assessment" :disabled="!writeOn">
-                                                    <Card>
-                                                        <template #content>
-                                                            <div class="p-fluid">
-                                                                <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                                    <div class="p-field p-col-12 p-md-2">
-                                                                        <p>Consent</p>
-                                                                    </div>
-                                                                    <div class="p-field p-col-12 p-md-2">
-                                                                        <div class="p-field-radiobutton">
-                                                                            <RadioButton id="yes_consent" name="consent" :value="true" v-model="consent" v-on:click="consent_hide = false" :disabled="!writeOn" />
-                                                                            <label for="yes_consent">Yes</label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="p-field p-col-12 p-md-2">
-                                                                        <div class="p-field-radiobutton">
-                                                                            <RadioButton id="no_consent" name="consent" :value="false" v-model="consent" v-on:click="consent_hide = true" :disabled="!writeOn" />
-                                                                            <label for="no_consent">No</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="p-fluid p-formgrid p-grid p-mt-2" v-if="consent_hide">       
-                                                                    <div class="p-field p-col-12 p-md-2">
-                                                                        <p>Reason</p>
-                                                                    </div>
-                                                                    <div class="p-field p-col-12 p-md-6">
-                                                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="reason_value" optionValue="id" v-model="reason" placeholder="Select a reason" :disabled="!writeOn" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <DataTable class="p-datatable-sm" :value="pre.assessments" dataKey="key" v-show="consent" >
-                                                                <Column field="description" header="Description"></Column>
-                                                                <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
-                                                                    <template #body="slotProps">
-                                                                        <RadioButton name="assessments" :value="true" v-model="slotProps.data['value']" />
-                                                                        <RadioButton class="p-ml-4" name="assessments" :value="false" v-model="slotProps.data['value']" />
-                                                                    </template>
-                                                                </Column>
-                                                            </DataTable>
-                                                            <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                                <div class="p-field p-col-12 p-md-10"></div>
-                                                                <div class="p-field p-col-12 p-md-2">
-                                                                    <Button label="Save" type="submit" class="p-button-primary p-button-sm" :disabled="!writeOn" @click="savePre"></Button>
-                                                                </div>
-                                                            </div>
-                                                        </template>
-                                                    </Card>
-                                                </TabPanel>
-                                                <TabPanel header="Vaccine Administration" :disabled="!writeOn">
-                                                    <div class="p-fluid">
-                                                        <div class="p-d-flex p-jc-between">
-                                                            <div></div>
-                                                            <div><Button label="Add" class="p-button-success p-button-sm" @click="openVaccine" /></div>
-                                                        </div>
-                                                        <div class="p-fluid p-formgrid p-grid">
-                                                            <DataTable :value="vaccinations" dataKey="id">
-                                                                <Column field="vaccine_name" header="Vaccine Name"></Column>
-                                                                <Column field="batch_number" header="Batch No."></Column>
-                                                                <Column field="lot_number" header="Lot No."></Column>
-                                                                <Column field="dose" header="Dosage"></Column>
-                                                                <Column field="vaccinator" header="Administered by"></Column>
-                                                                <Column field="position" header="Profession"></Column>
-                                                                <Column field="date" header="Date"></Column>
-                                                                <Column field="id" header="Actions">
-                                                                    <template #body="slotProps">
-                                                                        <Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-button-sm p-mr-2" @click="showVaccine(slotProps.data.id)" />
-                                                                        <Button icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" @click="deleteVaccine(slotProps.data.id)" />
-                                                                    </template>
-                                                                </Column>
-                                                            </DataTable>
-                                                            <ConfirmDialog group="confirmDelete"></ConfirmDialog>
-                                                        </div>
-                                                    </div>
-                                                </TabPanel>
-                                                <TabPanel header="Post-Assessment Monitoring" :disabled="!writeOn">
-                                                    <Card>
-                                                        <template #content>
-                                                            <DataTable class="p-datatable-sm" :value="post.assessments" dataKey="key">
-                                                                <Column field="description" header="Description"></Column>
-                                                                <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
-                                                                    <template #body="slotProps">
-                                                                        <RadioButton name="post_assessments" :value="true" v-model="slotProps.data['value']" />
-                                                                        <RadioButton class="p-ml-4" name="post_assessments" :value="false" v-model="slotProps.data['value']" />
-                                                                    </template>
-                                                                </Column>
-                                                            </DataTable>
-                                                            <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                                <div class="p-field p-col-12 p-md-10"></div>
-                                                                <div class="p-field p-col-12 p-md-2">
-                                                                    <Button label="Save" type="submit" class="p-button-primary p-button-sm" :disabled="!writeOn" @click="savePost"></Button>
-                                                                </div>
-                                                            </div>
-                                                        </template>
-                                                    </Card>
-                                                </TabPanel>
-                                                
-                                            </TabView>
-                                            
-                                            <Dialog header="Vaccine" v-model:visible="displayVaccine" :closeOnEscape="true" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">
-                                                <hr />
-                                                <div class="p-fluid p-formgrid p-grid">
-                                                    <div class="p-field p-col-12 p-md-6">
-                                                        <label>Vaccinator </label>
-                                                        <Dropdown class="p-shadow-1 p-inputtext-sm" id="user_id" optionLabel="name" :options="users" v-model="user_id" optionValue="id" placeholder="Select a vaccinator" />
-                                                    </div>
-                                                </div>
-                                                <div class="p-fluid p-formgrid p-grid">
-                                                    <div class="p-field p-col-12 p-md-6">
-                                                        <label>Vaccine Manufacturer Name </label>
-                                                        <Dropdown class="p-shadow-1 p-inputtext-sm" id="vaccine_name" optionLabel="name" :options="manufactures" v-model="vaccine_name" optionValue="id" placeholder="Select a manufacturer name" />
-                                                    </div>
-                                                    <div class="p-field p-col-12 p-md-6">
-                                                        <label>Dose </label>
-                                                        <Dropdown class="p-shadow-1 p-inputtext-sm" id="dose" optionLabel="name" :options="dosages" v-model="dose" optionValue="id" placeholder="Select a dose" />
-                                                    </div>
-                                                </div>
-                                                <div class="p-fluid p-formgrid p-grid">
-                                                    <div class="p-field p-col-12 p-md-6">
-                                                        <label>Batch Number</label>
-                                                        <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="batch_number" v-model="batch_number" />
-                                                    </div>
-                                                    <div class="p-field p-col-12 p-md-6">
-                                                        <label>Lot Number</label>
-                                                        <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="lot_number" v-model="lot_number" />
-                                                    </div>
-                                                </div><br />
-                                                <template #footer>
-                                                    <Button label="Close" icon="pi pi-times" @click="closeVaccine" class="p-button-text"/>
-                                                    <Button :label="textLabel" icon="pi pi-check" @click="saveVaccine" autofocus />
-                                                </template>
-                                            </Dialog>
                                         </div>
+                                        <hr />
+                                        <div class="p-fluid">
+                                            <div class="p-d-flex p-jc-between">
+                                                <div><h6>Vaccine Administration</h6></div>
+                                                <div><Button label="Add" class="p-button-success p-button-sm" @click="openVaccine" /></div>
+                                            </div>
+                                            <div class="p-fluid p-formgrid p-grid">
+                                                <DataTable :value="vaccinations" dataKey="id">
+                                                    <Column field="vaccine_name" header="Vaccine Name"></Column>
+                                                    <Column field="dose" header="Dosage"></Column>
+                                                    <Column field="vaccinator" header="Administered by"></Column>
+                                                    <Column field="date" header="Date"></Column>
+                                                    <Column field="id" header="Actions">
+                                                        <template #body="slotProps">
+                                                            <div class="tooltip"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-button-sm p-mr-2" @click="showVaccine(slotProps.data.id)" />
+                                                                <span class="tooltiptext">Edit</span>
+                                                            </div>
+                                                            <div class="tooltip"><Button icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" @click="deleteVaccine(slotProps.data.id)" />
+                                                                <span class="tooltiptext">Delete</span>
+                                                            </div>
+                                                        </template>
+                                                    </Column>
+                                                    <Column header="Pre / Post Assesments">
+                                                        <template #body="slotProps">
+                                                            <div class="tooltip"><Button icon="pi pi-fw pi-check-circle" class="p-button-rounded p-button-info p-button-sm p-mr-2" @click="showPre(slotProps.data.id)" />
+                                                                <span class="tooltiptext">Pre Assessments</span>
+                                                            </div>
+
+                                                            <div class="tooltip"><Button icon="pi pi-fw pi-desktop" class="p-button-rounded p-button-help p-button-sm p-mr-2" @click="showPost(slotProps.data.id)" />
+                                                                <span class="tooltiptext">Post Assessments Monitoring</span>
+                                                            </div>
+
+                                                        </template>
+                                                    </Column>
+                                                </DataTable>
+                                                <ConfirmDialog group="confirmDelete"></ConfirmDialog>
+                                            </div>
+                                        </div>
+                                        
+                                        <Dialog header="Vaccine" v-model:visible="displayVaccine" :closeOnEscape="true" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">
+                                            <hr />
+                                            <div class="p-fluid p-formgrid p-grid">
+                                                <div class="p-field p-col-12 p-md-6">
+                                                    <label>Vaccinator </label>
+                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" id="user_id" optionLabel="name" :options="users" v-model="user_id" optionValue="id" placeholder="Select a vaccinator" />
+                                                </div>
+                                            </div>
+                                            <div class="p-fluid p-formgrid p-grid">
+                                                <div class="p-field p-col-12 p-md-6">
+                                                    <label>Vaccine Manufacturer Name </label>
+                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" id="vaccine_name" optionLabel="name" :options="manufactures" v-model="vaccine_name" optionValue="id" placeholder="Select a manufacturer name" />
+                                                </div>
+                                                <div class="p-field p-col-12 p-md-6">
+                                                    <label>Dose </label>
+                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" id="dose" optionLabel="name" :options="dosages" v-model="dose" optionValue="id" placeholder="Select a dose" />
+                                                </div>
+                                            </div>
+                                            <div class="p-fluid p-formgrid p-grid">
+                                                <div class="p-field p-col-12 p-md-6">
+                                                    <label>Batch Number</label>
+                                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="batch_number" v-model="batch_number" />
+                                                </div>
+                                                <div class="p-field p-col-12 p-md-6">
+                                                    <label>Lot Number</label>
+                                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="lot_number" v-model="lot_number" />
+                                                </div>
+                                            </div><br />
+                                            <template #footer>
+                                                <Button label="Close" icon="pi pi-times" @click="closeVaccine" class="p-button-text"/>
+                                                <Button :label="textLabel" icon="pi pi-check" @click="saveVaccine" autofocus />
+                                            </template>
+                                        </Dialog>
+
+                                        <Dialog header="Pre Assessments" v-model:visible="displayPre" :closeOnEscape="true" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">
+                                            <hr />
+                                            <div class="p-fluid">
+                                                <div class="p-fluid p-formgrid p-grid p-mt-2">
+                                                    <div class="p-field p-col-12 p-md-2">
+                                                        <p>Consent Provided?</p>
+                                                    </div>
+                                                    <div class="p-field p-col-12 p-md-2">
+                                                        <div class="p-field-radiobutton">
+                                                            <RadioButton id="yes_consent" name="consent" :value="true" v-model="consent" v-on:click="consent_hide = false" :disabled="!writeOn" />
+                                                            <label for="yes_consent">Yes</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="p-field p-col-12 p-md-2">
+                                                        <div class="p-field-radiobutton">
+                                                            <RadioButton id="no_consent" name="consent" :value="false" v-model="consent" v-on:click="consent_hide = true" :disabled="!writeOn" />
+                                                            <label for="no_consent">No</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="p-fluid p-formgrid p-grid p-mt-2" v-if="consent_hide">       
+                                                    <div class="p-field p-col-12 p-md-2">
+                                                        <p>Reason</p>
+                                                    </div>
+                                                    <div class="p-field p-col-12 p-md-6">
+                                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="reason_value" optionValue="id" v-model="reason" placeholder="Select a reason" :disabled="!writeOn" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <DataTable class="p-datatable-sm" :value="pre.assessments" dataKey="key" v-show="consent" >
+                                                <Column field="description" header="Description"></Column>
+                                                <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
+                                                    <template #body="slotProps">
+                                                        <RadioButton name="assessments" :value="true" v-model="slotProps.data['value']" />
+                                                        <RadioButton class="p-ml-4" name="assessments" :value="false" v-model="slotProps.data['value']" />
+                                                    </template>
+                                                </Column>
+                                            </DataTable>
+                                            <template #footer>
+                                                <Button label="Close" icon="pi pi-times" @click="closePre" class="p-button-text"/>
+                                                <Button label="Save" icon="pi pi-check" @click="savePre" autofocus />
+                                            </template>
+                                        </Dialog>
+
+                                        <Dialog header="Post Monitoring" v-model:visible="displayPost" :closeOnEscape="true" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">
+                                            <hr />
+                                            <DataTable class="p-datatable-sm" :value="post.assessments" dataKey="key">
+                                                <Column field="description" header="Description"></Column>
+                                                <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
+                                                    <template #body="slotProps">
+                                                        <RadioButton name="post_assessments" :value="true" v-model="slotProps.data['value']" />
+                                                        <RadioButton class="p-ml-4" name="post_assessments" :value="false" v-model="slotProps.data['value']" />
+                                                    </template>
+                                                </Column>
+                                            </DataTable>
+                                            <template #footer>
+                                                <Button label="Close" icon="pi pi-times" @click="closePost" class="p-button-text"/>
+                                                <Button label="Save" icon="pi pi-check" @click="savePost" autofocus />
+                                            </template>
+                                        </Dialog>
+
                                     </div>
                                 </form>
                             </div>
@@ -377,7 +379,7 @@ export default {
         });
 
         const savePre = handleSubmit((values) => {
-
+           
             const { pre } = values || {}
             
             dispatch('vaccines/UPDATE_PRE', pre)
@@ -555,8 +557,10 @@ export default {
       return {
           camera: 'auto',
           displayVaccine: false,
+          displayPre: false,
           consent_hide: false,
-          datatable_hide: false
+          datatable_hide: false,
+          displayPost: false
       }
     },
     components: {
@@ -750,12 +754,21 @@ export default {
             this.$store.dispatch('vaccines/GET_VACCINATION', {id})
             this.$store.dispatch('vaccines/GET_USERS')
             this.textLabel = "Update"
-
-            console.log(this.$store.state)
-            
         },
         closeVaccine() {
             this.displayVaccine = false;
+        },
+        showPre() {
+            this.displayPre = true;
+        },
+        closePre() {
+            this.displayPre = false;
+        },
+        showPost() {
+            this.displayPost = true;
+        },
+        closePost() {
+            this.displayPost = false;
         },
         async onInit (promise) {
             try {
@@ -866,20 +879,6 @@ export default {
         left: 0px;
         margin: auto;
     }
-    /* .frame {
-        border-style: solid;
-        border-width: 2px;
-        border-color: #fe664f;
-        background-position: left bottom, left bottom, right top, right top, 4px 4px;
-        height: 200px;
-        width: 200px;
-        position: absolute;
-        top: 0px;
-        bottom: 0px;
-        right: 0px;
-        left: 0px;
-        margin: auto;
-    } */
     .p-border {
         border: 1px solid #215266;
     }
@@ -903,5 +902,30 @@ export default {
     }
     .p-text-sm{
         font-size: 13px!important;
+    }
+    .tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -60px;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
     }
 </style>
