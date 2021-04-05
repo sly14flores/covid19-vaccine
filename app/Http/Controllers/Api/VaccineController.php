@@ -218,9 +218,9 @@ class VaccineController extends Controller
 
         if (is_null($check_va)) {
 
-            $vaccine = new Vaccine;
-            $vaccine->fill($vaccine);
-            $vaccine->save();
+            $new_vaccine = new Vaccine;
+            $new_vaccine->fill($vaccine);
+            $new_vaccine->save();
 
         }
 
