@@ -123,11 +123,22 @@
                                         </div>
                                         <hr />
                                         <div class="p-fluid">
-                                            <div class="p-d-flex p-jc-between">
-                                                <div><h6>Vaccine Administration</h6></div>
-                                                <div><Button label="Add" class="p-button-success p-button-sm" @click="openVaccine" /></div>
-                                            </div>
-                                            <div class="p-fluid p-formgrid p-grid">
+                                            <Panel header="Vaccine Administration">
+                                                <div class="p-field p-col-12 p-md-6 p-mt-2">
+                                                    <span class="p-float-label">
+                                                        <Dropdown id="dropdown" class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="sessions" optionValue="id" v-model="vaccination_session" :class="{'p-invalid': vaccination_sessionError, 'disabled': !writeOn}" :disabled="!writeOn" />
+                                                        <label for="dropdown">Select a Session</label>
+                                                    </span>
+                                                </div>
+                                                <hr />
+                                                <Toolbar>
+                                                    <template #left>
+                                                        <h6>Dosages</h6>
+                                                    </template>
+                                                    <template #right>
+                                                        <Button label="Add" class="p-button-success p-button-sm" @click="openDosage" v-if="writeOn" />
+                                                    </template>
+                                                </Toolbar>
                                                 <DataTable :value="vaccinations" dataKey="id">
                                                     <Column field="vaccine_name" header="Vaccine Name"></Column>
                                                     <Column field="dose" header="Dosage"></Column>
@@ -138,120 +149,111 @@
                                                             <div class="tooltip"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-button-sm p-mr-2" @click="showVaccine(slotProps.data.id)" />
                                                                 <span class="tooltiptext">Edit</span>
                                                             </div>
-                                                            <div class="tooltip"><Button icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" @click="deleteVaccine(slotProps.data.id)" />
+                                                            <div class="tooltip"><Button icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" @click="deleteDosage(slotProps.data.id)" />
                                                                 <span class="tooltiptext">Delete</span>
                                                             </div>
                                                         </template>
                                                     </Column>
-                                                    <Column header="Pre / Post Assesments">
-                                                        <template #body="slotProps">
-                                                            <div class="tooltip"><Button icon="pi pi-fw pi-check-circle" class="p-button-rounded p-button-info p-button-sm p-mr-2" @click="showPre(slotProps.data.id)" />
-                                                                <span class="tooltiptext">Pre Assessments</span>
-                                                            </div>
-
-                                                            <div class="tooltip"><Button icon="pi pi-fw pi-desktop" class="p-button-rounded p-button-help p-button-sm p-mr-2" @click="showPost(slotProps.data.id)" />
-                                                                <span class="tooltiptext">Post Assessments Monitoring</span>
-                                                            </div>
-
-                                                        </template>
-                                                    </Column>
                                                 </DataTable>
                                                 <ConfirmDialog group="confirmDelete"></ConfirmDialog>
-                                            </div>
+                                            </Panel>
                                         </div>
                                         
-                                        <Dialog header="Vaccine" v-model:visible="displayVaccine" :closeOnEscape="true" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">
+                                        <Dialog header="Dosage" v-model:visible="displayDosage" :closeOnEscape="true" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">
                                             <hr />
                                             <div class="p-fluid p-formgrid p-grid">
-                                                <div class="p-field p-col-12 p-md-6">
+                                                <div class="p-field p-col-12 p-md-4">
                                                     <label>Vaccinator </label>
                                                     <Dropdown class="p-shadow-1 p-inputtext-sm" id="user_id" optionLabel="name" :options="users" v-model="user_id" optionValue="id" placeholder="Select a vaccinator" />
                                                 </div>
-                                            </div>
-                                            <div class="p-fluid p-formgrid p-grid">
-                                                <div class="p-field p-col-12 p-md-6">
+                                                <div class="p-field p-col-12 p-md-4">
                                                     <label>Vaccine Manufacturer Name </label>
-                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" id="vaccine_name" optionLabel="name" :options="manufactures" v-model="vaccine_name" optionValue="id" placeholder="Select a manufacturer name" />
+                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" id="brand_name" optionLabel="name" :options="manufactures" v-model="brand_name" optionValue="id" placeholder="Select a manufacturer name" />
                                                 </div>
-                                                <div class="p-field p-col-12 p-md-6">
-                                                    <label>Dose </label>
-                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" id="dose" optionLabel="name" :options="dosages" v-model="dose" optionValue="id" placeholder="Select a dose" />
+                                                <div class="p-field p-col-12 p-md-4">
+                                                    <label>Vaccine Name </label>
+                                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="vaccine_name" v-model="vaccine_name" />
                                                 </div>
                                             </div>
                                             <div class="p-fluid p-formgrid p-grid">
-                                                <div class="p-field p-col-12 p-md-6">
+                                                <div class="p-field p-col-12 p-md-4">
+                                                    <label>Dose </label>
+                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" id="dose" optionLabel="name" :options="doses" v-model="dose" optionValue="id" placeholder="Select a dose" />
+                                                </div>
+                                                <div class="p-field p-col-12 p-md-2">
+                                                    <label>Site of Injection</label>
+                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" id="site_of_injection" optionLabel="name" :options="manufactures" v-model="site_of_injection" optionValue="id" placeholder="Select a Site of Injection" />
+                                                </div>
+                                                <div class="p-field p-col-12 p-md-2">
+                                                    <label>Expiry Date</label>
+                                                    <Calendar class="p-shadow-1 p-inputtext-sm" v-model="expiry_date" name="expiry_date" />
+                                                </div>
+                                                <div class="p-field p-col-12 p-md-2">
                                                     <label>Batch Number</label>
                                                     <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="batch_number" v-model="batch_number" />
                                                 </div>
-                                                <div class="p-field p-col-12 p-md-6">
+                                                <div class="p-field p-col-12 p-md-2">
                                                     <label>Lot Number</label>
                                                     <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="lot_number" v-model="lot_number" />
                                                 </div>
-                                            </div><br />
-                                            <template #footer>
-                                                <Button label="Close" icon="pi pi-times" @click="closeVaccine" class="p-button-text"/>
-                                                <Button :label="textLabel" icon="pi pi-check" @click="saveVaccine" autofocus />
-                                            </template>
-                                        </Dialog>
-
-                                        <Dialog header="Pre Assessments" v-model:visible="displayPre" :closeOnEscape="true" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">
+                                            </div>
                                             <hr />
-                                            <div class="p-fluid">
-                                                <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                    <div class="p-field p-col-12 p-md-2">
-                                                        <p>Consent Provided?</p>
-                                                    </div>
-                                                    <div class="p-field p-col-12 p-md-2">
-                                                        <div class="p-field-radiobutton">
-                                                            <RadioButton id="yes_consent" name="consent" :value="true" v-model="consent" v-on:click="consent_hide = false" :disabled="!writeOn" />
-                                                            <label for="yes_consent">Yes</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="p-field p-col-12 p-md-2">
-                                                        <div class="p-field-radiobutton">
-                                                            <RadioButton id="no_consent" name="consent" :value="false" v-model="consent" v-on:click="consent_hide = true" :disabled="!writeOn" />
-                                                            <label for="no_consent">No</label>
-                                                        </div>
-                                                    </div>
+                                            <div class="p-fluid p-formgrid p-grid">
+                                                <div class="p-field p-col-12 p-md-4">
+                                                    <label>Diluent </label>
+                                                    <InputText id="diluent" class="p-shadow-1 p-inputtext-sm" type="text" v-model="diluent" />
                                                 </div>
-                                                <div class="p-fluid p-formgrid p-grid p-mt-2" v-if="consent_hide">       
-                                                    <div class="p-field p-col-12 p-md-2">
-                                                        <p>Reason</p>
-                                                    </div>
-                                                    <div class="p-field p-col-12 p-md-6">
-                                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="reason_value" optionValue="id" v-model="reason" placeholder="Select a reason" :disabled="!writeOn" />
-                                                    </div>
+                                                <div class="p-field p-col-12 p-md-2">
+                                                    <label>Date of Reconstitution</label>
+                                                    <Calendar id="date_of_reconstitution" class="p-shadow-1 p-inputtext-sm" v-model="date_of_reconstitution" name="date_of_reconstitution" />
+                                                </div>
+                                                <div class="p-field p-col-12 p-md-2">
+                                                    <label>Time of Reconstitution</label>
+                                                    <Calendar id="time_of_reconstitution" class="p-shadow-1 p-inputtext-sm" v-model="time_of_reconstitution" :timeOnly="true" hourFormat="12" />
+                                                </div>
+                                                <div class="p-field p-col-12 p-md-2">
+                                                    <label>Diluent Batch Number</label>
+                                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="diluent_batch_number" v-model="diluent_batch_number" />
+                                                </div>
+                                                <div class="p-field p-col-12 p-md-2">
+                                                    <label>Diluent Lot Number</label>
+                                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="diluent_lot_number" v-model="diluent_lot_number" />
                                                 </div>
                                             </div>
-                                            <DataTable class="p-datatable-sm" :value="pre.assessments" dataKey="key" v-show="consent" >
-                                                <Column field="description" header="Description"></Column>
-                                                <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
-                                                    <template #body="slotProps">
-                                                        <RadioButton name="assessments" :value="true" v-model="slotProps.data['value']" />
-                                                        <RadioButton class="p-ml-4" name="assessments" :value="false" v-model="slotProps.data['value']" />
-                                                    </template>
-                                                </Column>
-                                            </DataTable>
-                                            <template #footer>
-                                                <Button label="Close" icon="pi pi-times" @click="closePre" class="p-button-text"/>
-                                                <Button label="Save" icon="pi pi-check" @click="savePre" autofocus />
-                                            </template>
-                                        </Dialog>
-
-                                        <Dialog header="Post Monitoring" v-model:visible="displayPost" :closeOnEscape="true" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">
                                             <hr />
-                                            <DataTable class="p-datatable-sm" :value="post.assessments" dataKey="key">
-                                                <Column field="description" header="Description"></Column>
-                                                <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
-                                                    <template #body="slotProps">
-                                                        <RadioButton name="post_assessments" :value="true" v-model="slotProps.data['value']" />
-                                                        <RadioButton class="p-ml-4" name="post_assessments" :value="false" v-model="slotProps.data['value']" />
+                                            <TabView class="tabview-custom" ref="tabview4">
+                                                <TabPanel>
+                                                    <template #header>
+                                                        <i class="pi pi-check-circle p-mr-2"></i>
+                                                        <span>Pre-Assessment</span>
                                                     </template>
-                                                </Column>
-                                            </DataTable>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                                </TabPanel>
+                                                <TabPanel>
+                                                    <template #header>
+                                                        <i class="pi pi-desktop p-mr-2"></i>
+                                                        <span> Post Monitoring </span>
+                                                    </template>
+                                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                                                        architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                                                        voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+                                                </TabPanel>
+                                                <TabPanel>
+                                                    <template #header>
+                                                        <i class="pi pi-search p-mr-2"></i>
+                                                        <span>AEFI</span>
+                                                    </template>
+                                                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
+                                                        cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+                                                        Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+                                                </TabPanel>
+                                            </TabView>
+                                            <br />
                                             <template #footer>
-                                                <Button label="Close" icon="pi pi-times" @click="closePost" class="p-button-text"/>
-                                                <Button label="Save" icon="pi pi-check" @click="savePost" autofocus />
+                                                <Button label="Close" icon="pi pi-times" @click="closeDosage" class="p-button-text"/>
+                                                <Button :label="textLabel" icon="pi pi-check" @click="saveVaccine" autofocus />
                                             </template>
                                         </Dialog>
 
@@ -285,7 +287,8 @@ import Paginator from 'primevue/paginator/sfc';
 import Dialog from 'primevue/dialog/sfc';
 import Calendar from 'primevue/calendar/sfc';
 import ScrollTop from 'primevue/scrolltop/sfc';
-import Card from 'primevue/card/sfc';
+import Panel from 'primevue/panel/sfc';
+import Toolbar from 'primevue/toolbar/sfc';
 
 import { QrStream, QrCapture, QrDropzone } from 'vue3-qr-reader';
 import { useStore } from 'vuex'
@@ -308,15 +311,13 @@ export default {
         const confirm = useConfirm()
 
         store.dispatch('vaccines/GET_SELECTIONS')
-        store.dispatch('vaccines/GET_DEFAULT_ID')
         
         function onDecode(data) {
             const str = data.split('r')
             const qr = str[1]
             store.dispatch('vaccines/GET_BY_QR',{ id: qr })
-            store.dispatch('vaccines/GET_PRE', { id: qr })
-            store.dispatch('vaccines/GET_POST', { id: qr })
-            store.dispatch('vaccines/GET_REASONS')
+            store.dispatch('vaccines/GET_SELECTION_SESSIONS')
+            store.dispatch('vaccines/GET_USERS')
         }
 
         const init = {
@@ -327,7 +328,7 @@ export default {
 
         const { setValues, handleSubmit, resetForm } = useForm(init);
 
-        watch(
+        watch( // For Registration Data
             () => store.state.vaccines.fetched,
             (data, prevData) => {
                 if (data) {
@@ -338,7 +339,7 @@ export default {
             }
         )
 
-        watch(
+        watch( // For Vaccine Data
             () => store.state.vaccines.vaccination,
             (data, prevData) => {
                 setValues({
@@ -347,55 +348,16 @@ export default {
             }
         )
 
-        watch(
-            () => store.state.vaccines.pre,
-            (data, prevData) => {
-                setValues({
-                    pre: {...data}
-                })
-            }
-        )
-
-        watch(
-            () => store.state.vaccines.post,
-            (data, prevData) => {
-                setValues({
-                    post: {...data}
-                })
-            }
-        )
-
         const getNapanam = () => {
             store.dispatch('vaccines/GET_BY_QR', { id: qr_pass_id.value })
-            store.dispatch('vaccines/GET_PRE', { id: qr_pass_id.value })
-            store.dispatch('vaccines/GET_POST', { id: qr_pass_id.value })
-            store.dispatch('vaccines/GET_REASONS')
+            store.dispatch('vaccines/GET_SELECTION_SESSIONS')
+            store.dispatch('vaccines/GET_USERS')
         }
 
         const vaccinations = computed(() => {
 
             return store.state.vaccines.vaccinations
 
-        });
-
-        const savePre = handleSubmit((values) => {
-           
-            const { pre } = values || {}
-            
-            dispatch('vaccines/UPDATE_PRE', pre)
-            
-            console.log(pre)
-            
-        });
-
-        const savePost = handleSubmit((values) => {
-
-            const { post } = values || {}
-            
-            dispatch('vaccines/UPDATE_POST', post)
-            
-            console.log(post)
-            
         });
 
         const saveVaccine = handleSubmit((values) => {
@@ -457,36 +419,30 @@ export default {
         const { value: address } = useField('vaccine.address',validField);
         const { value: contact_no } = useField('vaccine.contact_no',validField);
         const { value: occupation } = useField('vaccine.occupation',validField);
-        // const { value: civil_status, errorMessage: civil_statusError } = useField('vaccine.civil_status',validateField);
-        // Employment Status
-        // const { value: category, errorMessage: categoryError } = useField('vaccine.category',validateField);
-        // const { value: category_id, errorMessage: category_idError } = useField('vaccine.category_id',validateField);
-        // const { value: category_id_no, errorMessage: category_id_noError } = useField('vaccine.category_id_no',validateField);
-        // const { value: employment_status, errorMessage: employment_statusError } = useField('vaccine.employment_status',validateField);
-        // const { value: profession, errorMessage: professionError } = useField('vaccine.profession',validateField);
-        // const { value: philhealth, errorMessage: philhealthError } = useField('vaccine.philhealth',validateField);
-        // const { value: pwd_id } = useField('vaccine.pwd_id',validField);
-        // const { value: employer_name, errorMessage: employer_nameError } = useField('vaccine.employer_name',validateField);
-        // const { value: employer_municipality, errorMessage: employer_municipalityError } = useField('vaccine.employer_municipality',validateField);
-        // const { value: employer_address, errorMessage: employer_addressError } = useField('vaccine.employer_address',validateField);
-        // const { value: employer_contact_no, errorMessage: employer_contact_noError } = useField('vaccine.employer_contact_no',validateField);
-        
+
         // Vaccine Administered
         const { value: vaccination_id } = useField('vaccination.id',validField);
-        const { value: user_id } = useField('vaccination.user_id',validField);
-        const { value: vaccine_name } = useField('vaccination.vaccine_name',validField);
-        const { value: batch_number } = useField('vaccination.batch_number',validField);
-        const { value: lot_number } = useField('vaccination.lot_number',validField);
-        const { value: dose } = useField('vaccination.dose',validField);
+        const { value: vaccination_session, errorMessage: vaccination_sessionError } = useField('vaccination.vaccination_session',validateField);
 
-        const { value: assessments } = useField('pre.assessments',validField);
-        const { value: consent } = useField('pre.consent',validField);
-        const { value: reason } = useField('pre.reason',validField);
-
-        const { value: post_assessments } = useField('post.assessments',validField);
+        // Dosage
+        const { value: dosage_id } = useField('dosage.id',validField);
+        const { value: vaccine_id } = useField('dosage.vaccine_id',validField);
+        const { value: user_id } = useField('dosage.user_id',validField);
+        const { value: brand_name } = useField('dosage.brand_name',validField);
+        const { value: vaccine_name } = useField('dosage.vaccine_name',validField);
+        const { value: site_of_injection } = useField('dosage.site_of_injection',validField);
+        const { value: expiry_date } = useField('dosage.expiry_date',validField);
+        const { value: batch_number } = useField('dosage.batch_number',validField);
+        const { value: lot_number } = useField('dosage.lot_number',validField);
+        const { value: dose } = useField('dosage.dose',validField);
+        const { value: diluent } = useField('dosage.diluent',validField);
+        const { value: date_of_reconstitution } = useField('dosage.date_of_reconstitution',validField);
+        const { value: time_of_reconstitution } = useField('dosage.time_of_reconstitution',validField);
+        const { value: diluent_batch_number } = useField('dosage.diluent_batch_number',validField);
+        const { value: diluent_lot_number } = useField('dosage.diluent_lot_number',validField);
 
         return {
-            id, // Personal
+            id, // Start Personal
             vaccination_id,
             qr_pass_id,
             first_name,
@@ -501,29 +457,27 @@ export default {
             address, // street
             barangay,
             contact_no,
-            occupation,
-            // civil_status, //  End Personal
-            // category, // Employment Status
-            // category_id,
-            // category_id_no,
-            // employment_status,
-            // profession,
-            // philhealth,
-            // pwd_id,
-            // employer_name,
-            // employer_municipality,
-            // employer_address,
-            // employer_contact_no, // End Employment Status
-            vaccine_name, // Vaccine
+            occupation, // End Personal
+
+            vaccination_session, // Vaccine
+
+            dosage_id, // Dosage
+            vaccine_id,
             user_id,
+            brand_name,
+            vaccine_name,
+            site_of_injection,
+            expiry_date,
             batch_number,
             lot_number,
-            dose, // End Vaccine
-            consent,
-            reason,
-            assessments,
-            post_assessments,
-            qr_pass_idError,
+            dose,
+            diluent,
+            date_of_reconstitution,
+            time_of_reconstitution,
+            diluent_batch_number,
+            diluent_lot_number, // End Dosage
+
+            qr_pass_idError, // Error
             first_nameError,
             last_nameError,
             suffixError,
@@ -531,36 +485,24 @@ export default {
             provinceError,
             town_cityError,
             barangayError,
-            // employment_statusError,
-            // employer_nameError,
-            // employer_municipalityError,
-            // employer_addressError,
-            // employer_contact_noError,
-            // professionError,
-            // philhealthError,
-            // category_idError,
-            // category_id_noError,
-            // categoryError,
-            // civil_statusError,
+            vaccination_sessionError,
+
+            // Others
             onSubmit,
             editMode,
             onDecode,
             getNapanam,
             saveVaccine,
-            vaccinations,
-            savePre,
-            savePost
+            vaccinations
         }
 
     },
     data() {
       return {
           camera: 'auto',
-          displayVaccine: false,
-          displayPre: false,
+          displayDosage: false,
           consent_hide: false,
-          datatable_hide: false,
-          displayPost: false
+          datatable_hide: false
       }
     },
     components: {
@@ -582,8 +524,9 @@ export default {
         Paginator,
         Dialog,
         Calendar,
-        Card,
-        ScrollTop
+        ScrollTop,
+        Panel,
+        Toolbar
     },
     computed: {
         suffix_value() {
@@ -646,9 +589,14 @@ export default {
             return this.$store.state.vaccines.selections.employer_municipality_value
 
         },
-        provinces() {
+        sessions() {
 
-            return this.$store.state.vaccines.selections.addresses.province_value
+            return this.$store.state.vaccines.sessions
+
+        },
+        doses() {
+
+            return this.$store.state.vaccines.doses
 
         },
         default_id() {
@@ -656,30 +604,15 @@ export default {
             return this.$store.state.vaccines.default_id
 
         },
-        reason_value() {
-
-            return this.$store.state.vaccines.reason_value
-
-        },
-        dosages() {
-
-            return this.$store.state.vaccines.dosages
-
-        },
         users() {
 
             return this.$store.state.vaccines.users
 
         },
-        pre() {
+        provinces() {
 
-            return this.$store.state.vaccines.pre
-            
-        },
-        post() {
+            return this.$store.state.vaccines.selections.addresses.province_value
 
-            return this.$store.state.vaccines.post
-            
         },
         municipalities() {
 
@@ -728,7 +661,7 @@ export default {
         }
     },
     methods: {
-        deleteVaccine(id) {
+        deleteDosage(id) {
             this.$confirm.require({
                 key: 'confirmDelete',
                 message: 'Are you sure you want to delete this vaccine information?',
@@ -742,33 +675,21 @@ export default {
                 }
             });
         },
-        openVaccine() {
-            this.displayVaccine = true;
-            this.$store.dispatch('vaccines/RESET_VACCINE')
-            this.$store.dispatch('vaccines/GET_USERS')
+        openDosage() {
+            this.displayDosage = true;
             this.textLabel = "Save"
-            this.$store.state.vaccines.vaccination.user_id = this.$store.state.vaccines.default_id.id;
+            // this.$store.dispatch('vaccines/RESET_VACCINE')
+            // this.$store.dispatch('vaccines/GET_USERS')
+            // this.$store.state.vaccines.vaccination.user_id = this.$store.state.vaccines.default_id.id;
         },
-        showVaccine(id) {
-            this.displayVaccine = true;
-            this.$store.dispatch('vaccines/GET_VACCINATION', {id})
-            this.$store.dispatch('vaccines/GET_USERS')
+        showDosage(id) {
+            this.displayDosage = true;
             this.textLabel = "Update"
+            // this.$store.dispatch('vaccines/GET_VACCINATION', {id})
+            // this.$store.dispatch('vaccines/GET_USERS')
         },
-        closeVaccine() {
-            this.displayVaccine = false;
-        },
-        showPre() {
-            this.displayPre = true;
-        },
-        closePre() {
-            this.displayPre = false;
-        },
-        showPost() {
-            this.displayPost = true;
-        },
-        closePost() {
-            this.displayPost = false;
+        closeDosage() {
+            this.displayDosage = false;
         },
         async onInit (promise) {
             try {

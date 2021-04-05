@@ -10,6 +10,18 @@ const getSelections = () => {
     return axios.get(SELECTIONS_ROUTE)
 }
 
+const SELECTION_SESSIONS = `${api_url}/api/doh/selections/vaccination/sessions`
+const getSelectionSessions = () => {
+    return axios.get(SELECTION_SESSIONS)
+}
+
+const GET_VACCINATIONS = `${api_url}/api/doh/vaccines/:id`
+const getVaccinations = (payload) => {
+    const { id } = payload
+    const url =  route(GET_VACCINATIONS, { id })
+    return axios.get(url)
+}
+
 const GET_USERS = `${api_url}/api/general/selections/users`
 const getUsers = () => {
     return axios.get(GET_USERS)
@@ -24,13 +36,6 @@ const GET_BY_QR = `${api_url}/api/doh/vaccines/qr/:id`
 const getByQr = (payload) => {
     const { id } = payload
     const url =  route(GET_BY_QR, { id })
-    return axios.get(url)
-}
-
-const GET_VACCINATIONS = `${api_url}/api/doh/vaccines/:id`
-const getVaccinations = (payload) => {
-    const { id } = payload
-    const url =  route(GET_VACCINATIONS, { id })
     return axios.get(url)
 }
 
@@ -98,11 +103,28 @@ const getReasons = () => {
 const vaccination = {
     id: 0,
     qr_pass_id: null,
+    vaccination_facility: null,
+    facility_others: null,
+    vaccination_session: null
+}
+
+const dosage = {
+    id: 0,
+    vaccine_id: null,
     user_id: null,
+    qr_pass_id: null,
+    brand_name: null,
     vaccine_name: null,
+    site_of_injection: null,
+    expiry_date: null,
     batch_number: null,
     lot_number: null,
-    dose: null
+    dose: null,
+    diluent: null,
+    date_of_reconstitution: null,
+    time_of_reconstitution: null,
+    diluent_batch_number: null,
+    diluent_lot_number: null
 }
 
 const vaccinations = []
@@ -144,7 +166,10 @@ const selections = {
     addresses
 };
 
+const sessions = [];
+
 const users = [];
+
 const default_id = {}
 
 const reason_value = [];
@@ -162,7 +187,7 @@ const post = {
     post_assessments
 }
 
-const dosages = [
+const doses = [
     {id: 1, name: 'First'},
     {id: 2, name: 'Second'},
     {id: 3, name: 'Third'}
@@ -179,6 +204,8 @@ const state = () => {
         fetched: false,
         saving: false,
         selections,
+        sessions,
+        dosage,
         vaccine,
         vaccination,
         vaccinations,
@@ -188,7 +215,7 @@ const state = () => {
         default_id,
         reason_value,
         users,
-        dosages,
+        doses,
         manufactures
     }
 }
@@ -200,6 +227,12 @@ const mutations = {
         state.vaccine = vaccine
         state.vaccination = vaccination
         state.vaccinations = vaccinations
+    },
+    SELECTIONS(state, payload) {
+        state.selections = {...payload}
+    },
+    SESSIONS(state, payload) {
+        state.sessions = [...payload]
     },
     RESET_VACCINE(state) {
         state.vaccination = vaccination
@@ -228,9 +261,7 @@ const mutations = {
     PAGINATION(state, payload) {
         state.pagination = {...payload}
     },
-    SELECTIONS(state, payload) {
-        state.selections = {...payload}
-    },
+    
     FETCH(state, payload) {
         state.fetched = payload
     },
@@ -265,23 +296,6 @@ const actions = {
     TOGGLE_WRITE({commit}, payload) {
         commit('TOGGLE_WRITE', payload)
     },
-    async GET_USERS({dispatch}) {
-        try {
-            const { data: { data } } = await getUsers()
-            dispatch('GET_USERS_SUCCESS', data)
-        } catch (error) {
-            const { response } = error
-            dispatch('GET_USERS_ERROR', response)
-        }
-    },
-    GET_USERS_SUCCESS({state,commit}, payload) {
-        commit('USERS', payload)
-        // console.log(payload)
-    },
-    GET_USERS_ERROR({commit}, payload) {
-        // console.log(payload)
-    },
-
     async GET_SELECTIONS({dispatch}) {
         Swal.fire({
             title: 'Loading...',
@@ -310,6 +324,32 @@ const actions = {
         // console.log(payload)
     },
     GET_SELECTIONS_ERROR({commit}, payload) {
+        // console.log(payload)
+    },
+    async GET_SELECTION_SESSIONS({commit}) {
+        try {
+            const { data: { data } } = await getSelectionSessions()
+            commit('SESSIONS', data)
+        } catch (error) {
+            const { response } = error
+            console.log(response)
+        }
+    },
+
+    async GET_USERS({dispatch}) {
+        try {
+            const { data: { data } } = await getUsers()
+            dispatch('GET_USERS_SUCCESS', data)
+        } catch (error) {
+            const { response } = error
+            dispatch('GET_USERS_ERROR', response)
+        }
+    },
+    GET_USERS_SUCCESS({state,commit}, payload) {
+        commit('USERS', payload)
+        // console.log(payload)
+    },
+    GET_USERS_ERROR({commit}, payload) {
         // console.log(payload)
     },
     async GET_DEFAULT_ID({dispatch}) {
