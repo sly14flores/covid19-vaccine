@@ -21,6 +21,52 @@ return [
         [
             'id' => 4,
             'name' => 'Encoder'
+        ],
+        [
+            'id' => 5,
+            'name' => 'Vaccinator'
+        ],        
+    ],
+
+    'brands' => [
+        [
+            'id' => 1,
+            'name' => 'Pfizer',
+        ],
+        [
+            'id' => 2,
+            'name' => 'Astrazeneca'                
+        ],
+        [
+            'id' => 3,
+            'name' => 'Sinovac'
+        ],
+        [
+            'id' => 4,
+            'name' => 'Moderna'
+        ],
+    ],
+
+    'sessions' => [
+        [
+            'id' => 1,
+            'name' => 'Routine session',
+        ],
+        [
+            'id' => 2,
+            'name' => 'Clinic',
+        ],
+        [
+            'id' => 3,
+            'name' => 'Mass Campaign',
+        ],
+        [
+            'id' => 4,
+            'name' => 'School based',
+        ],
+        [
+            'id' => 5,
+            'name' => 'Others',
         ],        
     ],
 

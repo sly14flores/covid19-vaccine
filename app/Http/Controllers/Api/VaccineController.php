@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Registration;
-use App\Models\PreAssessment;
-use App\Models\PostAssessment;
 use App\Models\Vaccine;
 use App\Models\Barangay;
 use App\Models\CityMun;
@@ -47,13 +45,13 @@ class VaccineController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $id)
+    public function index()
     {
-        $vaccines = Vaccine::where('qr_pass_id',$id)->get();
+        $vaccines = Vaccine::paginate(10);
 
         if (is_null($vaccines)) {
 			return $this->jsonErrorResourceNotFound();
-        }   
+        }
 
         $data = new VaccinesListResourceCollection($vaccines);
 
@@ -80,32 +78,26 @@ class VaccineController extends Controller
     {
         $rules = [
             'qr_pass_id' => 'string',
-            'user_id' => 'integer',
-            'vaccine_name' => 'integer',
-            'batch_number' => 'integer',
-            'lot_number' => 'integer',
-            'dose' => 'integer',
-        ];
+            'vaccination_facility' => 'integer',
+        ];    
 
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
             return $this->jsonErrorDataValidation();
-        }         
+        }  
 
         /** Get validated data */
         $data = $validator->valid();
-        // $id = Auth::guard('api')->id();
-        // $data['user_id'] = $id;
 
         $vaccine = new Vaccine;
         $vaccine->fill($data);
-
         $vaccine->save();
 
         $data = new VaccineResource($vaccine);
 
-        return $this->jsonSuccessResponse($data, 200); 
+        return $this->jsonSuccessResponse($data, 200);
+        
     }
 
     /**
@@ -120,7 +112,7 @@ class VaccineController extends Controller
             return $this->jsonErrorInvalidParameters();
         }
 
-        $vaccine = Vaccine::find($id);        
+        $vaccine = Vaccine::where('qr_pass_id',$id)->first();
 
         if (is_null($vaccine)) {
 			return $this->jsonErrorResourceNotFound();
@@ -128,7 +120,7 @@ class VaccineController extends Controller
 
         $data = new VaccineResource($vaccine);
 
-        return $this->jsonSuccessResponse($data, 200, 'Vaccine added successfully');
+        return $this->jsonSuccessResponse($data, 200);
     }
 
     /**
@@ -162,28 +154,20 @@ class VaccineController extends Controller
         }
 
         $rules = [
-            'qr_pass_id' => 'string',
-            'user_id' => 'integer',
-            'vaccine_name' => 'integer',
-            'batch_number' => 'integer',
-            'lot_number' => 'integer',
-            'dose' => 'integer',
+            'vaccination_facility' => 'integer',
         ];
 
         $validator = Validator::make($request->all(), $rules);        
 
         /** Get validated data */
-        $data = $validator->valid();        
-        // $id = Auth::guard('api')->id();
-        // $data['user_id'] = $id;
+        $data = $validator->valid();
 
         $vaccine->fill($data);
-
         $vaccine->save();
 
         $data = new VaccineResource($vaccine);
 
-        return $this->jsonSuccessResponse($data, 200, 'Vaccine info updated successfully'); 
+        return $this->jsonSuccessResponse($data, 200);
     }
 
     /**
@@ -222,33 +206,22 @@ class VaccineController extends Controller
         }
 
         /**
-         * Create Pre Assessment
+         * Create Vaccine
          */
-        $check_pre_assessment = PreAssessment::where('qr_pass_id',$id)->get();
-        if (count($check_pre_assessment)==0) {
-            $pre_assessment = [
-                'qr_pass_id' => $id,
-                'consent' => false,
-                'reason' => '',
-                'assessments' => config('constants.pre_assessments')
-            ];
-            $pre = new PreAssessment;
-            $pre->fill($pre_assessment);
-            $pre->save();
-        }
+        $user = Auth::guard('api')->user();
+        $vaccine = [
+            'qr_pass_id' => $id,
+            'vaccination_facility' => $user->userHospital->id,
+        ];
 
-        /**
-         * Create Post Assessment
-         */
-        $check_post_assessment = PostAssessment::where('qr_pass_id',$id)->get();
-        if (count($check_post_assessment)==0) {
-            $post_assessment = [
-                'qr_pass_id' => $id,
-                'assessments' => config('constants.post_assessments')
-            ];
-            $pre = new PostAssessment;
-            $pre->fill($post_assessment);
-            $pre->save();
+        $check_va = Vaccine::where('qr_pass_id',$id)->first();
+
+        if (is_null($check_va)) {
+
+            $new_vaccine = new Vaccine;
+            $new_vaccine->fill($vaccine);
+            $new_vaccine->save();
+
         }
 
         $data = new RegistrationVaccineResource($registration);

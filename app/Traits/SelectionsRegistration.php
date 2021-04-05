@@ -314,27 +314,21 @@ trait SelectionsRegistration
         return $barangays->pluck('doh');
     }
 
-    public function vaccineValue()
+    public function brandValue()
     {
         /**
-         * Vaccines
+         * Brands
          */
-        $vaccines = [
-            [
-                'id' => 1,
-                'name' => 'Pfizer'
-            ],
-            [
-                'id' => 2,
-                'name' => 'Astrazeneca'
-            ],
-            [
-                'id' => 3,
-                'name' => 'Sinovac'
-            ],
-        ];
+        $brands = config('constants.brands');
 
-        return $vaccines;
+        return $brands;
+    }
+
+    public function vaccinationSessionValue()
+    {
+        $sessions = config('constants.sessions');
+
+        return $sessions;
     }
 
     public function yesNo()

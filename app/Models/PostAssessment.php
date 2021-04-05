@@ -17,8 +17,14 @@ class PostAssessment extends Model
      * @var array
      */
     protected $fillable = [
+        'dosage_id',
         'qr_pass_id',
+        'dose',
         'assessments',
+    ];
+
+    protected $hidden = [
+        'updated_at',
     ];    
 
     /**
@@ -38,6 +44,11 @@ class PostAssessment extends Model
     public function getAssessmentsAttribute($value)
     {
         return unserialize($value);
+    }
+
+    public function dosage()
+    {
+        return $this->belongsTo(Vaccine::class,'dosage_id');
     }
 
 }

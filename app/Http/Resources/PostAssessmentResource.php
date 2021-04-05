@@ -16,6 +16,7 @@ class PostAssessmentResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'dose' => $this->dose,
             'assessments' => $this->assessments,
         ];
     }

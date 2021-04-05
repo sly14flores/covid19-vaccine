@@ -116,11 +116,17 @@ class DOHDataSelections extends Controller
         ];
     }
 
-    public function vaccines()
+    public function brands()
     {
-        $vaccines = $this->vaccineValue();
-        return $this->jsonSuccessResponse($vaccines, 200);        
+        $brands = $this->brandValue();
+        return $this->jsonSuccessResponse($brands, 200);        
     }
+
+    public function vaccinationSession()
+    {
+        $sessions = $this->vaccinationSessionValue();
+        return $this->jsonSuccessResponse($sessions, 200);        
+    }    
 
     public function refusalValue()
     {

@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\DOHDataSelections;
 use App\Http\Controllers\Api\GeneralDataSelections;
 use App\Http\Controllers\Api\RegistrationController;
 use App\Http\Controllers\Api\VaccineController;
+use App\Http\Controllers\Api\DosageController;
 use App\Http\Controllers\Api\PreAssessmentController;
 use App\Http\Controllers\Api\PostAssessmentController;
 use App\Http\Controllers\Api\RegistrationImportController;
@@ -103,7 +104,8 @@ Route::prefix('doh')->group(function() {
      */
     Route::get('selections', DOHDataSelections::class);
     Route::get('selections/addresses', [DOHDataSelections::class, 'addresses']);
-    Route::get('selections/vaccines', [DOHDataSelections::class, 'vaccines']);
+    Route::get('selections/brands', [DOHDataSelections::class, 'brands']);
+    Route::get('selections/vaccination/sessions', [DOHDataSelections::class, 'vaccinationSession']);
 
     /**
      * Registration
@@ -123,12 +125,14 @@ Route::prefix('doh')->group(function() {
      * Vaccines
      */
     Route::apiResources([
-        'vaccines/{id}' => VaccineController::class,
+        'vaccines' => VaccineController::class,
+        'dosages/{id}' => DosageController::class,
     ],[
         'only' => ['index']
     ]);
     Route::apiResources([
         'vaccine' => VaccineController::class,
+        'dosage' => DosageController::class,
     ],[
         'except' => ['index']
     ]);
@@ -196,6 +200,11 @@ Route::prefix('general')->group(function() {
          * Users
          */
         Route::get('users', [GeneralDataSelections::class, 'users']);
+
+        /**
+         * Users
+         */
+        Route::get('vaccinators', [GeneralDataSelections::class, 'vaccinators']);        
 
 
     });

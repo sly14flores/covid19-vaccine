@@ -17,9 +17,11 @@ class PreAssessment extends Model
      * @var array
      */
     protected $fillable = [
+        'dosage_id',
         'qr_pass_id',
         'consent',
         'reason',
+        'dose',
         'assessments',
     ];
 
@@ -53,6 +55,11 @@ class PreAssessment extends Model
     public function getAssessmentsAttribute($value)
     {
         return unserialize($value);
+    }
+
+    public function dosage()
+    {
+        return $this->belongsTo(Vaccine::class,'dosage_id');
     }
 
 }
