@@ -146,21 +146,25 @@ class VaccineController extends Controller
         if (filter_var($id, FILTER_VALIDATE_INT) === false ) {
             return $this->jsonErrorInvalidParameters();
         }
-
-        $vaccine = Vaccine::find($id);      
+        // return $request->all();
+        $vaccine = Vaccine::where('qr_pass_id',$id)->first();
 
         if (is_null($vaccine)) {
 			return $this->jsonErrorResourceNotFound();
         }
 
         $rules = [
-            'vaccination_facility' => 'integer',
+            'facility_others' => 'string',
+            'vaccination_session' => 'integer',
+            'dosages' => 'array',
         ];
 
-        $validator = Validator::make($request->all(), $rules);        
+        $validator = Validator::make($request->all(), $rules);
 
         /** Get validated data */
         $data = $validator->valid();
+
+        return $data;
 
         $vaccine->fill($data);
         $vaccine->save();
