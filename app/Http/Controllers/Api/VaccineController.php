@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Models\Registration;
 use App\Models\Vaccine;
+use App\Models\Dosage;
+use App\Models\PreAssessment;
+use App\Models\PostAssessment;
 use App\Models\Barangay;
 use App\Models\CityMun;
 use App\Models\Province;
@@ -164,7 +167,29 @@ class VaccineController extends Controller
         /** Get validated data */
         $data = $validator->valid();
 
-        return $data;
+        $dosages = (isset($data['dosages']))?$data['dosages']:[];
+
+        foreach ($dosages as $dosage) {
+            $pre_assessment = $dosage['pre_assessment'];
+            $post_assessment = $dosage['post_assessment'];
+            // Check if dose already exists
+            $check_dose = Dosage::where([['qr_pass_id',$id],['dose',$dosage['dose']]])->first();
+            if ($dosage['id']) {
+                $update_dosage = Dosage::find($dosage['id']);
+                $update_dosage->fill($dosage);
+                $vaccine->dosages()->save($update_dosage);
+                $this->pre_assessment($update_dosage,$pre_assessment);
+                $this->post_assessment($update_dosage,$post_assessment);              
+            } else {
+                if (is_null($check_dose)) {
+                    $new_dosage = new Dosage;
+                    $new_dosage->fill($dosage);
+                    $vaccine->dosages()->save($new_dosage);
+                    $this->pre_assessment($new_dosage,$pre_assessment);
+                    $this->post_assessment($new_dosage,$post_assessment);
+                }            
+            }
+        }
 
         $vaccine->fill($data);
         $vaccine->save();
@@ -172,6 +197,32 @@ class VaccineController extends Controller
         $data = new VaccineResource($vaccine);
 
         return $this->jsonSuccessResponse($data, 200);
+    }
+
+    public function pre_assessment($dosage,$assessment)
+    {
+        if ($assessment['id']) {
+            $pre = PreAssessment::find($assessment['id']);
+            $pre->fill($assessment);
+            $dosage->pre_assessment()->save($pre);
+        } else {
+            $pre = new PreAssessment;
+            $pre->fill($assessment);
+            $dosage->pre_assessment()->save($pre);
+        }
+    }
+
+    public function post_assessment($dosage,$assessment)
+    {
+        if ($assessment['id']) {
+            $post = PostAssessment::find($assessment['id']);
+            $post->fill($assessment);
+            $dosage->post_assessment()->save($post);
+        } else {
+            $post = new PostAssessment;
+            $post->fill($assessment);
+            $dosage->post_assessment()->save($post);
+        }
     }
 
     /**

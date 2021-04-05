@@ -107,7 +107,7 @@ class Dosage extends Model
      */
     public function getExpiryDateAttribute($value)
     {
-        return Carbon::parse($value)->format('F j, Y');
+        return Carbon::parse($value)->format('Y-m-d');
     }
 
     /**
