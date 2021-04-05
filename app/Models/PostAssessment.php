@@ -17,9 +17,14 @@ class PostAssessment extends Model
      * @var array
      */
     protected $fillable = [
+        'dosage_id',
         'qr_pass_id',
         'dose',
         'assessments',
+    ];
+
+    protected $hidden = [
+        'updated_at',
     ];    
 
     /**
@@ -41,9 +46,9 @@ class PostAssessment extends Model
         return unserialize($value);
     }
 
-    public function vaccine()
+    public function dosage()
     {
-        return $this->belongsTo(PostAssessment::class);
+        return $this->belongsTo(Vaccine::class,'dosage_id');
     }
 
 }
