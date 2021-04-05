@@ -129,6 +129,7 @@
                                                         <Dropdown id="dropdown" class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="sessions" optionValue="id" v-model="vaccination_session" :class="{'p-invalid': vaccination_sessionError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                         <label for="dropdown">Select a Session</label>
                                                     </span>
+                                                    <small class="p-error">{{ vaccination_sessionError }}</small>
                                                 </div>
                                                 <hr />
                                                 <Toolbar>
@@ -139,7 +140,7 @@
                                                         <Button label="Add" class="p-button-success p-button-sm" @click="openDosage" v-if="writeOn" />
                                                     </template>
                                                 </Toolbar>
-                                                <DataTable :value="vaccinations" dataKey="id">
+                                                <DataTable :value="dosages" dataKey="id">
                                                     <Column field="vaccine_name" header="Vaccine Name"></Column>
                                                     <Column field="dose" header="Dosage"></Column>
                                                     <Column field="vaccinator" header="Administered by"></Column>
@@ -168,7 +169,7 @@
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Vaccine Manufacturer Name </label>
-                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" id="brand_name" optionLabel="name" :options="manufactures" v-model="brand_name" optionValue="id" placeholder="Select a manufacturer name" />
+                                                    <Dropdown class="p-shadow-1 p-inputtext-sm" id="brand_name" optionLabel="name" :options="brands" v-model="brand_name" optionValue="id" placeholder="Select a manufacturer name" />
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Vaccine Name </label>
@@ -316,8 +317,8 @@ export default {
             const str = data.split('r')
             const qr = str[1]
             store.dispatch('vaccines/GET_BY_QR',{ id: qr })
+            store.dispatch('vaccines/GET_VACCINATION', { id: qr })
             store.dispatch('vaccines/GET_SELECTION_SESSIONS')
-            store.dispatch('vaccines/GET_USERS')
         }
 
         const init = {
@@ -350,13 +351,13 @@ export default {
 
         const getNapanam = () => {
             store.dispatch('vaccines/GET_BY_QR', { id: qr_pass_id.value })
+            store.dispatch('vaccines/GET_VACCINATION', { id: qr_pass_id.value })
             store.dispatch('vaccines/GET_SELECTION_SESSIONS')
-            store.dispatch('vaccines/GET_USERS')
         }
 
-        const vaccinations = computed(() => {
+        const dosages = computed(() => {
 
-            return store.state.vaccines.vaccinations
+            return store.state.vaccines.dosages
 
         });
 
@@ -493,7 +494,7 @@ export default {
             onDecode,
             getNapanam,
             saveVaccine,
-            vaccinations
+            dosages
         }
 
     },
@@ -594,6 +595,11 @@ export default {
             return this.$store.state.vaccines.sessions
 
         },
+        brands() {
+
+            return this.$store.state.vaccines.brands
+
+        },
         sites() {
 
             return this.$store.state.vaccines.sites
@@ -683,15 +689,17 @@ export default {
         openDosage() {
             this.displayDosage = true;
             this.textLabel = "Save"
-            // this.$store.dispatch('vaccines/RESET_VACCINE')
-            // this.$store.dispatch('vaccines/GET_USERS')
+            this.$store.dispatch('vaccines/GET_SELECTION_BRANDS')
+            this.$store.dispatch('vaccines/GET_USERS')
+            // this.$store.dispatch('vaccines/RESET_DOSAGE')
             // this.$store.state.vaccines.vaccination.user_id = this.$store.state.vaccines.default_id.id;
         },
         showDosage(id) {
             this.displayDosage = true;
             this.textLabel = "Update"
+            this.$store.dispatch('vaccines/GET_SELECTION_BRANDS')
+            this.$store.dispatch('vaccines/GET_USERS')
             // this.$store.dispatch('vaccines/GET_VACCINATION', {id})
-            // this.$store.dispatch('vaccines/GET_USERS')
         },
         closeDosage() {
             this.displayDosage = false;
