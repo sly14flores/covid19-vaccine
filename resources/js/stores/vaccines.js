@@ -57,8 +57,6 @@ const getVaccination = (payload) => {
 const vaccination = {
     id: 0,
     qr_pass_id: null,
-    vaccination_facility: null,
-    facility_others: null,
     vaccination_session: null,
     dosages: []
 }
@@ -84,7 +82,6 @@ const dosage = {
     post_assessment: {}
 }
 
-const dosages = [];
 const deferrals = [];
 const pagination = {}
 
@@ -145,15 +142,16 @@ const doses = [
 
 const state = () => {
     return {
+        displayDosage: false,
+        displayLabel: 'Save',
         fetched: false,
         saving: false,
         selections,
         sessions,
         brands,
-        dosage,
-        dosages,
         vaccine,
         vaccination,
+        dosage,
         pagination,
         default_id,
         reason_value,
@@ -168,6 +166,7 @@ const mutations = {
     INIT(state) {
         state.vaccine = vaccine
         state.vaccination = vaccination
+        state.dosage = dosage
     },
     SELECTIONS(state, payload) {
         state.selections = {...payload}
@@ -181,8 +180,11 @@ const mutations = {
     DEFERRALS(state, payload) {
         state.deferrals = [...payload]
     },
-    DOSAGES(state, payload) {
-        state.dosages = payload
+    DOSAGE(state, payload) {
+        state.dosage = payload
+    },
+    DOSAGES(state,payload) {
+        state.vaccination.dosages = [...payload]
     },
     VACCINATION(state,payload) {
         state.vaccination = payload
@@ -255,9 +257,9 @@ const actions = {
         commit('TOGGLE_WRITE', payload)
     },
     async GET_BY_QR({dispatch, commit},payload) {
+        commit('LOADING');
         commit('FETCH', false)
         const { id } = payload
-        commit('LOADING');
         try {
             const { data: { data } } = await getByQr({ id })
             dispatch('GET_BY_QR_SUCCESS',{id, data})
@@ -268,7 +270,7 @@ const actions = {
     },
     GET_BY_QR_SUCCESS({dispatch,commit},payload) {
         const { id, data } = payload
-        dispatch('GET_VACCINATIONS', {id})
+        // dispatch('GET_VACCINATIONS', {id})
         commit('NAPANAM', data)
         commit('FETCH', true)
         commit('TOGGLE_WRITE', true)
@@ -363,8 +365,9 @@ const actions = {
         commit('RESET_DOSAGE')
     },
     ADD_DOSAGE({commit},payload) {
-        commit('ADD_DOSAGE',payload)
-    }
+        commit('ADD_DOSAGE', payload)
+        console.log(payload)
+    },
 }
 
 const getters = {}

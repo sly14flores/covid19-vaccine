@@ -111,7 +111,7 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-6">
                                 <div class="p-field p-col-12 p-md-8">
-                                    <label>Directly in interaction with Covid Patient: <i class="p-error">*</i></label>
+                                    <label>Allergy of Vaccines or Components of Vaccines: <i class="p-error">*</i></label>
                                     <p class="p-error"><small>{{ direct_interactionError }}</small></p>
                                 </div>
                                 <div class="p-field p-col-12 p-md-2">
