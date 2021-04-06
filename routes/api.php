@@ -155,6 +155,7 @@ Route::prefix('doh')->group(function() {
     ],[
         'except' => ['index']
     ]);
+    Route::get('structure/assessments/pre',[PreAssessmentController::class,'structure']);
 
     /**
      * Post Assessments
@@ -168,7 +169,8 @@ Route::prefix('doh')->group(function() {
         'post' => PostAssessmentController::class,
     ],[
         'except' => ['index']
-    ]);    
+    ]);
+    Route::get('structure/assessments/post',[PostAssessmentController::class,'structure']);  
 
     /**
      * Upload excel for import

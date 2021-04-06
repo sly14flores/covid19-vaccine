@@ -133,6 +133,13 @@ class PostAssessmentController extends Controller
 
     }
 
+    public function structure()
+    {
+        $data = config('constants.post_assessments');
+
+        return $this->jsonSuccessResponse($data, 200);
+    }    
+
     /**
      * Remove the specified resource from storage.
      *
