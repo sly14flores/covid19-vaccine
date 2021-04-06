@@ -134,6 +134,13 @@ class PreAssessmentController extends Controller
 
     }
 
+    public function structure()
+    {
+        $data = config('constants.pre_assessments');
+
+        return $this->jsonSuccessResponse($data, 200);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
