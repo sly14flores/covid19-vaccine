@@ -48,7 +48,7 @@ export default [
         ]
     },
     {
-        label:'Hospitals',
+        label:'Vaccination Facility',
         icon:'pi pi-fw pi-sitemap',
         items:[
           {
