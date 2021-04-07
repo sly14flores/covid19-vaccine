@@ -136,8 +136,7 @@ import Toolbar from 'primevue/toolbar/sfc';
 
 import { useStore } from 'vuex';
 import { useForm, useField } from 'vee-validate';
-import { useRoute } from 'vue-router';
-import { watch, computed } from 'vue';
+
 import { useConfirm } from "primevue/useconfirm";
 
 export default {
@@ -146,40 +145,27 @@ export default {
 
         const { editOn } = props
         const editMode = eval(editOn)
-        const route = useRoute()
-        const { params } = route
-        const registrationId = params.id || null
         const store = useStore()
         const { state, dispatch } = store
-        const confirm = useConfirm()
 
         dispatch('vaccines/GET_PRES')
         dispatch('vaccines/GET_POST')
         
+        console.log(state.vaccines.dosage)
+
         const init = {
             initialValues: {
-                dosage: {...store.state.vaccines.dosage}
+                dosage: {...state.vaccines.dosage}
             }
         }
 
         const { setValues, handleSubmit, resetForm } = useForm(init);
 
-        watch(
-            () => state.vaccines.dosage,
-            (data, prevData) => {
-                setValues({
-                    dosage: {...data}
-                })
-            }
-        )
-
-        console.log(init)
-
         const onSubmit = handleSubmit((values, actions) => {
 
             const { resetForm } = actions
             const { dosage } = values
-            console.log(dosage)
+            console.log(values)
 
             // store.dispatch('vaccines/ADD_DOSAGE')
 
@@ -197,7 +183,7 @@ export default {
         }
 
         // Dosage
-        const { value: dosage_id } = useField('dosage.id',validField);
+        const { value: id } = useField('dosage.id',validField);
         const { value: vaccine_id } = useField('dosage.vaccine_id',validField);
         const { value: user_id } = useField('dosage.user_id',validField);
         const { value: brand_name } = useField('dosage.brand_name',validField);
@@ -214,8 +200,8 @@ export default {
         const { value: diluent_lot_number } = useField('dosage.diluent_lot_number',validField);
 
         return {
-
-            dosage_id,
+            editMode,
+            id,
             vaccine_id,
             user_id,
             brand_name,
@@ -230,8 +216,7 @@ export default {
             time_of_reconstitution,
             diluent_batch_number,
             diluent_lot_number,
-            onSubmit
-
+            onSubmit,
         }
     },     
     components: {
