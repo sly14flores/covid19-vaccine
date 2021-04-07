@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Dialog header="Dosage" v-model:visible="displayDosage" :closeOnEscape="true" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">
+        <Dialog header="Dosage" v-model:visible="displayDosage" :closable="false" :closeOnEscape="true" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">
         <hr />
         <form @submit="onSubmit">
             <div class="p-fluid p-formgrid p-grid">
@@ -69,18 +69,30 @@
                         <i class="pi pi-check-circle p-mr-2"></i>
                         <span>Pre-Assessment</span>
                     </template>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <DataTable class="p-datatable-sm" :value="pres" dataKey="key">
+                        <Column field="description" header="Description"></Column>
+                        <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
+                            <template #body="slotProps">
+                                <RadioButton :value="true" v-model="slotProps.data['value']" />
+                                <RadioButton class="p-ml-4" :value="false" v-model="slotProps.data['value']" />
+                            </template>
+                        </Column>
+                    </DataTable>
                 </TabPanel>
                 <TabPanel>
                     <template #header>
                         <i class="pi pi-desktop p-mr-2"></i>
                         <span> Post Monitoring </span>
                     </template>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                        architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-                        voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.</p>
+                    <DataTable class="p-datatable-sm" :value="post" dataKey="key">
+                        <Column field="description" header="Description"></Column>
+                        <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
+                            <template #body="slotProps">
+                                <RadioButton :value="true" v-model="slotProps.data['value']" />
+                                <RadioButton class="p-ml-4" :value="false" v-model="slotProps.data['value']" />
+                            </template>
+                        </Column>
+                    </DataTable>
                 </TabPanel>
                 <TabPanel>
                     <template #header>
@@ -92,17 +104,17 @@
                         Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
                 </TabPanel>
             </TabView>
+            <br />
             <div class="p-fluid p-formgrid p-grid">
                 <div class="p-field p-col-12 p-md-10"></div>
                 <div class="p-field p-col-12 p-md-1">
-                    <Button label="Close" icon="pi pi-times" @click="closeDosage" class="p-button-text"/>
+                    <Button type="submit" label="Ok" autofocus />
                 </div>
                 <div class="p-field p-col-12 p-md-1">
-                    <Button type="submit" :label="displayLabel" icon="pi pi-check" autofocus />
+                    <Button label="Cancel" @click="closeDosage" class="p-button-text"/>
                 </div>
             </div>
         </form>
-        <br />
         </Dialog>
     </div>
 </template>
@@ -140,14 +152,15 @@ export default {
         const store = useStore()
         const { state, dispatch } = store
         const confirm = useConfirm()
+
+        dispatch('vaccines/GET_PRES')
+        dispatch('vaccines/GET_POST')
         
         const init = {
             initialValues: {
                 dosage: {...store.state.vaccines.dosage}
             }
         }
-
-        console.log(init)
 
         const { setValues, handleSubmit, resetForm } = useForm(init);
 
@@ -160,13 +173,15 @@ export default {
             }
         )
 
+        console.log(init)
+
         const onSubmit = handleSubmit((values, actions) => {
 
             const { resetForm } = actions
             const { dosage } = values
             console.log(dosage)
 
-            store.dispatch('vaccines/ADD_DOSAGE')
+            // store.dispatch('vaccines/ADD_DOSAGE')
 
         });
 
@@ -281,9 +296,14 @@ export default {
             return this.$store.state.vaccines.displayDosage
             
         },
-        displayLabel() {
+        pres() {
 
-            return this.$store.state.vaccines.displayLabel
+            return this.$store.state.vaccines.pres
+            
+        },
+        post() {
+
+            return this.$store.state.vaccines.post
             
         },
     } 

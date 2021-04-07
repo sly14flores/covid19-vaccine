@@ -131,8 +131,8 @@
                                                                 <Dropdown id="dropdown" class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="sessions" optionValue="id" v-model="vaccination_session" :class="{'p-invalid': vaccination_sessionError, 'disabled': !writeOn}" :disabled="!writeOn" />
                                                                 <label for="dropdown">Select a Session</label>
                                                             </span>
-                                                            <small class="p-error">{{ vaccination_sessionError }}</small>
                                                         </div>
+                                                        <small class="p-error">{{ vaccination_sessionError }}</small>
                                                     </div>
                                                 </div>
                                                 <hr />
@@ -497,7 +497,6 @@ export default {
     methods: {
         openDosage() {
             this.$store.state.vaccines.displayDosage = true;
-            this.$store.state.vaccines.displayLabel = "Save"
             this.$store.dispatch('vaccines/GET_SELECTION_BRANDS')
             this.$store.dispatch('vaccines/GET_USERS')
             this.$store.dispatch('vaccines/RESET_DOSAGE')
@@ -505,7 +504,6 @@ export default {
         },
         showDosage(id) {
             this.$store.state.vaccines.displayDosage = true;
-            this.$store.state.vaccines.displayLabel = "Update"
             this.$store.dispatch('vaccines/GET_SELECTION_BRANDS')
             this.$store.dispatch('vaccines/GET_USERS')
             // this.$store.dispatch('vaccines/GET_VACCINATION', {id})
