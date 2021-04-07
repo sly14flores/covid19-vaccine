@@ -433,9 +433,6 @@ export default {
         }
     },
     methods: {
-        removeDosage(index) {
-            this.$store.state.vaccines.vaccination.dosages.splice(index, 1);
-        },
         async onInit (promise) {
             try {
                 await promise

@@ -64,6 +64,13 @@ const getVaccination = (payload) => {
     return axios.get(url)
 }
 
+const UPDATE_VACCINATION = `${api_url}/api/doh/vaccine/:id`
+const updateVaccination = (payload) => {
+    const { id } = payload
+    const url =  route(UPDATE_VACCINATION, { id })
+    return axios.put(url, payload)
+}
+
 const vaccination = {
     id: 0,
     qr_pass_id: null,
@@ -419,6 +426,17 @@ const actions = {
         } catch (error) {
             const { response } = error
             console.log(response)
+        }
+    },
+    async UPDATE_VACCINATION({}, payload) {
+        try {
+            const { data } = await updateVaccination(payload)
+            console.log(data)
+            return true
+        } catch (error) {
+            const { response } = error
+            console.log(response)
+            return false
         }
     },
     RESET_DOSAGE({commit}) {
