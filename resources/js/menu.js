@@ -1,3 +1,96 @@
+const summary = [
+    {
+        label:'Summary',
+        icon:'pi pi-fw pi-chart-line',
+        items:[
+          {
+              label:'Survey',
+              icon:'pi pi-th-large',
+              to: '/summary/surveys'                       
+          },              
+          {
+              label:'Registrations',
+              icon:'pi pi-fw pi-users',
+              to: '/summary/registrations'                
+          },
+        ]
+    },    
+]
+
+const registrations = [
+    {
+        label:'Registrations',
+        icon:'pi pi-fw pi-users',
+        items:[
+          {
+              label:'List',
+              icon:'pi pi-fw pi-users',
+              to: '/registrations'                       
+          },              
+          {
+              label:'New',
+              icon:'pi pi-fw pi-user-plus',
+              to: '/registrations/new' 
+          },
+        ]
+    },    
+]
+
+const users = [
+    {
+        label:'Users',
+        icon:'pi pi-fw pi-users',
+        items:[
+          {
+              label:'List',
+              icon:'pi pi-fw pi-users',
+              to: '/users'                       
+          },              
+          {
+              label:'New',
+              icon:'pi pi-fw pi-user-plus',
+              to: '/users/new'          
+          },
+        ]
+    },    
+]
+
+const facilities = [
+    {
+        label:'Vaccination Facility',
+        icon:'pi pi-fw pi-sitemap',
+        items:[
+          {
+              label:'List',
+              icon:'pi pi-fw pi-list',
+              to: '/hospitals'                       
+          },              
+          {
+              label:'New',
+              icon:'pi pi-fw pi-plus-circle',
+              to: '/hospitals/new'          
+          },
+        ]
+    },
+]
+
+const vaccines = [
+    {
+        label:'Vaccines',
+        icon:'pi pi-fw pi-desktop',
+        to: '/scanners/vaccines'
+    }    
+]
+
+export {
+    summary,
+    registrations,
+    users,
+    facilities,
+    vaccines,
+}
+
+/*
 export default [
     {
         label:'Summary',
@@ -69,3 +162,4 @@ export default [
         to: '/scanners/vaccines'
     }
 ]
+*/
