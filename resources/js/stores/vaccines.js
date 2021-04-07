@@ -35,6 +35,16 @@ const getUsers = () => {
     return axios.get(GET_USERS)
 }
 
+const GET_PRES = `${api_url}/api/doh/structure/assessments/pre`
+const getPres = () => {
+    return axios.get(GET_PRES)
+}
+
+const GET_POST = `${api_url}/api/doh/structure/assessments/post`
+const getPost = () => {
+    return axios.get(GET_POST)
+}
+
 const GET_DEFAULT_ID = `${api_url}/api/doh/vaccines/default/vaccinator`
 const getDefaultId = () => {
     return axios.get(GET_DEFAULT_ID)
@@ -83,9 +93,9 @@ const dosage = {
 }
 
 const deferrals = [];
-const pagination = {}
+const pagination = {};
 
-const vaccine = {}
+const vaccine = {};
 
 const suffix_value = [];
 const gender_value = [];
@@ -125,9 +135,11 @@ const sessions = [];
 const brands = [];
 
 const users = [];
+const pres = [];
+const post = [];
 const reason_value = [];
 
-const default_id = {}
+const default_id = {};
 
 const sites = [
     {id: 'Left', name: 'Left'},
@@ -143,7 +155,6 @@ const doses = [
 const state = () => {
     return {
         displayDosage: false,
-        displayLabel: 'Save',
         fetched: false,
         saving: false,
         selections,
@@ -156,6 +167,8 @@ const state = () => {
         default_id,
         reason_value,
         users,
+        pres,
+        post,
         deferrals,
         doses,
         sites
@@ -197,6 +210,12 @@ const mutations = {
     },
     USERS(state, payload) {
         state.users = [...payload]
+    },
+    PRES(state, payload) {
+        state.pres = [...payload]
+    },
+    POST(state, payload) {
+        state.post = [...payload]
     },
     REASONS(state, payload) {
         state.reason_value = [...payload]
@@ -328,6 +347,24 @@ const actions = {
         try {
             const { data: { data } } = await getUsers()
             commit('USERS', data)
+        } catch (error) {
+            const { response } = error
+            console.log(response)
+        }
+    },
+    async GET_PRES({commit}) {
+        try {
+            const { data: { data } } = await getPres()
+            commit('PRES', data)
+        } catch (error) {
+            const { response } = error
+            console.log(response)
+        }
+    },
+    async GET_POST({commit}) {
+        try {
+            const { data: { data } } = await getPost()
+            commit('POST', data)
         } catch (error) {
             const { response } = error
             console.log(response)
