@@ -65,6 +65,8 @@ import ConfirmDialog from 'primevue/confirmdialog/sfc';
 
 import VaccineDialogForm from "./Dosage.vue";
 
+import { reactive, ref, toRef } from 'vue';
+import { useStore } from 'vuex';
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 
@@ -74,6 +76,29 @@ export default {
 
         const { editOn } = props
         const editMode = eval(editOn)
+        const store = useStore()
+        const { state, dispatch } = store
+
+        const vaccination = reactive({
+            ...state.vaccines.vaccination,
+        })
+
+        const rules = {
+            vaccination_session: { required }
+        }
+
+        const vv = useVuelidate(rules, {
+            vaccination_session: toRef(vaccination, 'vaccination_session'),
+        })
+
+        const updateVaccination = () => {
+
+            vv.value.$touch();
+            if (vv.value.$invalid) return
+
+            // store.dispatch('vaccines/',vaccination)           
+
+        }
 
         return {
             editMode,

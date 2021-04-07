@@ -88,16 +88,16 @@ const dosage = {
     diluent_lot_number: null,
     pre_assessment: {
         id: 0,
-        qr_pass_id: null,
-        dose: null,
+        qr_pass_id: null, //
+        dose: null, //
         consent: false,
         reason: null,
         assessments: []        
     },
     post_assessment: {
         id: 0,
-        qr_pass_id: null,
-        dose: null,
+        qr_pass_id: null, //
+        dose: null, //
         assessments: []
     }
 }
@@ -253,6 +253,10 @@ const mutations = {
         state.vaccine.town_city = payload.town_city
         state.vaccine.barangay = payload.barangay
         state.vaccine.address = payload.address // street
+
+        state.dosage.qr_pass_id = payload.qr_pass_id
+        state.dosage.pre_assessment.qr_pass_id = payload.qr_pass_id
+        state.dosage.post_assessment.qr_pass_id = payload.qr_pass_id
     },
     SAVING(state, payload) {
         state.saving = payload

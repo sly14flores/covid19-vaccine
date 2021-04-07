@@ -31,20 +31,104 @@ return [
     'brands' => [
         [
             'id' => 1,
-            'name' => 'Pfizer',
+            'name' => 'Pfizer, BioNTech Fosun Pharma',
+            'vaccines' => [
+                [
+                    'id' => 1,
+                    'name' => 'Pfizer Comirnaty (BNT162b2)'
+                ]
+            ]
         ],
         [
             'id' => 2,
-            'name' => 'Astrazeneca'                
+            'name' => 'Moderna Barda NIAID',
+            'vaccines' => [
+                [
+                    'id' => 2,
+                    'name' => 'Moderna COVID-19 Vaccine (mRNA-1273)'
+                ]
+            ]
         ],
         [
             'id' => 3,
-            'name' => 'Sinovac'
+            'name' => 'BARDA, OWS',
+            'vaccines' => [
+                [
+                    'id' => 3,
+                    'name' => 'COVID-19 Vaccine AstraZeneca (AZD1222)'
+                ]
+            ]
         ],
         [
             'id' => 4,
-            'name' => 'Moderna'
+            'name' => 'Gamaleya Research Institute, Acellena Contract Drug Research and Development',
+            'vaccines' => [
+                [
+                    'id' => 4,
+                    'name' => 'Sputnik V'
+                ]
+            ]            
         ],
+        [
+            'id' => 5,
+            'name' => 'Johnson & Johnson',
+            'vaccines' => [
+                [
+                    'id' => 5,
+                    'name' => 'COVID-19 Vaccine Janssen (JNJ-78436735; Ad26.COV2.S)'
+                ]
+            ]    
+        ],
+        [
+            'id' => 6,
+            'name' => 'Sinovac',
+            'vaccines' => [
+                [
+                    'id' => 6,
+                    'name' => 'CoronaVac'
+                ]
+            ] 
+        ],
+        [
+            'id' => 7,
+            'name' => 'Bharat Biotech, ICMR',
+            'vaccines' => [
+                [
+                    'id' => 7,
+                    'name' => 'Covaxin'
+                ]
+            ] 
+        ],
+        [
+            'id' => 8,
+            'name' => 'Federal Budgetary Research Institution State Research Center of Virology and Biotechnology',
+            'vaccines' => [
+                [
+                    'id' => 8,
+                    'name' => 'EpiVacCorona'
+                ]
+            ] 
+        ],
+        [
+            'id' => 9,
+            'name' => 'Chumakov Federal Scientific Center for Research and Development of Immune and Biological Products',
+            'vaccines' => [
+                [
+                    'id' => 9,
+                    'name' => 'CoviVac'
+                ]
+            ]
+        ],
+        [
+            'id' => 10,
+            'name' => 'Novavax, Inc.',
+            'vaccines' => [
+                [
+                    'id' => 10,
+                    'name' => 'Novavax COVID-19'
+                ]
+            ]
+        ],               
     ],
 
     'sessions' => [
