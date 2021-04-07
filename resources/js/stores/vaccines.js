@@ -73,9 +73,7 @@ const vaccination = {
 
 const dosage = {
     id: 0,
-    vaccine_id: null,
     user_id: null,
-    qr_pass_id: null,
     brand_name: null,
     vaccine_name: null,
     site_of_injection: null,
@@ -88,8 +86,20 @@ const dosage = {
     time_of_reconstitution: null,
     diluent_batch_number: null,
     diluent_lot_number: null,
-    pre_assessment: {},
-    post_assessment: {}
+    pre_assessment: {
+        id: 0,
+        qr_pass_id: null,
+        dose: null,
+        consent: false,
+        reason: null,
+        assessments: []        
+    },
+    post_assessment: {
+        id: 0,
+        qr_pass_id: null,
+        dose: null,
+        assessments: []
+    }
 }
 
 const deferrals = [];
@@ -213,9 +223,11 @@ const mutations = {
     },
     PRES(state, payload) {
         state.pres = [...payload]
+        state.dosage.pre_assessment.assessments = [...payload]
     },
     POST(state, payload) {
         state.post = [...payload]
+        state.dosage.post_assessment.assessments = [...payload]        
     },
     REASONS(state, payload) {
         state.reason_value = [...payload]
@@ -250,6 +262,9 @@ const mutations = {
     },
     ADD_DOSAGE(state,payload) {
         state.vaccination.dosages.push(payload)
+    },
+    TOGGLE_DOSAGE_FORM(state,payload) {
+        state.displayDosage = payload
     },
     LOADING(){
         Swal.fire({
@@ -293,6 +308,10 @@ const actions = {
         commit('NAPANAM', data)
         commit('FETCH', true)
         commit('TOGGLE_WRITE', true)
+
+        dispatch('GET_VACCINATION', { id })
+        dispatch('GET_SELECTION_SESSIONS')
+
         Swal.close()
     },
     GET_BY_QR_ERROR({commit},payload) {
@@ -405,6 +424,9 @@ const actions = {
         commit('ADD_DOSAGE', payload)
         console.log(payload)
     },
+    TOGGLE_DOSAGE_FORM({commit},payload) {
+        commit('TOGGLE_DOSAGE_FORM',payload)
+    }
 }
 
 const getters = {}

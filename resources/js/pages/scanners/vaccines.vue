@@ -122,58 +122,7 @@
                                             </div>
                                         </div>
                                         <hr />
-                                        <div class="p-fluid">
-                                            <Panel header="Vaccine Administration">
-                                                <div class="p-fluid p-formgrid p-grid">
-                                                    <div class="p-field p-col-12 p-md-12 p-mt-2">
-                                                        <div class="p-inputgroup">
-                                                            <span class="p-float-label">
-                                                                <Dropdown id="dropdown" class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="sessions" optionValue="id" v-model="vaccination_session" :class="{'p-invalid': vaccination_sessionError, 'disabled': !writeOn}" :disabled="!writeOn" />
-                                                                <label for="dropdown">Select a Session</label>
-                                                            </span>
-                                                        </div>
-                                                        <small class="p-error">{{ vaccination_sessionError }}</small>
-                                                    </div>
-                                                </div>
-                                                <hr />
-                                                <Toolbar>
-                                                    <template #left>
-                                                        <h6>Dosages</h6>
-                                                    </template>
-                                                    <template #right>
-                                                        <Button label="Add" class="p-button-success p-button-sm" @click="openDosage" />
-                                                    </template>
-                                                </Toolbar>
-                                                <DataTable :value="dosages" dataKey="id">
-                                                    <Column field="vaccine_name" header="Vaccine Name"></Column>
-                                                    <Column field="dose" header="Dosage"></Column>
-                                                    <Column field="vaccinator" header="Administered by"></Column>
-                                                    <Column field="date" header="Date"></Column>
-                                                    <Column field="id" header="Actions">
-                                                        <template #body="slotProps">
-                                                            <div class="tooltip"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-button-sm p-mr-2" @click="showVaccine(slotProps.data.id)" />
-                                                                <span class="tooltiptext">Edit</span>
-                                                            </div>
-                                                            <div class="tooltip"><Button icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" @click="removeDosage()" />
-                                                                <span class="tooltiptext">Delete</span>
-                                                            </div>
-                                                        </template>
-                                                    </Column>
-                                                </DataTable>
-                                                <ConfirmDialog group="confirmDelete"></ConfirmDialog>
-                                            </Panel>
-                                        </div>
-                                        
-                                        <VaccineDialogForm />
-                                        
-                                        <div class="p-fluid">
-                                            <div class="p-fluid p-formgrid p-grid p-mt-2">
-                                                <div class="p-field p-col-12 p-md-10"></div>
-                                                <div class="p-field p-col-12 p-md-2">
-                                                    <Button label="Update" type="submit" class="p-button-primary p-button-sm" :disabled="!writeOn"></Button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <Vaccination :editOn="editMode" />
                                     </div>
                                 </form>
                             </div>
@@ -204,13 +153,12 @@ import Paginator from 'primevue/paginator/sfc';
 import ScrollTop from 'primevue/scrolltop/sfc';
 import Panel from 'primevue/panel/sfc';
 import Toolbar from 'primevue/toolbar/sfc';
-import VaccineDialogForm from "./Form.vue";
+import Vaccination from './vaccination'
 
 import { QrStream, QrCapture, QrDropzone } from 'vue3-qr-reader';
 import { useStore } from 'vuex';
 import { useForm, useField } from 'vee-validate';
-import { useRoute } from 'vue-router';
-import { watch, computed } from 'vue';
+import { watch } from 'vue';
 import { useConfirm } from "primevue/useconfirm";
 
 export default {
@@ -219,9 +167,6 @@ export default {
 
         const { editOn } = props
         const editMode = eval(editOn)
-        const route = useRoute()
-        const { params } = route
-        const registrationId = params.id || null
         const store = useStore()
         const { state, dispatch } = store
         const confirm = useConfirm()
@@ -257,8 +202,6 @@ export default {
 
         const getNapanam = () => {
             store.dispatch('vaccines/GET_BY_QR', { id: qr_pass_id.value })
-            store.dispatch('vaccines/GET_VACCINATION', { id: qr_pass_id.value })
-            store.dispatch('vaccines/GET_SELECTION_SESSIONS')
         }
 
         const onSubmit = handleSubmit((values, actions) => {
@@ -371,7 +314,7 @@ export default {
         ScrollTop,
         Panel,
         Toolbar,
-        VaccineDialogForm
+        Vaccination,
     },
     computed: {
         suffix_value() {
@@ -439,11 +382,6 @@ export default {
             return this.$store.state.vaccines.sessions
 
         },
-        dosages() {
-
-            return this.$store.state.vaccines.vaccination.dosages
-
-        },
         provinces() {
 
             return this.$store.state.vaccines.selections.addresses.province_value
@@ -495,19 +433,6 @@ export default {
         }
     },
     methods: {
-        openDosage() {
-            this.$store.state.vaccines.displayDosage = true;
-            this.$store.dispatch('vaccines/GET_SELECTION_BRANDS')
-            this.$store.dispatch('vaccines/GET_USERS')
-            this.$store.dispatch('vaccines/RESET_DOSAGE')
-            // this.$store.state.vaccines.vaccination.user_id = this.$store.state.vaccines.default_id.id;
-        },
-        showDosage(id) {
-            this.$store.state.vaccines.displayDosage = true;
-            this.$store.dispatch('vaccines/GET_SELECTION_BRANDS')
-            this.$store.dispatch('vaccines/GET_USERS')
-            // this.$store.dispatch('vaccines/GET_VACCINATION', {id})
-        },
         removeDosage(index) {
             this.$store.state.vaccines.vaccination.dosages.splice(index, 1);
         },
@@ -548,6 +473,10 @@ export default {
         toggleWrite() {
             this.writeOn = !this.writeOn
         },
+    },
+    created() {
+        this.$store.dispatch('vaccines/GET_PRES')
+        this.$store.dispatch('vaccines/GET_POST')
     },
     mounted() {
 
