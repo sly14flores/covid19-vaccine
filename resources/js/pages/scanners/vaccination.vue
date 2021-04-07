@@ -66,6 +66,7 @@ import ConfirmDialog from 'primevue/confirmdialog/sfc';
 import VaccineDialogForm from "./Dosage.vue";
 
 import { reactive, ref, toRef } from 'vue';
+import { useStore } from 'vuex';
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 
@@ -75,6 +76,8 @@ export default {
 
         const { editOn } = props
         const editMode = eval(editOn)
+        const store = useStore()
+        const { state, dispatch } = store
 
         const vaccination = reactive({
             ...state.vaccines.vaccination,
