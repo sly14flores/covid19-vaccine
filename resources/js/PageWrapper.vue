@@ -24,10 +24,32 @@ import AppProfile from './AppProfile.vue';
 import AppMenu from './AppMenu.vue';
 import AppFooter from './AppFooter.vue';
 
-import menu from './menu.js';
+import { useStore } from 'vuex';
+
+import { summary, registrations, users, facilities, vaccines } from './menu.js';
 
 export default {
   props: ['pageComponent'],
+  setup() {
+
+    const store = useStore()
+
+    const isAdmin = store.state.profile.group_id == 1
+    const _users =  (isAdmin)?users:[]
+
+    const menu = [
+      ...summary,
+      ...registrations,
+      ...facilities,
+      ..._users,
+      ...vaccines
+    ]
+
+    return {
+      menu
+    }
+
+  },
   components: {
     AppTopBar,
     AppProfile,
@@ -41,7 +63,6 @@ export default {
       staticMenuInactive: false,
       overlayMenuActive: false,
       mobileMenuActive: false,
-      menu,     
     }
   },
   computed: {
