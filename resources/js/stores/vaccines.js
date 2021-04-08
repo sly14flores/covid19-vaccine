@@ -82,6 +82,7 @@ const dosage = {
     id: 0,
     user_id: null,
     brand_name: null,
+    qr_pass_id: null,
     vaccine_name: null,
     site_of_injection: null,
     expiry_date: null,
@@ -315,9 +316,8 @@ const actions = {
             dispatch('GET_BY_QR_ERROR',response)
         }
     },
-    GET_BY_QR_SUCCESS({dispatch,commit},payload) {
+    GET_BY_QR_SUCCESS({state,dispatch,commit},payload) {
         const { id, data } = payload
-        // dispatch('GET_VACCINATIONS', {id})
         commit('NAPANAM', data)
         commit('FETCH', true)
         commit('TOGGLE_WRITE', true)
@@ -420,7 +420,7 @@ const actions = {
             const { response } = error
         }
     },
-    async UPDATE_VACCINATION({state}, payload) {
+    async UPDATE_VACCINATION({commit,state}, payload) {
         try {
             const { data: { data } } = await updateVaccination({ id: state.vaccine.qr_pass_id, vaccination: payload })
             return true
@@ -432,7 +432,15 @@ const actions = {
     RESET_DOSAGE({commit}) {
         commit('RESET_DOSAGE')
     },
-    ADD_DOSAGE({commit},payload) {
+    ADD_DOSAGE({state,commit},payload) {
+
+        const d = payload.expiry_date
+        const expiry_date = d.setDate(d.getDate() + 1);
+        payload.expiry_date = new Date(expiry_date).toISOString().split('T')[0];
+        payload.qr_pass_id = state.vaccine.qr_pass_id
+
+        console.log(payload)
+
         commit('ADD_DOSAGE', payload)
     },
     TOGGLE_DOSAGE_FORM({commit},payload) {

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Dialog header="Dosage" v-model:visible="displayDosage" :closable="false" :closeOnEscape="true" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">   
+        <Dialog header="Dosage" v-model:visible="displayDosage" :closable="false" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">   
             <hr />
             <form>
                 <div class="p-fluid p-formgrid p-grid">
@@ -84,26 +84,25 @@
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <div class="p-field-radiobutton">
-                                        <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="vv.consent.$model" />
+                                        <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="vv.consent.$model" v-on:click="displayPreDatatable = true, displayReason = false" />
                                         <label for="yes_consent">Yes</label>
                                     </div>
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <div class="p-field-radiobutton">
-                                        <RadioButton id="no_consent" name="consent" value="02_No" v-model="vv.consent.$model" />
+                                        <RadioButton id="no_consent" name="consent" value="02_No" v-model="vv.consent.$model" v-on:click="displayPreDatatable = false, displayReason = true" />
                                         <label for="no_consent">No</label>
                                     </div>
                                 </div>
-                                <div class="p-field p-col-12 p-md-2"></div>
-                                 <div class="p-field p-col-12 p-md-1">
-                                    <p class="p-text-sm">* Reason</p>
+                                 <div class="p-field p-col-12 p-md-1" v-if="displayReason">
+                                    <p class="p-text-sm">Reason</p>
                                 </div>
-                                <div class="p-field p-col-12 p-md-5">
+                                <div class="p-field p-col-12 p-md-7" v-if="displayReason">
                                     <Dropdown class="p-shadow-1 p-inputtext-sm" id="reason" optionLabel="name" :options="reasons" v-model="vv.reason.$model" optionValue="id" placeholder="Select a Reason" />
                                 </div>
                             </div>
                         </div>
-                        <DataTable class="p-datatable-sm" :value="dosage.pre_assessment.assessments" dataKey="key">
+                        <DataTable class="p-datatable-sm" :value="dosage.pre_assessment.assessments" dataKey="key" v-if="displayPreDatatable">
                             <Column field="description" header="Description"></Column>
                             <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
                                 <template #body="slotProps">
@@ -243,7 +242,13 @@ export default {
             vv,
             closeDosage
         }
-    },     
+    },
+    data(){
+        return {
+           displayPreDatatable: false,
+           displayReason: false
+        }
+    },
     components: {
         Button,
         TabView,
