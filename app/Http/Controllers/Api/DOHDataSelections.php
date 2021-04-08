@@ -48,6 +48,7 @@ class DOHDataSelections extends Controller
             "civil_status_value" => $this->civilStatusValue(),
             "category_value" => $this->categoryValue(),
             "category_id_value" => $this->categoryIdValue(),
+            "priority_group_value" => $this->priorityGroupValue(),
             "employment_status_value" => $this->employmentStatusValue(),
             "profession_value" => $this->professionValue(),
             "allergy_value" => $this->allergyValue(),

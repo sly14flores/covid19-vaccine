@@ -66,6 +66,80 @@ trait SelectionsRegistration
         ];
     }
 
+    public function priorityGroupValue()
+    {
+        return [
+            [
+                "name"=>"Health Care Workers",
+                "id"=>"01_A1",
+                "subs"=> [
+                    ["name"=>"COVID-19 Referral Hospitals", "id"=>"01_A1.1"],
+                    ["name"=>"Hopitals Catering to C19 Cases", "id"=>"02_A1.2"],
+                    ["name"=>"Quarantine Isolation Facilities", "id"=>"03_A1.3"],
+                    ["name"=>"Remaining Hospitals", "id"=>"04_A1.4"],
+                    ["name"=>"Government Owned Community Based Primary Care Facilities", "id"=>"05_A1.5"],
+                    ["name"=>"Stand-alone Clinics and Diagnostics", "id"=>"06_A1.6"],
+                    ["name"=>"Closed Settings and Institutions", "id"=>"07_A1.7"],
+                ]
+            ],
+            [
+                "name"=>"Senior Citizens",
+                "id"=>"02_A2",
+                "subs"=> []
+            ],
+            [
+                "name"=>"Adult with Comorbidity",
+                "id"=>"03_A3",
+                "subs"=> []
+            ],
+            [
+                "name"=>"Frontline Personnel in Essential Sector",
+                "id"=>"04_A4",
+                "subs"=> []
+            ],
+            [
+                "name"=>"Poor Population",
+                "id"=>"05_A5",
+                "subs"=> []
+            ],
+            [
+                "name"=>"Teachers and Social Workers",
+                "id"=>"06_B1",
+                "subs"=> []
+            ],
+            [
+                "name"=>"Other Government Workers",
+                "id"=>"07_B2",
+                "subs"=> []
+            ],
+            [
+                "name"=>"Other Essential Workers",
+                "id"=>"08_B3",
+                "subs"=> []
+            ],
+            [
+                "name"=>"Socio-demographic Groups",
+                "id"=>"09_B4",
+                "subs"=> []
+            ],
+            [
+                "name"=>"Overseas Filipino Workers",
+                "id"=>"10_B5",
+                "subs"=> []
+            ],
+            [
+                "name"=>"Other Remaining Workforce",
+                "id"=>"11_B6",
+                "subs"=> []
+            ], 
+            [
+                "name"=>"Rest of the Population",
+                "id"=>"12_C",
+                "subs"=> []
+            ],                                                                                                                                                                                                  
+        ];
+    }
+
     public function employmentStatusValue()
     {
         return [
