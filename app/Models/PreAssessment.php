@@ -35,7 +35,7 @@ class PreAssessment extends Model
      * @var array
      */
     protected $casts = [
-        'consent' => 'boolean',
+        // 'consent' => 'boolean',
     ];
     
     /**
