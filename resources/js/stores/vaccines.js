@@ -66,9 +66,9 @@ const getVaccination = (payload) => {
 
 const UPDATE_VACCINATION = `${api_url}/api/doh/vaccine/:id`
 const updateVaccination = (payload) => {
-    const { id } = payload
+    const { id, vaccination } = payload
     const url =  route(UPDATE_VACCINATION, { id })
-    return axios.put(url, payload)
+    return axios.put(url, vaccination)
 }
 
 const vaccination = {
@@ -345,7 +345,6 @@ const actions = {
             Swal.close()
         } catch (error) {
             const { response } = error
-            console.log(response)
         }
     },
     async GET_SELECTION_SESSIONS({commit}) {
@@ -354,7 +353,6 @@ const actions = {
             commit('SESSIONS', data)
         } catch (error) {
             const { response } = error
-            console.log(response)
         }
     },
     async GET_SELECTION_BRANDS({commit}) {
@@ -363,7 +361,6 @@ const actions = {
             commit('BRANDS', data)
         } catch (error) {
             const { response } = error
-            console.log(response)
         }
     },
     async GET_SELECTION_DEFERRALS({commit}) {
@@ -372,7 +369,6 @@ const actions = {
             commit('DEFERRALS', data)
         } catch (error) {
             const { response } = error
-            console.log(response)
         }
     },
     async GET_VACCINATORS({commit}) {
@@ -381,7 +377,6 @@ const actions = {
             commit('VACCINATORS', data)
         } catch (error) {
             const { response } = error
-            console.log(response)
         }
     },
     async GET_PRES({commit}) {
@@ -390,7 +385,6 @@ const actions = {
             commit('PRES', data)
         } catch (error) {
             const { response } = error
-            console.log(response)
         }
     },
     async GET_POST({commit}) {
@@ -399,7 +393,6 @@ const actions = {
             commit('POST', data)
         } catch (error) {
             const { response } = error
-            console.log(response)
         }
     },
     async GET_DEFAULT_ID({commit}) {
@@ -408,7 +401,6 @@ const actions = {
             commit('DEFAULT_ID', data)
         } catch (error) {
             const { response } = error
-            console.log(response)
         }
     },
     async GET_REASONS({commit}) {
@@ -417,7 +409,6 @@ const actions = {
             commit('REASONS', data)
         } catch (error) {
             const { response } = error
-            console.log(response)
         }
     },
     async GET_VACCINATION({commit}, payload) {
@@ -427,18 +418,14 @@ const actions = {
             commit('VACCINATION',data)
         } catch (error) {
             const { response } = error
-            console.log(response)
         }
     },
     async UPDATE_VACCINATION({state}, payload) {
-        
         try {
-            const { data: { data } } = await updateVaccination({ id: state.vaccine.qr_pass_id })
-            console.log(data)
+            const { data: { data } } = await updateVaccination({ id: state.vaccine.qr_pass_id, vaccination: payload })
             return true
         } catch (error) {
             const { response } = error
-            console.log(response)
             return false
         }
     },
@@ -447,7 +434,6 @@ const actions = {
     },
     ADD_DOSAGE({commit},payload) {
         commit('ADD_DOSAGE', payload)
-        console.log(payload)
     },
     TOGGLE_DOSAGE_FORM({commit},payload) {
         commit('TOGGLE_DOSAGE_FORM',payload)
