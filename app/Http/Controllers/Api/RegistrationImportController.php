@@ -41,52 +41,22 @@ class RegistrationImportController extends Controller
 
         $this->properties = [
             'qr_pass_id', #0
-            'category', #1
-            'category_id', #2
-            'category_id_no', #3
-            'philhealth', #4
-            'pwd_id', #5
-            'last_name', #6
-            'first_name', #7
-            'middle_name', #8
-            'suffix', #9
-            'contact_no', #10
-            'address', #11
-            'region', #12
-            'province', #13
-            'town_city', #14
-            'barangay', #15
-            'gender', #16
-            'birthdate', #17
-            'civil_status', #18
-            'employment_status', #19
-            'direct_interaction', #20
-            'profession', #21
-            'employer_name', #22
-            'employer_municipality', #23
-            'employer_address', #24
-            'employer_contact_no', #25
-            'pregnancy_status', #26
-            'drug_allergy', #27
-            'food_allergy', #28
-            'insect_allergy', #29
-            'latex_allergy', #30
-            'mold_allergy', #31
-            'pet_allergy', #32
-            'pollen_allergy', #33
-            'with_comorbidity', #34
-            'hypertension', #35
-            'heart_disease', #36
-            'kidney_disease', #37
-            'diabetes_mellitus', #38
-            'bronchial_asthma', #39
-            'immuno_deficiency_status', #40
-            'cancer', #41
-            'comorbidity_others', #42
-            'diagnosed', #43
-            'diagnosed_date', #44
-            'covid_classification', #45
-            'consent_vaccination' #46
+            'priority_group', #1
+            'sub_priority_group', #2
+            'last_name', #3                               
+            'first_name', #4
+            'middle_name', #5
+            'suffix', #6
+            'contact_no', #7
+            'region', #8
+            'province', #9
+            'town_city', #10
+            'barangay', #11
+            'gender', #12                                                           
+            'birthdate', #13
+            'occupation', #14
+            'allergic_to_vaccines', #15            
+            'with_comorbidity', #16
         ];
 
         $this->validations = [
@@ -99,6 +69,33 @@ class RegistrationImportController extends Controller
                 'default_unknown' => false,
                 'default_category_id' => false,
             ], #0
+            'last_name' => [
+                'header' => 'Last_Name',                
+                'required' => true,
+                'formatted' => false,
+                'formats' => [],
+                'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
+            ], #3
+            'first_name' => [
+                'header' => 'First_Name',                
+                'required' => true,
+                'formatted' => false,
+                'formats' => [],
+                'na_if_empty' => false, 
+                'default_unknown' => false,
+                'default_category_id' => false,             
+            ], #4
+            'middle_name' => [
+                'header' => 'Middle_Name',                
+                'required' => true,
+                'formatted' => false,
+                'formats' => [],
+                'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,
+            ], #5           
             'category' => [
                 'header' => 'Category',                
                 'required' => true,
@@ -144,33 +141,6 @@ class RegistrationImportController extends Controller
                 'default_unknown' => false,
                 'default_category_id' => false,
             ], #5
-            'last_name' => [
-                'header' => 'Last_Name',                
-                'required' => true,
-                'formatted' => false,
-                'formats' => [],
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #6
-            'first_name' => [
-                'header' => 'First_Name',                
-                'required' => true,
-                'formatted' => false,
-                'formats' => [],
-                'na_if_empty' => false, 
-                'default_unknown' => false,
-                'default_category_id' => false,             
-            ], #7
-            'middle_name' => [
-                'header' => 'Middle_Name',                
-                'required' => true,
-                'formatted' => false,
-                'formats' => [],
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #8
             'suffix' => [
                 'header' => 'Suffix',                
                 'required' => true,
