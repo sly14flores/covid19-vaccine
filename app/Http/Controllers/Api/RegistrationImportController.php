@@ -69,6 +69,24 @@ class RegistrationImportController extends Controller
                 'default_unknown' => false,
                 'default_category_id' => false,
             ], #0
+            'priority_group' => [
+                'header' => 'Priority Group',                
+                'required' => true,
+                'formatted' => true,
+                'formats' => collect($this->priorityGroupValue())->pluck('id'),
+                'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,                     
+            ], #1
+            'sub_priority_group' => [
+                'header' => 'Sub Priority Group',                
+                'required' => true,
+                'formatted' => true,
+                'formats' => [],
+                'na_if_empty' => false,
+                'default_unknown' => false,
+                'default_category_id' => false,                     
+            ], #2            
             'last_name' => [
                 'header' => 'Last_Name',                
                 'required' => true,
@@ -77,7 +95,7 @@ class RegistrationImportController extends Controller
                 'na_if_empty' => false,
                 'default_unknown' => false,
                 'default_category_id' => false,
-            ], #3
+            ], #3            
             'first_name' => [
                 'header' => 'First_Name',                
                 'required' => true,
@@ -95,51 +113,6 @@ class RegistrationImportController extends Controller
                 'na_if_empty' => false,
                 'default_unknown' => false,
                 'default_category_id' => false,
-            ], #5           
-            'category' => [
-                'header' => 'Category',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => collect($this->categoryValue())->pluck('id'),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,                     
-            ], #1
-            'category_id' => [
-                'header' => 'Category_ID',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => collect($this->categoryIdValue())->pluck('id'),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => true,         
-            ], #2
-            'category_id_no' => [
-                'header' => 'Category_ID_Number',                
-                'required' => false,
-                'formatted' => false,
-                'formats' => [],
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #3
-            'philhealth' => [
-                'header' => 'PhilHealth_ID',                
-                'required' => true,
-                'formatted' => false,
-                'formats' => [],
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,           
-            ], #4
-            'pwd_id' => [
-                'header' => 'PWD ID',                
-                'required' => false,
-                'formatted' => false,
-                'formats' => [],
-                'na_if_empty' => true,
-                'default_unknown' => false,
-                'default_category_id' => false,
             ], #5
             'suffix' => [
                 'header' => 'Suffix',                
@@ -149,7 +122,7 @@ class RegistrationImportController extends Controller
                 'na_if_empty' => false,
                 'default_unknown' => false,
                 'default_category_id' => false,
-            ], #9
+            ], #6
             'contact_no' => [
                 'header' => 'Contact_No',                
                 'required' => true,
@@ -158,16 +131,7 @@ class RegistrationImportController extends Controller
                 'na_if_empty' => false,
                 'default_unknown' => false,
                 'default_category_id' => false,
-            ], #10
-            'address' => [
-                'header' => 'Current_Residence:_Unit/Building/House_Number,_Street_Name',
-                'required' => false,
-                'formatted' => false,
-                'formats' => [],
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #11
+            ], #7   
             'region' => [
                 'header' => 'Current_Residence:_Region',                
                 'required' => true,
@@ -176,7 +140,7 @@ class RegistrationImportController extends Controller
                 'na_if_empty' => false,
                 'default_unknown' => false,
                 'default_category_id' => false,
-            ], #12
+            ], #8
             'province' => [
                 'header' => 'Current_Residence:Province',
                 'required' => true,
@@ -185,7 +149,7 @@ class RegistrationImportController extends Controller
                 'na_if_empty' => false,
                 'default_unknown' => false,
                 'default_category_id' => false,
-            ], #13
+            ], #9
             'town_city' => [
                 'header' => 'Current_Residence:Municipality/City',                
                 'required' => true,
@@ -194,7 +158,7 @@ class RegistrationImportController extends Controller
                 'na_if_empty' => false,
                 'default_unknown' => false,
                 'default_category_id' => false,
-            ], #14
+            ], #10
             'barangay' => [
                 'header' => 'Current_Residence:Barangay',                
                 'required' => true,
@@ -203,7 +167,7 @@ class RegistrationImportController extends Controller
                 'na_if_empty' => false,
                 'default_unknown' => false,
                 'default_category_id' => false,
-            ], #15
+            ], #11
             'gender' => [
                 'header' => 'Sex',                
                 'required' => true,
@@ -212,7 +176,7 @@ class RegistrationImportController extends Controller
                 'na_if_empty' => false,
                 'default_unknown' => false,
                 'default_category_id' => false,
-            ], #16
+            ], #12
             'birthdate' => [
                 'header' => 'Birthdate',                
                 'required' => true,
@@ -221,151 +185,25 @@ class RegistrationImportController extends Controller
                 'na_if_empty' => false,
                 'default_unknown' => false,
                 'default_category_id' => false,
-            ], #17
-            'civil_status' => [
-                'header' => 'Civil_Status',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => collect($this->civilStatusValue())->pluck('id'),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #18
-            'employment_status' => [
-                'header' => 'Employment_Status',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => collect($this->employmentStatusValue())->pluck('id'),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,           
-            ], #19
-            'direct_interaction' => [
-                'header' => 'Directly_in_interaction_with_COVID_patient',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNo(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #20
-            'profession' => [
-                'header' => 'Profession',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => collect($this->professionValue())->pluck('id'),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #21
-            'employer_name' => [
-                'header' => 'Name_of_Employer',                
+            ], #13
+            'occupation' => [
+                'header' => 'Occupation',                
                 'required' => true,
                 'formatted' => false,
                 'formats' => [],
                 'na_if_empty' => false,
                 'default_unknown' => false,
                 'default_category_id' => false,
-            ], #22
-            'employer_municipality' => [
-                'header' => 'Province/HUC/ICC_of_Employer',                
+            ], #14
+            'allergic_to_vaccines' => [
+                'header' => 'Allergy to vaccines or components of vaccines',                
                 'required' => true,
                 'formatted' => true,
-                'formats' => collect($this->employerMunicipalityValue())->pluck('id'),
+                'formats' => $this->yesNone(),
                 'na_if_empty' => false,
                 'default_unknown' => false,
                 'default_category_id' => false,
-            ], #23
-            'employer_address' => [
-                'header' => 'Address_of_Employer',                
-                'required' => true,
-                'formatted' => false,
-                'formats' => [],
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #24
-            'employer_contact_no' => [
-                'header' => 'Contact_number_of_employer',                
-                'required' => true,
-                'formatted' => false,
-                'formats' => [],
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #25
-            'pregnancy_status' => [
-                'header' => 'Pregnancy_status',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->pregnantStatus(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #26
-            'drug_allergy' => [
-                'header' => 'Drug_Allergy',               
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNo(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #27
-            'food_allergy' => [
-                'header' => 'Food_Allergy',              
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNo(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #28
-            'insect_allergy' => [
-                'header' => 'Insect_Allergy',            
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNo(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,           
-            ], #29
-            'latex_allergy' => [
-                'header' => 'Latex_Allergy',           
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNo(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #30
-            'mold_allergy' => [
-                'header' => 'Mold_Allergy',            
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNo(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #31
-            'pet_allergy' => [
-                'header' => 'Pet_Allergy',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNo(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #32
-            'pollen_allergy' => [
-                'header' => 'Pollen_Allergy',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNo(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #33
+            ], #15
             'with_comorbidity' => [
                 'header' => 'With_Comorbidity',                
                 'required' => true,
@@ -374,115 +212,322 @@ class RegistrationImportController extends Controller
                 'na_if_empty' => false,
                 'default_unknown' => false,
                 'default_category_id' => false,
-            ], #34
-            'hypertension' => [
-                'header' => 'Hypertension',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNo(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #35
-            'heart_disease' => [
-                'header' => 'Heart_Disease',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNo(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #36
-            'kidney_disease' => [
-                'header' => 'Kidney_Disease',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNo(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #37
-            'diabetes_mellitus' => [
-                'header' => 'Diabetes_Mellitus',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNo(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #38
-            'bronchial_asthma' => [
-                'header' => 'Bronchial_Asthma',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNo(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #39
-            'immuno_deficiency_status' => [
-                'header' => 'Immunodeficiency_Status',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNo(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #40
-            'cancer' => [
-                'header' => 'Cancer',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNo(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #41
-            'comorbidity_others' => [
-                'header' => 'Others',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNo(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #42
-            'diagnosed' => [
-                'header' => 'Patient_was_diagnosed_with_COVID_19',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNo(),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #43
-            'diagnosed_date' => [
-                'header' => 'Date_of_first_positive_result',                
-                'required' => false,
-                'formatted' => false,
-                'formats' => [],
-                'na_if_empty' => true,
-                'default_unknown' => false,
-                'default_category_id' => false,               
-            ], #44
-            'covid_classification' => [
-                'header' => 'Classification_of_COVID_19',                
-                'required' => false,
-                'formatted' => true,
-                'formats' => collect($this->covidClassificationValue())->pluck('id'),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,               
-            ], #45
-            'consent_vaccination'  => [
-                'header' => 'Willing to be vaccinated?',                
-                'required' => true,
-                'formatted' => true,
-                'formats' => $this->yesNoUnknown(),
-                'na_if_empty' => false,
-                'default_unknown' => true,
-                'default_category_id' => false,
-            ] #46
+            ], #16          
+            // 'category' => [
+            //     'header' => 'Category',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => collect($this->categoryValue())->pluck('id'),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,                     
+            // ], #1
+            // 'category_id' => [
+            //     'header' => 'Category_ID',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => collect($this->categoryIdValue())->pluck('id'),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => true,         
+            // ], #2
+            // 'category_id_no' => [
+            //     'header' => 'Category_ID_Number',                
+            //     'required' => false,
+            //     'formatted' => false,
+            //     'formats' => [],
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #3
+            // 'philhealth' => [
+            //     'header' => 'PhilHealth_ID',                
+            //     'required' => true,
+            //     'formatted' => false,
+            //     'formats' => [],
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,           
+            // ], #4
+            // 'pwd_id' => [
+            //     'header' => 'PWD ID',                
+            //     'required' => false,
+            //     'formatted' => false,
+            //     'formats' => [],
+            //     'na_if_empty' => true,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #5
+            // 'address' => [
+            //     'header' => 'Current_Residence:_Unit/Building/House_Number,_Street_Name',
+            //     'required' => false,
+            //     'formatted' => false,
+            //     'formats' => [],
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #11
+            // 'civil_status' => [
+            //     'header' => 'Civil_Status',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => collect($this->civilStatusValue())->pluck('id'),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #18
+            // 'employment_status' => [
+            //     'header' => 'Employment_Status',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => collect($this->employmentStatusValue())->pluck('id'),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,           
+            // ], #19
+            // 'direct_interaction' => [
+            //     'header' => 'Directly_in_interaction_with_COVID_patient',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNo(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #20
+            // 'profession' => [
+            //     'header' => 'Profession',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => collect($this->professionValue())->pluck('id'),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #21
+            // 'employer_name' => [
+            //     'header' => 'Name_of_Employer',                
+            //     'required' => true,
+            //     'formatted' => false,
+            //     'formats' => [],
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #22
+            // 'employer_municipality' => [
+            //     'header' => 'Province/HUC/ICC_of_Employer',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => collect($this->employerMunicipalityValue())->pluck('id'),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #23
+            // 'employer_address' => [
+            //     'header' => 'Address_of_Employer',                
+            //     'required' => true,
+            //     'formatted' => false,
+            //     'formats' => [],
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #24
+            // 'employer_contact_no' => [
+            //     'header' => 'Contact_number_of_employer',                
+            //     'required' => true,
+            //     'formatted' => false,
+            //     'formats' => [],
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #25
+            // 'pregnancy_status' => [
+            //     'header' => 'Pregnancy_status',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->pregnantStatus(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #26
+            // 'drug_allergy' => [
+            //     'header' => 'Drug_Allergy',               
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNo(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #27
+            // 'food_allergy' => [
+            //     'header' => 'Food_Allergy',              
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNo(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #28
+            // 'insect_allergy' => [
+            //     'header' => 'Insect_Allergy',            
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNo(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,           
+            // ], #29
+            // 'latex_allergy' => [
+            //     'header' => 'Latex_Allergy',           
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNo(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #30
+            // 'mold_allergy' => [
+            //     'header' => 'Mold_Allergy',            
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNo(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #31
+            // 'pet_allergy' => [
+            //     'header' => 'Pet_Allergy',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNo(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #32
+            // 'pollen_allergy' => [
+            //     'header' => 'Pollen_Allergy',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNo(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #33
+            // 'with_comorbidity' => [
+            //     'header' => 'With_Comorbidity',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNone(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #34
+            // 'hypertension' => [
+            //     'header' => 'Hypertension',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNo(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #35
+            // 'heart_disease' => [
+            //     'header' => 'Heart_Disease',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNo(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #36
+            // 'kidney_disease' => [
+            //     'header' => 'Kidney_Disease',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNo(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #37
+            // 'diabetes_mellitus' => [
+            //     'header' => 'Diabetes_Mellitus',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNo(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #38
+            // 'bronchial_asthma' => [
+            //     'header' => 'Bronchial_Asthma',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNo(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #39
+            // 'immuno_deficiency_status' => [
+            //     'header' => 'Immunodeficiency_Status',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNo(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #40
+            // 'cancer' => [
+            //     'header' => 'Cancer',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNo(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #41
+            // 'comorbidity_others' => [
+            //     'header' => 'Others',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNo(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #42
+            // 'diagnosed' => [
+            //     'header' => 'Patient_was_diagnosed_with_COVID_19',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNo(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,
+            // ], #43
+            // 'diagnosed_date' => [
+            //     'header' => 'Date_of_first_positive_result',                
+            //     'required' => false,
+            //     'formatted' => false,
+            //     'formats' => [],
+            //     'na_if_empty' => true,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,               
+            // ], #44
+            // 'covid_classification' => [
+            //     'header' => 'Classification_of_COVID_19',                
+            //     'required' => false,
+            //     'formatted' => true,
+            //     'formats' => collect($this->covidClassificationValue())->pluck('id'),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => false,
+            //     'default_category_id' => false,               
+            // ], #45
+            // 'consent_vaccination'  => [
+            //     'header' => 'Willing to be vaccinated?',                
+            //     'required' => true,
+            //     'formatted' => true,
+            //     'formats' => $this->yesNoUnknown(),
+            //     'na_if_empty' => false,
+            //     'default_unknown' => true,
+            //     'default_category_id' => false,
+            // ] #46
         ];
 
 	}
