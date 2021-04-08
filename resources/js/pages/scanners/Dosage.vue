@@ -6,18 +6,18 @@
                 <div class="p-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-4">
                         <label>Vaccinator <i class="p-error">*</i></label>
-                        <Dropdown class="p-shadow-1 p-inputtext-sm" :class="{'p-invalid': vv.user_id.$error}" id="user_id" optionLabel="name" :options="users" v-model="vv.user_id.$model" optionValue="id" placeholder="Select a vaccinator" />
+                        <Dropdown class="p-shadow-1 p-inputtext-sm" :class="{'p-invalid': vv.user_id.$error}" id="user_id" optionLabel="name" :options="vaccinators" v-model="vv.user_id.$model" optionValue="id" placeholder="Select a vaccinator" />
                         <small v-if="vv.user_id.$error" class="p-error">This field is required</small>
-                    </div>
-                    <div class="p-field p-col-12 p-md-4">
-                        <label>Vaccine Name <i class="p-error">*</i></label>
-                        <Dropdown class="p-shadow-1 p-inputtext-sm" :class="{'p-invalid': vv.vaccine_name.$error}" id="vaccine_name" optionLabel="name" :options="brands" v-model="vv.vaccine_name.$model" optionValue="id" placeholder="Select a vaccine name" />
-                        <small v-if="vv.vaccine_name.$error" class="p-error">This field is required</small>
                     </div>
                     <div class="p-field p-col-12 p-md-4">
                         <label>Vaccine Manufacturer Name <i class="p-error">*</i></label>
                         <Dropdown class="p-shadow-1 p-inputtext-sm" :class="{'p-invalid': vv.brand_name.$error}" id="brand_name" optionLabel="name" :options="brands" v-model="vv.brand_name.$model" optionValue="id" placeholder="Select a manufacturer name" />
                         <small v-if="vv.brand_name.$error" class="p-error">This field is required</small>
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <label>Vaccine Name <i class="p-error">*</i></label>
+                        <Dropdown class="p-shadow-1 p-inputtext-sm" :class="{'p-invalid': vv.vaccine_name.$error}" id="vaccine_name" optionLabel="name" :options="vaccines" v-model="vv.vaccine_name.$model" optionValue="id" placeholder="Select a vaccine name" />
+                        <small v-if="vv.vaccine_name.$error" class="p-error">This field is required</small>
                     </div>
                 </div>
                 <div class="p-fluid p-formgrid p-grid">
@@ -77,6 +77,32 @@
                             <i class="pi pi-check-circle p-mr-2"></i>
                             <span>Pre-Assessment</span>
                         </template>
+                        <div class="p-fluid">
+                            <div class="p-fluid p-formgrid p-grid p-mt-2">
+                                <div class="p-field p-col-12 p-md-2">
+                                    <p class="p-text-sm">Consent</p>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <div class="p-field-radiobutton">
+                                        <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="vv.consent.$model" />
+                                        <label for="yes_consent">Yes</label>
+                                    </div>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <div class="p-field-radiobutton">
+                                        <RadioButton id="no_consent" name="consent" value="02_No" v-model="vv.consent.$model" />
+                                        <label for="no_consent">No</label>
+                                    </div>
+                                </div>
+                                <div class="p-field p-col-12 p-md-2"></div>
+                                 <div class="p-field p-col-12 p-md-1">
+                                    <p class="p-text-sm">* Reason</p>
+                                </div>
+                                <div class="p-field p-col-12 p-md-5">
+                                    <Dropdown class="p-shadow-1 p-inputtext-sm" id="reason" optionLabel="name" :options="reasons" v-model="vv.reason.$model" optionValue="id" placeholder="Select a Reason" />
+                                </div>
+                            </div>
+                        </div>
                         <DataTable class="p-datatable-sm" :value="dosage.pre_assessment.assessments" dataKey="key">
                             <Column field="description" header="Description"></Column>
                             <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
@@ -169,7 +195,15 @@ export default {
             site_of_injection: { required },
             expiry_date: { required },
             batch_number: { required },
-            lot_number: { required }
+            lot_number: { required },
+            diluent: {},
+            date_of_reconstitution: {},
+            time_of_reconstitution: {},
+            diluent_batch_number: {},
+            diluent_lot_number: {},
+            consent: {},
+            reason: {}            
+            
         }
 
         const vv = useVuelidate(rules, {
@@ -180,7 +214,14 @@ export default {
             site_of_injection: toRef(dosage, 'site_of_injection'),
             expiry_date: toRef(dosage, 'expiry_date'),
             batch_number: toRef(dosage, 'batch_number'),
-            lot_number: toRef(dosage, 'lot_number')
+            lot_number: toRef(dosage, 'lot_number'),
+            diluent: toRef(dosage, 'diluent'),
+            date_of_reconstitution: toRef(dosage, 'date_of_reconstitution'),
+            time_of_reconstitution: toRef(dosage, 'time_of_reconstitution'),
+            diluent_batch_number: toRef(dosage, 'diluent_batch_number'),
+            diluent_lot_number: toRef(dosage, 'diluent_lot_number'),
+            consent: toRef(dosage.pre_assessment, 'consent'),
+            reason: toRef(dosage.pre_assessment, 'reason')
         })
 
         const closeDosage = () => {
@@ -225,14 +266,29 @@ export default {
             return this.$store.state.vaccines.default_id
 
         },
-        users() {
+        vaccinators() {
 
-            return this.$store.state.vaccines.users
+            return this.$store.state.vaccines.vaccinators
 
         },
         brands() {
 
             return this.$store.state.vaccines.brands
+
+        },
+        vaccines() {
+
+            if (!this.brands) return []
+
+            const brand_name = this.brands.filter(brand_name => {
+                return brand_name.id == this.dosage.brand_name
+            })
+
+            if (brand_name.length==0) return []
+
+            const vaccines = brand_name[0].vaccines
+
+            return vaccines
 
         },
         sites() {
@@ -244,6 +300,11 @@ export default {
 
             return this.$store.state.vaccines.doses
 
+        },
+        reasons() {
+
+            return this.$store.state.vaccines.reasons
+            
         },
         displayDosage() {
 

@@ -5,10 +5,10 @@
                 <div class="p-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-12 p-mt-2">
                         <span class="p-float-label">
-                            <Dropdown id="dropdown" class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="sessions" optionValue="id" v-model="vv.vaccination_session.$model" :class="{'p-invalid': vv.vaccination_session.$error, 'disabled': !writeOn}" :disabled="!writeOn" />
+                            <Dropdown id="dropdown" class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="sessions" optionValue="id" v-model="ss.vaccination_session.$model" :class="{'p-invalid': ss.vaccination_session.$error, 'disabled': !writeOn}" :disabled="!writeOn" />
                             <label for="dropdown">Select a Session</label>
                         </span>
-                        <small v-if="vv.vaccination_session.$error" class="p-error">This field is required</small>
+                        <small v-if="ss.vaccination_session.$error" class="p-error">This field is required</small>
                     </div>
                 </div>
             </form>
@@ -18,7 +18,7 @@
                     <h6>Dosages</h6>
                 </template>
                 <template #right>
-                    <Button label="Add" class="p-button-success p-button-sm" @click="openDosage" />
+                    <Button label="Add" class="p-button-success p-button-sm" @click="openDosage" v-if="writeOn" />
                 </template>
             </Toolbar>
             <DataTable :value="dosages" dataKey="id">
@@ -84,14 +84,14 @@ export default {
             vaccination_session: { required }
         }
 
-        const vv = useVuelidate(rules, {
+        const ss = useVuelidate(rules, {
             vaccination_session: toRef(vaccination, 'vaccination_session'),
         })
 
         const updateVaccination = () => {
             
-            // vv.value.$touch();
-            // if (vv.value.$invalid) return
+            // ss.value.$touch();
+            // if (ss.value.$invalid) return
             
             store.dispatch('vaccines/UPDATE_VACCINATION', vaccination)
 
@@ -100,7 +100,7 @@ export default {
         return {
             vaccination,
             updateVaccination,
-            vv,
+            ss,
             editMode
         }
         
@@ -139,14 +139,16 @@ export default {
         openDosage() {
             this.$store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',true)
             this.$store.dispatch('vaccines/GET_SELECTION_BRANDS')
-            this.$store.dispatch('vaccines/GET_USERS')
+            this.$store.dispatch('vaccines/GET_VACCINATORS')
+            this.$store.dispatch('vaccines/GET_REASONS')
             this.$store.dispatch('vaccines/RESET_DOSAGE')
             // this.$store.state.vaccines.vaccination.user_id = this.$store.state.vaccines.default_id.id;
         },
         showDosage(id) {
             this.$store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',true)
             this.$store.dispatch('vaccines/GET_SELECTION_BRANDS')
-            this.$store.dispatch('vaccines/GET_USERS')
+            this.$store.dispatch('vaccines/GET_VACCINATORS')
+            this.$store.dispatch('vaccines/GET_REASONS')
             // this.$store.dispatch('vaccines/GET_VACCINATION', {id})
         },
          removeDosage(index) {
