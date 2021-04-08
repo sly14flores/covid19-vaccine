@@ -30,9 +30,9 @@ const getSelectionDeferrals = () => {
     return axios.get(SELECTION_DEFERRALS)
 }
 
-const GET_USERS = `${api_url}/api/general/selections/users`
-const getUsers = () => {
-    return axios.get(GET_USERS)
+const GET_VACCINATORS = `${api_url}/api/general/selections/vaccinators`
+const getVaccinators = () => {
+    return axios.get(GET_VACCINATORS)
 }
 
 const GET_PRES = `${api_url}/api/doh/structure/assessments/pre`
@@ -151,10 +151,10 @@ const selections = {
 const sessions = [];
 const brands = [];
 
-const users = [];
+const vaccinators = [];
 const pres = [];
 const post = [];
-const reason_value = [];
+const reasons = [];
 
 const default_id = {};
 
@@ -182,8 +182,8 @@ const state = () => {
         dosage,
         pagination,
         default_id,
-        reason_value,
-        users,
+        reasons,
+        vaccinators,
         pres,
         post,
         deferrals,
@@ -225,8 +225,8 @@ const mutations = {
     DEFAULT_ID(state, payload) {
         state.default_id = {...payload}
     },
-    USERS(state, payload) {
-        state.users = [...payload]
+    VACCINATORS(state, payload) {
+        state.vaccinators = [...payload]
     },
     PRES(state, payload) {
         state.pres = [...payload]
@@ -237,7 +237,7 @@ const mutations = {
         state.dosage.post_assessment.assessments = [...payload]        
     },
     REASONS(state, payload) {
-        state.reason_value = [...payload]
+        state.reasons = [...payload]
     },
     PAGINATION(state, payload) {
         state.pagination = {...payload}
@@ -246,6 +246,7 @@ const mutations = {
         state.fetched = payload
     },
     NAPANAM(state, payload) {
+
         state.vaccine.qr_pass_id = payload.qr_pass_id
         state.vaccine.first_name = payload.first_name
         state.vaccine.middle_name = payload.middle_name
@@ -264,6 +265,7 @@ const mutations = {
         state.dosage.qr_pass_id = payload.qr_pass_id
         state.dosage.pre_assessment.qr_pass_id = payload.qr_pass_id
         state.dosage.post_assessment.qr_pass_id = payload.qr_pass_id
+
     },
     SAVING(state, payload) {
         state.saving = payload
@@ -322,7 +324,7 @@ const actions = {
 
         dispatch('GET_VACCINATION', { id })
         dispatch('GET_SELECTION_SESSIONS')
-
+        
         Swal.close()
     },
     GET_BY_QR_ERROR({commit},payload) {
@@ -373,10 +375,10 @@ const actions = {
             console.log(response)
         }
     },
-    async GET_USERS({commit}) {
+    async GET_VACCINATORS({commit}) {
         try {
-            const { data: { data } } = await getUsers()
-            commit('USERS', data)
+            const { data: { data } } = await getVaccinators()
+            commit('VACCINATORS', data)
         } catch (error) {
             const { response } = error
             console.log(response)
@@ -428,9 +430,10 @@ const actions = {
             console.log(response)
         }
     },
-    async UPDATE_VACCINATION({}, payload) {
+    async UPDATE_VACCINATION({state}, payload) {
+        
         try {
-            const { data } = await updateVaccination(payload)
+            const { data: { data } } = await updateVaccination({ id: state.vaccine.qr_pass_id })
             console.log(data)
             return true
         } catch (error) {
