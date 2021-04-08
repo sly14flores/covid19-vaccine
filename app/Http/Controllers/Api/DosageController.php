@@ -148,7 +148,7 @@ class DosageController extends Controller
             return $this->jsonErrorInvalidParameters();
         }
 
-        $dosage = Dosage::find($id);        
+        $dosage = Dosage::with(['pre_assessment','post_assessment'])->where('id',$id)->first();
 
         if (is_null($dosage)) {
 			return $this->jsonErrorResourceNotFound();
