@@ -62,7 +62,7 @@ import ConfirmDialog from 'primevue/confirmdialog/sfc';
 import VaccineDialogForm from "./Dosage.vue";
 
 import { useStore } from 'vuex';
-import { reactive, ref, toRef } from 'vue';
+import { reactive, watch, toRef } from 'vue';
 
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
@@ -80,6 +80,16 @@ export default {
             ...state.vaccines.vaccination,
         })
 
+        watch(
+            () => state.vaccines.vaccination.id,
+            (data, prevData) => {
+                vaccination.id = state.vaccines.vaccination.id,
+                vaccination.qr_pass_id = state.vaccines.vaccination.qr_pass_id,
+                vaccination.vaccination_session = state.vaccines.vaccination.vaccination_session,
+                vaccination.dosages = state.vaccines.vaccination.dosages
+            }
+        )        
+
         const rules = {
             vaccination_session: { required }
         }
@@ -91,6 +101,7 @@ export default {
         const updateVaccination = () => {
             
             // ss.value.$touch();
+            // console.log(ss)
             // if (ss.value.$invalid) return
             
             store.dispatch('vaccines/UPDATE_VACCINATION', vaccination)
