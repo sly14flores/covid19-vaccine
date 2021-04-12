@@ -510,7 +510,7 @@ class RegistrationImportController extends Controller
                         'age' => $this->computeAge($data['birthdate']),
                         'mobile_number' => $data['contact_no'],
                         'email' => null,
-                        'address' => $data['address'], # Street / Road
+                        // 'address' => $data['address'], # Street / Road
                         'addressbrgy' => $this->dohToBrgy($data['barangay']),
                         'addressmunicity' => $this->dohToMun($data['town_city']),
                         'addressprovince' => $this->dohToProv($data['province']),
@@ -550,10 +550,6 @@ class RegistrationImportController extends Controller
     private function postRegistration($data)
     {
         $message = "";
-
-        if ($data['diagnosed_date']=="NA") {
-            unset($data['diagnosed_date']);
-        }
 
         $get_registration = Registration::where('qr_pass_id',$data['qr_pass_id'])->first();
 
