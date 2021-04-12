@@ -65,469 +65,137 @@ class RegistrationImportController extends Controller
                 'required' => false,
                 'formatted' => false,
                 'formats' => [],
+                'default_no' => false,
                 'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
             ], #0
             'priority_group' => [
                 'header' => 'Priority Group',                
                 'required' => true,
                 'formatted' => true,
                 'formats' => collect($this->priorityGroupValue())->pluck('id'),
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,                     
+                'default_no' => false,
+                'na_if_empty' => false,            
             ], #1
             'sub_priority_group' => [
                 'header' => 'Sub Priority Group',                
                 'required' => true,
                 'formatted' => true,
                 'formats' => [],
-                'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,                     
+                'default_no' => false,
+                'na_if_empty' => false,              
             ], #2            
             'last_name' => [
                 'header' => 'Last_Name',                
                 'required' => true,
                 'formatted' => false,
                 'formats' => [],
+                'default_no' => false,
                 'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
             ], #3            
             'first_name' => [
                 'header' => 'First_Name',                
                 'required' => true,
                 'formatted' => false,
                 'formats' => [],
-                'na_if_empty' => false, 
-                'default_unknown' => false,
-                'default_category_id' => false,             
+                'default_no' => false,
+                'na_if_empty' => false,        
             ], #4
             'middle_name' => [
                 'header' => 'Middle_Name',                
                 'required' => true,
                 'formatted' => false,
                 'formats' => [],
+                'default_no' => false,
                 'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
             ], #5
             'suffix' => [
                 'header' => 'Suffix',                
                 'required' => true,
                 'formatted' => true,
                 'formats' => collect($this->suffixValue())->pluck('id'),
+                'default_no' => false,
                 'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
             ], #6
             'contact_no' => [
                 'header' => 'Contact_No',                
                 'required' => true,
                 'formatted' => false,
                 'formats' => [],
+                'default_no' => false,
                 'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
             ], #7   
             'region' => [
                 'header' => 'Current_Residence:_Region',                
                 'required' => true,
                 'formatted' => true,
                 'formats' => collect($this->regionValue())->pluck('id'),
+                'default_no' => false,
                 'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
             ], #8
             'province' => [
                 'header' => 'Current_Residence:Province',
                 'required' => true,
                 'formatted' => true,
                 'formats' => $this->provinceValue(),
+                'default_no' => false,
                 'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
             ], #9
             'town_city' => [
                 'header' => 'Current_Residence:Municipality/City',                
                 'required' => true,
                 'formatted' => true,
                 'formats' => $this->munCityValue(),
+                'default_no' => false,
                 'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
             ], #10
             'barangay' => [
                 'header' => 'Current_Residence:Barangay',                
                 'required' => true,
                 'formatted' => true,
                 'formats' => [],
+                'default_no' => false,
                 'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
             ], #11
             'gender' => [
                 'header' => 'Sex',                
                 'required' => true,
                 'formatted' => true,
                 'formats' => collect($this->genderValue())->pluck('id'),
+                'default_no' => false,
                 'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
             ], #12
             'birthdate' => [
                 'header' => 'Birthdate',                
                 'required' => true,
                 'formatted' => false,
                 'formats' => [],
+                'default_no' => false,
                 'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
             ], #13
             'occupation' => [
                 'header' => 'Occupation',                
-                'required' => true,
+                'required' => false,
                 'formatted' => false,
                 'formats' => [],
+                'default_no' => false,
                 'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
             ], #14
             'allergic_to_vaccines' => [
                 'header' => 'Allergy to vaccines or components of vaccines',                
                 'required' => true,
                 'formatted' => true,
-                'formats' => $this->yesNone(),
+                'formats' => $this->yesNo(),
+                'default_no' => true,
                 'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
             ], #15
             'with_comorbidity' => [
                 'header' => 'With_Comorbidity',                
                 'required' => true,
                 'formatted' => true,
                 'formats' => $this->yesNone(),
+                'default_no' => false,
                 'na_if_empty' => false,
-                'default_unknown' => false,
-                'default_category_id' => false,
-            ], #16          
-            // 'category' => [
-            //     'header' => 'Category',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => collect($this->categoryValue())->pluck('id'),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,                     
-            // ], #1
-            // 'category_id' => [
-            //     'header' => 'Category_ID',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => collect($this->categoryIdValue())->pluck('id'),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => true,         
-            // ], #2
-            // 'category_id_no' => [
-            //     'header' => 'Category_ID_Number',                
-            //     'required' => false,
-            //     'formatted' => false,
-            //     'formats' => [],
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #3
-            // 'philhealth' => [
-            //     'header' => 'PhilHealth_ID',                
-            //     'required' => true,
-            //     'formatted' => false,
-            //     'formats' => [],
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,           
-            // ], #4
-            // 'pwd_id' => [
-            //     'header' => 'PWD ID',                
-            //     'required' => false,
-            //     'formatted' => false,
-            //     'formats' => [],
-            //     'na_if_empty' => true,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #5
-            // 'address' => [
-            //     'header' => 'Current_Residence:_Unit/Building/House_Number,_Street_Name',
-            //     'required' => false,
-            //     'formatted' => false,
-            //     'formats' => [],
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #11
-            // 'civil_status' => [
-            //     'header' => 'Civil_Status',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => collect($this->civilStatusValue())->pluck('id'),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #18
-            // 'employment_status' => [
-            //     'header' => 'Employment_Status',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => collect($this->employmentStatusValue())->pluck('id'),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,           
-            // ], #19
-            // 'direct_interaction' => [
-            //     'header' => 'Directly_in_interaction_with_COVID_patient',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNo(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #20
-            // 'profession' => [
-            //     'header' => 'Profession',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => collect($this->professionValue())->pluck('id'),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #21
-            // 'employer_name' => [
-            //     'header' => 'Name_of_Employer',                
-            //     'required' => true,
-            //     'formatted' => false,
-            //     'formats' => [],
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #22
-            // 'employer_municipality' => [
-            //     'header' => 'Province/HUC/ICC_of_Employer',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => collect($this->employerMunicipalityValue())->pluck('id'),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #23
-            // 'employer_address' => [
-            //     'header' => 'Address_of_Employer',                
-            //     'required' => true,
-            //     'formatted' => false,
-            //     'formats' => [],
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #24
-            // 'employer_contact_no' => [
-            //     'header' => 'Contact_number_of_employer',                
-            //     'required' => true,
-            //     'formatted' => false,
-            //     'formats' => [],
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #25
-            // 'pregnancy_status' => [
-            //     'header' => 'Pregnancy_status',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->pregnantStatus(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #26
-            // 'drug_allergy' => [
-            //     'header' => 'Drug_Allergy',               
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNo(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #27
-            // 'food_allergy' => [
-            //     'header' => 'Food_Allergy',              
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNo(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #28
-            // 'insect_allergy' => [
-            //     'header' => 'Insect_Allergy',            
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNo(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,           
-            // ], #29
-            // 'latex_allergy' => [
-            //     'header' => 'Latex_Allergy',           
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNo(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #30
-            // 'mold_allergy' => [
-            //     'header' => 'Mold_Allergy',            
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNo(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #31
-            // 'pet_allergy' => [
-            //     'header' => 'Pet_Allergy',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNo(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #32
-            // 'pollen_allergy' => [
-            //     'header' => 'Pollen_Allergy',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNo(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #33
-            // 'with_comorbidity' => [
-            //     'header' => 'With_Comorbidity',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNone(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #34
-            // 'hypertension' => [
-            //     'header' => 'Hypertension',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNo(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #35
-            // 'heart_disease' => [
-            //     'header' => 'Heart_Disease',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNo(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #36
-            // 'kidney_disease' => [
-            //     'header' => 'Kidney_Disease',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNo(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #37
-            // 'diabetes_mellitus' => [
-            //     'header' => 'Diabetes_Mellitus',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNo(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #38
-            // 'bronchial_asthma' => [
-            //     'header' => 'Bronchial_Asthma',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNo(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #39
-            // 'immuno_deficiency_status' => [
-            //     'header' => 'Immunodeficiency_Status',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNo(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #40
-            // 'cancer' => [
-            //     'header' => 'Cancer',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNo(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #41
-            // 'comorbidity_others' => [
-            //     'header' => 'Others',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNo(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #42
-            // 'diagnosed' => [
-            //     'header' => 'Patient_was_diagnosed_with_COVID_19',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNo(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,
-            // ], #43
-            // 'diagnosed_date' => [
-            //     'header' => 'Date_of_first_positive_result',                
-            //     'required' => false,
-            //     'formatted' => false,
-            //     'formats' => [],
-            //     'na_if_empty' => true,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,               
-            // ], #44
-            // 'covid_classification' => [
-            //     'header' => 'Classification_of_COVID_19',                
-            //     'required' => false,
-            //     'formatted' => true,
-            //     'formats' => collect($this->covidClassificationValue())->pluck('id'),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => false,
-            //     'default_category_id' => false,               
-            // ], #45
-            // 'consent_vaccination'  => [
-            //     'header' => 'Willing to be vaccinated?',                
-            //     'required' => true,
-            //     'formatted' => true,
-            //     'formats' => $this->yesNoUnknown(),
-            //     'na_if_empty' => false,
-            //     'default_unknown' => true,
-            //     'default_category_id' => false,
-            // ] #46
+            ], #16
         ];
 
 	}
@@ -605,18 +273,20 @@ class RegistrationImportController extends Controller
         /**
          * Associate columns
          */
+        // return $rows;
         foreach ($rows as $i => $row) {
 
             if ($i == 0) continue;
-            if ($i == 1) continue;
 
             $cols = [];
             foreach($row as $key => $cell) {
-                if ($properties[$key] == "birthdate") {
-                    $birthdate = date("Y-m-d",PODate::excelToTimestamp(intval($cell)));
-                    $cols[$properties[$key]] = ($birthdate=="1970-01-01")?"":$birthdate;
-                } else {
-                    $cols[$properties[$key]] = $cell;
+                if (isset($properties[$key])) {
+                    if ($properties[$key] == "birthdate") {
+                        $birthdate = date("Y-m-d",PODate::excelToTimestamp(intval($cell)));
+                        $cols[$properties[$key]] = ($birthdate=="1970-01-01")?"":$birthdate;
+                    } else {
+                        $cols[$properties[$key]] = $cell;
+                    }
                 }
             }
 
@@ -633,6 +303,8 @@ class RegistrationImportController extends Controller
         $filtered = collect($assocs)->filter(function($row) {
             return $this->isEmptyRow($row)===false;
         });
+
+        // return $filtered;
         
         $validated = [];
         /**
@@ -653,28 +325,13 @@ class RegistrationImportController extends Controller
                     $formatted = $validations[$p]['formatted'];
                     $formats = $validations[$p]['formats'];
 
-                    $default_unknown = $validations[$p]['default_unknown'];
-                    if ($default_unknown) {
+                    $default_no = $validations[$p]['default_no'];
+                    if ($default_no) {
                         if ($value == "") {
-                            $row[$p] = "03_Unknown";
-                            $value = "03_Unknown";
+                            $row[$p] = "02_No";
+                            $value = "02_No";
                         }
-                    }
-
-                    $default_category_id = $validations[$p]['default_category_id'];
-                    if ($default_category_id) {
-                        if ($value == "") {
-                            $row[$p] = "04_Other_ID";
-                            $value = "04_Other_ID";
-                        }
-                    }
-                    
-                    if ($p == "comorbidity_others") {
-                        if ($value != "") {
-                            $row[$p] = "01_Yes";
-                            $value = "01_Yes";
-                        }
-                    }
+                    }                    
 
                     if (gettype($formats)=='object') {
                         $formats = $formats->toArray();
@@ -687,7 +344,7 @@ class RegistrationImportController extends Controller
                                 $formats = $formats->toArray();
                             }
                             if (!in_array($row['province'],$formats)) { # Province is invalid
-                                // $validate[] = "Invalid value for {$header}";
+
                             } else { # Province is valid
                                 $formats = $this->provMunCityValue($row['province']);
                                 if (gettype($formats)=='object') {
@@ -704,16 +361,15 @@ class RegistrationImportController extends Controller
                                 $formats = $formats->toArray();
                             }
                             if (!in_array($row['province'],$formats)) { # Province is invalid
-                                // $validate[] = "Invalid value for {$header}";
+
                             } else { # Province is valid               
                                 // town_city
-                                // $formats = $validations['town_city']['formats'];
                                 $formats = $this->provMunCityValue($row['province']);                                
                                 if (gettype($formats)=='object') {
                                     $formats = $formats->toArray();
                                 }
                                 if (!in_array($row['town_city'],$formats)) { # City/Municipality is invalid
-                                    // $validate[] = "Invalid value for {$header}";
+
                                 } else { # City/Municipality is valid
                                     $formats = $this->barangayValue($row['town_city']);
                                     if (gettype($formats)=='object') {
@@ -724,7 +380,24 @@ class RegistrationImportController extends Controller
                                     }                                
                                 }
                             }
-                        } else {                           
+                        } elseif ($p=="priority_group") {
+                            $exp = explode(":",$value);
+                            if (!in_array($exp[0],$formats)) {
+                                $validate[] = "Invalid value for {$header}";
+                            }                            
+                        } elseif ($p=="sub_priority_group") {
+                            $exp = explode(":",$row['priority_group']);
+                            if ($exp[0]=="01_A1") {
+                                $formats = $this->subPriorityGroupValue($exp[0]);
+                                if (gettype($formats)=='object') {
+                                    $formats = $formats->toArray();
+                                }
+                                $exp = explode(":",$value);
+                                if (!in_array($exp[0],$formats)) {
+                                    $validate[] = "Invalid value for {$header}";
+                                }
+                            }
+                        } else {                      
                             if (!in_array($value,$formats)) {
                                 $validate[] = "Invalid value for {$header}";
                             }
@@ -738,7 +411,7 @@ class RegistrationImportController extends Controller
 
                 $na_if_empty = $validations[$p]['na_if_empty'];
                 if ($na_if_empty) {
-                    if ($value == "Initiating import...") {
+                    if ($value == "") {
                         $row[$p] = "N/A";  
                     }
                 }
@@ -765,7 +438,7 @@ class RegistrationImportController extends Controller
             return $this->jsonErrorDataValidation($validated);            
         } else {
             $response = [
-                "message" => "Initiating import",
+                "message" => "Initiating import...",
                 "rows" => $filtered->values()->all()
             ];
             return $this->jsonCreateSuccessResponse($response);
