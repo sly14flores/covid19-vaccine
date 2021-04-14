@@ -140,6 +140,15 @@ trait SelectionsRegistration
         ];
     }
 
+    public function subPriorityGroupValue($code)
+    {
+        $prioritiy_groups = collect($this->priorityGroupValue());
+        $prioritiy_group = $prioritiy_groups->where('id',$code)->first();
+        $sub_priority_groups = collect($prioritiy_group['subs'])->pluck('id');
+        
+        return $sub_priority_groups;
+    }
+
     public function employmentStatusValue()
     {
         return [
