@@ -71,6 +71,13 @@ const updateVaccination = (payload) => {
     return axios.put(url, vaccination)
 }
 
+const GET_DOSAGE = `${api_url}/api/doh/dosage/:id`
+const getDosage = (payload) => {
+    const { id } = payload
+    const url =  route(GET_DOSAGE, { id })
+    return axios.get(url)
+}
+
 const vaccination = {
     id: 0,
     qr_pass_id: null,
@@ -423,6 +430,16 @@ const actions = {
     async UPDATE_VACCINATION({commit,state}, payload) {
         try {
             const { data: { data } } = await updateVaccination({ id: state.vaccine.qr_pass_id, vaccination: payload })
+            console.log(data)
+            Swal.fire({
+                title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+            })
             return true
         } catch (error) {
             const { response } = error
@@ -434,18 +451,40 @@ const actions = {
     },
     ADD_DOSAGE({state,commit},payload) {
 
-        const d = payload.expiry_date
-        const expiry_date = d.setDate(d.getDate() + 1);
-        payload.expiry_date = new Date(expiry_date).toISOString().split('T')[0];
+        console.log(payload)
+
         payload.qr_pass_id = state.vaccine.qr_pass_id
 
-        console.log(payload)
+        const expiry_date = payload.expiry_date.setDate(payload.expiry_date.getDate() + 1);
+        payload.expiry_date = new Date(expiry_date).toISOString().split('T')[0];
+
+        const date_of_reconstitution = payload.date_of_reconstitution.setDate(payload.date_of_reconstitution.getDate() + 1);
+        payload.date_of_reconstitution = new Date(date_of_reconstitution).toISOString().split('T')[0];
+
+        payload.time_of_reconstitution = payload.time_of_reconstitution.toLocaleTimeString('en-GB') // 24h 
 
         commit('ADD_DOSAGE', payload)
     },
     TOGGLE_DOSAGE_FORM({commit},payload) {
         commit('TOGGLE_DOSAGE_FORM',payload)
-    }
+    },
+    async GET_DOSAGE({commit,state}, payload) {
+        
+        try {
+            const { id } = payload
+            const { data: { data } } = await getDosage({id})
+            console.log(data)
+            console.log(payload)
+            commit('DOSAGE',data)
+            
+        } catch (error) {
+            const { response } = error || {}
+            const { message, status } = response || {}
+            if (message) {
+                console.log(message)
+            }
+        }
+    },
 }
 
 const getters = {}

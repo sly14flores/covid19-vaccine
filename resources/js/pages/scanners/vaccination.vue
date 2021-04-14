@@ -25,10 +25,9 @@
                 <Column field="vaccine_name" header="Vaccine Name"></Column>
                 <Column field="dose" header="Dosage"></Column>
                 <Column field="user_id" header="Administered by"></Column>
-                <Column field="date" header="Date"></Column>
                 <Column field="id" header="Actions">
                     <template #body="slotProps">
-                        <Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-button-sm p-mr-2" @click="showVaccine(slotProps.data.id)" />
+                        <Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-button-sm p-mr-2" @click="showDosage(slotProps.data.id)" />
                         <Button icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" @click="removeDosage()" />
                     </template>
                 </Column>
@@ -151,7 +150,7 @@ export default {
             this.$store.dispatch('vaccines/GET_SELECTION_BRANDS')
             this.$store.dispatch('vaccines/GET_VACCINATORS')
             this.$store.dispatch('vaccines/GET_REASONS')
-            // this.$store.dispatch('vaccines/RESET_DOSAGE')
+            this.$store.dispatch('vaccines/RESET_DOSAGE')
             // this.$store.state.vaccines.dosage.user_id = this.$store.state.vaccines.default_id.id;
         },
         showDosage(id) {
@@ -159,6 +158,7 @@ export default {
             this.$store.dispatch('vaccines/GET_SELECTION_BRANDS')
             this.$store.dispatch('vaccines/GET_VACCINATORS')
             this.$store.dispatch('vaccines/GET_REASONS')
+            this.$store.dispatch('vaccines/GET_DOSAGE', {id})
             // this.$store.dispatch('vaccines/GET_VACCINATION', {id})
         },
         removeDosage(index) {

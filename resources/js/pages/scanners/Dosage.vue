@@ -168,7 +168,7 @@ import Panel from 'primevue/panel/sfc';
 import Toolbar from 'primevue/toolbar/sfc';
 
 import { useStore } from 'vuex';
-import { reactive, ref, toRef } from 'vue';
+import { reactive, ref, toRef, watch } from 'vue';
 
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
@@ -185,6 +185,28 @@ export default {
         const dosage = reactive({
             ...state.vaccines.dosage,
         })
+
+        watch(
+            () => state.vaccines.dosage.id,
+            (data, prevData) => {
+                dosage.id = state.vaccines.dosage.id,
+                dosage.vaccine_id  = state.vaccines.dosage.vaccine_id ,
+                dosage.user_id  = state.vaccines.dosage.user_id,
+                dosage.qr_pass_id = state.vaccines.dosage.qr_pass_id,
+                dosage.brand_name = state.vaccines.dosage.brand_name,
+                dosage.vaccine_name = state.vaccines.dosage.vaccine_name, // VACCINE NAME CHANGE TO INT DB
+                dosage.site_of_injection = state.vaccines.dosage.site_of_injection,
+                dosage.expiry_date = state.vaccines.dosage.expiry_date,
+                dosage.batch_number = state.vaccines.dosage.batch_number,
+                dosage.lot_number = state.vaccines.dosage.lot_number,
+                dosage.dose = state.vaccines.dosage.dose,
+                dosage.diluent = state.vaccines.dosage.diluent,
+                dosage.date_of_reconstitution = state.vaccines.dosage.date_of_reconstitution,
+                dosage.time_of_reconstitution = state.vaccines.dosage.time_of_reconstitution,
+                dosage.diluent_batch_number = state.vaccines.dosage.diluent_batch_number,
+                dosage.diluent_lot_number = state.vaccines.dosage.diluent_lot_number
+            }
+        )
 
         const rules = {
             user_id: { required },

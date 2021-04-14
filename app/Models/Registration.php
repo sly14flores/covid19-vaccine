@@ -23,6 +23,7 @@ class Registration extends Model
         'birthdate', #
         'gender', #
         'region', #
+        'address', #
         'barangay', #
         'town_city', #
         'province', #
@@ -32,6 +33,9 @@ class Registration extends Model
         'occupation', #
         'with_comorbidity', #
         'allergic_to_vaccines', #
+        'with_allergy',
+        'with_comorbidity', #
+
     ];
 
     // protected $fillable = [

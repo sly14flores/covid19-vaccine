@@ -101,8 +101,7 @@ export default {
 
         watch(
             () => store.state.registrations.registration.qr_pass_id,
-            (data, prevData) => {
-                console.log(store.state.registrations.registration)
+            (data, prevData) => {                
                 if (data) {
                     router.push('/')
                 }
