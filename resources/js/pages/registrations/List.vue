@@ -39,8 +39,16 @@
                 <div class="p-grid p-col-12">
                     <Panel header="List">
                         <div class="p-grid">
-                            <div class="p-sm-12 p-md-9 p-lg-10"></div>
-                            <div class="p-sm-12 p-md-3 p-lg-2">
+                            <div class="p-sm-12 p-md-6 p-lg-4">
+                                <div class="p-inputgroup">
+                                    <span class="p-inputgroup-addon">
+                                        <i class="pi pi-search"></i>
+                                    </span>
+                                    <InputText placeholder="Search..." />
+                                </div>
+                            </div>
+                            <div class="p-sm-12 p-md-6 p-lg-6"></div>
+                            <div class="p-sm-12 p-md-4 p-lg-2">
                                 <button  type="button" class="p-mr-2 p-mb-2 p-button p-component p-button-success" @click="exportToExcel">
                                         <i class="pi pi-upload"></i>&nbsp; Export to Excel
                                 </button>   
@@ -74,6 +82,7 @@ import FileUpload from 'primevue/fileupload/sfc';
 import Paginator from 'primevue/paginator/sfc';
 import Panel from 'primevue/panel/sfc';
 import Button from 'primevue/button/sfc';
+import InputText from 'primevue/inputtext/sfc';
 
 import { useStore } from 'vuex'
 import { watch } from 'vue'
@@ -108,7 +117,8 @@ export default {
         FileUpload,
         Paginator,
         Panel,
-        Button
+        Button,
+        InputText
     },
     data() {
         return {

@@ -3,11 +3,11 @@
         <MyBreadcrumb :home="home" :items="items" />
         <div class="card p-mt-2">
             <div class="p-grid p-col-12">
-                <div class="p-sm-12 p-md-9 p-lg-10">
+                <div class="p-sm-12 p-md-9 p-lg-9">
                     <label class="summary p-ml-2">SUMMARY RESPONSE</label><br />
                     <label class="as-of p-ml-2"> AS OF {{currentDate()}}</label>
                 </div>
-                <div class="p-sm-12 p-md-3 p-lg-2">
+                <div class="p-sm-12 p-md-3 p-lg-3">
                     <button  type="button" class="p-mr-2 p-mb-2 p-button p-button-secondary p-component p-button-icon-only" @click="refresh">
                         <i class="pi pi-refresh icon-size"></i>
                     </button>
