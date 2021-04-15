@@ -96,8 +96,7 @@
                     </div>  <!--Card End-->
                 </div>
             </div>
-         <!--<ul class="bullets"></ul>-->
-	</div>
+	    </div>
 
     <script type="text/javascript" src="{{ mix('angularjs/angular.min.js') }}"></script>
     <script type="text/javascript" src="{{ mix('jquery/jquery.min.js') }}"></script>

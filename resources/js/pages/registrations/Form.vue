@@ -95,7 +95,7 @@
                                 <small class="p-error">{{ priority_groupError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
-                                <label>Sub-Priority Group <i class="p-error">*</i></label>
+                                <label>Sub-Priority Group</label>
                                 <Dropdown class="p-shadow-1" optionLabel="name" :options="subs" optionValue="id" v-model="sub_priority_group" placeholder="Select a sub priority group" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">

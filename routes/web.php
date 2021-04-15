@@ -16,6 +16,10 @@ use App\Http\Controllers\ExportSurveys;
 */
 
 Route::get('/', function () {
+    return view('landing-page');
+});
+
+Route::get('/survey', function () {
     return view('app');
 });
 

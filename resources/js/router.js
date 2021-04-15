@@ -3,6 +3,7 @@ import { createWebHashHistory, createRouter } from "vue-router";
 import PageWrapper from './PageWrapper.vue';
 
 // import Dashboard from "./pages/dashboard/Dashboard.vue";
+import LandingPage from "./pages/landing-page.vue";
 import SummaryRegistrations from "./pages/summary/registrations.vue";
 import Surveys from "./pages/summary/surveys.vue";
 import Vaccines from "./pages/scanners/vaccines.vue";
@@ -38,6 +39,11 @@ import HospitalNew from './pages/hospitals/New.vue';
 import HospitalEdit from './pages/hospitals/Edit.vue';
 
 const routes = [
+  {
+    path: "/landing-page",
+    name: "LandingPage",
+    component: LandingPage
+  },
   {
     path: "/change-password",
     name: "ChangePassword",
