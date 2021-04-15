@@ -382,6 +382,7 @@ class RegistrationImportController extends Controller
                             }
                         } elseif ($p=="priority_group") {
                             $exp = explode(":",$value);
+                            $row['priority_group'] = $exp[0];
                             if (!in_array($exp[0],$formats)) {
                                 $validate[] = "Invalid value for {$header}";
                             }                            
@@ -393,6 +394,7 @@ class RegistrationImportController extends Controller
                                     $formats = $formats->toArray();
                                 }
                                 $exp = explode(":",$value);
+                                $row['sub_priority_group'] = $exp[0];
                                 if (!in_array($exp[0],$formats)) {
                                     $validate[] = "Invalid value for {$header}";
                                 }
