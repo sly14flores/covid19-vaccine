@@ -44,7 +44,7 @@
                                     <span class="p-inputgroup-addon">
                                         <i class="pi pi-search"></i>
                                     </span>
-                                    <InputText placeholder="Search..." />
+                                    <InputText v-model="search" placeholder="Quick search QR, first name, or last name" />
                                 </div>
                             </div>
                             <div class="p-sm-12 p-md-6 p-lg-6"></div>
@@ -124,11 +124,16 @@ export default {
         return {
             home: {icon: 'pi pi-home', to: '/registrations'},
             items: [{label: 'Registrations', to: '/registrations'}],
+            search: '',
         }
     },
     computed: {
         registrations() {
-            return this.$store.state.registrations.registrations
+            return this.$store.state.registrations.registrations.filter(registration => {
+                return registration.qr_pass_id.toLowerCase().includes(this.search.toLowerCase()) ||
+                    registration.first_name.toLowerCase().includes(this.search.toLowerCase()) ||
+                    registration.last_name.toLowerCase().includes(this.search.toLowerCase())
+            })
         },
         pagination() {
             return this.$store.state.registrations.pagination
