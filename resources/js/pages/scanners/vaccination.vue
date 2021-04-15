@@ -24,11 +24,10 @@
             <DataTable :value="dosages" dataKey="id">
                 <Column field="vaccine_name" header="Vaccine Name"></Column>
                 <Column field="dose" header="Dosage"></Column>
-                <Column field="vaccinator" header="Administered by"></Column>
-                <Column field="date" header="Date"></Column>
+                <Column field="user_id" header="Administered by"></Column>
                 <Column field="id" header="Actions">
                     <template #body="slotProps">
-                        <Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-button-sm p-mr-2" @click="showVaccine(slotProps.data.id)" />
+                        <Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-button-sm p-mr-2" @click="showDosage(slotProps.data.id)" />
                         <Button icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" @click="removeDosage()" />
                     </template>
                 </Column>
@@ -88,7 +87,7 @@ export default {
                 vaccination.vaccination_session = state.vaccines.vaccination.vaccination_session,
                 vaccination.dosages = state.vaccines.vaccination.dosages
             }
-        )        
+        )
 
         const rules = {
             vaccination_session: { required }
@@ -100,9 +99,8 @@ export default {
 
         const updateVaccination = () => {
             
-            // ss.value.$touch();
-            // console.log(ss)
-            // if (ss.value.$invalid) return
+            ss.value.vaccination_session.$touch();
+            if (ss.value.vaccination_session.$error.value) return
             
             store.dispatch('vaccines/UPDATE_VACCINATION', vaccination)
 
@@ -144,7 +142,7 @@ export default {
 
             return this.$store.state.vaccines.sessions
 
-        },     
+        },
     },
     methods: {
         openDosage() {
@@ -153,16 +151,17 @@ export default {
             this.$store.dispatch('vaccines/GET_VACCINATORS')
             this.$store.dispatch('vaccines/GET_REASONS')
             this.$store.dispatch('vaccines/RESET_DOSAGE')
-            // this.$store.state.vaccines.vaccination.user_id = this.$store.state.vaccines.default_id.id;
+            // this.$store.state.vaccines.dosage.user_id = this.$store.state.vaccines.default_id.id;
         },
         showDosage(id) {
             this.$store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',true)
             this.$store.dispatch('vaccines/GET_SELECTION_BRANDS')
             this.$store.dispatch('vaccines/GET_VACCINATORS')
             this.$store.dispatch('vaccines/GET_REASONS')
+            this.$store.dispatch('vaccines/GET_DOSAGE', {id})
             // this.$store.dispatch('vaccines/GET_VACCINATION', {id})
         },
-         removeDosage(index) {
+        removeDosage(index) {
             this.$store.state.vaccines.vaccination.dosages.splice(index, 1);
         },       
     }
