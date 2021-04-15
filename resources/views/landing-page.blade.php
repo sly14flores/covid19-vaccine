@@ -36,7 +36,7 @@
                 </div>
             </div>
 			<div class="col-lg-2 col-sm-12"></div>
-			<div class="col-lg-6 col-sm-12" style="margin-top: 3%;">
+			<div class="col-lg-6 col-sm-12" style="margin-top: 3.5%;">
 				<div class="col-lg-10 col-sm-12">
 					<div class="card">
 						<div class="card-body login-card-body">
