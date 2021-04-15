@@ -9,7 +9,7 @@
 		<link href="{{ env('APP_URL') }}/css/landing-page.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">   
 
-		<title>{{ config('app.name', 'Covid-19 Vaccination Survey') }}</title>
+		<title>{{ config('app.name', 'La Union CoViD-19 Vaccination') }}</title>
     </head>
     <body class="hold-transition layout-top-nav" ng-app="app" ng-controller="appCtrl">
     <div class="wrapper">
@@ -36,7 +36,7 @@
                 </div>
             </div>
 			<div class="col-lg-2 col-sm-12"></div>
-			<div class="col-lg-6 col-sm-12" style="margin-top: 2%;">
+			<div class="col-lg-6 col-sm-12" style="margin-top: 3.5%;">
 				<div class="col-lg-10 col-sm-12">
 					<div class="card">
 						<div class="card-body login-card-body">
@@ -49,11 +49,13 @@
 							</div>
 
 							<div class="row">
-								<div class="text-content-card">
-									<p>THE MUCH-AWAITED ROLL OUT OF THE VACCINATION PROGRAM IN OUR PROVINCE THAT TRULY RADIATES HOPE AND OPTIMISM.</p>
-									<p>SHARE THE LOVE, NOT THE VIRUS</p>
-									<p>REGISTER NOW!</p>
-									<center><a href="registration"><button class="button p-ml-2" style="vertical-align:middle"><span>VACCINE REGISTRATION</span></button></a></center>
+								<div class="col-lg-12 col-sm-12">
+									<div class="text-content-card">
+										<p>THE MUCH-AWAITED ROLL OUT OF THE VACCINATION PROGRAM IN OUR PROVINCE THAT TRULY RADIATES HOPE AND OPTIMISM.</p>
+										<p>SHARE THE LOVE, NOT THE VIRUS</p>
+										<p>REGISTER NOW!</p>
+										<center><a href="registration"><button class="button p-ml-2" style="vertical-align:middle"><span>VACCINE REGISTRATION</span></button></a></center>
+									</div>
 								</div>
 							</div>
 						</div>  <!--Card Body End-->
