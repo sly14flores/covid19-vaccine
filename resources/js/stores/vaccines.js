@@ -457,11 +457,11 @@ const actions = {
 
         const expiry_date = payload.expiry_date.setDate(payload.expiry_date.getDate() + 1);
         payload.expiry_date = new Date(expiry_date).toISOString().split('T')[0];
+        
+        payload.date_of_reconstitution = (payload.date_of_reconstitution)?payload.date_of_reconstitution = payload.date_of_reconstitution.setDate(payload.date_of_reconstitution.getDate() + 1):null
+        payload.date_of_reconstitution = new Date(payload.date_of_reconstitution).toISOString().split('T')[0];
 
-        const date_of_reconstitution = payload.date_of_reconstitution.setDate(payload.date_of_reconstitution.getDate() + 1);
-        payload.date_of_reconstitution = new Date(date_of_reconstitution).toISOString().split('T')[0];
-
-        payload.time_of_reconstitution = payload.time_of_reconstitution.toLocaleTimeString('en-GB') // 24h 
+        payload.time_of_reconstitution = (payload.time_of_reconstitution)?payload.time_of_reconstitution = payload.time_of_reconstitution.toLocaleTimeString('en-GB'):null
 
         commit('ADD_DOSAGE', payload)
     },
