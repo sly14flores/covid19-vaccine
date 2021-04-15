@@ -87,56 +87,56 @@ trait SelectionsRegistration
                 "id"=>"02_A2",
                 "subs"=> []
             ],
-            [
-                "name"=>"Adult with Comorbidity",
-                "id"=>"03_A3",
-                "subs"=> []
-            ],
-            [
-                "name"=>"Frontline Personnel in Essential Sector",
-                "id"=>"04_A4",
-                "subs"=> []
-            ],
-            [
-                "name"=>"Poor Population",
-                "id"=>"05_A5",
-                "subs"=> []
-            ],
-            [
-                "name"=>"Teachers and Social Workers",
-                "id"=>"06_B1",
-                "subs"=> []
-            ],
-            [
-                "name"=>"Other Government Workers",
-                "id"=>"07_B2",
-                "subs"=> []
-            ],
-            [
-                "name"=>"Other Essential Workers",
-                "id"=>"08_B3",
-                "subs"=> []
-            ],
-            [
-                "name"=>"Socio-demographic Groups",
-                "id"=>"09_B4",
-                "subs"=> []
-            ],
-            [
-                "name"=>"Overseas Filipino Workers",
-                "id"=>"10_B5",
-                "subs"=> []
-            ],
-            [
-                "name"=>"Other Remaining Workforce",
-                "id"=>"11_B6",
-                "subs"=> []
-            ], 
-            [
-                "name"=>"Rest of the Population",
-                "id"=>"12_C",
-                "subs"=> []
-            ],                                                                                                                                                                                                  
+            // [
+            //     "name"=>"Adult with Comorbidity",
+            //     "id"=>"03_A3",
+            //     "subs"=> []
+            // ],
+            // [
+            //     "name"=>"Frontline Personnel in Essential Sector",
+            //     "id"=>"04_A4",
+            //     "subs"=> []
+            // ],
+            // [
+            //     "name"=>"Poor Population",
+            //     "id"=>"05_A5",
+            //     "subs"=> []
+            // ],
+            // [
+            //     "name"=>"Teachers and Social Workers",
+            //     "id"=>"06_B1",
+            //     "subs"=> []
+            // ],
+            // [
+            //     "name"=>"Other Government Workers",
+            //     "id"=>"07_B2",
+            //     "subs"=> []
+            // ],
+            // [
+            //     "name"=>"Other Essential Workers",
+            //     "id"=>"08_B3",
+            //     "subs"=> []
+            // ],
+            // [
+            //     "name"=>"Socio-demographic Groups",
+            //     "id"=>"09_B4",
+            //     "subs"=> []
+            // ],
+            // [
+            //     "name"=>"Overseas Filipino Workers",
+            //     "id"=>"10_B5",
+            //     "subs"=> []
+            // ],
+            // [
+            //     "name"=>"Other Remaining Workforce",
+            //     "id"=>"11_B6",
+            //     "subs"=> []
+            // ], 
+            // [
+            //     "name"=>"Rest of the Population",
+            //     "id"=>"12_C",
+            //     "subs"=> []
+            // ],                                                                                                                                                                                                  
         ];
     }
 

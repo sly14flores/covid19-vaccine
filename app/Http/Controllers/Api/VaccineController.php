@@ -379,7 +379,7 @@ class VaccineController extends Controller
             'age' => $this->computeAge($data['birthdate']),
             'mobile_number' => $data['contact_no'],
             'email' => null,
-            'address' => $data['address'], # Street / Road
+            // 'address' => $data['address'], # Street / Road
             'addressbrgy' => $this->dohToBrgy($data['barangay']),
             'addressmunicity' => $this->dohToMun($data['town_city']),
             'addressprovince' => $this->dohToProv($data['province']),
