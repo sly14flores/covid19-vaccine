@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Dialog header="Dosage" v-model:visible="displayDosage" :closable="false" :closeOnEscape="true" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">   
+        <Dialog header="Dosage" v-model:visible="displayDosage" :closable="false" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">   
             <hr />
             <form>
                 <div class="p-fluid p-formgrid p-grid">
@@ -84,26 +84,25 @@
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <div class="p-field-radiobutton">
-                                        <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="vv.consent.$model" />
+                                        <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="vv.consent.$model" v-on:click="displayPreDatatable = true, displayReason = false" />
                                         <label for="yes_consent">Yes</label>
                                     </div>
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <div class="p-field-radiobutton">
-                                        <RadioButton id="no_consent" name="consent" value="02_No" v-model="vv.consent.$model" />
+                                        <RadioButton id="no_consent" name="consent" value="02_No" v-model="vv.consent.$model" v-on:click="displayPreDatatable = false, displayReason = true" />
                                         <label for="no_consent">No</label>
                                     </div>
                                 </div>
-                                <div class="p-field p-col-12 p-md-2"></div>
-                                 <div class="p-field p-col-12 p-md-1">
-                                    <p class="p-text-sm">* Reason</p>
+                                 <div class="p-field p-col-12 p-md-1" v-if="displayReason">
+                                    <p class="p-text-sm">Reason</p>
                                 </div>
-                                <div class="p-field p-col-12 p-md-5">
+                                <div class="p-field p-col-12 p-md-7" v-if="displayReason">
                                     <Dropdown class="p-shadow-1 p-inputtext-sm" id="reason" optionLabel="name" :options="reasons" v-model="vv.reason.$model" optionValue="id" placeholder="Select a Reason" />
                                 </div>
                             </div>
                         </div>
-                        <DataTable class="p-datatable-sm" :value="dosage.pre_assessment.assessments" dataKey="key">
+                        <DataTable class="p-datatable-sm" :value="dosage.pre_assessment.assessments" dataKey="key" v-if="displayPreDatatable">
                             <Column field="description" header="Description"></Column>
                             <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
                                 <template #body="slotProps">
@@ -169,7 +168,7 @@ import Panel from 'primevue/panel/sfc';
 import Toolbar from 'primevue/toolbar/sfc';
 
 import { useStore } from 'vuex';
-import { reactive, ref, toRef } from 'vue';
+import { reactive, ref, toRef, watch } from 'vue';
 
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
@@ -186,6 +185,28 @@ export default {
         const dosage = reactive({
             ...state.vaccines.dosage,
         })
+
+        watch(
+            () => state.vaccines.dosage.id,
+            (data, prevData) => {
+                dosage.id = state.vaccines.dosage.id,
+                dosage.vaccine_id  = state.vaccines.dosage.vaccine_id ,
+                dosage.user_id  = state.vaccines.dosage.user_id,
+                dosage.qr_pass_id = state.vaccines.dosage.qr_pass_id,
+                dosage.brand_name = state.vaccines.dosage.brand_name,
+                dosage.vaccine_name = state.vaccines.dosage.vaccine_name, // VACCINE NAME CHANGE TO INT DB
+                dosage.site_of_injection = state.vaccines.dosage.site_of_injection,
+                dosage.expiry_date = state.vaccines.dosage.expiry_date,
+                dosage.batch_number = state.vaccines.dosage.batch_number,
+                dosage.lot_number = state.vaccines.dosage.lot_number,
+                dosage.dose = state.vaccines.dosage.dose,
+                dosage.diluent = state.vaccines.dosage.diluent,
+                dosage.date_of_reconstitution = state.vaccines.dosage.date_of_reconstitution,
+                dosage.time_of_reconstitution = state.vaccines.dosage.time_of_reconstitution,
+                dosage.diluent_batch_number = state.vaccines.dosage.diluent_batch_number,
+                dosage.diluent_lot_number = state.vaccines.dosage.diluent_lot_number
+            }
+        )
 
         const rules = {
             user_id: { required },
@@ -243,7 +264,13 @@ export default {
             vv,
             closeDosage
         }
-    },     
+    },
+    data(){
+        return {
+           displayPreDatatable: false,
+           displayReason: false
+        }
+    },
     components: {
         Button,
         TabView,

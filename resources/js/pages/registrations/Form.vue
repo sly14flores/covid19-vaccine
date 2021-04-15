@@ -76,7 +76,7 @@
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-4">
+                            <div class="p-field p-col-12 p-md-8">
                                 <label>Barangay <i class="p-error">*</i></label>
                                 <Dropdown class="p-shadow-1" optionLabel="name" :options="barangays" optionValue="id" v-model="barangay" :class="{'p-invalid': barangayError, 'disabled': editMode && !writeOn}" placeholder="Select a barangay" :disabled="editMode && !writeOn" />
                             </div>
@@ -84,24 +84,23 @@
                                 <label>Unit/Building/Street/House No. <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" type="text" v-model="address" :disabled="editMode && !writeOn" />
                             </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Occupation</label>
-                                <InputText class="p-shadow-1" type="text" v-model="occupation" :disabled="editMode && !writeOn" />
-                            </div>
                         </div>
                     </div>
                     <div class="card p-fluid">
-                        <h5><i class="pi pi-sitemap"></i> Group</h5><hr />
+                        <h5><i class="pi pi-sitemap"></i> Others</h5><hr />
                         <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-6">
+                            <div class="p-field p-col-12 p-md-4">
                                 <label>Priority Group <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="suffix_value" optionValue="id" v-model="priority_group" placeholder="Select a priority group" :class="{'p-invalid': priority_groupError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="priority_group_value" optionValue="id" v-model="priority_group" placeholder="Select a priority group" :class="{'p-invalid': priority_groupError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ priority_groupError }}</small>
                             </div>
-                            <div class="p-field p-col-12 p-md-6">
+                            <div class="p-field p-col-12 p-md-4">
                                 <label>Sub-Priority Group <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="suffix_value" optionValue="id" v-model="sub_priority_group" placeholder="Select a sub priority group" :class="{'p-invalid': sub_priority_groupError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
-                                <small class="p-error">{{ sub_priority_groupError }}</small>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="subs" optionValue="id" v-model="sub_priority_group" placeholder="Select a sub priority group" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Occupation</label>
+                                <InputText class="p-shadow-1" type="text" v-model="occupation" :disabled="editMode && !writeOn" />
                             </div>
                         </div>
                     </div>
@@ -112,15 +111,15 @@
                             <div class="p-field p-col-12 p-md-6">
                                 <div class="p-field p-col-12 p-md-8">
                                     <label>Allergy of Vaccines or Components of Vaccines: <i class="p-error">*</i></label>
-                                    <p class="p-error"><small>{{ direct_interactionError }}</small></p>
+                                    <p class="p-error"><small>{{ with_allergyError }}</small></p>
                                 </div>
                                 <div class="p-field p-col-12 p-md-2">
-                                    <RadioButton class="p-mb-2" id="yes_direct_interaction" name="direct_interaction" v-model="direct_interaction" value="01_Yes" :disabled="editMode && !writeOn" />
-                                    <label for="yes_direct_interaction" class="p-ml-1">Yes</label>
+                                    <RadioButton class="p-mb-2" id="yes_with_allergy" name="with_allergy" v-model="with_allergy" value="01_Yes" :disabled="editMode && !writeOn" />
+                                    <label for="yes_with_allergy" class="p-ml-1">Yes</label>
                                 </div>
                                 <div class="p-field p-col-12 p-md-2">
-                                    <RadioButton class="p-mb-2" id="no_direct_interaction" name="direct_interaction" v-model="direct_interaction" value="02_No" :disabled="editMode && !writeOn" />
-                                    <label for="no_direct_interaction" class="p-ml-1">No</label>
+                                    <RadioButton class="p-mb-2" id="no_with_allergy" name="with_allergy" v-model="with_allergy" value="02_No" :disabled="editMode && !writeOn" />
+                                    <label for="no_with_allergy" class="p-ml-1">No</label>
                                 </div>
                             </div>
 
@@ -290,54 +289,12 @@ export default {
         const { value: contact_no } = useField('registration.contact_no',validField);
         const { value: occupation } = useField('registration.occupation',validField);
         const { value: priority_group, errorMessage: priority_groupError } = useField('registration.priority_group',validateField);
-        const { value: sub_priority_group, errorMessage: sub_priority_groupError } = useField('registration.sub_priority_group',validateField);
-        // const { value: civil_status, errorMessage: civil_statusError } = useField('registration.civil_status',validateField);
-        // Employment Status
-        // const { value: category, errorMessage: categoryError } = useField('registration.category',validateField);
-        // const { value: category_id, errorMessage: category_idError } = useField('registration.category_id',validateField);
-        // const { value: category_id_no, errorMessage: category_id_noError } = useField('registration.category_id_no',validateField);
-        
-        // const { value: employment_status, errorMessage: employment_statusError } = useField('registration.employment_status',validateField);
-        // const { value: profession, errorMessage: professionError } = useField('registration.profession',validateField);
-        // const { value: philhealth, errorMessage: philhealthError } = useField('registration.philhealth',validateField);
-        // const { value: pwd_id } = useField('registration.pwd_id',validField);
-        // const { value: employer_name, errorMessage: employer_nameError } = useField('registration.employer_name',validateField);
-        // const { value: employer_municipality, errorMessage: employer_municipalityError } = useField('registration.employer_municipality',validateField);
-        // const { value: employer_address, errorMessage: employer_addressError } = useField('registration.employer_address',validateField);
-        // const { value: employer_contact_no, errorMessage: employer_contact_noError } = useField('registration.employer_contact_no',validateField);
-        
-        // Health Status
-        // const { value: pregnancy_status, errorMessage: pregnancy_statusError } = useField('registration.pregnancy_status',validateRadio);
-        // const { value: direct_interaction, errorMessage: direct_interactionError } = useField('registration.direct_interaction',validateRadio);
-        // Allergies
-        // const { value: with_allergy, errorMessage: with_allergyError } = useField('registration.with_allergy',validateRadio);
-        // const { value: drug_allergy } = useField('registration.drug_allergy',validField);
-        // const { value: food_allergy } = useField('registration.food_allergy',validField);
-        // const { value: insect_allergy } = useField('registration.insect_allergy',validField);
-        // const { value: latex_allergy } = useField('registration.latex_allergy',validField);
-        // const { value: mold_allergy } = useField('registration.mold_allergy',validField);
-        // const { value: pet_allergy } = useField('registration.pet_allergy',validField);
-        // const { value: pollen_allergy } = useField('registration.pollen_allergy',validField);
-        // const { value: with_allergy_others } = useField('registration.with_allergy_others',validField);
-        // Comorbidities
+        const { value: sub_priority_group } = useField('registration.sub_priority_group',validField);
+        const { value: with_allergy, errorMessage: with_allergyError } = useField('registration.with_allergy',validateRadio);
         const { value: with_comorbidity, errorMessage: with_comorbidityError } = useField('registration.with_comorbidity',validateRadio);
-        // const { value: hypertension } = useField('registration.hypertension',validField);
-        // const { value: heart_disease } = useField('registration.heart_disease',validField);
-        // const { value: kidney_disease } = useField('registration.kidney_disease',validField);
-        // const { value: diabetes_mellitus } = useField('registration.diabetes_mellitus',validField);
-        // const { value: bronchial_asthma } = useField('registration.bronchial_asthma',validField);
-        // const { value: immuno_deficiency_status } = useField('registration.immuno_deficiency_status',validField);
-        // const { value: cancer } = useField('registration.cancer',validField);
-        // const { value: comorbidity_others } = useField('registration.comorbidity_others',validField);
-        // const { value: with_comorbidity_others } = useField('registration.with_comorbidity_others',validField);
-        // const { value: diagnosed, errorMessage: diagnosedError } = useField('registration.diagnosed',validateField);
-        // const { value: covid_classification } = useField('registration.covid_classification',validField);
-        // const { value: diagnosed_date } = useField('registration.diagnosed_date',validField);
-        
-        // const { value: consent_vaccination, errorMessage: consent_vaccinationError } = useField('registration.consent_vaccination',validateRadio);
         
         return {
-            id, // Personal
+            id,
             qr_pass_id,
             first_name,
             middle_name,
@@ -348,49 +305,14 @@ export default {
             region,
             province,
             town_city,
-            address, // street
+            address,
             barangay,
             contact_no,
             occupation,
             priority_group,
             sub_priority_group,
-            // civil_status, //  End Personal
-            // category, // Employment Status
-            // category_id,
-            // category_id_no,
-            // employment_status,
-            // profession,
-            // philhealth,
-            // pwd_id,
-            // employer_name,
-            // employer_municipality,
-            // employer_address,
-            // employer_contact_no, // End Employment Status
-            // direct_interaction, // Health Status
-            // pregnancy_status,
-            // with_allergy,
-            // drug_allergy,
-            // food_allergy,
-            // insect_allergy,
-            // latex_allergy,
-            // mold_allergy,
-            // pet_allergy,
-            // pollen_allergy,
-            // with_allergy_others,
+            with_allergy,
             with_comorbidity,
-            // hypertension,
-            // heart_disease,
-            // kidney_disease,
-            // diabetes_mellitus,
-            // bronchial_asthma,
-            // immuno_deficiency_status,
-            // cancer,
-            // comorbidity_others,
-            // with_comorbidity_others,
-            // diagnosed,
-            // covid_classification, 
-            // diagnosed_date,  // End Health Status
-            // consent_vaccination,
             qr_pass_idError,
             first_nameError,
             last_nameError,
@@ -400,24 +322,8 @@ export default {
             town_cityError,
             barangayError,
             priority_groupError,
-            sub_priority_groupError,
-            // employment_statusError,
-            // employer_nameError,
-            // employer_municipalityError,
-            // employer_addressError,
-            // employer_contact_noError,
-            // professionError,
-            // philhealthError,
-            // category_idError,
-            // category_id_noError,
-            // categoryError,
-            // civil_statusError,
-            // direct_interactionError,
-            // pregnancy_statusError,
-            // with_allergyError,
+            with_allergyError,
             with_comorbidityError,
-            // diagnosedError,
-            // consent_vaccinationError,
             onSubmit,
             editMode,
             getNapanam
@@ -506,6 +412,26 @@ export default {
         employer_municipality_value() {
 
             return this.$store.state.registrations.selections.employer_municipality_value
+
+        },
+        priority_group_value() {
+
+            return this.$store.state.registrations.selections.priority_group_value
+
+        },
+        subs() {
+
+            if (!this.priority_group_value) return []
+
+            const priority_group = this.priority_group_value.filter(priority_group => {
+                return priority_group.id == this.priority_group
+            })
+
+            if (priority_group.length==0) return []
+
+            const subs = priority_group[0].subs
+
+            return subs
 
         },
         provinces() {
