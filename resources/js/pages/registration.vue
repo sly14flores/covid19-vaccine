@@ -109,7 +109,7 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-6">
                                 <div class="p-field p-col-12 p-md-8">
-                                    <label>Are you Allergic of Vaccines or any of its components? <small><i>(Alergi sa bakuna o sa sangkap ng bakuna)</i></small> <i class="p-error">*</i></label>
+                                    <label>Are you Allergic of Vaccines or any of its components? <small><i>(May allergy ka ba sa bakuna o sa mga sangkap nito?)</i></small> <i class="p-error">*</i></label>
                                     <p class="p-error"><small>{{ with_allergyError }}</small></p>
                                 </div>
                                 <div class="p-field p-col-12 p-md-2">
@@ -124,7 +124,7 @@
 
                             <div class="p-field p-col-12 p-md-6">
                                 <div class="p-field p-col-12 p-md-8">
-                                    <label>Do you have other illnesses? <small><i>(May mga Karamdaman)</i></small> <i class="p-error">*</i> </label>
+                                    <label>Do you have other illnesses? <small><i>(Mayroon ka bang ibang karamdaman?)</i></small> <i class="p-error">*</i> </label>
                                     <p class="p-error"><small>{{ with_comorbidityError }}</small></p>
                                 </div>
                                 <div class="p-field p-col-12 p-md-2">
