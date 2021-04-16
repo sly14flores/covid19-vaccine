@@ -2,7 +2,7 @@ const app = angular.module('napanam', []);
 
 app.controller('napanamCtrl', function($scope,$http) {
 	
-	const prod_url = "http://napanam.launion.gov.ph"
+	const prod_url = "http://vaccines.launion.gov.ph"
 	const local_url = "http://localhost:8000"
 
 	const api_url = local_url
