@@ -71,19 +71,21 @@ trait SelectionsRegistration
         return [
             [
                 "name"=>"Health Care Workers",
+                "description"=>"(A1) Frontline workers in health facilities both national and local, private and public, health professionals and non-professionals like students, nursing aides, janitors, barangay health workers, etc",
                 "id"=>"01_A1",
                 "subs"=> [
-                    ["name"=>"COVID-19 Referral Hospitals", "id"=>"01_A1.1"],
-                    ["name"=>"Hopitals Catering to C19 Cases", "id"=>"02_A1.2"],
-                    ["name"=>"Quarantine Isolation Facilities", "id"=>"03_A1.3"],
-                    ["name"=>"Remaining Hospitals", "id"=>"04_A1.4"],
-                    ["name"=>"Government Owned Community Based Primary Care Facilities", "id"=>"05_A1.5"],
-                    ["name"=>"Stand-alone Clinics and Diagnostics", "id"=>"06_A1.6"],
-                    ["name"=>"Closed Settings and Institutions", "id"=>"07_A1.7"],
+                    ["name"=>"COVID-19 Referral Hospitals", "description"=>"(A1.1) COVID-19 Referral Hospitals", "id"=>"01_A1.1"],
+                    ["name"=>"Hopitals Catering to C19 Cases", "description"=>"(A1.2) Hopitals Catering to C19 Cases", "id"=>"02_A1.2"],
+                    ["name"=>"Quarantine Isolation Facilities", "description"=>"(A1.3) Quarantine Isolation Facilities", "id"=>"03_A1.3"],
+                    ["name"=>"Remaining Hospitals", "description"=>"(A1.4) Remaining Hospitals", "id"=>"04_A1.4"],
+                    ["name"=>"Government Owned Community Based Primary Care Facilities", "description"=>"(A1.5) Government Owned Community Based Primary Care Facilities", "id"=>"05_A1.5"],
+                    ["name"=>"Stand-alone Clinics and Diagnostics", "description"=>"(A1.6) Stand-alone Clinics and Diagnostics", "id"=>"06_A1.6"],
+                    ["name"=>"Closed Settings and Institutions", "description"=>"(A1.7) Stand-alone Clinics and Diagnostics", "id"=>"07_A1.7"],
                 ]
             ],
             [
-                "name"=>"Senior Citizens",
+                "name"=>"Senior citizens aged 60 years old and above ",
+                "description"=>"(A2) Senior citizens aged 60 years old and above ",
                 "id"=>"02_A2",
                 "subs"=> []
             ],
@@ -92,11 +94,26 @@ trait SelectionsRegistration
             //     "id"=>"03_A3",
             //     "subs"=> []
             // ],
-            // [
-            //     "name"=>"Frontline Personnel in Essential Sector",
-            //     "id"=>"04_A4",
-            //     "subs"=> []
-            // ],
+            [
+                "name"=>"Frontline Personnel in Essential Sector",
+                "description"=>"(A4) Frontline Personnel in Essential Sector",
+                "id"=>"04_A4",
+                "subs"=> [
+                    ["name"=>"Commuter transport (land, air, and sea), including logistics", "description"=>"(A4.1) Commuter transport (land, air, and sea), including logistics", "id"=>"01_A4.1"],
+                    ["name"=>"Frontline government workers in justice, security, transport, and social protection sectors includes those working in jails, police officers, and social workers who are in crisis intervention units", "description"=>"(A4.2) Frontline government workers in justice, security, transport, and social protection sectors includes those working in jails, police officers, and social workers who are in crisis intervention units", "id"=>"02_A4.2"],
+                    ["name"=>"Public and private wet and dry market vendors; frontline workers in groceries and supermarkets; delivery services", "description"=>"(A4.3) Public and private wet and dry market vendors; frontline workers in groceries and supermarkets; delivery services", "id"=>"03_A4.3"],
+                    ["name"=>"Workers in manufacturing for food, beverage, medical, and pharmaceutical products", "description"=>"(A4.4) Workers in manufacturing for food, beverage, medical, and pharmaceutical products", "id"=>"04_A4.4"],
+                    ["name"=>"Frontline workers in food retail, including food service delivery", "description"=>"(A4.5) Frontline workers in food retail, including food service delivery", "id"=>"05_A4.5"],
+                    ["name"=>"Frontline government workers. This includes safety inspectors, Philippine Statistics Authority field enumerators, tax clearance workers", "description"=>"(A4.6) Frontline government workers. This includes safety inspectors, Philippine Statistics Authority field enumerators, tax clearance workers", "id"=>"06_A4.6"],
+                    ["name"=>"Frontline workers in financial services. Those in banks, remittance centers", "description"=>"(A4.7) Frontline workers in financial services. Those in banks, remittance centers", "id"=>"07_A4.7"],
+                    ["name"=>"Teaching and related personnel in medical and allied medical courses of higher education institutions, including personnel handling laboratories", "description"=>"(A4.8) Teaching and related personnel in medical and allied medical courses of higher education institutions, including personnel handling laboratories", "id"=>"08_A4.8"],
+                    ["name"=>"Frontline workers in hotels and accommodation", "description"=>"(A4.9) Frontline workers in hotels and accommodation", "id"=>"09_A4.9"],
+                    ["name"=>"Priests, pastors, religious leaders regardless of denomination", "description"=>"(A4.10) Priests, pastors, religious leaders regardless of denomination", "id"=>"10_A4.10"],
+                    ["name"=>"Construction workers in government infrastructure projects", "description"=>"(A4.11) Construction workers in government infrastructure projects", "id"=>"11_A4.11"],
+                    ["name"=>"Security guards or personnel assigned in the establishments, offices, agencies, and organizations identified in these priority sectors", "description"=>"(A4.12) Security guards or personnel assigned in the establishments, offices, agencies, and organizations identified in these priority sectors", "id"=>"12_A4.12"],
+                    ["name"=>"Overseas Filipino workers not classified above, and scheduled for deployment within two months", "description"=>"(A4.13) Overseas Filipino workers not classified above, and scheduled for deployment within two months", "id"=>"13_A4.13"],
+                ]
+            ],
             // [
             //     "name"=>"Poor Population",
             //     "id"=>"05_A5",
