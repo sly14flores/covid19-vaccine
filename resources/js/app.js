@@ -2,7 +2,7 @@ const app = angular.module('app', []);
 
 app.controller('appCtrl', function($scope,$http) {
 
-	const prod_url = "https://napanam.launion.gov.ph/lucovacs"
+	const prod_url = "https://vaccines.launion.gov.ph"
 	const local_url = "http://vaccines.local"
 
 	const ENV = process.env.MIX_ENV	

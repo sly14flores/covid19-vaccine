@@ -35,7 +35,7 @@ class RegistrationResource extends JsonResource
             'priority_group' => $this->priority_group,
             'sub_priority_group' => $this->sub_priority_group,
             'occupation' => $this->occupation,
-            'with_allergy' => $this->with_allergy,
+            'allergic_to_vaccines' => $this->allergic_to_vaccines,
             'with_comorbidity' => $this->with_comorbidity,
         ];
     }
