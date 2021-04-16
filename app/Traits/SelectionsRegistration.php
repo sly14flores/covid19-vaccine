@@ -89,11 +89,12 @@ trait SelectionsRegistration
                 "id"=>"02_A2",
                 "subs"=> []
             ],
-            // [
-            //     "name"=>"Adult with Comorbidity",
-            //     "id"=>"03_A3",
-            //     "subs"=> []
-            // ],
+            [
+                "name"=>"Adult with Comorbidity",
+                "description"=>"(A3) Persons with comorbidities not otherwise included in the preceding categories",
+                "id"=>"03_A3",
+                "subs"=> []
+            ],
             [
                 "name"=>"Frontline Personnel in Essential Sector",
                 "description"=>"(A4) Frontline Personnel in Essential Sector",
