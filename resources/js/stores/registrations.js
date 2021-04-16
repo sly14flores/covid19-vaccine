@@ -183,6 +183,21 @@ const mutations = {
     },
     TOGGLE_WRITE(state,payload) {
         state.writeOn = payload
+    },
+    LOADING(){
+        Swal.fire({
+            title: 'Loading...',
+            willOpen () {
+              Swal.showLoading ()
+            },
+            didClose () {
+              Swal.hideLoading()
+            },
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false
+        })
     }
 }
 
@@ -246,20 +261,8 @@ const actions = {
             })	
         }
     },
-    async GET_REGISTRATIONS({dispatch}, payload) {
-        Swal.fire({
-            title: 'Loading...',
-            willOpen () {
-              Swal.showLoading ()
-            },
-            didClose () {
-              Swal.hideLoading()
-            },
-            showConfirmButton: false,
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false
-        })
+    async GET_REGISTRATIONS({dispatch, commit}, payload) {
+        commit('LOADING')
         try {
             const { page } = payload
             const { data: { data: { data, pagination } } } = await getRegistrations({ page })
@@ -471,6 +474,7 @@ const actions = {
         // console.log(payload)
     },
     async GET_NAPANAM_ID({dispatch, commit}, { id }) {
+        commit('LOADING')
         commit('FETCH', false)
         try {
             const { data: { data } } = await getNapanamID({ id })
@@ -484,6 +488,7 @@ const actions = {
         // console.log(payload)
         commit('NAPANAM', payload)
         commit('FETCH', true)
+        Swal.close();
         // window.open('home#/registration','_self')
     },
     GET_NAPANAM_ID_ERROR({commit}, payload) {
