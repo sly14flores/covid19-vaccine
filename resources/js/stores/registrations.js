@@ -131,7 +131,7 @@ const pagination = {}
 const state = () => {
     return {
         fetched: false,
-        saving: false,
+        saving: "",
         registration,
         registrations,
         selections,
@@ -341,8 +341,10 @@ const actions = {
     GET_ADDRESSES_ERROR({commit}, payload) {
         // console.log(payload)
     },
-    async CREATE({commit, dispatch}, payload) {
-        commit('SAVING', true)
+    async CREATE({commit, dispatch,state}, payload) {
+        commit('SAVING', 'pi pi-spin pi-spinner')
+        
+        console.log(state)
         try {
             // payload.drug_allergy = (payload.drug_allergy)?"01_Yes":"02_No"
             // payload.food_allergy = (payload.food_allergy)?"01_Yes":"02_No"
@@ -369,15 +371,15 @@ const actions = {
         }
     },
     CREATE_SUCCESS({commit}, payload) {
-        commit('SAVING', false)
-        console.log(payload)
+        commit('SAVING', '')
 
         Swal.fire({
             title: '<p class="text-success" style="font-size: 25px;">Registration completed successfully</p>',
             icon: 'success',
             html: 
-              '<b style="font-size: 15px;">For inquiries, please contact us at: </b> <br>' +
-              '<b class="text-danger" style="font-size: 15px;">Tel. No. (072) 242-5550 loc. 299</b>',
+                '<b style="font-size: 20px;">Agyamankami Kaprobinsiaan!</b> <br>' +
+                '<b style="font-size: 15px;"><i> For inquiries, please contact us at: </i></b> <br>' +
+                '<b class="text-danger" style="font-size: 15px;"><i>Tel. No. (072) 242-5550 loc. 299</i></b>',
             showCancelButton: false,
             focusConfirm: false,
             confirmButtonText: 'Ok',
@@ -400,7 +402,7 @@ const actions = {
 
     },
     CREATE_ERROR({commit}, payload) {
-        commit('SAVING', false)
+        commit('SAVING', '')
         // console.log(payload)
     },
     async UPDATE_REGISTRATION({commit,dispatch}, payload) {
@@ -568,8 +570,8 @@ const actions = {
         // if Exist
         if(payload.status==406){
             Swal.fire({
-                title: "<p>Error</p>",
-                icon: 'error',
+                // title: "<p>Error</p>",
+                icon: 'warning',
                 html: '<h5 style="font-size: 18px;">The Napanam ID No. you have entered is already registered</h5>',
                 showCancelButton: false,
                 focusConfirm: false,
