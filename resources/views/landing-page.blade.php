@@ -27,16 +27,16 @@
 		<div class="row">
             <div class="col-lg-4 col-sm-12 remove-background">
                 <div class="background">
-                    <img alt="logo" src="img/launion-logo.png" class="lu-logo" />
+                    <img alt="logo" src="img/launion-logo.png" class="lu-logo"/>
                     <div class="text-content">
                         <p class="p1">COVID-19</p>
-                        <p class="p1">VACCINATION</p>
-                        <p>PROGRAM</p>
+						<p class="p1">VACCINATION</p>
+						<p>PROGRAM</p>
                     </div>
                 </div>
             </div>
 			<div class="col-lg-2 col-sm-12"></div>
-			<div class="col-lg-6 col-sm-12" style="margin-top: 3.5%;">
+			<div class="col-lg-6 col-sm-12" style="margin-top: 1.2%;">
 				<div class="col-lg-10 col-sm-12">
 					<div class="card">
 						<div class="card-body login-card-body">
@@ -51,9 +51,10 @@
 							<div class="row">
 								<div class="col-lg-12 col-sm-12">
 									<div class="text-content-card">
-										<p>THE MUCH-AWAITED ROLL OUT OF THE VACCINATION PROGRAM IN OUR PROVINCE THAT TRULY RADIATES HOPE AND OPTIMISM.</p>
-										<p>SHARE THE LOVE, NOT THE VIRUS</p>
-										<p>REGISTER NOW!</p>
+										<p class="p2">Kaisa tayo ng mundo tungo sa pagbangon.</p>
+										<p class="p2">Makilahok sa vaccination program ng La Union.</p>
+										<p class="p2">Para sa karagdagang impormasyon, bumisita sa <a href="https://doh.gov.ph/faqs/vaccines" style="color: #5c5c5c">https://doh.gov.ph/faqs/vaccines</a> o sa <a href="https://www.facebook.com/LGUlaunion" style="color: #5c5c5c">official PGLU Facebook Page.</a></p>
+										<p class="p3">Register now, Kaprobinsiaan!</p>
 										<center><a href="registration"><button class="button p-ml-2" style="vertical-align:middle"><span>VACCINE REGISTRATION</span></button></a></center>
 									</div>
 								</div>

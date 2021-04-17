@@ -125,7 +125,7 @@
 
                             <div class="p-field p-col-12 p-md-6">
                                 <div class="p-field p-col-12 p-md-8">
-                                    <label>Do you have other illnesses? <small><i>(Mayroon ka bang ibang karamdaman?)</i></small> <i class="p-error">*</i> </label>
+                                    <label>Do you have other illnesses? <small><i>(Mayroon ka bang ibang mga karamdaman?)</i></small> <i class="p-error">*</i> </label>
                                     <p class="p-error"><small>{{ with_comorbidityError }}</small></p>
                                 </div>
                                 <div class="p-field p-col-12 p-md-2">

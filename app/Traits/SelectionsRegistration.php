@@ -113,6 +113,7 @@ trait SelectionsRegistration
                     ["name"=>"Construction workers in government infrastructure projects", "description"=>"(A4.11) Construction workers in government infrastructure projects", "id"=>"11_A4.11"],
                     ["name"=>"Security guards or personnel assigned in the establishments, offices, agencies, and organizations identified in these priority sectors", "description"=>"(A4.12) Security guards or personnel assigned in the establishments, offices, agencies, and organizations identified in these priority sectors", "id"=>"12_A4.12"],
                     ["name"=>"Overseas Filipino workers not classified above, and scheduled for deployment within two months", "description"=>"(A4.13) Overseas Filipino workers not classified above, and scheduled for deployment within two months", "id"=>"13_A4.13"],
+                    ["name"=>"Government and Private Media Workers", "description"=>"(A4.14) Government and Private Media Workers", "id"=>"14_A4.14"],
                 ]
             ],
             // [
