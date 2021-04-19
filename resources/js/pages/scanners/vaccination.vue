@@ -100,7 +100,7 @@ export default {
         const updateVaccination = () => {
             
             ss.value.vaccination_session.$touch();
-            if (ss.value.vaccination_session.$error.value) return
+            if (ss.value.vaccination_session.$error) return
             
             store.dispatch('vaccines/UPDATE_VACCINATION', vaccination)
 

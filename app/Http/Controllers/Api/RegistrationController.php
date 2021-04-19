@@ -68,7 +68,8 @@ class RegistrationController extends Controller
             'sub_priority_group' => 'string',
             'occupation' => 'string',
             'with_allergy' => 'string',
-            'with_comorbidity' => 'string',       
+            'with_comorbidity' => 'string',   
+            'is_registered' => 'string',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -159,6 +160,7 @@ class RegistrationController extends Controller
             'occupation' => 'string',
             'with_allergy' => 'string',
             'with_comorbidity' => 'string',
+            'is_registered' => 'string',
         ];
 
         $validator = Validator::make($request->all(), $rules);        
