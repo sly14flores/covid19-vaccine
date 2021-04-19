@@ -142,7 +142,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="card p-fluid">
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-12">
                                 <div class="p-field p-col-12 p-md-12">
@@ -160,9 +162,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <hr />
+                        </div><hr />
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-10"></div>
                             <div class="p-field p-col-12 p-md-1">
