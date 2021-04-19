@@ -35,6 +35,7 @@ class Registration extends Model
         'allergic_to_vaccines', #
         'with_allergy',
         'with_comorbidity', #
+        'is_registered',
 
     ];
 
