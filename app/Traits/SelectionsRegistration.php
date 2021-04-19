@@ -71,7 +71,7 @@ trait SelectionsRegistration
         return [
             [
                 "name"=>"Health Care Workers",
-                "description"=>"(A1) Frontline workers in health facilities both national and local, private and public, health professionals and non-professionals like students, nursing aides, janitors, barangay health workers, etc",
+                "description"=>"(A1) Health Care Workers",
                 "id"=>"01_A1",
                 "subs"=> [
                     ["name"=>"COVID-19 Referral Hospitals", "description"=>"(A1.1) COVID-19 Referral Hospitals", "id"=>"01_A1.1"],
