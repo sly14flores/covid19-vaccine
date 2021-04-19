@@ -263,8 +263,8 @@ class VaccineController extends Controller
         /**
          * Create Vaccine
          */
+        $user = Auth::guard('api')->user();        
         $user_hospital = (is_null($user->userHospital))?null:$user->userHospital->id;
-        $user = Auth::guard('api')->user();
         $vaccine = [
             'qr_pass_id' => $id,
             'vaccination_facility' => $user->userHospital->id,
