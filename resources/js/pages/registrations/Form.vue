@@ -132,11 +132,11 @@
                                 </div>
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-2">
-                                        <RadioButton class="p-mb-2" id="yes_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="01_Yes" v-on:click="with_comorbidity_hide = true" :disabled="editMode && !writeOn" />
+                                        <RadioButton class="p-mb-2" id="yes_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="01_Yes" :disabled="editMode && !writeOn" />
                                         <label for="yes_comorbidity" class="p-ml-1">Yes</label>
                                     </div>
                                     <div class="p-field p-col-12 p-md-2">
-                                        <RadioButton class="p-mb-2" id="none_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="02_None" v-on:click="with_comorbidity_hide = false" :disabled="editMode && !writeOn" />
+                                        <RadioButton class="p-mb-2" id="none_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="02_None" :disabled="editMode && !writeOn" />
                                         <label for="none_comorbidity" class="p-ml-1">None</label>
                                     </div>
                                 </div>
@@ -153,11 +153,11 @@
                                 </div>
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-6">
-                                        <RadioButton class="p-mb-2" id="yes_is_registered" name="is_registered" v-model="is_registered" value="01_Yes" />
+                                        <RadioButton class="p-mb-2" id="yes_is_registered" name="is_registered" v-model="is_registered" value="01_Yes" :disabled="editMode && !writeOn" />
                                         <label for="yes_is_registered" class="p-ml-1">Yes, I already registered. (Oo, nakapagregister na ako)</label>
                                     </div>
                                     <div class="p-field p-col-12 p-md-6">
-                                        <RadioButton class="p-mb-2" id="none_is_registered" name="is_registered" v-model="is_registered" value="02_No" />
+                                        <RadioButton class="p-mb-2" id="none_is_registered" name="is_registered" v-model="is_registered" value="02_No" :disabled="editMode && !writeOn" />
                                         <label for="none_is_registered" class="p-ml-1">No, this is my first time to register. (Hindi, unang beses ko pa lang magregister.)</label>
                                     </div>
                                 </div>
@@ -359,10 +359,6 @@ export default {
     data() {
         return {
             displayConfirmation: false,
-            with_allergy_hide: false,
-            with_comorbidity_hide: false,
-            comorbidity_others_hide: false,
-            diagnosed_hide: false,
             home: {icon: 'pi pi-home', to: '/registrations'},
             items: [{label: (this.editMode)?'Edit Registration':'New Registration', to: `${this.$route.fullPath}`}]
         }
