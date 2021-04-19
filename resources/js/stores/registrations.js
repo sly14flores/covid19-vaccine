@@ -86,7 +86,8 @@ const registration = {
     sub_priority_group: null,
     occupation: null,
     with_allergy: null,
-    with_comorbidity: null
+    with_comorbidity: null,
+    is_registered: null
 }
 
 const suffix_value = [];

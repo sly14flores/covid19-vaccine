@@ -140,7 +140,13 @@
                                 </div>
                             </div>
                         </div>
-                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-grid p-jc-center p-mt-1">
+                <div class="p-lg-11 p-sm-12 p-xs-12">
+                    <div class="card p-fluid p-border-left">
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-12">
                                 <div class="p-field p-col-12 p-md-12">

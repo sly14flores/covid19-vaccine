@@ -91,7 +91,7 @@ trait SelectionsRegistration
             ],
             [
                 "name"=>"Adult with Comorbidity",
-                "description"=>"(A3) Persons with comorbidities not otherwise included in the preceding categories",
+                "description"=>"(A3) Adult with Comorbidity",
                 "id"=>"03_A3",
                 "subs"=> []
             ],
@@ -115,8 +115,8 @@ trait SelectionsRegistration
                     ["name"=>"Frontline workers in law/justice, security, and social protection sectors", "description"=>"(A4.13) Frontline workers in law/justice, security, and social protection sectors", "id"=>"13_A4.13"],
                     ["name"=>"Frontline government workers engaged in operations of government transport system, quarantine inspection, worker safety inspection and other activities indispensable to the COVID response", "description"=>"(A4.14) Frontline government workers engaged in operations of government transport system, quarantine inspection, worker safety inspection and other activities indispensable to the COVID response", "id"=>"14_A4.14"],
                     ["name"=>"Frontline government workers in charge of tax collection; assessment of businesses for incentives; election; national ID; data collection personnel", "description"=>"(A4.15) Frontline government workers in charge of tax collection; assessment of businesses for incentives; election; national ID; data collection personnel", "id"=>"15_A4.15"],
-                    ["name"=>"Diplomatic Community and Department of Foreign Affairs personnel in consular operations", "description"=>"(A4.16) Diplomatic Community and Department of Foreign Affairs personnel in consular operations", "id"=>"16_A4.16"],
-                    ["name"=>"Department of Public Works and Highways personnel in charge of monitoring government infrastructure projects", "description"=>"(A4.17) Department of Public Works and Highways personnel in charge of monitoring government infrastructure projects", "id"=>"17_A4.17"],
+                    ["name"=>"Diplomatic Community and Department of Foreign Affairs personnel in consular operations", "description"=>"(A4.16) Diplomatic Community and DFA personnel in consular operations", "id"=>"16_A4.16"],
+                    ["name"=>"Department of Public Works and Highways personnel in charge of monitoring government infrastructure projects and their LGU counter parts", "description"=>"(A4.17) DPWH personnel in charge of monitoring government infrastructure projects and their LGU counter parts", "id"=>"17_A4.17"],
                 ]
             ],
             // [
