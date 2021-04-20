@@ -22,9 +22,9 @@
                 </template>
             </Toolbar>
             <DataTable :value="dosages" dataKey="id">
-                <Column field="vaccine_name" header="Vaccine Name"></Column>
                 <Column field="dose" header="Dosage"></Column>
-                <Column field="user_id" header="Administered by"></Column>
+                <Column field="vaccine_name" header="Vaccine Name"></Column>
+                <Column field="vaccinator" header="Administered by"></Column>
                 <Column field="id" header="Actions">
                     <template #body="slotProps">
                         <Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-button-sm p-mr-2" @click="showDosage(slotProps.data.id)" />
