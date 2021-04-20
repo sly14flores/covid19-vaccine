@@ -37,6 +37,21 @@ class Dosage extends Model
         'diluent_lot_number',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'brand_name' => 'integer',
+        'vaccine_name' => 'integer',
+        'batch_number' => 'integer',
+        'lot_number' => 'integer',
+        'dose' => 'integer',
+        'diluent_batch_number' => 'integer',
+        'diluent_lot_number' => 'integer',
+    ];    
+
     protected $hidden = [
         'updated_at',
     ];    

@@ -31,7 +31,8 @@ class Aefi extends Model
     ];
 
     protected $casts = [
-      'is_serious' => 'boolean'
+      'is_serious' => 'boolean',
+      'dose' => 'integer',
     ];
 
     public function setAdverseEventsAttribute($value)
