@@ -474,7 +474,12 @@ const actions = {
             const { id } = payload
             const { data: { data } } = await getDosage({id})
             console.log(data)
-            console.log(payload)
+
+            data.expiry_date = new Date(data.expiry_date)
+            data.date_of_reconstitution = new Date(data.date_of_reconstitution)
+
+            console.log(data);
+
             commit('DOSAGE',data)
             
         } catch (error) {
