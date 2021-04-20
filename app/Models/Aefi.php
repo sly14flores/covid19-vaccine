@@ -18,8 +18,11 @@ class Aefi extends Model
      */
     protected $fillable = [
         'dosage_id',
+        'qr_pass_id',
+        'dose',
         'adverse_events', // serialize_array
-        'others', 'date',
+        'others',
+        'date',
         'time',
         'is_serious',
         'serious', // serialize_array

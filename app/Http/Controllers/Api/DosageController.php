@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Dosage;
 use App\Models\PreAssessment;
 use App\Models\PostAssessment;
+use App\Models\Aefi;
 
 use App\Http\Resources\DosageResource;
 use App\Http\Resources\DosageResourceCollection;
@@ -129,6 +130,23 @@ class DosageController extends Controller
             $post = new PostAssessment;
             $post->fill($post_assessment); 
             $dosage->post_assessment()->save($post);
+        }
+
+        /**
+         * Create AEFI
+         */
+        $check_aefi = Aefi::where([['dose',$data['dose']],['qr_pass_id',$data['qr_pass_id']]])->get();
+        if (count($check_aefi)==0) {
+            $aefi = new Aefi;            
+            $aefi_data = [
+                'qr_pass_id' => $data['qr_pass_id'],
+                'dose' => $data['dose'],
+                'adverse_events' => $aefi->AdverseEvents(), // serialize_array
+                'serious' => $aefi->Serious(), // serialize_array
+                'current_status' => $aefi->CurrentStatus(), // serialize_array                
+            ];
+            $aefi->fill($aefi_data);
+            $dosage->aefi()->save($aefi);          
         }
 
         $data = new DosageResource($dosage);
