@@ -227,6 +227,30 @@ class DosageController extends Controller
         $dosage->fill($data);
         $dosage->save();
 
+        /**
+         * Update Pre Assessment
+         */
+        $pre_assessment = $data['pre_assessment'];
+        $pre = PreAssessment::find($pre_assessment['id']);
+        $pre->fill($pre_assessment);
+        $dosage->pre_assessment()->save($pre);
+
+        /**
+         * Post Assessment
+         */
+        $post_assessment = $data['post_assessment'];
+        $post = PostAssessment::find($post_assessment['id']);
+        $post->fill($post_assessment);
+        $dosage->post_assessment()->save($post);
+
+        /**
+         * AEFI
+         */
+        $aefi_data = $data['aefi'];
+        $aefi = Aefi::find($aefi_data['id']);
+        $aefi->fill($aefi_data);
+        $dosage->aefi()->save($aefi);
+
         $data = new DosageResource($dosage);
 
         return $this->jsonSuccessResponse($data, 200);
