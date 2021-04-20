@@ -25,17 +25,17 @@ class PreAssessment extends Model
         'assessments',
     ];
 
-    protected $hidden = [
-        'updated_at',
-    ];
-
     /**
-     * The attributes that should be cast.
+     * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [
-        // 'consent' => 'boolean',
+        'dose' => 'integer',
+    ];    
+
+    protected $hidden = [
+        'updated_at',
     ];
     
     /**
