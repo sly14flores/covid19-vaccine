@@ -17,8 +17,11 @@ class DosageResource extends JsonResource
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
+            'vaccinator' => $this->vaccinator(),
             'brand_name' => $this->brand_name,
+            'brand_description' => $this->brand($this->brand_name),
             'vaccine_name' => $this->vaccine_name,
+            'vaccine_description' => $this->vaccine_description($this->brand_name,$this->vaccine_name),
             'site_of_injection' => $this->site_of_injection,
             'expiry_date' => $this->expiry_date,            
             'batch_number' => $this->batch_number,
