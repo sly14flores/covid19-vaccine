@@ -92,6 +92,17 @@ class Dosage extends Model
         return $brand['name'];
     }
 
+    public function vaccine_description($brand_id,$vaccine_id)
+    {
+        $brands = $this->brandValue();
+        $brand = collect($brands)->where('id',$brand_id)->first();
+        $vaccines = $brand['vaccines'];
+
+        $vaccine = collect($vaccines)->where('id',$vaccine_id)->first();
+
+        return $vaccine['name'];
+    }
+
     public function vaccine()
     {
         return $this->belongsTo(VaccineAdministration::class);
