@@ -31,6 +31,7 @@ class DosageResource extends JsonResource
             'diluent_lot_number' => $this->diluent_lot_number,
             'pre_assessment' => $this->pre_assessment,
             'post_assessment' => $this->post_assessment,
+            'aefi' => $this->aefi,
         ];
     }
 }

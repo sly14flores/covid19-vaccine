@@ -92,6 +92,11 @@ class Dosage extends Model
         return $this->hasOne(PostAssessment::class,'dosage_id');
     }
 
+    public function aefi()
+    {
+        return $this->hasOne(Aefi::class,'dosage_id');
+    }    
+
     /**
      * @param $value
      * @return false|string
