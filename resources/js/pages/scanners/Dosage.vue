@@ -84,25 +84,25 @@
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <div class="p-field-radiobutton">
-                                        <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="vv.consent.$model" v-on:click="displayPreDatatable = true, displayReason = false" />
+                                        <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="vv.consent.$model" @click="displayPres" />
                                         <label for="yes_consent">Yes</label>
                                     </div>
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <div class="p-field-radiobutton">
-                                        <RadioButton id="no_consent" name="consent" value="02_No" v-model="vv.consent.$model" v-on:click="displayPreDatatable = false, displayReason = true" />
+                                        <RadioButton id="no_consent" name="consent" value="02_No" v-model="vv.consent.$model" @click="displayReason" />
                                         <label for="no_consent">No</label>
                                     </div>
                                 </div>
-                                 <div class="p-field p-col-12 p-md-1" v-if="displayReason">
+                                 <div class="p-field p-col-12 p-md-1" v-if="displayReasonForm">
                                     <p class="p-text-sm">Reason</p>
                                 </div>
-                                <div class="p-field p-col-12 p-md-7" v-if="displayReason">
+                                <div class="p-field p-col-12 p-md-7" v-if="displayReasonForm">
                                     <Dropdown class="p-shadow-1 p-inputtext-sm" id="reason" optionLabel="name" :options="reasons" v-model="vv.reason.$model" optionValue="id" placeholder="Select a Reason" />
                                 </div>
                             </div>
                         </div>
-                        <DataTable class="p-datatable-sm" :value="dosage.pre_assessment.assessments" dataKey="key" v-if="displayPreDatatable">
+                        <DataTable class="p-datatable-sm" :value="dosage.pre_assessment.assessments" dataKey="key" v-if="displayPresTable">
                             <Column field="description" header="Description"></Column>
                             <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
                                 <template #body="slotProps">
@@ -112,6 +112,7 @@
                             </Column>
                         </DataTable>
                     </TabPanel>
+
                     <TabPanel>
                         <template #header>
                             <i class="pi pi-desktop p-mr-2"></i>
@@ -205,6 +206,10 @@ export default {
                 dosage.time_of_reconstitution = state.vaccines.dosage.time_of_reconstitution,
                 dosage.diluent_batch_number = state.vaccines.dosage.diluent_batch_number,
                 dosage.diluent_lot_number = state.vaccines.dosage.diluent_lot_number
+                dosage.post_assessment = state.vaccines.dosage.post_assessment
+                dosage.pre_assessment.consent = state.vaccines.dosage.pre_assessment.consent
+                dosage.pre_assessment.reason = state.vaccines.dosage.pre_assessment.reason
+                dosage.pre_assessment = state.vaccines.dosage.pre_assessment
             }
         )
 
@@ -221,9 +226,11 @@ export default {
             date_of_reconstitution: {},
             time_of_reconstitution: {},
             diluent_batch_number: {},
-            diluent_lot_number: {},
+            diluent_lot_number: {},     
+            post_assessment: [],
             consent: {},
-            reason: {}            
+            reason: {},
+            pre_assessment: []
             
         }
 
@@ -247,13 +254,25 @@ export default {
 
         const closeDosage = () => {
             store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',false)
+            store.dispatch('vaccines/RESET_DOSAGE')
+        }
+
+        const displayPres = () => {
+            store.dispatch('vaccines/TOGGLE_PRES_FORM',true)
+            store.dispatch('vaccines/TOGGLE_REASON_FORM',false)
+        }
+
+        const displayReason = () => {
+            store.dispatch('vaccines/TOGGLE_REASON_FORM',true)
+            store.dispatch('vaccines/TOGGLE_PRES_FORM',false)
         }
 
         const addDosage  = () => {
             vv.value.$touch();
             if (vv.value.$invalid) return
 
-            store.dispatch('vaccines/ADD_DOSAGE',dosage)
+            if (dosage.id==0) store.dispatch('vaccines/ADD_DOSAGE', dosage)
+
             closeDosage()
         }
 
@@ -262,13 +281,14 @@ export default {
             dosage,
             addDosage,
             vv,
-            closeDosage
+            closeDosage,
+            displayPres,
+            displayReason
         }
     },
     data(){
         return {
-           displayPreDatatable: false,
-           displayReason: false
+            
         }
     },
     components: {
@@ -336,6 +356,16 @@ export default {
         displayDosage() {
 
             return this.$store.state.vaccines.displayDosage
+            
+        },
+        displayPresTable() {
+
+            return this.$store.state.vaccines.displayPres
+            
+        },
+        displayReasonForm() {
+
+            return this.$store.state.vaccines.displayReason
             
         },
     } 
