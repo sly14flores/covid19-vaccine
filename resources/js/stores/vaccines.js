@@ -287,6 +287,31 @@ const mutations = {
     ADD_DOSAGE(state,payload) {
         state.vaccination.dosages.push(payload)
     },
+    UPDATE_DOSAGE(state,payload) {
+        const { id } = payload
+        const dosages = state.vaccination.dosages.map(dosage => {
+            if (dosage.id == id) {
+                const users = state.vaccinators.filter(vaccinator => {
+                    return vaccinator.id == payload.user_id
+                })
+                const brands = state.brands.filter(brand => {
+                    return brand.id == payload.brand_name
+                })
+                /**
+                 * Time
+                 */
+                console.log(dosage.time_of_reconstitution)
+                dosage = {
+                    ...payload,
+                    vaccinator: users[0].name,
+                    brand_description: brands[0].name,
+                    // time_of_reconstitution: (new Date(dosage.time_of_reconstitution)).toISOString(),
+                }                
+            }
+            return dosage
+        })
+        state.vaccination.dosages = dosages
+    },    
     TOGGLE_DOSAGE_FORM(state,payload) {
         state.displayDosage = payload
     },
@@ -449,10 +474,10 @@ const actions = {
             const { response } = error
         }
     },
-    async UPDATE_VACCINATION({commit,state}, payload) {
+    async UPDATE_VACCINATION({commit,state}) {
         try {
 
-            const { data: { data } } = await updateVaccination({ id: state.vaccine.qr_pass_id, vaccination: payload })
+            const { data: { data } } = await updateVaccination({ id: state.vaccine.qr_pass_id, vaccination: state.vaccination })
             
             commit('UPDATED')
             
@@ -469,17 +494,16 @@ const actions = {
 
     ADD_DOSAGE({state,commit},payload) {
 
-        
         payload.qr_pass_id = state.vaccine.qr_pass_id
-
-        const expiry_date = payload.expiry_date.setDate(payload.expiry_date.getDate() + 1);
-        payload.expiry_date = new Date(expiry_date).toISOString().split('T')[0];
+        console.log(payload.time_of_reconstitution.toString())
+        // const expiry_date = payload.expiry_date.setDate(payload.expiry_date.getDate() + 1);
+        // payload.expiry_date = new Date(expiry_date).toISOString().split('T')[0];
         
-        payload.date_of_reconstitution = (payload.date_of_reconstitution)?payload.date_of_reconstitution = payload.date_of_reconstitution.setDate(payload.date_of_reconstitution.getDate() + 1):null
-        payload.date_of_reconstitution = new Date(payload.date_of_reconstitution).toISOString().split('T')[0];
+        // payload.date_of_reconstitution = (payload.date_of_reconstitution)?payload.date_of_reconstitution = payload.date_of_reconstitution.setDate(payload.date_of_reconstitution.getDate() + 1):null
+        // payload.date_of_reconstitution = new Date(payload.date_of_reconstitution).toISOString().split('T')[0];
 
         // payload.time_of_reconstitution = (payload.time_of_reconstitution)?payload.time_of_reconstitution = payload.time_of_reconstitution.toLocaleTimeString('en-GB'):null        
-        
+
         const users = state.vaccinators.filter(vaccinator => {
             return vaccinator.id == payload.user_id
         })
@@ -491,8 +515,10 @@ const actions = {
         })
 
         payload.brand_description = brands[0].name
-
         commit('ADD_DOSAGE', payload)
+    },
+    UPDATE_DOSAGE({commit},payload) {
+        commit('UPDATE_DOSAGE',payload)
     },
     TOGGLE_DOSAGE_FORM({commit},payload) {
         commit('TOGGLE_DOSAGE_FORM',payload)
@@ -524,7 +550,7 @@ const actions = {
             const { response } = error || {}
             const { message, status } = response || {}
             if (message) {
-                console.log(message)
+                // console.log(message)
             }
         }
     },
