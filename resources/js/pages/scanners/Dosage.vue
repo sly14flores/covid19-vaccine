@@ -2,7 +2,7 @@
     <div>
         <Dialog header="Dosage" v-model:visible="displayDosage" :closable="false" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">   
             <hr />
-            <form>
+            <form autocomplete="off">
                 <div class="p-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-4">
                         <label>Vaccinator <i class="p-error">*</i></label>
@@ -272,6 +272,7 @@ export default {
             if (vv.value.$invalid) return
 
             if (dosage.id==0) store.dispatch('vaccines/ADD_DOSAGE', dosage)
+            else store.dispatch('vaccines/UPDATE_DOSAGE', dosage)
 
             closeDosage()
         }
