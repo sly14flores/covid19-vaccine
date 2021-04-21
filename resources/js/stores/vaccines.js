@@ -107,7 +107,7 @@ const dosage = {
         dose: null, //
         consent: null,
         reason: null,
-        assessments: []        
+        assessments: []
     },
     post_assessment: {
         id: 0,
@@ -239,11 +239,11 @@ const mutations = {
         state.vaccinators = [...payload]
     },
     PRES(state, payload) {
-        state.pres = [...payload]
+        // state.pres = [...payload]
         state.dosage.pre_assessment.assessments = [...payload]
     },
     POST(state, payload) {
-        state.post = [...payload]
+        // state.post = [...payload]
         state.dosage.post_assessment.assessments = [...payload]        
     },
     REASONS(state, payload) {
@@ -410,6 +410,7 @@ const actions = {
         try {
             const { data: { data } } = await getPres()
             commit('PRES', data)
+            console.log(data)
         } catch (error) {
             const { response } = error
         }
@@ -418,6 +419,7 @@ const actions = {
         try {
             const { data: { data } } = await getPost()
             commit('POST', data)
+            console.log(data)
         } catch (error) {
             const { response } = error
         }
@@ -478,7 +480,6 @@ const actions = {
 
         // payload.time_of_reconstitution = (payload.time_of_reconstitution)?payload.time_of_reconstitution = payload.time_of_reconstitution.toLocaleTimeString('en-GB'):null        
         
-        console.log(payload.pre_assessment.consent)
         const users = state.vaccinators.filter(vaccinator => {
             return vaccinator.id == payload.user_id
         })
@@ -491,22 +492,18 @@ const actions = {
 
         payload.brand_description = brands[0].name
 
-        console.log(payload.pre_assessment.consent)
-
         commit('ADD_DOSAGE', payload)
     },
     TOGGLE_DOSAGE_FORM({commit},payload) {
         commit('TOGGLE_DOSAGE_FORM',payload)
     },
-    TOGGLE_PRES_FORM({commit,state},payload) {
+    TOGGLE_PRES_FORM({commit},payload) {
         commit('TOGGLE_PRES_FORM',payload)
-        console.log(state)
     },
-    TOGGLE_REASON_FORM({commit,state},payload) {
+    TOGGLE_REASON_FORM({commit},payload) {
         commit('TOGGLE_REASON_FORM',payload)
-        console.log(state)
     },
-    async GET_DOSAGE({commit,state}, payload) {
+    async GET_DOSAGE({commit}, payload) {
         
         try {
             const { id } = payload
@@ -515,19 +512,14 @@ const actions = {
             data.expiry_date = new Date(data.expiry_date)
             data.date_of_reconstitution = new Date(data.date_of_reconstitution)
 
-            console.log(data)
-            console.log(state)
-
             commit('DOSAGE', data)
-
             if(data.pre_assessment.consent=='01_Yes') {
                 commit('TOGGLE_PRES_FORM', true)
                 commit('TOGGLE_REASON_FORM', false)
             } else {
-                commit('TOGGLE_REASON_FORM', true)
                 commit('TOGGLE_PRES_FORM', false)
+                commit('TOGGLE_REASON_FORM', true)
             }
-
         } catch (error) {
             const { response } = error || {}
             const { message, status } = response || {}

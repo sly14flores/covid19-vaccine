@@ -150,9 +150,12 @@ export default {
     methods: {
         openDosage() {
             this.$store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',true)
+            this.$store.dispatch('vaccines/TOGGLE_PRES_FORM', false)
+            this.$store.dispatch('vaccines/TOGGLE_REASON_FORM', false)
             this.$store.dispatch('vaccines/GET_VACCINATORS')
             this.$store.dispatch('vaccines/GET_REASONS')
-            this.$store.dispatch('vaccines/RESET_DOSAGE')
+            this.$store.dispatch('vaccines/GET_PRES')
+            this.$store.dispatch('vaccines/GET_POST')
         },
         showDosage(id) {
             this.$store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',true)
