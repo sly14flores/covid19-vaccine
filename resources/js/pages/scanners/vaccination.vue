@@ -105,7 +105,7 @@ export default {
             ss.value.vaccination_session.$touch();
             if (ss.value.vaccination_session.$error) return
             
-            store.dispatch('vaccines/UPDATE_VACCINATION', vaccination)
+            store.dispatch('vaccines/UPDATE_VACCINATION')
 
         }
 
