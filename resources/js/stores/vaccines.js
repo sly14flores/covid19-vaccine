@@ -105,9 +105,9 @@ const dosage = {
         id: 0,
         qr_pass_id: null, //
         dose: null, //
-        consent: false,
+        consent: null,
         reason: null,
-        assessments: []        
+        assessments: []
     },
     post_assessment: {
         id: 0,
@@ -180,6 +180,8 @@ const doses = [
 const state = () => {
     return {
         displayDosage: false,
+        displayPres: false,
+        displayReason: false,
         fetched: false,
         saving: false,
         selections,
@@ -237,11 +239,11 @@ const mutations = {
         state.vaccinators = [...payload]
     },
     PRES(state, payload) {
-        state.pres = [...payload]
+        // state.pres = [...payload]
         state.dosage.pre_assessment.assessments = [...payload]
     },
     POST(state, payload) {
-        state.post = [...payload]
+        // state.post = [...payload]
         state.dosage.post_assessment.assessments = [...payload]        
     },
     REASONS(state, payload) {
@@ -269,6 +271,7 @@ const mutations = {
         state.vaccine.town_city = payload.town_city
         state.vaccine.barangay = payload.barangay
         state.vaccine.address = payload.address // street
+        state.vaccine.occupation = payload.occupation 
 
         state.dosage.qr_pass_id = payload.qr_pass_id
         state.dosage.pre_assessment.qr_pass_id = payload.qr_pass_id
@@ -287,6 +290,12 @@ const mutations = {
     TOGGLE_DOSAGE_FORM(state,payload) {
         state.displayDosage = payload
     },
+    TOGGLE_PRES_FORM(state,payload) {
+        state.displayPres = payload
+    },
+    TOGGLE_REASON_FORM(state,payload) {
+        state.displayReason = payload
+    },
     LOADING(){
         Swal.fire({
             title: 'Loading...',
@@ -300,6 +309,17 @@ const mutations = {
             allowOutsideClick: false,
             allowEscapeKey: false,
             allowEnterKey: false
+        })
+    },
+    UPDATED(){
+        Swal.fire({
+            title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
         })
     }
 }
@@ -344,7 +364,7 @@ const actions = {
             confirmButtonText: 'Ok'
         })
     },
-    async GET_SELECTIONS({commit,dispatch}) {
+    async GET_SELECTIONS({commit}) {
         commit('LOADING');
         try {
             const { data: { data } } = await getSelections()
@@ -390,6 +410,7 @@ const actions = {
         try {
             const { data: { data } } = await getPres()
             commit('PRES', data)
+            console.log(data)
         } catch (error) {
             const { response } = error
         }
@@ -398,6 +419,7 @@ const actions = {
         try {
             const { data: { data } } = await getPost()
             commit('POST', data)
+            console.log(data)
         } catch (error) {
             const { response } = error
         }
@@ -429,30 +451,25 @@ const actions = {
     },
     async UPDATE_VACCINATION({commit,state}, payload) {
         try {
+
             const { data: { data } } = await updateVaccination({ id: state.vaccine.qr_pass_id, vaccination: payload })
-            console.log(data)
-            Swal.fire({
-                title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
-                icon: 'success',
-                showConfirmButton: false,
-                timer: 1500,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                allowEnterKey: false,
-            })
+            
+            commit('UPDATED')
+            
             return true
         } catch (error) {
             const { response } = error
             return false
         }
     },
+
     RESET_DOSAGE({commit}) {
         commit('RESET_DOSAGE')
     },
+
     ADD_DOSAGE({state,commit},payload) {
 
-        console.log(payload)
-
+        
         payload.qr_pass_id = state.vaccine.qr_pass_id
 
         const expiry_date = payload.expiry_date.setDate(payload.expiry_date.getDate() + 1);
@@ -461,27 +478,48 @@ const actions = {
         payload.date_of_reconstitution = (payload.date_of_reconstitution)?payload.date_of_reconstitution = payload.date_of_reconstitution.setDate(payload.date_of_reconstitution.getDate() + 1):null
         payload.date_of_reconstitution = new Date(payload.date_of_reconstitution).toISOString().split('T')[0];
 
-        // payload.time_of_reconstitution = (payload.time_of_reconstitution)?payload.time_of_reconstitution = payload.time_of_reconstitution.toLocaleTimeString('en-GB'):null
+        // payload.time_of_reconstitution = (payload.time_of_reconstitution)?payload.time_of_reconstitution = payload.time_of_reconstitution.toLocaleTimeString('en-GB'):null        
+        
+        const users = state.vaccinators.filter(vaccinator => {
+            return vaccinator.id == payload.user_id
+        })
+
+        payload.vaccinator = users[0].name
+
+        const brands = state.brands.filter(brand => {
+            return brand.id == payload.brand_name
+        })
+
+        payload.brand_description = brands[0].name
 
         commit('ADD_DOSAGE', payload)
     },
     TOGGLE_DOSAGE_FORM({commit},payload) {
         commit('TOGGLE_DOSAGE_FORM',payload)
     },
-    async GET_DOSAGE({commit,state}, payload) {
+    TOGGLE_PRES_FORM({commit},payload) {
+        commit('TOGGLE_PRES_FORM',payload)
+    },
+    TOGGLE_REASON_FORM({commit},payload) {
+        commit('TOGGLE_REASON_FORM',payload)
+    },
+    async GET_DOSAGE({commit}, payload) {
         
         try {
             const { id } = payload
             const { data: { data } } = await getDosage({id})
-            console.log(data)
-
+            
             data.expiry_date = new Date(data.expiry_date)
             data.date_of_reconstitution = new Date(data.date_of_reconstitution)
 
-            console.log(data);
-
-            commit('DOSAGE',data)
-            
+            commit('DOSAGE', data)
+            if(data.pre_assessment.consent=='01_Yes') {
+                commit('TOGGLE_PRES_FORM', true)
+                commit('TOGGLE_REASON_FORM', false)
+            } else {
+                commit('TOGGLE_PRES_FORM', false)
+                commit('TOGGLE_REASON_FORM', true)
+            }
         } catch (error) {
             const { response } = error || {}
             const { message, status } = response || {}

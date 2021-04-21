@@ -31,6 +31,7 @@ class RegistrationVaccineResource extends JsonResource
             // 'barangay' => $this->dohToBrgy($this->barangay),
             // 'town_city' => $this->dohToMun($this->town_city),
             // 'province' => $this->dohToProv($this->province),
+            'occupation' => $this->occupation,
             'barangay' => $this->barangay,
             'town_city' => $this->town_city,
             'province' => $this->province,

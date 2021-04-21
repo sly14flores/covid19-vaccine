@@ -30,6 +30,7 @@ class QrPass extends Model
         'gender',
         'nationality', # PHL
         'dob',
+        'occupation',
         'age',
         'mobile_number',
         'email',

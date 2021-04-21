@@ -23,7 +23,7 @@
             </Toolbar>
             <DataTable :value="dosages" dataKey="id">
                 <Column field="dose" header="Dosage"></Column>
-                <Column field="vaccine_name" header="Vaccine Name"></Column>
+                <Column field="brand_description" header="Vaccine Manufacturer Name"></Column>
                 <Column field="vaccinator" header="Administered by"></Column>
                 <Column field="id" header="Actions">
                     <template #body="slotProps">
@@ -74,6 +74,9 @@ export default {
         const editMode = eval(editOn)
         const store = useStore()
         const { state, dispatch } = store
+
+        
+        store.dispatch('vaccines/GET_SELECTION_BRANDS')
 
         const vaccination = reactive({
             ...state.vaccines.vaccination,
@@ -147,19 +150,18 @@ export default {
     methods: {
         openDosage() {
             this.$store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',true)
-            this.$store.dispatch('vaccines/GET_SELECTION_BRANDS')
+            this.$store.dispatch('vaccines/TOGGLE_PRES_FORM', false)
+            this.$store.dispatch('vaccines/TOGGLE_REASON_FORM', false)
             this.$store.dispatch('vaccines/GET_VACCINATORS')
             this.$store.dispatch('vaccines/GET_REASONS')
-            this.$store.dispatch('vaccines/RESET_DOSAGE')
-            // this.$store.state.vaccines.dosage.user_id = this.$store.state.vaccines.default_id.id;
+            this.$store.dispatch('vaccines/GET_PRES')
+            this.$store.dispatch('vaccines/GET_POST')
         },
         showDosage(id) {
             this.$store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',true)
-            this.$store.dispatch('vaccines/GET_SELECTION_BRANDS')
             this.$store.dispatch('vaccines/GET_VACCINATORS')
             this.$store.dispatch('vaccines/GET_REASONS')
             this.$store.dispatch('vaccines/GET_DOSAGE', {id})
-            // this.$store.dispatch('vaccines/GET_VACCINATION', {id})
         },
         removeDosage(index) {
             this.$store.state.vaccines.vaccination.dosages.splice(index, 1);
