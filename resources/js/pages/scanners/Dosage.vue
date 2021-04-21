@@ -133,9 +133,7 @@
                             <i class="pi pi-search p-mr-2"></i>
                             <span>AEFI</span>
                         </template>
-                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+                        <p>ON PROCESS</p>
                     </TabPanel>
                 </TabView>
                 <br />
@@ -206,10 +204,10 @@ export default {
                 dosage.time_of_reconstitution = state.vaccines.dosage.time_of_reconstitution,
                 dosage.diluent_batch_number = state.vaccines.dosage.diluent_batch_number,
                 dosage.diluent_lot_number = state.vaccines.dosage.diluent_lot_number
-                dosage.post_assessment = state.vaccines.dosage.post_assessment
                 dosage.pre_assessment.consent = state.vaccines.dosage.pre_assessment.consent
                 dosage.pre_assessment.reason = state.vaccines.dosage.pre_assessment.reason
-                dosage.pre_assessment = state.vaccines.dosage.pre_assessment
+                dosage.pre_assessment.assessments = state.vaccines.dosage.pre_assessment.assessments
+                dosage.post_assessment.assessments = state.vaccines.dosage.post_assessment.assessments
             }
         )
 
@@ -226,11 +224,9 @@ export default {
             date_of_reconstitution: {},
             time_of_reconstitution: {},
             diluent_batch_number: {},
-            diluent_lot_number: {},     
-            post_assessment: [],
+            diluent_lot_number: {},
             consent: {},
             reason: {},
-            pre_assessment: []
             
         }
 
