@@ -82,7 +82,8 @@ const vaccination = {
     id: 0,
     qr_pass_id: null,
     vaccination_session: null,
-    dosages: []
+    dosages: [],
+    delete: [],
 }
 
 const dosage = {
@@ -346,6 +347,10 @@ const mutations = {
             allowEscapeKey: false,
             allowEnterKey: false,
         })
+    },
+    DELETE_DOSAGE(state,payload) {
+        state.vaccination.delete.push(state.vaccination.dosages[payload].id)        
+        state.vaccination.dosages.splice(payload, 1)
     }
 }
 
@@ -554,6 +559,10 @@ const actions = {
             }
         }
     },
+    DELETE_DOSAGE({commit},payload) {
+        const { index } = payload
+        commit('DELETE_DOSAGE',index)
+    }
 }
 
 const getters = {}

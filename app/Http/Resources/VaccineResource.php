@@ -16,7 +16,8 @@ class VaccineResource extends JsonResource
     {
         $dosages = $this->dosages()->with(['pre_assessment','post_assessment'])->get()->makeHidden(['created_at']);
 
-        $dosages->map(function($dosage) {
+        $dosages->map(function($dosage, $i) {
+            $dosage->index = $i;
             $dosage->vaccinator = $dosage->vaccinator();
             $dosage->brand_description = $dosage->brand($dosage->brand_name);
             $dosage->vaccine_description = $dosage->vaccine_description($dosage->brand_name,$dosage->vaccine_name);
@@ -28,6 +29,7 @@ class VaccineResource extends JsonResource
             'facility_others' => $this->facility_others,
             'vaccination_session' => $this->vaccination_session,
             'dosages' => $dosages,
+            'delete' => [],
         ];
     }
 }
