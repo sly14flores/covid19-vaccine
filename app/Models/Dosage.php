@@ -52,7 +52,7 @@ class Dosage extends Model
         'diluent_lot_number' => 'integer',
         'expiry_date' => 'date',
         'date_of_reconstitution' => 'date',
-        'time_of_reconstitution' => 'datetime',
+        // 'time_of_reconstitution' => 'datetime',
     ];    
 
     protected $hidden = [
@@ -162,9 +162,9 @@ class Dosage extends Model
         return Carbon::parse($value)->format('h:i A');
     }
 
-    public function setTimeOfReconstitution($value)
+    public function setTimeOfReconstitutionAttribute($value)
     {
-        $this->attributes['time_of_reconstitution'] = Carbon::parse($value)->format('Y-m-d H:i:s');
+        $this->attributes['time_of_reconstitution'] = Carbon::parse($value)->timezone('Asia/Manila')->format('Y-m-d H:i:s');
     }
 
 }
