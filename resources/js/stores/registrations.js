@@ -87,7 +87,8 @@ const registration = {
     occupation: null,
     with_allergy: null,
     with_comorbidity: null,
-    is_registered: null
+    is_registered: null,
+    origin: null
 }
 
 const suffix_value = [];
@@ -215,11 +216,9 @@ const actions = {
     async CREATE_REGISTRATION({commit, dispatch,state}, payload) {
         commit('SAVING',true)
         try {
+            payload.origin = "Manual"
             const { data: { data } } = await storeRegistration(payload)
             dispatch('CREATE_REGISTRATION_SUCCESS', data)
-            console.log(state)
-            console.log(data)
-            console.log(payload)
             return true
         } catch(error) {
             const { response } = error
@@ -345,7 +344,6 @@ const actions = {
     async CREATE({commit, dispatch,state}, payload) {
         commit('SAVING', 'pi pi-spin pi-spinner')
         
-        console.log(state)
         try {
             // payload.drug_allergy = (payload.drug_allergy)?"01_Yes":"02_No"
             // payload.food_allergy = (payload.food_allergy)?"01_Yes":"02_No"
@@ -363,7 +361,7 @@ const actions = {
             // payload.immuno_deficiency_status = (payload.immuno_deficiency_status)?"01_Yes":"02_No"
             // payload.cancer = (payload.cancer)?"01_Yes":"02_No"
             // payload.comorbidity_others = (payload.comorbidity_others)?"01_Yes":"02_No"
-           
+            payload.origin = "Online"
             const { data: { data } } = await createRegistration(payload)
             dispatch('CREATE_SUCCESS', data)
         } catch(error) {

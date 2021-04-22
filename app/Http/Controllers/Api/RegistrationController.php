@@ -70,6 +70,7 @@ class RegistrationController extends Controller
             'with_allergy' => 'string',
             'with_comorbidity' => 'string',   
             'is_registered' => 'string',
+            'origin' => 'string',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -161,6 +162,7 @@ class RegistrationController extends Controller
             'with_allergy' => 'string',
             'with_comorbidity' => 'string',
             'is_registered' => 'string',
+            'origin' => 'string',
         ];
 
         $validator = Validator::make($request->all(), $rules);        
