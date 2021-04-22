@@ -495,7 +495,7 @@ const actions = {
     ADD_DOSAGE({state,commit},payload) {
 
         payload.qr_pass_id = state.vaccine.qr_pass_id
-        console.log(payload.time_of_reconstitution.toString())
+        console.log(payload.time_of_reconstitution)
         // const expiry_date = payload.expiry_date.setDate(payload.expiry_date.getDate() + 1);
         // payload.expiry_date = new Date(expiry_date).toISOString().split('T')[0];
         
