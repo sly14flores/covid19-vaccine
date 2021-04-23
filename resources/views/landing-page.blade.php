@@ -73,7 +73,7 @@
 								<div class="col-lg-1 divhide">&nbsp;</div>
 							</div>
 
-							<div class="row">
+							<div class="row p-mb-4">
 								<div class="col-lg-12 col-sm-12">
 									<div class="text-content-card">
 										<p>COVID-19 FREE LA UNION</p>
@@ -87,8 +87,10 @@
 					</div>
 				</div>
 			</div>
+			<div class="landing-page-footer">
+				<p class="p-text">Provincial Government of La Union | 2021 Vaccination Program</p>
+			</div>
 		</div>
-        
 	</div>
     <script type="text/javascript" src="{{ env('APP_URL') }}/angularjs/angular.min.js"></script>
     <script type="text/javascript" src="{{ env('APP_URL') }}/jquery/jquery.min.js"></script>
