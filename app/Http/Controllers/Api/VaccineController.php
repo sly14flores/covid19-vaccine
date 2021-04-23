@@ -160,6 +160,7 @@ class VaccineController extends Controller
             'facility_others' => 'string',
             'vaccination_session' => 'integer',
             'dosages' => 'array',
+            'delete' => 'array'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -193,6 +194,12 @@ class VaccineController extends Controller
 
         $vaccine->fill($data);
         $vaccine->save();
+
+        /**
+         * Delete dosages
+         */
+        $delete = $data['delete'];
+        Dosage::whereIn('id', $delete)->delete();
 
         $data = new VaccineResource($vaccine);
 
