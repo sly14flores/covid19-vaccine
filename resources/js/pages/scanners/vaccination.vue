@@ -27,8 +27,8 @@
                 <Column field="vaccinator" header="Administered by"></Column>
                 <Column field="id" header="Actions">
                     <template #body="slotProps">
-                        <Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-button-sm p-mr-2" @click="showDosage(slotProps.data.id)" />
-                        <Button icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" @click="removeDosage(slotProps.data.index)" />
+                        <Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-button-sm p-mr-2" @click="showDosage(slotProps.data)" />
+                        <Button icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" @click="removeDosage(slotProps.data)" />
                     </template>
                 </Column>
             </DataTable>
@@ -156,15 +156,19 @@ export default {
             this.$store.dispatch('vaccines/GET_REASONS')
             this.$store.dispatch('vaccines/GET_PRES')
             this.$store.dispatch('vaccines/GET_POST')
+            this.$store.dispatch('vaccines/RESET_DOSAGE')
         },
-        showDosage(id) {
+        showDosage(data) {
             this.$store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',true)
             this.$store.dispatch('vaccines/GET_VACCINATORS')
             this.$store.dispatch('vaccines/GET_REASONS')
-            this.$store.dispatch('vaccines/GET_DOSAGE', {id})
+
+            const { id } = data
+            if (id>0) this.$store.dispatch('vaccines/GET_DOSAGE', {id})
+            if (id===0) this.$store.dispatch('vaccines/SHOW_DOSAGE', data)
         },
-        removeDosage(index) {
-            this.$store.dispatch('vaccines/DELETE_DOSAGE',{index})
+        removeDosage(data) {
+            this.$store.dispatch('vaccines/DELETE_DOSAGE',{data})
         },       
     }
 }

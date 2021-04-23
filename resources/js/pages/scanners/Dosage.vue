@@ -140,7 +140,7 @@
                 <div class="p-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-10"></div>
                     <div class="p-field p-col-12 p-md-1">
-                        <Button type="button" label="Ok" autofocus @click="addDosage" />
+                        <Button type="button" label="Ok" autofocus @click="addDosage()" />
                     </div>
                     <div class="p-field p-col-12 p-md-1">
                         <Button label="Cancel" @click="closeDosage" class="p-button-text"/>
@@ -172,6 +172,8 @@ import { reactive, ref, toRef, watch } from 'vue';
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 
+import { dosageInit } from '../../stores/vaccines'
+
 export default {
     props: ['editOn'],
     setup(props) {
@@ -188,26 +190,11 @@ export default {
         watch(
             () => state.vaccines.dosage.id,
             (data, prevData) => {
-                dosage.id = state.vaccines.dosage.id,
-                dosage.vaccine_id  = state.vaccines.dosage.vaccine_id ,
-                dosage.user_id  = state.vaccines.dosage.user_id,
-                dosage.qr_pass_id = state.vaccines.dosage.qr_pass_id,
-                dosage.brand_name = state.vaccines.dosage.brand_name,
-                dosage.vaccine_name = state.vaccines.dosage.vaccine_name, // VACCINE NAME CHANGE TO INT DB
-                dosage.site_of_injection = state.vaccines.dosage.site_of_injection,
-                dosage.expiry_date = state.vaccines.dosage.expiry_date,
-                dosage.batch_number = state.vaccines.dosage.batch_number,
-                dosage.lot_number = state.vaccines.dosage.lot_number,
-                dosage.dose = state.vaccines.dosage.dose,
-                dosage.diluent = state.vaccines.dosage.diluent,
-                dosage.date_of_reconstitution = state.vaccines.dosage.date_of_reconstitution,
-                dosage.time_of_reconstitution = state.vaccines.dosage.time_of_reconstitution,
-                dosage.diluent_batch_number = state.vaccines.dosage.diluent_batch_number,
-                dosage.diluent_lot_number = state.vaccines.dosage.diluent_lot_number
-                dosage.pre_assessment.consent = state.vaccines.dosage.pre_assessment.consent
-                dosage.pre_assessment.reason = state.vaccines.dosage.pre_assessment.reason
-                dosage.pre_assessment.assessments = state.vaccines.dosage.pre_assessment.assessments
-                dosage.post_assessment.assessments = state.vaccines.dosage.post_assessment.assessments
+                console.log(`Modified ${data}`)
+                console.log(state.vaccines.dosage)
+                if (data===null) Object.assign(dosage, dosageInit)
+                if (data===0) Object.assign(dosage, state.vaccines.dosage)
+                if (data>0) Object.assign(dosage, state.vaccines.dosage)
             }
         )
 
@@ -250,7 +237,6 @@ export default {
 
         const closeDosage = () => {
             store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',false)
-            store.dispatch('vaccines/RESET_DOSAGE')
         }
 
         const displayPres = () => {
@@ -267,10 +253,16 @@ export default {
             vv.value.$touch();
             if (vv.value.$invalid) return
 
-            if (dosage.id==0) store.dispatch('vaccines/ADD_DOSAGE', dosage)
-            else store.dispatch('vaccines/UPDATE_DOSAGE', dosage)
+            console.log(dosage.id)
+            if (dosage.id===null) store.dispatch('vaccines/ADD_DOSAGE', dosage)
+            if (dosage.id===0) store.dispatch('vaccines/UPDATE_DOSAGE', dosage)
+            if (dosage.id>0) store.dispatch('vaccines/UPDATE_DOSAGE', dosage)
 
             closeDosage()
+
+            setTimeout(function() {
+                vv.value.$reset()
+            }, 2000)         
         }
 
         return {
