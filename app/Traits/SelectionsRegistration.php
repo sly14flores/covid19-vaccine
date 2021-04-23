@@ -80,12 +80,12 @@ trait SelectionsRegistration
                     ["name"=>"Remaining Hospitals", "description"=>"(A1.4) Remaining Hospitals", "id"=>"04_A1.4"],
                     ["name"=>"Government Owned Community Based Primary Care Facilities", "description"=>"(A1.5) Government Owned Community Based Primary Care Facilities", "id"=>"05_A1.5"],
                     ["name"=>"Stand-alone Clinics and Diagnostics", "description"=>"(A1.6) Stand-alone Clinics and Diagnostics", "id"=>"06_A1.6"],
-                    ["name"=>"Closed Settings and Institutions", "description"=>"(A1.7) Stand-alone Clinics and Diagnostics", "id"=>"07_A1.7"],
+                    ["name"=>"Closed Settings and Institutions", "description"=>"(A1.7) Closed Settings and Institutions", "id"=>"07_A1.7"],
                 ]
             ],
             [
-                "name"=>"Senior citizens aged 60 years old and above ",
-                "description"=>"(A2) Senior citizens aged 60 years old and above ",
+                "name"=>"Senior citizens aged 60 years old and above",
+                "description"=>"(A2) Senior citizens aged 60 years old and above",
                 "id"=>"02_A2",
                 "subs"=> []
             ],
@@ -108,7 +108,7 @@ trait SelectionsRegistration
                     ["name"=>"Frontline workers in hotels and accommodation establishment", "description"=>"(A4.6) Frontline workers in hotels and accommodation establishment", "id"=>"06_A4.6"],
                     ["name"=>"Priests, Pastors, rabbis, imams or such other religious leaders regardless of denomination", "description"=>"(A4.7) Priests, Pastors, rabbis, imams or such other religious leaders regardless of denomination", "id"=>"07_A4.7"],
                     ["name"=>"Security guards/personnel assigned in the establishments, offices, agencies, and organizations identified in the list of priority industry/sectors", "description"=>"(A4.8) Security guards/personnel assigned in the establishments, offices, agencies, and organizations identified in the list of priority industry/sectors", "id"=>"08_A4.8"],
-                    ["name"=>"Frontline workers in news media, both private and government", "description"=>"(A4.9) Priests, pastors, religious leaders regardless of denomination", "id"=>"9_A4.9"],
+                    ["name"=>"Frontline workers in news media, both private and government", "description"=>"(A4.9) Frontline Workers in new media, both private and government", "id"=>"9_A4.9"],
                     ["name"=>"Customer-facing personnel of telecoms, cable and internet service providers, electricity distribution, water distribution utilities", "description"=>"(A4.10) Customer-facing personnel of telecoms, cable and internet service providers, electricity distribution, water distribution utilities", "id"=>"10_A4.10"],
                     ["name"=>"Frontline personnel in basic education and higher education institutions and agencies", "description"=>"(A4.11) Frontline personnel in basic education and higher education institutions and agencies", "id"=>"11_A4.11"],
                     ["name"=>"Overseas Filipino workers not classified above, and scheduled for deployment within two months", "description"=>"(A4.12) Overseas Filipino workers not classified above, and scheduled for deployment within two months", "id"=>"12_A4.12"],

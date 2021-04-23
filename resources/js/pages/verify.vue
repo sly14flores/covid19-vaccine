@@ -54,7 +54,7 @@
                         </div>
                         <div class="p-grid">
                             <div class="p-lg-12">
-                                <center><p class="text-gray"><small>No NAPANAM ID yet. <a href="https://npnm.launion.gov.ph/#/regqrpass">REGISTER HERE</a></small></p></center>
+                                <center><p class="text-gray"><small>No NAPANAM QR ID yet. <a href="https://npnm.launion.gov.ph/#/regqrpass">REGISTER HERE</a></small></p></center>
                             </div>
                         </div>
                     </div>

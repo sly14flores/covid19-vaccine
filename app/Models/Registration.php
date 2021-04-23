@@ -15,7 +15,7 @@ class Registration extends Model
      * @var array
      */
     protected $fillable = [
-        'qr_pass_id',
+        'qr_pass_id', #
         'first_name', #
         'middle_name', #
         'last_name', #
@@ -31,12 +31,11 @@ class Registration extends Model
         'priority_group', #
         'sub_priority_group', #
         'occupation', #
-        'with_comorbidity', #
+        'with_allergy', #
         'allergic_to_vaccines', #
-        'with_allergy',
         'with_comorbidity', #
-        'is_registered',
-
+        'is_registered', #
+        'origin', #
     ];
 
     // protected $fillable = [
