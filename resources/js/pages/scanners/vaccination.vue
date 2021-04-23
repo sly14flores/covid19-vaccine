@@ -28,7 +28,7 @@
                 <Column field="id" header="Actions">
                     <template #body="slotProps">
                         <Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-button-sm p-mr-2" @click="showDosage(slotProps.data.id)" />
-                        <Button icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" @click="removeDosage()" />
+                        <Button icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" @click="removeDosage(slotProps.data.index)" />
                     </template>
                 </Column>
             </DataTable>
@@ -164,7 +164,7 @@ export default {
             this.$store.dispatch('vaccines/GET_DOSAGE', {id})
         },
         removeDosage(index) {
-            this.$store.state.vaccines.vaccination.dosages.splice(index, 1);
+            this.$store.dispatch('vaccines/DELETE_DOSAGE',{index})
         },       
     }
 }
