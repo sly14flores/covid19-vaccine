@@ -500,15 +500,12 @@ const actions = {
     ADD_DOSAGE({state,commit},payload) {
 
         payload.qr_pass_id = state.vaccine.qr_pass_id
-        console.log(payload.time_of_reconstitution)
-        // const expiry_date = payload.expiry_date.setDate(payload.expiry_date.getDate() + 1);
-        // payload.expiry_date = new Date(expiry_date).toISOString().split('T')[0];
         
-        // payload.date_of_reconstitution = (payload.date_of_reconstitution)?payload.date_of_reconstitution = payload.date_of_reconstitution.setDate(payload.date_of_reconstitution.getDate() + 1):null
-        // payload.date_of_reconstitution = new Date(payload.date_of_reconstitution).toISOString().split('T')[0];
+        const date = payload.time_of_reconstitution.toISOString().replace('T', ' ').substring(0, 10)
+        const time = payload.time_of_reconstitution.toLocaleString().substring(11, 21)
 
-        // payload.time_of_reconstitution = (payload.time_of_reconstitution)?payload.time_of_reconstitution = payload.time_of_reconstitution.toLocaleTimeString('en-GB'):null        
-
+        payload.time_of_reconstitution = date+' '+time
+        
         const users = state.vaccinators.filter(vaccinator => {
             return vaccinator.id == payload.user_id
         })
@@ -542,6 +539,7 @@ const actions = {
             
             data.expiry_date = new Date(data.expiry_date)
             data.date_of_reconstitution = new Date(data.date_of_reconstitution)
+            
 
             commit('DOSAGE', data)
             if(data.pre_assessment.consent=='01_Yes') {

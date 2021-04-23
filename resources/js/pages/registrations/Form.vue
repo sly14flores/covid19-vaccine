@@ -111,16 +111,16 @@
                             <div class="p-field p-col-12 p-md-6">
                                 <div class="p-field p-col-12 p-md-8">
                                     <label>Are you Allergic of Vaccines or any of its components? <small><i>(May allergy ka ba sa bakuna o sa mga sangkap nito?)</i></small> <i class="p-error">*</i></label>
-                                    <p class="p-error"><small>{{ with_allergyError }}</small></p>
+                                    <p class="p-error"><small>{{ allergic_to_vaccinesError }}</small></p>
                                 </div>
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-2">
-                                        <RadioButton class="p-mb-2" id="yes_with_allergy" name="with_allergy" v-model="with_allergy" value="01_Yes" :disabled="editMode && !writeOn" />
-                                        <label for="yes_with_allergy" class="p-ml-1">Yes</label>
+                                        <RadioButton class="p-mb-2" id="yes_allergic_to_vaccines" name="allergic_to_vaccines" v-model="allergic_to_vaccines" value="01_Yes" :disabled="editMode && !writeOn" />
+                                        <label for="yes_allergic_to_vaccines" class="p-ml-1">Yes</label>
                                     </div>
                                     <div class="p-field p-col-12 p-md-2">
-                                        <RadioButton class="p-mb-2" id="no_with_allergy" name="with_allergy" v-model="with_allergy" value="02_No" :disabled="editMode && !writeOn" />
-                                        <label for="no_with_allergy" class="p-ml-1">No</label>
+                                        <RadioButton class="p-mb-2" id="no_allergic_to_vaccines" name="allergic_to_vaccines" v-model="allergic_to_vaccines" value="02_No" :disabled="editMode && !writeOn" />
+                                        <label for="no_allergic_to_vaccines" class="p-ml-1">No</label>
                                     </div>
                                 </div>
                             </div>
@@ -313,7 +313,7 @@ export default {
         const { value: occupation } = useField('registration.occupation',validField);
         const { value: priority_group, errorMessage: priority_groupError } = useField('registration.priority_group',validateField);
         const { value: sub_priority_group } = useField('registration.sub_priority_group',validField);
-        const { value: with_allergy, errorMessage: with_allergyError } = useField('registration.with_allergy',validateRadio);
+        const { value: allergic_to_vaccines, errorMessage: allergic_to_vaccinesError } = useField('registration.allergic_to_vaccines',validateRadio);
         const { value: with_comorbidity, errorMessage: with_comorbidityError } = useField('registration.with_comorbidity',validateRadio);
         const { value: is_registered, errorMessage: is_registeredError } = useField('registration.is_registered',validateRadio);
         
@@ -335,7 +335,7 @@ export default {
             occupation,
             priority_group,
             sub_priority_group,
-            with_allergy,
+            allergic_to_vaccines,
             with_comorbidity,
             is_registered,
             qr_pass_idError,
@@ -347,7 +347,7 @@ export default {
             town_cityError,
             barangayError,
             priority_groupError,
-            with_allergyError,
+            allergic_to_vaccinesError,
             with_comorbidityError,
             is_registeredError,
             onSubmit,
