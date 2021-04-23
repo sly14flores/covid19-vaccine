@@ -164,9 +164,8 @@ export default {
             this.$store.dispatch('vaccines/GET_REASONS')
 
             const { id } = data
-            console.log(id)
             if (id>0) this.$store.dispatch('vaccines/GET_DOSAGE', {id})
-            if (id==0) this.$store.dispatch('vaccines/SHOW_DOSAGE', data)
+            if (id===0) this.$store.dispatch('vaccines/SHOW_DOSAGE', data)
         },
         removeDosage(data) {
             this.$store.dispatch('vaccines/DELETE_DOSAGE',{data})

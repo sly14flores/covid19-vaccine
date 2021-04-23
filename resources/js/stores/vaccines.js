@@ -289,7 +289,7 @@ const mutations = {
     ADD_DOSAGE(state,payload) {
         const dosage = {...payload, id: 0}
         state.vaccination.dosages.push(dosage)
-        // state.dosage = {...dosage}
+        state.dosage = {...dosage}
     },
     UPDATE_DOSAGE(state,payload) {
 
@@ -304,9 +304,6 @@ const mutations = {
                 const brands = state.brands.filter(brand => {
                     return brand.id == payload.brand_name
                 })
-                /**
-                 * Time
-                 */
                 dosage = {
                     ...payload,
                     vaccinator: users[0].name,

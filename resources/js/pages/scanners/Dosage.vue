@@ -191,9 +191,10 @@ export default {
             () => state.vaccines.dosage.id,
             (data, prevData) => {
                 console.log(`Modified ${data}`)
+                console.log(state.vaccines.dosage)
                 if (data===null) Object.assign(dosage, dosageInit)
                 if (data===0) Object.assign(dosage, state.vaccines.dosage)
-                if (data===1) Object.assign(dosage, state.vaccines.dosage)
+                if (data>0) Object.assign(dosage, state.vaccines.dosage)
             }
         )
 
@@ -255,7 +256,7 @@ export default {
             console.log(dosage.id)
             if (dosage.id===null) store.dispatch('vaccines/ADD_DOSAGE', dosage)
             if (dosage.id===0) store.dispatch('vaccines/UPDATE_DOSAGE', dosage)
-            if (dosage.id===1) store.dispatch('vaccines/UPDATE_DOSAGE', dosage)
+            if (dosage.id>0) store.dispatch('vaccines/UPDATE_DOSAGE', dosage)
 
             closeDosage()
 
