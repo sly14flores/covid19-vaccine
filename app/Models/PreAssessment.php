@@ -17,23 +17,25 @@ class PreAssessment extends Model
      * @var array
      */
     protected $fillable = [
+        'dosage_id',
         'qr_pass_id',
         'consent',
         'reason',
+        'dose',
         'assessments',
     ];
 
-    protected $hidden = [
-        'updated_at',
-    ];
-
     /**
-     * The attributes that should be cast.
+     * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [
-        'consent' => 'boolean',
+        'dose' => 'integer',
+    ];    
+
+    protected $hidden = [
+        'updated_at',
     ];
     
     /**
@@ -53,6 +55,11 @@ class PreAssessment extends Model
     public function getAssessmentsAttribute($value)
     {
         return unserialize($value);
+    }
+
+    public function dosage()
+    {
+        return $this->belongsTo(Vaccine::class,'dosage_id');
     }
 
 }

@@ -23,7 +23,7 @@ class DOHDataSelections extends Controller
 
 	public function __construct()
 	{
-		$this->middleware(['auth:api']);
+		// $this->middleware(['auth:api']);
 		
         $this->http_code_ok = 200;
         $this->http_code_error = 500;
@@ -48,6 +48,7 @@ class DOHDataSelections extends Controller
             "civil_status_value" => $this->civilStatusValue(),
             "category_value" => $this->categoryValue(),
             "category_id_value" => $this->categoryIdValue(),
+            "priority_group_value" => $this->priorityGroupValue(),
             "employment_status_value" => $this->employmentStatusValue(),
             "profession_value" => $this->professionValue(),
             "allergy_value" => $this->allergyValue(),
@@ -116,11 +117,17 @@ class DOHDataSelections extends Controller
         ];
     }
 
-    public function vaccines()
+    public function brands()
     {
-        $vaccines = $this->vaccineValue();
-        return $this->jsonSuccessResponse($vaccines, 200);        
+        $brands = $this->brandValue();
+        return $this->jsonSuccessResponse($brands, 200);        
     }
+
+    public function vaccinationSession()
+    {
+        $sessions = $this->vaccinationSessionValue();
+        return $this->jsonSuccessResponse($sessions, 200);        
+    }    
 
     public function refusalValue()
     {

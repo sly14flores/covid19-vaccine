@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\PreAssessment;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\PreAssessmentResource;
+use App\Http\Resources\PreAssessmentResourceCollection;
 
 use App\Traits\Messages;
 
@@ -76,7 +77,7 @@ class PreAssessmentController extends Controller
             return $this->jsonErrorInvalidParameters();
         }
 
-        $pre = PreAssessment::where('qr_pass_id',$id)->first();
+        $pre = PreAssessment::where('dosage_id',$id)->first();
 
         if (is_null($pre)) {
 			return $this->jsonErrorResourceNotFound();
@@ -125,12 +126,19 @@ class PreAssessmentController extends Controller
 
         /** Get validated data */
         $data = $validator->valid();
-        $assessment = PreAssessment::where('qr_pass_id',$id)->first();
+        $assessment = PreAssessment::where('dosage_id',$id)->first();
         $assessment->fill($data);
         $assessment->save();
 
-        return $this->jsonSuccessResponse(new PreAssessmentResource($assessment), 200, 'User info updated successfully');
+        return $this->jsonSuccessResponse(new PreAssessmentResource($assessment), 200, 'Pre assessment info updated successfully');
 
+    }
+
+    public function structure()
+    {
+        $data = config('constants.pre_assessments');
+
+        return $this->jsonSuccessResponse($data, 200);
     }
 
     /**

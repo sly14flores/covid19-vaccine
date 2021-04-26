@@ -26,82 +26,81 @@
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-3">
-                                <label for="first_name">First Name <i class="p-error">*</i></label>
+                                <label for="first_name">First Name <small><i>(Pangalan)</i></small> <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" id="first_name " type="text" placeholder="Enter First Name" v-model="first_name" :class="{'p-invalid': first_nameError}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ first_nameError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-3">
-                                <label for="last_name">Last Name <i class="p-error">*</i></label>
+                                <label for="last_name">Last Name <small><i>(Apelyido)</i></small> <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" id="last_name" type="text" placeholder="Enter Last Name" v-model="last_name" :class="{'p-invalid': last_nameError}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ last_nameError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-3">
-                                <label for="middle_name">Middle Name </label>
+                                <label for="middle_name">Middle Name <small><i>(Gitnang Apelyido)</i></small> </label>
                                 <InputText class="p-shadow-1" id="middle_name" type="text" placeholder="Enter Middle Name" v-model="middle_name" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-3">
-                                <label>Suffix/Extension Name <i class="p-error">*</i></label>
+                                <label>Suffix/Extension Name <small><i>(Karugtong na Pangalan)</i></small> <i class="p-error">*</i></label>
                                 <Dropdown class="p-shadow-1" optionLabel="name" :options="suffix_value" optionValue="id" v-model="suffix" placeholder="Select a Suffix" :class="{'p-invalid': suffixError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ suffixError }}</small>    
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
-                                <label>Birthdate <i class="p-error">*</i></label>
+                                <label>Birthdate <small><i>(Araw ng Kapanganakan)</i></small> <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" type="date" v-model="birthdate" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
-                                <label>Sex <i class="p-error">*</i></label>
+                                <label>Sex <small><i>(Kasarian)</i></small> <i class="p-error">*</i></label>
                                 <Dropdown class="p-shadow-1" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" :class="{'p-invalid': genderError, 'disabled': editMode && !writeOn}" placeholder="Select a Gender" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ genderError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
-                                <label>Contact No.: <i class="p-error">*</i></label>
+                                <label>Contact No. <small><i>(Telepono)</i></small> <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" type="text" v-model="contact_no" :disabled="editMode && !writeOn" />
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
-                                <label>Region <i class="p-error">*</i></label>
+                                <label>Region <small><i>(Rehiyon)</i></small> <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" type="text" v-model="region" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
-                                <label>Province <i class="p-error">*</i></label>
+                                <label>Province <small><i>(Probinsya)</i></small> <i class="p-error">*</i></label>
                                 <Dropdown class="p-shadow-1" optionLabel="name" :options="provinces" optionValue="id" v-model="province" :class="{'p-invalid': provinceError, 'disabled': editMode && !writeOn}" placeholder="Select a province" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ provinceError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
-                                <label>Municipality <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="municipalities" optionValue="id" v-model="town_city" :class="{'p-invalid': false, 'disabled': editMode && !writeOn}" placeholder="Select a municipality" :disabled="editMode && !writeOn" />
+                                <label>Municipality <small><i>(Munisipyo)</i></small> <i class="p-error">*</i></label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="municipalities" optionValue="id" v-model="town_city" :class="{'p-invalid': town_cityError, 'disabled': editMode && !writeOn}" placeholder="Select a municipality" :disabled="editMode && !writeOn" />
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-8">
+                                <label>Barangay <small><i>(Barangay)</i></small> <i class="p-error">*</i></label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="barangays" optionValue="id" v-model="barangay" :class="{'p-invalid': barangayError, 'disabled': editMode && !writeOn}" placeholder="Select a barangay" :disabled="editMode && !writeOn" />
+                            </div>
                             <div class="p-field p-col-12 p-md-4">
-                                <label>Unit/Building/Street/House No. <i class="p-error">*</i></label>
+                                <label>Unit/Building/Street/House No. <small><i>(Gusali/Numero ng Tahanan)</i></small> <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" type="text" v-model="address" :disabled="editMode && !writeOn" />
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Occupation</label>
-                                <InputText class="p-shadow-1" type="text" v-model="occupation" :disabled="editMode && !writeOn" />
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Barangay <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="barangays" optionValue="id" v-model="barangay" :class="{'p-invalid': false, 'disabled': editMode && !writeOn}" placeholder="Select a barangay" :disabled="editMode && !writeOn" />
                             </div>
                         </div>
                     </div>
                     <div class="card p-fluid">
-                        <h5><i class="pi pi-sitemap"></i> Group</h5><hr />
+                        <h5><i class="pi pi-sitemap"></i> Others</h5><hr />
                         <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-6">
-                                <label>Priority Group <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="suffix_value" optionValue="id" v-model="priority_group" placeholder="Select a priority group" :class="{'p-invalid': priority_groupError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
+                            <div class="p-field p-col-12 p-md-12">
+                                <label>Priority Group <small><i>(Grupong Prayoridad)</i></small> <i class="p-error">*</i></label>
+                                <Dropdown class="p-shadow-1" optionLabel="description" :options="priority_group_value" optionValue="id" v-model="priority_group" placeholder="Select a priority group" :class="{'p-invalid': priority_groupError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ priority_groupError }}</small>
                             </div>
-                            <div class="p-field p-col-12 p-md-6">
-                                <label>Sub-Priority Group <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="suffix_value" optionValue="id" v-model="sub_priority_group" placeholder="Select a sub priority group" :class="{'p-invalid': sub_priority_groupError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
-                                <small class="p-error">{{ sub_priority_groupError }}</small>
+                            <div class="p-field p-col-12 p-md-12">
+                                <label>Sub-Priority Group</label>
+                                <Dropdown class="p-shadow-1" optionLabel="description" :options="subs" optionValue="id" v-model="sub_priority_group" placeholder="Select a sub priority group" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
+                            </div>
+                            <div class="p-field p-col-12 p-md-12">
+                                <label>Occupation <small><i>(Trabaho)</i></small></label>
+                                <InputText class="p-shadow-1" type="text" v-model="occupation" :disabled="editMode && !writeOn" />
                             </div>
                         </div>
                     </div>
@@ -111,36 +110,59 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-6">
                                 <div class="p-field p-col-12 p-md-8">
-                                    <label>Directly in interaction with Covid Patient: <i class="p-error">*</i></label>
-                                    <p class="p-error"><small>{{ direct_interactionError }}</small></p>
+                                    <label>Are you Allergic of Vaccines or any of its components? <small><i>(May allergy ka ba sa bakuna o sa mga sangkap nito?)</i></small> <i class="p-error">*</i></label>
+                                    <p class="p-error"><small>{{ allergic_to_vaccinesError }}</small></p>
                                 </div>
-                                <div class="p-field p-col-12 p-md-2">
-                                    <RadioButton class="p-mb-2" id="yes_direct_interaction" name="direct_interaction" v-model="direct_interaction" value="01_Yes" :disabled="editMode && !writeOn" />
-                                    <label for="yes_direct_interaction" class="p-ml-1">Yes</label>
-                                </div>
-                                <div class="p-field p-col-12 p-md-2">
-                                    <RadioButton class="p-mb-2" id="no_direct_interaction" name="direct_interaction" v-model="direct_interaction" value="02_No" :disabled="editMode && !writeOn" />
-                                    <label for="no_direct_interaction" class="p-ml-1">No</label>
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-2">
+                                        <RadioButton class="p-mb-2" id="yes_allergic_to_vaccines" name="allergic_to_vaccines" v-model="allergic_to_vaccines" value="01_Yes" :disabled="editMode && !writeOn" />
+                                        <label for="yes_allergic_to_vaccines" class="p-ml-1">Yes</label>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-2">
+                                        <RadioButton class="p-mb-2" id="no_allergic_to_vaccines" name="allergic_to_vaccines" v-model="allergic_to_vaccines" value="02_No" :disabled="editMode && !writeOn" />
+                                        <label for="no_allergic_to_vaccines" class="p-ml-1">No</label>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="p-field p-col-12 p-md-6">
                                 <div class="p-field p-col-12 p-md-8">
-                                    <label>With Comorbidity <i class="p-error">*</i> </label>
+                                    <label>Do you have other illnesses? <small><i>(Mayroon ka bang ibang mga karamdaman?)</i></small> <i class="p-error">*</i> </label>
                                     <p class="p-error"><small>{{ with_comorbidityError }}</small></p>
                                 </div>
-                                <div class="p-field p-col-12 p-md-2">
-                                    <RadioButton class="p-mb-2" id="yes_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="01_Yes" v-on:click="with_comorbidity_hide = true" :disabled="editMode && !writeOn" />
-                                    <label for="yes_comorbidity" class="p-ml-1">Yes</label>
-                                </div>
-                                <div class="p-field p-col-12 p-md-2">
-                                    <RadioButton class="p-mb-2" id="none_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="02_None" v-on:click="with_comorbidity_hide = false" :disabled="editMode && !writeOn" />
-                                    <label for="none_comorbidity" class="p-ml-1">None</label>
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-2">
+                                        <RadioButton class="p-mb-2" id="yes_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="01_Yes" :disabled="editMode && !writeOn" />
+                                        <label for="yes_comorbidity" class="p-ml-1">Yes</label>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-2">
+                                        <RadioButton class="p-mb-2" id="none_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="02_None" :disabled="editMode && !writeOn" />
+                                        <label for="none_comorbidity" class="p-ml-1">None</label>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
-                        <hr />
+                    </div>
+
+                    <div class="card p-fluid">
+                        <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-12">
+                                <div class="p-field p-col-12 p-md-12">
+                                    <label>Did you already register through your barangay or Municipality/ City before this online registration? <small><i>(Nakapagregister ka na ba sa iyong Barangay o Munisipyo/ City bago ang online registration na ito?)</i></small> <i class="p-error">*</i> </label>
+                                    <p class="p-error"><small>{{ is_registeredError }}</small></p>
+                                </div>
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-6">
+                                        <RadioButton class="p-mb-2" id="yes_is_registered" name="is_registered" v-model="is_registered" value="01_Yes" :disabled="editMode && !writeOn" />
+                                        <label for="yes_is_registered" class="p-ml-1">Yes, I already registered. (Oo, nakapagregister na ako)</label>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-6">
+                                        <RadioButton class="p-mb-2" id="none_is_registered" name="is_registered" v-model="is_registered" value="02_No" :disabled="editMode && !writeOn" />
+                                        <label for="none_is_registered" class="p-ml-1">No, this is my first time to register. (Hindi, unang beses ko pa lang magregister.)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><hr />
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-10"></div>
                             <div class="p-field p-col-12 p-md-1">
@@ -284,60 +306,19 @@ export default {
         const { value: gender, errorMessage: genderError } = useField('registration.gender',validateField);
         const { value: region } = useField('registration.region',validField);
         const { value: province, errorMessage: provinceError } = useField('registration.province',validateField);
-        const { value: town_city } = useField('registration.town_city',validField);
+        const { value: town_city, errorMessage: town_cityError } = useField('registration.town_city',validateField);
+        const { value: barangay, errorMessage: barangayError } = useField('registration.barangay',validateField);
         const { value: address } = useField('registration.address',validField);
-        const { value: barangay } = useField('registration.barangay',validField);
         const { value: contact_no } = useField('registration.contact_no',validField);
         const { value: occupation } = useField('registration.occupation',validField);
         const { value: priority_group, errorMessage: priority_groupError } = useField('registration.priority_group',validateField);
-        const { value: sub_priority_group, errorMessage: sub_priority_groupError } = useField('registration.sub_priority_group',validateField);
-        // const { value: civil_status, errorMessage: civil_statusError } = useField('registration.civil_status',validateField);
-        // Employment Status
-        // const { value: category, errorMessage: categoryError } = useField('registration.category',validateField);
-        // const { value: category_id, errorMessage: category_idError } = useField('registration.category_id',validateField);
-        // const { value: category_id_no, errorMessage: category_id_noError } = useField('registration.category_id_no',validateField);
-        
-        // const { value: employment_status, errorMessage: employment_statusError } = useField('registration.employment_status',validateField);
-        // const { value: profession, errorMessage: professionError } = useField('registration.profession',validateField);
-        // const { value: philhealth, errorMessage: philhealthError } = useField('registration.philhealth',validateField);
-        // const { value: pwd_id } = useField('registration.pwd_id',validField);
-        // const { value: employer_name, errorMessage: employer_nameError } = useField('registration.employer_name',validateField);
-        // const { value: employer_municipality, errorMessage: employer_municipalityError } = useField('registration.employer_municipality',validateField);
-        // const { value: employer_address, errorMessage: employer_addressError } = useField('registration.employer_address',validateField);
-        // const { value: employer_contact_no, errorMessage: employer_contact_noError } = useField('registration.employer_contact_no',validateField);
-        
-        // Health Status
-        // const { value: pregnancy_status, errorMessage: pregnancy_statusError } = useField('registration.pregnancy_status',validateRadio);
-        // const { value: direct_interaction, errorMessage: direct_interactionError } = useField('registration.direct_interaction',validateRadio);
-        // Allergies
-        // const { value: with_allergy, errorMessage: with_allergyError } = useField('registration.with_allergy',validateRadio);
-        // const { value: drug_allergy } = useField('registration.drug_allergy',validField);
-        // const { value: food_allergy } = useField('registration.food_allergy',validField);
-        // const { value: insect_allergy } = useField('registration.insect_allergy',validField);
-        // const { value: latex_allergy } = useField('registration.latex_allergy',validField);
-        // const { value: mold_allergy } = useField('registration.mold_allergy',validField);
-        // const { value: pet_allergy } = useField('registration.pet_allergy',validField);
-        // const { value: pollen_allergy } = useField('registration.pollen_allergy',validField);
-        // const { value: with_allergy_others } = useField('registration.with_allergy_others',validField);
-        // Comorbidities
+        const { value: sub_priority_group } = useField('registration.sub_priority_group',validField);
+        const { value: allergic_to_vaccines, errorMessage: allergic_to_vaccinesError } = useField('registration.allergic_to_vaccines',validateRadio);
         const { value: with_comorbidity, errorMessage: with_comorbidityError } = useField('registration.with_comorbidity',validateRadio);
-        // const { value: hypertension } = useField('registration.hypertension',validField);
-        // const { value: heart_disease } = useField('registration.heart_disease',validField);
-        // const { value: kidney_disease } = useField('registration.kidney_disease',validField);
-        // const { value: diabetes_mellitus } = useField('registration.diabetes_mellitus',validField);
-        // const { value: bronchial_asthma } = useField('registration.bronchial_asthma',validField);
-        // const { value: immuno_deficiency_status } = useField('registration.immuno_deficiency_status',validField);
-        // const { value: cancer } = useField('registration.cancer',validField);
-        // const { value: comorbidity_others } = useField('registration.comorbidity_others',validField);
-        // const { value: with_comorbidity_others } = useField('registration.with_comorbidity_others',validField);
-        // const { value: diagnosed, errorMessage: diagnosedError } = useField('registration.diagnosed',validateField);
-        // const { value: covid_classification } = useField('registration.covid_classification',validField);
-        // const { value: diagnosed_date } = useField('registration.diagnosed_date',validField);
-        
-        // const { value: consent_vaccination, errorMessage: consent_vaccinationError } = useField('registration.consent_vaccination',validateRadio);
+        const { value: is_registered, errorMessage: is_registeredError } = useField('registration.is_registered',validateRadio);
         
         return {
-            id, // Personal
+            id,
             qr_pass_id,
             first_name,
             middle_name,
@@ -348,74 +329,27 @@ export default {
             region,
             province,
             town_city,
-            address, // street
+            address,
             barangay,
             contact_no,
             occupation,
             priority_group,
             sub_priority_group,
-            // civil_status, //  End Personal
-            // category, // Employment Status
-            // category_id,
-            // category_id_no,
-            // employment_status,
-            // profession,
-            // philhealth,
-            // pwd_id,
-            // employer_name,
-            // employer_municipality,
-            // employer_address,
-            // employer_contact_no, // End Employment Status
-            // direct_interaction, // Health Status
-            // pregnancy_status,
-            // with_allergy,
-            // drug_allergy,
-            // food_allergy,
-            // insect_allergy,
-            // latex_allergy,
-            // mold_allergy,
-            // pet_allergy,
-            // pollen_allergy,
-            // with_allergy_others,
+            allergic_to_vaccines,
             with_comorbidity,
-            // hypertension,
-            // heart_disease,
-            // kidney_disease,
-            // diabetes_mellitus,
-            // bronchial_asthma,
-            // immuno_deficiency_status,
-            // cancer,
-            // comorbidity_others,
-            // with_comorbidity_others,
-            // diagnosed,
-            // covid_classification, 
-            // diagnosed_date,  // End Health Status
-            // consent_vaccination,
+            is_registered,
             qr_pass_idError,
             first_nameError,
             last_nameError,
             suffixError,
             genderError,
             provinceError,
+            town_cityError,
+            barangayError,
             priority_groupError,
-            sub_priority_groupError,
-            // employment_statusError,
-            // employer_nameError,
-            // employer_municipalityError,
-            // employer_addressError,
-            // employer_contact_noError,
-            // professionError,
-            // philhealthError,
-            // category_idError,
-            // category_id_noError,
-            // categoryError,
-            // civil_statusError,
-            // direct_interactionError,
-            // pregnancy_statusError,
-            // with_allergyError,
+            allergic_to_vaccinesError,
             with_comorbidityError,
-            // diagnosedError,
-            // consent_vaccinationError,
+            is_registeredError,
             onSubmit,
             editMode,
             getNapanam
@@ -425,10 +359,6 @@ export default {
     data() {
         return {
             displayConfirmation: false,
-            with_allergy_hide: false,
-            with_comorbidity_hide: false,
-            comorbidity_others_hide: false,
-            diagnosed_hide: false,
             home: {icon: 'pi pi-home', to: '/registrations'},
             items: [{label: (this.editMode)?'Edit Registration':'New Registration', to: `${this.$route.fullPath}`}]
         }
@@ -504,6 +434,26 @@ export default {
         employer_municipality_value() {
 
             return this.$store.state.registrations.selections.employer_municipality_value
+
+        },
+        priority_group_value() {
+
+            return this.$store.state.registrations.selections.priority_group_value
+
+        },
+        subs() {
+
+            if (!this.priority_group_value) return []
+
+            const priority_group = this.priority_group_value.filter(priority_group => {
+                return priority_group.id == this.priority_group
+            })
+
+            if (priority_group.length==0) return []
+
+            const subs = priority_group[0].subs
+
+            return subs
 
         },
         provinces() {

@@ -28,20 +28,20 @@
                             </div>
                         </div>
 
-                        <h6>Birthdate: <i class="p-error">*</i></h6>
+                        <h6>Birthdate: <small><i class="text-gray">(Araw ng Kapanganakan)</i></small> <i class="p-error">*</i></h6>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
-                                <label for="month"><small>Month</small></label>
+                                <label for="month"><small>Month <i class="text-gray"> (Buwan)</i></small></label>
                                 <Dropdown class="p-shadow-1" optionLabel="name" :options="month_value" optionValue="id" v-model="month" placeholder="Select a month" :class="{'p-invalid': monthError}" />
                                 <small class="p-error">{{ monthError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
-                                <label for="day"><small>Day</small></label>
+                                <label for="day"><small>Day <i class="text-gray"> (Petsa)</i></small></label>
                                 <Dropdown class="p-shadow-1" optionLabel="name" :options="day_value" optionValue="id" v-model="day" placeholder="DD" :class="{'p-invalid': dayError}" />
                                 <small class="p-error">{{ dayError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
-                                <label for="year"><small>Year</small></label>
+                                <label for="year"><small>Year <i class="text-gray"> (Taon)</i></small></label>
                                 <InputText class="p-shadow-1" type="number" placeholder="YYYY" v-model="year" :class="{'p-invalid': yearError}" />
                                 <small class="p-error">{{ yearError }}</small>
                             </div>
@@ -50,6 +50,11 @@
                         <div class="p-grid p-jc-center">
                             <div class="p-lg-4 p-sm-12 p-xs-12">
                                 <Button label="Proceed" type="submit" class="p-button-raised p-button-primary" />
+                            </div>
+                        </div>
+                        <div class="p-grid">
+                            <div class="p-lg-12">
+                                <center><p class="text-gray"><small>No NAPANAM QR ID yet. <a href="https://npnm.launion.gov.ph/#/regqrpass">REGISTER HERE</a></small></p></center>
                             </div>
                         </div>
                     </div>
@@ -101,8 +106,7 @@ export default {
 
         watch(
             () => store.state.registrations.registration.qr_pass_id,
-            (data, prevData) => {
-                console.log(store.state.registrations.registration)
+            (data, prevData) => {                
                 if (data) {
                     router.push('/')
                 }
@@ -207,6 +211,9 @@ export default {
     }
     .p-label-white {
         color: white;
+    }
+    .text-gray {
+        color: rgb(102, 102, 102);
     }
     /* Remove arrow for input="number"*/
     input::-webkit-outer-spin-button,

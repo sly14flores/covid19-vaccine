@@ -10,9 +10,44 @@ const getSelections = () => {
     return axios.get(SELECTIONS_ROUTE)
 }
 
-const SELECTION_VACCINATORS = `${api_url}/api/general/selections/users`
+const SELECTION_SESSIONS = `${api_url}/api/doh/selections/vaccination/sessions`
+const getSelectionSessions = () => {
+    return axios.get(SELECTION_SESSIONS)
+}
+
+const SELECTION_BRANDS = `${api_url}/api/doh/selections/brands`
+const getSelectionBrands = () => {
+    return axios.get(SELECTION_BRANDS)
+}
+
+const SELECTION_REASONS = `${api_url}/api/doh/selections/vaccine/refusals`
+const getSelectionReasons = () => {
+    return axios.get(SELECTION_REASONS)
+}
+
+const SELECTION_DEFERRALS = `${api_url}/api/doh/selections/vaccine/deferrals`
+const getSelectionDeferrals = () => {
+    return axios.get(SELECTION_DEFERRALS)
+}
+
+const GET_VACCINATORS = `${api_url}/api/general/selections/vaccinators`
 const getVaccinators = () => {
-    return axios.get(SELECTION_VACCINATORS)
+    return axios.get(GET_VACCINATORS)
+}
+
+const GET_PRES = `${api_url}/api/doh/structure/assessments/pre`
+const getPres = () => {
+    return axios.get(GET_PRES)
+}
+
+const GET_POST = `${api_url}/api/doh/structure/assessments/post`
+const getPost = () => {
+    return axios.get(GET_POST)
+}
+
+const GET_DEFAULT_ID = `${api_url}/api/doh/vaccines/default/vaccinator`
+const getDefaultId = () => {
+    return axios.get(GET_DEFAULT_ID)
 }
 
 const GET_BY_QR = `${api_url}/api/doh/vaccines/qr/:id`
@@ -22,32 +57,6 @@ const getByQr = (payload) => {
     return axios.get(url)
 }
 
-const GET_VACCINATIONS = `${api_url}/api/doh/vaccines/:id`
-const getVaccinations = (payload) => {
-    const { id } = payload
-    const url =  route(GET_VACCINATIONS, { id })
-    return axios.get(url)
-}
-
-const CREATE_VACCINATION = `${api_url}/api/doh/vaccine`
-const createVaccination = (payload) => {
-    return axios.post(CREATE_VACCINATION, payload)
-}
-
-const UPDATE_VACCINATION = `${api_url}/api/doh/vaccine/:id`
-const updateVaccination = (payload) => {
-    const { id } = payload
-    const url =  route(UPDATE_VACCINATION, { id })
-    return axios.put(url, payload)
-}
-
-const DELETE_VACCINATION = `${api_url}/api/doh/vaccine/:id`
-const deleteVaccination = (payload) => {
-    const { id } = payload
-    const url =  route(DELETE_VACCINATION, { id })
-    return axios.delete(url)
-}
-
 const GET_VACCINATION = `${api_url}/api/doh/vaccine/:id`
 const getVaccination = (payload) => {
     const { id } = payload
@@ -55,19 +64,64 @@ const getVaccination = (payload) => {
     return axios.get(url)
 }
 
+const UPDATE_VACCINATION = `${api_url}/api/doh/vaccine/:id`
+const updateVaccination = (payload) => {
+    const { id, vaccination } = payload
+    const url =  route(UPDATE_VACCINATION, { id })
+    return axios.put(url, vaccination)
+}
+
+const GET_DOSAGE = `${api_url}/api/doh/dosage/:id`
+const getDosage = (payload) => {
+    const { id } = payload
+    const url =  route(GET_DOSAGE, { id })
+    return axios.get(url)
+}
+
 const vaccination = {
     id: 0,
     qr_pass_id: null,
-    vaccine_name: null,
-    batch_number: null,
-    lot_number: null,
-    dose: null
+    vaccination_session: null,
+    dosages: [],
+    delete: [],
 }
 
-const vaccine = {}
+const dosage = {
+    id: null,
+    user_id: null,
+    brand_name: null,
+    qr_pass_id: null,
+    vaccine_name: null,
+    site_of_injection: null,
+    expiry_date: null,
+    batch_number: null,
+    lot_number: null,
+    dose: null,
+    diluent: null,
+    date_of_reconstitution: null,
+    time_of_reconstitution: null,
+    diluent_batch_number: null,
+    diluent_lot_number: null,
+    pre_assessment: {
+        id: 0,
+        qr_pass_id: null, //
+        dose: null, //
+        consent: null,
+        reason: null,
+        assessments: []
+    },
+    post_assessment: {
+        id: 0,
+        qr_pass_id: null, //
+        dose: null, //
+        assessments: []
+    }
+}
 
-const vaccinations = []
-const pagination = {}
+const deferrals = [];
+const pagination = {};
+
+const vaccine = {};
 
 const suffix_value = [];
 const gender_value = [];
@@ -103,32 +157,50 @@ const selections = {
     addresses
 };
 
-const vaccinators = [];
+const sessions = [];
+const brands = [];
 
-const dosages = [
+const vaccinators = [];
+const pres = [];
+const post = [];
+const reasons = [];
+
+const default_id = {};
+
+const sites = [
+    {id: 'Left', name: 'Left'},
+    {id: 'Right', name: 'Right'}
+]
+
+const doses = [
     {id: 1, name: 'First'},
     {id: 2, name: 'Second'},
     {id: 3, name: 'Third'}
 ]
 
-const manufactures = [
-    {id: 1, name: 'Pfizer'},
-    {id: 2, name: 'Astrazeneca'},
-    {id: 3, name: 'Sinovac'}
-]
-
 const state = () => {
     return {
+        dosageIndexToUpdate: null,
+        displayDosage: false,
+        displayPres: false,
+        displayReason: false,
         fetched: false,
         saving: false,
         selections,
+        sessions,
+        brands,
         vaccine,
         vaccination,
-        vaccinations,
+        dosage,
         pagination,
-        dosages,
+        default_id,
+        reasons,
         vaccinators,
-        manufactures
+        pres,
+        post,
+        deferrals,
+        doses,
+        sites
     }
 }
 
@@ -136,30 +208,57 @@ const mutations = {
     INIT(state) {
         state.vaccine = vaccine
         state.vaccination = vaccination
-        state.vaccinations = vaccinations
+        state.dosage = dosage
     },
-    RESET_VACCINE(state) {
-        state.vaccination = vaccination
+    SELECTIONS(state, payload) {
+        state.selections = {...payload}
+    },
+    SESSIONS(state, payload) {
+        state.sessions = [...payload]
+    },
+    BRANDS(state, payload) {
+        state.brands = [...payload]
+    },
+    DEFERRALS(state, payload) {
+        state.deferrals = [...payload]
+    },
+    DOSAGE(state, payload) {
+        state.dosage = {...payload}
+    },
+    DOSAGES(state,payload) {
+        state.vaccination.dosages = [...payload]
     },
     VACCINATION(state,payload) {
         state.vaccination = payload
     },
-    VACCINATIONS(state, payload) {
-        state.vaccinations = payload
+    RESET_DOSAGE(state) {
+        state.dosage = {...dosage}
+    },
+    DEFAULT_ID(state, payload) {
+        state.default_id = {...payload}
     },
     VACCINATORS(state, payload) {
-        state.vaccinators = {...payload}
+        state.vaccinators = [...payload]
+    },
+    PRES(state, payload) {
+        // state.pres = [...payload]
+        state.dosage.pre_assessment.assessments = [...payload]
+    },
+    POST(state, payload) {
+        // state.post = [...payload]
+        state.dosage.post_assessment.assessments = [...payload]        
+    },
+    REASONS(state, payload) {
+        state.reasons = [...payload]
     },
     PAGINATION(state, payload) {
         state.pagination = {...payload}
-    },
-    SELECTIONS(state, payload) {
-        state.selections = {...payload}
     },
     FETCH(state, payload) {
         state.fetched = payload
     },
     NAPANAM(state, payload) {
+
         state.vaccine.qr_pass_id = payload.qr_pass_id
         state.vaccine.first_name = payload.first_name
         state.vaccine.middle_name = payload.middle_name
@@ -174,68 +273,63 @@ const mutations = {
         state.vaccine.town_city = payload.town_city
         state.vaccine.barangay = payload.barangay
         state.vaccine.address = payload.address // street
-        state.vaccine.category = payload.category
-        state.vaccine.category_id = payload.category_id
-        state.vaccine.category_id_no = payload.category_id_no
-        state.vaccine.profession = payload.profession
-        state.vaccine.philhealth = payload.philhealth
-        state.vaccine.pwd_id = payload.pwd_id
-        state.vaccine.employment_status = payload.employment_status
-        state.vaccine.employer_name = payload.employer_name
-        state.vaccine.employer_municipality = payload.employer_municipality
-        state.vaccine.employer_address = payload.employer_address
-        state.vaccine.employer_contact_no = payload.employer_contact_no
+        state.vaccine.occupation = payload.occupation 
+
+        state.dosage.qr_pass_id = payload.qr_pass_id
+        state.dosage.pre_assessment.qr_pass_id = payload.qr_pass_id
+        state.dosage.post_assessment.qr_pass_id = payload.qr_pass_id
+
     },
     SAVING(state, payload) {
         state.saving = payload
     },
     TOGGLE_WRITE(state,payload) {
         state.writeOn = payload
-    }
-}
+    },
+    ADD_DOSAGE(state,payload) {
+        const dosage = {...payload, id: 0}
+        state.vaccination.dosages.push(dosage)
+        state.dosage = {...dosage}
+    },
+    UPDATE_DOSAGE(state,payload) {
 
-const actions = {
-    INIT({commit}) {
-        commit('INIT')
+        // const { id } = payload
+        const dosages = state.vaccination.dosages.map((dosage,i) => {
+            // if (dosage.id == id) {
+            console.log(`${i}:${state.dosageIndexToUpdate}`)
+            if (i == state.dosageIndexToUpdate) {
+                const users = state.vaccinators.filter(vaccinator => {
+                    return vaccinator.id == payload.user_id
+                })
+                const brands = state.brands.filter(brand => {
+                    return brand.id == payload.brand_name
+                })
+                dosage = {
+                    ...payload,
+                    vaccinator: users[0].name,
+                    brand_description: brands[0].name,
+                }                
+            }
+            return dosage
+        })
+        state.vaccination.dosages = dosages
     },
-    TOGGLE_WRITE({commit}, payload) {
-        commit('TOGGLE_WRITE', payload)
+    SHOW_DOSAGE(state,payload) {
+        const index = state.vaccination.dosages.indexOf(payload)
+        state.dosageIndexToUpdate = index
+        const dosage = {...state.vaccination.dosages[index]}
+        state.dosage = {...dosage}
+    },       
+    TOGGLE_DOSAGE_FORM(state,payload) {
+        state.displayDosage = payload
     },
-    async GET_VACCINATORS({dispatch}) {
-        try {
-            const { data: { data } } = await getVaccinators()
-            dispatch('GET_VACCINATORS_SUCCESS', data)
-        } catch (error) {
-            const { response } = error
-            dispatch('GET_VACCINATORS_ERROR', response)
-        }
+    TOGGLE_PRES_FORM(state,payload) {
+        state.displayPres = payload
     },
-    GET_VACCINATORS_SUCCESS({commit}, payload) {
-        commit('VACCINATORS', payload)
-        console.log(payload)
+    TOGGLE_REASON_FORM(state,payload) {
+        state.displayReason = payload
     },
-    GET_VACCINATORS_ERROR({commit}, payload) {
-        // console.log(payload)
-    },
-    async GET_SELECTIONS({dispatch}) {
-        try {
-            const { data: { data } } = await getSelections()
-            dispatch('GET_SELECTIONS_SUCCESS', data)
-        } catch (error) {
-            const { response } = error
-            dispatch('GET_SELECTIONS_ERROR', response)
-        }
-    },
-    GET_SELECTIONS_SUCCESS({commit}, payload) {
-        commit('SELECTIONS', payload)
-        console.log(payload)
-    },
-    GET_SELECTIONS_ERROR({commit}, payload) {
-        // console.log(payload)
-    },
-    async GET_BY_QR({dispatch, commit},payload) {
-        commit('FETCH', false)
-        const { id } = payload
+    LOADING(){
         Swal.fire({
             title: 'Loading...',
             willOpen () {
@@ -249,6 +343,37 @@ const actions = {
             allowEscapeKey: false,
             allowEnterKey: false
         })
+    },
+    UPDATED(){
+        Swal.fire({
+            title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+        })
+    },
+    DELETE_DOSAGE(state,payload) {
+        const { data } = payload
+        const index = state.vaccination.dosages.indexOf(data)
+        if (data.id > 0)state.vaccination.delete.push(data.id) 
+        state.vaccination.dosages.splice(index, 1)
+    }
+}
+
+const actions = {
+    INIT({commit}) {
+        commit('INIT')
+    },
+    TOGGLE_WRITE({commit}, payload) {
+        commit('TOGGLE_WRITE', payload)
+    },
+    async GET_BY_QR({dispatch, commit},payload) {
+        commit('LOADING');
+        commit('FETCH', false)
+        const { id } = payload
         try {
             const { data: { data } } = await getByQr({ id })
             dispatch('GET_BY_QR_SUCCESS',{id, data})
@@ -257,12 +382,15 @@ const actions = {
             dispatch('GET_BY_QR_ERROR',response)
         }
     },
-    GET_BY_QR_SUCCESS({dispatch,commit},payload) {
+    GET_BY_QR_SUCCESS({state,dispatch,commit},payload) {
         const { id, data } = payload
-        dispatch('GET_VACCINATIONS', {id})
         commit('NAPANAM', data)
         commit('FETCH', true)
         commit('TOGGLE_WRITE', true)
+
+        dispatch('GET_VACCINATION', { id })
+        dispatch('GET_SELECTION_SESSIONS')
+        
         Swal.close()
     },
     GET_BY_QR_ERROR({commit},payload) {
@@ -275,150 +403,191 @@ const actions = {
             confirmButtonText: 'Ok'
         })
     },
-    async GET_VACCINATIONS({dispatch}, payload) {
+    async GET_SELECTIONS({commit}) {
+        commit('LOADING');
+        try {
+            const { data: { data } } = await getSelections()
+            commit('SELECTIONS', data)
+            Swal.close()
+        } catch (error) {
+            const { response } = error
+        }
+    },
+    async GET_SELECTION_SESSIONS({commit}) {
+        try {
+            const { data: { data } } = await getSelectionSessions()
+            commit('SESSIONS', data)
+        } catch (error) {
+            const { response } = error
+        }
+    },
+    async GET_SELECTION_BRANDS({commit}) {
+        try {
+            const { data: { data } } = await getSelectionBrands()
+            commit('BRANDS', data)
+        } catch (error) {
+            const { response } = error
+        }
+    },
+    async GET_SELECTION_DEFERRALS({commit}) {
+        try {
+            const { data: { data } } = await getSelectionDeferrals()
+            commit('DEFERRALS', data)
+        } catch (error) {
+            const { response } = error
+        }
+    },
+    async GET_VACCINATORS({commit}) {
+        try {
+            const { data: { data } } = await getVaccinators()
+            commit('VACCINATORS', data)
+        } catch (error) {
+            const { response } = error
+        }
+    },
+    async GET_PRES({commit}) {
+        try {
+            const { data: { data } } = await getPres()
+            commit('PRES', data)
+        } catch (error) {
+            const { response } = error
+        }
+    },
+    async GET_POST({commit}) {
+        try {
+            const { data: { data } } = await getPost()
+            commit('POST', data)
+        } catch (error) {
+            const { response } = error
+        }
+    },
+    async GET_DEFAULT_ID({commit}) {
+        try {
+            const { data: { data } } = await getDefaultId()
+            commit('DEFAULT_ID', data)
+        } catch (error) {
+            const { response } = error
+        }
+    },
+    async GET_REASONS({commit}) {
+        try {
+            const { data: { data } } = await getSelectionReasons()
+            commit('REASONS', data)
+        } catch (error) {
+            const { response } = error
+        }
+    },
+    async GET_VACCINATION({commit}, payload) {
         try {
             const { id } = payload
-            const { data: { data } } = await getVaccinations({ id })
-            dispatch('GET_VACCINATIONS_SUCCESS', data)
+            const { data: { data } } = await getVaccination({ id })
+            commit('VACCINATION',data)
         } catch (error) {
             const { response } = error
-            dispatch('GET_VACCINATIONS_ERROR', response)
         }
     },
-    GET_VACCINATIONS_SUCCESS({commit}, payload) {
-        commit('VACCINATIONS',payload)
-    },
-    GET_VACCINATIONS_ERROR({commit}, payload) {
-        console.log(payload)
-    },
-    async CREATE_VACCINATION({state, commit, dispatch}, payload) {
-        commit('SAVING',true)        
+    async UPDATE_VACCINATION({commit,state}) {
         try {
-            const { data: { data } } = await createVaccination({qr_pass_id: state.vaccine.qr_pass_id, ...payload})
-            dispatch('CREATE_VACCINATION_SUCCESS', data)
+
+            const { data: { data } } = await updateVaccination({ id: state.vaccine.qr_pass_id, vaccination: state.vaccination })
+            
+            commit('UPDATED')
+            
             return true
-        } catch(error) {
-            dispatch('CREATE_VACCINATION_ERROR', error)
+        } catch (error) {
+            const { response } = error
             return false
         }
     },
-    CREATE_VACCINATION_SUCCESS({state,commit,dispatch}, payload) {
-        dispatch('GET_VACCINATIONS', { id: state.vaccine.qr_pass_id })
-        commit('SAVING',false)
-        Swal.fire({
-            title: '<p class="text-success" style="font-size: 25px;">Successfully saved!</p>',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 1500,
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false,
+
+    RESET_DOSAGE({commit}) {
+        commit('RESET_DOSAGE')
+    },
+
+    ADD_DOSAGE({state,commit},payload) {
+
+        payload.qr_pass_id = state.vaccine.qr_pass_id
+        // const expiry_date = payload.expiry_date.setDate(payload.expiry_date.getDate() + 1);
+        // payload.expiry_date = new Date(expiry_date).toISOString().split('T')[0];
+        
+        // payload.date_of_reconstitution = (payload.date_of_reconstitution)?payload.date_of_reconstitution = payload.date_of_reconstitution.setDate(payload.date_of_reconstitution.getDate() + 1):null
+        // payload.date_of_reconstitution = new Date(payload.date_of_reconstitution).toISOString().split('T')[0];
+
+        // payload.time_of_reconstitution = (payload.time_of_reconstitution)?payload.time_of_reconstitution = payload.time_of_reconstitution.toLocaleTimeString('en-GB'):null        
+
+        const users = state.vaccinators.filter(vaccinator => {
+            return vaccinator.id == payload.user_id
         })
 
+        payload.vaccinator = users[0].name
+
+        const brands = state.brands.filter(brand => {
+            return brand.id == payload.brand_name
+        })
+
+        payload.brand_description = brands[0].name
+        commit('ADD_DOSAGE', payload)
     },
-    CREATE_VACCINATION_ERROR({commit}, error) {
-        const { response } = error || {}
-        const { message, status } = response || {}
-        commit('SAVING',false) 
-        if (message) {
-            console.log(message)
-        }
+    UPDATE_DOSAGE({commit},payload) {
+        commit('UPDATE_DOSAGE',payload)
     },
-    async UPDATE_VACCINATION({commit,dispatch}, payload) {
+    SHOW_DOSAGE({commit},payload) {
+        console.log(payload)
+        commit('SHOW_DOSAGE',payload)
+    },
+    TOGGLE_DOSAGE_FORM({commit},payload) {
+        commit('TOGGLE_DOSAGE_FORM',payload)
+    },
+    TOGGLE_PRES_FORM({commit},payload) {
+        commit('TOGGLE_PRES_FORM',payload)
+    },
+    TOGGLE_REASON_FORM({commit},payload) {
+        commit('TOGGLE_REASON_FORM',payload)
+    },
+    async GET_DOSAGE({commit,state}, payload) {
         
-        commit('SAVING',true)
-        commit('TOGGLE_WRITE', true)
         try {
-            const { data: { data } } = await updateVaccination(payload)
-            dispatch('UPDATE_VACCINATION_SUCCESS', data)
-            return true
+            const { id } = payload
+            const { data: { data } } = await getDosage({id})
+            
+            data.expiry_date = new Date(data.expiry_date)
+            data.date_of_reconstitution = new Date(data.date_of_reconstitution)
+
+            commit('DOSAGE', data)
+            if(data.pre_assessment.consent=='01_Yes') {
+                commit('TOGGLE_PRES_FORM', true)
+                commit('TOGGLE_REASON_FORM', false)
+            } else {
+                commit('TOGGLE_PRES_FORM', false)
+                commit('TOGGLE_REASON_FORM', true)
+            }
+
+            const index = state.vaccination.dosages.indexOf(payload)
+            state.dosageIndexToUpdate = index
+
         } catch (error) {
-            const { response } = error
-            dispatch('UPDATE_VACCINATION_ERROR', response)
-            return false
+            const { response } = error || {}
+            const { message, status } = response || {}
+            if (message) {
+                // console.log(message)
+            }
         }
     },
-    UPDATE_VACCINATION_SUCCESS({state,commit,dispatch}, payload) {
-        dispatch('GET_VACCINATIONS', {id: state.vaccine.qr_pass_id})
-        commit('SAVING',false)
-        commit('TOGGLE_WRITE', false)
-        Swal.fire({
-            title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 1500,
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false,
-        })
-    },
-    UPDATE_VACCINATION_ERROR({commit}, error) {
-        const { response } = error || {}
-        const { message, status } = response || {}
-        commit('SAVING',false) 
-        if (message) {
-            console.log(message)
-        }
-    },
-    async DELETE_VACCINATION({state,dispatch}, payload) {
-        const { id } = payload
-        try {
-            const { data: { data } } = await deleteVaccination({id})
-            dispatch('DELETE_VACCINATION_SUCCESS', data)
-            dispatch('GET_VACCINATIONS', { id: state.vaccine.qr_pass_id })
-        } catch (error) {
-            const { response } = error
-            dispatch('DELETE_VACCINATION_ERROR', response)
-        }
-    },
-    DELETE_VACCINATION_SUCCESS({}, payload) {
-        Swal.fire({
-            title: '<p class="text-success" style="font-size: 25px;">Successfully deleted!</p>',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 1500,
-        })
-    },
-    DELETE_VACCINATION_ERROR({commit}, error) {
-        const { response } = error || {}
-        const { message, status } = response || {}
-        commit('SAVING',false) 
-        if (message) {
-            console.log(message)
-        }
-    },
-    async GET_VACCINATION({dispatch}, payload) {
-        const { id } = payload
-        try {
-            const { data: { data } } = await getVaccination({id})
-            dispatch('GET_VACCINATION_SUCCESS', data)
-        } catch (error) {
-            const { response } = error
-            dispatch('GET_VACCINATION_ERROR', response)
-        }
-    },
-    GET_VACCINATION_SUCCESS({commit}, payload) {
-        commit('VACCINATION', payload)
-    },
-    GET_VACCINATION_ERROR({commit}, error) {
-        const { response } = error || {}
-        const { message, status } = response || {}
-        commit('SAVING',false) 
-        if (message) {
-            console.log(message)
-        }
-    },
-    RESET_VACCINE({commit}) {
-        commit('RESET_VACCINE')
+    DELETE_DOSAGE({commit},payload) {
+        commit('DELETE_DOSAGE',payload)
     }
 }
 
 const getters = {}
 
-export default {
+const vaccinesStore = {
     namespaced: true,
     state,
     mutations,
     actions,
     getters,
 }
+
+const dosageInit = {...dosage}
+
+export { dosageInit, vaccinesStore }

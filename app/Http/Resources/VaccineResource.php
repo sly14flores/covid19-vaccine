@@ -14,13 +14,22 @@ class VaccineResource extends JsonResource
      */
     public function toArray($request)
     {
+        $dosages = $this->dosages()->with(['pre_assessment','post_assessment'])->get()->makeHidden(['created_at']);
+
+        $dosages->map(function($dosage, $i) {
+            $dosage->index = $i;
+            $dosage->vaccinator = $dosage->vaccinator();
+            $dosage->brand_description = $dosage->brand($dosage->brand_name);
+            $dosage->vaccine_description = $dosage->vaccine_description($dosage->brand_name,$dosage->vaccine_name);
+        });
+
         return [
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'vaccine_name' => $this->vaccine_name,
-            'batch_number' => $this->batch_number,
-            'lot_number' => $this->lot_number,
-            'dose' => $this->dose,
+            'vaccination_facility' => $this->vaccination_facility,
+            'facility_others' => $this->facility_others,
+            'vaccination_session' => $this->vaccination_session,
+            'dosages' => $dosages,
+            'delete' => [],
         ];
     }
 }

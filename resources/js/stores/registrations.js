@@ -68,7 +68,6 @@ const deleteRegistration = (payload) => {
 }
 
 const registration = {
-    // Personal
     id: 0,
     qr_pass_id : null,
     first_name: null,
@@ -77,57 +76,19 @@ const registration = {
     suffix: null,
     birthdate: null,
     gender: null,
-    address: null, // street
+    address: null,
     region: "Ilocos",
     province: null,
     town_city: null,
     barangay: null,
     contact_no: null,
-    // civil_status: null,
-
-    // Employment Status
-    // category: null,
-    // category_id: null,
-    // category_id_no: null,
-    // employment_status: null,
-    // profession: null,
-    // philhealth: null,
-    // pwd_id: null,
-    // employer_name: null,
-    // employer_municipality: null,
-    // employer_address: null,
-    // employer_contact_no: null,
-
-    // Health Status
-    // direct_interaction: null,
-    // pregnancy_status: null,
-
-    // Allergies
-    // with_allergy: null,
-    // drug_allergy: false,
-    // food_allergy: false,
-    // insect_allergy: false,
-    // latex_allergy: false,
-    // mold_allergy: false,
-    // pet_allergy: false,
-    // pollen_allergy: false,
-
-    // Comorbidities
-    // with_comorbidity: null,
-    // hypertension: false,
-    // heart_disease: false,
-    // kidney_disease: false,
-    // diabetes_mellitus: false,
-    // bronchial_asthma: false,
-    // immuno_deficiency_status: false,
-    // cancer: false,
-    // comorbidity_others: false,
-    
-    // diagnosed: null,
-    // covid_classification: null,
-    // diagnosed_date: null,
-
-    // consent_vaccination: null
+    priority_group: null,
+    sub_priority_group: null,
+    occupation: null,
+    with_allergy: null,
+    with_comorbidity: null,
+    is_registered: null,
+    origin: null
 }
 
 const suffix_value = [];
@@ -145,6 +106,7 @@ const employer_municipality_value = [];
 const month_value = [];
 const day_value = [];
 const addresses = [];
+const priority_group_value = []
 
 const selections = {
     suffix_value,
@@ -161,7 +123,8 @@ const selections = {
     employer_municipality_value,
     month_value,
     day_value,
-    addresses
+    addresses,
+    priority_group_value
 };
 
 const registrations = []
@@ -170,7 +133,7 @@ const pagination = {}
 const state = () => {
     return {
         fetched: false,
-        saving: false,
+        saving: "",
         registration,
         registrations,
         selections,
@@ -201,9 +164,9 @@ const mutations = {
         state.registration.gender = payload.gender
         state.registration.contact_no = payload.contact_no
         state.registration.province = payload.province
-        state.registration.town_city = payload.cityMunDesc
-        state.registration.barangay = payload.barangayDesc
-        state.registration.address = payload.address // street
+        state.registration.town_city = payload.cityMun
+        state.registration.barangay = payload.barangay
+        state.registration.address = payload.address
     },
     REGISTRATION(state, payload) {
         state.registration = payload
@@ -222,6 +185,21 @@ const mutations = {
     },
     TOGGLE_WRITE(state,payload) {
         state.writeOn = payload
+    },
+    LOADING(){
+        Swal.fire({
+            title: 'Loading...',
+            willOpen () {
+              Swal.showLoading ()
+            },
+            didClose () {
+              Swal.hideLoading()
+            },
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false
+        })
     }
 }
 
@@ -235,26 +213,10 @@ const actions = {
     TOGGLE_WRITE({commit}, payload) {
         commit('TOGGLE_WRITE', payload)
     },
-    async CREATE_REGISTRATION({commit, dispatch}, payload) {
+    async CREATE_REGISTRATION({commit, dispatch,state}, payload) {
         commit('SAVING',true)
         try {
-            // payload.drug_allergy = (payload.drug_allergy)?"01_Yes":"02_No"
-            // payload.food_allergy = (payload.food_allergy)?"01_Yes":"02_No"
-            // payload.insect_allergy = (payload.insect_allergy)?"01_Yes":"02_No"
-            // payload.latex_allergy = (payload.latex_allergy)?"01_Yes":"02_No"
-            // payload.mold_allergy = (payload.mold_allergy)?"01_Yes":"02_No"
-            // payload.pet_allergy = (payload.pet_allergy)?"01_Yes":"02_No"
-            // payload.pollen_allergy = (payload.pollen_allergy)?"01_Yes":"02_No"
-
-            // payload.hypertension = (payload.hypertension)?"01_Yes":"02_No"
-            // payload.heart_disease = (payload.heart_disease)?"01_Yes":"02_No"
-            // payload.kidney_disease = (payload.kidney_disease)?"01_Yes":"02_No"
-            // payload.diabetes_mellitus = (payload.diabetes_mellitus)?"01_Yes":"02_No"
-            // payload.bronchial_asthma = (payload.bronchial_asthma)?"01_Yes":"02_No"
-            // payload.immuno_deficiency_status = (payload.immuno_deficiency_status)?"01_Yes":"02_No"
-            // payload.cancer = (payload.cancer)?"01_Yes":"02_No"
-            // payload.comorbidity_others = (payload.comorbidity_others)?"01_Yes":"02_No"
-
+            payload.origin = "Manual"
             const { data: { data } } = await storeRegistration(payload)
             dispatch('CREATE_REGISTRATION_SUCCESS', data)
             return true
@@ -266,7 +228,7 @@ const actions = {
     },
     CREATE_REGISTRATION_SUCCESS({commit}, payload) {
         commit('SAVING',false)        
-        // console.log(payload)
+        console.log(payload)
 
         Swal.fire({
             title: '<p class="text-success" style="font-size: 25px;">Successfully saved!</p>',
@@ -299,20 +261,8 @@ const actions = {
             })	
         }
     },
-    async GET_REGISTRATIONS({dispatch}, payload) {
-        Swal.fire({
-            title: 'Loading...',
-            willOpen () {
-              Swal.showLoading ()
-            },
-            didClose () {
-              Swal.hideLoading()
-            },
-            showConfirmButton: false,
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false
-        })
+    async GET_REGISTRATIONS({dispatch, commit}, payload) {
+        commit('LOADING')
         try {
             const { page } = payload
             const { data: { data: { data, pagination } } } = await getRegistrations({ page })
@@ -385,14 +335,15 @@ const actions = {
     },
     GET_ADDRESSES_SUCCESS({commit}, payload) {
         commit('SELECTION_ADDRESSES', payload)
-        console.log(payload)
+        // console.log(payload)
         Swal.close();
     },
     GET_ADDRESSES_ERROR({commit}, payload) {
-        console.log(payload)
+        // console.log(payload)
     },
-    async CREATE({commit, dispatch}, payload) {
-        commit('SAVING', true)
+    async CREATE({commit, dispatch,state}, payload) {
+        commit('SAVING', 'pi pi-spin pi-spinner')
+        
         try {
             // payload.drug_allergy = (payload.drug_allergy)?"01_Yes":"02_No"
             // payload.food_allergy = (payload.food_allergy)?"01_Yes":"02_No"
@@ -410,25 +361,24 @@ const actions = {
             // payload.immuno_deficiency_status = (payload.immuno_deficiency_status)?"01_Yes":"02_No"
             // payload.cancer = (payload.cancer)?"01_Yes":"02_No"
             // payload.comorbidity_others = (payload.comorbidity_others)?"01_Yes":"02_No"
-           
+            payload.origin = "Online"
             const { data: { data } } = await createRegistration(payload)
             dispatch('CREATE_SUCCESS', data)
-            // console.log(data)
         } catch(error) {
             const { response } = error
             dispatch('CREATE_ERROR', response)
         }
     },
     CREATE_SUCCESS({commit}, payload) {
-        commit('SAVING', false)
-        // console.log(payload)
+        commit('SAVING', '')
 
         Swal.fire({
             title: '<p class="text-success" style="font-size: 25px;">Registration completed successfully</p>',
             icon: 'success',
             html: 
-              '<b style="font-size: 15px;">For inquiries, please contact us at: </b> <br>' +
-              '<b class="text-danger" style="font-size: 15px;">Tel. No. (072) 242-5550 loc. 299</b>',
+                '<b style="font-size: 20px;">Agyamankami Kaprobinsiaan!</b> <br>' +
+                '<b style="font-size: 15px;"><i> For inquiries, please contact us at: </i></b> <br>' +
+                '<b class="text-danger" style="font-size: 15px;"><i>Tel. No. (072) 242-5550 loc. 299</i></b>',
             showCancelButton: false,
             focusConfirm: false,
             confirmButtonText: 'Ok',
@@ -451,7 +401,7 @@ const actions = {
 
     },
     CREATE_ERROR({commit}, payload) {
-        commit('SAVING', false)
+        commit('SAVING', '')
         // console.log(payload)
     },
     async UPDATE_REGISTRATION({commit,dispatch}, payload) {
@@ -525,6 +475,7 @@ const actions = {
         // console.log(payload)
     },
     async GET_NAPANAM_ID({dispatch, commit}, { id }) {
+        commit('LOADING')
         commit('FETCH', false)
         try {
             const { data: { data } } = await getNapanamID({ id })
@@ -538,6 +489,7 @@ const actions = {
         // console.log(payload)
         commit('NAPANAM', payload)
         commit('FETCH', true)
+        Swal.close();
         // window.open('home#/registration','_self')
     },
     GET_NAPANAM_ID_ERROR({commit}, payload) {
@@ -617,8 +569,8 @@ const actions = {
         // if Exist
         if(payload.status==406){
             Swal.fire({
-                title: "<p>Error</p>",
-                icon: 'error',
+                // title: "<p>Error</p>",
+                icon: 'warning',
                 html: '<h5 style="font-size: 18px;">The Napanam ID No. you have entered is already registered</h5>',
                 showCancelButton: false,
                 focusConfirm: false,

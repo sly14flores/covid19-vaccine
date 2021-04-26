@@ -213,7 +213,10 @@ export default {
             items: [{label: (this.editMode)?'Edit User':'New User', to: `${this.$route.fullPath}`}],
             groups: [
                 {name: 'Administrator', id: 1},
-                {name: 'Vaccinator', id: 2},
+                {name: 'Team Leader', id: 2},
+                {name: 'Counseling Nurse', id: 3},
+                {name: 'Encoder', id: 4},
+                {name: 'Vaccinator', id: 5}
             ]
         }
     },

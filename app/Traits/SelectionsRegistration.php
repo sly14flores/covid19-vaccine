@@ -66,6 +66,111 @@ trait SelectionsRegistration
         ];
     }
 
+    public function priorityGroupValue()
+    {
+        return [
+            [
+                "name"=>"Health Care Workers",
+                "description"=>"(A1) Health Care Workers",
+                "id"=>"01_A1",
+                "subs"=> [
+                    ["name"=>"COVID-19 Referral Hospitals", "description"=>"(A1.1) COVID-19 Referral Hospitals", "id"=>"01_A1.1"],
+                    ["name"=>"Hopitals Catering to C19 Cases", "description"=>"(A1.2) Hopitals Catering to C19 Cases", "id"=>"02_A1.2"],
+                    ["name"=>"Quarantine Isolation Facilities", "description"=>"(A1.3) Quarantine Isolation Facilities", "id"=>"03_A1.3"],
+                    ["name"=>"Remaining Hospitals", "description"=>"(A1.4) Remaining Hospitals", "id"=>"04_A1.4"],
+                    ["name"=>"Government Owned Community Based Primary Care Facilities", "description"=>"(A1.5) Government Owned Community Based Primary Care Facilities", "id"=>"05_A1.5"],
+                    ["name"=>"Stand-alone Clinics and Diagnostics", "description"=>"(A1.6) Stand-alone Clinics and Diagnostics", "id"=>"06_A1.6"],
+                    ["name"=>"Closed Settings and Institutions", "description"=>"(A1.7) Closed Settings and Institutions", "id"=>"07_A1.7"],
+                ]
+            ],
+            [
+                "name"=>"Senior citizens aged 60 years old and above",
+                "description"=>"(A2) Senior citizens aged 60 years old and above",
+                "id"=>"02_A2",
+                "subs"=> []
+            ],
+            [
+                "name"=>"Adult with Comorbidity",
+                "description"=>"(A3) Adult with Comorbidity",
+                "id"=>"03_A3",
+                "subs"=> []
+            ],
+            [
+                "name"=>"Frontline Personnel in Essential Sector",
+                "description"=>"(A4) Frontline Personnel in Essential Sector",
+                "id"=>"04_A4",
+                "subs"=> [
+                    ["name"=>"Commuter transport (land, air, and sea), including logistics", "description"=>"(A4.1) Commuter transport (land, air, and sea), including logistics", "id"=>"01_A4.1"],
+                    ["name"=>"Public and private wet and dry market vendors; frontline workers in groceries, supermarkets, delivery services", "description"=>"(A4.2) Public and private wet and dry market vendors; frontline workers in groceries, supermarkets, delivery services", "id"=>"02_A4.2"],
+                    ["name"=>"Workers in manufacturing for food, beverage, medical, and pharmaceutical products", "description"=>"(A4.3) Workers in manufacturing for food, beverage, medical, and pharmaceutical products", "id"=>"03_A4.3"],
+                    ["name"=>"Frontline workers in food retail, including food service delivery", "description"=>"(A4.4) Frontline workers in food retail, including food service delivery", "id"=>"04_A4.4"],
+                    ["name"=>"Frontline workers in Financial Services in private and government", "description"=>"(A4.5) Frontline workers in Financial Services in private and government", "id"=>"05_A4.5"],
+                    ["name"=>"Frontline workers in hotels and accommodation establishment", "description"=>"(A4.6) Frontline workers in hotels and accommodation establishment", "id"=>"06_A4.6"],
+                    ["name"=>"Priests, Pastors, rabbis, imams or such other religious leaders regardless of denomination", "description"=>"(A4.7) Priests, Pastors, rabbis, imams or such other religious leaders regardless of denomination", "id"=>"07_A4.7"],
+                    ["name"=>"Security guards/personnel assigned in the establishments, offices, agencies, and organizations identified in the list of priority industry/sectors", "description"=>"(A4.8) Security guards/personnel assigned in the establishments, offices, agencies, and organizations identified in the list of priority industry/sectors", "id"=>"08_A4.8"],
+                    ["name"=>"Frontline workers in news media, both private and government", "description"=>"(A4.9) Frontline Workers in new media, both private and government", "id"=>"9_A4.9"],
+                    ["name"=>"Customer-facing personnel of telecoms, cable and internet service providers, electricity distribution, water distribution utilities", "description"=>"(A4.10) Customer-facing personnel of telecoms, cable and internet service providers, electricity distribution, water distribution utilities", "id"=>"10_A4.10"],
+                    ["name"=>"Frontline personnel in basic education and higher education institutions and agencies", "description"=>"(A4.11) Frontline personnel in basic education and higher education institutions and agencies", "id"=>"11_A4.11"],
+                    ["name"=>"Overseas Filipino workers not classified above, and scheduled for deployment within two months", "description"=>"(A4.12) Overseas Filipino workers not classified above, and scheduled for deployment within two months", "id"=>"12_A4.12"],
+                    ["name"=>"Frontline workers in law/justice, security, and social protection sectors", "description"=>"(A4.13) Frontline workers in law/justice, security, and social protection sectors", "id"=>"13_A4.13"],
+                    ["name"=>"Frontline government workers engaged in operations of government transport system, quarantine inspection, worker safety inspection and other activities indispensable to the COVID response", "description"=>"(A4.14) Frontline government workers engaged in operations of government transport system, quarantine inspection, worker safety inspection and other activities indispensable to the COVID response", "id"=>"14_A4.14"],
+                    ["name"=>"Frontline government workers in charge of tax collection; assessment of businesses for incentives; election; national ID; data collection personnel", "description"=>"(A4.15) Frontline government workers in charge of tax collection; assessment of businesses for incentives; election; national ID; data collection personnel", "id"=>"15_A4.15"],
+                    ["name"=>"Diplomatic Community and Department of Foreign Affairs personnel in consular operations", "description"=>"(A4.16) Diplomatic Community and DFA personnel in consular operations", "id"=>"16_A4.16"],
+                    ["name"=>"Department of Public Works and Highways personnel in charge of monitoring government infrastructure projects and their LGU counter parts", "description"=>"(A4.17) DPWH personnel in charge of monitoring government infrastructure projects and their LGU counter parts", "id"=>"17_A4.17"],
+                ]
+            ],
+            // [
+            //     "name"=>"Poor Population",
+            //     "id"=>"05_A5",
+            //     "subs"=> []
+            // ],
+            // [
+            //     "name"=>"Teachers and Social Workers",
+            //     "id"=>"06_B1",
+            //     "subs"=> []
+            // ],
+            // [
+            //     "name"=>"Other Government Workers",
+            //     "id"=>"07_B2",
+            //     "subs"=> []
+            // ],
+            // [
+            //     "name"=>"Other Essential Workers",
+            //     "id"=>"08_B3",
+            //     "subs"=> []
+            // ],
+            // [
+            //     "name"=>"Socio-demographic Groups",
+            //     "id"=>"09_B4",
+            //     "subs"=> []
+            // ],
+            // [
+            //     "name"=>"Overseas Filipino Workers",
+            //     "id"=>"10_B5",
+            //     "subs"=> []
+            // ],
+            // [
+            //     "name"=>"Other Remaining Workforce",
+            //     "id"=>"11_B6",
+            //     "subs"=> []
+            // ], 
+            // [
+            //     "name"=>"Rest of the Population",
+            //     "id"=>"12_C",
+            //     "subs"=> []
+            // ],                                                                                                                                                                                                  
+        ];
+    }
+
+    public function subPriorityGroupValue($code)
+    {
+        $prioritiy_groups = collect($this->priorityGroupValue());
+        $prioritiy_group = $prioritiy_groups->where('id',$code)->first();
+        $sub_priority_groups = collect($prioritiy_group['subs'])->pluck('id');
+        
+        return $sub_priority_groups;
+    }
+
     public function employmentStatusValue()
     {
         return [
@@ -314,27 +419,21 @@ trait SelectionsRegistration
         return $barangays->pluck('doh');
     }
 
-    public function vaccineValue()
+    public function brandValue()
     {
         /**
-         * Vaccines
+         * Brands
          */
-        $vaccines = [
-            [
-                'id' => 1,
-                'name' => 'Pfizer'
-            ],
-            [
-                'id' => 2,
-                'name' => 'Astrazeneca'
-            ],
-            [
-                'id' => 3,
-                'name' => 'Sinovac'
-            ],
-        ];
+        $brands = config('constants.brands');
 
-        return $vaccines;
+        return $brands;
+    }
+
+    public function vaccinationSessionValue()
+    {
+        $sessions = config('constants.sessions');
+
+        return $sessions;
     }
 
     public function yesNo()

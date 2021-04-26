@@ -27,6 +27,8 @@ mix.js('resources/js/survey.js', 'public/js/survey.js').version();
 mix.copy('resources/plugins/fontawesome-free/css/all.min.css', 'public/css/all.min.css');
 mix.copy('resources/dist/css/adminlte.min.css', 'public/css/adminlte.min.css');
 mix.copy('resources/dist/css/animate-kontext.css', 'public/css/animate-kontext.css');
+mix.copy('resources/dist/css/animate-landing-page.css', 'public/css/animate-landing-page.css');
+mix.copy('resources/dist/css/landing-page.css', 'public/css/landing-page.css');
 
 mix.copyDirectory('resources/dist/img','public/img');
 mix.copyDirectory('resources/plugins/fontawesome-free/webfonts','public/webfonts');

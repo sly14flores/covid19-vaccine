@@ -44,7 +44,22 @@ class GeneralDataSelections extends Controller
             return $map;
         })->values();
 
-        return $users;
+        return $this->jsonSuccessResponse($users, 200);
     }
+
+    public function vaccinators()
+    {
+        $users = User::where('group_id',5)->get();
+
+        $users = $users->map(function($user) {
+            $map = [
+                'id' => $user['id'],
+                'name' => "{$user['firstname']} {$user['lastname']}"
+            ];
+            return $map;
+        })->values();
+
+        return $this->jsonSuccessResponse($users, 200);
+    }    
 
 }
