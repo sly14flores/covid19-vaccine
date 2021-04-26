@@ -8,24 +8,59 @@ return [
     'groups' => [
         [
             'id' => 1,
-            'name' => 'Administrator'
+            'name' => 'Administrator',
+            'professions' => []
         ],
         [
             'id' => 2,
-            'name' => 'Team Leader'
+            'name' => 'Team Leader',
+            'professions' => []
         ],
         [
             'id' => 3,
-            'name' => 'Counseling Nurse'
+            'name' => 'Counseling Nurse',
+            'professions' => []
         ],
         [
             'id' => 4,
-            'name' => 'Encoder'
+            'name' => 'Encoder',
+            'professions' => []
         ],
         [
             'id' => 5,
-            'name' => 'Vaccinator'
-        ],        
+            'name' => 'Vaccinator',
+            'professions' => [
+                ['id' => 'Doctor', 'name' => 'Doctor'],
+                ['id' => 'Nurse', 'name' => 'Nurse'],
+                ['id' => 'Pharmacist', 'name' => 'Pharmacist'],
+                ['id' => 'Midwife', 'name' => 'Midwife'],
+            ]
+        ],
+        [
+            'id' => 6,
+            'name' => 'Vaccine Operation Managers',
+            'professions' => []
+        ],
+        [
+            'id' => 7,
+            'name' => 'Storage and Logistics Officers',
+            'professions' => []
+        ],
+        [
+            'id' => 8,
+            'name' => 'Surveillance and AEFI Officers',
+            'professions' => []
+        ],
+        [
+            'id' => 9,
+            'name' => 'Advocacy and Demand Generation Officers',
+            'professions' => []
+        ],
+        [
+            'id' => 10,
+            'name' => 'Registration and Data Manager Officers',
+            'professions' => []
+        ]
     ],
 
     'brands' => [
