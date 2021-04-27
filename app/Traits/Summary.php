@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Survey;
+use App\Models\Registration;
 use Carbon\Carbon;
 
 trait Summary
@@ -208,6 +209,22 @@ trait Summary
             'yes_vaccine'=>$yes_vaccine,
             'no_vaccine'=>$no_vaccine,
             'reason'=>$reason,
+        ];
+
+        return $data;
+
+    }
+
+    public static function registrations($filter)
+    {
+
+        $startFilter = Carbon::parse($filter['start'])->format("Y-m-d 00:00:00");
+        $endFilter = Carbon::parse($filter['end'])->addDays(1)->format("Y-m-d 00:00:00");        
+
+        $registrations = Registration::whereBetween('created_at',[$startFilter,$endFilter])->get();
+
+        $data = [
+
         ];
 
         return $data;
