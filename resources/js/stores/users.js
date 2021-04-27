@@ -44,6 +44,11 @@ const getHospitals = () => {
     return axios.get(GET_HOSPITALS)
 }
 
+const GET_GROUPS = `${api_url}/api/doh/selections/groups`
+const getGroups = () => {
+    return axios.get(GET_GROUPS)
+}
+
 const user = {
     id: 0,
     firstname: null,
@@ -56,15 +61,18 @@ const user = {
 const saving = false
 const users = []
 const hospitals = []
+const groups = []
 const pagination = {}
 
 const state = () => {
     return {
         saving,
         writeOn: false,
+        toggleProfession: false,
         user,
         users,
         hospitals,
+        groups,
         pagination
     }
 }
@@ -83,6 +91,9 @@ const mutations = {
     HOSPITALS(state, payload) {
         state.hospitals = payload
     },
+    GROUPS(state, payload) {
+        state.groups = payload
+    },
     PAGINATION(state, payload) {
         state.pagination = {...payload}
     },
@@ -91,6 +102,9 @@ const mutations = {
     },
     TOGGLE_WRITE(state,payload) {
         state.writeOn = payload
+    },
+    DISABLED_PROFESSION(state,payload) {
+        state.toggleProfession = payload
     }
 }
 
@@ -100,6 +114,9 @@ const actions = {
     },
     TOGGLE_WRITE({commit}, payload) {
         commit('TOGGLE_WRITE', payload)
+    },
+    DISABLED_PROFESSION({commit}, payload) {
+        commit('DISABLED_PROFESSION', payload)
     },
     async CREATE_USER({commit, dispatch}, payload) {
         commit('SAVING',true)        
@@ -247,6 +264,15 @@ const actions = {
     },
     GET_HOSPITALS_ERROR({commit}, payload) {
         console.log(payload)
+    },
+    async GET_GROUPS({commit}) {
+        try {
+            const { data: { data } } = await getGroups()
+            commit('GROUPS', data)
+        } catch (error) {
+            const { response } = error
+            console.log(response)
+        }
     }
 }
 

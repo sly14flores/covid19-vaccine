@@ -8,7 +8,7 @@
                     <label class="as-of p-ml-2"> AS OF {{currentDate()}}</label>
                 </div>
                 <div class="p-sm-12 p-md-3 p-lg-3">
-                    <button  type="button" class="p-mr-2 p-mb-2 p-button p-component p-button-secondary" @click="refresh">
+                    <button  type="button" class="p-mr-2 p-mb-2 p-button p-component btn-red" @click="refresh">
                         <i class="pi pi-refresh icon-size"></i>&nbsp; Refresh
                     </button>
                     <button  type="button" class="p-mr-2 p-mb-2 p-button p-component p-button-success">
@@ -447,6 +447,9 @@ export default {
         color: #215266;
         font-weight: bold;
         font-size: 20px;
+    }
+    .btn-red {
+        background-color: #CC9471;
     }
     .header-text {
         color: #7c7c7c;

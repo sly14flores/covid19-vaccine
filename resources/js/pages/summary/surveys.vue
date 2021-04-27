@@ -8,8 +8,8 @@
                     <label class="as-of p-ml-2"> AS OF {{currentDate()}}</label>
                 </div>
                 <div class="p-sm-12 p-md-3 p-lg-3">
-                    <button  type="button" class="p-mr-2 p-mb-2 p-button p-button-secondary p-component p-button-icon-only" @click="refresh">
-                        <i class="pi pi-refresh icon-size"></i>
+                    <button  type="button" class="p-mr-2 p-mb-2 p-button p-component btn-red" @click="refresh">
+                        <i class="pi pi-refresh"></i> &nbsp; Refresh
                     </button>
                     <button  type="button" class="p-mr-2 p-mb-2 p-button p-component p-button-success" @click="exportToExcel">
                         <i class="pi pi-upload"></i>&nbsp; Export to Excel
@@ -320,6 +320,9 @@ export default {
 </script>
 
 <style scoped>
+.btn-red {
+    background-color: #CC9471;
+}
 .summary {
     color: #215266;
     font-weight: bold;

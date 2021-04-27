@@ -127,7 +127,13 @@ class DOHDataSelections extends Controller
     {
         $sessions = $this->vaccinationSessionValue();
         return $this->jsonSuccessResponse($sessions, 200);        
-    }    
+    }
+    
+    public function groups()
+    {
+        $groups = $this->groupsValue();
+        return $this->jsonSuccessResponse($groups, 200);        
+    }
 
     public function refusalValue()
     {
