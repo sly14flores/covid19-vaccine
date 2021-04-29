@@ -25,8 +25,8 @@ class RegistrationsSummary extends Controller
             "town_city" => $request->town_city, 
             "facility" => $request->facility,
             "priority_group" => $request->priority_group,
-            "start" => $request->start,
-            "end" => $request->end
+            "start" => $request->start_date,
+            "end" => $request->end_date
         ];
 
         $data = Summary::registrations($filter);

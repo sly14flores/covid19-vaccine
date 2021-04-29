@@ -4,6 +4,8 @@ namespace App\Traits;
 
 use App\Models\Survey;
 use App\Models\Registration;
+use App\Models\Vaccine;
+use App\Models\Dosage;
 use Carbon\Carbon;
 
 trait Summary
@@ -222,9 +224,55 @@ trait Summary
         $endFilter = Carbon::parse($filter['end'])->addDays(1)->format("Y-m-d 00:00:00");        
 
         $registrations = Registration::whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $vaccines = Vaccine::whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $dosages = Dosage::whereBetween('created_at',[$startFilter,$endFilter])->get();
+
+        $startDay = Carbon::parse($filter['start'])->format("Y-m-d");
+        $endDay = Carbon::parse($filter['end'])->format("Y-m-d");
+        $day = $startDay;
+
+        $first_dosage = $dosages->where('dose','1')->count();
+        $second_dosage = $dosages->where('dose','2')->count();
+        $third_dosage = $dosages->where('dose','3')->count();
+
+        $total_registered = $registrations->count();
+        $total_vaccinated = $vaccines->count();
+
+        $health_workers = $registrations->where('priority_group','01_A1')->count();
+        $senior_citizen = $registrations->where('priority_group','02_A2')->count();
+        $adult_with_comorbidity = $registrations->where('priority_group','03_A3')->count();
+        $frontline_personnel_essential_sector = $registrations->where('priority_group','04_A4')->count();
+        $poor_population = $registrations->where('priority_group','05_A5')->count();
+        $teacher = $registrations->where('priority_group','06_B1')->count();
+        $other_government_workers = $registrations->where('priority_group','07_B2')->count();
+        $other_essential_workers = $registrations->where('priority_group','08_B3')->count();
+        $socio_demographic_groups = $registrations->where('priority_group','09_B4')->count();
+        $ofw = $registrations->where('priority_group','10_B5')->count();
+        $other_remaining_workforce = $registrations->where('priority_group','11_B6')->count();
+        $rest_of_the_population = $registrations->where('priority_group','12_C')->count();
 
         $data = [
-
+            'total_registered'=> $total_registered,
+            'total_vaccinated' => $total_vaccinated,
+            'dosages' => [
+                'first_dosage' => $first_dosage,
+                'second_dosage' => $second_dosage,
+                'third_dosage' => $third_dosage
+            ],
+            'priority_group' => [
+                'health_workers' => $health_workers,
+                'senior_citizen' => $senior_citizen,
+                'adult_with_comorbidity' => $adult_with_comorbidity,
+                'frontline_personnel_essential_sector' => $frontline_personnel_essential_sector,
+                'poor_population' => $poor_population,
+                'teacher' => $teacher,
+                'other_government_workers' => $other_government_workers,
+                'other_essential_workers' => $other_essential_workers,
+                'socio_demographic_groups' => $socio_demographic_groups,
+                'ofw' => $ofw,
+                'other_remaining_workforce' => $other_remaining_workforce,
+                'rest_of_the_population' => $rest_of_the_population,
+            ]
         ];
 
         return $data;
