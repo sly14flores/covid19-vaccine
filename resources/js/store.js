@@ -3,6 +3,7 @@ import { state, mutations, actions, getters } from './stores/root'
 import { usersStore } from './stores/users.js'
 import { registrationsStore } from './stores/registrations.js'
 import { surveyStore } from './stores/surveys.js'
+import { registeredStore } from './stores/summary-registrations'
 import { hospitalsStore } from './stores/hospitals.js'
 import importData from './stores/importData.js'
 import { vaccinesStore } from './stores/vaccines.js'
@@ -22,6 +23,7 @@ export default createStore({
         users: usersStore,
         registrations: registrationsStore,
         surveys: surveyStore,
+        registered: registeredStore,
         hospitals: hospitalsStore,
         importData,
         vaccines: vaccinesStore,

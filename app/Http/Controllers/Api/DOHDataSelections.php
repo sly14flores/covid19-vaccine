@@ -135,6 +135,12 @@ class DOHDataSelections extends Controller
         return $this->jsonSuccessResponse($groups, 200);        
     }
 
+    public function priorityGroups()
+    {
+        $priorityGroups = $this->priorityGroupValue();
+        return $this->jsonSuccessResponse($priorityGroups, 200);        
+    }
+
     public function refusalValue()
     {
         $values = [

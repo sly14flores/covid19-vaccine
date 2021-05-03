@@ -286,7 +286,7 @@ export default {
             this.$store.dispatch('surveys/GET_SURVEYS', { start_date_chart: this.start_date_chart.toLocaleDateString(), end_date_chart: this.end_date_chart.toLocaleDateString(),start_date: this.start_date.toLocaleDateString(), end_date: this.end_date.toLocaleDateString() })
 
         },
-         fetchSurveys() {
+        fetchSurveys() {
 
             this.$store.dispatch('surveys/GET_SURVEYS', { start_date_chart: this.start_date_chart.toLocaleDateString(), end_date_chart: this.end_date_chart.toLocaleDateString(), start_date: this.start_date.toLocaleDateString(), end_date: this.end_date.toLocaleDateString() })
 

@@ -108,6 +108,7 @@ Route::prefix('doh')->group(function() {
     Route::get('selections/brands', [DOHDataSelections::class, 'brands']);
     Route::get('selections/vaccination/sessions', [DOHDataSelections::class, 'vaccinationSession']);
     Route::get('selections/groups', [DOHDataSelections::class, 'groups']);
+    Route::get('selections/priority/groups', [DOHDataSelections::class, 'priorityGroups']);
 
     /**
      * Registration
