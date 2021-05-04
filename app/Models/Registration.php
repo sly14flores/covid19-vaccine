@@ -106,4 +106,9 @@ class Registration extends Model
         'diagnosed_date' => 'date',
     ];
 
+    public function vaccine()
+    {
+        return $this->hasOne(Vaccine::class, 'qr_pass_id', 'qr_pass_id');
+    }
+
 }
