@@ -173,7 +173,18 @@ return [
                 ]
             ],
             'dosages' => 2,      
-        ],               
+        ],
+        [
+            'id' => 11,
+            'name' => 'Oxford',
+            'vaccines' => [
+                [
+                    'id' => 10,
+                    'name' => 'Oxford Astrazenica'
+                ]
+            ],
+            'dosages' => 3,
+        ],                  
     ],
 
     'sessions' => [

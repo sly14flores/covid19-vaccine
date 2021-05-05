@@ -26,6 +26,7 @@ class Registration extends Model
         'address', #
         'barangay', #
         'town_city', #
+        'town_city_code', #
         'province', #
         'contact_no', #
         'priority_group', #
