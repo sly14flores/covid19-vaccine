@@ -223,4 +223,6 @@ return [
         ["key"=>3,"description"=>"If manifesting any of the mentioned symptom/s, specify all that apply","value"=>false],
     ],
 
+    'total_population' => 827310,
+
 ];
