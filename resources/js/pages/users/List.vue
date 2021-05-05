@@ -6,7 +6,16 @@
                 <div class="card p-fluid">
                     <h5>List</h5>
                     <hr />
-                    <DataTable :value="users" dataKey="id">
+                    <DataTable :value="users" dataKey="id" v-model:users="users">
+                        <template #header>
+                            <div class="p-d-flex p-jc-between">
+                                <Button type="button" icon="pi pi-filter-slash" label="Clear" class="p-button-outlined" @click="clearFilter1()"/>
+                                <span class="p-input-icon-left">
+                                    <i class="pi pi-search" />
+                                    <InputText v-model="users.value" placeholder="Keyword Search" />
+                                </span>
+                            </div>
+                        </template>
                         <Column field="firstname" header="First Name"></Column>
                         <Column field="lastname" header="Last Name"></Column>
                         <Column field="username" header="Username"></Column>
