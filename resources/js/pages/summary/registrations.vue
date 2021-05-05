@@ -1,22 +1,19 @@
 <template>
     <div>
         <MyBreadcrumb :home="home" :items="items" />
-        <div class="card p-mt-2">
-            <div class="p-grid p-col-12">
-                <div class="p-sm-12 p-md-9 p-lg-9">
-                    <label class="summary p-ml-2">COVID-19 VACCINATION DASHBOARD</label><br />
+        <Toolbar class="p-mb-4">
+            <template #left>
+                <div class="p-grid p-col-12">
+                    <label class="summary p-ml-2">SUMMARY RESPONSE</label><br />
                     <label class="as-of p-ml-2"> AS OF {{currentDate()}}</label>
                 </div>
-                <div class="p-sm-12 p-md-3 p-lg-3">
-                    <button  type="button" class="p-mr-2 p-mb-2 p-button p-component btn-red" @click="refresh">
-                        <i class="pi pi-refresh icon-size"></i>&nbsp; Refresh
-                    </button>
-                    <button  type="button" class="p-mr-2 p-mb-2 p-button p-component p-button-success">
-                        <i class="pi pi-upload"></i>&nbsp; Export to Excel
-                    </button> 
-                </div>
-            </div>
-        </div>
+            </template>
+
+            <template #right>
+                <Button label="Refresh" icon="pi pi-refresh" class="p-button-primary p-mr-2" @click="refresh"  />
+                <Button label="Export to Excel" icon="pi pi-upload" class="p-button-success" @click="exportToExcel"  />
+            </template>
+        </Toolbar>
         <div class="card p-mt-1">
             <div class="card">
                 <div class=" p-fluid p-grid p-formgrid">
@@ -373,6 +370,7 @@ import Paginator from 'primevue/paginator/sfc';
 import Chart from 'primevue/chart/sfc';
 import Calendar from 'primevue/calendar/sfc';
 import Dropdown from 'primevue/dropdown/sfc';
+import Toolbar from 'primevue/toolbar/sfc';
 
 import store from '../../store.js'
 
@@ -396,7 +394,8 @@ export default {
         Button,
         Chart,
         Calendar,
-        Dropdown
+        Dropdown,
+        Toolbar
     },
     data() {
         return {

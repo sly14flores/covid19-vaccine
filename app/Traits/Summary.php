@@ -8,6 +8,8 @@ use App\Models\Vaccine;
 use App\Models\Dosage;
 use Carbon\Carbon;
 
+use Illuminate\Database\Eloquent\Builder;
+
 trait Summary
 {
 
@@ -221,7 +223,11 @@ trait Summary
     {
 
         $startFilter = Carbon::parse($filter['start'])->format("Y-m-d 00:00:00");
-        $endFilter = Carbon::parse($filter['end'])->addDays(1)->format("Y-m-d 00:00:00");        
+        $endFilter = Carbon::parse($filter['end'])->addDays(1)->format("Y-m-d 00:00:00");
+
+        $townCity = $filter['town_city'];
+        $facility = $filter['facility'];
+        $priorityGroup = $filter['priority_group'];
 
         $registrations = Registration::whereBetween('created_at',[$startFilter,$endFilter])->get();
         $vaccines = Vaccine::whereBetween('created_at',[$startFilter,$endFilter])->get();
@@ -251,6 +257,40 @@ trait Summary
         $other_remaining_workforce = $registrations->where('priority_group','11_B6')->count();
         $rest_of_the_population = $registrations->where('priority_group','12_C')->count();
 
+        $brands = config('constants.brands');
+
+        /**
+         * Complete Immunization
+         */
+        $registrations_vaccines = Registration::has('vaccine')->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $complete_immunization = $registrations_vaccines->filter(function($registration_vaccine) use ($brands) {
+            $vaccine = $registration_vaccine->vaccine()->first();
+            $dosages = $vaccine->dosages()->get();
+            $vaccine_brand = (count($dosages))?collect($dosages)->first()['brand_name']:0;
+            if ($vaccine_brand) {
+                $vaccine = collect($brands)->where('id',$vaccine_brand)->first();
+                $total = $vaccine['dosages'];
+                return $total >= count($dosages);
+            } else {
+                return false;
+            }
+        })->count();
+
+        /**
+         * No of individual eligible
+         */
+        $individual_eligible = $registrations->whereIn('priority_group',['01_A1','02_A2','04_A4'])->count();
+
+        /**
+         * Total Population
+         */
+        $total_population = config('constants.total_population');
+
+        /**
+         * Immunized vs Total Eligible
+         */
+        $immunized_vs_eligible = $complete_immunization/$individual_eligible*100;
+
         $data = [
             'total_registered'=> $total_registered,
             'total_vaccinated' => $total_vaccinated,
@@ -272,7 +312,11 @@ trait Summary
                 'ofw' => $ofw,
                 'other_remaining_workforce' => $other_remaining_workforce,
                 'rest_of_the_population' => $rest_of_the_population,
-            ]
+            ],
+            'complete_immunization' => $complete_immunization,
+            'waiting' => 0,
+            'individual_eligible' => $individual_eligible,
+            'immunized_vs_eligible'=> $immunized_vs_eligible,
         ];
 
         return $data;
