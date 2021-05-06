@@ -227,22 +227,60 @@ trait Summary
         $startFilter = Carbon::parse($filter['start'])->format("Y-m-d 00:00:00");
         $endFilter = Carbon::parse($filter['end'])->addDays(1)->format("Y-m-d 00:00:00");
 
-        $townCity = $filter['town_city'];
-        $facility = $filter['facility'];
-        $priorityGroup = $filter['priority_group'];
+        // $facility = $filter['facility'];
+        // $priorityGroup = $filter['priority_group'];
 
-        $registrations = Registration::whereBetween('created_at',[$startFilter,$endFilter])->get();
-        $registrations_vaccines = Registration::has('vaccine')->whereBetween('created_at',[$startFilter,$endFilter])->get();
-        $vaccines = Vaccine::whereBetween('created_at',[$startFilter,$endFilter])->get();
-        $dosages = Dosage::whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $townCityCode = null;
+        $wheres = [];
+        if (isset($filter['town_city'])) {
+            $townCity = $filter['town_city'];
+            $tc = explode("_",$townCity);
+            $townCityCode = $tc[1];
+            $wheres[] = ['town_city_code',$townCityCode];
+        }
+
+        $registrations = Registration::has('vaccine')->where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        
+        $vaccines = $registrations->filter(function($registration) {
+            $vaccine = $registration->vaccine()->first();
+            if (is_null($vaccine)) {
+                return false;
+            } else {
+                $dosages = $vaccine->dosages()->get();
+                return count($dosages) >= 1;
+            }
+        });
+        $first_dosage = $registrations->map(function($registration) {
+            $vaccine = $registration->vaccine()->first();
+            if (is_null($vaccine)) {
+                return 0;
+            } else {
+                $dosages = $vaccine->dosages()->get();
+                return collect($dosages)->where('dose',1)->count();
+            }
+        });
+        $second_dosage = $registrations->map(function($registration) {
+            $vaccine = $registration->vaccine()->first();
+            if (is_null($vaccine)) {
+                return 0;
+            } else {
+                $dosages = $vaccine->dosages()->get();
+                return collect($dosages)->where('dose',2)->count();
+            }
+        });
+        $third_dosage = $registrations->map(function($registration) {
+            $vaccine = $registration->vaccine()->first();
+            if (is_null($vaccine)) {
+                return 0;
+            } else {
+                $dosages = $vaccine->dosages()->get();
+                return collect($dosages)->where('dose',3)->count();
+            }
+        });                
 
         $startDay = Carbon::parse($filter['start'])->format("Y-m-d");
         $endDay = Carbon::parse($filter['end'])->format("Y-m-d");
         $day = $startDay;
-
-        $first_dosage = $dosages->where('dose','1')->count();
-        $second_dosage = $dosages->where('dose','2')->count();
-        $third_dosage = $dosages->where('dose','3')->count();
 
         $total_registered = $registrations->count();
         $total_vaccinated = $vaccines->count();
@@ -265,7 +303,7 @@ trait Summary
         /**
          * Complete Immunization
          */
-        $complete_immunization = $registrations_vaccines->filter(function($registration_vaccine) use ($brands) {
+        $complete_immunization = $registrations->filter(function($registration_vaccine) use ($brands) {
             $vaccine = $registration_vaccine->vaccine()->first();
             $dosages = $vaccine->dosages()->get();
             $vaccine_brand = (count($dosages))?collect($dosages)->first()['brand_name']:0;
@@ -312,7 +350,7 @@ trait Summary
             /**
              * Total doses
              */
-            $health_workers = $all_health_workers->map(function($registration) use ($facility_id) {
+            $doses_health_workers = $all_health_workers->map(function($registration) use ($facility_id) {
                 if ($registration->vaccine()->first()->vaccination_facility==$facility_id) {
                     return $registration->vaccine()->first()->dosages()->count();                    
                 } else {
@@ -336,7 +374,7 @@ trait Summary
             $total_dose = [
                 'id' => $facility_id,
                 'facility_name' => $facility->description,
-                'health_workers' => $health_workers->sum(), # A1
+                'health_workers' => $doses_health_workers->sum(), # A1
                 'adults_with_comorbidity' => $adults_with_comorbidity->sum(),
                 'frontliners' => $frontliners->sum(), # A4
             ];
@@ -398,9 +436,9 @@ trait Summary
             'total_registered'=> number_format($total_registered),
             'total_vaccinated' => number_format($total_vaccinated),
             'dosages' => [
-                'first_dosage' => number_format($first_dosage),
-                'second_dosage' => number_format($second_dosage),
-                'third_dosage' => number_format($third_dosage)
+                'first_dosage' => number_format($first_dosage->sum()),
+                'second_dosage' => number_format($second_dosage->sum()),
+                'third_dosage' => number_format($third_dosage->sum())
             ],
             'priority_group' => [
                 'health_workers' => number_format($health_workers),

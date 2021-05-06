@@ -77,6 +77,9 @@ class RegistrationController extends Controller
 
         /** Get validated data */
         $data = $validator->valid();
+
+        $tc = explode("_",$data['town_city']);
+        $data['town_city_code'] = $tc[1];
         
         $registration = new Registration;
         $registration->fill($data);
@@ -168,8 +171,11 @@ class RegistrationController extends Controller
         $validator = Validator::make($request->all(), $rules);        
 
         /** Get validated data */
-        $data = $validator->valid();        
+        $data = $validator->valid();     
         unset($data['id']);
+
+        $tc = explode("_",$data['town_city']);
+        $data['town_city_code'] = $tc[1];
 
         $registration->fill($data);
 
