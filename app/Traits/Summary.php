@@ -6,6 +6,8 @@ use App\Models\Survey;
 use App\Models\Registration;
 use App\Models\Vaccine;
 use App\Models\Dosage;
+use App\Models\Hospital;
+
 use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -230,6 +232,7 @@ trait Summary
         $priorityGroup = $filter['priority_group'];
 
         $registrations = Registration::whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $registrations_vaccines = Registration::has('vaccine')->whereBetween('created_at',[$startFilter,$endFilter])->get();
         $vaccines = Vaccine::whereBetween('created_at',[$startFilter,$endFilter])->get();
         $dosages = Dosage::whereBetween('created_at',[$startFilter,$endFilter])->get();
 
@@ -262,7 +265,6 @@ trait Summary
         /**
          * Complete Immunization
          */
-        $registrations_vaccines = Registration::has('vaccine')->whereBetween('created_at',[$startFilter,$endFilter])->get();
         $complete_immunization = $registrations_vaccines->filter(function($registration_vaccine) use ($brands) {
             $vaccine = $registration_vaccine->vaccine()->first();
             $dosages = $vaccine->dosages()->get();
@@ -291,6 +293,107 @@ trait Summary
          */
         $immunized_vs_eligible = $complete_immunization/$individual_eligible*100;
 
+        /**
+         * Tabulations
+         */
+        $facilities = Hospital::all();
+
+        $total_doses = [];
+        $all_health_workers = Registration::has('vaccine.dosages')->where('priority_group','01_A1')->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $all_adults_with_comorbidity = Registration::has('vaccine.dosages')->where('with_comorbidity','01_Yes')->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $all_frontliners = Registration::has('vaccine.dosages')->where('priority_group','04_A4')->whereBetween('created_at',[$startFilter,$endFilter])->get();
+
+        $total_vaccines_useds = [];
+
+        foreach ($facilities as $facility) {
+
+            $facility_id = $facility->id;
+
+            /**
+             * Total doses
+             */
+            $health_workers = $all_health_workers->map(function($registration) use ($facility_id) {
+                if ($registration->vaccine()->first()->vaccination_facility==$facility_id) {
+                    return $registration->vaccine()->first()->dosages()->count();                    
+                } else {
+                    return 0;
+                }
+            });
+            $adults_with_comorbidity = $all_adults_with_comorbidity->map(function($registration) use ($facility_id) {
+                if ($registration->vaccine()->first()->vaccination_facility==$facility_id) {
+                    return $registration->vaccine()->first()->dosages()->count();                    
+                } else {
+                    return 0;
+                }
+            });             
+            $frontliners = $all_frontliners->map(function($registration) use ($facility_id) {
+                if ($registration->vaccine()->first()->vaccination_facility==$facility_id) {
+                    return $registration->vaccine()->first()->dosages()->count();                    
+                } else {
+                    return 0;
+                }
+            });                   
+            $total_dose = [
+                'id' => $facility_id,
+                'facility_name' => $facility->description,
+                'health_workers' => $health_workers->sum(), # A1
+                'adults_with_comorbidity' => $adults_with_comorbidity->sum(),
+                'frontliners' => $frontliners->sum(), # A4
+            ];
+            $total_doses[] = $total_dose;
+
+            /**
+             * Total vaccines used
+             */
+            $oxford = collect($vaccines)->where('vaccination_facility',$facility_id)->values();
+            $oxford = $oxford->map(function($vaccine) {
+                return $vaccine->dosages()->where('brand_name',11)->count();
+            });
+            $pfizer = collect($vaccines)->where('vaccination_facility',$facility_id)->values();
+            $pfizer = $pfizer->map(function($vaccine) {
+                return $vaccine->dosages()->where('brand_name',1)->count();
+            });
+            $sinovac = collect($vaccines)->where('vaccination_facility',$facility_id)->values();
+            $sinovac = $sinovac->map(function($vaccine) {
+                return $vaccine->dosages()->where('brand_name',6)->count();
+            });         
+            $novavax = collect($vaccines)->where('vaccination_facility',$facility_id)->values();
+            $novavax = $novavax->map(function($vaccine) {
+                return $vaccine->dosages()->where('brand_name',10)->count();
+            });
+            $moderna = collect($vaccines)->where('vaccination_facility',$facility_id)->values();
+            $moderna = $moderna->map(function($vaccine) {
+                return $vaccine->dosages()->where('brand_name',2)->count();
+            });  
+            $janssen = collect($vaccines)->where('vaccination_facility',$facility_id)->values();
+            $janssen = $janssen->map(function($vaccine) {
+                return $vaccine->dosages()->where('brand_name',5)->count();
+            });  
+            $gamaleya = collect($vaccines)->where('vaccination_facility',$facility_id)->values();
+            $gamaleya = $gamaleya->map(function($vaccine) {
+                return $vaccine->dosages()->where('brand_name',4)->count();
+            });
+            $bharat = collect($vaccines)->where('vaccination_facility',$facility_id)->values();
+            $bharat = $bharat->map(function($vaccine) {
+                return $vaccine->dosages()->where('brand_name',4)->count();
+            });        
+
+            $total_vaccines_used = [
+                'id' => $facility_id,
+                'facility_name' => $facility->description,
+                'pfizer' => $pfizer->sum(), # 1
+                'sinovac' => $sinovac->sum(), # 6
+                'novavax' => $novavax->sum(), # 10
+                'moderna' => $moderna->sum(), # 2
+                'janssen' => $janssen->sum(), # 5
+                'gamaleya' => $gamaleya->sum(), # 4
+                'bharat' => $bharat->sum(), # 7
+            ];
+
+            $total_vaccines_useds[] = $total_vaccines_used;
+
+        }
+
         $data = [
             'total_registered'=> $total_registered,
             'total_vaccinated' => $total_vaccinated,
@@ -317,6 +420,8 @@ trait Summary
             'waiting' => 0,
             'individual_eligible' => $individual_eligible,
             'immunized_vs_eligible'=> $immunized_vs_eligible,
+            'total_doses' => $total_doses,
+            'total_vaccines_used' => $total_vaccines_useds,
         ];
 
         return $data;
