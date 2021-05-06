@@ -418,15 +418,10 @@ trait Summary
             ],
             'complete_immunization' => number_format($complete_immunization),
             'waiting' => 0,
-<<<<<<< HEAD
-            'individual_eligible' => number_format($individual_eligible),
-            'immunized_vs_eligible'=> number_format($immunized_vs_eligible),
-=======
             'individual_eligible' => $individual_eligible,
             'immunized_vs_eligible'=> $immunized_vs_eligible,
             'total_doses' => $total_doses,
             'total_vaccines_used' => $total_vaccines_useds,
->>>>>>> origin/summary-registrations
         ];
 
         return $data;
