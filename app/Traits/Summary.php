@@ -292,31 +292,31 @@ trait Summary
         $immunized_vs_eligible = $complete_immunization/$individual_eligible*100;
 
         $data = [
-            'total_registered'=> $total_registered,
-            'total_vaccinated' => $total_vaccinated,
+            'total_registered'=> number_format($total_registered),
+            'total_vaccinated' => number_format($total_vaccinated),
             'dosages' => [
-                'first_dosage' => $first_dosage,
-                'second_dosage' => $second_dosage,
-                'third_dosage' => $third_dosage
+                'first_dosage' => number_format($first_dosage),
+                'second_dosage' => number_format($second_dosage),
+                'third_dosage' => number_format($third_dosage)
             ],
             'priority_group' => [
-                'health_workers' => $health_workers,
-                'senior_citizen' => $senior_citizen,
-                'adult_with_comorbidity' => $adult_with_comorbidity,
-                'frontline_personnel_essential_sector' => $frontline_personnel_essential_sector,
-                'poor_population' => $poor_population,
-                'teacher' => $teacher,
-                'other_government_workers' => $other_government_workers,
-                'other_essential_workers' => $other_essential_workers,
-                'socio_demographic_groups' => $socio_demographic_groups,
-                'ofw' => $ofw,
-                'other_remaining_workforce' => $other_remaining_workforce,
-                'rest_of_the_population' => $rest_of_the_population,
+                'health_workers' => number_format($health_workers),
+                'senior_citizen' => number_format($senior_citizen),
+                'adult_with_comorbidity' => number_format($adult_with_comorbidity),
+                'frontline_personnel_essential_sector' => number_format($frontline_personnel_essential_sector),
+                'poor_population' => number_format($poor_population),
+                'teacher' => number_format($teacher),
+                'other_government_workers' => number_format($other_government_workers),
+                'other_essential_workers' => number_format($other_essential_workers),
+                'socio_demographic_groups' => number_format($socio_demographic_groups),
+                'ofw' => number_format($ofw),
+                'other_remaining_workforce' => number_format($other_remaining_workforce),
+                'rest_of_the_population' => number_format($rest_of_the_population),
             ],
-            'complete_immunization' => $complete_immunization,
+            'complete_immunization' => number_format($complete_immunization),
             'waiting' => 0,
-            'individual_eligible' => $individual_eligible,
-            'immunized_vs_eligible'=> $immunized_vs_eligible,
+            'individual_eligible' => number_format($individual_eligible),
+            'immunized_vs_eligible'=> number_format($immunized_vs_eligible),
         ];
 
         return $data;
