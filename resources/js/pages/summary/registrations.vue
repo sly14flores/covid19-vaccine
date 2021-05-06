@@ -39,7 +39,7 @@
                     </div>
                     <div class="p-field p-col-12 p-md-1">
                         <label for="basic">&nbsp;</label>
-                        <Button label="Go!" @click="fetchRegistrations" />
+                        <Button class="p-button-sm" label="Go!" @click="fetchRegistrations" />
                     </div>
                 </div>
             </div>
@@ -51,10 +51,10 @@
                     <div class="p-col-12 p-md-3">
                         <div class="card card-bg-pg p-shadow-2">
                             <div class="p-grid">
-                                <div class="p-col-12 p-sm-4 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/total_vaccinated.png" class="hundred"/>
                                 </div>
-                                <div class="p-col-12 p-sm-8 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Total No. Vaccinated</h6>
                                     <h6 class="card-text-red">{{total_vaccinated}}</h6>
                                 </div>
@@ -64,10 +64,10 @@
                     <div class="p-col-12 p-md-3">
                         <div class="card card-bg-pg p-shadow-2">
                             <div class="p-grid">
-                                <div class="p-col-12 p-sm-4 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/vaccinated_dose_1.png" class="hundred" />
                                 </div>
-                                <div class="p-col-12 p-sm-8 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Vaccinated (DOSE 1)</h6>
                                     <h6 class="card-text-red">{{first_dosage}}</h6>
                                 </div>
@@ -78,10 +78,10 @@
                     <div class="p-col-12 p-md-3">
                         <div class="card card-bg-pg p-shadow-2">
                             <div class="p-grid">
-                                <div class="p-col-12 p-sm-4 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/vaccinated_dose_1.png" class="hundred" />
                                 </div>
-                                <div class="p-col-12 p-sm-8 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Vaccinated (DOSE 2)</h6>
                                     <h6 class="card-text-red">{{second_dosage}}</h6>
                                 </div>
@@ -91,12 +91,12 @@
                     <div class="p-col-12 p-md-3">
                         <div class="card card-bg-pg p-shadow-2">
                             <div class="p-grid">
-                                <div class="p-col-12 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/complete_immunization.png" class="hundred" />
                                 </div>
-                                <div class="p-col-12 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Complete Immunization</h6>
-                                    <h6 class="card-text-red">54,082</h6>
+                                    <h6 class="card-text-red">{{complete_immunization_value}}</h6>
                                 </div>
                             </div>
                         </div>
@@ -107,10 +107,10 @@
                     <div class="p-col-12 p-md-4">
                         <div class="card p-shadow-1">
                             <div class="p-grid">
-                                <div class="p-col-12 p-sm-4 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/health_workers.png" class="sixty" />
                                 </div>
-                                <div class="p-col-12 p-sm-8 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Health Workers</h6>
                                     <h6 class="card-text-brown">{{health_workers_value}}</h6>
                                 </div>
@@ -120,10 +120,10 @@
                     <div class="p-col-12 p-md-4">
                         <div class="card p-shadow-1">
                             <div class="p-grid">
-                                <div class="p-col-12 p-md-4">
+                                <div class="p-col-4 p-md-4">
                                     <img src="img/dashboard-icons/poor_population.png" class="sixty" />
                                 </div>
-                                <div class="p-col-12 p-md-8">
+                                <div class="p-col-8 p-md-8">
                                     <h6 class="card-text-gray">Poor Population</h6>
                                     <h6 class="card-text-brown">{{poor_population_value}}</h6>
                                 </div>
@@ -133,10 +133,10 @@
                     <div class="p-col-12 p-md-4">
                         <div class="card p-shadow-1">
                             <div class="p-grid">
-                                <div class="p-col-12 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/socio_demographic_group.png" class="sixty" />
                                 </div>
-                                <div class="p-col-12 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Socio-Demographic Groups</h6>
                                     <h6 class="card-text-brown">{{socio_demographic_groups_value}}</h6>
                                 </div>
@@ -149,10 +149,10 @@
                     <div class="p-col-12 p-md-4">
                         <div class="card p-shadow-1">
                             <div class="p-grid">
-                                <div class="p-col-12 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/senior_citizen.png" class="sixty" />
                                 </div>
-                                <div class="p-col-12 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Senior Citizen</h6>
                                     <h6 class="card-text-brown">{{senior_citizen_value}}</h6>
                                 </div>
@@ -162,10 +162,10 @@
                     <div class="p-col-12 p-md-4">
                         <div class="card p-shadow-1">
                             <div class="p-grid">
-                                <div class="p-col-12 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/teacher.png" class="sixty" />
                                 </div>
-                                <div class="p-col-12 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Teacher and Social Workers</h6>
                                     <h6 class="card-text-brown">{{teacher_value}}</h6>
                                 </div>
@@ -175,10 +175,10 @@
                     <div class="p-col-12 p-md-4">
                         <div class="card p-shadow-1">
                             <div class="p-grid">
-                                <div class="p-col-12 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/ofw.png" class="sixty" />
                                 </div>
-                                <div class="p-col-12 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Overseas Filipino Workers</h6>
                                     <h6 class="card-text-brown">{{ofw_value}}</h6>
                                 </div>
@@ -191,10 +191,10 @@
                     <div class="p-col-12 p-md-4">
                         <div class="card p-shadow-1">
                             <div class="p-grid">
-                                <div class="p-col-12 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/adult_with_comorbidity.png" class="sixty" />
                                 </div>
-                                <div class="p-col-12 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Adult With Comorbidity</h6>
                                     <h6 class="card-text-brown">{{adult_with_comorbidity_value}}</h6>
                                 </div>
@@ -204,10 +204,10 @@
                     <div class="p-col-12 p-md-4">
                         <div class="card p-shadow-1">
                             <div class="p-grid">
-                                <div class="p-col-12 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/government.png" class="sixty" />
                                 </div>
-                                <div class="p-col-12 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Other Government Workers</h6>
                                     <h6 class="card-text-brown">{{other_government_workers_value}}</h6>
                                 </div>
@@ -217,10 +217,10 @@
                     <div class="p-col-12 p-md-4">
                         <div class="card p-shadow-1">
                             <div class="p-grid">
-                                <div class="p-col-12 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/other_remaining_workforce.png" class="sixty" />
                                 </div>
-                                <div class="p-col-12 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Other Remaining Workforce</h6>
                                     <h6 class="card-text-brown">{{other_remaining_workforce_value}}</h6>
                                 </div>
@@ -233,10 +233,10 @@
                     <div class="p-col-12 p-md-4">
                         <div class="card p-shadow-2">
                             <div class="p-grid">
-                                <div class="p-col-12 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/frontliner_personnel.png" class="sixty" />
                                 </div>
-                                <div class="p-col-12 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Frontline Personnel in Essential Sector</h6>
                                     <h6 class="card-text-brown">{{frontline_personnel_essential_sector_value}}</h6>
                                 </div>
@@ -246,10 +246,10 @@
                     <div class="p-col-12 p-md-4">
                         <div class="card p-shadow-2">
                             <div class="p-grid">
-                                <div class="p-col-12 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/other_essential_workers.png" class="sixty" />
                                 </div>
-                                <div class="p-col-12 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Other Essential Workers</h6>
                                     <h6 class="card-text-brown">{{other_essential_workers_value}}</h6>
                                 </div>
@@ -259,10 +259,10 @@
                     <div class="p-col-12 p-md-4">
                         <div class="card p-shadow-2">
                             <div class="p-grid">
-                                <div class="p-col-12 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/rest_of_the_population.png" class="sixty" />
                                 </div>
-                                <div class="p-col-12 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Rest of the Population</h6>
                                     <h6 class="card-text-brown">{{rest_of_the_population_value}}</h6>
                                 </div>
@@ -275,12 +275,12 @@
                     <div class="p-col-12 p-md-4">
                         <div class="card card-bg-pg p-shadow-2">
                             <div class="p-grid">
-                                <div class="p-col-12 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/eligible.png" class="sixty" />
                                 </div>
-                                <div class="p-col-12 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Number of Individual (Eligible) </h6>
-                                    <h6 class="card-text-brown">54,082</h6>
+                                    <h6 class="card-text-brown">{{individual_eligible_value}}</h6>
                                 </div>
                             </div>
                         </div>
@@ -288,12 +288,12 @@
                     <div class="p-col-12 p-md-4">
                         <div class="card card-bg-pg p-shadow-2">
                             <div class="p-grid">
-                                <div class="p-col-12 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/waiting_list.png" class="sixty" />
                                 </div>
-                                <div class="p-col-12 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Waiting List (Willing to be Vaccinated)</h6>
-                                    <h6 class="card-text-brown">54,082</h6>
+                                    <h6 class="card-text-brown">{{waiting_value}}</h6>
                                 </div>
                             </div>
                         </div>
@@ -301,12 +301,12 @@
                     <div class="p-col-12 p-md-4">
                         <div class="card card-bg-pg p-shadow-2">
                             <div class="p-grid">
-                                <div class="p-col-12 p-md-4">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/percentage.png" class="sixty" />
                                 </div>
-                                <div class="p-col-12 p-md-8">
+                                <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Percentage (Immunized/Total Eligible)</h6>
-                                    <h6 class="card-text-brown">54,082</h6>
+                                    <h6 class="card-text-brown">{{immunized_vs_eligible_value}}</h6>
                                 </div>
                             </div>
                         </div>
@@ -320,15 +320,15 @@
                     </div>
                     <div class="p-col-12 p-md-2"></div>
                 </div>
-                <Panel header="Total Doses (by vaccination site)">
+                <Panel header="Total Doses (by vaccination site)" class="p-mb-2">
                     <div class="p-grid">
                         <div class="p-col-12 p-md-12">
-                            <DataTable>
-                                <Column field="facility_name" header="Facility Name" sortable="true"></Column>
-                                <Column field="first_name" header="Health Workers (A1)" sortable="true"></Column>
-                                <Column field="" header="Health Workers (A2)" sortable="true"></Column>
-                                <Column field="" header="Adult with Comorbidity (A3)" sortable="true"></Column>
-                                <Column field="" header="Frontliner Personnel in Essential Sector (A4)" sortable="true"></Column>
+                            <DataTable :resizableColumns="true" columnResizeMode="expand" showGridlines responsiveLayout="scroll">
+                                <Column field="facility_name" header="Facility Name" headerStyle="width: 20%"></Column>
+                                <Column field="first_name" header="Health Workers (A1)" headerStyle="width: 10%"></Column>
+                                <Column field="" header="Health Workers (A2)" headerStyle="width: 10%"></Column>
+                                <Column field="" header="Adult with Comorbidity (A3)" headerStyle="width: 10%"></Column>
+                                <Column field="" header="Frontliner Personnel in Essential Sector (A4)" headerStyle="width: 10%"></Column>
                             </DataTable>
                         </div>
                     </div>
@@ -337,17 +337,17 @@
                 <Panel header="Total Number of Vaccine Used (per vaccine type)">
                     <div class="p-grid">
                         <div class="p-col-12 p-md-12">
-                            <DataTable>
-                                <Column field="facility_name" header="Facility Name"></Column>
-                                <Column field="first_name" header="Oxford Astrazenica"></Column>
-                                <Column field="" header="Pfizer-BioNTech"></Column>
-                                <Column field="" header="Sinovac CoronaVac"></Column>
-                                <Column field="" header="Novavax"></Column>
-                                <Column field="" header="Moderna"></Column>
-                                <Column field="" header="Janssen"></Column>
-                                <Column field="" header="Gamaleya Sputnik V"></Column>
-                                <Column field="" header="Bharat BioTech"></Column>
-                                <Column field="" header="Total # of Vaccine Used"></Column>
+                            <DataTable :resizableColumns="true" columnResizeMode="expand" showGridlines responsiveLayout="scroll">
+                                <Column field="facility_name" header="Facility Name" headerStyle="width: 20%"></Column>
+                                <Column field="first_name" header="Oxford Astrazenica" headerStyle="width: 10%"></Column>
+                                <Column field="" header="Pfizer-BioNTech" headerStyle="width: 10%"></Column>
+                                <Column field="" header="Sinovac CoronaVac" headerStyle="width: 10%"></Column>
+                                <Column field="" header="Novavax" headerStyle="width: 10%"></Column>
+                                <Column field="" header="Moderna" headerStyle="width: 10%"></Column>
+                                <Column field="" header="Janssen" headerStyle="width: 10%"></Column>
+                                <Column field="" header="Gamaleya Sputnik V" headerStyle="width: 10%"></Column>
+                                <Column field="" header="Bharat BioTech" headerStyle="width: 10%"></Column>
+                                <Column field="" header="Total # of Vaccine Used" headerStyle="width: 10%"></Column>
                             </DataTable>
                         </div>
                     </div>
@@ -459,6 +459,18 @@ export default {
         teacher_value() {
             return this.$store.state.registered.registered.priority_group.teacher
         },
+        individual_eligible_value(){
+            return this.$store.state.registered.registered.individual_eligible
+        },
+        immunized_vs_eligible_value(){
+            return this.$store.state.registered.registered.immunized_vs_eligible
+        },
+        complete_immunization_value(){
+            return this.$store.state.registered.registered.complete_immunization
+        },
+        waiting_value(){
+            return this.$store.state.registered.registered.waiting
+        },
         hospitals(){
             return this.$store.state.registered.hospitals
         },
@@ -551,8 +563,17 @@ export default {
         width: 70%!important;
     }
     @media screen and (max-width: 600px) {
+        .header-text {
+            color: #7c7c7c;
+            font-weight: bold;
+            font-size: 15px;
+            text-align: center;
+        }
         .hundred {
-            width: 30%!important;
+            width: 100%!important;
+        }
+        .sixty{
+            width: 100%!important;
         }
         .card-text-gray {
             color: #7c7c7c;
