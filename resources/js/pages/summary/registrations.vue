@@ -21,14 +21,14 @@
                         <label for="basic">City/Municipality</label>
                         <Dropdown class="p-shadow-1" optionLabel="name" optionValue="id" />
                     </div>
-                    <div class="p-field p-col-12 p-md-3">
+                    <!-- <div class="p-field p-col-12 p-md-3">
                         <label for="basic">Facility Name</label>
                         <Dropdown class="p-shadow-1" :options="hospitals" optionLabel="description" optionValue="id" v-model="facility_name" />
-                    </div>
-                    <div class="p-field p-col-12 p-md-6">
+                    </div> -->
+                    <!-- <div class="p-field p-col-12 p-md-6">
                         <label for="basic">Priority Group</label>
                         <Dropdown class="p-shadow-1" :options="groups" optionLabel="name" optionValue="id" v-model="priority_group" />
-                    </div>
+                    </div> -->
                     <div class="p-field p-col-12 p-md-3">
                         <label for="basic">Start Date:</label>
                         <Calendar class="p-shadow-1 p-inputtext-sm" id="start_date" v-model="start_date" />
@@ -323,12 +323,12 @@
                 <Panel header="Total Doses (by vaccination site)" class="p-mb-2">
                     <div class="p-grid">
                         <div class="p-col-12 p-md-12">
-                            <DataTable :resizableColumns="true" columnResizeMode="expand" showGridlines responsiveLayout="scroll">
+                            <DataTable :value="total_doses_value" :resizableColumns="true" columnResizeMode="expand" showGridlines responsiveLayout="scroll">
                                 <Column field="facility_name" header="Facility Name" headerStyle="width: 20%"></Column>
-                                <Column field="first_name" header="Health Workers (A1)" headerStyle="width: 10%"></Column>
-                                <Column field="" header="Health Workers (A2)" headerStyle="width: 10%"></Column>
-                                <Column field="" header="Adult with Comorbidity (A3)" headerStyle="width: 10%"></Column>
-                                <Column field="" header="Frontliner Personnel in Essential Sector (A4)" headerStyle="width: 10%"></Column>
+                                <Column field="health_workers" header="Health Workers (A1)" headerStyle="width: 10%"></Column>
+                                <Column field="senior_citizens" header="Senior Citizens (A2)" headerStyle="width: 10%"></Column>
+                                <Column field="adults_with_comorbidity" header="Adult with Comorbidity (A3)" headerStyle="width: 10%"></Column>
+                                <Column field="frontliners" header="Frontliner Personnel in Essential Sector (A4)" headerStyle="width: 10%"></Column>
                             </DataTable>
                         </div>
                     </div>
@@ -337,16 +337,16 @@
                 <Panel header="Total Number of Vaccine Used (per vaccine type)">
                     <div class="p-grid">
                         <div class="p-col-12 p-md-12">
-                            <DataTable :resizableColumns="true" columnResizeMode="expand" showGridlines responsiveLayout="scroll">
+                            <DataTable :value="total_vaccines_used_value" :resizableColumns="true" columnResizeMode="expand" showGridlines responsiveLayout="scroll">
                                 <Column field="facility_name" header="Facility Name" headerStyle="width: 20%"></Column>
-                                <Column field="first_name" header="Oxford Astrazenica" headerStyle="width: 10%"></Column>
-                                <Column field="" header="Pfizer-BioNTech" headerStyle="width: 10%"></Column>
-                                <Column field="" header="Sinovac CoronaVac" headerStyle="width: 10%"></Column>
-                                <Column field="" header="Novavax" headerStyle="width: 10%"></Column>
-                                <Column field="" header="Moderna" headerStyle="width: 10%"></Column>
-                                <Column field="" header="Janssen" headerStyle="width: 10%"></Column>
-                                <Column field="" header="Gamaleya Sputnik V" headerStyle="width: 10%"></Column>
-                                <Column field="" header="Bharat BioTech" headerStyle="width: 10%"></Column>
+                                <Column field="oxford" header="Oxford Astrazenica" headerStyle="width: 10%"></Column>
+                                <Column field="pfizer" header="Pfizer-BioNTech" headerStyle="width: 10%"></Column>
+                                <Column field="sinovac" header="Sinovac CoronaVac" headerStyle="width: 10%"></Column>
+                                <Column field="novavax" header="Novavax" headerStyle="width: 10%"></Column>
+                                <Column field="moderna" header="Moderna" headerStyle="width: 10%"></Column>
+                                <Column field="janssen" header="Janssen" headerStyle="width: 10%"></Column>
+                                <Column field="gamaleya" header="Gamaleya Sputnik V" headerStyle="width: 10%"></Column>
+                                <Column field="bharat" header="Bharat BioTech" headerStyle="width: 10%"></Column>
                                 <Column field="" header="Total # of Vaccine Used" headerStyle="width: 10%"></Column>
                             </DataTable>
                         </div>
@@ -471,8 +471,14 @@ export default {
         waiting_value(){
             return this.$store.state.registered.registered.waiting
         },
-        hospitals(){
-            return this.$store.state.registered.hospitals
+        waiting_value(){
+            return this.$store.state.registered.registered.waiting
+        },
+        total_doses_value(){
+            return this.$store.state.registered.registered.total_doses
+        },
+        total_vaccines_used_value(){
+            return this.$store.state.registered.registered.total_vaccines_used
         },
         groups(){
             return this.$store.state.registered.groups
