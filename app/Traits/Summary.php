@@ -385,6 +385,7 @@ trait Summary
                 }
             });
 
+            $all_doses = $doses_health_workers->sum() + $senior_citizens->sum() + $adults_with_comorbidity->sum() + $frontliners->sum();
             $total_dose = [
                 'id' => $facility_id,
                 'facility_name' => $facility->description,
@@ -392,6 +393,7 @@ trait Summary
                 'senior_citizens' => $senior_citizens->sum(), # A2
                 'adults_with_comorbidity' => $adults_with_comorbidity->sum(), # A3
                 'frontliners' => $frontliners->sum(), # A4
+                'total' => $all_doses, # A4
             ];
             $total_doses[] = $total_dose;
 
@@ -431,6 +433,7 @@ trait Summary
                 return $vaccine->dosages()->where('brand_name',4)->count();
             });        
 
+            $all_vaccines_used = $oxford->sum() + $pfizer->sum() + $sinovac->sum() + $novavax->sum() + $moderna->sum() + $janssen->sum() + $gamaleya->sum() + $bharat->sum();
             $total_vaccines_used = [
                 'id' => $facility_id,
                 'facility_name' => $facility->description,
@@ -442,6 +445,7 @@ trait Summary
                 'janssen' => $janssen->sum(), # 5
                 'gamaleya' => $gamaleya->sum(), # 4
                 'bharat' => $bharat->sum(), # 7
+                'total' => $all_vaccines_used
             ];
 
             $total_vaccines_useds[] = $total_vaccines_used;
