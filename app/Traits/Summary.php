@@ -311,7 +311,7 @@ trait Summary
             if ($vaccine_brand) {
                 $vaccine = collect($brands)->where('id',$vaccine_brand)->first();
                 $total = $vaccine['dosages'];
-                return $total >= count($dosages);
+                return count($dosages) >= $total;
             } else {
                 return false;
             }
@@ -340,13 +340,14 @@ trait Summary
 
         $total_doses = [];
         $wheres_hw = $wheres;
-        $wheres_hw[] = ['priority_group','01_A1';];
+        $wheres_hw[] = ['priority_group','01_A1'];
         $all_health_workers = Registration::has('vaccine.dosages')->where($wheres_hw)->whereBetween('created_at',[$startFilter,$endFilter])->get();
         $wheres_sc = $wheres;
         $wheres_sc[] = ['priority_group','02_A2'];
         $all_senior_citizens = Registration::has('vaccine.dosages')->where($wheres_sc)->whereBetween('created_at',[$startFilter,$endFilter])->get();
         $wheres_awc = $wheres;
         $wheres_awc[] = ['priority_group','03_A3'];
+        $wheres_awc[] = ['with_comorbidity','01_Yes'];
         $all_adults_with_comorbidity = Registration::has('vaccine.dosages')->where($wheres_awc)->whereBetween('created_at',[$startFilter,$endFilter])->get();
         $wheres_f = $wheres;
         $wheres_f[] = ['priority_group','04_A4'];
@@ -410,37 +411,77 @@ trait Summary
             /**
              * Total vaccines used
              */
-            $oxford = collect($vaccines)->where('vaccination_facility',$facility_id)->values();
-            $oxford = $oxford->map(function($vaccine) {
-                return $vaccine->dosages()->where('brand_name',11)->count();
+            $oxford = $vaccines->map(function($registration_vaccine) use ($facility_id) {
+                $vaccine = $registration_vaccine->vaccine()->where('vaccination_facility',$facility_id)->first();
+                if (is_null($vaccine)) {
+                    return 0;
+                } else {
+                    $dosages = $vaccine->dosages()->get();
+                    return collect($dosages)->where('brand_name',11)->count();
+                }
             });
-            $pfizer = collect($vaccines)->where('vaccination_facility',$facility_id)->values();
-            $pfizer = $pfizer->map(function($vaccine) {
-                return $vaccine->dosages()->where('brand_name',1)->count();
+            $pfizer = $vaccines->map(function($registration_vaccine) use ($facility_id) {
+                $vaccine = $registration_vaccine->vaccine()->where('vaccination_facility',$facility_id)->first();
+                if (is_null($vaccine)) {
+                    return 0;
+                } else {
+                    $dosages = $vaccine->dosages()->get();
+                    return collect($dosages)->where('brand_name',1)->count();
+                }
             });
-            $sinovac = collect($vaccines)->where('vaccination_facility',$facility_id)->values();
-            $sinovac = $sinovac->map(function($vaccine) {
-                return $vaccine->dosages()->where('brand_name',6)->count();
-            });         
-            $novavax = collect($vaccines)->where('vaccination_facility',$facility_id)->values();
-            $novavax = $novavax->map(function($vaccine) {
-                return $vaccine->dosages()->where('brand_name',10)->count();
+            $sinovac = $vaccines->map(function($registration_vaccine) use ($facility_id) {
+                $vaccine = $registration_vaccine->vaccine()->where('vaccination_facility',$facility_id)->first();
+                if (is_null($vaccine)) {
+                    return 0;
+                } else {
+                    $dosages = $vaccine->dosages()->get();
+                    return collect($dosages)->where('brand_name',6)->count();
+                }
             });
-            $moderna = collect($vaccines)->where('vaccination_facility',$facility_id)->values();
-            $moderna = $moderna->map(function($vaccine) {
-                return $vaccine->dosages()->where('brand_name',2)->count();
-            });  
-            $janssen = collect($vaccines)->where('vaccination_facility',$facility_id)->values();
-            $janssen = $janssen->map(function($vaccine) {
-                return $vaccine->dosages()->where('brand_name',5)->count();
-            });  
-            $gamaleya = collect($vaccines)->where('vaccination_facility',$facility_id)->values();
-            $gamaleya = $gamaleya->map(function($vaccine) {
-                return $vaccine->dosages()->where('brand_name',4)->count();
+            $novavax = $vaccines->map(function($registration_vaccine) use ($facility_id) {
+                $vaccine = $registration_vaccine->vaccine()->where('vaccination_facility',$facility_id)->first();
+                if (is_null($vaccine)) {
+                    return 0;
+                } else {
+                    $dosages = $vaccine->dosages()->get();
+                    return collect($dosages)->where('brand_name',10)->count();
+                }
             });
-            $bharat = collect($vaccines)->where('vaccination_facility',$facility_id)->values();
-            $bharat = $bharat->map(function($vaccine) {
-                return $vaccine->dosages()->where('brand_name',4)->count();
+            $moderna = $vaccines->map(function($registration_vaccine) use ($facility_id) {
+                $vaccine = $registration_vaccine->vaccine()->where('vaccination_facility',$facility_id)->first();
+                if (is_null($vaccine)) {
+                    return 0;
+                } else {
+                    $dosages = $vaccine->dosages()->get();
+                    return collect($dosages)->where('brand_name',2)->count();
+                }
+            });
+            $janssen = $vaccines->map(function($registration_vaccine) use ($facility_id) {
+                $vaccine = $registration_vaccine->vaccine()->where('vaccination_facility',$facility_id)->first();
+                if (is_null($vaccine)) {
+                    return 0;
+                } else {
+                    $dosages = $vaccine->dosages()->get();
+                    return collect($dosages)->where('brand_name',5)->count();
+                }
+            });
+            $gamaleya = $vaccines->map(function($registration_vaccine) use ($facility_id) {
+                $vaccine = $registration_vaccine->vaccine()->where('vaccination_facility',$facility_id)->first();
+                if (is_null($vaccine)) {
+                    return 0;
+                } else {
+                    $dosages = $vaccine->dosages()->get();
+                    return collect($dosages)->where('brand_name',4)->count();
+                }
+            });
+            $bharat = $vaccines->map(function($registration_vaccine) use ($facility_id) {
+                $vaccine = $registration_vaccine->vaccine()->where('vaccination_facility',$facility_id)->first();
+                if (is_null($vaccine)) {
+                    return 0;
+                } else {
+                    $dosages = $vaccine->dosages()->get();
+                    return collect($dosages)->where('brand_name',7)->count();
+                }
             });        
 
             $all_vaccines_used = $oxford->sum() + $pfizer->sum() + $sinovac->sum() + $novavax->sum() + $moderna->sum() + $janssen->sum() + $gamaleya->sum() + $bharat->sum();
