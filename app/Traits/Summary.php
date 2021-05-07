@@ -239,9 +239,10 @@ trait Summary
             $wheres[] = ['town_city_code',$townCityCode];
         }
 
-        $registrations = Registration::has('vaccine')->where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $registrations = Registration::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $registrations_vaccines = Registration::has('vaccine')->where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
         
-        $vaccines = $registrations->filter(function($registration) {
+        $vaccines = $registrations_vaccines->filter(function($registration) {
             $vaccine = $registration->vaccine()->first();
             if (is_null($vaccine)) {
                 return false;
@@ -250,7 +251,7 @@ trait Summary
                 return count($dosages) >= 1;
             }
         });
-        $first_dosage = $registrations->map(function($registration) {
+        $first_dosage = $registrations_vaccines->map(function($registration) {
             $vaccine = $registration->vaccine()->first();
             if (is_null($vaccine)) {
                 return 0;
@@ -259,7 +260,7 @@ trait Summary
                 return collect($dosages)->where('dose',1)->count();
             }
         });
-        $second_dosage = $registrations->map(function($registration) {
+        $second_dosage = $registrations_vaccines->map(function($registration) {
             $vaccine = $registration->vaccine()->first();
             if (is_null($vaccine)) {
                 return 0;
@@ -268,7 +269,7 @@ trait Summary
                 return collect($dosages)->where('dose',2)->count();
             }
         });
-        $third_dosage = $registrations->map(function($registration) {
+        $third_dosage = $registrations_vaccines->map(function($registration) {
             $vaccine = $registration->vaccine()->first();
             if (is_null($vaccine)) {
                 return 0;
@@ -303,7 +304,7 @@ trait Summary
         /**
          * Complete Immunization
          */
-        $complete_immunization = $registrations->filter(function($registration_vaccine) use ($brands) {
+        $complete_immunization = $registrations_vaccines->filter(function($registration_vaccine) use ($brands) {
             $vaccine = $registration_vaccine->vaccine()->first();
             $dosages = $vaccine->dosages()->get();
             $vaccine_brand = (count($dosages))?collect($dosages)->first()['brand_name']:0;
@@ -338,10 +339,18 @@ trait Summary
         $facilities = Hospital::all();
 
         $total_doses = [];
-        $all_health_workers = Registration::has('vaccine.dosages')->where('priority_group','01_A1')->whereBetween('created_at',[$startFilter,$endFilter])->get();
-        $all_senior_citizens = Registration::has('vaccine.dosages')->where('priority_group','02_A2')->whereBetween('created_at',[$startFilter,$endFilter])->get();
-        $all_adults_with_comorbidity = Registration::has('vaccine.dosages')->where('priority_group','03_A3')->whereBetween('created_at',[$startFilter,$endFilter])->get();
-        $all_frontliners = Registration::has('vaccine.dosages')->where('priority_group','04_A4')->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $wheres_hw = $wheres;
+        $wheres_hw[] = ['priority_group','01_A1';];
+        $all_health_workers = Registration::has('vaccine.dosages')->where($wheres_hw)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $wheres_sc = $wheres;
+        $wheres_sc[] = ['priority_group','02_A2'];
+        $all_senior_citizens = Registration::has('vaccine.dosages')->where($wheres_sc)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $wheres_awc = $wheres;
+        $wheres_awc[] = ['priority_group','03_A3'];
+        $all_adults_with_comorbidity = Registration::has('vaccine.dosages')->where($wheres_awc)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $wheres_f = $wheres;
+        $wheres_f[] = ['priority_group','04_A4'];
+        $all_frontliners = Registration::has('vaccine.dosages')->where($wheres_f)->whereBetween('created_at',[$startFilter,$endFilter])->get();
 
         // $all_adults_with_comorbidity = Registration::has('vaccine.dosages')->where('with_comorbidity','01_Yes')->whereBetween('created_at',[$startFilter,$endFilter])->get();
 
