@@ -7,18 +7,13 @@ import { api_url } from '../url.js'
 
 const GET_REGISTRATIONS = `${api_url}/api/summary/registrations`
 const getRegistrations = (payload) => {
-    const { start_date, end_date } = payload
-    return axios.get(GET_REGISTRATIONS, { params: {start_date, end_date} })
+    const { town_city, start_date, end_date } = payload
+    return axios.get(GET_REGISTRATIONS, { params: { town_city, start_date, end_date} })
 }
 
-const GET_HOSPITALS = `${api_url}/api/general/selections/hospitals`
-const getHospitals = () => {
-    return axios.get(GET_HOSPITALS)
-}
-
-const GET_GROUPS = `${api_url}/api/doh/selections/priority/groups`
-const getGroups = () => {
-    return axios.get(GET_GROUPS)
+const SELECTIONS_ROUTE = `${api_url}/api/doh/selections`
+const getSelections = () => {
+    return axios.get(SELECTIONS_ROUTE)
 }
 
 const registered = {
@@ -43,16 +38,24 @@ const registered = {
         second_dosage: 0,
         third_dosage: 0
     },
+    complete_immunization: 0,
+    waiting: 0,
+    individual_eligible: 0,
+    immunized_vs_eligible: 0,
+    total_doses: [],
+    total_vaccines_used: []
 }
 
-const hospitals = []
-const groups = []
+const addresses = [];
+
+const selections = {
+    addresses,
+}
 
 const state = () => {
     return {
         registered,
-        hospitals,
-        groups
+        selections
     }
 }
 
@@ -60,16 +63,12 @@ const mutations = {
     SUMMARY(state, payload) {
         state.registered = {...payload}
     },
-    HOSPITALS(state, payload) {
-        state.hospitals = payload
-    },
-    GROUPS(state, payload) {
-        state.groups = payload
+    SELECTIONS(state, payload) {
+        state.selections = {...payload}
     },
     LOADING(){
         Swal.fire({
             title: 'Loading...',
-
             willOpen () {
               Swal.showLoading ()
             },
@@ -91,31 +90,23 @@ const actions = {
             const { data: { data } } = await getRegistrations(payload)
             commit('SUMMARY', data)
             Swal.close()
-
         } catch (error) {
             const { response } = error
             console.log(response)
             Swal.close()
         }
     },
-    async GET_HOSPITALS({commit}) {
+    async GET_SELECTIONS({commit}) {
+        commit('LOADING')
         try {
-            const { data: { data } } = await getHospitals()
-            commit('HOSPITALS', data)
+            const { data: { data } } = await getSelections()
+            commit('SELECTIONS', data)
+            Swal.close()
         } catch (error) {
             const { response } = error
             console.log(response)
         }
-    },
-    async GET_GROUPS({commit}) {
-        try {
-            const { data: { data } } = await getGroups()
-            commit('GROUPS', data)
-        } catch (error) {
-            const { response } = error
-            console.log(response)
-        }
-    },
+    }
 }
 
 

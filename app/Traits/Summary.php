@@ -227,22 +227,60 @@ trait Summary
         $startFilter = Carbon::parse($filter['start'])->format("Y-m-d 00:00:00");
         $endFilter = Carbon::parse($filter['end'])->addDays(1)->format("Y-m-d 00:00:00");
 
-        $townCity = $filter['town_city'];
-        $facility = $filter['facility'];
-        $priorityGroup = $filter['priority_group'];
+        // $facility = $filter['facility'];
+        // $priorityGroup = $filter['priority_group'];
 
-        $registrations = Registration::whereBetween('created_at',[$startFilter,$endFilter])->get();
-        $registrations_vaccines = Registration::has('vaccine')->whereBetween('created_at',[$startFilter,$endFilter])->get();
-        $vaccines = Vaccine::whereBetween('created_at',[$startFilter,$endFilter])->get();
-        $dosages = Dosage::whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $townCityCode = null;
+        $wheres = [];
+        if (isset($filter['town_city'])) {
+            $townCity = $filter['town_city'];
+            $tc = explode("_",$townCity);
+            $townCityCode = $tc[1];
+            $wheres[] = ['town_city_code',$townCityCode];
+        }
+
+        $registrations = Registration::has('vaccine')->where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        
+        $vaccines = $registrations->filter(function($registration) {
+            $vaccine = $registration->vaccine()->first();
+            if (is_null($vaccine)) {
+                return false;
+            } else {
+                $dosages = $vaccine->dosages()->get();
+                return count($dosages) >= 1;
+            }
+        });
+        $first_dosage = $registrations->map(function($registration) {
+            $vaccine = $registration->vaccine()->first();
+            if (is_null($vaccine)) {
+                return 0;
+            } else {
+                $dosages = $vaccine->dosages()->get();
+                return collect($dosages)->where('dose',1)->count();
+            }
+        });
+        $second_dosage = $registrations->map(function($registration) {
+            $vaccine = $registration->vaccine()->first();
+            if (is_null($vaccine)) {
+                return 0;
+            } else {
+                $dosages = $vaccine->dosages()->get();
+                return collect($dosages)->where('dose',2)->count();
+            }
+        });
+        $third_dosage = $registrations->map(function($registration) {
+            $vaccine = $registration->vaccine()->first();
+            if (is_null($vaccine)) {
+                return 0;
+            } else {
+                $dosages = $vaccine->dosages()->get();
+                return collect($dosages)->where('dose',3)->count();
+            }
+        });                
 
         $startDay = Carbon::parse($filter['start'])->format("Y-m-d");
         $endDay = Carbon::parse($filter['end'])->format("Y-m-d");
         $day = $startDay;
-
-        $first_dosage = $dosages->where('dose','1')->count();
-        $second_dosage = $dosages->where('dose','2')->count();
-        $third_dosage = $dosages->where('dose','3')->count();
 
         $total_registered = $registrations->count();
         $total_vaccinated = $vaccines->count();
@@ -265,7 +303,7 @@ trait Summary
         /**
          * Complete Immunization
          */
-        $complete_immunization = $registrations_vaccines->filter(function($registration_vaccine) use ($brands) {
+        $complete_immunization = $registrations->filter(function($registration_vaccine) use ($brands) {
             $vaccine = $registration_vaccine->vaccine()->first();
             $dosages = $vaccine->dosages()->get();
             $vaccine_brand = (count($dosages))?collect($dosages)->first()['brand_name']:0;
@@ -291,7 +329,8 @@ trait Summary
         /**
          * Immunized vs Total Eligible
          */
-        $immunized_vs_eligible = $complete_immunization/$individual_eligible*100;
+        $divisor = ($individual_eligible==0)?1:$individual_eligible;
+        $immunized_vs_eligible = $complete_immunization/$divisor*100;
 
         /**
          * Tabulations
@@ -300,8 +339,11 @@ trait Summary
 
         $total_doses = [];
         $all_health_workers = Registration::has('vaccine.dosages')->where('priority_group','01_A1')->whereBetween('created_at',[$startFilter,$endFilter])->get();
-        $all_adults_with_comorbidity = Registration::has('vaccine.dosages')->where('with_comorbidity','01_Yes')->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $all_senior_citizens = Registration::has('vaccine.dosages')->where('priority_group','02_A2')->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $all_adults_with_comorbidity = Registration::has('vaccine.dosages')->where('priority_group','03_A3')->whereBetween('created_at',[$startFilter,$endFilter])->get();
         $all_frontliners = Registration::has('vaccine.dosages')->where('priority_group','04_A4')->whereBetween('created_at',[$startFilter,$endFilter])->get();
+
+        // $all_adults_with_comorbidity = Registration::has('vaccine.dosages')->where('with_comorbidity','01_Yes')->whereBetween('created_at',[$startFilter,$endFilter])->get();
 
         $total_vaccines_useds = [];
 
@@ -312,32 +354,44 @@ trait Summary
             /**
              * Total doses
              */
-            $health_workers = $all_health_workers->map(function($registration) use ($facility_id) {
+            $doses_health_workers = $all_health_workers->map(function($registration) use ($facility_id) {
                 if ($registration->vaccine()->first()->vaccination_facility==$facility_id) {
                     return $registration->vaccine()->first()->dosages()->count();                    
                 } else {
                     return 0;
                 }
             });
+
             $adults_with_comorbidity = $all_adults_with_comorbidity->map(function($registration) use ($facility_id) {
                 if ($registration->vaccine()->first()->vaccination_facility==$facility_id) {
                     return $registration->vaccine()->first()->dosages()->count();                    
                 } else {
                     return 0;
                 }
-            });             
+            });      
+
+            $senior_citizens = $all_senior_citizens->map(function($registration) use ($facility_id) {
+                if ($registration->vaccine()->first()->vaccination_facility==$facility_id) {
+                    return $registration->vaccine()->first()->dosages()->count();                    
+                } else {
+                    return 0;
+                }
+            });
+
             $frontliners = $all_frontliners->map(function($registration) use ($facility_id) {
                 if ($registration->vaccine()->first()->vaccination_facility==$facility_id) {
                     return $registration->vaccine()->first()->dosages()->count();                    
                 } else {
                     return 0;
                 }
-            });                   
+            });
+
             $total_dose = [
                 'id' => $facility_id,
                 'facility_name' => $facility->description,
-                'health_workers' => $health_workers->sum(), # A1
-                'adults_with_comorbidity' => $adults_with_comorbidity->sum(),
+                'health_workers' => $doses_health_workers->sum(), # A1
+                'senior_citizens' => $senior_citizens->sum(), # A2
+                'adults_with_comorbidity' => $adults_with_comorbidity->sum(), # A3
                 'frontliners' => $frontliners->sum(), # A4
             ];
             $total_doses[] = $total_dose;
@@ -381,6 +435,7 @@ trait Summary
             $total_vaccines_used = [
                 'id' => $facility_id,
                 'facility_name' => $facility->description,
+                'oxford' => $oxford->sum(),
                 'pfizer' => $pfizer->sum(), # 1
                 'sinovac' => $sinovac->sum(), # 6
                 'novavax' => $novavax->sum(), # 10
@@ -395,28 +450,28 @@ trait Summary
         }
 
         $data = [
-            'total_registered'=> number_format($total_registered),
-            'total_vaccinated' => number_format($total_vaccinated),
+            'total_registered'=> $total_registered,
+            'total_vaccinated' => $total_vaccinated,
             'dosages' => [
-                'first_dosage' => number_format($first_dosage),
-                'second_dosage' => number_format($second_dosage),
-                'third_dosage' => number_format($third_dosage)
+                'first_dosage' => number_format($first_dosage->sum()),
+                'second_dosage' => number_format($second_dosage->sum()),
+                'third_dosage' => number_format($third_dosage->sum())
             ],
             'priority_group' => [
-                'health_workers' => number_format($health_workers),
-                'senior_citizen' => number_format($senior_citizen),
-                'adult_with_comorbidity' => number_format($adult_with_comorbidity),
-                'frontline_personnel_essential_sector' => number_format($frontline_personnel_essential_sector),
-                'poor_population' => number_format($poor_population),
-                'teacher' => number_format($teacher),
-                'other_government_workers' => number_format($other_government_workers),
-                'other_essential_workers' => number_format($other_essential_workers),
-                'socio_demographic_groups' => number_format($socio_demographic_groups),
-                'ofw' => number_format($ofw),
-                'other_remaining_workforce' => number_format($other_remaining_workforce),
-                'rest_of_the_population' => number_format($rest_of_the_population),
+                'health_workers' => $health_workers,
+                'senior_citizen' => $senior_citizen,
+                'adult_with_comorbidity' => $adult_with_comorbidity,
+                'frontline_personnel_essential_sector' => $frontline_personnel_essential_sector,
+                'poor_population' => $poor_population,
+                'teacher' => $teacher,
+                'other_government_workers' => $other_government_workers,
+                'other_essential_workers' => $other_essential_workers,
+                'socio_demographic_groups' => $socio_demographic_groups,
+                'ofw' => $ofw,
+                'other_remaining_workforce' => $other_remaining_workforce,
+                'rest_of_the_population' => $rest_of_the_population,
             ],
-            'complete_immunization' => number_format($complete_immunization),
+            'complete_immunization' => $complete_immunization,
             'waiting' => 0,
             'individual_eligible' => $individual_eligible,
             'immunized_vs_eligible'=> $immunized_vs_eligible,
