@@ -347,7 +347,7 @@
                                 <Column field="janssen" header="Janssen" headerStyle="width: 10%"></Column>
                                 <Column field="gamaleya" header="Gamaleya Sputnik V" headerStyle="width: 10%"></Column>
                                 <Column field="bharat" header="Bharat BioTech" headerStyle="width: 10%"></Column>
-                                <Column field="" header="Total # of Vaccine Used" headerStyle="width: 10%"></Column>
+                                <Column field="total" header="Total # of Vaccine Used" headerStyle="width: 10%"></Column>
                             </DataTable>
                         </div>
                     </div>
