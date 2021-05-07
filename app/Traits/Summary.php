@@ -329,7 +329,8 @@ trait Summary
         /**
          * Immunized vs Total Eligible
          */
-        $immunized_vs_eligible = $complete_immunization/$individual_eligible*100;
+        $divisor = ($individual_eligible==0)?1:$individual_eligible;
+        $immunized_vs_eligible = $complete_immunization/$divisor*100;
 
         /**
          * Tabulations

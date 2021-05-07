@@ -19,7 +19,7 @@
                 <div class=" p-fluid p-grid p-formgrid">
                     <div class="p-field p-col-12 p-md-3">
                         <label for="basic">City/Municipality</label>
-                        <Dropdown class="p-shadow-1" optionLabel="name" optionValue="id" />
+                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="municipalities" v-model="town_city" optionValue="id" />
                     </div>
                     <!-- <div class="p-field p-col-12 p-md-3">
                         <label for="basic">Facility Name</label>
@@ -380,8 +380,7 @@ export default {
         const { dispatch } = store
 
         dispatch('AUTHENTICATE')
-        dispatch('registered/GET_HOSPITALS')
-        dispatch('registered/GET_GROUPS')
+        dispatch('registered/GET_SELECTIONS')
 
     },    
     components: {
@@ -403,8 +402,8 @@ export default {
             items: [{label: 'Registrations', to: '/summary/registrations'}],
             start_date: null,
             end_date: new Date(),
-            facility_name: null,
-            priority_group: null
+            province: "_0133_LA_UNION",
+            town_city: null
         }
     },
     computed: { 
@@ -480,8 +479,24 @@ export default {
         total_vaccines_used_value(){
             return this.$store.state.registered.registered.total_vaccines_used
         },
-        groups(){
-            return this.$store.state.registered.groups
+        provinces(){
+            return this.$store.state.registered.selections.addresses.province_value
+        },
+        municipalities() {
+
+            if (!this.provinces) return []
+
+            const province = this.provinces.filter(province => {
+                return province.id == this.province
+            })
+
+            if (province.length==0) return []
+
+            const municipalities = province[0].municipalities
+
+            return municipalities
+
+
         },
     },
    methods: {
@@ -505,7 +520,7 @@ export default {
         },
         fetchRegistrations() {
 
-            this.$store.dispatch('registered/GET_REGISTRATIONS', { start_date: this.start_date.toLocaleDateString(), end_date: this.end_date.toLocaleDateString() })
+            this.$store.dispatch('registered/GET_REGISTRATIONS', { town_city: this.town_city, start_date: this.start_date.toLocaleDateString(), end_date: this.end_date.toLocaleDateString() })
 
         },
     },
