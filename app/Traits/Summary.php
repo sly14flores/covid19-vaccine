@@ -344,7 +344,8 @@ trait Summary
         /**
          * Immunized vs Total Eligible
          */
-        $divisor = ($individual_eligible==0)?1:$individual_eligible;
+        // $divisor = ($individual_eligible==0)?1:$individual_eligible;
+        $divisor = ($individual_eligible==0)?1:$total_population;
         $immunized_vs_eligible = $complete_immunization/$divisor*100;
 
         /**
