@@ -13,10 +13,12 @@ use App\Http\Resources\SurveyResourceCollection;
 use App\Http\Resources\SurveysListResourceCollection;
 use App\Traits\Messages;
 
+use App\Traits\DOHHelpers;
+
 class SurveyController extends Controller
 {
 
-    use Messages;
+    use Messages, DOHHelpers;
 
     /**
      * Display a listing of the resource.
@@ -181,6 +183,16 @@ class SurveyController extends Controller
         if ($data['yes_contribute']) {
             $data[$contribution] = true;
         }
+
+        /**
+         * gender | province | town_city | barangay
+         */
+        $genders = ['01_Female'=>'Female','02_Male'=>'Male'];
+
+        $data['gender'] = $genders[$data['gender']];
+        $data['province'] = $this->dohToProvDesc($data['province']);
+        $data['town_city'] = $this->dohToMunDesc($data['town_city']);
+        $data['barangay'] = $this->dohToBrgyDesc($data['barangay']);
 
         $survey->fill($data);
 

@@ -22,6 +22,7 @@ class RegistrationsListResource extends JsonResource
             'town_city' => $this->town_city,
             'barangay' => $this->barangay,
             'address' => $this->address,
+            'townCity' => $this->townCity->citymunDesc,
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\Messages;
+use App\Traits\UserLocation;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Registration;
@@ -15,7 +16,14 @@ use App\Http\Resources\RegistrationsListResourceCollection;
 class RegistrationController extends Controller
 {
 
-    use Messages;
+    use Messages, UserLocation;
+
+    public function __construct()
+	{
+
+		$this->middleware(['auth:api'])->only('index');
+        
+    }
 
     /**
      * Display a listing of the resource.
@@ -24,7 +32,14 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        $registrations = Registration::paginate(10);
+        $wheres = [];
+
+        if (self::userNotAdmin()) {
+            $location = self::userLocation();
+            $wheres[] = ['town_city_code',$location];
+        }
+
+        $registrations = Registration::where($wheres)->paginate(10);
 
         $data = new RegistrationsListResourceCollection($registrations);
 

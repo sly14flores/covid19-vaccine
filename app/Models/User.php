@@ -79,4 +79,14 @@ class User extends Authenticatable
 
         return $group['name'];
     }
+
+    public function isAdmin()
+    {
+        return $this->group_id == 1;
+    }
+
+    public function notAdmin()
+    {
+        return $this->group_id != 1;
+    }    
 }
