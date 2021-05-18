@@ -3,7 +3,7 @@
 		<button class="p-link layout-menu-button" @click="onMenuToggle">
 			<span class="pi pi-bars"></span>
 		</button>
-        <label class="float-right">SAN FERNANDO CITY</label>
+        <label class="float-right">{{town}}</label>
 	</div>
 </template>
 
@@ -11,13 +11,26 @@
 
 import InputText from 'primevue/inputtext/sfc'
 
+import { useStore } from 'vuex';
+
 export default {
+    setup() {
+        const store = useStore()
+        const { state, dispatch } = store
+    },
 	components: {
 		InputText
 	},
     methods: {
         onMenuToggle(event) {
             this.$emit('menu-toggle', event);
+        }
+    },
+    computed: {
+        town() {
+
+            return this.$store.state.profile.town_city
+
         }
     }
 }
