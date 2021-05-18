@@ -11,7 +11,6 @@
 
             <template #right>
                 <Button label="Refresh" icon="pi pi-refresh" class="p-button-primary p-mr-2" @click="refresh"  />
-                <Button label="Export to Excel" icon="pi pi-upload" class="p-button-success" @click="exportToExcel"  />
             </template>
         </Toolbar>
         <div class="card p-mt-1">
@@ -97,6 +96,48 @@
                                 <div class="p-col-8 p-sm-8 p-md-8">
                                     <h6 class="card-text-gray">Complete Immunization</h6>
                                     <h6 class="card-text-red">{{complete_immunization_value}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-fluid p-grid">
+                    <div class="p-col-12 p-md-4">
+                        <div class="card card-bg-pg p-shadow-2">
+                            <div class="p-grid">
+                                <div class="p-col-4 p-sm-4 p-md-4">
+                                    <img src="img/dashboard-icons/eligible.png" class="sixty" />
+                                </div>
+                                <div class="p-col-8 p-sm-8 p-md-8">
+                                    <h6 class="card-text-gray">Number of Individual (Eligible) </h6>
+                                    <h6 class="card-text-brown">{{individual_eligible_value}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-col-12 p-md-4">
+                        <div class="card card-bg-pg p-shadow-2">
+                            <div class="p-grid">
+                                <div class="p-col-4 p-sm-4 p-md-4">
+                                    <img src="img/dashboard-icons/waiting_list.png" class="sixty" />
+                                </div>
+                                <div class="p-col-8 p-sm-8 p-md-8">
+                                    <h6 class="card-text-gray">Waiting List (Willing to be Vaccinated)</h6>
+                                    <h6 class="card-text-brown">{{waiting_value}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-col-12 p-md-4">
+                        <div class="card card-bg-pg p-shadow-2">
+                            <div class="p-grid">
+                                <div class="p-col-4 p-sm-4 p-md-4">
+                                    <img src="img/dashboard-icons/percentage.png" class="sixty" />
+                                </div>
+                                <div class="p-col-8 p-sm-8 p-md-8">
+                                    <h6 class="card-text-gray">Percentage (Immunized/Total Eligible)</h6>
+                                    <h6 class="card-text-brown">{{immunized_vs_eligible_value}}</h6>
                                 </div>
                             </div>
                         </div>
@@ -271,48 +312,6 @@
                     </div>
                 </div>
 
-                <div class="p-fluid p-grid">
-                    <div class="p-col-12 p-md-4">
-                        <div class="card card-bg-pg p-shadow-2">
-                            <div class="p-grid">
-                                <div class="p-col-4 p-sm-4 p-md-4">
-                                    <img src="img/dashboard-icons/eligible.png" class="sixty" />
-                                </div>
-                                <div class="p-col-8 p-sm-8 p-md-8">
-                                    <h6 class="card-text-gray">Number of Individual (Eligible) </h6>
-                                    <h6 class="card-text-brown">{{individual_eligible_value}}</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-col-12 p-md-4">
-                        <div class="card card-bg-pg p-shadow-2">
-                            <div class="p-grid">
-                                <div class="p-col-4 p-sm-4 p-md-4">
-                                    <img src="img/dashboard-icons/waiting_list.png" class="sixty" />
-                                </div>
-                                <div class="p-col-8 p-sm-8 p-md-8">
-                                    <h6 class="card-text-gray">Waiting List (Willing to be Vaccinated)</h6>
-                                    <h6 class="card-text-brown">{{waiting_value}}</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-col-12 p-md-4">
-                        <div class="card card-bg-pg p-shadow-2">
-                            <div class="p-grid">
-                                <div class="p-col-4 p-sm-4 p-md-4">
-                                    <img src="img/dashboard-icons/percentage.png" class="sixty" />
-                                </div>
-                                <div class="p-col-8 p-sm-8 p-md-8">
-                                    <h6 class="card-text-gray">Percentage (Immunized/Total Eligible)</h6>
-                                    <h6 class="card-text-brown">{{immunized_vs_eligible_value}}</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="p-grid header-text">
                     <div class="p-col-12 p-md-2"></div>
                     <div class="p-col-12 p-md-8">
@@ -323,8 +322,11 @@
                 <Panel header="Total Doses (by vaccination site)" class="p-mb-2">
                     <div class="p-grid">
                         <div class="p-col-12 p-md-12">
-                            <DataTable :value="total_doses_value" :resizableColumns="true" columnResizeMode="expand" showGridlines responsiveLayout="scroll">
-                                <Column field="facility_name" header="Facility Name" headerStyle="width: 20%"></Column>
+                            <DataTable :value="total_doses_value" :paginator="true" :rows="10"
+                                paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+                                :rowsPerPageOptions="[10,20,50]" responsiveLayout="scroll"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords}">
+                             <Column field="facility_name" header="Facility Name" headerStyle="width: 20%"></Column>
                                 <Column field="health_workers" header="Health Workers (A1)" headerStyle="width: 10%"></Column>
                                 <Column field="senior_citizens" header="Senior Citizens (A2)" headerStyle="width: 10%"></Column>
                                 <Column field="adults_with_comorbidity" header="Adult with Comorbidity (A3)" headerStyle="width: 10%"></Column>
@@ -337,7 +339,10 @@
                 <Panel header="Total Number of Vaccine Used (per vaccine type)">
                     <div class="p-grid">
                         <div class="p-col-12 p-md-12">
-                            <DataTable :value="total_vaccines_used_value" :resizableColumns="true" columnResizeMode="expand" showGridlines responsiveLayout="scroll">
+                            <DataTable :value="total_vaccines_used_value" :paginator="true" :rows="10"
+                                paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+                                :rowsPerPageOptions="[10,20,50]" responsiveLayout="scroll"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords}">
                                 <Column field="facility_name" header="Facility Name" headerStyle="width: 20%"></Column>
                                 <Column field="oxford" header="Oxford Astrazenica" headerStyle="width: 10%"></Column>
                                 <Column field="pfizer" header="Pfizer-BioNTech" headerStyle="width: 10%"></Column>
@@ -573,12 +578,12 @@ export default {
     .card-text-red {
         color: #92362f;
         font-weight: bold;
-        font-size: 17px;
+        font-size: 25px;
     }
     .card-text-brown {
         color: #926C2F;
         font-weight: bold;
-        font-size: 17px;
+        font-size: 25px;
     }
     
     .hundred {
@@ -611,12 +616,12 @@ export default {
         .card-text-red {
             color: #92362f;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 25px;
         }
         .card-text-brown {
             color: #926C2F;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 25px;
         }
     }
     .as-of {

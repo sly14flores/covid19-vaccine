@@ -76,7 +76,7 @@ const facilities = [
 
 const vaccines = [
     {
-        label:'Vaccines',
+        label:'Vaccines Administration',
         icon:'pi pi-fw pi-desktop',
         to: '/scanners/vaccines'
     }    

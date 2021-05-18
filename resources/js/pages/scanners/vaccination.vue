@@ -174,3 +174,11 @@ export default {
 }
 
 </script>
+
+<style scoped>
+    .disabled {
+        background: rgb(219, 219, 219);
+        border-bottom: 1px solid black;
+        cursor: not-allowed; 
+    }
+</style>

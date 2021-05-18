@@ -6,8 +6,15 @@
                 <TabPanel header="QR Code Scanning">
                     <div class="p-grid">
                         <div class="p-lg-4 p-sm-12 p-xs-12">
-                            <div class=" p-fluid p-shadow-2">
-                                <Button icon="pi pi-refresh float-right" @click="reset" />
+                            <div class="p-fluid p-shadow-2">
+                                <div class="p-grid">
+                                    <div class="p-col-10">     
+                                        <ToggleButton class="p-ml-2" v-model="checked1" @click="switchCamera" onLabel="On" offLabel="Off" style="width: 4em" />
+                                      </div>
+                                    <div class="p-col-2">     
+                                          <Button icon="pi pi-refresh float-right" @click="reset" />
+                                    </div>
+                                </div>
                                 <div class="p-grid p-jc-center">
                                     <div class="p-lg-2 p-md-2 p-xs-5">
                                         <img alt="logo" src="img/qr-code.png" class="qr-code" />
@@ -15,12 +22,20 @@
                                 </div>
                                 <div class="p-grid p-jc-center p-mt-2">
                                     <h2 class="p-label-blue">QR Code Scanning</h2>
-                                </div>
+                                    </div>
                                 <div class="p-grid">
                                     <div class="p-field p-col-11 p-md-12">
                                         <div class="center stream">
-                                            <qr-stream :camera="camera" @decode="onDecode" class="mb p-shadow-3">
-                                                <div class="frame"></div>
+                                            <qr-stream :camera="camera" @decode="onDecode" class="mb p-shadow-3" @init="onInit">
+                                                    <div class="frame" v-if="frame"></div>
+                                                    <div class="loading-indicator p-mt-6" v-if="loading">
+                                                        <div class="p-grid p-jc-center">
+                                                            <div class="p-lg-2 p-md-2 p-xs-5">
+                                                                <i class="pi pi-spin pi-spinner" style="fontSize: 5rem"></i>
+                                                                <p>Loading...</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                             </qr-stream>
                                         </div>
                                     </div>
@@ -153,6 +168,7 @@ import Paginator from 'primevue/paginator/sfc';
 import ScrollTop from 'primevue/scrolltop/sfc';
 import Panel from 'primevue/panel/sfc';
 import Toolbar from 'primevue/toolbar/sfc';
+import SelectButton from 'primevue/selectbutton/sfc';
 import Vaccination from './vaccination'
 
 import { QrStream, QrCapture, QrDropzone } from 'vue3-qr-reader';
@@ -291,7 +307,12 @@ export default {
     },
     data() {
       return {
-          camera: 'auto'
+            camera: 'front',
+            noRearCamera: false,
+            noFrontCamera: false,
+            checked1: false,
+            loading: false,
+            frame: false
       }
     },
     components: {
@@ -313,6 +334,7 @@ export default {
         Paginator,
         ScrollTop,
         Panel,
+        SelectButton,
         Toolbar,
         Vaccination,
     },
@@ -435,10 +457,14 @@ export default {
     methods: {
         async onInit (promise) {
             try {
+                this.loading = true
+                this.frame = false
                 await promise
             } catch (e) {
                 console.error(e)
             } finally {
+                this.loading = false
+                this.frame = true
             }
         },        
         async onDecode(data) {
@@ -466,6 +492,16 @@ export default {
             return new Promise(resolve => {
                 window.setTimeout(resolve, ms)
             })
+        },
+        switchCamera () {
+            switch (this.camera) {
+                case 'front':
+                this.camera = 'rear'
+                break
+                case 'rear':
+                this.camera = 'front'
+                break
+            }
         },
         toggleWrite() {
             this.writeOn = !this.writeOn

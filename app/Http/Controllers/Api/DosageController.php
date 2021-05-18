@@ -87,7 +87,9 @@ class DosageController extends Controller
             'lot_number' => 'integer',
             'dose' => 'integer',
             'diluent_batch_number' => 'integer',
-            'diluent_lot_number' => 'integer',            
+            'diluent_lot_number' => 'integer',   
+            'date_of_vaccination' => 'date',     
+            'next_vaccination' => 'date'     
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -244,6 +246,8 @@ class DosageController extends Controller
             'batch_number' => 'integer',
             'lot_number' => 'integer',
             'dose' => 'integer',
+            'date_of_vaccination' => 'date',     
+            'next_vaccination' => 'date' 
         ];
 
         $validator = Validator::make($request->all(), $rules);        
