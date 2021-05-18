@@ -56,6 +56,7 @@
                 <Column field="first_name" header="First Name" sortable="true"></Column>
                 <Column field="" header="Middle Name" sortable="true"></Column>
                 <Column field="last_name" header="Last Name" sortable="true"></Column>
+                <Column field="townCity" header="Municipality/City" sortable="true"></Column>
                 <Column field="" header="Priority Group" sortable="true"></Column>
                 <Column field="id" header="Actions">
                     <template #body="slotProps">

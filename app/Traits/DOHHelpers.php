@@ -28,9 +28,17 @@ trait DOHHelpers
         $code = intval($doh_code_exploded[1]);        
 
         return $code;
-        // $province = Province::where('provCode',$code)->first();
-        // return $province->provDesc;
+
     }
+
+    public function dohToProvDesc($doh_code)
+    {
+        $doh_code_exploded = explode("_",$doh_code);
+        $code = intval($doh_code_exploded[1]);        
+
+        $province = Province::where('provCode',$code)->first();
+        return $province->provDesc;
+    }    
 
     public function toDOHMun($municipality)
     {
@@ -54,6 +62,15 @@ trait DOHHelpers
         // return $city_mun->citymunDesc;
     }
 
+    public function dohToMunDesc($doh_code)
+    {
+        $doh_code_exploded = explode("_",$doh_code);
+        $code = intval($doh_code_exploded[1]);
+        
+        $city_mun = CityMun::where('citymunCode',$code)->first();
+        return $city_mun->citymunDesc;
+    }
+
     public function toDOHBrgy($barangay)
     {
         $doh_barangay = "_{$barangay['brgyCode']}_";
@@ -75,6 +92,15 @@ trait DOHHelpers
         // $barangay = Barangay::where('brgyCode',$code)->first();
         // return $barangay->brgyDesc;
     }
+
+    public function dohToBrgyDesc($doh_code)
+    {
+        $doh_code_exploded = explode("_",$doh_code);
+        $code = intval($doh_code_exploded[1]);
+
+        $barangay = Barangay::where('brgyCode',$code)->first();
+        return $barangay->brgyDesc;
+    }    
 
     public function toDOHGender($gender)
     {
