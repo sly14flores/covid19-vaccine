@@ -7,57 +7,61 @@
         <form @submit="onSubmit">
             <div class="p-grid p-jc-center p-mt-4">
                 <div class="p-lg-4 p-sm-12 p-xs-12">
-                    <div class="card p-fluid">
-                        <div class="p-grid p-jc-center">
-                            <div class="p-lg-10 p-sm-5 p-xs-5">
-                                <img alt="logo" src="img/napanam_logo.png" class="napanam" />
+                    <Card>
+                        <template #header>
+                            <img alt="user header" src="img/napanam-logo-sm.png">
+                        </template>
+                        <template #content>
+                            <div class="p-grid p-jc-center p-mt-2">
+                                <h6 class="p-text-center">Before your proceed to the registration page, please complete the form below.</h6>
                             </div>
-                        </div>
-                        <div class="p-grid p-jc-center p-mt-2">
-                            <h6 class="p-text-center">Before your proceed to the registration page, please complete the form below.</h6>
-                        </div>
-                        <hr />
-                        <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-12">
-                                <label for="napanam_id">Napanam ID No.: <i class="p-error">*</i></label>
-                                <span class="p-input-icon-right">
-                                    <i class="pi pi-id-card" />
-                                    <InputText class="p-shadow-1" type="number" placeholder="Enter your Napanam ID No." v-model="id" :class="{'p-invalid': idError}" />
-                                </span>
-                                <small class="p-error">{{ idError }}</small>
+                            <hr />
+                            <div class="p-fluid p-formgrid p-grid">
+                                <div class="p-field p-col-12 p-md-12">
+                                    <label for="napanam_id">Napanam ID No.: <i class="p-error">*</i></label>
+                                    <span class="p-input-icon-right">
+                                        <i class="pi pi-id-card" />
+                                        <InputText class="p-shadow-1" type="number" placeholder="Enter your Napanam ID No." v-model="id" :class="{'p-invalid': idError}" />
+                                    </span>
+                                    <small class="p-error">{{ idError }}</small>
+                                </div>
                             </div>
-                        </div>
-
-                        <h6>Birthdate: <small><i class="text-gray">(Araw ng Kapanganakan)</i></small> <i class="p-error">*</i></h6>
-                        <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-4">
-                                <label for="month"><small>Month <i class="text-gray"> (Buwan)</i></small></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="month_value" optionValue="id" v-model="month" placeholder="Select a month" :class="{'p-invalid': monthError}" />
-                                <small class="p-error">{{ monthError }}</small>
+                            <h6>Birthdate: <small><i class="text-gray">(Araw ng Kapanganakan)</i></small> <i class="p-error">*</i></h6>
+                            <div class="p-fluid p-formgrid p-grid">
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="month"><small>Month <i class="text-gray"> (Buwan)</i></small></label>
+                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="month_value" optionValue="id" v-model="month" placeholder="Select a month" :class="{'p-invalid': monthError}" />
+                                    <small class="p-error">{{ monthError }}</small>
+                                </div>
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="day"><small>Day <i class="text-gray"> (Petsa)</i></small></label>
+                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="day_value" optionValue="id" v-model="day" placeholder="DD" :class="{'p-invalid': dayError}" />
+                                    <small class="p-error">{{ dayError }}</small>
+                                </div>
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="year"><small>Year <i class="text-gray"> (Taon)</i></small></label>
+                                    <InputText class="p-shadow-1" type="number" placeholder="YYYY" v-model="year" :class="{'p-invalid': yearError}" />
+                                    <small class="p-error">{{ yearError }}</small>
+                                </div>
                             </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label for="day"><small>Day <i class="text-gray"> (Petsa)</i></small></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="day_value" optionValue="id" v-model="day" placeholder="DD" :class="{'p-invalid': dayError}" />
-                                <small class="p-error">{{ dayError }}</small>
+                            <hr />
+                            <div class="p-grid p-jc-center">
+                                <div class="p-lg-3 p-sm-12 p-xs-12">
+                                    <Button label="Proceed" type="submit" class="p-button-raised p-button-primary" />
+                                </div>
                             </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label for="year"><small>Year <i class="text-gray"> (Taon)</i></small></label>
-                                <InputText class="p-shadow-1" type="number" placeholder="YYYY" v-model="year" :class="{'p-invalid': yearError}" />
-                                <small class="p-error">{{ yearError }}</small>
+                            <div class="p-grid p-jc-center">
+                                <div class="p-lg-6">
+                                   <p class="text-gray"><small>No NAPANAM QR ID yet. <a href="https://npnm.launion.gov.ph/#/regqrpass">REGISTER HERE</a></small></p>
+                                </div>
                             </div>
-                        </div>
-                        <hr />
-                        <div class="p-grid p-jc-center">
-                            <div class="p-lg-4 p-sm-12 p-xs-12">
-                                <Button label="Proceed" type="submit" class="p-button-raised p-button-primary" />
+                            <div class="p-grid p-jc-center">
+                                <div class="p-lg-2">
+                                    <a href="https://vaccines.launion.gov.ph">« Back</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="p-grid">
-                            <div class="p-lg-12">
-                                <center><p class="text-gray"><small>No NAPANAM QR ID yet. <a href="https://npnm.launion.gov.ph/#/regqrpass">REGISTER HERE</a></small></p></center>
-                            </div>
-                        </div>
-                    </div>
+                        </template>
+                    </Card>
                 </div>
             </div>
         </form>
@@ -70,6 +74,7 @@ import Button from 'primevue/button/sfc';
 import InputText from 'primevue/inputtext/sfc';
 import Dropdown from 'primevue/dropdown/sfc';
 import Menubar from 'primevue/menubar/sfc';
+import Card from 'primevue/card/sfc';
 
 import { useStore } from 'vuex'
 import { useForm, useField } from 'vee-validate'
@@ -169,7 +174,8 @@ export default {
         Button,
         InputText,
         Dropdown,
-        Menubar
+        Menubar,
+        Card
     },  
 }
 </script>
@@ -195,9 +201,6 @@ export default {
     .lu-logo {
         height: 50px;
     }
-    .napanam {
-        height: 100px;
-    }
     @media screen and (max-width: 400px) {
         .napanam {
         height: 80px;
@@ -219,7 +222,7 @@ export default {
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
     -webkit-appearance: none;
-    margin: 0;
+        margin: 0;
     }
 
     /* Firefox */

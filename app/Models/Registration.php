@@ -26,6 +26,7 @@ class Registration extends Model
         'address', #
         'barangay', #
         'town_city', #
+        'town_city_code', #
         'province', #
         'contact_no', #
         'priority_group', #
@@ -109,6 +110,12 @@ class Registration extends Model
     public function townCity()
     {
         return $this->belongsTo(CityMun::class, 'town_city_code', 'citymunCode');
+
+    }
+
+    public function vaccine()
+    {
+        return $this->hasOne(Vaccine::class, 'qr_pass_id', 'qr_pass_id');
     }
 
 }

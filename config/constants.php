@@ -72,7 +72,8 @@ return [
                     'id' => 1,
                     'name' => 'Pfizer Comirnaty (BNT162b2)'
                 ]
-            ]
+            ],
+            'dosages' => 2,
         ],
         [
             'id' => 2,
@@ -82,7 +83,8 @@ return [
                     'id' => 2,
                     'name' => 'Moderna COVID-19 Vaccine (mRNA-1273)'
                 ]
-            ]
+            ],
+            'dosages' => 2,            
         ],
         [
             'id' => 3,
@@ -92,7 +94,8 @@ return [
                     'id' => 3,
                     'name' => 'COVID-19 Vaccine AstraZeneca (AZD1222)'
                 ]
-            ]
+            ],
+            'dosages' => 2,          
         ],
         [
             'id' => 4,
@@ -102,7 +105,8 @@ return [
                     'id' => 4,
                     'name' => 'Sputnik V'
                 ]
-            ]            
+            ],
+            'dosages' => 2,
         ],
         [
             'id' => 5,
@@ -112,7 +116,8 @@ return [
                     'id' => 5,
                     'name' => 'COVID-19 Vaccine Janssen (JNJ-78436735; Ad26.COV2.S)'
                 ]
-            ]    
+            ],
+            'dosages' => 1,
         ],
         [
             'id' => 6,
@@ -122,7 +127,8 @@ return [
                     'id' => 6,
                     'name' => 'CoronaVac'
                 ]
-            ] 
+            ],
+            'dosages' => 2,
         ],
         [
             'id' => 7,
@@ -132,7 +138,8 @@ return [
                     'id' => 7,
                     'name' => 'Covaxin'
                 ]
-            ] 
+            ],
+            'dosages' => 2,
         ],
         [
             'id' => 8,
@@ -142,7 +149,8 @@ return [
                     'id' => 8,
                     'name' => 'EpiVacCorona'
                 ]
-            ] 
+            ],
+            'dosages' => 2,
         ],
         [
             'id' => 9,
@@ -152,7 +160,8 @@ return [
                     'id' => 9,
                     'name' => 'CoviVac'
                 ]
-            ]
+            ],
+            'dosages' => 2,            
         ],
         [
             'id' => 10,
@@ -162,8 +171,20 @@ return [
                     'id' => 10,
                     'name' => 'Novavax COVID-19'
                 ]
-            ]
-        ],               
+            ],
+            'dosages' => 2,      
+        ],
+        [
+            'id' => 11,
+            'name' => 'Oxford',
+            'vaccines' => [
+                [
+                    'id' => 10,
+                    'name' => 'Oxford Astrazenica'
+                ]
+            ],
+            'dosages' => 3,
+        ],                  
     ],
 
     'sessions' => [
@@ -212,5 +233,7 @@ return [
         ["key"=>2,"description"=>"Does not manifest any of the following symptoms: Fever/chills, Headache, Cough, Colds, Sore throat,  Myalgia, Fatigue, Weakness, Loss of smell/taste, Diarrhea, Shortness of breath/ difficulty in breathing","value"=>false],
         ["key"=>3,"description"=>"If manifesting any of the mentioned symptom/s, specify all that apply","value"=>false],
     ],
+
+    'total_population' => 827310,
 
 ];

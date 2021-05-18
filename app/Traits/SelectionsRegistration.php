@@ -436,6 +436,13 @@ trait SelectionsRegistration
         return $sessions;
     }
 
+    public function groupsValue()
+    {
+        $groups = config('constants.groups');
+
+        return $groups;
+    }
+
     public function yesNo()
     {
         return [

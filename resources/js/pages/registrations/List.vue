@@ -34,44 +34,39 @@
             </div>
         </div>
         
-        <div class="p-grid">
-            <div class="p-col-12 p-mt-2">
-                <div class="p-grid p-col-12">
-                    <Panel header="List">
-                        <div class="p-grid">
-                            <div class="p-sm-12 p-md-6 p-lg-4">
-                                <div class="p-inputgroup">
-                                    <span class="p-inputgroup-addon">
-                                        <i class="pi pi-search"></i>
-                                    </span>
-                                    <InputText v-model="search" placeholder="Quick search QR, first name, or last name" />
-                                </div>
-                            </div>
-                            <div class="p-sm-12 p-md-6 p-lg-6"></div>
-                            <div class="p-sm-12 p-md-4 p-lg-2">
-                                <button  type="button" class="p-mr-2 p-mb-2 p-button p-component p-button-success" @click="exportToExcel">
-                                        <i class="pi pi-upload"></i>&nbsp; Export to Excel
-                                </button>   
-                            </div>
-                        </div>
-                        <DataTable :value="registrations">
-                            <Column field="qr_pass_id" header="Napanam ID No" sortable="true"></Column>
-                            <Column field="first_name" header="First Name" sortable="true"></Column>
-                            <Column field="last_name" header="Last Name" sortable="true"></Column>
-                            <Column field="townCity" header="Municipality/City" sortable="true"></Column>
-                            <Column field="id" header="Actions">
-                                <template #body="slotProps">
-                                    <router-link :to="`/registrations/registration/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>
-                                    <Button icon="pi pi-trash" class="p-button-rounded p-button-danger" @click="deleteRegistration(slotProps.data.id)" />
-                                </template>
-                            </Column>
-                        </DataTable>
-                        <Paginator :rows="pagination.per_page" :totalRecords="pagination.total" @page="fetchRegistrations($event)"></Paginator>
-                    </Panel>
-                    
+        <Panel header="List">
+            <div class="p-grid">
+                <div class="p-sm-12 p-md-6 p-lg-4">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">
+                            <i class="pi pi-search"></i>
+                        </span>
+                        <InputText v-model="search" placeholder="Quick search QR, first name, or last name" />
+                    </div>
+                </div>
+                <div class="p-sm-12 p-md-6 p-lg-6"></div>
+                <div class="p-sm-12 p-md-4 p-lg-2">
+                    <button  type="button" class="p-mr-2 p-mb-2 p-button p-component p-button-success" @click="exportToExcel">
+                            <i class="pi pi-upload"></i>&nbsp; Export to Excel
+                    </button>
                 </div>
             </div>
-        </div>
+            <DataTable :value="registrations" responsiveLayout="scroll">
+                <Column field="qr_pass_id" header="Napanam ID No" sortable="true"></Column>
+                <Column field="first_name" header="First Name" sortable="true"></Column>
+                <Column field="" header="Middle Name" sortable="true"></Column>
+                <Column field="last_name" header="Last Name" sortable="true"></Column>
+                <Column field="townCity" header="Municipality/City" sortable="true"></Column>
+                <Column field="" header="Priority Group" sortable="true"></Column>
+                <Column field="id" header="Actions">
+                    <template #body="slotProps">
+                        <router-link :to="`/registrations/registration/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>
+                        <Button icon="pi pi-trash" class="p-button-rounded p-button-danger" @click="deleteRegistration(slotProps.data.id)" />
+                    </template>
+                </Column>
+            </DataTable>
+            <Paginator :rows="pagination.per_page" :totalRecords="pagination.total" @page="fetchRegistrations($event)"></Paginator>
+        </Panel>
     </div>
 </template>
 

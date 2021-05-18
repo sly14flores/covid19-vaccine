@@ -21,7 +21,7 @@
                             <small class="p-error">{{ firstnameError }}</small> 
                         </div>
                         <div class="p-field p-col-12 p-md-4">
-                            <label for="middlename">Middle Name</label>
+                            <label for="middlename">Middle Name <small>(Optional)</small></label>
                             <InputText class="p-shadow-1" id="middlename" type="text" placeholder="Enter Middle Name" v-model="middlename" :disabled="editMode && !writeOn" />
                         </div>
                         <div class="p-field p-col-12 p-md-4">
@@ -42,7 +42,7 @@
                         </div>
                         <div class="p-field p-col-12 p-md-4">
                             <label>Profession</label>
-                            <InputText class="p-shadow-1" id="profession" type="text" placeholder="Enter Profession" v-model="profession" :disabled="editMode && !writeOn" />
+                            <Dropdown class="p-shadow-1" :options="professions" optionLabel="name" optionValue="id" v-model="profession" placeholder="Select a Profession" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                         </div>
                     </div>
 
@@ -104,6 +104,8 @@ export default {
         const store = useStore()
         const { state, dispatch } = store
         const confirm = useConfirm()
+
+        dispatch('users/GET_GROUPS')
 
         const init = {
             initialValues: {
@@ -210,14 +212,7 @@ export default {
         return {
             // writeOn: false,
             home: {icon: 'pi pi-home', to: '/users'},
-            items: [{label: (this.editMode)?'Edit User':'New User', to: `${this.$route.fullPath}`}],
-            groups: [
-                {name: 'Administrator', id: 1},
-                {name: 'Team Leader', id: 2},
-                {name: 'Counseling Nurse', id: 3},
-                {name: 'Encoder', id: 4},
-                {name: 'Vaccinator', id: 5}
-            ]
+            items: [{label: (this.editMode)?'Edit User':'New User', to: `${this.$route.fullPath}`}]
         }
     },
     components: {
@@ -242,7 +237,27 @@ export default {
         },
         hospitals() {
             return this.$store.state.users.hospitals
-        }
+        },
+        groups() {
+
+            return this.$store.state.users.groups
+
+        },
+        professions() {
+
+            if (!this.groups) return []
+
+            const group_id = this.groups.filter(group_id => {
+                return group_id.id == this.group_id
+            })
+
+            if (group_id.length==0) return []
+
+            const professions = group_id[0].professions
+
+            return professions
+
+        },
     },
     methods: {
         close() {
