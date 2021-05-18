@@ -19,7 +19,7 @@
                 <div class=" p-fluid p-grid p-formgrid">
                     <div class="p-field p-col-12 p-md-3">
                         <label for="basic">City/Municipality</label>
-                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="municipalities" v-model="town_city" optionValue="id" />
+                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="municipalities" v-model="town_city" optionValue="id" :disabled="!isAdmin" />
                     </div>
                     <!-- <div class="p-field p-col-12 p-md-3">
                         <label for="basic">Facility Name</label>
@@ -498,6 +498,9 @@ export default {
 
 
         },
+        isAdmin() {
+            return this.$store.state.profile.is_admin
+        }
     },
    methods: {
         currentDate() {
@@ -530,6 +533,10 @@ export default {
         date.setDate(1)
 
         this.start_date = date
+
+        if (!this.$store.state.profile.is_admin) {
+            this.town_city = this.$store.state.profile.town_city_doh
+        }
 
     },
     mounted(){

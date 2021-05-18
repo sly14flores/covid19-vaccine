@@ -247,8 +247,14 @@ trait Summary
             $wheres[] = ['town_city_code',$townCityCode];
         }
 
-        $registrations = Registration::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
-        $registrations_vaccines = Registration::has('vaccine')->where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        // $registrations = Registration::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $registrations = Registration::where($wheres)->whereHas('vaccine.dosages', function(Builder $query) use ($startFilter,$endFilter) {
+            $query->whereBetween('created_at',[$startFilter,$endFilter]);
+        })->get();
+        // $registrations_vaccines = Registration::has('vaccine')->where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $registrations_vaccines = Registration::has('vaccine')->where($wheres)->whereHas('vaccine.dosages', function(Builder $query) use ($startFilter,$endFilter) {
+            $query->whereBetween('created_at',[$startFilter,$endFilter]);
+        })->get();
         
         $vaccines = $registrations_vaccines->filter(function($registration) {
             $vaccine = $registration->vaccine()->first();
@@ -349,17 +355,29 @@ trait Summary
         $total_doses = [];
         $wheres_hw = $wheres;
         $wheres_hw[] = ['priority_group','01_A1'];
-        $all_health_workers = Registration::has('vaccine.dosages')->where($wheres_hw)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        // $all_health_workers = Registration::has('vaccine.dosages')->where($wheres_hw)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $all_health_workers = Registration::has('vaccine.dosages')->whereHas('vaccine.dosages', function(Builder $query) use ($startFilter,$endFilter) {
+            $query->whereBetween('created_at',[$startFilter,$endFilter]);
+        })->get();
         $wheres_sc = $wheres;
         $wheres_sc[] = ['priority_group','02_A2'];
-        $all_senior_citizens = Registration::has('vaccine.dosages')->where($wheres_sc)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        // $all_senior_citizens = Registration::has('vaccine.dosages')->where($wheres_sc)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $all_senior_citizens = Registration::has('vaccine.dosages')->where($wheres_sc)->whereHas('vaccine.dosages', function(Builder $query) use ($startFilter,$endFilter) {
+            $query->whereBetween('created_at',[$startFilter,$endFilter]);
+        })->get();
         $wheres_awc = $wheres;
         $wheres_awc[] = ['priority_group','03_A3'];
         $wheres_awc[] = ['with_comorbidity','01_Yes'];
-        $all_adults_with_comorbidity = Registration::has('vaccine.dosages')->where($wheres_awc)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        // $all_adults_with_comorbidity = Registration::has('vaccine.dosages')->where($wheres_awc)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $all_adults_with_comorbidity = Registration::has('vaccine.dosages')->where($wheres_awc)->whereHas('vaccine.dosages', function(Builder $query) use ($startFilter,$endFilter) {
+            $query->whereBetween('created_at',[$startFilter,$endFilter]);
+        })->get();
         $wheres_f = $wheres;
         $wheres_f[] = ['priority_group','04_A4'];
-        $all_frontliners = Registration::has('vaccine.dosages')->where($wheres_f)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        // $all_frontliners = Registration::has('vaccine.dosages')->where($wheres_f)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $all_frontliners = Registration::has('vaccine.dosages')->where($wheres_f)->whereHas('vaccine.dosages', function(Builder $query) use ($startFilter,$endFilter) {
+            $query->whereBetween('created_at',[$startFilter,$endFilter]);
+        })->get();
 
         // $all_adults_with_comorbidity = Registration::has('vaccine.dosages')->where('with_comorbidity','01_Yes')->whereBetween('created_at',[$startFilter,$endFilter])->get();
 
