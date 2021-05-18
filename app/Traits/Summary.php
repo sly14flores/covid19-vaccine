@@ -555,7 +555,7 @@ trait Summary
             'complete_immunization' => $complete_immunization,
             'waiting' => 0,
             'individual_eligible' => $individual_eligible,
-            'immunized_vs_eligible'=> $immunized_vs_eligible,
+            'immunized_vs_eligible'=> round($immunized_vs_eligible,5),
             'total_doses' => $total_doses,
             'total_vaccines_used' => $total_vaccines_useds,
         ];
