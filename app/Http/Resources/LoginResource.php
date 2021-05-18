@@ -14,6 +14,12 @@ class LoginResource extends JsonResource
      */
     public function toArray($request)
     {
+        $town_city = null;
+
+        if (!is_null($this->userHospital) && !is_null($this->userHospital->townCity)) {
+            $town_city = $this->userHospital->townCity->citymunDesc;
+        }
+
         return [
             'id' => $this->id,
             'firstname' => $this->firstname,
@@ -21,7 +27,8 @@ class LoginResource extends JsonResource
             'token' => $this->token,
             'hospital' => $this->hospital,
             'group_id' => $this->group_id,
-            'group_name' => $this->groupName($this->group_id)
+            'group_name' => $this->groupName($this->group_id),
+            'town_city' => $town_city,
         ];
     }
 }

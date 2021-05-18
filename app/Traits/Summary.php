@@ -5,11 +5,20 @@ namespace App\Traits;
 use App\Models\Survey;
 use Carbon\Carbon;
 
+use App\Traits\UserLocation;
+
 trait Summary
 {
 
+    use UserLocation;
+
     public static function surveys($filter)
     {
+        $wheres = [];
+        if (self::userNotAdmin()) {
+            $location = self::userLocationDesc();
+            $wheres[] = ['town_city',$location];
+        }
 
         $startFilter = Carbon::parse($filter['start'])->format("Y-m-d 00:00:00");
         $endFilter = Carbon::parse($filter['end'])->addDays(1)->format("Y-m-d 00:00:00");
@@ -17,8 +26,8 @@ trait Summary
         $startFilterChart = Carbon::parse($filter['start_chart'])->format("Y-m-d 00:00:00");
         $endFilterChart = Carbon::parse($filter['end_chart'])->addDays(1)->format("Y-m-d 00:00:00");
 
-        $surveysChart = Survey::whereBetween('created_at',[$startFilterChart,$endFilterChart])->get();
-        $surveys = Survey::whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $surveysChart = Survey::where($wheres)->whereBetween('created_at',[$startFilterChart,$endFilterChart])->get();
+        $surveys = Survey::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
 
         // $collect = collect($surveys);
         // $surveys = Survey::all();

@@ -106,4 +106,9 @@ class Registration extends Model
         'diagnosed_date' => 'date',
     ];
 
+    public function townCity()
+    {
+        return $this->belongsTo(CityMun::class, 'town_city_code', 'citymunCode');
+    }
+
 }

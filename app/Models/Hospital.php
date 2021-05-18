@@ -41,4 +41,9 @@ class Hospital extends Model
     {
         return $this->hasMany(User::class, 'hospital');
     }
+
+    public function townCity()
+    {
+        return $this->belongsTo(CityMun::class, 'location', 'citymunCode');
+    }    
 }
