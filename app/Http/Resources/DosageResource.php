@@ -35,6 +35,8 @@ class DosageResource extends JsonResource
             'pre_assessment' => $this->pre_assessment,
             'post_assessment' => $this->post_assessment,
             'aefi' => $this->aefi,
+            'date_of_vaccination' => $this->date_of_vaccination,
+            'next_vaccination' => $this->next_vaccination,
         ];
     }
 }

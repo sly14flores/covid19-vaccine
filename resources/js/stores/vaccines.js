@@ -115,7 +115,9 @@ const dosage = {
         qr_pass_id: null, //
         dose: null, //
         assessments: []
-    }
+    },
+    date_of_vaccination: null,
+    next_vaccination: null
 }
 
 const deferrals = [];

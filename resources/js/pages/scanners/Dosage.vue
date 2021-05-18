@@ -5,6 +5,16 @@
             <form autocomplete="off">
                 <div class="p-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-4">
+                        <label>Date of Vaccination</label>
+                        <Calendar id="date_of_reconstitution" class="p-shadow-1 p-inputtext-sm" v-model="dosage.date_of_vaccination" name="date_of_vaccination" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <label>Next Vaccination</label>
+                        <Calendar id="next_vaccination" class="p-shadow-1 p-inputtext-sm" v-model="dosage.next_vaccination" name="next_vaccination" />
+                    </div>
+                </div>
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-4">
                         <label>Vaccinator <i class="p-error">*</i></label>
                         <Dropdown class="p-shadow-1 p-inputtext-sm" :class="{'p-invalid': vv.user_id.$error}" id="user_id" optionLabel="name" :options="vaccinators" v-model="vv.user_id.$model" optionValue="id" placeholder="Select a vaccinator" />
                         <small v-if="vv.user_id.$error" class="p-error">This field is required</small>
@@ -214,6 +224,8 @@ export default {
             diluent_lot_number: {},
             consent: {},
             reason: {},
+            date_of_vaccination: {},
+            next_vaccination: {}
             
         }
 
@@ -232,7 +244,9 @@ export default {
             diluent_batch_number: toRef(dosage, 'diluent_batch_number'),
             diluent_lot_number: toRef(dosage, 'diluent_lot_number'),
             consent: toRef(dosage.pre_assessment, 'consent'),
-            reason: toRef(dosage.pre_assessment, 'reason')
+            reason: toRef(dosage.pre_assessment, 'reason'),
+            date_of_vaccination: toRef(dosage, 'date_of_vaccination'),
+            next_vaccination: toRef(dosage, 'next_vaccination')
         })
 
         const closeDosage = () => {
