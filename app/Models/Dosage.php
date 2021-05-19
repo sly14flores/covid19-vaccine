@@ -35,7 +35,29 @@ class Dosage extends Model
         'time_of_reconstitution',
         'diluent_batch_number',
         'diluent_lot_number',
+        'date_of_vaccination',
+        'next_vaccination'
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'brand_name' => 'integer',
+        'vaccine_name' => 'integer',
+        'batch_number' => 'integer',
+        'lot_number' => 'integer',
+        'dose' => 'integer',
+        'diluent_batch_number' => 'integer',
+        'diluent_lot_number' => 'integer',
+        'expiry_date' => 'date',
+        'date_of_reconstitution' => 'date',
+        'date_of_vaccination' => 'date',
+        'next_vaccination' => 'date',
+        // 'time_of_reconstitution' => 'datetime',
+    ];    
 
     protected $hidden = [
         'updated_at',
@@ -77,6 +99,17 @@ class Dosage extends Model
         return $brand['name'];
     }
 
+    public function vaccine_description($brand_id,$vaccine_id)
+    {
+        $brands = $this->brandValue();
+        $brand = collect($brands)->where('id',$brand_id)->first();
+        $vaccines = $brand['vaccines'];
+
+        $vaccine = collect($vaccines)->where('id',$vaccine_id)->first();
+
+        return $vaccine['name'];
+    }
+
     public function vaccine()
     {
         return $this->belongsTo(VaccineAdministration::class);
@@ -91,6 +124,11 @@ class Dosage extends Model
     {
         return $this->hasOne(PostAssessment::class,'dosage_id');
     }
+
+    public function aefi()
+    {
+        return $this->hasOne(Aefi::class,'dosage_id');
+    }    
 
     /**
      * @param $value
@@ -118,6 +156,24 @@ class Dosage extends Model
     {
         return Carbon::parse($value)->format('Y-m-d');
     }
+
+    /**
+     * @param $value
+     * @return false|string
+     */
+    public function getDateOfVaccinationAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d');
+    }
+
+     /**
+     * @param $value
+     * @return false|string
+     */
+    public function getNextVaccinationAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d');
+    }
     
     /**
      * @param $value
@@ -125,7 +181,12 @@ class Dosage extends Model
      */
     public function getTimeOfReconstitutionAttribute($value)
     {
-        return Carbon::parse($value)->format('H:i:s');
+        return Carbon::parse($value)->format('h:i A');
+    }
+
+    public function setTimeOfReconstitutionAttribute($value)
+    {
+        $this->attributes['time_of_reconstitution'] = Carbon::parse($value)->timezone('Asia/Manila')->format('Y-m-d H:i:s');
     }
 
 }

@@ -82,11 +82,12 @@ const vaccination = {
     id: 0,
     qr_pass_id: null,
     vaccination_session: null,
-    dosages: []
+    dosages: [],
+    delete: [],
 }
 
 const dosage = {
-    id: 0,
+    id: null,
     user_id: null,
     brand_name: null,
     qr_pass_id: null,
@@ -105,16 +106,18 @@ const dosage = {
         id: 0,
         qr_pass_id: null, //
         dose: null, //
-        consent: false,
+        consent: null,
         reason: null,
-        assessments: []        
+        assessments: []
     },
     post_assessment: {
         id: 0,
         qr_pass_id: null, //
         dose: null, //
         assessments: []
-    }
+    },
+    date_of_vaccination: null,
+    next_vaccination: null
 }
 
 const deferrals = [];
@@ -179,7 +182,10 @@ const doses = [
 
 const state = () => {
     return {
+        dosageIndexToUpdate: null,
         displayDosage: false,
+        displayPres: false,
+        displayReason: false,
         fetched: false,
         saving: false,
         selections,
@@ -219,7 +225,7 @@ const mutations = {
         state.deferrals = [...payload]
     },
     DOSAGE(state, payload) {
-        state.dosage = payload
+        state.dosage = {...payload}
     },
     DOSAGES(state,payload) {
         state.vaccination.dosages = [...payload]
@@ -228,7 +234,7 @@ const mutations = {
         state.vaccination = payload
     },
     RESET_DOSAGE(state) {
-        state.dosage = dosage
+        state.dosage = {...dosage}
     },
     DEFAULT_ID(state, payload) {
         state.default_id = {...payload}
@@ -237,11 +243,11 @@ const mutations = {
         state.vaccinators = [...payload]
     },
     PRES(state, payload) {
-        state.pres = [...payload]
+        // state.pres = [...payload]
         state.dosage.pre_assessment.assessments = [...payload]
     },
     POST(state, payload) {
-        state.post = [...payload]
+        // state.post = [...payload]
         state.dosage.post_assessment.assessments = [...payload]        
     },
     REASONS(state, payload) {
@@ -269,6 +275,7 @@ const mutations = {
         state.vaccine.town_city = payload.town_city
         state.vaccine.barangay = payload.barangay
         state.vaccine.address = payload.address // street
+        state.vaccine.occupation = payload.occupation 
 
         state.dosage.qr_pass_id = payload.qr_pass_id
         state.dosage.pre_assessment.qr_pass_id = payload.qr_pass_id
@@ -282,10 +289,47 @@ const mutations = {
         state.writeOn = payload
     },
     ADD_DOSAGE(state,payload) {
-        state.vaccination.dosages.push(payload)
+        const dosage = {...payload, id: 0}
+        state.vaccination.dosages.push(dosage)
+        state.dosage = {...dosage}
     },
+    UPDATE_DOSAGE(state,payload) {
+
+        // const { id } = payload
+        const dosages = state.vaccination.dosages.map((dosage,i) => {
+            // if (dosage.id == id) {
+            console.log(`${i}:${state.dosageIndexToUpdate}`)
+            if (i == state.dosageIndexToUpdate) {
+                const users = state.vaccinators.filter(vaccinator => {
+                    return vaccinator.id == payload.user_id
+                })
+                const brands = state.brands.filter(brand => {
+                    return brand.id == payload.brand_name
+                })
+                dosage = {
+                    ...payload,
+                    vaccinator: users[0].name,
+                    brand_description: brands[0].name,
+                }                
+            }
+            return dosage
+        })
+        state.vaccination.dosages = dosages
+    },
+    SHOW_DOSAGE(state,payload) {
+        const index = state.vaccination.dosages.indexOf(payload)
+        state.dosageIndexToUpdate = index
+        const dosage = {...state.vaccination.dosages[index]}
+        state.dosage = {...dosage}
+    },       
     TOGGLE_DOSAGE_FORM(state,payload) {
         state.displayDosage = payload
+    },
+    TOGGLE_PRES_FORM(state,payload) {
+        state.displayPres = payload
+    },
+    TOGGLE_REASON_FORM(state,payload) {
+        state.displayReason = payload
     },
     LOADING(){
         Swal.fire({
@@ -301,6 +345,23 @@ const mutations = {
             allowEscapeKey: false,
             allowEnterKey: false
         })
+    },
+    UPDATED(){
+        Swal.fire({
+            title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+        })
+    },
+    DELETE_DOSAGE(state,payload) {
+        const { data } = payload
+        const index = state.vaccination.dosages.indexOf(data)
+        if (data.id > 0)state.vaccination.delete.push(data.id) 
+        state.vaccination.dosages.splice(index, 1)
     }
 }
 
@@ -344,7 +405,7 @@ const actions = {
             confirmButtonText: 'Ok'
         })
     },
-    async GET_SELECTIONS({commit,dispatch}) {
+    async GET_SELECTIONS({commit}) {
         commit('LOADING');
         try {
             const { data: { data } } = await getSelections()
@@ -427,72 +488,108 @@ const actions = {
             const { response } = error
         }
     },
-    async UPDATE_VACCINATION({commit,state}, payload) {
+    async UPDATE_VACCINATION({commit,state}) {
         try {
-            const { data: { data } } = await updateVaccination({ id: state.vaccine.qr_pass_id, vaccination: payload })
-            console.log(data)
-            Swal.fire({
-                title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
-                icon: 'success',
-                showConfirmButton: false,
-                timer: 1500,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                allowEnterKey: false,
-            })
+
+            const { data: { data } } = await updateVaccination({ id: state.vaccine.qr_pass_id, vaccination: state.vaccination })
+            
+            commit('UPDATED')
+            
             return true
         } catch (error) {
             const { response } = error
             return false
         }
     },
+
     RESET_DOSAGE({commit}) {
         commit('RESET_DOSAGE')
     },
+
     ADD_DOSAGE({state,commit},payload) {
 
-        console.log(payload)
-
         payload.qr_pass_id = state.vaccine.qr_pass_id
-
-        const expiry_date = payload.expiry_date.setDate(payload.expiry_date.getDate() + 1);
-        payload.expiry_date = new Date(expiry_date).toISOString().split('T')[0];
+        // const expiry_date = payload.expiry_date.setDate(payload.expiry_date.getDate() + 1);
+        // payload.expiry_date = new Date(expiry_date).toISOString().split('T')[0];
         
-        payload.date_of_reconstitution = (payload.date_of_reconstitution)?payload.date_of_reconstitution = payload.date_of_reconstitution.setDate(payload.date_of_reconstitution.getDate() + 1):null
-        payload.date_of_reconstitution = new Date(payload.date_of_reconstitution).toISOString().split('T')[0];
+        // payload.date_of_reconstitution = (payload.date_of_reconstitution)?payload.date_of_reconstitution = payload.date_of_reconstitution.setDate(payload.date_of_reconstitution.getDate() + 1):null
+        // payload.date_of_reconstitution = new Date(payload.date_of_reconstitution).toISOString().split('T')[0];
 
-        payload.time_of_reconstitution = (payload.time_of_reconstitution)?payload.time_of_reconstitution = payload.time_of_reconstitution.toLocaleTimeString('en-GB'):null
+        // payload.time_of_reconstitution = (payload.time_of_reconstitution)?payload.time_of_reconstitution = payload.time_of_reconstitution.toLocaleTimeString('en-GB'):null        
 
+        const users = state.vaccinators.filter(vaccinator => {
+            return vaccinator.id == payload.user_id
+        })
+
+        payload.vaccinator = users[0].name
+
+        const brands = state.brands.filter(brand => {
+            return brand.id == payload.brand_name
+        })
+
+        payload.brand_description = brands[0].name
         commit('ADD_DOSAGE', payload)
+    },
+    UPDATE_DOSAGE({commit},payload) {
+        commit('UPDATE_DOSAGE',payload)
+    },
+    SHOW_DOSAGE({commit},payload) {
+        console.log(payload)
+        commit('SHOW_DOSAGE',payload)
     },
     TOGGLE_DOSAGE_FORM({commit},payload) {
         commit('TOGGLE_DOSAGE_FORM',payload)
+    },
+    TOGGLE_PRES_FORM({commit},payload) {
+        commit('TOGGLE_PRES_FORM',payload)
+    },
+    TOGGLE_REASON_FORM({commit},payload) {
+        commit('TOGGLE_REASON_FORM',payload)
     },
     async GET_DOSAGE({commit,state}, payload) {
         
         try {
             const { id } = payload
             const { data: { data } } = await getDosage({id})
-            console.log(data)
-            console.log(payload)
-            commit('DOSAGE',data)
             
+            data.expiry_date = new Date(data.expiry_date)
+            data.date_of_reconstitution = new Date(data.date_of_reconstitution)
+
+            commit('DOSAGE', data)
+            if(data.pre_assessment.consent=='01_Yes') {
+                commit('TOGGLE_PRES_FORM', true)
+                commit('TOGGLE_REASON_FORM', false)
+            } else {
+                commit('TOGGLE_PRES_FORM', false)
+                commit('TOGGLE_REASON_FORM', true)
+            }
+
+            const index = state.vaccination.dosages.indexOf(payload)
+            state.dosageIndexToUpdate = index
+
         } catch (error) {
             const { response } = error || {}
             const { message, status } = response || {}
             if (message) {
-                console.log(message)
+                // console.log(message)
             }
         }
     },
+    DELETE_DOSAGE({commit},payload) {
+        commit('DELETE_DOSAGE',payload)
+    }
 }
 
 const getters = {}
 
-export default {
+const vaccinesStore = {
     namespaced: true,
     state,
     mutations,
     actions,
     getters,
 }
+
+const dosageInit = {...dosage}
+
+export { dosageInit, vaccinesStore }

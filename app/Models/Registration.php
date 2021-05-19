@@ -15,7 +15,7 @@ class Registration extends Model
      * @var array
      */
     protected $fillable = [
-        'qr_pass_id',
+        'qr_pass_id', #
         'first_name', #
         'middle_name', #
         'last_name', #
@@ -26,16 +26,17 @@ class Registration extends Model
         'address', #
         'barangay', #
         'town_city', #
+        'town_city_code', #
         'province', #
         'contact_no', #
         'priority_group', #
         'sub_priority_group', #
         'occupation', #
-        'with_comorbidity', #
+        'with_allergy', #
         'allergic_to_vaccines', #
-        'with_allergy',
         'with_comorbidity', #
-
+        'is_registered', #
+        'origin', #
     ];
 
     // protected $fillable = [
@@ -105,5 +106,16 @@ class Registration extends Model
     protected $casts = [
         'diagnosed_date' => 'date',
     ];
+
+    public function townCity()
+    {
+        return $this->belongsTo(CityMun::class, 'town_city_code', 'citymunCode');
+
+    }
+
+    public function vaccine()
+    {
+        return $this->hasOne(Vaccine::class, 'qr_pass_id', 'qr_pass_id');
+    }
 
 }

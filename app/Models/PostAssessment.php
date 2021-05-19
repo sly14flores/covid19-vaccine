@@ -23,6 +23,15 @@ class PostAssessment extends Model
         'assessments',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'dose' => 'integer',
+    ];    
+
     protected $hidden = [
         'updated_at',
     ];    

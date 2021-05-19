@@ -17,8 +17,11 @@ class DosageResource extends JsonResource
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
+            'vaccinator' => $this->vaccinator(),
             'brand_name' => $this->brand_name,
+            'brand_description' => $this->brand($this->brand_name),
             'vaccine_name' => $this->vaccine_name,
+            'vaccine_description' => $this->vaccine_description($this->brand_name,$this->vaccine_name),
             'site_of_injection' => $this->site_of_injection,
             'expiry_date' => $this->expiry_date,            
             'batch_number' => $this->batch_number,
@@ -31,6 +34,9 @@ class DosageResource extends JsonResource
             'diluent_lot_number' => $this->diluent_lot_number,
             'pre_assessment' => $this->pre_assessment,
             'post_assessment' => $this->post_assessment,
+            'aefi' => $this->aefi,
+            'date_of_vaccination' => $this->date_of_vaccination,
+            'next_vaccination' => $this->next_vaccination,
         ];
     }
 }

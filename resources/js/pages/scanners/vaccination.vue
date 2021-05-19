@@ -22,13 +22,13 @@
                 </template>
             </Toolbar>
             <DataTable :value="dosages" dataKey="id">
-                <Column field="vaccine_name" header="Vaccine Name"></Column>
                 <Column field="dose" header="Dosage"></Column>
-                <Column field="user_id" header="Administered by"></Column>
+                <Column field="brand_description" header="Vaccine Manufacturer Name"></Column>
+                <Column field="vaccinator" header="Administered by"></Column>
                 <Column field="id" header="Actions">
                     <template #body="slotProps">
-                        <Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-button-sm p-mr-2" @click="showDosage(slotProps.data.id)" />
-                        <Button icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" @click="removeDosage()" />
+                        <Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-button-sm p-mr-2" @click="showDosage(slotProps.data)" />
+                        <Button icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm" @click="removeDosage(slotProps.data)" />
                     </template>
                 </Column>
             </DataTable>
@@ -75,6 +75,9 @@ export default {
         const store = useStore()
         const { state, dispatch } = store
 
+        
+        store.dispatch('vaccines/GET_SELECTION_BRANDS')
+
         const vaccination = reactive({
             ...state.vaccines.vaccination,
         })
@@ -100,9 +103,9 @@ export default {
         const updateVaccination = () => {
             
             ss.value.vaccination_session.$touch();
-            if (ss.value.vaccination_session.$error.value) return
+            if (ss.value.vaccination_session.$error) return
             
-            store.dispatch('vaccines/UPDATE_VACCINATION', vaccination)
+            store.dispatch('vaccines/UPDATE_VACCINATION')
 
         }
 
@@ -147,24 +150,35 @@ export default {
     methods: {
         openDosage() {
             this.$store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',true)
-            this.$store.dispatch('vaccines/GET_SELECTION_BRANDS')
+            this.$store.dispatch('vaccines/TOGGLE_PRES_FORM', false)
+            this.$store.dispatch('vaccines/TOGGLE_REASON_FORM', false)
             this.$store.dispatch('vaccines/GET_VACCINATORS')
             this.$store.dispatch('vaccines/GET_REASONS')
+            this.$store.dispatch('vaccines/GET_PRES')
+            this.$store.dispatch('vaccines/GET_POST')
             this.$store.dispatch('vaccines/RESET_DOSAGE')
-            // this.$store.state.vaccines.dosage.user_id = this.$store.state.vaccines.default_id.id;
         },
-        showDosage(id) {
+        showDosage(data) {
             this.$store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',true)
-            this.$store.dispatch('vaccines/GET_SELECTION_BRANDS')
             this.$store.dispatch('vaccines/GET_VACCINATORS')
             this.$store.dispatch('vaccines/GET_REASONS')
-            this.$store.dispatch('vaccines/GET_DOSAGE', {id})
-            // this.$store.dispatch('vaccines/GET_VACCINATION', {id})
+
+            const { id } = data
+            if (id>0) this.$store.dispatch('vaccines/GET_DOSAGE', {id})
+            if (id===0) this.$store.dispatch('vaccines/SHOW_DOSAGE', data)
         },
-        removeDosage(index) {
-            this.$store.state.vaccines.vaccination.dosages.splice(index, 1);
+        removeDosage(data) {
+            this.$store.dispatch('vaccines/DELETE_DOSAGE',{data})
         },       
     }
 }
 
 </script>
+
+<style scoped>
+    .disabled {
+        background: rgb(219, 219, 219);
+        border-bottom: 1px solid black;
+        cursor: not-allowed; 
+    }
+</style>

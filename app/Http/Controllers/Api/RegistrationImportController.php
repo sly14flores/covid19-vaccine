@@ -491,8 +491,8 @@ class RegistrationImportController extends Controller
                     ['lastname',$lastname],
                     ['firstname',$firstname],
                     ['middlename',$middlename],
-                    ['dob',$data['birthdate']],
-                    ['qrpass_status','Active']
+                    ['dob',$data['birthdate']]
+                    // ['qrpass_status','Active']
                 ])->first();
     
                 // No NAPANAM yet

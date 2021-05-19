@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\PreAssessmentController;
 use App\Http\Controllers\Api\PostAssessmentController;
 use App\Http\Controllers\Api\RegistrationImportController;
 use App\Http\Controllers\Api\SurveysSummary;
+use App\Http\Controllers\Api\RegistrationsSummary;
 use App\Http\Controllers\Api\ChangePassword;
 use App\Http\Controllers\Api\DefaultVaccinator;
 
@@ -106,6 +107,8 @@ Route::prefix('doh')->group(function() {
     Route::get('selections/addresses', [DOHDataSelections::class, 'addresses']);
     Route::get('selections/brands', [DOHDataSelections::class, 'brands']);
     Route::get('selections/vaccination/sessions', [DOHDataSelections::class, 'vaccinationSession']);
+    Route::get('selections/groups', [DOHDataSelections::class, 'groups']);
+    Route::get('selections/priority/groups', [DOHDataSelections::class, 'priorityGroups']);
 
     /**
      * Registration
@@ -219,5 +222,6 @@ Route::prefix('general')->group(function() {
 Route::prefix('summary')->group(function() {
 
     Route::get('surveys', [SurveysSummary::class, 'getSummary']);
+    Route::get('registrations', [RegistrationsSummary::class, 'getSummary']);
 
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\Messages;
+use App\Traits\UserLocation;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Registration;
@@ -15,7 +16,14 @@ use App\Http\Resources\RegistrationsListResourceCollection;
 class RegistrationController extends Controller
 {
 
-    use Messages;
+    use Messages, UserLocation;
+
+    public function __construct()
+	{
+
+		$this->middleware(['auth:api'])->only('index');
+        
+    }
 
     /**
      * Display a listing of the resource.
@@ -24,7 +32,14 @@ class RegistrationController extends Controller
      */
     public function index()
     {
-        $registrations = Registration::paginate(10);
+        $wheres = [];
+
+        if (self::userNotAdmin()) {
+            $location = self::userLocation();
+            $wheres[] = ['town_city_code',$location];
+        }
+
+        $registrations = Registration::where($wheres)->paginate(10);
 
         $data = new RegistrationsListResourceCollection($registrations);
 
@@ -68,13 +83,18 @@ class RegistrationController extends Controller
             'sub_priority_group' => 'string',
             'occupation' => 'string',
             'with_allergy' => 'string',
-            'with_comorbidity' => 'string',       
+            'with_comorbidity' => 'string',   
+            'is_registered' => 'string',
+            'origin' => 'string',
         ];
 
         $validator = Validator::make($request->all(), $rules);
 
         /** Get validated data */
         $data = $validator->valid();
+
+        $tc = explode("_",$data['town_city']);
+        $data['town_city_code'] = $tc[1];
         
         $registration = new Registration;
         $registration->fill($data);
@@ -159,13 +179,18 @@ class RegistrationController extends Controller
             'occupation' => 'string',
             'with_allergy' => 'string',
             'with_comorbidity' => 'string',
+            'is_registered' => 'string',
+            'origin' => 'string',
         ];
 
         $validator = Validator::make($request->all(), $rules);        
 
         /** Get validated data */
-        $data = $validator->valid();        
+        $data = $validator->valid();     
         unset($data['id']);
+
+        $tc = explode("_",$data['town_city']);
+        $data['town_city_code'] = $tc[1];
 
         $registration->fill($data);
 

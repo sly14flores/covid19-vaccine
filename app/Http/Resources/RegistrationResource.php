@@ -36,7 +36,10 @@ class RegistrationResource extends JsonResource
             'sub_priority_group' => $this->sub_priority_group,
             'occupation' => $this->occupation,
             'allergic_to_vaccines' => $this->allergic_to_vaccines,
+            'with_allergy' => $this->with_allergy,
             'with_comorbidity' => $this->with_comorbidity,
+            'is_registered' => $this->is_registered,
+            'origin' => $this->origin
         ];
     }
 }

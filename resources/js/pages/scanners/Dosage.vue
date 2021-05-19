@@ -2,7 +2,17 @@
     <div>
         <Dialog header="Dosage" v-model:visible="displayDosage" :closable="false" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">   
             <hr />
-            <form>
+            <form autocomplete="off">
+                <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-4">
+                        <label>Date of Vaccination</label>
+                        <Calendar id="date_of_reconstitution" class="p-shadow-1 p-inputtext-sm" v-model="dosage.date_of_vaccination" name="date_of_vaccination" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-4">
+                        <label>Next Vaccination</label>
+                        <Calendar id="next_vaccination" class="p-shadow-1 p-inputtext-sm" v-model="dosage.next_vaccination" name="next_vaccination" />
+                    </div>
+                </div>
                 <div class="p-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-4">
                         <label>Vaccinator <i class="p-error">*</i></label>
@@ -84,25 +94,25 @@
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <div class="p-field-radiobutton">
-                                        <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="vv.consent.$model" v-on:click="displayPreDatatable = true, displayReason = false" />
+                                        <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="vv.consent.$model" @click="displayPres" />
                                         <label for="yes_consent">Yes</label>
                                     </div>
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <div class="p-field-radiobutton">
-                                        <RadioButton id="no_consent" name="consent" value="02_No" v-model="vv.consent.$model" v-on:click="displayPreDatatable = false, displayReason = true" />
+                                        <RadioButton id="no_consent" name="consent" value="02_No" v-model="vv.consent.$model" @click="displayReason" />
                                         <label for="no_consent">No</label>
                                     </div>
                                 </div>
-                                 <div class="p-field p-col-12 p-md-1" v-if="displayReason">
+                                 <div class="p-field p-col-12 p-md-1" v-if="displayReasonForm">
                                     <p class="p-text-sm">Reason</p>
                                 </div>
-                                <div class="p-field p-col-12 p-md-7" v-if="displayReason">
+                                <div class="p-field p-col-12 p-md-7" v-if="displayReasonForm">
                                     <Dropdown class="p-shadow-1 p-inputtext-sm" id="reason" optionLabel="name" :options="reasons" v-model="vv.reason.$model" optionValue="id" placeholder="Select a Reason" />
                                 </div>
                             </div>
                         </div>
-                        <DataTable class="p-datatable-sm" :value="dosage.pre_assessment.assessments" dataKey="key" v-if="displayPreDatatable">
+                        <DataTable class="p-datatable-sm" :value="dosage.pre_assessment.assessments" dataKey="key" v-if="displayPresTable">
                             <Column field="description" header="Description"></Column>
                             <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
                                 <template #body="slotProps">
@@ -112,6 +122,7 @@
                             </Column>
                         </DataTable>
                     </TabPanel>
+
                     <TabPanel>
                         <template #header>
                             <i class="pi pi-desktop p-mr-2"></i>
@@ -132,16 +143,14 @@
                             <i class="pi pi-search p-mr-2"></i>
                             <span>AEFI</span>
                         </template>
-                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                            cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-                            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+                        <p>ON PROCESS</p>
                     </TabPanel>
                 </TabView>
                 <br />
                 <div class="p-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-10"></div>
                     <div class="p-field p-col-12 p-md-1">
-                        <Button type="button" label="Ok" autofocus @click="addDosage" />
+                        <Button type="button" label="Ok" autofocus @click="addDosage()" />
                     </div>
                     <div class="p-field p-col-12 p-md-1">
                         <Button label="Cancel" @click="closeDosage" class="p-button-text"/>
@@ -173,6 +182,8 @@ import { reactive, ref, toRef, watch } from 'vue';
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 
+import { dosageInit } from '../../stores/vaccines'
+
 export default {
     props: ['editOn'],
     setup(props) {
@@ -189,22 +200,11 @@ export default {
         watch(
             () => state.vaccines.dosage.id,
             (data, prevData) => {
-                dosage.id = state.vaccines.dosage.id,
-                dosage.vaccine_id  = state.vaccines.dosage.vaccine_id ,
-                dosage.user_id  = state.vaccines.dosage.user_id,
-                dosage.qr_pass_id = state.vaccines.dosage.qr_pass_id,
-                dosage.brand_name = state.vaccines.dosage.brand_name,
-                dosage.vaccine_name = state.vaccines.dosage.vaccine_name, // VACCINE NAME CHANGE TO INT DB
-                dosage.site_of_injection = state.vaccines.dosage.site_of_injection,
-                dosage.expiry_date = state.vaccines.dosage.expiry_date,
-                dosage.batch_number = state.vaccines.dosage.batch_number,
-                dosage.lot_number = state.vaccines.dosage.lot_number,
-                dosage.dose = state.vaccines.dosage.dose,
-                dosage.diluent = state.vaccines.dosage.diluent,
-                dosage.date_of_reconstitution = state.vaccines.dosage.date_of_reconstitution,
-                dosage.time_of_reconstitution = state.vaccines.dosage.time_of_reconstitution,
-                dosage.diluent_batch_number = state.vaccines.dosage.diluent_batch_number,
-                dosage.diluent_lot_number = state.vaccines.dosage.diluent_lot_number
+                console.log(`Modified ${data}`)
+                console.log(state.vaccines.dosage)
+                if (data===null) Object.assign(dosage, dosageInit)
+                if (data===0) Object.assign(dosage, state.vaccines.dosage)
+                if (data>0) Object.assign(dosage, state.vaccines.dosage)
             }
         )
 
@@ -223,7 +223,9 @@ export default {
             diluent_batch_number: {},
             diluent_lot_number: {},
             consent: {},
-            reason: {}            
+            reason: {},
+            date_of_vaccination: {},
+            next_vaccination: {}
             
         }
 
@@ -242,19 +244,39 @@ export default {
             diluent_batch_number: toRef(dosage, 'diluent_batch_number'),
             diluent_lot_number: toRef(dosage, 'diluent_lot_number'),
             consent: toRef(dosage.pre_assessment, 'consent'),
-            reason: toRef(dosage.pre_assessment, 'reason')
+            reason: toRef(dosage.pre_assessment, 'reason'),
+            date_of_vaccination: toRef(dosage, 'date_of_vaccination'),
+            next_vaccination: toRef(dosage, 'next_vaccination')
         })
 
         const closeDosage = () => {
             store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',false)
         }
 
+        const displayPres = () => {
+            store.dispatch('vaccines/TOGGLE_PRES_FORM',true)
+            store.dispatch('vaccines/TOGGLE_REASON_FORM',false)
+        }
+
+        const displayReason = () => {
+            store.dispatch('vaccines/TOGGLE_REASON_FORM',true)
+            store.dispatch('vaccines/TOGGLE_PRES_FORM',false)
+        }
+
         const addDosage  = () => {
             vv.value.$touch();
             if (vv.value.$invalid) return
 
-            store.dispatch('vaccines/ADD_DOSAGE',dosage)
+            console.log(dosage.id)
+            if (dosage.id===null) store.dispatch('vaccines/ADD_DOSAGE', dosage)
+            if (dosage.id===0) store.dispatch('vaccines/UPDATE_DOSAGE', dosage)
+            if (dosage.id>0) store.dispatch('vaccines/UPDATE_DOSAGE', dosage)
+
             closeDosage()
+
+            setTimeout(function() {
+                vv.value.$reset()
+            }, 2000)         
         }
 
         return {
@@ -262,13 +284,14 @@ export default {
             dosage,
             addDosage,
             vv,
-            closeDosage
+            closeDosage,
+            displayPres,
+            displayReason
         }
     },
     data(){
         return {
-           displayPreDatatable: false,
-           displayReason: false
+            
         }
     },
     components: {
@@ -336,6 +359,16 @@ export default {
         displayDosage() {
 
             return this.$store.state.vaccines.displayDosage
+            
+        },
+        displayPresTable() {
+
+            return this.$store.state.vaccines.displayPres
+            
+        },
+        displayReasonForm() {
+
+            return this.$store.state.vaccines.displayReason
             
         },
     } 

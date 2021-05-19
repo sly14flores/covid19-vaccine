@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Dosage;
 use App\Models\PreAssessment;
 use App\Models\PostAssessment;
+use App\Models\Aefi;
 
 use App\Http\Resources\DosageResource;
 use App\Http\Resources\DosageResourceCollection;
@@ -78,12 +80,16 @@ class DosageController extends Controller
             'qr_pass_id' => 'string',
             'user_id' => 'integer',
             'brand_name' => 'integer',
-            'vaccine_name' => 'string',
+            'vaccine_name' => 'integer',
             'site_of_injection' => 'string',
             'expiry_date' => 'date',
             'batch_number' => 'integer',
             'lot_number' => 'integer',
             'dose' => 'integer',
+            'diluent_batch_number' => 'integer',
+            'diluent_lot_number' => 'integer',   
+            'date_of_vaccination' => 'date',     
+            'next_vaccination' => 'date'     
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -95,45 +101,85 @@ class DosageController extends Controller
         /** Get validated data */
         $data = $validator->valid();
 
-        $dosage = new Dosage;
-        $dosage->fill($data);
-        $dosage->save();
+        try {
 
-        /**
-         * Create Pre Assessment
-         */
-        $check_pre_assessment = PreAssessment::where([['dose',$data['dose']],['qr_pass_id',$data['qr_pass_id']]])->get();
-        if (count($check_pre_assessment)==0) {
-            $pre_assessment = [
-                'qr_pass_id' => $data['qr_pass_id'],
-                'consent' => false,
-                'reason' => '',
-                'dose' => $data['dose'],             
-                'assessments' => config('constants.pre_assessments')
-            ];
-            $pre = new PreAssessment;
-            $pre->fill($pre_assessment);
-            $dosage->pre_assessment()->save($pre);
+            DB::beginTransaction();
+
+            /**
+             * Check dose
+             */
+            $check_dose = Dosage::where([['dose',$data['dose']],['qr_pass_id',$data['qr_pass_id']]])->first();
+            if (!is_null($check_dose)) {
+                $data = new DosageResource($check_dose);
+                return $this->jsonSuccessResponse($data, 200);
+            }
+
+            $dosage = new Dosage;
+            $dosage->fill($data);
+            $dosage->save();
+            
+            /**
+             * Create Pre Assessment
+             */
+            $check_pre_assessment = PreAssessment::where([['dose',$data['dose']],['qr_pass_id',$data['qr_pass_id']]])->get();
+            if (count($check_pre_assessment)==0) {
+                $pre_assessment = [
+                    'qr_pass_id' => $data['qr_pass_id'],
+                    'consent' => false,
+                    'reason' => '',
+                    'dose' => $data['dose'],             
+                    'assessments' => config('constants.pre_assessments')
+                ];
+                $pre = new PreAssessment;
+                $pre->fill($pre_assessment);
+                $dosage->pre_assessment()->save($pre);
+            }
+
+            /**
+             * Create Post Assessment
+             */
+            $check_post_assessment = PostAssessment::where([['dose',$data['dose']],['qr_pass_id',$data['qr_pass_id']]])->get();
+            if (count($check_post_assessment)==0) {
+                $post_assessment = [
+                    'qr_pass_id' => $data['qr_pass_id'],
+                    'dose' => $data['dose'],
+                    'assessments' => config('constants.post_assessments')
+                ];
+                $post = new PostAssessment;
+                $post->fill($post_assessment); 
+                $dosage->post_assessment()->save($post);
+            }
+
+            /**
+             * Create AEFI
+             */
+            $check_aefi = Aefi::where([['dose',$data['dose']],['qr_pass_id',$data['qr_pass_id']]])->get();
+            if (count($check_aefi)==0) {
+                $aefi = new Aefi;            
+                $aefi_data = [
+                    'qr_pass_id' => $data['qr_pass_id'],
+                    'dose' => $data['dose'],
+                    'adverse_events' => $aefi->AdverseEvents(), // serialize_array
+                    'serious' => $aefi->Serious(), // serialize_array
+                    'current_status' => $aefi->CurrentStatus(), // serialize_array                
+                ];
+                $aefi->fill($aefi_data);
+                $dosage->aefi()->save($aefi);          
+            }
+
+            DB::commit();
+
+            $data = new DosageResource($dosage);
+
+            return $this->jsonSuccessResponse($data, 200);      
+
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+            return $this->jsonFailedResponse([$e->getMessage()], $this->http_code_error, 'Something went wrong.');
+
         }
 
-        /**
-         * Create Post Assessment
-         */
-        $check_post_assessment = PostAssessment::where([['dose',$data['dose']],['qr_pass_id',$data['qr_pass_id']]])->get();
-        if (count($check_post_assessment)==0) {
-            $post_assessment = [
-                'qr_pass_id' => $data['qr_pass_id'],
-                'dose' => $data['dose'],
-                'assessments' => config('constants.post_assessments')
-            ];
-            $post = new PostAssessment;
-            $post->fill($post_assessment); 
-            $dosage->post_assessment()->save($post);
-        }
-
-        $data = new DosageResource($dosage);
-
-        return $this->jsonSuccessResponse($data, 200);
     }
 
     /**
@@ -200,6 +246,8 @@ class DosageController extends Controller
             'batch_number' => 'integer',
             'lot_number' => 'integer',
             'dose' => 'integer',
+            'date_of_vaccination' => 'date',     
+            'next_vaccination' => 'date' 
         ];
 
         $validator = Validator::make($request->all(), $rules);        
@@ -208,6 +256,30 @@ class DosageController extends Controller
         $data = $validator->valid();
         $dosage->fill($data);
         $dosage->save();
+
+        /**
+         * Update Pre Assessment
+         */
+        $pre_assessment = $data['pre_assessment'];
+        $pre = PreAssessment::find($pre_assessment['id']);
+        $pre->fill($pre_assessment);
+        $dosage->pre_assessment()->save($pre);
+
+        /**
+         * Post Assessment
+         */
+        $post_assessment = $data['post_assessment'];
+        $post = PostAssessment::find($post_assessment['id']);
+        $post->fill($post_assessment);
+        $dosage->post_assessment()->save($post);
+
+        /**
+         * AEFI
+         */
+        $aefi_data = $data['aefi'];
+        $aefi = Aefi::find($aefi_data['id']);
+        $aefi->fill($aefi_data);
+        $dosage->aefi()->save($aefi);
 
         $data = new DosageResource($dosage);
 

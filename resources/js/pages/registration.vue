@@ -110,30 +110,58 @@
                             <div class="p-field p-col-12 p-md-6">
                                 <div class="p-field p-col-12 p-md-8">
                                     <label>Are you Allergic of Vaccines or any of its components? <small><i>(May allergy ka ba sa bakuna o sa mga sangkap nito?)</i></small> <i class="p-error">*</i></label>
-                                    <p class="p-error"><small>{{ with_allergyError }}</small></p>
+                                    <p class="p-error"><small>{{ allergic_to_vaccinesError }}</small></p>
                                 </div>
-                                <div class="p-field p-col-12 p-md-2">
-                                    <RadioButton class="p-mb-2" id="yes_with_allergy" name="with_allergy" v-model="with_allergy" value="01_Yes" />
-                                    <label for="yes_with_allergy" class="p-ml-1">Yes</label>
-                                </div>
-                                <div class="p-field p-col-12 p-md-2">
-                                    <RadioButton class="p-mb-2" id="no_with_allergy" name="with_allergy" v-model="with_allergy" value="02_No" />
-                                    <label for="no_with_allergy" class="p-ml-1">No</label>
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-2">
+                                        <RadioButton class="p-mb-2" id="yes_allergic_to_vaccines" name="allergic_to_vaccines" v-model="allergic_to_vaccines" value="01_Yes" />
+                                        <label for="yes_allergic_to_vaccines" class="p-ml-1">Yes</label>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-2">
+                                        <RadioButton class="p-mb-2" id="no_allergic_to_vaccines" name="allergic_to_vaccines" v-model="allergic_to_vaccines" value="02_No" />
+                                        <label for="no_allergic_to_vaccines" class="p-ml-1">No</label>
+                                    </div>
                                 </div>
                             </div>
-
                             <div class="p-field p-col-12 p-md-6">
                                 <div class="p-field p-col-12 p-md-8">
                                     <label>Do you have other illnesses? <small><i>(Mayroon ka bang ibang mga karamdaman?)</i></small> <i class="p-error">*</i> </label>
                                     <p class="p-error"><small>{{ with_comorbidityError }}</small></p>
                                 </div>
-                                <div class="p-field p-col-12 p-md-2">
-                                    <RadioButton class="p-mb-2" id="yes_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="01_Yes" />
-                                    <label for="yes_comorbidity" class="p-ml-1">Yes</label>
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-2">
+                                        <RadioButton class="p-mb-2" id="yes_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="01_Yes" />
+                                        <label for="yes_comorbidity" class="p-ml-1">Yes</label>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-2">
+                                        <RadioButton class="p-mb-2" id="none_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="02_None" />
+                                        <label for="none_comorbidity" class="p-ml-1">None</label>
+                                    </div>
                                 </div>
-                                <div class="p-field p-col-12 p-md-2">
-                                    <RadioButton class="p-mb-2" id="none_comorbidity" name="with_comorbidity" v-model="with_comorbidity" value="02_None" />
-                                    <label for="none_comorbidity" class="p-ml-1">None</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-grid p-jc-center p-mt-1">
+                <div class="p-lg-11 p-sm-12 p-xs-12">
+                    <div class="card p-fluid p-border-left">
+                        <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-12">
+                                <div class="p-field p-col-12 p-md-12">
+                                    <label>Did you already register through your barangay or Municipality/ City before this online registration? <small><i>(Nakapagregister ka na ba sa iyong Barangay o Munisipyo/ City bago ang online registration na ito?)</i></small> <i class="p-error">*</i> </label>
+                                    <p class="p-error"><small>{{ is_registeredError }}</small></p>
+                                </div>
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-6">
+                                        <RadioButton class="p-mb-2" id="yes_is_registered" name="is_registered" v-model="is_registered" value="01_Yes" />
+                                        <label for="yes_is_registered" class="p-ml-1">Yes, I already registered. (Oo, nakapagregister na ako)</label>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-6">
+                                        <RadioButton class="p-mb-2" id="none_is_registered" name="is_registered" v-model="is_registered" value="02_No" />
+                                        <label for="none_is_registered" class="p-ml-1">No, this is my first time to register. (Hindi, unang beses ko pa lang magregister.)</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -254,8 +282,9 @@ export default {
         const { value: occupation } = useField('registration.occupation',validField);
         const { value: priority_group, errorMessage: priority_groupError } = useField('registration.priority_group',validateRadio);
         const { value: sub_priority_group } = useField('registration.sub_priority_group',validField);
-        const { value: with_allergy, errorMessage: with_allergyError } = useField('registration.with_allergy',validateRadio);
+        const { value: allergic_to_vaccines, errorMessage: allergic_to_vaccinesError } = useField('registration.allergic_to_vaccines',validateRadio);
         const { value: with_comorbidity, errorMessage: with_comorbidityError } = useField('registration.with_comorbidity',validateRadio);
+        const { value: is_registered, errorMessage: is_registeredError } = useField('registration.is_registered',validateRadio);
         
         return {
             id,
@@ -275,9 +304,11 @@ export default {
             occupation,
             priority_group,
             sub_priority_group,
-            with_allergy,
+            allergic_to_vaccines,
             with_comorbidity,
-            with_allergyError,
+            is_registered,
+            is_registeredError,
+            allergic_to_vaccinesError,
             priority_groupError,
             with_comorbidityError,
             suffixError,
