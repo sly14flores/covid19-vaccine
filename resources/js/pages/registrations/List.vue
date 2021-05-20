@@ -92,6 +92,8 @@ export default {
         const store = useStore()
         const { state, dispatch } = store
 
+        const downloadUrl = `${api_url}/home/reports/registrations`        
+
         watch(
             () => state.importData.excel,
             (data, prevData) => {
@@ -102,7 +104,8 @@ export default {
         )
 
         return {
-            uploadUrl
+            uploadUrl,
+            downloadUrl
         }
 
     },  
@@ -216,6 +219,11 @@ export default {
         closeTerminal() {
 
             this.$store.dispatch('importData/INIT')
+
+        },
+        exportToExcel() {
+
+            window.open(`${this.downloadUrl}`)
 
         }
     },

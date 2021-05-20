@@ -11,8 +11,12 @@ use App\Models\Registration;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
+use App\Traits\SelectionsRegistration;
+
 class ExportRegistrations extends Controller
 {
+    use SelectionsRegistration;
+
     /**
      * Handle the incoming request.
      *
@@ -67,7 +71,9 @@ class ExportRegistrations extends Controller
             'occupation' => 'O',
             'allergic_to_vaccines' => 'P',
             'with_comorbidity' => 'Q',
-        ];        
+        ];
+
+        $priority_groups = collect($this->priorityGroupValue());
 
         /**
          * Populate cells
@@ -76,10 +82,21 @@ class ExportRegistrations extends Controller
 
         $i = 2;
         foreach ($registrations->toArray() as $registration) {
-            // if ($i==10) break;
             foreach (array_keys($cells) as $key) {
+
                 if ($key=='birthdate') {
                     $worksheet->setCellValue("{$cells[$key]}{$i}", Carbon::parse($registration[$key])->format('m/d/Y'));
+                } else if ($key=='priority_group') {
+                    if ($registration[$key]!=null) {
+                        $pg = $priority_groups->where('id',$registration[$key])->first();
+                        $worksheet->setCellValue("{$cells[$key]}{$i}",$registration[$key]." ".$pg['name']);
+                    }
+                } else if ($key=='sub_priority_group') {
+                    if ($registration[$key]!=null) {
+                        $pg = $priority_groups->where('id',$registration['priority_group'])->first();
+                        $spg = collect($pg['subs'])->where('id',$registration['sub_priority_group'])->first();
+                        $worksheet->setCellValue("{$cells[$key]}{$i}",$registration[$key]." ".$spg['name']);
+                    }
                 } else {
                     $worksheet->setCellValue("{$cells[$key]}{$i}", $registration[$key]);
                 }
