@@ -95,7 +95,9 @@ class ExportRegistrations extends Controller
                     if ($registration[$key]!=null) {
                         $pg = $priority_groups->where('id',$registration['priority_group'])->first();
                         $spg = collect($pg['subs'])->where('id',$registration['sub_priority_group'])->first();
-                        $worksheet->setCellValue("{$cells[$key]}{$i}",$registration[$key]." ".$spg['name']);
+                        if ($spg!=null) {
+                            $worksheet->setCellValue("{$cells[$key]}{$i}",$registration['sub_priority_group']." ".$spg['name']);
+                        }
                     }
                 } else {
                     $worksheet->setCellValue("{$cells[$key]}{$i}", $registration[$key]);
