@@ -198,14 +198,13 @@ export default {
         })
 
         watch(
-            () => state.vaccines.dosage.id,
+            () => state.vaccines.dosage,
             (data, prevData) => {
-                console.log(`Modified ${data}`)
-                console.log(state.vaccines.dosage)
-                if (data===null) Object.assign(dosage, dosageInit)
-                if (data===0) Object.assign(dosage, state.vaccines.dosage)
-                if (data>0) Object.assign(dosage, state.vaccines.dosage)
-            }
+                if (data.id===null) Object.assign(dosage, dosageInit)
+                if (data.id===0) Object.assign(dosage, data)
+                if (data.id>0) Object.assign(dosage, data)
+            },
+            { deep: true }
         )
 
         const rules = {
@@ -225,8 +224,7 @@ export default {
             consent: {},
             reason: {},
             date_of_vaccination: {},
-            next_vaccination: {}
-            
+            next_vaccination: {},
         }
 
         const vv = useVuelidate(rules, {
@@ -264,10 +262,10 @@ export default {
         }
 
         const addDosage  = () => {
+
             vv.value.$touch();
             if (vv.value.$invalid) return
 
-            console.log(dosage.id)
             if (dosage.id===null) store.dispatch('vaccines/ADD_DOSAGE', dosage)
             if (dosage.id===0) store.dispatch('vaccines/UPDATE_DOSAGE', dosage)
             if (dosage.id>0) store.dispatch('vaccines/UPDATE_DOSAGE', dosage)

@@ -83,13 +83,15 @@ export default {
         })
 
         watch(
-            () => state.vaccines.vaccination.id,
+            () => state.vaccines.vaccination,
             (data, prevData) => {
-                vaccination.id = state.vaccines.vaccination.id,
-                vaccination.qr_pass_id = state.vaccines.vaccination.qr_pass_id,
-                vaccination.vaccination_session = state.vaccines.vaccination.vaccination_session,
-                vaccination.dosages = state.vaccines.vaccination.dosages
-            }
+                console.log('Watch vaccination triggered')
+                vaccination.id = data.id,
+                vaccination.qr_pass_id = data.qr_pass_id,
+                vaccination.vaccination_session = data.vaccination_session,
+                vaccination.dosages = data.dosages
+            },
+            { deep: true }
         )
 
         const rules = {
@@ -105,7 +107,7 @@ export default {
             ss.value.vaccination_session.$touch();
             if (ss.value.vaccination_session.$error) return
             
-            store.dispatch('vaccines/UPDATE_VACCINATION')
+            store.dispatch('vaccines/UPDATE_VACCINATION',{vaccination_session: vaccination.vaccination_session})
 
         }
 
@@ -162,10 +164,12 @@ export default {
             this.$store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',true)
             this.$store.dispatch('vaccines/GET_VACCINATORS')
             this.$store.dispatch('vaccines/GET_REASONS')
-
-            const { id } = data
-            if (id>0) this.$store.dispatch('vaccines/GET_DOSAGE', {id})
-            if (id===0) this.$store.dispatch('vaccines/SHOW_DOSAGE', data)
+            console.log('showDosage')
+            console.log(data)
+            // const { id } = data
+            this.$store.dispatch('vaccines/SHOW_DOSAGE', data)
+            // if (id>0) this.$store.dispatch('vaccines/GET_DOSAGE', {id})
+            // if (id===0) this.$store.dispatch('vaccines/SHOW_DOSAGE', data)
         },
         removeDosage(data) {
             this.$store.dispatch('vaccines/DELETE_DOSAGE',{data})
