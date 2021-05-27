@@ -86,28 +86,25 @@ export default {
             () => state.vaccines.vaccination,
             (data, prevData) => {
                 console.log('Watch vaccination triggered')
-                vaccination.id = data.id,
-                vaccination.qr_pass_id = data.qr_pass_id,
-                vaccination.vaccination_session = data.vaccination_session,
-                vaccination.dosages = data.dosages
+                // Object.assign(vaccination, state.vaccines.vaccination)
+                const vaccination_session = vaccination.vaccination_session
+                Object.assign(vaccination, {...data, vaccination_session})
             },
-            { deep: true }
+            {deep: true}
         )
 
         const rules = {
             vaccination_session: { required }
         }
 
-        const ss = useVuelidate(rules, {
-            vaccination_session: toRef(vaccination, 'vaccination_session'),
-        })
+        const ss = useVuelidate(rules, vaccination)        
 
         const updateVaccination = () => {
             
             ss.value.vaccination_session.$touch();
             if (ss.value.vaccination_session.$error) return
             
-            store.dispatch('vaccines/UPDATE_VACCINATION',{vaccination_session: vaccination.vaccination_session})
+            store.dispatch('vaccines/UPDATE_VACCINATION',{ vaccination })
 
         }
 
@@ -151,21 +148,18 @@ export default {
     },
     methods: {
         openDosage() {
+            console.log('openDosage')
             this.$store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',true)
-            this.$store.dispatch('vaccines/TOGGLE_PRES_FORM', false)
-            this.$store.dispatch('vaccines/TOGGLE_REASON_FORM', false)
             this.$store.dispatch('vaccines/GET_VACCINATORS')
             this.$store.dispatch('vaccines/GET_REASONS')
             this.$store.dispatch('vaccines/GET_PRES')
             this.$store.dispatch('vaccines/GET_POST')
-            this.$store.dispatch('vaccines/RESET_DOSAGE')
         },
         showDosage(data) {
             this.$store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',true)
             this.$store.dispatch('vaccines/GET_VACCINATORS')
             this.$store.dispatch('vaccines/GET_REASONS')
             console.log('showDosage')
-            console.log(data)
             // const { id } = data
             this.$store.dispatch('vaccines/SHOW_DOSAGE', data)
             // if (id>0) this.$store.dispatch('vaccines/GET_DOSAGE', {id})
@@ -173,7 +167,7 @@ export default {
         },
         removeDosage(data) {
             this.$store.dispatch('vaccines/DELETE_DOSAGE',{data})
-        },       
+        },  
     }
 }
 

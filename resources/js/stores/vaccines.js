@@ -243,11 +243,9 @@ const mutations = {
         state.vaccinators = [...payload]
     },
     PRES(state, payload) {
-        // state.pres = [...payload]
         state.dosage.pre_assessment.assessments = [...payload]
     },
     POST(state, payload) {
-        // state.post = [...payload]
         state.dosage.post_assessment.assessments = [...payload]        
     },
     REASONS(state, payload) {
@@ -329,7 +327,7 @@ const mutations = {
             }
             return dosage
         })
-        // console.log(dosages)
+
         state.vaccination.dosages = dosages
     },
     SHOW_DOSAGE(state,payload) {
@@ -507,12 +505,19 @@ const actions = {
     async UPDATE_VACCINATION({commit,state},payload) {
         try {
 
-            const { vaccination_session } = payload
+            const { vaccination: { vaccination_session } } = payload
+
+            console.log(vaccination)
 
             const { data: { data } } = await updateVaccination({
-                id: state.vaccine.qr_pass_id,
-                vaccination: {...state.vaccination, vaccination_session }
+                id: state.vaccine.qr_pass_id, 
+                vaccination: {
+                    ...state.vaccination,
+                    vaccination_session,
+                }
             })
+
+            commit('VACCINATION',data)
             
             commit('UPDATED')
             
@@ -549,6 +554,7 @@ const actions = {
         })
 
         payload.brand_description = brands[0].name
+
         commit('ADD_DOSAGE', payload)
     },
     UPDATE_DOSAGE({commit},payload) {
