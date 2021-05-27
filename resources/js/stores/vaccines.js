@@ -243,11 +243,9 @@ const mutations = {
         state.vaccinators = [...payload]
     },
     PRES(state, payload) {
-        // state.pres = [...payload]
         state.dosage.pre_assessment.assessments = [...payload]
     },
     POST(state, payload) {
-        // state.post = [...payload]
         state.dosage.post_assessment.assessments = [...payload]        
     },
     REASONS(state, payload) {
@@ -289,31 +287,47 @@ const mutations = {
         state.writeOn = payload
     },
     ADD_DOSAGE(state,payload) {
+        console.log('ADD_DOSAGE')
         const dosage = {...payload, id: 0}
         state.vaccination.dosages.push(dosage)
         state.dosage = {...dosage}
     },
     UPDATE_DOSAGE(state,payload) {
-
-        // const { id } = payload
+        console.log('UPDATE_DOSAGE')
         const dosages = state.vaccination.dosages.map((dosage,i) => {
-            // if (dosage.id == id) {
             console.log(`${i}:${state.dosageIndexToUpdate}`)
-            if (i == state.dosageIndexToUpdate) {
-                const users = state.vaccinators.filter(vaccinator => {
-                    return vaccinator.id == payload.user_id
-                })
-                const brands = state.brands.filter(brand => {
-                    return brand.id == payload.brand_name
-                })
-                dosage = {
-                    ...payload,
-                    vaccinator: users[0].name,
-                    brand_description: brands[0].name,
-                }                
+            if (dosage.id) {
+                if (dosage.id==payload.id) {
+                    let users = state.vaccinators.filter(vaccinator => {
+                        return vaccinator.id == payload.user_id
+                    })
+                    let brands = state.brands.filter(brand => {
+                        return brand.id == payload.brand_name
+                    })
+                    dosage = {
+                        ...payload,
+                        vaccinator: users[0].name,
+                        brand_description: brands[0].name,
+                    }
+                }
+            } else {
+                if (i == state.dosageIndexToUpdate) {
+                    let users = state.vaccinators.filter(vaccinator => {
+                        return vaccinator.id == payload.user_id
+                    })
+                    let brands = state.brands.filter(brand => {
+                        return brand.id == payload.brand_name
+                    })
+                    dosage = {
+                        ...payload,
+                        vaccinator: users[0].name,
+                        brand_description: brands[0].name,
+                    }              
+                }
             }
             return dosage
         })
+
         state.vaccination.dosages = dosages
     },
     SHOW_DOSAGE(state,payload) {
@@ -488,10 +502,22 @@ const actions = {
             const { response } = error
         }
     },
-    async UPDATE_VACCINATION({commit,state}) {
+    async UPDATE_VACCINATION({commit,state},payload) {
         try {
 
-            const { data: { data } } = await updateVaccination({ id: state.vaccine.qr_pass_id, vaccination: state.vaccination })
+            const { vaccination: { vaccination_session } } = payload
+
+            console.log(vaccination)
+
+            const { data: { data } } = await updateVaccination({
+                id: state.vaccine.qr_pass_id, 
+                vaccination: {
+                    ...state.vaccination,
+                    vaccination_session,
+                }
+            })
+
+            commit('VACCINATION',data)
             
             commit('UPDATED')
             
@@ -528,13 +554,13 @@ const actions = {
         })
 
         payload.brand_description = brands[0].name
+
         commit('ADD_DOSAGE', payload)
     },
     UPDATE_DOSAGE({commit},payload) {
         commit('UPDATE_DOSAGE',payload)
     },
     SHOW_DOSAGE({commit},payload) {
-        console.log(payload)
         commit('SHOW_DOSAGE',payload)
     },
     TOGGLE_DOSAGE_FORM({commit},payload) {
