@@ -86,7 +86,6 @@ export default {
             () => state.vaccines.vaccination,
             (data, prevData) => {
                 console.log('Watch vaccination triggered')
-                // Object.assign(vaccination, state.vaccines.vaccination)
                 const vaccination_session = vaccination.vaccination_session
                 Object.assign(vaccination, {...data, vaccination_session})
             },
