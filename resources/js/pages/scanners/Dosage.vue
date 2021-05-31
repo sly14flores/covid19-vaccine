@@ -89,28 +89,30 @@
                             <div class="p-fluid p-formgrid p-grid p-mt-2">
                                 <div class="p-field p-col-12 p-md-2">
                                     <p class="p-text-sm">Consent</p>
+                                    <small v-if="vv.pre_assessment.consent.$error" class="p-error">Consent is required</small>
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <div class="p-field-radiobutton">
-                                        <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="vv.consent.$model" @click="displayPres" />
+                                        <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="vv.pre_assessment.consent.$model" :class="{'p-invalid': vv.pre_assessment.consent.$error}" />
                                         <label for="yes_consent">Yes</label>
                                     </div>
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <div class="p-field-radiobutton">
-                                        <RadioButton id="no_consent" name="consent" value="02_No" v-model="vv.consent.$model" @click="displayReason" />
+                                        <RadioButton id="no_consent" name="consent" value="02_No" v-model="vv.pre_assessment.consent.$model" :class="{'p-invalid': vv.pre_assessment.consent.$error}" />
                                         <label for="no_consent">No</label>
                                     </div>
                                 </div>
-                                 <div class="p-field p-col-12 p-md-1" v-if="displayReasonForm">
+                                <div class="p-field p-col-12 p-md-1" v-if="dosage.pre_assessment.consent == '02_No'">
                                     <p class="p-text-sm">Reason</p>
                                 </div>
-                                <div class="p-field p-col-12 p-md-7" v-if="displayReasonForm">
-                                    <Dropdown class="p-shadow-1 p-inputtext-sm" id="reason" optionLabel="name" :options="reasons" v-model="vv.reason.$model" optionValue="id" placeholder="Select a Reason" />
+                                <div class="p-field p-col-12 p-md-7" v-if="dosage.pre_assessment.consent == '02_No'">
+                                    <Dropdown class="p-shadow-1 p-inputtext-sm" id="reason" optionLabel="name" :options="reasons" v-model="vv.pre_assessment.reason.$model" optionValue="id" placeholder="Select a Reason" :class="{'p-invalid': vv.pre_assessment.reason.$error}" />
+                                    <small v-if="vv.pre_assessment.reason.$error" class="p-error">Please state reason</small>                                    
                                 </div>
                             </div>
                         </div>
-                        <DataTable class="p-datatable-sm" :value="dosage.pre_assessment.assessments" dataKey="key" v-if="displayPresTable">
+                        <DataTable class="p-datatable-sm" :value="dosage.pre_assessment.assessments" dataKey="key" v-if="dosage.pre_assessment.consent == '01_Yes'">
                             <Column field="description" header="Description"></Column>
                             <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
                                 <template #body="slotProps">
@@ -175,10 +177,10 @@ import Panel from 'primevue/panel/sfc';
 import Toolbar from 'primevue/toolbar/sfc';
 
 import { useStore } from 'vuex';
-import { reactive, ref, toRef, watch } from 'vue';
+import { reactive, watch } from 'vue';
 
 import { useVuelidate } from "@vuelidate/core";
-import { required } from "@vuelidate/validators";
+import { required, requiredIf } from "@vuelidate/validators";
 
 import { dosageInit } from '../../stores/vaccines'
 
@@ -198,11 +200,22 @@ export default {
         watch(
             () => state.vaccines.dosage.id,
             (data, prevData) => {
-                console.log(`Modified ${data}`)
-                console.log(state.vaccines.dosage)
-                if (data===null) Object.assign(dosage, dosageInit)
-                if (data===0) Object.assign(dosage, state.vaccines.dosage)
-                if (data>0) Object.assign(dosage, state.vaccines.dosage)
+                console.log('Triggered watch dosage')
+                // console.log(data)
+                // console.log(store.state.vaccines.displayDosage)
+                if (store.state.vaccines.displayDosage) {
+                    Object.assign(dosage, state.vaccines.dosage)
+                }
+            },
+        )
+
+        watch(
+            () => store.state.vaccines.displayDosage,
+            (data, prevData) => {
+                if (!data) {
+                    vv.value.$reset()                    
+                    Object.assign(dosage, dosageInit)
+                }
             }
         )
 
@@ -220,60 +233,36 @@ export default {
             time_of_reconstitution: {},
             diluent_batch_number: {},
             diluent_lot_number: {},
-            consent: {},
-            reason: {},
+            pre_assessment: {
+                consent: { required },
+                reason: {
+                    required: requiredIf(function() {
+                        return dosage.pre_assessment.consent == '02_No'
+                    })
+                }
+            },
+            post_assessment: {},
             date_of_vaccination: {},
-            next_vaccination: {}
+            next_vaccination: {},
         }
 
-        const vv = useVuelidate(rules, {
-            user_id: toRef(dosage, 'user_id'),
-            vaccine_name: toRef(dosage, 'vaccine_name'),
-            brand_name: toRef(dosage, 'brand_name'),
-            dose: toRef(dosage, 'dose'),
-            site_of_injection: toRef(dosage, 'site_of_injection'),
-            expiry_date: toRef(dosage, 'expiry_date'),
-            batch_number: toRef(dosage, 'batch_number'),
-            lot_number: toRef(dosage, 'lot_number'),
-            diluent: toRef(dosage, 'diluent'),
-            date_of_reconstitution: toRef(dosage, 'date_of_reconstitution'),
-            time_of_reconstitution: toRef(dosage, 'time_of_reconstitution'),
-            diluent_batch_number: toRef(dosage, 'diluent_batch_number'),
-            diluent_lot_number: toRef(dosage, 'diluent_lot_number'),
-            consent: toRef(dosage.pre_assessment, 'consent'),
-            reason: toRef(dosage.pre_assessment, 'reason'),
-            date_of_vaccination: toRef(dosage, 'date_of_vaccination'),
-            next_vaccination: toRef(dosage, 'next_vaccination')
-        })
+        const vv = useVuelidate(rules, dosage)
 
         const closeDosage = () => {
             store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',false)
-        }
-
-        const displayPres = () => {
-            store.dispatch('vaccines/TOGGLE_PRES_FORM',true)
-            store.dispatch('vaccines/TOGGLE_REASON_FORM',false)
-        }
-
-        const displayReason = () => {
-            store.dispatch('vaccines/TOGGLE_REASON_FORM',true)
-            store.dispatch('vaccines/TOGGLE_PRES_FORM',false)
+            store.dispatch('vaccines/RESET_DOSAGE')
         }
 
         const addDosage  = () => {
+
             vv.value.$touch();
             if (vv.value.$invalid) return
 
-            console.log(dosage.id)
             if (dosage.id===null) store.dispatch('vaccines/ADD_DOSAGE', dosage)
-            if (dosage.id===0) store.dispatch('vaccines/UPDATE_DOSAGE', dosage)
-            if (dosage.id>0) store.dispatch('vaccines/UPDATE_DOSAGE', dosage)
+            if (dosage.id>=0) store.dispatch('vaccines/UPDATE_DOSAGE', dosage)
 
             closeDosage()
 
-            setTimeout(function() {
-                vv.value.$reset()
-            }, 2000)         
         }
 
         return {
@@ -282,11 +271,9 @@ export default {
             addDosage,
             vv,
             closeDosage,
-            displayPres,
-            displayReason
         }
     },
-    data(){
+    data() {
         return {
             
         }
@@ -307,7 +294,7 @@ export default {
         Toolbar
 
     },
-    computed:{
+    computed: {
         default_id() {
 
             return this.$store.state.vaccines.default_id
@@ -368,6 +355,9 @@ export default {
             return this.$store.state.vaccines.displayReason
             
         },
-    } 
+    },
+    methods: {
+
+    }
 }
 </script>
