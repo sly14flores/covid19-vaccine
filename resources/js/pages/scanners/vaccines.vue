@@ -268,13 +268,8 @@ export default {
         const { value: contact_no } = useField('vaccine.contact_no',validField);
         const { value: occupation } = useField('vaccine.occupation',validField);
 
-        // Vaccine Administered
-        const { value: vaccination_id } = useField('vaccination.id',validField);
-        const { value: vaccination_session, errorMessage: vaccination_sessionError } = useField('vaccination.vaccination_session',validateField);
-
         return {
             id, // Start Personal
-            vaccination_id,
             qr_pass_id,
             first_name,
             middle_name,
@@ -289,7 +284,6 @@ export default {
             barangay,
             contact_no,
             occupation, // End Personal
-            vaccination_session, // Vaccine
             qr_pass_idError, // Error
             first_nameError,
             last_nameError,
@@ -298,7 +292,6 @@ export default {
             provinceError,
             town_cityError,
             barangayError,
-            vaccination_sessionError,
             onSubmit,
             editMode,
             onDecode,
