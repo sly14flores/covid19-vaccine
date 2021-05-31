@@ -88,6 +88,30 @@
                     </div>
                     <div class="card p-fluid">
                         <h5><i class="pi pi-sitemap"></i> Others</h5><hr />
+                        <!-- <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Category </label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="barangays" optionValue="id" v-model="category" :class="{'p-invalid': barangayError, 'disabled': editMode && !writeOn}" placeholder="Select a barangay" :disabled="editMode && !writeOn" />
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Category ID</label>
+                                <InputText class="p-shadow-1" type="text" v-model="category_id" :disabled="editMode && !writeOn" />
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Category ID No. </label>
+                                <InputText class="p-shadow-1" type="text" v-model="category_id_no" :disabled="editMode && !writeOn" />
+                            </div>
+                        </div>
+                        <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-6">
+                                <label>Philhealth No. </label>
+                                <InputText class="p-shadow-1" type="text" v-model="philhealth" :disabled="editMode && !writeOn" />
+                            </div>
+                            <div class="p-field p-col-12 p-md-6">
+                                <label>PWD ID</label>
+                                <InputText class="p-shadow-1" type="text" v-model="pwd" :disabled="editMode && !writeOn" />
+                            </div>
+                        </div> -->
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-12">
                                 <label>Priority Group <small><i>(Grupong Prayoridad)</i></small> <i class="p-error">*</i></label>
@@ -259,7 +283,7 @@ export default {
             const { registration } = values
 
             confirm.require({
-                message: (editMode)?"Are you sure you want to add update this registration's info?":'Are you sure you want to add this new registration?',
+                message: (editMode)?"Are you sure you want to update this registration's info?":'Are you sure you want to add this new registration?',
                 header: 'Confirmation',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {

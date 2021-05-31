@@ -3,7 +3,7 @@
         <MyBreadcrumb :home="home" :items="items" />
         <div class="p-grid p-mt-1">
             <div class="p-lg-12 p-md-12 p-sm-12">
-                <Panel header="Upload">
+                <Panel header="Upload" :toggleable="true" :collapsed="true">
                     <FileUpload name="excel" :url="uploadUrl" :multiple="false" withCredentials="true" @before-send="setBeforeSend" @upload="uploadComplete" @error="uploadError" :maxFileSize="24000000">
                         <template #empty>
                             <div v-if="showTerminal">
@@ -33,6 +33,38 @@
                 </Panel>
             </div>
         </div>
+
+        <Toolbar class="p-mb-2">
+            <template #left>
+                <div class=" p-fluid p-grid p-formgrid">
+                    <div class="p-field p-col-12 p-md-4">
+                        <label for="basic">City/Municipality</label>
+                        <Dropdown class="p-shadow-1" optionLabel="name" :options="municipalities" v-model="town_city" optionValue="id" :disabled="!isAdmin" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <label for="basic">Start Date:</label>
+                        <Calendar class="p-shadow-1" id="start_date" v-model="start_date" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
+                        <label for="basic">End Date:</label>
+                        <Calendar class="p-shadow-1" id="end_date" v-model="end_date" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+                        <label for="basic">&nbsp;</label>
+                        <Button label="Go!" @click="fetchRegistrations" />
+                    </div>
+                </div>
+            </template>
+            <template #right>
+                <div class="p-fluid p-grid p-formgrid">
+                    <div class="p-field p-col-12 p-md-12">
+                       <button  type="button" class="p-mr-2 p-mb-2 p-mt-4 p-button p-component p-button-success" @click="exportToExcel">
+                            <i class="pi pi-upload"></i>&nbsp; Export to Excel
+                        </button>
+                    </div>
+                </div>
+            </template>
+        </Toolbar>
         
         <Panel header="List">
             <div class="p-grid">
@@ -44,17 +76,11 @@
                         <InputText v-model="search" placeholder="Quick search QR, first name, or last name" />
                     </div>
                 </div>
-                <div class="p-sm-12 p-md-6 p-lg-6"></div>
-                <div class="p-sm-12 p-md-4 p-lg-2">
-                    <button  type="button" class="p-mr-2 p-mb-2 p-button p-component p-button-success" @click="exportToExcel">
-                            <i class="pi pi-upload"></i>&nbsp; Export to Excel
-                    </button>
-                </div>
             </div>
             <DataTable :value="registrations" responsiveLayout="scroll">
                 <Column field="qr_pass_id" header="Napanam ID No" sortable="true"></Column>
                 <Column field="first_name" header="First Name" sortable="true"></Column>
-                <Column field="" header="Middle Name" sortable="true"></Column>
+                <Column field="middle_name" header="Middle Name" sortable="true"></Column>
                 <Column field="last_name" header="Last Name" sortable="true"></Column>
                 <Column field="townCity" header="Municipality/City" sortable="true"></Column>
                 <Column field="" header="Priority Group" sortable="true"></Column>
@@ -79,6 +105,9 @@ import Paginator from 'primevue/paginator/sfc';
 import Panel from 'primevue/panel/sfc';
 import Button from 'primevue/button/sfc';
 import InputText from 'primevue/inputtext/sfc';
+import Toolbar from 'primevue/toolbar/sfc';
+import Calendar from 'primevue/calendar/sfc';
+import Dropdown from 'primevue/dropdown/sfc';
 
 import { useStore } from 'vuex'
 import { watch } from 'vue'
@@ -93,12 +122,14 @@ export default {
         const { state, dispatch } = store
 
         const downloadUrl = `${api_url}/home/reports/registrations`        
+        
+        dispatch('registrations/GET_SELECTIONS')
 
         watch(
             () => state.importData.excel,
             (data, prevData) => {
                 if (data==null) {
-                    dispatch('registrations/GET_REGISTRATIONS',{ page: 0 })
+                    dispatch('registrations/GET_REGISTRATIONS', { page: 0 })
                 }
             }
         )
@@ -117,13 +148,20 @@ export default {
         Paginator,
         Panel,
         Button,
-        InputText
+        InputText,
+        Toolbar,
+        Calendar,
+        Dropdown
     },
     data() {
         return {
             home: {icon: 'pi pi-home', to: '/registrations'},
             items: [{label: 'Registrations', to: '/registrations'}],
             search: '',
+            start_date: null,
+            end_date: new Date(),
+            province: "_0133_LA_UNION",
+            town_city: null
         }
     },
     computed: {
@@ -157,16 +195,48 @@ export default {
         },
         importLogs() {
             return this.$store.state.importData.importLogs
-        },        
+        },
+        provinces(){
+            return this.$store.state.registrations.selections.addresses.province_value
+        },
+        municipalities() {
+
+            if (!this.provinces) return []
+
+            const province = this.provinces.filter(province => {
+                return province.id == this.province
+            })
+
+            if (province.length==0) return []
+
+            const municipalities = province[0].municipalities
+
+            return municipalities
+
+
+        },     
     },
     methods: {
+        currentDate() {
+            
+            const month_names = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
+            "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
+            ];
+
+            const current = new Date();
+
+            const date = month_names[current.getMonth()]+' '+current.getDate()+', '+current.getFullYear();
+            const dateNow = date;
+            
+            return dateNow;
+        },
         fetchRegistrations(event) {
             // event.page: New page number
             // event.first: Index of first record
             // event.rows: Number of rows to display in new page
             // event.pageCount: Total number of pages
             const { page } = event
-            this.$store.dispatch('registrations/GET_REGISTRATIONS', { page })
+            this.$store.dispatch('registrations/GET_REGISTRATIONS', { page, town_city: this.town_city, start_date: this.start_date.toLocaleDateString(), end_date: this.end_date.toLocaleDateString() })
         },
         deleteRegistration(id) {
             this.$confirm.require({
@@ -227,9 +297,18 @@ export default {
 
         }
     },
-    mounted() {
-        this.fetchRegistrations({ page: 0 })     
+    created() {
+        
+        const date = new Date()
+        date.setDate(1)
+
+        this.start_date = date
+
     },
+    mounted() {
+        this.fetchRegistrations({ page: 0 })
+    },
+    
 }
 </script>
 

@@ -43,9 +43,9 @@ const getNapanamID = (payload) => {
 
 const GET_REGISTRATIONS = `${api_url}/api/doh/registrations`
 const getRegistrations = (payload) => {
-    const { page } = payload
+    const { page, start_date, end_date, town_city } = payload
     const pageNo = page + 1
-    return axios.get(GET_REGISTRATIONS, {params: { page: pageNo } })
+    return axios.get(GET_REGISTRATIONS, {params: { page: pageNo, town_city, start_date, end_date } })
 }
 
 const GET_REGISTRATION = `${api_url}/api/doh/registration/:id`
@@ -264,8 +264,8 @@ const actions = {
     async GET_REGISTRATIONS({dispatch, commit}, payload) {
         commit('LOADING')
         try {
-            const { page } = payload
-            const { data: { data: { data, pagination } } } = await getRegistrations({ page })
+            const { page, town_city, start_date, end_date } = payload
+            const { data: { data: { data, pagination } } } = await getRegistrations({ page, town_city, start_date, end_date })
             dispatch('GET_REGISTRATIONS_SUCCESS', { data, pagination })
         } catch (error) {
             const { response } = error

@@ -509,13 +509,19 @@ const actions = {
     ADD_DOSAGE({state,commit},payload) {
 
         payload.qr_pass_id = state.vaccine.qr_pass_id
-        // const expiry_date = payload.expiry_date.setDate(payload.expiry_date.getDate() + 1);
-        // payload.expiry_date = new Date(expiry_date).toISOString().split('T')[0];
+        const expiry_date = payload.expiry_date.setDate(payload.expiry_date.getDate() + 1);
+        payload.expiry_date = new Date(expiry_date).toISOString().split('T')[0];
         
-        // payload.date_of_reconstitution = (payload.date_of_reconstitution)?payload.date_of_reconstitution = payload.date_of_reconstitution.setDate(payload.date_of_reconstitution.getDate() + 1):null
-        // payload.date_of_reconstitution = new Date(payload.date_of_reconstitution).toISOString().split('T')[0];
+        payload.date_of_reconstitution = (payload.date_of_reconstitution)?payload.date_of_reconstitution = payload.date_of_reconstitution.setDate(payload.date_of_reconstitution.getDate() + 1):null
+        payload.date_of_reconstitution = new Date(payload.date_of_reconstitution).toISOString().split('T')[0];
 
-        // payload.time_of_reconstitution = (payload.time_of_reconstitution)?payload.time_of_reconstitution = payload.time_of_reconstitution.toLocaleTimeString('en-GB'):null        
+        payload.date_of_vaccination = (payload.date_of_vaccination)?payload.date_of_vaccination = payload.date_of_vaccination.setDate(payload.date_of_vaccination.getDate() + 1):null
+        payload.date_of_vaccination = new Date(payload.date_of_vaccination).toISOString().split('T')[0];
+
+        payload.next_vaccination = (payload.next_vaccination)?payload.next_vaccination = payload.next_vaccination.setDate(payload.next_vaccination.getDate() + 1):null
+        payload.next_vaccination = new Date(payload.next_vaccination).toISOString().split('T')[0];
+        
+        payload.time_of_reconstitution = (payload.time_of_reconstitution)?payload.time_of_reconstitution = payload.time_of_reconstitution.toLocaleTimeString('en-GB'):null        
 
         const users = state.vaccinators.filter(vaccinator => {
             return vaccinator.id == payload.user_id
@@ -554,6 +560,8 @@ const actions = {
             
             data.expiry_date = new Date(data.expiry_date)
             data.date_of_reconstitution = new Date(data.date_of_reconstitution)
+            data.date_of_vaccination = new Date(data.date_of_vaccination)
+            data.next_vaccination = new Date(data.next_vaccination)
 
             commit('DOSAGE', data)
             if(data.pre_assessment.consent=='01_Yes') {

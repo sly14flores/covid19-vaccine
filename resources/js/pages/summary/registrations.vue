@@ -13,36 +13,29 @@
                 <Button label="Refresh" icon="pi pi-refresh" class="p-button-primary p-mr-2" @click="refresh"  />
             </template>
         </Toolbar>
-        <div class="card p-mt-1">
-            <div class="card">
-                <div class=" p-fluid p-grid p-formgrid">
-                    <div class="p-field p-col-12 p-md-3">
+
+        <Toolbar class="p-mb-2">
+            <template #left>
+                <div class="p-fluid p-grid p-formgrid">
+                    <div class="p-field p-col-12 p-md-4">
                         <label for="basic">City/Municipality</label>
-                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="municipalities" v-model="town_city" optionValue="id" :disabled="!isAdmin" />
+                        <Dropdown class="p-shadow-1" optionLabel="name" :options="municipalities" v-model="town_city" optionValue="id" :disabled="!isAdmin" />
                     </div>
-                    <!-- <div class="p-field p-col-12 p-md-3">
-                        <label for="basic">Facility Name</label>
-                        <Dropdown class="p-shadow-1" :options="hospitals" optionLabel="description" optionValue="id" v-model="facility_name" />
-                    </div> -->
-                    <!-- <div class="p-field p-col-12 p-md-6">
-                        <label for="basic">Priority Group</label>
-                        <Dropdown class="p-shadow-1" :options="groups" optionLabel="name" optionValue="id" v-model="priority_group" />
-                    </div> -->
                     <div class="p-field p-col-12 p-md-3">
                         <label for="basic">Start Date:</label>
-                        <Calendar class="p-shadow-1 p-inputtext-sm" id="start_date" v-model="start_date" />
+                        <Calendar class="p-shadow-1" id="start_date" v-model="start_date" />
                     </div>
                     <div class="p-field p-col-12 p-md-3">
                         <label for="basic">End Date:</label>
-                        <Calendar class="p-shadow-1 p-inputtext-sm" id="end_date" v-model="end_date" />
+                        <Calendar class="p-shadow-1" id="end_date" v-model="end_date" />
                     </div>
-                    <div class="p-field p-col-12 p-md-1">
+                    <div class="p-field p-col-12 p-md-2">
                         <label for="basic">&nbsp;</label>
                         <Button class="p-button-sm" label="Go!" @click="fetchRegistrations" />
                     </div>
                 </div>
-            </div>
-        </div>
+            </template>
+        </Toolbar>
 
         <div class="card p-mt-1">
             <div class="card">
@@ -360,7 +353,7 @@
                 
             </div>
         </div>
-
+        <ScrollTop />
     </div>
 </template>
 
@@ -376,6 +369,7 @@ import Chart from 'primevue/chart/sfc';
 import Calendar from 'primevue/calendar/sfc';
 import Dropdown from 'primevue/dropdown/sfc';
 import Toolbar from 'primevue/toolbar/sfc';
+import ScrollTop from 'primevue/scrolltop/sfc';
 
 import store from '../../store.js'
 
@@ -399,7 +393,8 @@ export default {
         Chart,
         Calendar,
         Dropdown,
-        Toolbar
+        Toolbar,
+        ScrollTop
     },
     data() {
         return {

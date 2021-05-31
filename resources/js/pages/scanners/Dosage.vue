@@ -37,14 +37,12 @@
                         <small v-if="vv.dose.$error" class="p-error">This field is required</small>
                     </div>
                     <div class="p-field p-col-12 p-md-2">
-                        <label>Site of Injection <i class="p-error">*</i></label>
-                        <Dropdown class="p-shadow-1 p-inputtext-sm" :class="{'p-invalid': vv.site_of_injection.$error}" id="site_of_injection" optionLabel="name" :options="sites" v-model="vv.site_of_injection.$model" optionValue="id" placeholder="Select a Site of Injection" />
-                        <small v-if="vv.site_of_injection.$error" class="p-error">This field is required</small>
+                        <label>Site of Injection</label>
+                        <Dropdown class="p-shadow-1 p-inputtext-sm" id="site_of_injection" optionLabel="name" :options="sites" v-model="vv.site_of_injection.$model" optionValue="id" placeholder="Select a Site of Injection" />
                     </div>
                     <div class="p-field p-col-12 p-md-2">
-                        <label>Expiry Date <i class="p-error">*</i></label>
-                        <Calendar class="p-shadow-1 p-inputtext-sm" :class="{'p-invalid': vv.expiry_date.$error}" v-model="vv.expiry_date.$model" name="expiry_date" />
-                        <small v-if="vv.expiry_date.$error" class="p-error">This field is required</small>
+                        <label>Expiry Date</label>
+                        <Calendar class="p-shadow-1 p-inputtext-sm" v-model="vv.expiry_date.$model" name="expiry_date" />
                     </div>
                     <div class="p-field p-col-12 p-md-2">
                         <label>Batch Number <i class="p-error">*</i></label>
@@ -213,8 +211,8 @@ export default {
             vaccine_name: { required },
             brand_name: { required },
             dose: { required },
-            site_of_injection: { required },
-            expiry_date: { required },
+            site_of_injection: {},
+            expiry_date: {},
             batch_number: { required },
             lot_number: { required },
             diluent: {},
@@ -226,7 +224,6 @@ export default {
             reason: {},
             date_of_vaccination: {},
             next_vaccination: {}
-            
         }
 
         const vv = useVuelidate(rules, {
