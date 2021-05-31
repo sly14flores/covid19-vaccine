@@ -8,6 +8,8 @@ use App\Traits\Messages;
 use App\Traits\UserLocation;
 use Illuminate\Support\Facades\Validator;
 
+use Carbon\Carbon;
+
 use App\Models\Registration;
 use App\Http\Resources\RegistrationResource;
 use App\Http\Resources\RegistrationResourceCollection;
@@ -30,7 +32,7 @@ class RegistrationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $wheres = [];
 
@@ -39,7 +41,23 @@ class RegistrationController extends Controller
             $wheres[] = ['town_city_code',$location];
         }
 
-        $registrations = Registration::where($wheres)->paginate(10);
+        $town = $request->town_city;
+        
+        $townCityCode = null;
+        if (isset($town)) {
+            $townCity = $town;
+            $tc = explode("_",$townCity);
+            $townCityCode = $tc[1];
+            $wheres[] = ['town_city_code',$townCityCode];
+        }
+
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        
+        $startFilter = Carbon::parse($start_date)->format("Y-m-d 00:00:00");
+        $endFilter = Carbon::parse($end_date)->addDays(1)->format("Y-m-d 00:00:00");
+
+        $registrations = Registration::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->paginate(10);
 
         $data = new RegistrationsListResourceCollection($registrations);
 

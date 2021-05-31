@@ -9,10 +9,10 @@
                             <div class="p-fluid p-shadow-2">
                                 <div class="p-grid">
                                     <div class="p-col-10">     
-                                        <ToggleButton class="p-ml-2" v-model="checked1" @click="switchCamera" onLabel="On" offLabel="Off" style="width: 4em" />
+                                            <ToggleButton class="p-ml-2" v-model="switchCameraModel" @click="switchCamera" onLabel="On" offLabel="Off" style="width: 4em" />
                                       </div>
                                     <div class="p-col-2">     
-                                          <Button icon="pi pi-refresh float-right" @click="reset" />
+                                            <Button icon="pi pi-refresh float-right" @click="reset" />
                                     </div>
                                 </div>
                                 <div class="p-grid p-jc-center">
@@ -26,16 +26,16 @@
                                 <div class="p-grid">
                                     <div class="p-field p-col-11 p-md-12">
                                         <div class="center stream">
-                                            <qr-stream :camera="camera" @decode="onDecode" class="mb p-shadow-3" @init="onInit">
-                                                    <div class="frame" v-if="frame"></div>
-                                                    <div class="loading-indicator p-mt-6" v-if="loading">
-                                                        <div class="p-grid p-jc-center">
-                                                            <div class="p-lg-2 p-md-2 p-xs-5">
-                                                                <i class="pi pi-spin pi-spinner" style="fontSize: 5rem"></i>
-                                                                <p>Loading...</p>
-                                                            </div>
+                                            <qr-stream camera="rear" @decode="onDecode" class="mb p-shadow-3" @init="onInit">
+                                                <div class="frame" v-if="frame"></div>
+                                                <div class="loading-indicator p-mt-6" v-if="loading">
+                                                    <div class="p-grid p-jc-center">
+                                                        <div class="p-lg-2 p-md-2 p-xs-5">
+                                                            <i class="pi pi-spin pi-spinner" style="fontSize: 5rem"></i>
+                                                            <p>Loading...</p>
                                                         </div>
                                                     </div>
+                                                </div>
                                             </qr-stream>
                                         </div>
                                     </div>
@@ -195,6 +195,7 @@ export default {
             store.dispatch('vaccines/GET_BY_QR',{ id: qr })
             store.dispatch('vaccines/GET_VACCINATION', { id: qr })
             store.dispatch('vaccines/GET_SELECTION_SESSIONS')
+           
         }
 
         const init = {
@@ -303,7 +304,7 @@ export default {
             camera: 'front',
             noRearCamera: false,
             noFrontCamera: false,
-            checked1: false,
+            switchCameraModel: false,
             loading: false,
             frame: false
       }
