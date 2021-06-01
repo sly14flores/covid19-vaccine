@@ -88,14 +88,14 @@
                     </div>
                     <div class="card p-fluid">
                         <h5><i class="pi pi-sitemap"></i> Others</h5><hr />
-                        <!-- <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Category </label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="barangays" optionValue="id" v-model="category" :class="{'p-invalid': barangayError, 'disabled': editMode && !writeOn}" placeholder="Select a barangay" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" optionValue="id" v-model="category" placeholder="Select a category" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Category ID</label>
-                                <InputText class="p-shadow-1" type="text" v-model="category_id" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" optionValue="id" v-model="category_id" placeholder="Select a category" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Category ID No. </label>
@@ -109,9 +109,9 @@
                             </div>
                             <div class="p-field p-col-12 p-md-6">
                                 <label>PWD ID</label>
-                                <InputText class="p-shadow-1" type="text" v-model="pwd" :disabled="editMode && !writeOn" />
+                                <InputText class="p-shadow-1" type="text" v-model="pwd_id" :disabled="editMode && !writeOn" />
                             </div>
-                        </div> -->
+                        </div>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-12">
                                 <label>Priority Group <small><i>(Grupong Prayoridad)</i></small> <i class="p-error">*</i></label>
@@ -335,6 +335,13 @@ export default {
         const { value: address } = useField('registration.address',validField);
         const { value: contact_no } = useField('registration.contact_no',validField);
         const { value: occupation } = useField('registration.occupation',validField);
+        
+        const { value: category } = useField('registration.category',validField);
+        const { value: category_id } = useField('registration.category_id',validField);
+        const { value: category_id_no } = useField('registration.category_id_no',validField);
+        const { value: philhealth } = useField('registration.philhealth',validField);
+        const { value: pwd_id } = useField('registration.pwd_id',validField);
+
         const { value: priority_group, errorMessage: priority_groupError } = useField('registration.priority_group',validateField);
         const { value: sub_priority_group } = useField('registration.sub_priority_group',validField);
         const { value: allergic_to_vaccines, errorMessage: allergic_to_vaccinesError } = useField('registration.allergic_to_vaccines',validateRadio);
@@ -357,6 +364,11 @@ export default {
             barangay,
             contact_no,
             occupation,
+            category,
+            category_id,
+            category_id_no,
+            philhealth,
+            pwd_id,
             priority_group,
             sub_priority_group,
             allergic_to_vaccines,
@@ -453,6 +465,16 @@ export default {
         region_value() {
 
             return this.$store.state.registrations.selections.region_value
+
+        },
+        category_value() {
+
+            return this.$store.state.registrations.selections.category_value
+
+        },
+        category_id_value() {
+
+            return this.$store.state.registrations.selections.category_id_value
 
         },
         employer_municipality_value() {

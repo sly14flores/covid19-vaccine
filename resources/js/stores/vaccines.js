@@ -71,11 +71,47 @@ const updateVaccination = (payload) => {
     return axios.put(url, vaccination)
 }
 
+const UPDATE_REGISTRATION = `${api_url}/api/doh/vaccines/update/registration/:id`
+const updateRegistration = (payload) => {
+    const { id } = payload
+    const url =  route(UPDATE_REGISTRATION, { id })
+    return axios.put(url, payload)
+}
+
 const GET_DOSAGE = `${api_url}/api/doh/dosage/:id`
 const getDosage = (payload) => {
     const { id } = payload
     const url =  route(GET_DOSAGE, { id })
     return axios.get(url)
+}
+
+const vaccine = {
+    id: 0,
+    qr_pass_id : null,
+    first_name: null,
+    middle_name: null,
+    last_name: null,
+    suffix: null,
+    birthdate: null,
+    gender: null,
+    address: null,
+    region: "Ilocos",
+    province: null,
+    town_city: null,
+    barangay: null,
+    contact_no: null,
+    category: null,
+    category_id: null,
+    category_id_no: null,
+    philhealth: null,
+    pwd_id: null,
+    priority_group: null,
+    sub_priority_group: null,
+    occupation: null,
+    with_allergy: null,
+    with_comorbidity: null,
+    is_registered: null,
+    origin: null
 }
 
 const vaccination = {
@@ -122,8 +158,6 @@ const dosage = {
 
 const deferrals = [];
 const pagination = {};
-
-const vaccine = {};
 
 const suffix_value = [];
 const gender_value = [];
@@ -273,7 +307,12 @@ const mutations = {
         state.vaccine.town_city = payload.town_city
         state.vaccine.barangay = payload.barangay
         state.vaccine.address = payload.address // street
-        state.vaccine.occupation = payload.occupation 
+        state.vaccine.occupation = payload.occupation
+        state.vaccine.category = payload.category
+        state.vaccine.category_id = payload.category_id
+        state.vaccine.category_id_no = payload.category_id_no
+        state.vaccine.philhealth = payload.philhealth
+        state.vaccine.pwd_id = payload.pwd_id
 
         state.dosage.qr_pass_id = payload.qr_pass_id
         state.dosage.pre_assessment.qr_pass_id = payload.qr_pass_id
@@ -522,6 +561,27 @@ const actions = {
             return true
         } catch (error) {
             const { response } = error
+            return false
+        }
+    },
+
+    async UPDATE_REGISTRATION({dispatch}, payload) {
+        try {
+            const { data: { data } } = await updateRegistration(payload)
+            console.log(data)
+            Swal.fire({
+                title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+            })
+            return true
+        } catch (error) {
+            const { response } = error
+            console.log(response)
             return false
         }
     },

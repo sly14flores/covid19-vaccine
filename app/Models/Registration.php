@@ -29,6 +29,11 @@ class Registration extends Model
         'town_city_code', #
         'province', #
         'contact_no', #
+        'category', #
+        'category_id', #
+        'category_id_no', #
+        'philhealth', #
+        'pwd_id', #
         'priority_group', #
         'sub_priority_group', #
         'occupation', #
