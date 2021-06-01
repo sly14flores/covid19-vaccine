@@ -61,7 +61,7 @@ import ConfirmDialog from 'primevue/confirmdialog/sfc';
 import VaccineDialogForm from "./Dosage.vue";
 
 import { useStore } from 'vuex';
-import { reactive, watch, toRef } from 'vue';
+import { reactive, watch, ref } from 'vue';
 
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
@@ -74,7 +74,6 @@ export default {
         const editMode = eval(editOn)
         const store = useStore()
         const { state, dispatch } = store
-
         
         store.dispatch('vaccines/GET_SELECTION_BRANDS')
 
@@ -82,11 +81,13 @@ export default {
             ...state.vaccines.vaccination,
         })
 
+        const vaccinationStarted = ref(true)
+
         watch(
             () => state.vaccines.vaccination,
             (data, prevData) => {
                 console.log('Watch vaccination triggered')
-                const vaccination_session = vaccination.vaccination_session
+                const vaccination_session = (vaccinationStarted.value)?data.vaccination_session:vaccination.vaccination_session
                 Object.assign(vaccination, {...data, vaccination_session})
             },
             {deep: true}
@@ -111,7 +112,8 @@ export default {
             vaccination,
             updateVaccination,
             ss,
-            editMode
+            editMode,
+            vaccinationStarted,
         }
         
     },
@@ -148,6 +150,7 @@ export default {
     methods: {
         openDosage() {
             console.log('openDosage')
+            this.vaccinationStarted = false
             this.$store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',true)
             this.$store.dispatch('vaccines/GET_VACCINATORS')
             this.$store.dispatch('vaccines/GET_REASONS')

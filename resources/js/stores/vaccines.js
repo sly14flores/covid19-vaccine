@@ -507,8 +507,6 @@ const actions = {
 
             const { vaccination: { vaccination_session } } = payload
 
-            console.log(vaccination)
-
             const { data: { data } } = await updateVaccination({
                 id: state.vaccine.qr_pass_id, 
                 vaccination: {
