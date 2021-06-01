@@ -25,6 +25,7 @@ class VaccineResource extends JsonResource
 
         return [
             'id' => $this->id,
+            'qr_pass_id' => $this->qr_pass_id,
             'vaccination_facility' => $this->vaccination_facility,
             'facility_others' => $this->facility_others,
             'vaccination_session' => $this->vaccination_session,
