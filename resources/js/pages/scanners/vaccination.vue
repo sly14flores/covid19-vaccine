@@ -61,7 +61,7 @@ import ConfirmDialog from 'primevue/confirmdialog/sfc';
 import VaccineDialogForm from "./Dosage.vue";
 
 import { useStore } from 'vuex';
-import { reactive, watch, toRef } from 'vue';
+import { reactive, watch, ref } from 'vue';
 
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
@@ -74,7 +74,6 @@ export default {
         const editMode = eval(editOn)
         const store = useStore()
         const { state, dispatch } = store
-
         
         store.dispatch('vaccines/GET_SELECTION_BRANDS')
 
@@ -82,30 +81,30 @@ export default {
             ...state.vaccines.vaccination,
         })
 
+        const vaccinationStarted = ref(true)
+
         watch(
-            () => state.vaccines.vaccination.id,
+            () => state.vaccines.vaccination,
             (data, prevData) => {
-                vaccination.id = state.vaccines.vaccination.id,
-                vaccination.qr_pass_id = state.vaccines.vaccination.qr_pass_id,
-                vaccination.vaccination_session = state.vaccines.vaccination.vaccination_session,
-                vaccination.dosages = state.vaccines.vaccination.dosages
-            }
+                console.log('Watch vaccination triggered')
+                const vaccination_session = (vaccinationStarted.value)?data.vaccination_session:vaccination.vaccination_session
+                Object.assign(vaccination, {...data, vaccination_session})
+            },
+            {deep: true}
         )
 
         const rules = {
             vaccination_session: { required }
         }
 
-        const ss = useVuelidate(rules, {
-            vaccination_session: toRef(vaccination, 'vaccination_session'),
-        })
+        const ss = useVuelidate(rules, vaccination)        
 
         const updateVaccination = () => {
             
             ss.value.vaccination_session.$touch();
             if (ss.value.vaccination_session.$error) return
             
-            store.dispatch('vaccines/UPDATE_VACCINATION')
+            store.dispatch('vaccines/UPDATE_VACCINATION',{ vaccination })
 
         }
 
@@ -113,7 +112,8 @@ export default {
             vaccination,
             updateVaccination,
             ss,
-            editMode
+            editMode,
+            vaccinationStarted,
         }
         
     },
@@ -149,28 +149,36 @@ export default {
     },
     methods: {
         openDosage() {
+            console.log('openDosage')
+            this.vaccinationStarted = false
             this.$store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',true)
-            this.$store.dispatch('vaccines/TOGGLE_PRES_FORM', false)
-            this.$store.dispatch('vaccines/TOGGLE_REASON_FORM', false)
             this.$store.dispatch('vaccines/GET_VACCINATORS')
             this.$store.dispatch('vaccines/GET_REASONS')
             this.$store.dispatch('vaccines/GET_PRES')
             this.$store.dispatch('vaccines/GET_POST')
-            this.$store.dispatch('vaccines/RESET_DOSAGE')
         },
         showDosage(data) {
             this.$store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',true)
             this.$store.dispatch('vaccines/GET_VACCINATORS')
             this.$store.dispatch('vaccines/GET_REASONS')
-
-            const { id } = data
-            if (id>0) this.$store.dispatch('vaccines/GET_DOSAGE', {id})
-            if (id===0) this.$store.dispatch('vaccines/SHOW_DOSAGE', data)
+            console.log('showDosage')
+            // const { id } = data
+            this.$store.dispatch('vaccines/SHOW_DOSAGE', data)
+            // if (id>0) this.$store.dispatch('vaccines/GET_DOSAGE', {id})
+            // if (id===0) this.$store.dispatch('vaccines/SHOW_DOSAGE', data)
         },
         removeDosage(data) {
             this.$store.dispatch('vaccines/DELETE_DOSAGE',{data})
-        },       
+        },  
     }
 }
 
 </script>
+
+<style scoped>
+    .disabled {
+        background: rgb(219, 219, 219);
+        border-bottom: 1px solid black;
+        cursor: not-allowed; 
+    }
+</style>

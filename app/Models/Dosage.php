@@ -35,6 +35,8 @@ class Dosage extends Model
         'time_of_reconstitution',
         'diluent_batch_number',
         'diluent_lot_number',
+        'date_of_vaccination',
+        'next_vaccination'
     ];
 
     /**
@@ -52,6 +54,8 @@ class Dosage extends Model
         'diluent_lot_number' => 'integer',
         'expiry_date' => 'date',
         'date_of_reconstitution' => 'date',
+        'date_of_vaccination' => 'date',
+        'next_vaccination' => 'date',
         // 'time_of_reconstitution' => 'datetime',
     ];    
 
@@ -149,6 +153,24 @@ class Dosage extends Model
      * @return false|string
      */
     public function getDateOfReconstitutionAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d');
+    }
+
+    /**
+     * @param $value
+     * @return false|string
+     */
+    public function getDateOfVaccinationAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d');
+    }
+
+     /**
+     * @param $value
+     * @return false|string
+     */
+    public function getNextVaccinationAttribute($value)
     {
         return Carbon::parse($value)->format('Y-m-d');
     }

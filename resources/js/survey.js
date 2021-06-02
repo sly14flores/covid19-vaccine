@@ -9,7 +9,7 @@ app.controller('surveyCtrl', function($scope,$http) {
 	const napanam_id = queryStringSplit[queryStringSplit.length-1];
 	
 	const prod_url = "https://vaccines.launion.gov.ph"
-	const local_url = "http://vaccines.local"
+	const local_url = "https://vaccines.local"
 
 	const ENV = process.env.MIX_ENV	
 	const api_url = (ENV==='local')?local_url:prod_url

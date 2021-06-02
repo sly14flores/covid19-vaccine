@@ -71,11 +71,47 @@ const updateVaccination = (payload) => {
     return axios.put(url, vaccination)
 }
 
+const UPDATE_REGISTRATION = `${api_url}/api/doh/vaccines/update/registration/:id`
+const updateRegistration = (payload) => {
+    const { qr_pass_id } = payload
+    const url =  route(UPDATE_REGISTRATION, { id: qr_pass_id })
+    return axios.put(url, payload)
+}
+
 const GET_DOSAGE = `${api_url}/api/doh/dosage/:id`
 const getDosage = (payload) => {
     const { id } = payload
     const url =  route(GET_DOSAGE, { id })
     return axios.get(url)
+}
+
+const vaccine = {
+    id: 0,
+    qr_pass_id : null,
+    first_name: null,
+    middle_name: null,
+    last_name: null,
+    suffix: null,
+    birthdate: null,
+    gender: null,
+    address: null,
+    region: "Ilocos",
+    province: null,
+    town_city: null,
+    barangay: null,
+    contact_no: null,
+    category: null,
+    category_id: null,
+    category_id_no: null,
+    philhealth: null,
+    pwd_id: null,
+    priority_group: null,
+    sub_priority_group: null,
+    occupation: null,
+    with_allergy: null,
+    with_comorbidity: null,
+    is_registered: null,
+    origin: null
 }
 
 const vaccination = {
@@ -115,13 +151,13 @@ const dosage = {
         qr_pass_id: null, //
         dose: null, //
         assessments: []
-    }
+    },
+    date_of_vaccination: null,
+    next_vaccination: null
 }
 
 const deferrals = [];
 const pagination = {};
-
-const vaccine = {};
 
 const suffix_value = [];
 const gender_value = [];
@@ -241,11 +277,9 @@ const mutations = {
         state.vaccinators = [...payload]
     },
     PRES(state, payload) {
-        // state.pres = [...payload]
         state.dosage.pre_assessment.assessments = [...payload]
     },
     POST(state, payload) {
-        // state.post = [...payload]
         state.dosage.post_assessment.assessments = [...payload]        
     },
     REASONS(state, payload) {
@@ -273,7 +307,12 @@ const mutations = {
         state.vaccine.town_city = payload.town_city
         state.vaccine.barangay = payload.barangay
         state.vaccine.address = payload.address // street
-        state.vaccine.occupation = payload.occupation 
+        state.vaccine.occupation = payload.occupation
+        state.vaccine.category = payload.category
+        state.vaccine.category_id = payload.category_id
+        state.vaccine.category_id_no = payload.category_id_no
+        state.vaccine.philhealth = payload.philhealth
+        state.vaccine.pwd_id = payload.pwd_id
 
         state.dosage.qr_pass_id = payload.qr_pass_id
         state.dosage.pre_assessment.qr_pass_id = payload.qr_pass_id
@@ -287,31 +326,47 @@ const mutations = {
         state.writeOn = payload
     },
     ADD_DOSAGE(state,payload) {
+        console.log('ADD_DOSAGE')
         const dosage = {...payload, id: 0}
         state.vaccination.dosages.push(dosage)
         state.dosage = {...dosage}
     },
     UPDATE_DOSAGE(state,payload) {
-
-        // const { id } = payload
+        console.log('UPDATE_DOSAGE')
         const dosages = state.vaccination.dosages.map((dosage,i) => {
-            // if (dosage.id == id) {
             console.log(`${i}:${state.dosageIndexToUpdate}`)
-            if (i == state.dosageIndexToUpdate) {
-                const users = state.vaccinators.filter(vaccinator => {
-                    return vaccinator.id == payload.user_id
-                })
-                const brands = state.brands.filter(brand => {
-                    return brand.id == payload.brand_name
-                })
-                dosage = {
-                    ...payload,
-                    vaccinator: users[0].name,
-                    brand_description: brands[0].name,
-                }                
+            if (dosage.id) {
+                if (dosage.id==payload.id) {
+                    let users = state.vaccinators.filter(vaccinator => {
+                        return vaccinator.id == payload.user_id
+                    })
+                    let brands = state.brands.filter(brand => {
+                        return brand.id == payload.brand_name
+                    })
+                    dosage = {
+                        ...payload,
+                        vaccinator: users[0].name,
+                        brand_description: brands[0].name,
+                    }
+                }
+            } else {
+                if (i == state.dosageIndexToUpdate) {
+                    let users = state.vaccinators.filter(vaccinator => {
+                        return vaccinator.id == payload.user_id
+                    })
+                    let brands = state.brands.filter(brand => {
+                        return brand.id == payload.brand_name
+                    })
+                    dosage = {
+                        ...payload,
+                        vaccinator: users[0].name,
+                        brand_description: brands[0].name,
+                    }              
+                }
             }
             return dosage
         })
+
         state.vaccination.dosages = dosages
     },
     SHOW_DOSAGE(state,payload) {
@@ -486,16 +541,46 @@ const actions = {
             const { response } = error
         }
     },
-    async UPDATE_VACCINATION({commit,state}) {
+    async UPDATE_VACCINATION({commit,state},payload) {
         try {
 
-            const { data: { data } } = await updateVaccination({ id: state.vaccine.qr_pass_id, vaccination: state.vaccination })
+            const { vaccination: { vaccination_session } } = payload
+
+            const { data: { data } } = await updateVaccination({
+                id: state.vaccine.qr_pass_id, 
+                vaccination: {
+                    ...state.vaccination,
+                    vaccination_session,
+                }
+            })
+
+            commit('VACCINATION',data)
             
             commit('UPDATED')
             
             return true
         } catch (error) {
             const { response } = error
+            return false
+        }
+    },
+
+    async UPDATE_REGISTRATION({dispatch}, payload) {
+        try {
+            const { data: { data } } = await updateRegistration(payload)
+            Swal.fire({
+                title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+            })
+            return true
+        } catch (error) {
+            const { response } = error
+            console.log(response)
             return false
         }
     },
@@ -507,13 +592,19 @@ const actions = {
     ADD_DOSAGE({state,commit},payload) {
 
         payload.qr_pass_id = state.vaccine.qr_pass_id
-        // const expiry_date = payload.expiry_date.setDate(payload.expiry_date.getDate() + 1);
-        // payload.expiry_date = new Date(expiry_date).toISOString().split('T')[0];
+        const expiry_date = payload.expiry_date.setDate(payload.expiry_date.getDate() + 1);
+        payload.expiry_date = new Date(expiry_date).toISOString().split('T')[0];
         
-        // payload.date_of_reconstitution = (payload.date_of_reconstitution)?payload.date_of_reconstitution = payload.date_of_reconstitution.setDate(payload.date_of_reconstitution.getDate() + 1):null
-        // payload.date_of_reconstitution = new Date(payload.date_of_reconstitution).toISOString().split('T')[0];
+        payload.date_of_reconstitution = (payload.date_of_reconstitution)?payload.date_of_reconstitution = payload.date_of_reconstitution.setDate(payload.date_of_reconstitution.getDate() + 1):null
+        payload.date_of_reconstitution = new Date(payload.date_of_reconstitution).toISOString().split('T')[0];
 
-        // payload.time_of_reconstitution = (payload.time_of_reconstitution)?payload.time_of_reconstitution = payload.time_of_reconstitution.toLocaleTimeString('en-GB'):null        
+        payload.date_of_vaccination = (payload.date_of_vaccination)?payload.date_of_vaccination = payload.date_of_vaccination.setDate(payload.date_of_vaccination.getDate() + 1):null
+        payload.date_of_vaccination = new Date(payload.date_of_vaccination).toISOString().split('T')[0];
+
+        payload.next_vaccination = (payload.next_vaccination)?payload.next_vaccination = payload.next_vaccination.setDate(payload.next_vaccination.getDate() + 1):null
+        payload.next_vaccination = new Date(payload.next_vaccination).toISOString().split('T')[0];
+        
+        payload.time_of_reconstitution = (payload.time_of_reconstitution)?payload.time_of_reconstitution = payload.time_of_reconstitution.toLocaleTimeString('en-GB'):null        
 
         const users = state.vaccinators.filter(vaccinator => {
             return vaccinator.id == payload.user_id
@@ -526,13 +617,13 @@ const actions = {
         })
 
         payload.brand_description = brands[0].name
+
         commit('ADD_DOSAGE', payload)
     },
     UPDATE_DOSAGE({commit},payload) {
         commit('UPDATE_DOSAGE',payload)
     },
     SHOW_DOSAGE({commit},payload) {
-        console.log(payload)
         commit('SHOW_DOSAGE',payload)
     },
     TOGGLE_DOSAGE_FORM({commit},payload) {
@@ -552,6 +643,8 @@ const actions = {
             
             data.expiry_date = new Date(data.expiry_date)
             data.date_of_reconstitution = new Date(data.date_of_reconstitution)
+            data.date_of_vaccination = new Date(data.date_of_vaccination)
+            data.next_vaccination = new Date(data.next_vaccination)
 
             commit('DOSAGE', data)
             if(data.pre_assessment.consent=='01_Yes') {

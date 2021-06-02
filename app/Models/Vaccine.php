@@ -53,6 +53,6 @@ class Vaccine extends Model
 
     public function dosages()
     {
-        return $this->hasMany(Dosage::class);
+        return $this->hasMany(Dosage::class, 'vaccine_id', 'id');
     }
 }

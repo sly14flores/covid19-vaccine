@@ -52,7 +52,13 @@ trait SelectionsRegistration
             ["name"=>"Indigent", "id"=>"03_Indigent"],
             ["name"=>"Uniformed Personnel", "id"=>"04_Uniformed_Personnel"],
             ["name"=>"Essential Worker", "id"=>"05_Essential_Worker"],
-            ["name"=>"Other", "id"=>"06_Other"]
+            ["name"=>"Other", "id"=>"06_Other"],
+            ["name"=>"Comorbidities", "id"=>"07_Comorbidities"],
+            ["name"=>"Teachers Social Workers", "id"=>"08_Teachers_Social_Workers"],
+            ["name"=>"Other Government Workers", "id"=>"09_Other_Govt_Workers"],
+            ["name"=>"Other High Risk", "id"=>"10_Other_High_Risk"],
+            ["name"=>"OFW", "id"=>"11_OFW"],
+            ["name"=>"Remaining Workforce", "id"=>"12_Remaining_Workforce"],
         ];
     }
 
@@ -434,6 +440,13 @@ trait SelectionsRegistration
         $sessions = config('constants.sessions');
 
         return $sessions;
+    }
+
+    public function groupsValue()
+    {
+        $groups = config('constants.groups');
+
+        return $groups;
     }
 
     public function yesNo()

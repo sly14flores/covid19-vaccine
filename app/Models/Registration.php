@@ -26,8 +26,14 @@ class Registration extends Model
         'address', #
         'barangay', #
         'town_city', #
+        'town_city_code', #
         'province', #
         'contact_no', #
+        'category', #
+        'category_id', #
+        'category_id_no', #
+        'philhealth', #
+        'pwd_id', #
         'priority_group', #
         'sub_priority_group', #
         'occupation', #
@@ -105,5 +111,16 @@ class Registration extends Model
     protected $casts = [
         'diagnosed_date' => 'date',
     ];
+
+    public function townCity()
+    {
+        return $this->belongsTo(CityMun::class, 'town_city_code', 'citymunCode');
+
+    }
+
+    public function vaccine()
+    {
+        return $this->hasOne(Vaccine::class, 'qr_pass_id', 'qr_pass_id');
+    }
 
 }

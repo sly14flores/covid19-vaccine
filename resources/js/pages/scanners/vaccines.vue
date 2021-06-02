@@ -6,8 +6,15 @@
                 <TabPanel header="QR Code Scanning">
                     <div class="p-grid">
                         <div class="p-lg-4 p-sm-12 p-xs-12">
-                            <div class=" p-fluid p-shadow-2">
-                                <Button icon="pi pi-refresh float-right" @click="reset" />
+                            <div class="p-fluid p-shadow-2">
+                                <div class="p-grid">
+                                    <div class="p-col-10">     
+                                            <ToggleButton class="p-ml-2" v-model="switchCameraModel" @click="switchCamera" onLabel="On" offLabel="Off" style="width: 4em" />
+                                      </div>
+                                    <div class="p-col-2">     
+                                            <Button icon="pi pi-refresh float-right" @click="reset" />
+                                    </div>
+                                </div>
                                 <div class="p-grid p-jc-center">
                                     <div class="p-lg-2 p-md-2 p-xs-5">
                                         <img alt="logo" src="img/qr-code.png" class="qr-code" />
@@ -15,12 +22,20 @@
                                 </div>
                                 <div class="p-grid p-jc-center p-mt-2">
                                     <h2 class="p-label-blue">QR Code Scanning</h2>
-                                </div>
+                                    </div>
                                 <div class="p-grid">
                                     <div class="p-field p-col-11 p-md-12">
                                         <div class="center stream">
-                                            <qr-stream :camera="camera" @decode="onDecode" class="mb p-shadow-3">
-                                                <div class="frame"></div>
+                                            <qr-stream camera="rear" @decode="onDecode" class="mb p-shadow-3" @init="onInit">
+                                                <div class="frame" v-if="frame"></div>
+                                                <div class="loading-indicator p-mt-6" v-if="loading">
+                                                    <div class="p-grid p-jc-center">
+                                                        <div class="p-lg-2 p-md-2 p-xs-5">
+                                                            <i class="pi pi-spin pi-spinner" style="fontSize: 5rem"></i>
+                                                            <p>Loading...</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </qr-stream>
                                         </div>
                                     </div>
@@ -113,6 +128,30 @@
                                                 <InputText class="p-shadow-1" type="text" v-model="occupation" :disabled="!writeOn" />
                                             </div>
                                         </div>
+                                        <div class="p-fluid p-formgrid p-grid">
+                                                <div class="p-field p-col-12 p-md-4">
+                                                    <label>Category </label>
+                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" optionValue="id" v-model="category" :class="{disabled: !writeOn}" placeholder="Select a category" :disabled="!writeOn" />
+                                                </div>
+                                                <div class="p-field p-col-12 p-md-4">
+                                                    <label>Category ID</label>
+                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" optionValue="id" v-model="category_id" :class="{disabled: !writeOn}" placeholder="Select a category" :disabled="!writeOn" />
+                                                </div>
+                                                <div class="p-field p-col-12 p-md-4">
+                                                    <label>Category ID No. </label>
+                                                    <InputText class="p-shadow-1" type="text" v-model="category_id_no" :disabled="!writeOn" />
+                                                </div>
+                                            </div>
+                                            <div class="p-fluid p-formgrid p-grid">
+                                                <div class="p-field p-col-12 p-md-6">
+                                                    <label>Philhealth No. </label>
+                                                    <InputText class="p-shadow-1" type="text" v-model="philhealth" :disabled="!writeOn" />
+                                                </div>
+                                                <div class="p-field p-col-12 p-md-6">
+                                                    <label>PWD ID</label>
+                                                    <InputText class="p-shadow-1" type="text" v-model="pwd_id" :disabled="!writeOn" />
+                                                </div>
+                                            </div>
                                         <div class="p-fluid">
                                             <div class="p-fluid p-formgrid p-grid p-mt-2">
                                                 <div class="p-field p-col-12 p-md-10"></div>
@@ -153,6 +192,7 @@ import Paginator from 'primevue/paginator/sfc';
 import ScrollTop from 'primevue/scrolltop/sfc';
 import Panel from 'primevue/panel/sfc';
 import Toolbar from 'primevue/toolbar/sfc';
+import SelectButton from 'primevue/selectbutton/sfc';
 import Vaccination from './vaccination'
 
 import { QrStream, QrCapture, QrDropzone } from 'vue3-qr-reader';
@@ -179,6 +219,7 @@ export default {
             store.dispatch('vaccines/GET_BY_QR',{ id: qr })
             store.dispatch('vaccines/GET_VACCINATION', { id: qr })
             store.dispatch('vaccines/GET_SELECTION_SESSIONS')
+           
         }
 
         const init = {
@@ -210,11 +251,11 @@ export default {
             const { vaccine } = values
 
             confirm.require({
-                message: "Are you sure you want to add this registration's info?",
+                message: "Are you sure you want to update this registration's info?",
                 header: 'Confirmation',
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
-                    dispatch('vaccines/CREATE_REGISTRATION', vaccine)
+                    dispatch('vaccines/UPDATE_REGISTRATION', vaccine)
                 },
                 reject: () => {
                     //callback to execute when registration rejects the action
@@ -250,14 +291,14 @@ export default {
         const { value: address } = useField('vaccine.address',validField);
         const { value: contact_no } = useField('vaccine.contact_no',validField);
         const { value: occupation } = useField('vaccine.occupation',validField);
-
-        // Vaccine Administered
-        const { value: vaccination_id } = useField('vaccination.id',validField);
-        const { value: vaccination_session, errorMessage: vaccination_sessionError } = useField('vaccination.vaccination_session',validateField);
+        const { value: category } = useField('vaccine.category',validField);
+        const { value: category_id } = useField('vaccine.category_id',validField);
+        const { value: category_id_no } = useField('vaccine.category_id_no',validField);
+        const { value: philhealth } = useField('vaccine.philhealth',validField);
+        const { value: pwd_id } = useField('vaccine.pwd_id',validField);
 
         return {
             id, // Start Personal
-            vaccination_id,
             qr_pass_id,
             first_name,
             middle_name,
@@ -272,7 +313,11 @@ export default {
             barangay,
             contact_no,
             occupation, // End Personal
-            vaccination_session, // Vaccine
+            category,
+            category_id,
+            category_id_no,
+            philhealth,
+            pwd_id,
             qr_pass_idError, // Error
             first_nameError,
             last_nameError,
@@ -281,7 +326,6 @@ export default {
             provinceError,
             town_cityError,
             barangayError,
-            vaccination_sessionError,
             onSubmit,
             editMode,
             onDecode,
@@ -291,7 +335,12 @@ export default {
     },
     data() {
       return {
-          camera: 'auto'
+            camera: 'front',
+            noRearCamera: false,
+            noFrontCamera: false,
+            switchCameraModel: false,
+            loading: false,
+            frame: false
       }
     },
     components: {
@@ -313,6 +362,7 @@ export default {
         Paginator,
         ScrollTop,
         Panel,
+        SelectButton,
         Toolbar,
         Vaccination,
     },
@@ -365,6 +415,16 @@ export default {
         covid_classification_value() {
 
             return this.$store.state.vaccines.selections.covid_classification_value
+
+        },
+         category_value() {
+
+            return this.$store.state.vaccines.selections.category_value
+
+        },
+        category_id_value() {
+
+            return this.$store.state.vaccines.selections.category_id_value
 
         },
         region_value() {
@@ -435,10 +495,14 @@ export default {
     methods: {
         async onInit (promise) {
             try {
+                this.loading = true
+                this.frame = false
                 await promise
             } catch (e) {
                 console.error(e)
             } finally {
+                this.loading = false
+                this.frame = true
             }
         },        
         async onDecode(data) {
@@ -466,6 +530,16 @@ export default {
             return new Promise(resolve => {
                 window.setTimeout(resolve, ms)
             })
+        },
+        switchCamera () {
+            switch (this.camera) {
+                case 'front':
+                this.camera = 'rear'
+                break
+                case 'rear':
+                this.camera = 'front'
+                break
+            }
         },
         toggleWrite() {
             this.writeOn = !this.writeOn
