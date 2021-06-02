@@ -20,11 +20,10 @@ class RegistrationsSummary extends Controller
 
     public function getSummary(Request $request)
     {
-
         $filter = [
             "town_city" => $request->town_city, 
-            "facility" => $request->facility,
-            "priority_group" => $request->priority_group,
+            // "facility" => $request->facility,
+            // "priority_group" => $request->priority_group,
             "start" => $request->start_date,
             "end" => $request->end_date
         ];
