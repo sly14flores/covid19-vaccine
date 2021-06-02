@@ -161,7 +161,7 @@ export default {
             start_date: null,
             end_date: new Date(),
             province: "_0133_LA_UNION",
-            town_city: null
+            town_city: 'all'
         }
     },
     computed: {
@@ -209,10 +209,19 @@ export default {
 
             if (province.length==0) return []
 
-            const municipalities = province[0].municipalities
+            const municipalities = [
+                {
+                    id: 'all',
+                    code: 0,
+                    name: "All",
+                    provCode: '',
+                    provId: '',
+                    barangays: [],
+                },                
+                ...province[0].municipalities
+            ]
 
             return municipalities
-
 
         },
         isAdmin() {
@@ -284,8 +293,6 @@ export default {
 
             const { message } = data
 
-            console.log(message)
-
         },
         checkData() {
 
@@ -299,7 +306,7 @@ export default {
         },
         exportToExcel() {
 
-            window.open(`${this.downloadUrl}`)
+            window.open(`${this.downloadUrl}?town_city=${this.town_city}&start_date=${this.start_date.toLocaleDateString()}&end_date=${this.end_date.toLocaleDateString()}`)
 
         }
     },
@@ -312,6 +319,8 @@ export default {
 
         if (!this.$store.state.profile.is_admin) {
             this.town_city = this.$store.state.profile.town_city_doh
+        } else {
+            this.town_city = 'all'
         }
 
     },

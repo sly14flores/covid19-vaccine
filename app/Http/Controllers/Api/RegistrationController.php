@@ -41,14 +41,15 @@ class RegistrationController extends Controller
             $wheres[] = ['town_city_code',$location];
         }
 
-        $town = $request->town_city;
+        $town_city = $request->town_city;
         
         $townCityCode = null;
-        if (isset($town)) {
-            $townCity = $town;
-            $tc = explode("_",$townCity);
-            $townCityCode = $tc[1];
-            $wheres[] = ['town_city_code',$townCityCode];
+        if (isset($town_city)) {
+            if ($town_city!="all") {
+                $tc = explode("_",$town_city);
+                $townCityCode = $tc[1];
+                $wheres[] = ['town_city_code',$townCityCode];
+            }
         }
 
         $start_date = $request->start_date;
