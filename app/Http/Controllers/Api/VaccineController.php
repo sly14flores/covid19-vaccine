@@ -305,15 +305,15 @@ class VaccineController extends Controller
             'birthdate' => 'string',
             'gender' => 'string',
             'address' => 'string',
-            'barangay' => 'integer',
-            'town_city' => 'integer',
-            'province' => 'integer',
+            'barangay' => 'string',
+            'town_city' => 'string',
+            'province' => 'string',
             'contact_no' => 'string',
-            'category' => 'string',
-            'category_id' => 'string',
-            'category_id_no' => 'string',
-            'philhealth' => 'string',
-            'pwd_id' => 'string',
+            // 'category' => 'string',
+            // 'category_id' => 'string',
+            // 'category_id_no' => 'string',
+            // 'philhealth' => 'string',
+            // 'pwd_id' => 'string',
             'priority_group' => 'string',
             'sub_priority_group' => 'string',
             'allergic_to_vaccines' => 'string',
@@ -329,12 +329,12 @@ class VaccineController extends Controller
         /** Get validated data */
         $data = $validator->valid();
 
-        $barangay = Barangay::where('brgyCode',$data['barangay'])->first();
-        $data['barangay'] = $this->toDOHBrgy($barangay);
-        $town_city = CityMun::where('citymunCode',$data['town_city'])->first();
-        $data['town_city'] = $this->toDOHMun($town_city);
-        $province = Province::where('provCode',$data['province'])->first();
-        $data['province'] = $this->toDOHProv($province);
+        // $barangay = Barangay::where('brgyCode',$data['barangay'])->first();
+        // $data['barangay'] = $this->toDOHBrgy($barangay);
+        // $town_city = CityMun::where('citymunCode',$data['town_city'])->first();
+        // $data['town_city'] = $this->toDOHMun($town_city);
+        // $province = Province::where('provCode',$data['province'])->first();
+        // $data['province'] = $this->toDOHProv($province);
 
         $registration = Registration::where('qr_pass_id',$id)->first();
         $registration->fill($data);
