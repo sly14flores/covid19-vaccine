@@ -73,8 +73,8 @@ const updateVaccination = (payload) => {
 
 const UPDATE_REGISTRATION = `${api_url}/api/doh/vaccines/update/registration/:id`
 const updateRegistration = (payload) => {
-    const { id } = payload
-    const url =  route(UPDATE_REGISTRATION, { id })
+    const { qr_pass_id } = payload
+    const url =  route(UPDATE_REGISTRATION, { id: qr_pass_id })
     return axios.put(url, payload)
 }
 
@@ -568,7 +568,6 @@ const actions = {
     async UPDATE_REGISTRATION({dispatch}, payload) {
         try {
             const { data: { data } } = await updateRegistration(payload)
-            console.log(data)
             Swal.fire({
                 title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
                 icon: 'success',
