@@ -241,13 +241,15 @@ trait Summary
         $townCityCode = null;
         $wheres = [];
         if (isset($filter['town_city'])) {
-            $townCity = $filter['town_city'];
-            $tc = explode("_",$townCity);
-            $townCityCode = $tc[1];
-            $wheres[] = ['town_city_code',$townCityCode];
+            if ($filter['town_city']!="all") {
+                $townCity = $filter['town_city'];
+                $tc = explode("_",$townCity);
+                $townCityCode = $tc[1];
+                $wheres[] = ['town_city_code',$townCityCode];
+            }
         }
 
-        // $registrations = Registration::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $registrations_all = Registration::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
         $registrations = Registration::where($wheres)->whereHas('vaccine.dosages', function(Builder $query) use ($startFilter,$endFilter) {
             $query->whereBetween('created_at',[$startFilter,$endFilter]);
         })->get();
@@ -334,7 +336,7 @@ trait Summary
         /**
          * No of individual eligible
          */
-        $individual_eligible = $registrations->whereIn('priority_group',['01_A1','02_A2','04_A4'])->count();
+        $individual_eligible = $registrations_all->whereIn('priority_group',['01_A1','02_A2','04_A4'])->count();
 
         /**
          * Total Population

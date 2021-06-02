@@ -51,7 +51,7 @@
                     </div>
                     <div class="p-field p-col-12 p-md-2">
                         <label for="basic">&nbsp;</label>
-                        <Button label="Go!" @click="fetchRegistrations" />
+                        <Button label="Go!" @click="filterRegistrations" />
                     </div>
                 </div>
             </template>
@@ -214,7 +214,10 @@ export default {
             return municipalities
 
 
-        },     
+        },
+        isAdmin() {
+            return this.$store.state.profile.is_admin
+        }           
     },
     methods: {
         currentDate() {
@@ -229,6 +232,9 @@ export default {
             const dateNow = date;
             
             return dateNow;
+        },
+        filterRegistrations() {
+            this.fetchRegistrations({ page: 0 })
         },
         fetchRegistrations(event) {
             // event.page: New page number
@@ -303,6 +309,10 @@ export default {
         date.setDate(1)
 
         this.start_date = date
+
+        if (!this.$store.state.profile.is_admin) {
+            this.town_city = this.$store.state.profile.town_city_doh
+        }
 
     },
     mounted() {
