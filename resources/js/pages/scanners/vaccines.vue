@@ -548,6 +548,7 @@ export default {
     created() {
         this.$store.dispatch('vaccines/GET_PRES')
         this.$store.dispatch('vaccines/GET_POST')
+        this.$store.dispatch('vaccines/GET_AEFIS')
     },
     mounted() {
 

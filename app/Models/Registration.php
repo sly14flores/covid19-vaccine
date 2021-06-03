@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Traits\SelectionsRegistration;
+
 class Registration extends Model
 {
-    use HasFactory;
+    use HasFactory, SelectionsRegistration;
 
     /**
      * The attributes that are mass assignable.
@@ -122,5 +124,16 @@ class Registration extends Model
     {
         return $this->hasOne(Vaccine::class, 'qr_pass_id', 'qr_pass_id');
     }
+
+    // public function priorityGroup($id)
+    // {
+    //     $priorityGroups = $this->priorityGroupValue();
+
+    //     $priorityGroup = collect($priorityGroups)->filter(function($priorityGroup) use ($id) {
+    //         return $priorityGroup['id'] == $id;
+    //     })->first();
+
+    //     return $priorityGroup['description'];
+    // }
 
 }

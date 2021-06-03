@@ -155,7 +155,7 @@ class DosageController extends Controller
              */
             $check_aefi = Aefi::where([['dose',$data['dose']],['qr_pass_id',$data['qr_pass_id']]])->get();
             if (count($check_aefi)==0) {
-                $aefi = new Aefi;            
+                $aefi = new Aefi;
                 $aefi_data = [
                     'qr_pass_id' => $data['qr_pass_id'],
                     'dose' => $data['dose'],
@@ -164,7 +164,7 @@ class DosageController extends Controller
                     'current_status' => $aefi->CurrentStatus(), // serialize_array                
                 ];
                 $aefi->fill($aefi_data);
-                $dosage->aefi()->save($aefi);          
+                $dosage->aefi()->save($aefi);
             }
 
             DB::commit();
@@ -194,7 +194,7 @@ class DosageController extends Controller
             return $this->jsonErrorInvalidParameters();
         }
 
-        $dosage = Dosage::with(['pre_assessment','post_assessment'])->where('id',$id)->first();
+        $dosage = Dosage::with(['pre_assessment','post_assessment','aefi'])->where('id',$id)->first();
 
         if (is_null($dosage)) {
 			return $this->jsonErrorResourceNotFound();

@@ -14,7 +14,7 @@ class VaccineResource extends JsonResource
      */
     public function toArray($request)
     {
-        $dosages = $this->dosages()->with(['pre_assessment','post_assessment'])->get()->makeHidden(['created_at']);
+        $dosages = $this->dosages()->with(['pre_assessment','post_assessment','aefi'])->get()->makeHidden(['created_at']);
 
         $dosages->map(function($dosage, $i) {
             $dosage->index = $i;

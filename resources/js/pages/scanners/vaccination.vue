@@ -153,6 +153,7 @@ export default {
             this.$store.dispatch('vaccines/GET_REASONS')
             this.$store.dispatch('vaccines/GET_PRES')
             this.$store.dispatch('vaccines/GET_POST')
+            this.$store.dispatch('vaccines/GET_AEFIS')
         },
         showDosage(data) {
             this.$store.dispatch('vaccines/TOGGLE_DOSAGE_FORM',true)

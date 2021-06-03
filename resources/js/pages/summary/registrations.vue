@@ -329,7 +329,7 @@
                     </div>
                 </Panel>
 
-                <Panel header="Total Number of Vaccine Used (per vaccine type)">
+                <Panel class="p-mt-4" header="Total Number of Vaccine Used (per vaccine type)">
                     <div class="p-grid">
                         <div class="p-col-12 p-md-12">
                             <DataTable :value="total_vaccines_used_value" :paginator="true" :rows="10"
@@ -529,8 +529,9 @@ export default {
     },
     created() {
         
-        const date = new Date()
-        date.setDate(1)
+        const year = new Date().getFullYear()
+        const date = new Date(year, 1, 1)
+        date.setDate(5)
 
         this.start_date = date
 

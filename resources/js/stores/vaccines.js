@@ -40,6 +40,11 @@ const getPres = () => {
     return axios.get(GET_PRES)
 }
 
+const GET_AEFIS = `${api_url}/api/doh/structure/assessments/aefi`
+const getAefis = () => {
+    return axios.get(GET_AEFIS)
+}
+
 const GET_POST = `${api_url}/api/doh/structure/assessments/post`
 const getPost = () => {
     return axios.get(GET_POST)
@@ -75,6 +80,7 @@ const UPDATE_REGISTRATION = `${api_url}/api/doh/vaccines/update/registration/:id
 const updateRegistration = (payload) => {
     const { id } = payload
     const url =  route(UPDATE_REGISTRATION, { id })
+    console.log(id)
     return axios.put(url, payload)
 }
 
@@ -152,6 +158,19 @@ const dosage = {
         dose: null, //
         assessments: []
     },
+    aefi: {
+        id: 0,
+        qr_pass_id: null,
+        dose: null,
+        adverse_events: [],
+        others: null,
+        date: null,
+        time: null,
+        is_serious: null,
+        serious: [],
+        other_serious: null,
+        current_status: []
+    },
     date_of_vaccination: null,
     next_vaccination: null
 }
@@ -199,6 +218,7 @@ const brands = [];
 const vaccinators = [];
 const pres = [];
 const post = [];
+const aefis = [];
 const reasons = [];
 
 const default_id = {};
@@ -234,6 +254,7 @@ const state = () => {
         vaccinators,
         pres,
         post,
+        aefis,
         deferrals,
         doses,
         sites
@@ -282,6 +303,12 @@ const mutations = {
     POST(state, payload) {
         state.dosage.post_assessment.assessments = [...payload]        
     },
+    AEFIS(state, payload) {
+        console.log(payload)
+        state.dosage.aefi.adverse_events = [...payload.adverse_events]
+        state.dosage.aefi.current_status = [...payload.current_status]
+        state.dosage.aefi.serious = [...payload.serious]
+    },
     REASONS(state, payload) {
         state.reasons = [...payload]
     },
@@ -317,6 +344,7 @@ const mutations = {
         state.dosage.qr_pass_id = payload.qr_pass_id
         state.dosage.pre_assessment.qr_pass_id = payload.qr_pass_id
         state.dosage.post_assessment.qr_pass_id = payload.qr_pass_id
+        state.dosage.aefi.qr_pass_id = payload.qr_pass_id
 
     },
     SAVING(state, payload) {
@@ -361,7 +389,7 @@ const mutations = {
                         ...payload,
                         vaccinator: users[0].name,
                         brand_description: brands[0].name,
-                    }              
+                    }
                 }
             }
             return dosage
@@ -516,6 +544,14 @@ const actions = {
             const { response } = error
         }
     },
+    async GET_AEFIS({commit}) {
+        try {
+            const { data: { data } } = await getAefis()
+            commit('AEFIS', data)
+        } catch (error) {
+            const { response } = error
+        }
+    },
     async GET_DEFAULT_ID({commit}) {
         try {
             const { data: { data } } = await getDefaultId()
@@ -567,10 +603,11 @@ const actions = {
         }
     },
 
-    async UPDATE_REGISTRATION({dispatch}, payload) {
+    async UPDATE_REGISTRATION({}, payload) {
         try {
             const { data: { data } } = await updateRegistration(payload)
             console.log(data)
+
             Swal.fire({
                 title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
                 icon: 'success',
@@ -580,6 +617,7 @@ const actions = {
                 allowEscapeKey: false,
                 allowEnterKey: false,
             })
+
             return true
         } catch (error) {
             const { response } = error

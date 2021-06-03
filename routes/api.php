@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\SurveysSummary;
 use App\Http\Controllers\Api\RegistrationsSummary;
 use App\Http\Controllers\Api\ChangePassword;
 use App\Http\Controllers\Api\DefaultVaccinator;
+use App\Http\Controllers\Api\AefiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -173,7 +174,22 @@ Route::prefix('doh')->group(function() {
     ],[
         'except' => ['index']
     ]);
-    Route::get('structure/assessments/post',[PostAssessmentController::class,'structure']);  
+    Route::get('structure/assessments/post',[PostAssessmentController::class,'structure']);
+
+      /**
+     * Aefi
+     */
+    Route::apiResources([
+        'posts/{id}' => AefiController::class,
+    ],[
+        'only' => ['index']
+    ]);
+    Route::apiResources([
+        'post' => AefiController::class,
+    ],[
+        'except' => ['index']
+    ]);
+    Route::get('structure/assessments/aefi',[AefiController::class,'structure']);  
 
     /**
      * Upload excel for import

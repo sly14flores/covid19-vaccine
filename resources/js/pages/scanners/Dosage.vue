@@ -6,11 +6,11 @@
                 <div class="p-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-4">
                         <label>Date of Vaccination</label>
-                        <Calendar id="date_of_reconstitution" class="p-shadow-1 p-inputtext-sm" v-model="dosage.date_of_vaccination" name="date_of_vaccination" />
+                        <Calendar :manualInput="false" id="date_of_reconstitution" class="p-shadow-1 p-inputtext-sm" v-model="dosage.date_of_vaccination" name="date_of_vaccination" />
                     </div>
                     <div class="p-field p-col-12 p-md-4">
                         <label>Next Vaccination</label>
-                        <Calendar id="next_vaccination" class="p-shadow-1 p-inputtext-sm" v-model="dosage.next_vaccination" name="next_vaccination" />
+                        <Calendar :manualInput="false" id="next_vaccination" class="p-shadow-1 p-inputtext-sm" v-model="dosage.next_vaccination" name="next_vaccination" />
                     </div>
                 </div>
                 <div class="p-fluid p-formgrid p-grid">
@@ -42,7 +42,7 @@
                     </div>
                     <div class="p-field p-col-12 p-md-2">
                         <label>Expiry Date</label>
-                        <Calendar class="p-shadow-1 p-inputtext-sm" v-model="vv.expiry_date.$model" name="expiry_date" />
+                        <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" v-model="vv.expiry_date.$model" name="expiry_date" />
                     </div>
                     <div class="p-field p-col-12 p-md-2">
                         <label>Batch Number <i class="p-error">*</i></label>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="p-field p-col-12 p-md-2">
                         <label>Date of Reconstitution</label>
-                        <Calendar id="date_of_reconstitution" class="p-shadow-1 p-inputtext-sm" v-model="dosage.date_of_reconstitution" name="date_of_reconstitution" />
+                        <Calendar :manualInput="false" id="date_of_reconstitution" class="p-shadow-1 p-inputtext-sm" v-model="dosage.date_of_reconstitution" name="date_of_reconstitution" />
                     </div>
                     <div class="p-field p-col-12 p-md-2">
                         <label>Time of Reconstitution</label>
@@ -143,7 +143,47 @@
                             <i class="pi pi-search p-mr-2"></i>
                             <span>AEFI</span>
                         </template>
-                        <p>ON PROCESS</p>
+                        <div class="p-grid">
+                            <div class="p-col p-md-6">
+                                <Panel header="Adverse event(s): check as appropriate">
+                                    <DataTable class="p-datatable-sm" :value="dosage.aefi.adverse_events" dataKey="key">
+                                        <Column field="description" header="Description"></Column>
+                                        <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
+                                            <template #body="slotProps">
+                                                <RadioButton :value="true" v-model="slotProps.data['value']" />
+                                                <RadioButton class="p-ml-4" :value="false" v-model="slotProps.data['value']" />
+                                            </template>
+                                        </Column>
+                                    </DataTable>    
+                                </Panel>
+                            </div>
+                            <div class="p-col p-md-6">
+                                <Panel header="Serious">
+                                    <DataTable class="p-datatable-sm" :value="dosage.aefi.serious" dataKey="key">
+                                        <Column field="description" header="Description"></Column>
+                                        <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
+                                            <template #body="slotProps">
+                                                <RadioButton :value="true" v-model="slotProps.data['value']" />
+                                                <RadioButton class="p-ml-4" :value="false" v-model="slotProps.data['value']" />
+                                            </template>
+                                        </Column>
+                                    </DataTable>
+                                </Panel>
+
+                                <Panel class="p-mt-3" header="Current Status">
+                                    <DataTable class="p-datatable-sm" :value="dosage.aefi.current_status" dataKey="key">
+                                        <Column field="description" header="Description"></Column>
+                                        <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
+                                            <template #body="slotProps">
+                                                <RadioButton :value="true" v-model="slotProps.data['value']" />
+                                                <RadioButton class="p-ml-4" :value="false" v-model="slotProps.data['value']" />
+                                            </template>
+                                        </Column>
+                                    </DataTable>
+                                </Panel>
+                            </div>
+                        </div>
+                        
                     </TabPanel>
                 </TabView>
                 <br />
@@ -196,7 +236,6 @@ export default {
         const dosage = reactive({
             ...state.vaccines.dosage,
         })
-
         watch(
             () => state.vaccines.dosage.id,
             (data, prevData) => {
@@ -242,6 +281,7 @@ export default {
                 }
             },
             post_assessment: {},
+            aefi: {},
             date_of_vaccination: {},
             next_vaccination: {},
         }
