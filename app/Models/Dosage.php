@@ -47,8 +47,8 @@ class Dosage extends Model
     protected $casts = [
         'brand_name' => 'integer',
         'vaccine_name' => 'integer',
-        'batch_number' => 'integer',
-        'lot_number' => 'integer',
+        // 'batch_number' => 'integer',
+        // 'lot_number' => 'integer',
         'dose' => 'integer',
         'diluent_batch_number' => 'integer',
         'diluent_lot_number' => 'integer',
