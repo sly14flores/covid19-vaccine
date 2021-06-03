@@ -5,6 +5,7 @@ import PageWrapper from './PageWrapper.vue';
 // import Dashboard from "./pages/dashboard/Dashboard.vue";
 import LandingPage from "./pages/landing-page.vue";
 import SummaryRegistrations from "./pages/summary/registrations.vue";
+import Vaccination from "./pages/summary/vaccination.vue";
 import Surveys from "./pages/summary/surveys.vue";
 import Vaccines from "./pages/scanners/vaccines.vue";
 
@@ -94,6 +95,11 @@ const routes = [
     name: "SummaryRegistrations",
     component: PageWrapper,
     props: {pageComponent: SummaryRegistrations}
+  },{
+    path: "/summary/vaccination",
+    name: "Vaccination",
+    component: PageWrapper,
+    props: {pageComponent: Vaccination}
   },
   {
     path: "/registrations",

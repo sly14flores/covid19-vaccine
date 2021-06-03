@@ -11,8 +11,13 @@ const summary = [
           {
               label:'Registrations',
               icon:'pi pi-fw pi-users',
-              to: '/summary/registrations'                
+              to: '/summary/registrations'
           },
+          {
+            label:'Vaccination',
+            icon:'pi pi-fw pi-desktop',
+            to: '/summary/vaccination'
+        },
         ]
     },    
 ]
@@ -68,7 +73,7 @@ const facilities = [
           {
               label:'New',
               icon:'pi pi-fw pi-plus-circle',
-              to: '/hospitals/new'          
+              to: '/hospitals/new'
           },
         ]
     },
