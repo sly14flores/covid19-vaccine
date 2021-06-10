@@ -304,8 +304,8 @@ export default {
         const { value: barangay } = useField('registration.barangay',validField);
         const { value: contact_no } = useField('registration.contact_no',validField);
         const { value: occupation } = useField('registration.occupation',validField);
-        const { value: category, errorMessage: categoryError } = useField('registration.category',validateRadio);
-        const { value: category_id, errorMessage: category_idError } = useField('registration.category_id',validateRadio);
+        const { value: category } = useField('registration.category',validField);
+        const { value: category_id } = useField('registration.category_id',validField);
         const { value: category_id_no } = useField('registration.category_id_no',validField);
         const { value: philhealth } = useField('registration.philhealth',validField);
         const { value: pwd_id } = useField('registration.pwd_id',validField);
@@ -345,8 +345,6 @@ export default {
             allergic_to_vaccinesError,
             priority_groupError,
             with_comorbidityError,
-            categoryError,
-            category_idError,
             suffixError,
             onSubmit
         }
