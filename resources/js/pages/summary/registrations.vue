@@ -89,6 +89,7 @@
                                 <Column field="A2" header="Senior Citizens (A2)" headerStyle="width: 10%"></Column>
                                 <Column field="A3" header="Adult with Comorbidity (A3)" headerStyle="width: 10%"></Column>
                                 <Column field="A4" header="Frontliner Personnel in Essential Sector (A4)" headerStyle="width: 10%"></Column>
+                                <Column field="total" header="Total" headerStyle="width: 10%"></Column>
                             </DataTable>
                         </div>
                     </div>

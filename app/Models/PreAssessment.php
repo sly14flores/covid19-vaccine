@@ -23,6 +23,9 @@ class PreAssessment extends Model
         'reason',
         'dose',
         'assessments',
+        'blood_pressure',
+        'oxygen_saturation',
+        'pulse_rate',
     ];
 
     /**

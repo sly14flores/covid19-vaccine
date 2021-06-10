@@ -21,6 +21,9 @@ class PostAssessment extends Model
         'qr_pass_id',
         'dose',
         'assessments',
+        'blood_pressure',
+        'oxygen_saturation',
+        'pulse_rate',
     ];
 
     /**

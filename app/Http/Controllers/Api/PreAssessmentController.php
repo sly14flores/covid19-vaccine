@@ -115,6 +115,9 @@ class PreAssessmentController extends Controller
 
         $rules = [
             'consent' => 'integer',
+            'blood_pressure' => 'string',
+            'oxygen_saturation' => 'string',
+            'pulse_rate' => 'string',
             'assessments' => 'array', # array
         ];
 

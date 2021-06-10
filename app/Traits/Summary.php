@@ -338,7 +338,7 @@ trait Summary
         /**
          * No of individual eligible
          */
-        $individual_eligible = $registrations_all->whereIn('priority_group',['01_A1','02_A2','04_A4'])->count();
+        $individual_eligible = $registrations_all->whereIn('priority_group',['01_A1','02_A2','03_A3','04_A4'])->count();
 
         /**
          * Total Population
@@ -559,7 +559,7 @@ trait Summary
             ],
             'complete_immunization' => $complete_immunization,
             'waiting' => 0,
-            'individual_eligible' => $individual_eligible,
+            'individual_eligible' => number_format($individual_eligible),
             'immunized_vs_eligible'=> round($immunized_vs_eligible,5),
             'total_doses' => $total_doses,
             'total_vaccines_used' => $total_vaccines_useds,
@@ -618,11 +618,12 @@ trait Summary
 
         foreach ($municipalities as $m) {
             $municipality[] = [
-                "town"=>$m,
-                "A1"=>$registrations->where('priority_group','01_A1')->where('town_city',$m['code'])->count(),
-                "A2"=>$registrations->where('priority_group','02_A2')->where('town_city',$m['code'])->count(),
-                "A3"=>$registrations->where('priority_group','03_A3')->where('town_city',$m['code'])->count(),
-                "A4"=>$registrations->where('priority_group','04_A4')->where('town_city',$m['code'])->count()
+                "town" => $m,
+                "A1" => $registrations->where('priority_group','01_A1')->where('town_city',$m['code'])->count(),
+                "A2" => $registrations->where('priority_group','02_A2')->where('town_city',$m['code'])->count(),
+                "A3" => $registrations->where('priority_group','03_A3')->where('town_city',$m['code'])->count(),
+                "A4" => $registrations->where('priority_group','04_A4')->where('town_city',$m['code'])->count(),
+                "total" => $registrations->where('priority_group','01_A1')->where('town_city',$m['code'])->count() + $registrations->where('priority_group','02_A2')->where('town_city',$m['code'])->count() + $registrations->where('priority_group','03_A3')->where('town_city',$m['code'])->count() + $registrations->where('priority_group','04_A4')->where('town_city',$m['code'])->count()
             ];
         };
 

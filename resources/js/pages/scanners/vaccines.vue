@@ -22,11 +22,11 @@
                                 </div>
                                 <div class="p-grid p-jc-center p-mt-2">
                                     <h2 class="p-label-blue">QR Code Scanning</h2>
-                                    </div>
+                                </div>
                                 <div class="p-grid">
                                     <div class="p-field p-col-11 p-md-12">
                                         <div class="center stream">
-                                            <qr-stream camera="rear" @decode="onDecode" class="mb p-shadow-3" @init="onInit">
+                                            <qr-stream :camera="camera" @decode="onDecode" class="mb p-shadow-3" @init="onInit">
                                                 <div class="frame" v-if="frame"></div>
                                                 <div class="loading-indicator p-mt-6" v-if="loading">
                                                     <div class="p-grid p-jc-center">
@@ -130,12 +130,12 @@
                                         </div>
                                         <div class="p-fluid p-formgrid p-grid">
                                                 <div class="p-field p-col-12 p-md-4">
-                                                    <label>Category </label>
-                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" optionValue="id" v-model="category" :class="{disabled: !writeOn}" placeholder="Select a category" :disabled="!writeOn" />
+                                                    <label>Category <i class="p-error">*</i></label>
+                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" optionValue="id" v-model="category" :class="{'p-invalid': categoryError, 'disabled': !writeOn}" :disabled="!writeOn" placeholder="Select a category" />
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
-                                                    <label>Category ID</label>
-                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" optionValue="id" v-model="category_id" :class="{disabled: !writeOn}" placeholder="Select a category" :disabled="!writeOn" />
+                                                    <label>Category ID <i class="p-error">*</i></label>
+                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" optionValue="id" v-model="category_id" :class="{'p-invalid': category_idError, 'disabled': !writeOn}" :disabled="!writeOn" placeholder="Select a category id" />
                                                 </div>
                                                 <div class="p-field p-col-12 p-md-4">
                                                     <label>Category ID No. </label>
@@ -291,8 +291,9 @@ export default {
         const { value: address } = useField('vaccine.address',validField);
         const { value: contact_no } = useField('vaccine.contact_no',validField);
         const { value: occupation } = useField('vaccine.occupation',validField);
-        const { value: category } = useField('vaccine.category',validField);
-        const { value: category_id } = useField('vaccine.category_id',validField);
+        
+        const { value: category, errorMessage: categoryError } = useField('vaccine.category',validateField);
+        const { value: category_id, errorMessage: category_idError } = useField('vaccine.category_id',validateField);
         const { value: category_id_no } = useField('vaccine.category_id_no',validField);
         const { value: philhealth } = useField('vaccine.philhealth',validField);
         const { value: pwd_id } = useField('vaccine.pwd_id',validField);
@@ -319,6 +320,8 @@ export default {
             philhealth,
             pwd_id,
             qr_pass_idError, // Error
+            categoryError,
+            category_idError,
             first_nameError,
             last_nameError,
             suffixError,
