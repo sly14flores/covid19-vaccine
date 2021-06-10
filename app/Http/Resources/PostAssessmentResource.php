@@ -18,6 +18,9 @@ class PostAssessmentResource extends JsonResource
             'id' => $this->id,
             'dose' => $this->dose,
             'assessments' => $this->assessments,
+            'blood_pressure' => $this->blood_pressure,
+            'oxygen_saturation' => $this->oxygen_saturation,
+            'pulse_rate' => $this->pulse_rate,
         ];
     }
 }

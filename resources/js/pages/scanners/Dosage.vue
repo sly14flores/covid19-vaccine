@@ -87,6 +87,21 @@
                         </template>
                         <div class="p-fluid">
                             <div class="p-fluid p-formgrid p-grid p-mt-2">
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label>Blood Pressure</label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="blood_pressure" v-model="vv.pre_assessment.blood_pressure.$model" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label>Oxygen Saturation</label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="oxygen_saturation" v-model="vv.pre_assessment.oxygen_saturation.$model" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label>Pulse Rate</label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="pulse_rate" v-model="vv.pre_assessment.pulse_rate.$model" />
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="p-fluid p-formgrid p-grid p-mt-2">
                                 <div class="p-field p-col-12 p-md-2">
                                     <p class="p-text-sm">Consent</p>
                                     <small v-if="vv.pre_assessment.consent.$error" class="p-error">Consent is required</small>
@@ -128,6 +143,20 @@
                             <i class="pi pi-desktop p-mr-2"></i>
                             <span> Post Monitoring </span>
                         </template>
+                        <div class="p-fluid p-formgrid p-grid p-mt-2">
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Blood Pressure</label>
+                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="blood_pressure" v-model="vv.post_assessment.blood_pressure.$model" />
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Oxygen Saturation</label>
+                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="oxygen_saturation" v-model="vv.post_assessment.oxygen_saturation.$model" />
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Pulse Rate</label>
+                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="pulse_rate" v-model="vv.post_assessment.pulse_rate.$model" />
+                            </div>
+                        </div>
                         <DataTable class="p-datatable-sm" :value="dosage.post_assessment.assessments" dataKey="key">
                             <Column field="description" header="Description"></Column>
                             <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
@@ -235,13 +264,20 @@ export default {
             diluent_lot_number: {},
             pre_assessment: {
                 consent: { required },
+                blood_pressure: { },
+                oxygen_saturation: { },
+                pulse_rate: { },
                 reason: {
                     required: requiredIf(function() {
                         return dosage.pre_assessment.consent == '02_No'
                     })
                 }
             },
-            post_assessment: {},
+            post_assessment: {
+                blood_pressure: { },
+                oxygen_saturation: { },
+                pulse_rate: { },
+            },
             date_of_vaccination: {},
             next_vaccination: {},
         }

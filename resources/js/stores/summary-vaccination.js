@@ -97,11 +97,9 @@ const actions = {
         }
     },
     async GET_SELECTIONS({commit}) {
-        commit('LOADING')
         try {
             const { data: { data } } = await getSelections()
             commit('SELECTIONS', data)
-            Swal.close()
         } catch (error) {
             const { response } = error
             console.log(response)

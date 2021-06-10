@@ -144,12 +144,18 @@ const dosage = {
         dose: null, //
         consent: null,
         reason: null,
+        blood_pressure: null,
+        oxygen_saturation: null,
+        pulse_rate: null,
         assessments: []
     },
     post_assessment: {
         id: 0,
         qr_pass_id: null, //
         dose: null, //
+        blood_pressure: null,
+        oxygen_saturation: null,
+        pulse_rate: null,
         assessments: []
     },
     date_of_vaccination: null,

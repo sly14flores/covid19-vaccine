@@ -90,12 +90,12 @@
                         <h5><i class="pi pi-sitemap"></i> Others</h5><hr />
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
-                                <label>Category </label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" optionValue="id" v-model="category" placeholder="Select a category" :disabled="editMode && !writeOn" />
+                                <label>Category <i class="p-error">*</i></label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" optionValue="id" v-model="category" placeholder="Select a category" :class="{'p-invalid': categoryError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
-                                <label>Category ID</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" optionValue="id" v-model="category_id" placeholder="Select a category" :disabled="editMode && !writeOn" />
+                                <label>Category ID <i class="p-error">*</i></label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" optionValue="id" v-model="category_id" placeholder="Select a category" :class="{'p-invalid': category_idError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Category ID No. </label>
@@ -336,8 +336,8 @@ export default {
         const { value: contact_no } = useField('registration.contact_no',validField);
         const { value: occupation } = useField('registration.occupation',validField);
         
-        const { value: category } = useField('registration.category',validField);
-        const { value: category_id } = useField('registration.category_id',validField);
+        const { value: category, errorMessage: categoryError } = useField('registration.category',validateField);
+        const { value: category_id, errorMessage: category_idError } = useField('registration.category_id',validateField);
         const { value: category_id_no } = useField('registration.category_id_no',validField);
         const { value: philhealth } = useField('registration.philhealth',validField);
         const { value: pwd_id } = useField('registration.pwd_id',validField);
@@ -374,6 +374,8 @@ export default {
             allergic_to_vaccines,
             with_comorbidity,
             is_registered,
+            categoryError,
+            category_idError,
             qr_pass_idError,
             first_nameError,
             last_nameError,
