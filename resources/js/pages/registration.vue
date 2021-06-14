@@ -126,6 +126,20 @@
                                 <InputText class="p-shadow-1" type="text" v-model="occupation" />
                             </div>
                         </div>
+                        <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Employer Name </label>
+                                <InputText class="p-shadow-1" type="text" v-model="employer_name" :disabled="editMode && !writeOn" />
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Employer Province</label>
+                                <Dropdown class="p-shadow-1 disabled" optionLabel="name" :options="employer_provinces" optionValue="id" v-model="employer_address" placeholder="Select a province" disabled />
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Employer City/Municipality </label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employer_municipalities" optionValue="id" v-model="employer_lgu" placeholder="Select a municipality" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -313,6 +327,9 @@ export default {
         const { value: category_id_no } = useField('registration.category_id_no',validField);
         const { value: philhealth } = useField('registration.philhealth',validField);
         const { value: pwd_id } = useField('registration.pwd_id',validField);
+        const { value: employer_name } = useField('registration.employer_name',validField);
+        const { value: employer_address } = useField('registration.employer_address',validField);
+        const { value: employer_lgu } = useField('registration.employer_lgu',validField);
         const { value: indigenous_member } = useField('registration.indigenous_member',validField);
         const { value: priority_group, errorMessage: priority_groupError } = useField('registration.priority_group',validateRadio);
         const { value: sub_priority_group } = useField('registration.sub_priority_group',validField);
@@ -342,6 +359,9 @@ export default {
             indigenous_member,
             philhealth,
             pwd_id,
+            employer_name,
+            employer_address,
+            employer_lgu,
             priority_group,
             sub_priority_group,
             allergic_to_vaccines,
@@ -505,7 +525,27 @@ export default {
             
             return barangays
 
-        },  
+        },
+        employer_provinces() {
+
+            return this.$store.state.registrations.selections.addresses.province_value
+
+        },
+        employer_municipalities() {
+
+            if (!this.employer_provinces) return []
+
+            const employer_address = this.employer_provinces.filter(employer_address => {
+                return employer_address.id == this.employer_address
+            })
+
+            if (employer_address.length==0) return []
+
+            const employer_municipalities = employer_address[0].municipalities
+
+            return employer_municipalities
+
+        },
         saving() {
 
             return this.$store.state.registrations.saving

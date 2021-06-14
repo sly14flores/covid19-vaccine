@@ -69,7 +69,7 @@ class DOHDataSelections extends Controller
         /**
          * Province
          */
-        $get_provinces = Province::where('regCode',1)->get();
+        $get_provinces = Province::all();
         $provinces = [];
         foreach ($get_provinces as $province) {
 
