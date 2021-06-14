@@ -42,6 +42,7 @@ class Registration extends Model
         'with_comorbidity', #
         'is_registered', #
         'origin', #
+        'indigenous_member'
     ];
 
     // protected $fillable = [

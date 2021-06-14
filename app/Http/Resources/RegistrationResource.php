@@ -37,6 +37,7 @@ class RegistrationResource extends JsonResource
             'category_id_no' => $this->category_id_no,
             'philhealth' => $this->philhealth,
             'pwd_id' => $this->pwd_id,
+            'indigenous_member' => $this->indigenous_member,
             'priority_group' => $this->priority_group,
             'sub_priority_group' => $this->sub_priority_group,
             'occupation' => $this->occupation,

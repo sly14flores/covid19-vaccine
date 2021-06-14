@@ -26,7 +26,7 @@ import AppFooter from './AppFooter.vue';
 
 import { useStore } from 'vuex';
 
-import { summary, registrations, users, facilities, vaccines } from './menu.js';
+import { summary, registrations, users, facilities, vaccines, screening, inoculation, monitoring } from './menu.js';
 
 export default {
   props: ['pageComponent'],
@@ -43,6 +43,9 @@ export default {
       ...facilities,
       ..._users,
       ...vaccines
+      // ...screening,
+      // ...inoculation,
+      // ...monitoring
     ]
 
     return {

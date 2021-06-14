@@ -81,6 +81,7 @@ const registration = {
     province: null,
     town_city: null,
     barangay: null,
+    indigenous_member: "No",
     contact_no: null,
     category: null,
     category_id: null,
@@ -111,7 +112,8 @@ const employer_municipality_value = [];
 const month_value = [];
 const day_value = [];
 const addresses = [];
-const priority_group_value = []
+const priority_group_value = [];
+const indigenous_value = [];
 
 const selections = {
     suffix_value,
@@ -129,7 +131,8 @@ const selections = {
     month_value,
     day_value,
     addresses,
-    priority_group_value
+    priority_group_value,
+    indigenous_value
 };
 
 const registrations = []

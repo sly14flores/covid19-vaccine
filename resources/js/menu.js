@@ -87,12 +87,39 @@ const vaccines = [
     }    
 ]
 
+const screening = [
+    {
+        label:'Screening',
+        icon:'pi pi-search',
+        to: '/description/screening'
+    }    
+]
+
+const inoculation = [
+    {
+        label:'Inoculation',
+        icon:'pi pi-check-square',
+        to: '/description/inoculation'
+    }    
+]
+
+const monitoring = [
+    {
+        label:'Monitoring',
+        icon:'pi pi-fw pi-desktop',
+        to: '/description/monitoring'
+    }    
+]
+
 export {
     summary,
     registrations,
     users,
     facilities,
     vaccines,
+    screening,
+    inoculation,
+    monitoring,
 }
 
 /*
