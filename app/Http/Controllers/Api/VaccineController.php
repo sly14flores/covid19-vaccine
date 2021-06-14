@@ -22,10 +22,12 @@ use App\Http\Resources\VaccineResource;
 use App\Http\Resources\VaccineResourceCollection;
 use App\Http\Resources\VaccinesListResourceCollection;
 use App\Http\Resources\RegistrationVaccineResource;
+use App\Http\Resources\RegistrationsListResourceCollection;
 
 use App\Traits\Messages;
 use App\Traits\DOHHelpers;
 use App\Traits\SelectionsRegistration;
+use App\Helpers\General\CollectionHelper;
 
 class VaccineController extends Controller
 {
@@ -59,6 +61,32 @@ class VaccineController extends Controller
         $data = new VaccinesListResourceCollection($vaccines);
 
         return $this->jsonSuccessResponse($data, 200);
+    }
+
+    /**
+     * List for vaccination
+     * 
+     * Search registrations by QR, first name, middle name, last name for vaccinations
+     */
+    public function searchRegistrations(Request $request)
+    {
+        $search = (isset($request->search))?$request->search:null;
+
+        $registrations = Registration::all();
+
+        $registrations = $registrations->filter(function($registration) use ($search) {
+            $text = "{$registration->qr_pass_id} {$registration->first_name}, {$registration->middle_name}, {$registration->last_name}";
+            $registration->text = $text;
+            if (is_null($search)) return true;
+            $pattern = "/".str_replace(" ","(.*)",$search)."/i";            
+            return preg_match($pattern, $text);
+        });
+
+        $paginated = CollectionHelper::paginate($registrations, 10);
+
+        $data = new RegistrationsListResourceCollection($paginated);
+        
+        return $this->jsonSuccessResponse($data, 200);        
     }
 
     /**

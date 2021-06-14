@@ -110,6 +110,8 @@ Route::prefix('doh')->group(function() {
     Route::get('selections/vaccination/sessions', [DOHDataSelections::class, 'vaccinationSession']);
     Route::get('selections/groups', [DOHDataSelections::class, 'groups']);
     Route::get('selections/priority/groups', [DOHDataSelections::class, 'priorityGroups']);
+    Route::get('selections/vaccine/refusals', [DOHDataSelections::class, 'refusalValue']);   
+    Route::get('selections/vaccine/deferrals', [DOHDataSelections::class, 'deferalValue']);    
 
     /**
      * Registration
@@ -143,8 +145,10 @@ Route::prefix('doh')->group(function() {
     Route::get('vaccines/qr/{id}', [VaccineController::class, 'qrRegistration']);
     Route::put('vaccines/update/registration/{id}', [VaccineController::class, 'updateRegistration']);
     Route::get('vaccines/default/vaccinator', DefaultVaccinator::class);
-    Route::get('selections/vaccine/refusals', [DOHDataSelections::class, 'refusalValue']);   
-    Route::get('selections/vaccine/deferrals', [DOHDataSelections::class, 'deferalValue']);
+    /**
+     * Vaccination flow
+     */
+    Route::get('vaccines/search/registrations', [VaccineController::class, 'searchRegistrations']);
 
     /**
      * Pre Assessments
