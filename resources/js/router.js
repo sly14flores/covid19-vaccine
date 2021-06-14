@@ -10,6 +10,7 @@ import Surveys from "./pages/summary/surveys.vue";
 import Vaccines from "./pages/scanners/vaccines.vue";
 
 // descriptions
+import DescriptionList from "./pages/description/list.vue";
 import Screening from "./pages/description/screening.vue";
 import Inoculation from "./pages/description/inoculation.vue";
 import Monitoring from "./pages/description/monitoring.vue";
@@ -105,6 +106,12 @@ const routes = [
     name: "Vaccination",
     component: PageWrapper,
     props: {pageComponent: Vaccination}
+  },
+  {
+    path: "/description/list/:phase",
+    name: "DescriptionList",
+    component: PageWrapper,
+    props: {pageComponent: DescriptionList}
   },
   {
     path: "/description/screening",
