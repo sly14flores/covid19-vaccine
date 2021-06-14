@@ -81,7 +81,7 @@ const registration = {
     province: null,
     town_city: null,
     barangay: null,
-    indigenous_member: "No",
+    indigenous_member: null,
     contact_no: null,
     category: null,
     category_id: null,
