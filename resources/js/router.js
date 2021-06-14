@@ -9,6 +9,11 @@ import Vaccination from "./pages/summary/vaccination.vue";
 import Surveys from "./pages/summary/surveys.vue";
 import Vaccines from "./pages/scanners/vaccines.vue";
 
+// descriptions
+import Screening from "./pages/description/screening.vue";
+import Inoculation from "./pages/description/inoculation.vue";
+import Monitoring from "./pages/description/monitoring.vue";
+
 import Login from "./pages/login.vue";
 // import Registration from "./pages/registration.vue";
 import Booking from "./pages/booking.vue";
@@ -100,6 +105,24 @@ const routes = [
     name: "Vaccination",
     component: PageWrapper,
     props: {pageComponent: Vaccination}
+  },
+  {
+    path: "/description/screening",
+    name: "Screening",
+    component: PageWrapper,
+    props: {pageComponent: Screening}
+  },
+  {
+    path: "/description/inoculation",
+    name: "Inoculation",
+    component: PageWrapper,
+    props: {pageComponent: Inoculation}
+  },
+  {
+    path: "/description/monitoring",
+    name: "Monitoring",
+    component: PageWrapper,
+    props: {pageComponent: Monitoring}
   },
   {
     path: "/registrations",
