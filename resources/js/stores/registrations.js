@@ -94,7 +94,10 @@ const registration = {
     with_allergy: null,
     with_comorbidity: null,
     is_registered: null,
-    origin: null
+    origin: null,
+    employer_name: null,
+    employer_address: "_0133_LA_UNION",
+    employer_lgu: null
 }
 
 const suffix_value = [];
@@ -221,7 +224,7 @@ const actions = {
     TOGGLE_WRITE({commit}, payload) {
         commit('TOGGLE_WRITE', payload)
     },
-    async CREATE_REGISTRATION({commit, dispatch,state}, payload) {
+    async CREATE_REGISTRATION({commit, dispatch}, payload) {
         commit('SAVING',true)
         try {
             payload.origin = "Manual"

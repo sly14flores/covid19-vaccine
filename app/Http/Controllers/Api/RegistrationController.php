@@ -111,6 +111,9 @@ class RegistrationController extends Controller
             'with_comorbidity' => 'string',   
             'is_registered' => 'string',
             'origin' => 'string',
+            'employer_name' => 'string',
+            'employer_address' => 'string',
+            'employer_lgu' => 'string',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -212,6 +215,9 @@ class RegistrationController extends Controller
             'with_comorbidity' => 'string',
             'is_registered' => 'string',
             'origin' => 'string',
+            'employer_name' => 'string',
+            'employer_address' => 'string',
+            'employer_lgu' => 'string',
         ];
 
         $validator = Validator::make($request->all(), $rules);        
