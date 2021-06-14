@@ -9,10 +9,10 @@ import Vaccination from "./pages/summary/vaccination.vue";
 import Surveys from "./pages/summary/surveys.vue";
 import Vaccines from "./pages/scanners/vaccines.vue";
 
-// descriptions
-import Screening from "./pages/description/screening.vue";
-import Inoculation from "./pages/description/inoculation.vue";
-import Monitoring from "./pages/description/monitoring.vue";
+// vaccines
+import Screening from "./pages/vaccines/screening.vue";
+import Inoculation from "./pages/vaccines/inoculation.vue";
+import Monitoring from "./pages/vaccines/monitoring.vue";
 
 import Login from "./pages/login.vue";
 // import Registration from "./pages/registration.vue";
