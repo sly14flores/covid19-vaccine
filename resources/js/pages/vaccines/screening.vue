@@ -4,7 +4,7 @@
         <Toolbar class="header-bg">
             <template #left>
                 <div class="p-grid p-col-12">
-                    <h4 class="p-text-bold">MONITORING</h4>
+                    <h4 class="p-text-bold">SCREENING</h4>
                 </div>
             </template>
 
@@ -20,14 +20,6 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-10 p-md-11">
                                 <h2 class="p-text-bold p-ml-4"> [263001] DELA CRUZ, JUAN LUNA JR. </h2>
-                            </div>
-                        </div>
-                        <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-2 p-ml-4">
-                                <label class="p-text-bold">Currently administering: </label>
-                            </div>
-                            <div class="p-field p-col-12 p-md-3 p-ml-4">
-                                <Dropdown class="p-shadow-1 p-inputtext-sm" />
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
@@ -58,80 +50,7 @@
                             </div>
                         </div>
                         <hr />
-                        <TabView>
-                            <TabPanel header="Post Monitoring">
-                                <div class="p-fluid p-formgrid p-grid">
-                                    <div class="p-field p-col-12 p-md-4">
-                                        <label>Vaccine </label>
-                                        <Dropdown class="p-shadow-1 p-inputtext-sm" />
-                                    </div>
-                                    <div class="p-field p-col-12 p-md-4">
-                                        <label>Date Inoculated </label>
-                                        <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" />
-                                    </div>
-                                    <div class="p-field p-col-12 p-md-4">
-                                        <label>Time Inoculated</label>
-                                        <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
-                                    </div>
-                                </div>
-                                <div class="p-fluid p-formgrid p-grid">
-                                    <div class="p-field p-col-12 p-md-4">
-                                        <label>Injection Site </label>
-                                        <Dropdown class="p-shadow-1 p-inputtext-sm" />
-                                    </div>
-                                    <div class="p-field p-col-12 p-md-4">
-                                        <label>Lot No. </label>
-                                        <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                                    </div>
-                                    <div class="p-field p-col-12 p-md-4">
-                                        <label>Batch No.</label>
-                                        <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                                    </div>
-                                </div>
-                                <div class="p-fluid p-formgrid p-grid">
-                                    <div class="p-field p-col-12 p-md-4">
-                                        <label>Vaccinator </label>
-                                        <Dropdown class="p-shadow-1 p-inputtext-sm" />
-                                    </div>
-                                    <div class="p-field p-col-12 p-md-4">
-                                        <label>Next Vaccination Schedule</label>
-                                        <Dropdown class="p-shadow-1 p-inputtext-sm" />
-                                    </div>
-                                </div>
-                            </TabPanel>
-                            <TabPanel header="Personal Information">
-                                Personal Information
-                            </TabPanel>
-                        </TabView>
-                        <hr />
-                        <h4 class="header-blue p-text-bold">DILUENT</h4>
-                        <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Diluent</label>
-                                <Dropdown class="p-shadow-1 p-inputtext-sm" />
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Date of Reconstitution </label>
-                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" />
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Time of Reconstitution</label>
-                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
-                            </div>
-                        </div>
-                        <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-4"></div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Diluent Lot No. </label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Diluent Batch No.</label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                            </div>
-                        </div>
-                        <hr />
-                        <h4 class="header-blue p-text-bold">Vital Signs</h4>
+                        <h4 class="header-blue p-text-bold">VITAL SIGNS</h4>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Date Collected </label>
@@ -175,19 +94,74 @@
                             </div>
                         </div>
                         <hr />
-                        <h4 class="header-blue p-text-bold">ADVERSE EVENTS</h4>
+                        <h4 class="header-blue p-text-bold">HEALTH DECLARTION FORM</h4>
                         <DataTable class="p-datatable-sm">
-                            <Column field="value" header="Action" headerStyle="width: 15%">
+                            <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
                                 <template>
-                                    <Checkbox />
+                                    <RadioButton :value="true" />
+                                    <RadioButton class="p-ml-4" :value="false" />
                                 </template>
                             </Column>
                             <Column field="description" header="Description"></Column>
                         </DataTable>
-                         <div class="p-fluid p-formgrid p-grid p-mt-2">
-                            <div class="p-field p-col-12 p-md-12">
-                                <label>Others </label>
-                                <Textarea v-model="value" rows="5" cols="30" />
+                        <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-6">
+                                <Card>
+                                    <template #content>
+                                        <div class="p-grid">
+                                            <div class="p-field p-col-12 p-md-4">
+                                                <p class="p-text-sm">Consent Received</p>
+                                            </div>
+                                            <div class="p-field p-col-12 p-md-3">
+                                                <div class="p-field-radiobutton">
+                                                    <RadioButton id="yes_consent" name="consent" />
+                                                    <label for="yes_consent">Yes</label>
+                                                </div>
+                                            </div>
+                                            <div class="p-field p-col-12 p-md-3">
+                                                <div class="p-field-radiobutton">
+                                                    <RadioButton id="no_consent" name="consent" />
+                                                    <label for="no_consent">No</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="p-grid">
+                                           <div class="p-field p-col-12 p-md-12">
+                                                <label>Consent Received By</label>
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm"/>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </Card>
+                            </div>
+                            <div class="p-field p-col-12 p-md-6">
+                                <Card>
+                                    <template #content>
+                                        <div class="p-grid">
+                                            <div class="p-field p-col-12 p-md-4">
+                                                <p class="p-text-sm">Defer</p>
+                                            </div>
+                                            <div class="p-field p-col-12 p-md-3">
+                                                <div class="p-field-radiobutton">
+                                                    <RadioButton id="yes_defer" name="defer" />
+                                                    <label for="yes_defer">Yes</label>
+                                                </div>
+                                            </div>
+                                            <div class="p-field p-col-12 p-md-3">
+                                                <div class="p-field-radiobutton">
+                                                    <RadioButton id="no_defer" name="defer" />
+                                                    <label for="no_defer">No</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="p-grid">
+                                           <div class="p-field p-col-12 p-md-12">
+                                                <label>Reason for Deferral</label>
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm"/>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </Card>
                             </div>
                         </div>
                     </div>
@@ -213,9 +187,6 @@ import Calendar from 'primevue/calendar/sfc';
 import DataTable from 'primevue/datatable/sfc';
 import Column from 'primevue/column/sfc';
 import Card from 'primevue/card/sfc';
-import TabView from 'primevue/tabview/sfc';
-import TabPanel from 'primevue/tabpanel/sfc';
-import Textarea from 'primevue/textarea/sfc';
 
 export default {
 
@@ -234,14 +205,12 @@ export default {
         Calendar,
         DataTable,
         Column,
-        Card,
-        TabView,
-        TabPanel,
-        Textarea
+        Card
     },
     data() {
         return {
-            home: {icon: 'pi pi-desktop', to: '/description/monitoring'}
+            home: {icon: 'pi pi-search', to: '/description/screening'},
+            items: [{label: 'Screening', to: `${this.$route.fullPath}`}]
         }
     },
 }

@@ -183,7 +183,8 @@ export default {
     },
     data() {
         return {
-            home: {icon: 'pi pi-check-square', to: '/description/inoculation'}
+            home: {icon: 'pi pi-check-square', to: '/description/inoculation'},
+            items: [{label: 'Inoculation', to: `${this.$route.fullPath}`}]
         }
     },
 }
