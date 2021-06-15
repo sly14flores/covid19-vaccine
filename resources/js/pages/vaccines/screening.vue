@@ -94,7 +94,7 @@
                             </div>
                         </div>
                         <hr />
-                        <h4 class="header-blue p-text-bold">HEALTH DECLARTION FORM</h4>
+                        <h4 class="header-blue p-text-bold">HEALTH DECLARTION SCREENING FORM</h4>
                         <DataTable class="p-datatable-sm">
                             <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
                                 <template>

@@ -80,7 +80,6 @@ const actions = {
     },
     GET_SURVEYS_ERROR({commit}, payload) {
         console.log(payload)
-        Swal.close()
     }
 }
 
