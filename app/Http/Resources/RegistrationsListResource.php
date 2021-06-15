@@ -24,6 +24,7 @@ class RegistrationsListResource extends JsonResource
             'barangay' => $this->barangay,
             'address' => $this->address,
             'townCity' => (is_null($this->townCity))?"":$this->townCity->citymunDesc,
+            'text' => $this->text,
         ];
     }
 }
