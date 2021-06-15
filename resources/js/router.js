@@ -10,6 +10,7 @@ import Surveys from "./pages/summary/surveys.vue";
 import Vaccines from "./pages/scanners/vaccines.vue";
 
 // vaccines
+import VaccinesList from "./pages/vaccines/list.vue";
 import Screening from "./pages/vaccines/screening.vue";
 import Inoculation from "./pages/vaccines/inoculation.vue";
 import Monitoring from "./pages/vaccines/monitoring.vue";
@@ -107,19 +108,25 @@ const routes = [
     props: {pageComponent: Vaccination}
   },
   {
-    path: "/description/screening",
+    path: "/vaccines/list/:phase",
+    name: "VaccinesList",
+    component: PageWrapper,
+    props: {pageComponent: VaccinesList}
+  },
+  {
+    path: "/vaccines/screening",
     name: "Screening",
     component: PageWrapper,
     props: {pageComponent: Screening}
   },
   {
-    path: "/description/inoculation",
+    path: "/vaccines/inoculation",
     name: "Inoculation",
     component: PageWrapper,
     props: {pageComponent: Inoculation}
   },
   {
-    path: "/description/monitoring",
+    path: "/vaccines/monitoring",
     name: "Monitoring",
     component: PageWrapper,
     props: {pageComponent: Monitoring}
