@@ -321,6 +321,20 @@ const actions = {
     },
     GET_SELECTIONS_ERROR({commit}, payload) {
         // console.log(payload)
+        if(payload.status==500){
+            Swal.fire({
+                // title: '<p>Error</p>',
+                icon: 'error',
+                html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                showCancelButton: false,
+                focusConfirm: true,
+                confirmButtonText: 'Reresh this page',
+            }).then((result) => {
+                if (result.value) {
+                // Close
+                }
+            })	
+        }
     },
     async GET_ADDRESSES({dispatch}) {
         Swal.fire({
