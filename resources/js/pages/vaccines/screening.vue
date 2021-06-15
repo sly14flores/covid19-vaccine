@@ -19,32 +19,32 @@
                     <div class="card p-fluid">
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-10 p-md-11">
-                                <h2 class="p-text-bold p-ml-4"> [263001] DELA CRUZ, JUAN LUNA JR. </h2>
+                                <h2 class="p-text-bold p-ml-4 name-size"> [263001] DELA CRUZ, JUAN LUNA JR. </h2>
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-10 p-md-1">
+                            <div class="p-field p-col-6 p-md-1">
                                 <p class="p-text-bold p-ml-4">Age</p>
                                 <p class="p-text-bold p-ml-4">Gender</p>
                             </div>
-                            <div class="p-field p-col-10 p-md-1">
+                            <div class="p-field p-col-10 p-md-1 hide-div">
                                 <div class="vertical-line"></div>
                             </div>
-                            <div class="p-field p-col-10 p-md-1">
+                            <div class="p-field p-col-6 p-md-1">
                                 <p class="p-text-bold">24</p>
                                 <p class="p-text-bold">Female</p>
                             </div>
 
-                            <div class="p-field p-col-10 p-md-3"></div>
+                            <div class="p-field p-col-10 p-md-3 hide-div"></div>
 
-                            <div class="p-field p-col-10 p-md-2">
-                                <p class="p-text-bold">Date of Birth</p>
-                                <p class="p-text-bold">Contact Number</p>
+                            <div class="p-field p-col-6 p-md-2">
+                                <p class="p-text-bold p-ml-4">Date of Birth</p>
+                                <p class="p-text-bold p-ml-4">Contact Number</p>
                             </div>
-                            <div class="p-field p-col-10 p-md-1">
+                            <div class="p-field p-col-10 p-md-1 hide-div">
                                 <div class="vertical-line"></div>
                             </div>
-                            <div class="p-field p-col-10 p-md-1">
+                            <div class="p-field p-col-6 p-md-1">
                                 <p class="p-text-bold">01-01-1990</p>
                                 <p class="p-text-bold">09123456789</p>
                             </div>
@@ -94,7 +94,7 @@
                             </div>
                         </div>
                         <hr />
-                        <h4 class="header-blue p-text-bold">HEALTH DECLARTION FORM</h4>
+                        <h4 class="header-blue p-text-bold">HEALTH DECLARTION SCREENING FORM</h4>
                         <DataTable class="p-datatable-sm">
                             <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
                                 <template>
@@ -209,13 +209,15 @@ export default {
     },
     data() {
         return {
-            home: {icon: 'pi pi-search', to: '/description/screening'}
+            home: {icon: 'pi pi-search', to: '/description/screening'},
+            items: [{label: 'Screening', to: `${this.$route.fullPath}`}]
         }
     },
 }
 </script>
 
 <style scoped>
+
 .header-bg {
     background-color: #92c1bd;
 }
@@ -227,6 +229,15 @@ export default {
     border-left: 1px solid #ccc;
     margin: 0 10px;
     height: 50px;
+}
+@media only screen and (max-width: 600px) {
+    .hide-div {
+        display: none;
+    }
+    .name-size{
+        font-size: 20px;
+        text-align: center;
+    }
 }
 
 </style>

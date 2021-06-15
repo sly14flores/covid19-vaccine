@@ -9,11 +9,11 @@ import Vaccination from "./pages/summary/vaccination.vue";
 import Surveys from "./pages/summary/surveys.vue";
 import Vaccines from "./pages/scanners/vaccines.vue";
 
-// descriptions
-import DescriptionList from "./pages/description/list.vue";
-import Screening from "./pages/description/screening.vue";
-import Inoculation from "./pages/description/inoculation.vue";
-import Monitoring from "./pages/description/monitoring.vue";
+// vaccines
+import VaccinesList from "./pages/vaccines/list.vue";
+import Screening from "./pages/vaccines/screening.vue";
+import Inoculation from "./pages/vaccines/inoculation.vue";
+import Monitoring from "./pages/vaccines/monitoring.vue";
 
 import Login from "./pages/login.vue";
 // import Registration from "./pages/registration.vue";
@@ -108,25 +108,25 @@ const routes = [
     props: {pageComponent: Vaccination}
   },
   {
-    path: "/description/list/:phase",
-    name: "DescriptionList",
+    path: "/vaccines/list/:phase",
+    name: "VaccinesList",
     component: PageWrapper,
-    props: {pageComponent: DescriptionList}
+    props: {pageComponent: VaccinesList}
   },
   {
-    path: "/description/screening",
+    path: "/vaccines/screening",
     name: "Screening",
     component: PageWrapper,
     props: {pageComponent: Screening}
   },
   {
-    path: "/description/inoculation",
+    path: "/vaccines/inoculation",
     name: "Inoculation",
     component: PageWrapper,
     props: {pageComponent: Inoculation}
   },
   {
-    path: "/description/monitoring",
+    path: "/vaccines/monitoring",
     name: "Monitoring",
     component: PageWrapper,
     props: {pageComponent: Monitoring}

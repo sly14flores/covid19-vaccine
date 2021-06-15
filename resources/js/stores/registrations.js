@@ -94,7 +94,10 @@ const registration = {
     with_allergy: null,
     with_comorbidity: null,
     is_registered: null,
-    origin: null
+    origin: null,
+    employer_name: null,
+    employer_address: "_0133_LA_UNION",
+    employer_lgu: null
 }
 
 const suffix_value = [];
@@ -221,7 +224,7 @@ const actions = {
     TOGGLE_WRITE({commit}, payload) {
         commit('TOGGLE_WRITE', payload)
     },
-    async CREATE_REGISTRATION({commit, dispatch,state}, payload) {
+    async CREATE_REGISTRATION({commit, dispatch}, payload) {
         commit('SAVING',true)
         try {
             payload.origin = "Manual"
@@ -318,6 +321,20 @@ const actions = {
     },
     GET_SELECTIONS_ERROR({commit}, payload) {
         // console.log(payload)
+        if(payload.status==500){
+            Swal.fire({
+                // title: '<p>Error</p>',
+                icon: 'error',
+                html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                showCancelButton: false,
+                focusConfirm: true,
+                confirmButtonText: 'Reresh this page',
+            }).then((result) => {
+                if (result.value) {
+                // Close
+                }
+            })	
+        }
     },
     async GET_ADDRESSES({dispatch}) {
         Swal.fire({

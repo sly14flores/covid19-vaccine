@@ -40,25 +40,29 @@ const mutations = {
     SUMMARY(state, payload) {
         state.surveys = {...payload}
     },
+    LOADING(){
+        Swal.fire({
+            title: 'Loading...',
+
+            willOpen () {
+              Swal.showLoading ()
+            },
+            didClose () {
+              Swal.hideLoading()
+            },
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false
+        })
+    }
 }
 
 const actions = {
-    async GET_SURVEYS({dispatch}, payload) {
+    async GET_SURVEYS({dispatch,commit}, payload) {
+        
         try {
-            Swal.fire({
-                title: 'Loading...',
-
-                onBeforeOpen () {
-                  Swal.showLoading ()
-                },
-                onAfterClose () {
-                  Swal.hideLoading()
-                },
-                showConfirmButton: false,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                allowEnterKey: false
-            })
+            commit('LOADING');
 
             const { data: { data } } = await getSurveys(payload)
             dispatch('GET_SURVEYS_SUCCESS', data)
@@ -76,7 +80,6 @@ const actions = {
     },
     GET_SURVEYS_ERROR({commit}, payload) {
         console.log(payload)
-        Swal.close()
     }
 }
 
