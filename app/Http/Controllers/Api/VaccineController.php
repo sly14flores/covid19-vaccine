@@ -78,7 +78,7 @@ class VaccineController extends Controller
             $text = "{$registration->qr_pass_id} {$registration->first_name}, {$registration->middle_name}, {$registration->last_name}";            
             $registration->text = $text;
             if (is_null($search)) return true;
-            $search = preg_replace('/[^A-Za-z0-9\-]/', '', $search);
+            $search = preg_replace('/[^A-Za-z0-9\s\-]/', '', $search);
             $pattern = "/".str_replace(" ","(.*)",$search)."/i";            
             return preg_match($pattern, $text);
         });
