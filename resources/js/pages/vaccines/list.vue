@@ -1,6 +1,6 @@
 <template>
     <div>
-        <MyBreadcrumb :home="home" :items="items" />
+        <MyBreadcrumb :home="home" :items="items" />        
         <Panel header="List" class="p-mt-4">
             <div class="p-grid">
                 <div class="p-sm-12 p-md-6 p-lg-4">
@@ -16,21 +16,22 @@
                     <Button label="Search" @click="fetchRegistrations({page: 0})" />
                 </div>                
             </div>
-            <DataTable class="p-mt-4" :value="registrations" responsiveLayout="scroll">
-                <Column field="qr_pass_id" header="Napanam ID No" :sortable="true"></Column>
-                <Column field="first_name" header="First Name" :sortable="true"></Column>
-                <Column field="middle_name" header="Middle Name" :sortable="true"></Column>
-                <Column field="last_name" header="Last Name" :sortable="true"></Column>
-                <Column field="townCity" header="Municipality/City" :sortable="true"></Column>
-                <!-- <Column field="" header="Priority Group" :sortable="true"></Column> -->
-                <Column field="id" header="Actions">
-                    <!-- <template #body="slotProps"> -->
-                        <!-- <router-link :to="`/registrations/registration/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link> -->
-                        <!-- <Button icon="pi pi-trash" class="p-button-rounded p-button-danger" @click="deleteRegistration(slotProps.data.id)" /> -->
-                    <!-- </template> -->
-                </Column>
-            </DataTable>
-            <Paginator :rows="pagination.per_page" :totalRecords="pagination.total" @page="fetchRegistrations($event)"></Paginator>
+            <BlockUI :blocked="blocked">
+                <DataTable class="p-mt-4" :value="registrations" responsiveLayout="scroll">
+                    <Column field="qr_pass_id" header="Napanam ID No" :sortable="true"></Column>
+                    <Column field="first_name" header="First Name" :sortable="true"></Column>
+                    <Column field="middle_name" header="Middle Name" :sortable="true"></Column>
+                    <Column field="last_name" header="Last Name" :sortable="true"></Column>
+                    <Column field="townCity" header="Municipality/City" :sortable="true"></Column>
+                    <!-- <Column field="" header="Priority Group" :sortable="true"></Column> -->
+                    <Column field="qr_pass_id" header="Actions">
+                        <template #body="slotProps">
+                            <router-link :to="`/vaccines/${phase}/${slotProps.data.qr_pass_id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>
+                        </template>
+                    </Column>
+                </DataTable>
+                <Paginator :rows="pagination.per_page" :totalRecords="pagination.total" @page="fetchRegistrations($event)"></Paginator>
+            </BlockUI>
         </Panel>
     </div>
 </template>
@@ -44,12 +45,13 @@ import Paginator from 'primevue/paginator/sfc';
 import Column from 'primevue/column/sfc';
 import Button from 'primevue/button/sfc';
 import InputText from 'primevue/inputtext/sfc';
+import BlockUI from 'primevue/blockui/sfc';
 
 import { reactive, ref, toRefs } from 'vue'
-import { useRoute } from 'vue-router'
 import { getRegistrationsList } from '../../api/vaccination'
 
 export default {
+    props: ['phase'],
     name: 'VaccinationList',
     components: {
         MyBreadcrumb,
@@ -59,13 +61,11 @@ export default {
         Column,
         Button,
         InputText,
+        BlockUI,
     },
     setup() {
 
-        const route = useRoute()
-        const { params } = route
-
-        const { phase } = params || null
+        const blocked = ref(false)
 
         const search = ref('')
         const state = reactive({
@@ -77,11 +77,14 @@ export default {
 
             const { page } = event
 
+            blocked.value = true
+
             getRegistrationsList({page: page+1, search: search.value}).then(res => {
                 const { data: { data: { data, pagination } } } = res
                 Object.assign(state, {registrations: data, pagination})
+                blocked.value = false
             }).catch(err => {
-
+                blocked.value = false
             })
 
         }
@@ -90,14 +93,18 @@ export default {
             search,
             ...toRefs(state),
             fetchRegistrations,
+            blocked,
         }
         
     },
     data() {
         return {
-            home: {icon: 'pi pi-home', to: '/description/list'},
+            home: {icon: 'pi pi-search', to: `${this.$route.fullPath}`},
             items: [],
         }
+    },
+    beforeUpdate() {
+        console.log('Update')
     },
     mounted() {
         this.fetchRegistrations({ page: 0 })

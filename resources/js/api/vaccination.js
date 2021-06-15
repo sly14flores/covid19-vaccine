@@ -13,4 +13,20 @@ import { api_url } from '../url.js'
      )
  }
 
- export { getRegistrationsList }
+ /**
+  * Screening
+  */
+ // Fetch screening information
+const getScreeningInfo = (payload) => {
+
+}
+
+const postScreeningInfo = (payload) => {
+
+}
+
+export {
+    getRegistrationsList,
+    getScreeningInfo,
+    postScreeningInfo,
+}

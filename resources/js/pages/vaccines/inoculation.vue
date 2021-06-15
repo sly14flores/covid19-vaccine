@@ -161,7 +161,6 @@ import TabView from 'primevue/tabview/sfc';
 import TabPanel from 'primevue/tabpanel/sfc';
 
 export default {
-
     components: {
         MyBreadcrumb,
         InputText,
@@ -183,7 +182,7 @@ export default {
     },
     data() {
         return {
-            home: {icon: 'pi pi-check-square', to: '/description/inoculation'},
+            home: {icon: 'pi pi-search', to: '/vaccines/list/inoculation'},
             items: [{label: 'Inoculation', to: `${this.$route.fullPath}`}]
         }
     },

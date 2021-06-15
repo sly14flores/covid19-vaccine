@@ -218,7 +218,6 @@ import TabPanel from 'primevue/tabpanel/sfc';
 import Textarea from 'primevue/textarea/sfc';
 
 export default {
-
     components: {
         MyBreadcrumb,
         InputText,
@@ -241,7 +240,7 @@ export default {
     },
     data() {
         return {
-            home: {icon: 'pi pi-desktop', to: '/description/monitoring'},
+            home: {icon: 'pi pi-search', to: '/vaccines/list/monitoring'},
             items: [{label: 'Monitoring', to: `${this.$route.fullPath}`}]
         }
     },
