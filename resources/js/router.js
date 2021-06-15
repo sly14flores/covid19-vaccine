@@ -10,7 +10,11 @@ import Surveys from "./pages/summary/surveys.vue";
 import Vaccines from "./pages/scanners/vaccines.vue";
 
 // vaccines
-import VaccinesList from "./pages/vaccines/list.vue";
+import VaccineWrapper from "./pages/vaccines/wrapper.vue";
+import VaccinePhase from "./pages/vaccines/phase.vue";
+import QueryScreening from "./pages/vaccines/QueryScreening.vue";
+import QueryInoculation from "./pages/vaccines/QueryInoculation.vue";
+import QueryMonitoring from "./pages/vaccines/QueryMonitoring.vue";
 import Screening from "./pages/vaccines/screening.vue";
 import Inoculation from "./pages/vaccines/inoculation.vue";
 import Monitoring from "./pages/vaccines/monitoring.vue";
@@ -108,28 +112,48 @@ const routes = [
     props: {pageComponent: Vaccination}
   },
   {
-    path: "/vaccines/list/:phase",
-    name: "VaccinesList",
+    path: "/vaccines",
+    name: "VaccineFlow",
     component: PageWrapper,
-    props: {pageComponent: VaccinesList}
-  },
-  {
-    path: "/vaccines/screening",
-    name: "Screening",
-    component: PageWrapper,
-    props: {pageComponent: Screening}
-  },
-  {
-    path: "/vaccines/inoculation",
-    name: "Inoculation",
-    component: PageWrapper,
-    props: {pageComponent: Inoculation}
-  },
-  {
-    path: "/vaccines/monitoring",
-    name: "Monitoring",
-    component: PageWrapper,
-    props: {pageComponent: Monitoring}
+    props: {pageComponent: VaccineWrapper},
+    children: [
+      {
+        path: "list/screening",
+        name: "QueryScreening",
+        component: VaccinePhase,
+        props: {pageComponent: QueryScreening},
+      },
+      {
+        path: "list/inoculation",
+        name: "QueryInoculation",
+        component: VaccinePhase,
+        props: {pageComponent: QueryInoculation},
+      },
+      {
+        path: "list/monitoring",
+        name: "QueryMonitoring",
+        component: VaccinePhase,
+        props: {pageComponent: QueryMonitoring},
+      },
+      {
+        path: "screening/:qr",
+        name: "Screening",
+        component: VaccinePhase,
+        props: {pageComponent: Screening},
+      },
+      {
+        path: "inoculation/:qr",
+        name: "Inoculation",
+        component: VaccinePhase,
+        props: {pageComponent: Inoculation},
+      },
+      {
+        path: "monitoring/:qr",
+        name: "Monitoring",
+        component: VaccinePhase,
+        props: {pageComponent: Monitoring},
+      }
+    ]
   },
   {
     path: "/registrations",

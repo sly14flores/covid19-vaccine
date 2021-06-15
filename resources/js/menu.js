@@ -91,7 +91,7 @@ const screening = [
     {
         label:'Screening',
         icon:'pi pi-search',
-        to: '/description/screening'
+        to: '/vaccines/list/screening'
     }    
 ]
 
@@ -99,7 +99,7 @@ const inoculation = [
     {
         label:'Inoculation',
         icon:'pi pi-check-square',
-        to: '/description/inoculation'
+        to: '/vaccines/list/inoculation'
     }    
 ]
 
@@ -107,7 +107,7 @@ const monitoring = [
     {
         label:'Monitoring',
         icon:'pi pi-fw pi-desktop',
-        to: '/description/monitoring'
+        to: '/vaccines/list/monitoring'
     }    
 ]
 
