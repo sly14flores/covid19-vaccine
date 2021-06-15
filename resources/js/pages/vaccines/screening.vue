@@ -94,7 +94,7 @@
                             </div>
                         </div>
                         <hr />
-                        <h4 class="header-blue p-text-bold">HEALTH DECLARTION SCREENING FORM</h4>
+                        <h4 class="header-blue p-text-bold">HEALTH DECLARATION SCREENING FORM</h4>
                         <DataTable class="p-datatable-sm">
                             <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
                                 <template>
@@ -188,8 +188,12 @@ import DataTable from 'primevue/datatable/sfc';
 import Column from 'primevue/column/sfc';
 import Card from 'primevue/card/sfc';
 
-export default {
+import { reactive, toRefs } from 'vue'
+import { useRoute } from 'vue-router'
 
+import { getScreeningInfo, postScreeningInfo } from '../../api/vaccination'
+
+export default {
     components: {
         MyBreadcrumb,
         InputText,
@@ -209,10 +213,37 @@ export default {
     },
     data() {
         return {
-            home: {icon: 'pi pi-search', to: '/description/screening'},
+            home: {icon: 'pi pi-search', to: '/vaccines/list/screening'},
             items: [{label: 'Screening', to: `${this.$route.fullPath}`}]
         }
     },
+    setup() {
+
+        const route = useRoute()
+        const { params } = route || {}
+        const { qr } = params || null
+        
+        console.log(qr)
+
+        const state = reactive({
+            personalInfo: {},
+            vitalSigns: {},
+            healthDeclaration: {},
+        })
+
+        // API call, get
+        if (qr!=null) {
+
+        }
+
+        return {
+            ...toRefs(state)
+        }
+
+    },
+    methods: {
+        
+    }
 }
 </script>
 
