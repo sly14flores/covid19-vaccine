@@ -12,15 +12,28 @@ use App\Http\Resources\LoginResource;
 
 use App\Traits\Messages;
 
+/**
+ * @group Authentication
+ */
 class LoginController extends Controller
 {
     use Messages;
 
     public function __construct()
     {
-        $this->middleware('auth:api')->only(['logout','authenticate']);
+        $this->middleware('auth:api')->only(['logout']);
     }
 
+    /**
+     * Login
+     * 
+     * Login using username and password
+     * 
+     * @bodyParam username string required
+     * @bodyParam password string required
+     * 
+     * @unauthenticated
+     */
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -50,6 +63,11 @@ class LoginController extends Controller
         return $this->jsonSuccessResponse($data, 200);
     }
 
+    /**
+     * Logout
+     * 
+     * Logout user
+     */
     public function logout()
     {
         $revoked = Auth::guard('api')->user()->token()->revoke();
@@ -59,8 +77,17 @@ class LoginController extends Controller
         return $this->jsonFailedResponse(null, $this->http_code_error, 'Something went wrong.');
     }
 
-    public function authenticate()
+    /**
+     * Testing
+     * 
+     * @bodyParam name string
+     *
+     * @unauthenticated
+     */
+    public function authenticate(Request $request)
     {
-        return response()->json([], 200);
+    // @hideFromAPIDocumentation
+        var_dump($request->all());
+        // return response()->json([], 200);
     }
 }
