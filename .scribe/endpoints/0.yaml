@@ -18,13 +18,13 @@ endpoints:
         name: username
         description: ''
         required: true
-        example: eligendi
+        example: nisi
         type: string
       password:
         name: password
         description: ''
         required: true
-        example: eligendi
+        example: assumenda
         type: string
     responses: []
     responseFields: []
@@ -52,7 +52,7 @@ endpoints:
       description: ''
       authenticated: false
     headers:
-      X-Api-Version: architecto
+      X-Api-Version: quas
       Content-Type: 'multipart/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS'
       Accept: application/json
     urlParameters: []
@@ -62,7 +62,7 @@ endpoints:
         name: name
         description: ''
         required: false
-        example: non
+        example: vitae
         type: string
     responses: []
     responseFields: []

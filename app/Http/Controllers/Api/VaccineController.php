@@ -162,9 +162,9 @@ class VaccineController extends Controller
     }
 
     /**
-     * @group Screening
+     * @group Personal Info
      * 
-     * Screening Personal Info
+     * Personal Info for Screening / Inoculation / Monitoring
      */
     public function personalInfo($id)
     {
