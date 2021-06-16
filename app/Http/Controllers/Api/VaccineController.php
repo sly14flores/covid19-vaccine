@@ -165,6 +165,8 @@ class VaccineController extends Controller
      * @group Personal Info
      * 
      * Personal Info for Screening / Inoculation / Monitoring
+     * 
+     * @bodyParam dose integer required Example: 1
      */
     public function personalInfo($id)
     {
