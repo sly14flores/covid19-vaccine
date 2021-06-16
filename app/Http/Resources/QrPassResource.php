@@ -34,7 +34,6 @@ class QrPassResource extends JsonResource
             // "addressbrgy" => $this->addressbrgy,
             // "addressmunicity" => $this->addressmunicity,
             // "addressprovince" => $this->addressprovince,
-            // "address" => $this->address,
             "province" => $this->toDOHProv($this->province),
             "provinceDesc" => $this->province->provDesc,
             "cityMun" => $this->toDOHMun($this->cityMun),
