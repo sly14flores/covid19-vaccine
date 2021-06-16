@@ -11,7 +11,6 @@ endpoints:
       authenticated: false
     headers:
       Content-Type: application/json
-      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters:
@@ -19,13 +18,13 @@ endpoints:
         name: username
         description: ''
         required: true
-        example: cum
+        example: nemo
         type: string
       password:
         name: password
         description: ''
         required: true
-        example: quia
+        example: repellendus
         type: string
     responses: []
     responseFields: []
@@ -39,8 +38,6 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
-      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -48,14 +45,15 @@ endpoints:
     responseFields: []
   -
     httpMethods:
-      - PUT
+      - POST
     uri: api/authenticate
     metadata:
       title: Testing
       description: ''
       authenticated: false
     headers:
-      Content-Type: application/json
+      X-Api-Version: est
+      Content-Type: 'multipart/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS'
       Accept: application/json
     urlParameters: []
     queryParameters: []
@@ -64,7 +62,7 @@ endpoints:
         name: name
         description: ''
         required: false
-        example: culpa
+        example: et
         type: string
     responses: []
     responseFields: []

@@ -38,7 +38,7 @@ use App\Http\Controllers\Api\DefaultVaccinator;
  */
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout']);
-Route::put('authenticate', [LoginController::class, 'authenticate']);
+Route::post('authenticate', [LoginController::class, 'authenticate']);
 
 /**
  * Change password

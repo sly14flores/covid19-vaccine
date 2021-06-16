@@ -73,8 +73,8 @@ return [
                  * Additional headers to be added to the example requests
                  */
                 'headers' => [
-                    'Content-Type' => 'application/json',
-                    'Accept' => 'application/json',
+                    // 'Content-Type' => 'multipart/form-data; boundary=*',
+                    // 'Accept' => 'application/json',
                 ],
 
                 /*

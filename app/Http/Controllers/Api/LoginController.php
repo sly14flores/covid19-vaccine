@@ -80,6 +80,10 @@ class LoginController extends Controller
     /**
      * Testing
      * 
+     * @header X-Api-Version
+     * @header Content-Type multipart/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS
+     * @header Accept application/json
+     * 
      * @bodyParam name string
      *
      * @unauthenticated
@@ -87,7 +91,7 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
     // @hideFromAPIDocumentation
-        var_dump($request->all());
+        return $request->all();
         // return response()->json([], 200);
     }
 }
