@@ -153,6 +153,25 @@ app.controller('appCtrl', function($scope,$http) {
 					}
 				  })
 
+			} else {
+
+				if(response.status==500){
+					Swal.fire({
+						title: '<p>Oops...</p>',
+						icon: 'error',
+						html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+						showCancelButton: false,
+						focusConfirm: true,
+						allowOutsideClick: false,
+						allowEscapeKey: false,
+						allowEnterKey: false,
+						confirmButtonText: 'Reresh this page',
+					}).then((result) => {
+						if (result.value) {
+							location.reload();
+						}
+					})	
+				}
 			}
 			
 		});

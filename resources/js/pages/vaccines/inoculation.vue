@@ -10,7 +10,7 @@
 
             <template #right>
                 <Button label="Save" class="p-button-primary p-mr-2" />
-                <Button label="Discard" class="p-button-danger" />
+                <Button label="Discard" class="p-button-danger" @click="discard" />
             </template>
         </Toolbar>
         <div class="p-grid">
@@ -186,6 +186,13 @@ export default {
             items: [{label: 'Inoculation', to: `${this.$route.fullPath}`}]
         }
     },
+    methods: {
+        discard(){
+
+            this.$router.push('/vaccines/list/inoculation')
+            
+        }
+    }
 }
 </script>
 

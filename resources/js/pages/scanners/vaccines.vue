@@ -119,39 +119,39 @@
                                                 <label>Barangay <i class="p-error">*</i></label>
                                                 <Dropdown class="p-shadow-1" optionLabel="name" :options="barangays" optionValue="id" v-model="barangay" :class="{'p-invalid': barangayError, 'disabled': !writeOn}" placeholder="Select a barangay" :disabled="!writeOn" />
                                             </div>
-                                            <div class="p-field p-col-12 p-md-4">
-                                                <label>Unit/Building/Street/House No. <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="address" :disabled="!writeOn" />
-                                            </div>
-                                            <div class="p-field p-col-12 p-md-4">
+                                            <!-- <div class="p-field p-col-12 p-md-4">
+                                                <label>Unit/Building/Street/House No.</label>
+                                                <InputText class="p-shadow-1" type="text" v-model="address" :disabled="!writeOn" />
+                                            </div> -->
+                                            <div class="p-field p-col-12 p-md-8">
                                                 <label>Occupation</label>
                                                 <InputText class="p-shadow-1" type="text" v-model="occupation" :disabled="!writeOn" />
                                             </div>
                                         </div>
                                         <div class="p-fluid p-formgrid p-grid">
-                                                <div class="p-field p-col-12 p-md-4">
-                                                    <label>Category </label>
-                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" optionValue="id" v-model="category" :class="{'disabled': !writeOn}" :disabled="!writeOn" placeholder="Select a category" />
-                                                </div>
-                                                <div class="p-field p-col-12 p-md-4">
-                                                    <label>Category ID </label>
-                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" optionValue="id" v-model="category_id" :class="{'disabled': !writeOn}" :disabled="!writeOn" placeholder="Select a category id" />
-                                                </div>
-                                                <div class="p-field p-col-12 p-md-4">
-                                                    <label>Category ID No. </label>
-                                                    <InputText class="p-shadow-1" type="text" v-model="category_id_no" :disabled="!writeOn" />
-                                                </div>
+                                            <div class="p-field p-col-12 p-md-4">
+                                                <label>Category </label>
+                                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" optionValue="id" v-model="category" :class="{'disabled': !writeOn}" :disabled="!writeOn" placeholder="Select a category" />
                                             </div>
-                                            <div class="p-fluid p-formgrid p-grid">
-                                                <div class="p-field p-col-12 p-md-6">
-                                                    <label>Philhealth No. </label>
-                                                    <InputText class="p-shadow-1" type="text" v-model="philhealth" :disabled="!writeOn" />
-                                                </div>
-                                                <div class="p-field p-col-12 p-md-6">
-                                                    <label>PWD ID</label>
-                                                    <InputText class="p-shadow-1" type="text" v-model="pwd_id" :disabled="!writeOn" />
-                                                </div>
+                                            <div class="p-field p-col-12 p-md-4">
+                                                <label>Category ID </label>
+                                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" optionValue="id" v-model="category_id" :class="{'disabled': !writeOn}" :disabled="!writeOn" placeholder="Select a category id" />
                                             </div>
+                                            <div class="p-field p-col-12 p-md-4">
+                                                <label>Category ID No. </label>
+                                                <InputText class="p-shadow-1" type="text" v-model="category_id_no" :disabled="!writeOn" />
+                                            </div>
+                                        </div>
+                                        <div class="p-fluid p-formgrid p-grid">
+                                            <div class="p-field p-col-12 p-md-6">
+                                                <label>Philhealth No. </label>
+                                                <InputText class="p-shadow-1" type="text" v-model="philhealth" :disabled="!writeOn" />
+                                            </div>
+                                            <div class="p-field p-col-12 p-md-6">
+                                                <label>PWD ID</label>
+                                                <InputText class="p-shadow-1" type="text" v-model="pwd_id" :disabled="!writeOn" />
+                                            </div>
+                                        </div>
                                         <div class="p-fluid">
                                             <div class="p-fluid p-formgrid p-grid p-mt-2">
                                                 <div class="p-field p-col-12 p-md-10"></div>
@@ -256,6 +256,7 @@ export default {
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
                     dispatch('vaccines/UPDATE_REGISTRATION', vaccine)
+                    console.log(vaccine)
                 },
                 reject: () => {
                     //callback to execute when registration rejects the action
@@ -288,9 +289,9 @@ export default {
         const { value: province, errorMessage: provinceError } = useField('vaccine.province',validateField);
         const { value: town_city, errorMessage: town_cityError } = useField('vaccine.town_city',validateField);
         const { value: barangay, errorMessage: barangayError } = useField('vaccine.barangay',validateField);
-        const { value: address } = useField('vaccine.address',validField);
         const { value: contact_no } = useField('vaccine.contact_no',validField);
         const { value: occupation } = useField('vaccine.occupation',validField);
+        // const { value: address } = useField('vaccine.address',validField);
         
         const { value: category } = useField('vaccine.category',validField);
         const { value: category_id } = useField('vaccine.category_id',validField);
@@ -310,7 +311,7 @@ export default {
             region,
             province,
             town_city,
-            address, // street
+            // address,
             barangay,
             contact_no,
             occupation, // End Personal
