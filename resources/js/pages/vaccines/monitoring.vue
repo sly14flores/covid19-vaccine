@@ -10,7 +10,7 @@
 
             <template #right>
                 <Button label="Save" class="p-button-primary p-mr-2" />
-                <Button label="Discard" class="p-button-danger" />
+                <Button label="Discard" class="p-button-danger" @click="discard" />
             </template>
         </Toolbar>
         <div class="p-grid">
@@ -131,51 +131,60 @@
                             </div>
                         </div>
                         <hr />
-                        <h4 class="header-blue p-text-bold">Vital Signs</h4>
-                        <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Date Collected </label>
-                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" />
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Time Collected </label>
-                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Temperature (Celsius) </label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                            </div>
-                        </div>
-                        <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>By: Systolic </label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Pulse Rate </label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>O2 Sat</label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                            </div>
-                        </div>
-                        <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>BP: Diastolic </label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Respiratory Rate </label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Pain Score</label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                        <Toolbar>
+                            <template #left>
+                                <h4 class="header-blue p-text-bold">VITAL SIGNS</h4>
+                            </template>
+                            <template #right>
+                                <Button type="button" @click="addRow" icon="pi pi-plus" class="p-button-sm p-button-secondary" />
+                            </template>
+                        </Toolbar>
+                        <div v-for="row in rows" :key="row">
+                            <hr />
+                            <div class="p-fluid p-formgrid p-grid">
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label><small>Date Collected </small></label>
+                                    <Calendar v-model="row.date_collected" modelValue="{{row.date_collected}}" :manualInput="false" class="p-shadow-1 p-inputtext-sm" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>Time Collected </small> </label>
+                                    <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label><small>Temperature (Celsius) </small></label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>By: Systolic </small></label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>Pulse Rate </small></label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>O2 Sat</small></label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>BP: Diastolic</small></label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>Respiratory Rate</small></label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>Pain Score</small></label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <Button type="button" @click="removeRow" icon="pi pi-trash" class="p-button-sm p-button-danger p-mt-4" />
+                                </div>
                             </div>
                         </div>
                         <hr />
-                        <h4 class="header-blue p-text-bold">ADVERSE EVENTS</h4>
+                        <h4 class="header-blue p-text-bold">ADVERSED EVENTS</h4>
                         <DataTable class="p-datatable-sm">
                             <Column field="value" header="Action" headerStyle="width: 15%">
                                 <template>
@@ -186,7 +195,7 @@
                         </DataTable>
                          <div class="p-fluid p-formgrid p-grid p-mt-2">
                             <div class="p-field p-col-12 p-md-12">
-                                <label>Others </label>
+                                <label>Others: </label>
                                 <Textarea v-model="value" rows="5" cols="30" />
                             </div>
                         </div>
@@ -241,9 +250,25 @@ export default {
     data() {
         return {
             home: {icon: 'pi pi-search', to: '/vaccines/list/monitoring'},
-            items: [{label: 'Monitoring', to: `${this.$route.fullPath}`}]
+            items: [{label: 'Monitoring', to: `${this.$route.fullPath}`}],
+            rows: []
         }
     },
+    methods: {
+        discard(){
+
+            this.$router.push('/vaccines/list/monitoring')
+            
+        },
+        addRow(){
+
+           this.rows.push({date_collected: ''});
+
+        },
+        removeRow(index){
+            this. rows.splice(index, 1)
+        }
+    }
 }
 </script>
 

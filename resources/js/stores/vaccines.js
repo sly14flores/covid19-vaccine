@@ -312,13 +312,13 @@ const mutations = {
         state.vaccine.province = payload.province
         state.vaccine.town_city = payload.town_city
         state.vaccine.barangay = payload.barangay
-        state.vaccine.address = payload.address // street
+        // state.vaccine.address = payload.address
         state.vaccine.occupation = payload.occupation
         state.vaccine.category = payload.category
         state.vaccine.category_id = payload.category_id
         state.vaccine.category_id_no = payload.category_id_no
         state.vaccine.philhealth = payload.philhealth
-        state.vaccine.pwd_id = payload.pwd_id
+        // state.vaccine.philhealth = (state.vaccine.philhealth)?payload.philhealth:"N/A"
 
         state.dosage.qr_pass_id = payload.qr_pass_id
         state.dosage.pre_assessment.qr_pass_id = payload.qr_pass_id
