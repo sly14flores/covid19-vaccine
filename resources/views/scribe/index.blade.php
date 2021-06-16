@@ -95,8 +95,8 @@ let headers = {
 };
 
 let body = {
-    "username": "nemo",
-    "password": "repellendus"
+    "username": "eligendi",
+    "password": "eligendi"
 }
 
 fetch(url, {
@@ -243,13 +243,13 @@ fetch(url, {
 );
 
 let headers = {
-    "X-Api-Version": "est",
+    "X-Api-Version": "architecto",
     "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS",
     "Accept": "application/json",
 };
 
 let body = {
-    "name": "et"
+    "name": "non"
 }
 
 fetch(url, {
@@ -272,7 +272,7 @@ fetch(url, {
       data-path="api/authenticate"
       data-authed="0"
       data-hasfiles=""
-      data-headers='{"X-Api-Version":"est","Content-Type":"multipart\/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS","Accept":"application\/json"}'
+      data-headers='{"X-Api-Version":"architecto","Content-Type":"multipart\/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-authenticate', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -304,6 +304,163 @@ fetch(url, {
     
     </form>
 
+        <h1 id="screening">Screening</h1>
+    <p>
+        
+    </p>
+
+            <h2 id="screening-GETapi-doh-vaccines-screening-info--id-">Screening Personal Info</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<blockquote>Example request:</blockquote>
+
+
+<pre><code class="language-javascript">const url = new URL(
+    "https://vaccines.local/api/doh/vaccines/screening/info/neque"
+);
+
+let headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+
+    <div id="execution-results-GETapi-doh-vaccines-screening-info--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-doh-vaccines-screening-info--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-doh-vaccines-screening-info--id-"></code></pre>
+</div>
+<div id="execution-error-GETapi-doh-vaccines-screening-info--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-doh-vaccines-screening-info--id-"></code></pre>
+</div>
+<form id="form-GETapi-doh-vaccines-screening-info--id-" data-method="GET"
+      data-path="api/doh/vaccines/screening/info/{id}"
+      data-authed="1"
+      data-hasfiles=""
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-vaccines-screening-info--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-doh-vaccines-screening-info--id-"
+                    onclick="tryItOut('GETapi-doh-vaccines-screening-info--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-doh-vaccines-screening-info--id-"
+                    onclick="cancelTryOut('GETapi-doh-vaccines-screening-info--id-');" hidden>Cancel
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-doh-vaccines-screening-info--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/doh/vaccines/screening/info/{id}</code></b>
+        </p>
+                <p>
+            <label id="auth-GETapi-doh-vaccines-screening-info--id-" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="GETapi-doh-vaccines-screening-info--id-"
+                                                                data-component="header"></label>
+        </p>
+                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="id" data-endpoint="GETapi-doh-vaccines-screening-info--id-" data-component="url" required  hidden>
+<br>
+<p>The ID of the info.</p>            </p>
+                    </form>
+
+            <h2 id="screening-GETapi-doh-vaccines-search-registrations">List for vaccination
+
+Search registrations by QR, first name, middle name, last name for vaccinations</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<blockquote>Example request:</blockquote>
+
+
+<pre><code class="language-javascript">const url = new URL(
+    "https://vaccines.local/api/doh/vaccines/search/registrations"
+);
+
+let headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+
+    <div id="execution-results-GETapi-doh-vaccines-search-registrations" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-doh-vaccines-search-registrations"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-doh-vaccines-search-registrations"></code></pre>
+</div>
+<div id="execution-error-GETapi-doh-vaccines-search-registrations" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-doh-vaccines-search-registrations"></code></pre>
+</div>
+<form id="form-GETapi-doh-vaccines-search-registrations" data-method="GET"
+      data-path="api/doh/vaccines/search/registrations"
+      data-authed="1"
+      data-hasfiles=""
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-vaccines-search-registrations', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-doh-vaccines-search-registrations"
+                    onclick="tryItOut('GETapi-doh-vaccines-search-registrations');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-doh-vaccines-search-registrations"
+                    onclick="cancelTryOut('GETapi-doh-vaccines-search-registrations');" hidden>Cancel
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-doh-vaccines-search-registrations" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/doh/vaccines/search/registrations</code></b>
+        </p>
+                <p>
+            <label id="auth-GETapi-doh-vaccines-search-registrations" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="GETapi-doh-vaccines-search-registrations"
+                                                                data-component="header"></label>
+        </p>
+                </form>
+
         <h1 id="uncategorized">Uncategorized</h1>
     <p>
         
@@ -331,9 +488,9 @@ let headers = {
 };
 
 let body = {
-    "currentPassword": "aliquam",
-    "newPassword": "orrlyw",
-    "confirmNewPassword": "zpgomcdi"
+    "currentPassword": "illum",
+    "newPassword": "",
+    "confirmNewPassword": "qefqbpet"
 }
 
 fetch(url, {
@@ -403,6 +560,169 @@ fetch(url, {
 <input type="text" name="confirmNewPassword" data-endpoint="POSTapi-change-password" data-component="body" required  hidden>
 <br>
 <p>validation.same validation.min.</p>        </p>
+    
+    </form>
+
+            <h2 id="uncategorized-GETapi-doh-vaccines">Display List of vaccinations</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<blockquote>Example request:</blockquote>
+
+
+<pre><code class="language-javascript">const url = new URL(
+    "https://vaccines.local/api/doh/vaccines"
+);
+
+let headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+
+    <div id="execution-results-GETapi-doh-vaccines" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-doh-vaccines"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-doh-vaccines"></code></pre>
+</div>
+<div id="execution-error-GETapi-doh-vaccines" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-doh-vaccines"></code></pre>
+</div>
+<form id="form-GETapi-doh-vaccines" data-method="GET"
+      data-path="api/doh/vaccines"
+      data-authed="1"
+      data-hasfiles=""
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-vaccines', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-doh-vaccines"
+                    onclick="tryItOut('GETapi-doh-vaccines');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-doh-vaccines"
+                    onclick="cancelTryOut('GETapi-doh-vaccines');" hidden>Cancel
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-doh-vaccines" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/doh/vaccines</code></b>
+        </p>
+                <p>
+            <label id="auth-GETapi-doh-vaccines" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="GETapi-doh-vaccines"
+                                                                data-component="header"></label>
+        </p>
+                </form>
+
+            <h2 id="uncategorized-POSTapi-doh-vaccine">Store a newly created resource in storage.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<blockquote>Example request:</blockquote>
+
+
+<pre><code class="language-javascript">const url = new URL(
+    "https://vaccines.local/api/doh/vaccine"
+);
+
+let headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "qr_pass_id": "quia",
+    "vaccination_facility": 19
+}
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre>
+
+<div id="execution-results-POSTapi-doh-vaccine" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-doh-vaccine"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-doh-vaccine"></code></pre>
+</div>
+<div id="execution-error-POSTapi-doh-vaccine" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-doh-vaccine"></code></pre>
+</div>
+<form id="form-POSTapi-doh-vaccine" data-method="POST"
+      data-path="api/doh/vaccine"
+      data-authed="1"
+      data-hasfiles=""
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-doh-vaccine', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-doh-vaccine"
+                    onclick="tryItOut('POSTapi-doh-vaccine');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-doh-vaccine"
+                    onclick="cancelTryOut('POSTapi-doh-vaccine');" hidden>Cancel
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-doh-vaccine" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/doh/vaccine</code></b>
+        </p>
+                <p>
+            <label id="auth-POSTapi-doh-vaccine" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="POSTapi-doh-vaccine"
+                                                                data-component="header"></label>
+        </p>
+                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>qr_pass_id</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="qr_pass_id" data-endpoint="POSTapi-doh-vaccine" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>vaccination_facility</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="vaccination_facility" data-endpoint="POSTapi-doh-vaccine" data-component="body"  hidden>
+<br>
+        </p>
     
     </form>
 
@@ -550,6 +870,84 @@ fetch(url, {
         </p>
                 </form>
 
+            <h2 id="uncategorized-GETapi-doh-vaccine--vaccine-">Show vaccine administration</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+<p>Vaccine administration with dosages</p>
+
+<blockquote>Example request:</blockquote>
+
+
+<pre><code class="language-javascript">const url = new URL(
+    "https://vaccines.local/api/doh/vaccine/1"
+);
+
+let headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+
+    <div id="execution-results-GETapi-doh-vaccine--vaccine-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-doh-vaccine--vaccine-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-doh-vaccine--vaccine-"></code></pre>
+</div>
+<div id="execution-error-GETapi-doh-vaccine--vaccine-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-doh-vaccine--vaccine-"></code></pre>
+</div>
+<form id="form-GETapi-doh-vaccine--vaccine-" data-method="GET"
+      data-path="api/doh/vaccine/{vaccine}"
+      data-authed="1"
+      data-hasfiles=""
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-vaccine--vaccine-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-doh-vaccine--vaccine-"
+                    onclick="tryItOut('GETapi-doh-vaccine--vaccine-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-doh-vaccine--vaccine-"
+                    onclick="cancelTryOut('GETapi-doh-vaccine--vaccine-');" hidden>Cancel
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-doh-vaccine--vaccine-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/doh/vaccine/{vaccine}</code></b>
+        </p>
+                <p>
+            <label id="auth-GETapi-doh-vaccine--vaccine-" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="GETapi-doh-vaccine--vaccine-"
+                                                                data-component="header"></label>
+        </p>
+                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>vaccine</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="vaccine" data-endpoint="GETapi-doh-vaccine--vaccine-" data-component="url" required  hidden>
+<br>
+            </p>
+                    </form>
+
             <h2 id="uncategorized-GETapi-survey--survey-">Display the specified resource.</h2>
 
 <p>
@@ -562,7 +960,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/survey/7"
+    "https://vaccines.local/api/survey/11"
 );
 
 let headers = {
@@ -628,6 +1026,125 @@ fetch(url, {
             </p>
                     </form>
 
+            <h2 id="uncategorized-PUTapi-doh-vaccine--vaccine-">Update the specified resource in storage.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<blockquote>Example request:</blockquote>
+
+
+<pre><code class="language-javascript">const url = new URL(
+    "https://vaccines.local/api/doh/vaccine/4"
+);
+
+let headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "facility_others": "molestiae",
+    "vaccination_session": 4,
+    "dosages": [
+        "accusantium"
+    ],
+    "delete": [
+        "fuga"
+    ]
+}
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre>
+
+<div id="execution-results-PUTapi-doh-vaccine--vaccine-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-doh-vaccine--vaccine-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-doh-vaccine--vaccine-"></code></pre>
+</div>
+<div id="execution-error-PUTapi-doh-vaccine--vaccine-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-doh-vaccine--vaccine-"></code></pre>
+</div>
+<form id="form-PUTapi-doh-vaccine--vaccine-" data-method="PUT"
+      data-path="api/doh/vaccine/{vaccine}"
+      data-authed="1"
+      data-hasfiles=""
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-doh-vaccine--vaccine-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-doh-vaccine--vaccine-"
+                    onclick="tryItOut('PUTapi-doh-vaccine--vaccine-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-doh-vaccine--vaccine-"
+                    onclick="cancelTryOut('PUTapi-doh-vaccine--vaccine-');" hidden>Cancel
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-doh-vaccine--vaccine-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/doh/vaccine/{vaccine}</code></b>
+        </p>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/doh/vaccine/{vaccine}</code></b>
+        </p>
+                <p>
+            <label id="auth-PUTapi-doh-vaccine--vaccine-" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="PUTapi-doh-vaccine--vaccine-"
+                                                                data-component="header"></label>
+        </p>
+                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>vaccine</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="vaccine" data-endpoint="PUTapi-doh-vaccine--vaccine-" data-component="url" required  hidden>
+<br>
+            </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>facility_others</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="facility_others" data-endpoint="PUTapi-doh-vaccine--vaccine-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>vaccination_session</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="vaccination_session" data-endpoint="PUTapi-doh-vaccine--vaccine-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>dosages</code></b>&nbsp;&nbsp;<small>string[]</small>     <i>optional</i> &nbsp;
+<input type="text" name="dosages.0" data-endpoint="PUTapi-doh-vaccine--vaccine-" data-component="body"  hidden>
+<input type="text" name="dosages.1" data-endpoint="PUTapi-doh-vaccine--vaccine-" data-component="body" hidden>
+<br>
+        </p>
+                <p>
+            <b><code>delete</code></b>&nbsp;&nbsp;<small>string[]</small>     <i>optional</i> &nbsp;
+<input type="text" name="delete.0" data-endpoint="PUTapi-doh-vaccine--vaccine-" data-component="body"  hidden>
+<input type="text" name="delete.1" data-endpoint="PUTapi-doh-vaccine--vaccine-" data-component="body" hidden>
+<br>
+        </p>
+    
+    </form>
+
             <h2 id="uncategorized-PUTapi-survey--survey-">Update the specified resource in storage.</h2>
 
 <p>
@@ -640,7 +1157,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/survey/10"
+    "https://vaccines.local/api/survey/1"
 );
 
 let headers = {
@@ -710,6 +1227,162 @@ fetch(url, {
             </p>
                     </form>
 
+            <h2 id="uncategorized-DELETEapi-doh-vaccine--vaccine-">Remove the specified resource from storage.</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<blockquote>Example request:</blockquote>
+
+
+<pre><code class="language-javascript">const url = new URL(
+    "https://vaccines.local/api/doh/vaccine/7"
+);
+
+let headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+
+<div id="execution-results-DELETEapi-doh-vaccine--vaccine-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-doh-vaccine--vaccine-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-doh-vaccine--vaccine-"></code></pre>
+</div>
+<div id="execution-error-DELETEapi-doh-vaccine--vaccine-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-doh-vaccine--vaccine-"></code></pre>
+</div>
+<form id="form-DELETEapi-doh-vaccine--vaccine-" data-method="DELETE"
+      data-path="api/doh/vaccine/{vaccine}"
+      data-authed="1"
+      data-hasfiles=""
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-doh-vaccine--vaccine-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-doh-vaccine--vaccine-"
+                    onclick="tryItOut('DELETEapi-doh-vaccine--vaccine-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-doh-vaccine--vaccine-"
+                    onclick="cancelTryOut('DELETEapi-doh-vaccine--vaccine-');" hidden>Cancel
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-doh-vaccine--vaccine-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/doh/vaccine/{vaccine}</code></b>
+        </p>
+                <p>
+            <label id="auth-DELETEapi-doh-vaccine--vaccine-" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="DELETEapi-doh-vaccine--vaccine-"
+                                                                data-component="header"></label>
+        </p>
+                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>vaccine</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="vaccine" data-endpoint="DELETEapi-doh-vaccine--vaccine-" data-component="url" required  hidden>
+<br>
+            </p>
+                    </form>
+
+            <h2 id="uncategorized-GETapi-doh-vaccines-qr--id-">api/doh/vaccines/qr/{id}</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<blockquote>Example request:</blockquote>
+
+
+<pre><code class="language-javascript">const url = new URL(
+    "https://vaccines.local/api/doh/vaccines/qr/et"
+);
+
+let headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre>
+
+    <div id="execution-results-GETapi-doh-vaccines-qr--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-doh-vaccines-qr--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-doh-vaccines-qr--id-"></code></pre>
+</div>
+<div id="execution-error-GETapi-doh-vaccines-qr--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-doh-vaccines-qr--id-"></code></pre>
+</div>
+<form id="form-GETapi-doh-vaccines-qr--id-" data-method="GET"
+      data-path="api/doh/vaccines/qr/{id}"
+      data-authed="1"
+      data-hasfiles=""
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-vaccines-qr--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-doh-vaccines-qr--id-"
+                    onclick="tryItOut('GETapi-doh-vaccines-qr--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-doh-vaccines-qr--id-"
+                    onclick="cancelTryOut('GETapi-doh-vaccines-qr--id-');" hidden>Cancel
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-doh-vaccines-qr--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/doh/vaccines/qr/{id}</code></b>
+        </p>
+                <p>
+            <label id="auth-GETapi-doh-vaccines-qr--id-" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="GETapi-doh-vaccines-qr--id-"
+                                                                data-component="header"></label>
+        </p>
+                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="id" data-endpoint="GETapi-doh-vaccines-qr--id-" data-component="url" required  hidden>
+<br>
+<p>The ID of the qr.</p>            </p>
+                    </form>
+
             <h2 id="uncategorized-DELETEapi-survey--survey-">Remove the specified resource from storage.</h2>
 
 <p>
@@ -722,7 +1395,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/survey/5"
+    "https://vaccines.local/api/survey/10"
 );
 
 let headers = {
@@ -787,6 +1460,203 @@ fetch(url, {
 <br>
             </p>
                     </form>
+
+            <h2 id="uncategorized-PUTapi-doh-vaccines-update-registration--id-">api/doh/vaccines/update/registration/{id}</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<blockquote>Example request:</blockquote>
+
+
+<pre><code class="language-javascript">const url = new URL(
+    "https://vaccines.local/api/doh/vaccines/update/registration/17"
+);
+
+let headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "id": 1,
+    "qr_pass_id": "ut",
+    "first_name": "qui",
+    "middle_name": "qui",
+    "last_name": "et",
+    "suffix": "sequi",
+    "birthdate": "facere",
+    "gender": "itaque",
+    "address": "sunt",
+    "barangay": "minus",
+    "town_city": "ipsam",
+    "province": "ex",
+    "contact_no": "quod",
+    "priority_group": "cum",
+    "sub_priority_group": "iure",
+    "allergic_to_vaccines": "nulla",
+    "is_registered": "non",
+    "with_comorbidity": "quae"
+}
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre>
+
+<div id="execution-results-PUTapi-doh-vaccines-update-registration--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-doh-vaccines-update-registration--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-doh-vaccines-update-registration--id-"></code></pre>
+</div>
+<div id="execution-error-PUTapi-doh-vaccines-update-registration--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-doh-vaccines-update-registration--id-"></code></pre>
+</div>
+<form id="form-PUTapi-doh-vaccines-update-registration--id-" data-method="PUT"
+      data-path="api/doh/vaccines/update/registration/{id}"
+      data-authed="1"
+      data-hasfiles=""
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-doh-vaccines-update-registration--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-doh-vaccines-update-registration--id-"
+                    onclick="tryItOut('PUTapi-doh-vaccines-update-registration--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-doh-vaccines-update-registration--id-"
+                    onclick="cancelTryOut('PUTapi-doh-vaccines-update-registration--id-');" hidden>Cancel
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-doh-vaccines-update-registration--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/doh/vaccines/update/registration/{id}</code></b>
+        </p>
+                <p>
+            <label id="auth-PUTapi-doh-vaccines-update-registration--id-" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="PUTapi-doh-vaccines-update-registration--id-"
+                                                                data-component="header"></label>
+        </p>
+                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="id" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="url" required  hidden>
+<br>
+<p>The ID of the registration.</p>            </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="id" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>qr_pass_id</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="qr_pass_id" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>first_name</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="first_name" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>middle_name</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="middle_name" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>last_name</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="last_name" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>suffix</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="suffix" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>birthdate</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="birthdate" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>gender</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="gender" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>address</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="address" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>barangay</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="barangay" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>town_city</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="town_city" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>province</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="province" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>contact_no</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="contact_no" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>priority_group</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="priority_group" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+<p>'category' =&gt; 'string',
+'category_id' =&gt; 'string',
+'category_id_no' =&gt; 'string',
+'philhealth' =&gt; 'string',
+'pwd_id' =&gt; 'string',.</p>        </p>
+                <p>
+            <b><code>sub_priority_group</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="sub_priority_group" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>allergic_to_vaccines</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="allergic_to_vaccines" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>is_registered</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="is_registered" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>with_comorbidity</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="with_comorbidity" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
+<br>
+        </p>
+    
+    </form>
 
             <h2 id="uncategorized-GETapi-users">Display a listing of the resource.</h2>
 
@@ -882,13 +1752,13 @@ let headers = {
 };
 
 let body = {
-    "firstname": "non",
-    "lastname": "et",
-    "username": "minus",
-    "password": "dolorem",
-    "group_id": 9,
-    "profession": "ut",
-    "prc_number": "natus"
+    "firstname": "culpa",
+    "lastname": "quisquam",
+    "username": "eum",
+    "password": "ut",
+    "group_id": 15,
+    "profession": "eaque",
+    "prc_number": "eveniet"
 }
 
 fetch(url, {
@@ -993,7 +1863,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/user/17"
+    "https://vaccines.local/api/user/1"
 );
 
 let headers = {
@@ -1071,7 +1941,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/user/3"
+    "https://vaccines.local/api/user/8"
 );
 
 let headers = {
@@ -1081,12 +1951,12 @@ let headers = {
 };
 
 let body = {
-    "firstname": "voluptatum",
-    "lastname": "molestias",
-    "username": "ratione",
-    "group_id": 13,
-    "profession": "odio",
-    "prc_number": "voluptatem"
+    "firstname": "asperiores",
+    "lastname": "distinctio",
+    "username": "quasi",
+    "group_id": 14,
+    "profession": "sunt",
+    "prc_number": "fugit"
 }
 
 fetch(url, {
@@ -1196,7 +2066,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/user/8"
+    "https://vaccines.local/api/user/14"
 );
 
 let headers = {
@@ -1356,8 +2226,8 @@ let headers = {
 };
 
 let body = {
-    "description": "et",
-    "slots": 13
+    "description": "commodi",
+    "slots": 5
 }
 
 fetch(url, {
@@ -1437,7 +2307,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/hospital/14"
+    "https://vaccines.local/api/hospital/9"
 );
 
 let headers = {
@@ -1515,7 +2385,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/hospital/11"
+    "https://vaccines.local/api/hospital/14"
 );
 
 let headers = {
@@ -1525,8 +2395,8 @@ let headers = {
 };
 
 let body = {
-    "description": "eius",
-    "slots": 3
+    "description": "animi",
+    "slots": 2
 }
 
 fetch(url, {
@@ -1616,7 +2486,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/hospital/7"
+    "https://vaccines.local/api/hospital/3"
 );
 
 let headers = {
@@ -1694,7 +2564,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/napanam/check/registration/1"
+    "https://vaccines.local/api/napanam/check/registration/8"
 );
 
 let headers = {
@@ -1772,7 +2642,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/napanam/check/registration/9/eligendi"
+    "https://vaccines.local/api/napanam/check/registration/18/accusantium"
 );
 
 let headers = {
@@ -1855,7 +2725,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/napanam/check/registrationID/non"
+    "https://vaccines.local/api/napanam/check/registrationID/fuga"
 );
 
 let headers = {
@@ -2591,36 +3461,36 @@ let headers = {
 };
 
 let body = {
-    "qr_pass_id": "necessitatibus",
-    "first_name": "earum",
-    "middle_name": "quae",
-    "last_name": "eum",
-    "suffix": "eum",
-    "birthdate": "dolorum",
-    "gender": "iste",
-    "region": "similique",
-    "address": "qui",
-    "barangay": "quibusdam",
-    "town_city": "quasi",
-    "province": "et",
-    "contact_no": "delectus",
-    "category": "nihil",
-    "category_id": "expedita",
-    "category_id_no": "non",
-    "philhealth": "et",
-    "pwd_id": "incidunt",
-    "indigenous_member": "aperiam",
-    "civil_status": "sit",
-    "priority_group": "quod",
-    "sub_priority_group": "et",
-    "occupation": "explicabo",
-    "with_allergy": "animi",
-    "with_comorbidity": "adipisci",
-    "is_registered": "quia",
-    "origin": "vel",
-    "employer_name": "sed",
-    "employer_address": "odit",
-    "employer_lgu": "a"
+    "qr_pass_id": "ullam",
+    "first_name": "commodi",
+    "middle_name": "non",
+    "last_name": "accusantium",
+    "suffix": "quia",
+    "birthdate": "totam",
+    "gender": "eum",
+    "region": "blanditiis",
+    "address": "sint",
+    "barangay": "aspernatur",
+    "town_city": "quis",
+    "province": "tempora",
+    "contact_no": "non",
+    "category": "incidunt",
+    "category_id": "iusto",
+    "category_id_no": "quo",
+    "philhealth": "sunt",
+    "pwd_id": "sed",
+    "indigenous_member": "sunt",
+    "civil_status": "nihil",
+    "priority_group": "eligendi",
+    "sub_priority_group": "vitae",
+    "occupation": "laborum",
+    "with_allergy": "quam",
+    "with_comorbidity": "tempora",
+    "is_registered": "fuga",
+    "origin": "eos",
+    "employer_name": "odio",
+    "employer_address": "qui",
+    "employer_lgu": "ut"
 }
 
 fetch(url, {
@@ -2918,7 +3788,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/registration/20"
+    "https://vaccines.local/api/doh/registration/6"
 );
 
 let headers = {
@@ -2928,36 +3798,36 @@ let headers = {
 };
 
 let body = {
-    "qr_pass_id": "voluptatem",
-    "first_name": "reiciendis",
-    "middle_name": "aut",
-    "last_name": "placeat",
-    "suffix": "ea",
-    "birthdate": "voluptates",
-    "gender": "ea",
-    "region": "hic",
-    "address": "culpa",
-    "barangay": "eum",
-    "town_city": "quaerat",
-    "province": "fugit",
-    "contact_no": "libero",
-    "civil_status": "laborum",
-    "category": "doloribus",
-    "category_id": "error",
-    "category_id_no": "omnis",
+    "qr_pass_id": "dolore",
+    "first_name": "voluptatem",
+    "middle_name": "ut",
+    "last_name": "temporibus",
+    "suffix": "et",
+    "birthdate": "qui",
+    "gender": "vel",
+    "region": "libero",
+    "address": "aut",
+    "barangay": "aut",
+    "town_city": "natus",
+    "province": "eligendi",
+    "contact_no": "velit",
+    "civil_status": "qui",
+    "category": "aut",
+    "category_id": "similique",
+    "category_id_no": "officia",
     "philhealth": "nobis",
-    "pwd_id": "quia",
-    "indigenous_member": "eos",
-    "priority_group": "minima",
-    "sub_priority_group": "est",
-    "occupation": "enim",
-    "with_allergy": "ipsam",
-    "with_comorbidity": "dolore",
-    "is_registered": "ipsam",
-    "origin": "vero",
-    "employer_name": "aliquid",
-    "employer_address": "temporibus",
-    "employer_lgu": "voluptas"
+    "pwd_id": "voluptatem",
+    "indigenous_member": "non",
+    "priority_group": "veritatis",
+    "sub_priority_group": "nostrum",
+    "occupation": "optio",
+    "with_allergy": "sequi",
+    "with_comorbidity": "dolores",
+    "is_registered": "eligendi",
+    "origin": "quis",
+    "employer_name": "id",
+    "employer_address": "unde",
+    "employer_lgu": "aut"
 }
 
 fetch(url, {
@@ -3187,7 +4057,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/registration/6"
+    "https://vaccines.local/api/doh/registration/17"
 );
 
 let headers = {
@@ -3265,7 +4135,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/dosages/14"
+    "https://vaccines.local/api/doh/dosages/7"
 );
 
 let headers = {
@@ -3353,20 +4223,20 @@ let headers = {
 };
 
 let body = {
-    "vaccine_id": 14,
-    "qr_pass_id": "eligendi",
-    "user_id": 2,
-    "brand_name": 7,
-    "vaccine_name": 4,
-    "site_of_injection": "cumque",
-    "expiry_date": "2021-06-16T11:33:53",
-    "batch_number": 14,
-    "lot_number": 17,
-    "dose": 7,
-    "diluent_batch_number": 6,
-    "diluent_lot_number": 2,
-    "date_of_vaccination": "2021-06-16T11:33:53",
-    "next_vaccination": "2021-06-16T11:33:53"
+    "vaccine_id": 16,
+    "qr_pass_id": "ut",
+    "user_id": 8,
+    "brand_name": 11,
+    "vaccine_name": 17,
+    "site_of_injection": "magni",
+    "expiry_date": "2021-06-16T15:50:17",
+    "batch_number": 6,
+    "lot_number": 9,
+    "dose": 12,
+    "diluent_batch_number": 13,
+    "diluent_lot_number": 4,
+    "date_of_vaccination": "2021-06-16T15:50:17",
+    "next_vaccination": "2021-06-16T15:50:17"
 }
 
 fetch(url, {
@@ -3506,7 +4376,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/dosage/4"
+    "https://vaccines.local/api/doh/dosage/10"
 );
 
 let headers = {
@@ -3584,7 +4454,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/dosage/7"
+    "https://vaccines.local/api/doh/dosage/5"
 );
 
 let headers = {
@@ -3596,15 +4466,15 @@ let headers = {
 let body = {
     "vaccine_id": 9,
     "user_id": 8,
-    "brand_name": 5,
-    "vaccine_name": "dolor",
-    "site_of_injection": "quibusdam",
-    "expiry_date": "2021-06-16T11:33:53",
-    "batch_number": 8,
+    "brand_name": 18,
+    "vaccine_name": "cumque",
+    "site_of_injection": "maxime",
+    "expiry_date": "2021-06-16T15:50:17",
+    "batch_number": 7,
     "lot_number": 17,
-    "dose": 19,
-    "date_of_vaccination": "2021-06-16T11:33:53",
-    "next_vaccination": "2021-06-16T11:33:53"
+    "dose": 18,
+    "date_of_vaccination": "2021-06-16T15:50:17",
+    "next_vaccination": "2021-06-16T15:50:17"
 }
 
 fetch(url, {
@@ -3739,7 +4609,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/dosage/8"
+    "https://vaccines.local/api/doh/dosage/17"
 );
 
 let headers = {
@@ -3889,7 +4759,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/pres/corrupti"
+    "https://vaccines.local/api/doh/pres/reiciendis"
 );
 
 let headers = {
@@ -4039,7 +4909,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/pre/maxime"
+    "https://vaccines.local/api/doh/pre/quo"
 );
 
 let headers = {
@@ -4117,7 +4987,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/pre/pariatur"
+    "https://vaccines.local/api/doh/pre/eos"
 );
 
 let headers = {
@@ -4128,11 +4998,11 @@ let headers = {
 
 let body = {
     "consent": 12,
-    "blood_pressure": "dolorem",
-    "oxygen_saturation": "laudantium",
-    "pulse_rate": "eveniet",
+    "blood_pressure": "omnis",
+    "oxygen_saturation": "et",
+    "pulse_rate": "placeat",
     "assessments": [
-        "odio"
+        "eligendi"
     ]
 }
 
@@ -4239,7 +5109,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/pre/doloremque"
+    "https://vaccines.local/api/doh/pre/iste"
 );
 
 let headers = {
@@ -4389,7 +5259,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/posts/soluta"
+    "https://vaccines.local/api/doh/posts/et"
 );
 
 let headers = {
@@ -4539,7 +5409,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/post/expedita"
+    "https://vaccines.local/api/doh/post/ullam"
 );
 
 let headers = {
@@ -4617,7 +5487,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/post/cupiditate"
+    "https://vaccines.local/api/doh/post/debitis"
 );
 
 let headers = {
@@ -4628,11 +5498,11 @@ let headers = {
 
 let body = {
     "assessments": [
-        "harum"
+        "sed"
     ],
-    "blood_pressure": "repellendus",
-    "oxygen_saturation": "et",
-    "pulse_rate": "rem"
+    "blood_pressure": "qui",
+    "oxygen_saturation": "eos",
+    "pulse_rate": "quasi"
 }
 
 fetch(url, {
@@ -4733,7 +5603,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/post/id"
+    "https://vaccines.local/api/doh/post/earum"
 );
 
 let headers = {
@@ -4893,7 +5763,7 @@ let headers = {
 };
 
 let body = {
-    "excel": "officia"
+    "excel": "reprehenderit"
 }
 
 fetch(url, {
@@ -5600,796 +6470,6 @@ fetch(url, {
                                                                 name="Authorization"
                                                                 data-prefix="Bearer "
                                                                 data-endpoint="GETapi-summary-vaccination"
-                                                                data-component="header"></label>
-        </p>
-                </form>
-
-        <h1 id="vaccination">Vaccination</h1>
-    <p>
-        
-    </p>
-
-            <h2 id="vaccination-GETapi-doh-vaccines">Display List of vaccinations</h2>
-
-<p>
-<small class="badge badge-darkred">requires authentication</small>
-</p>
-
-
-
-<blockquote>Example request:</blockquote>
-
-
-<pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccines"
-);
-
-let headers = {
-    "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers,
-}).then(response =&gt; response.json());</code></pre>
-
-    <div id="execution-results-GETapi-doh-vaccines" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-GETapi-doh-vaccines"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-doh-vaccines"></code></pre>
-</div>
-<div id="execution-error-GETapi-doh-vaccines" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-doh-vaccines"></code></pre>
-</div>
-<form id="form-GETapi-doh-vaccines" data-method="GET"
-      data-path="api/doh/vaccines"
-      data-authed="1"
-      data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-vaccines', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-doh-vaccines"
-                    onclick="tryItOut('GETapi-doh-vaccines');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-doh-vaccines"
-                    onclick="cancelTryOut('GETapi-doh-vaccines');" hidden>Cancel
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-doh-vaccines" hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-green">GET</small>
-            <b><code>api/doh/vaccines</code></b>
-        </p>
-                <p>
-            <label id="auth-GETapi-doh-vaccines" hidden>Authorization header:
-                <b><code>Bearer </code></b><input type="text"
-                                                                name="Authorization"
-                                                                data-prefix="Bearer "
-                                                                data-endpoint="GETapi-doh-vaccines"
-                                                                data-component="header"></label>
-        </p>
-                </form>
-
-            <h2 id="vaccination-POSTapi-doh-vaccine">Store a newly created resource in storage.</h2>
-
-<p>
-<small class="badge badge-darkred">requires authentication</small>
-</p>
-
-
-
-<blockquote>Example request:</blockquote>
-
-
-<pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccine"
-);
-
-let headers = {
-    "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "qr_pass_id": "voluptatum",
-    "vaccination_facility": 1
-}
-
-fetch(url, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(body),
-}).then(response =&gt; response.json());</code></pre>
-
-<div id="execution-results-POSTapi-doh-vaccine" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-POSTapi-doh-vaccine"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-POSTapi-doh-vaccine"></code></pre>
-</div>
-<div id="execution-error-POSTapi-doh-vaccine" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTapi-doh-vaccine"></code></pre>
-</div>
-<form id="form-POSTapi-doh-vaccine" data-method="POST"
-      data-path="api/doh/vaccine"
-      data-authed="1"
-      data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
-      onsubmit="event.preventDefault(); executeTryOut('POSTapi-doh-vaccine', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-POSTapi-doh-vaccine"
-                    onclick="tryItOut('POSTapi-doh-vaccine');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-POSTapi-doh-vaccine"
-                    onclick="cancelTryOut('POSTapi-doh-vaccine');" hidden>Cancel
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-POSTapi-doh-vaccine" hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-black">POST</small>
-            <b><code>api/doh/vaccine</code></b>
-        </p>
-                <p>
-            <label id="auth-POSTapi-doh-vaccine" hidden>Authorization header:
-                <b><code>Bearer </code></b><input type="text"
-                                                                name="Authorization"
-                                                                data-prefix="Bearer "
-                                                                data-endpoint="POSTapi-doh-vaccine"
-                                                                data-component="header"></label>
-        </p>
-                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-        <p>
-            <b><code>qr_pass_id</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="qr_pass_id" data-endpoint="POSTapi-doh-vaccine" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>vaccination_facility</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
-<input type="number" name="vaccination_facility" data-endpoint="POSTapi-doh-vaccine" data-component="body"  hidden>
-<br>
-        </p>
-    
-    </form>
-
-            <h2 id="vaccination-GETapi-doh-vaccine--vaccine-">Display the specified resource.</h2>
-
-<p>
-<small class="badge badge-darkred">requires authentication</small>
-</p>
-
-
-
-<blockquote>Example request:</blockquote>
-
-
-<pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccine/17"
-);
-
-let headers = {
-    "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers,
-}).then(response =&gt; response.json());</code></pre>
-
-    <div id="execution-results-GETapi-doh-vaccine--vaccine-" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-GETapi-doh-vaccine--vaccine-"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-doh-vaccine--vaccine-"></code></pre>
-</div>
-<div id="execution-error-GETapi-doh-vaccine--vaccine-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-doh-vaccine--vaccine-"></code></pre>
-</div>
-<form id="form-GETapi-doh-vaccine--vaccine-" data-method="GET"
-      data-path="api/doh/vaccine/{vaccine}"
-      data-authed="1"
-      data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-vaccine--vaccine-', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-doh-vaccine--vaccine-"
-                    onclick="tryItOut('GETapi-doh-vaccine--vaccine-');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-doh-vaccine--vaccine-"
-                    onclick="cancelTryOut('GETapi-doh-vaccine--vaccine-');" hidden>Cancel
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-doh-vaccine--vaccine-" hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-green">GET</small>
-            <b><code>api/doh/vaccine/{vaccine}</code></b>
-        </p>
-                <p>
-            <label id="auth-GETapi-doh-vaccine--vaccine-" hidden>Authorization header:
-                <b><code>Bearer </code></b><input type="text"
-                                                                name="Authorization"
-                                                                data-prefix="Bearer "
-                                                                data-endpoint="GETapi-doh-vaccine--vaccine-"
-                                                                data-component="header"></label>
-        </p>
-                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-                    <p>
-                <b><code>vaccine</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
-<input type="number" name="vaccine" data-endpoint="GETapi-doh-vaccine--vaccine-" data-component="url" required  hidden>
-<br>
-            </p>
-                    </form>
-
-            <h2 id="vaccination-PUTapi-doh-vaccine--vaccine-">Update the specified resource in storage.</h2>
-
-<p>
-<small class="badge badge-darkred">requires authentication</small>
-</p>
-
-
-
-<blockquote>Example request:</blockquote>
-
-
-<pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccine/7"
-);
-
-let headers = {
-    "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "facility_others": "voluptatem",
-    "vaccination_session": 9,
-    "dosages": [
-        "porro"
-    ],
-    "delete": [
-        "nesciunt"
-    ]
-}
-
-fetch(url, {
-    method: "PUT",
-    headers,
-    body: JSON.stringify(body),
-}).then(response =&gt; response.json());</code></pre>
-
-<div id="execution-results-PUTapi-doh-vaccine--vaccine-" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-PUTapi-doh-vaccine--vaccine-"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-PUTapi-doh-vaccine--vaccine-"></code></pre>
-</div>
-<div id="execution-error-PUTapi-doh-vaccine--vaccine-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-PUTapi-doh-vaccine--vaccine-"></code></pre>
-</div>
-<form id="form-PUTapi-doh-vaccine--vaccine-" data-method="PUT"
-      data-path="api/doh/vaccine/{vaccine}"
-      data-authed="1"
-      data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
-      onsubmit="event.preventDefault(); executeTryOut('PUTapi-doh-vaccine--vaccine-', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-PUTapi-doh-vaccine--vaccine-"
-                    onclick="tryItOut('PUTapi-doh-vaccine--vaccine-');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-PUTapi-doh-vaccine--vaccine-"
-                    onclick="cancelTryOut('PUTapi-doh-vaccine--vaccine-');" hidden>Cancel
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-PUTapi-doh-vaccine--vaccine-" hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-darkblue">PUT</small>
-            <b><code>api/doh/vaccine/{vaccine}</code></b>
-        </p>
-            <p>
-            <small class="badge badge-purple">PATCH</small>
-            <b><code>api/doh/vaccine/{vaccine}</code></b>
-        </p>
-                <p>
-            <label id="auth-PUTapi-doh-vaccine--vaccine-" hidden>Authorization header:
-                <b><code>Bearer </code></b><input type="text"
-                                                                name="Authorization"
-                                                                data-prefix="Bearer "
-                                                                data-endpoint="PUTapi-doh-vaccine--vaccine-"
-                                                                data-component="header"></label>
-        </p>
-                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-                    <p>
-                <b><code>vaccine</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
-<input type="number" name="vaccine" data-endpoint="PUTapi-doh-vaccine--vaccine-" data-component="url" required  hidden>
-<br>
-            </p>
-                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-        <p>
-            <b><code>facility_others</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="facility_others" data-endpoint="PUTapi-doh-vaccine--vaccine-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>vaccination_session</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
-<input type="number" name="vaccination_session" data-endpoint="PUTapi-doh-vaccine--vaccine-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>dosages</code></b>&nbsp;&nbsp;<small>string[]</small>     <i>optional</i> &nbsp;
-<input type="text" name="dosages.0" data-endpoint="PUTapi-doh-vaccine--vaccine-" data-component="body"  hidden>
-<input type="text" name="dosages.1" data-endpoint="PUTapi-doh-vaccine--vaccine-" data-component="body" hidden>
-<br>
-        </p>
-                <p>
-            <b><code>delete</code></b>&nbsp;&nbsp;<small>string[]</small>     <i>optional</i> &nbsp;
-<input type="text" name="delete.0" data-endpoint="PUTapi-doh-vaccine--vaccine-" data-component="body"  hidden>
-<input type="text" name="delete.1" data-endpoint="PUTapi-doh-vaccine--vaccine-" data-component="body" hidden>
-<br>
-        </p>
-    
-    </form>
-
-            <h2 id="vaccination-DELETEapi-doh-vaccine--vaccine-">Remove the specified resource from storage.</h2>
-
-<p>
-<small class="badge badge-darkred">requires authentication</small>
-</p>
-
-
-
-<blockquote>Example request:</blockquote>
-
-
-<pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccine/2"
-);
-
-let headers = {
-    "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "DELETE",
-    headers,
-}).then(response =&gt; response.json());</code></pre>
-
-<div id="execution-results-DELETEapi-doh-vaccine--vaccine-" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-DELETEapi-doh-vaccine--vaccine-"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-DELETEapi-doh-vaccine--vaccine-"></code></pre>
-</div>
-<div id="execution-error-DELETEapi-doh-vaccine--vaccine-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-DELETEapi-doh-vaccine--vaccine-"></code></pre>
-</div>
-<form id="form-DELETEapi-doh-vaccine--vaccine-" data-method="DELETE"
-      data-path="api/doh/vaccine/{vaccine}"
-      data-authed="1"
-      data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
-      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-doh-vaccine--vaccine-', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-DELETEapi-doh-vaccine--vaccine-"
-                    onclick="tryItOut('DELETEapi-doh-vaccine--vaccine-');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-DELETEapi-doh-vaccine--vaccine-"
-                    onclick="cancelTryOut('DELETEapi-doh-vaccine--vaccine-');" hidden>Cancel
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-DELETEapi-doh-vaccine--vaccine-" hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-red">DELETE</small>
-            <b><code>api/doh/vaccine/{vaccine}</code></b>
-        </p>
-                <p>
-            <label id="auth-DELETEapi-doh-vaccine--vaccine-" hidden>Authorization header:
-                <b><code>Bearer </code></b><input type="text"
-                                                                name="Authorization"
-                                                                data-prefix="Bearer "
-                                                                data-endpoint="DELETEapi-doh-vaccine--vaccine-"
-                                                                data-component="header"></label>
-        </p>
-                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-                    <p>
-                <b><code>vaccine</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
-<input type="number" name="vaccine" data-endpoint="DELETEapi-doh-vaccine--vaccine-" data-component="url" required  hidden>
-<br>
-            </p>
-                    </form>
-
-            <h2 id="vaccination-GETapi-doh-vaccines-qr--id-">api/doh/vaccines/qr/{id}</h2>
-
-<p>
-<small class="badge badge-darkred">requires authentication</small>
-</p>
-
-
-
-<blockquote>Example request:</blockquote>
-
-
-<pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccines/qr/et"
-);
-
-let headers = {
-    "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers,
-}).then(response =&gt; response.json());</code></pre>
-
-    <div id="execution-results-GETapi-doh-vaccines-qr--id-" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-GETapi-doh-vaccines-qr--id-"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-doh-vaccines-qr--id-"></code></pre>
-</div>
-<div id="execution-error-GETapi-doh-vaccines-qr--id-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-doh-vaccines-qr--id-"></code></pre>
-</div>
-<form id="form-GETapi-doh-vaccines-qr--id-" data-method="GET"
-      data-path="api/doh/vaccines/qr/{id}"
-      data-authed="1"
-      data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-vaccines-qr--id-', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-doh-vaccines-qr--id-"
-                    onclick="tryItOut('GETapi-doh-vaccines-qr--id-');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-doh-vaccines-qr--id-"
-                    onclick="cancelTryOut('GETapi-doh-vaccines-qr--id-');" hidden>Cancel
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-doh-vaccines-qr--id-" hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-green">GET</small>
-            <b><code>api/doh/vaccines/qr/{id}</code></b>
-        </p>
-                <p>
-            <label id="auth-GETapi-doh-vaccines-qr--id-" hidden>Authorization header:
-                <b><code>Bearer </code></b><input type="text"
-                                                                name="Authorization"
-                                                                data-prefix="Bearer "
-                                                                data-endpoint="GETapi-doh-vaccines-qr--id-"
-                                                                data-component="header"></label>
-        </p>
-                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-                    <p>
-                <b><code>id</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<input type="text" name="id" data-endpoint="GETapi-doh-vaccines-qr--id-" data-component="url" required  hidden>
-<br>
-<p>The ID of the qr.</p>            </p>
-                    </form>
-
-            <h2 id="vaccination-PUTapi-doh-vaccines-update-registration--id-">api/doh/vaccines/update/registration/{id}</h2>
-
-<p>
-<small class="badge badge-darkred">requires authentication</small>
-</p>
-
-
-
-<blockquote>Example request:</blockquote>
-
-
-<pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccines/update/registration/16"
-);
-
-let headers = {
-    "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "id": 7,
-    "qr_pass_id": "quia",
-    "first_name": "eligendi",
-    "middle_name": "voluptatum",
-    "last_name": "culpa",
-    "suffix": "et",
-    "birthdate": "maiores",
-    "gender": "omnis",
-    "address": "vitae",
-    "barangay": "repellendus",
-    "town_city": "quia",
-    "province": "provident",
-    "contact_no": "reiciendis",
-    "priority_group": "delectus",
-    "sub_priority_group": "eligendi",
-    "allergic_to_vaccines": "reiciendis",
-    "is_registered": "veniam",
-    "with_comorbidity": "praesentium"
-}
-
-fetch(url, {
-    method: "PUT",
-    headers,
-    body: JSON.stringify(body),
-}).then(response =&gt; response.json());</code></pre>
-
-<div id="execution-results-PUTapi-doh-vaccines-update-registration--id-" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-PUTapi-doh-vaccines-update-registration--id-"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-PUTapi-doh-vaccines-update-registration--id-"></code></pre>
-</div>
-<div id="execution-error-PUTapi-doh-vaccines-update-registration--id-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-PUTapi-doh-vaccines-update-registration--id-"></code></pre>
-</div>
-<form id="form-PUTapi-doh-vaccines-update-registration--id-" data-method="PUT"
-      data-path="api/doh/vaccines/update/registration/{id}"
-      data-authed="1"
-      data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
-      onsubmit="event.preventDefault(); executeTryOut('PUTapi-doh-vaccines-update-registration--id-', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-PUTapi-doh-vaccines-update-registration--id-"
-                    onclick="tryItOut('PUTapi-doh-vaccines-update-registration--id-');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-PUTapi-doh-vaccines-update-registration--id-"
-                    onclick="cancelTryOut('PUTapi-doh-vaccines-update-registration--id-');" hidden>Cancel
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-PUTapi-doh-vaccines-update-registration--id-" hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-darkblue">PUT</small>
-            <b><code>api/doh/vaccines/update/registration/{id}</code></b>
-        </p>
-                <p>
-            <label id="auth-PUTapi-doh-vaccines-update-registration--id-" hidden>Authorization header:
-                <b><code>Bearer </code></b><input type="text"
-                                                                name="Authorization"
-                                                                data-prefix="Bearer "
-                                                                data-endpoint="PUTapi-doh-vaccines-update-registration--id-"
-                                                                data-component="header"></label>
-        </p>
-                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-                    <p>
-                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
-<input type="number" name="id" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="url" required  hidden>
-<br>
-<p>The ID of the registration.</p>            </p>
-                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-        <p>
-            <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
-<input type="number" name="id" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>qr_pass_id</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="qr_pass_id" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>first_name</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="first_name" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>middle_name</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="middle_name" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>last_name</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="last_name" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>suffix</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="suffix" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>birthdate</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="birthdate" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>gender</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="gender" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>address</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="address" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>barangay</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="barangay" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>town_city</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="town_city" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>province</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="province" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>contact_no</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="contact_no" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>priority_group</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="priority_group" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-<p>'category' =&gt; 'string',
-'category_id' =&gt; 'string',
-'category_id_no' =&gt; 'string',
-'philhealth' =&gt; 'string',
-'pwd_id' =&gt; 'string',.</p>        </p>
-                <p>
-            <b><code>sub_priority_group</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="sub_priority_group" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>allergic_to_vaccines</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="allergic_to_vaccines" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>is_registered</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="is_registered" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-        </p>
-                <p>
-            <b><code>with_comorbidity</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="with_comorbidity" data-endpoint="PUTapi-doh-vaccines-update-registration--id-" data-component="body"  hidden>
-<br>
-        </p>
-    
-    </form>
-
-            <h2 id="vaccination-GETapi-doh-vaccines-search-registrations">List for vaccination</h2>
-
-<p>
-<small class="badge badge-darkred">requires authentication</small>
-</p>
-
-<p>Search registrations by QR, first name, middle name, last name for vaccinations</p>
-
-<blockquote>Example request:</blockquote>
-
-
-<pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccines/search/registrations"
-);
-
-let headers = {
-    "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers,
-}).then(response =&gt; response.json());</code></pre>
-
-    <div id="execution-results-GETapi-doh-vaccines-search-registrations" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-GETapi-doh-vaccines-search-registrations"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-doh-vaccines-search-registrations"></code></pre>
-</div>
-<div id="execution-error-GETapi-doh-vaccines-search-registrations" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-doh-vaccines-search-registrations"></code></pre>
-</div>
-<form id="form-GETapi-doh-vaccines-search-registrations" data-method="GET"
-      data-path="api/doh/vaccines/search/registrations"
-      data-authed="1"
-      data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
-      onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-vaccines-search-registrations', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-GETapi-doh-vaccines-search-registrations"
-                    onclick="tryItOut('GETapi-doh-vaccines-search-registrations');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-GETapi-doh-vaccines-search-registrations"
-                    onclick="cancelTryOut('GETapi-doh-vaccines-search-registrations');" hidden>Cancel
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-GETapi-doh-vaccines-search-registrations" hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-green">GET</small>
-            <b><code>api/doh/vaccines/search/registrations</code></b>
-        </p>
-                <p>
-            <label id="auth-GETapi-doh-vaccines-search-registrations" hidden>Authorization header:
-                <b><code>Bearer </code></b><input type="text"
-                                                                name="Authorization"
-                                                                data-prefix="Bearer "
-                                                                data-endpoint="GETapi-doh-vaccines-search-registrations"
                                                                 data-component="header"></label>
         </p>
                 </form>

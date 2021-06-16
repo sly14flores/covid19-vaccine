@@ -149,6 +149,7 @@ Route::prefix('doh')->group(function() {
      * Vaccination flow
      */
     Route::get('vaccines/search/registrations', [VaccineController::class, 'searchRegistrations']);
+    Route::get('vaccines/screening/info/{id}', [VaccineController::class, 'personalInfo']);
 
     /**
      * Pre Assessments
