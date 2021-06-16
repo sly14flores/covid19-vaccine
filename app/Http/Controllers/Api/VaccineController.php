@@ -29,6 +29,9 @@ use App\Traits\DOHHelpers;
 use App\Traits\SelectionsRegistration;
 use App\Helpers\General\CollectionHelper;
 
+/**
+ * @group Vaccination
+ */
 class VaccineController extends Controller
 {
     use Messages, DOHHelpers, SelectionsRegistration;
@@ -43,10 +46,10 @@ class VaccineController extends Controller
         $this->http_code_ok = 200;
         $this->http_code_error = 500;
 
-	}    
+	}
 
     /**
-     * Display a listing of the resource.
+     * Display List of vaccinations
      *
      * @return \Illuminate\Http\Response
      */
