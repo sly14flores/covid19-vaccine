@@ -211,7 +211,7 @@ import Card from 'primevue/card/sfc';
 import { reactive, toRefs, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { getScreeningInfo, postScreeningInfo } from '../../api/vaccination'
+import { getPersonalInfo, postScreeningInfo } from '../../api/vaccination'
 
 export default {
     components: {
@@ -258,9 +258,14 @@ export default {
 
         const dose = ref(1);
 
-        // API call, get
         if (qr!=null) {
-
+            getPersonalInfo({ id: qr, dose: dose.value }).then(res => {
+                const { data: { data } } = res
+                console.log(data)
+                Object.assign(state.personalInfo, data)
+            }).then(err => {
+                console.log(err)
+            })
         }
 
         return {
