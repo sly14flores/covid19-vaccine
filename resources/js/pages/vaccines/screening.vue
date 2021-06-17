@@ -9,7 +9,7 @@
             </template>
 
             <template #right>
-                <Button label="Save" class="p-button-primary p-mr-2" />
+                <Button label="Save" class="p-button-primary p-mr-2" @click="save" />
                 <Button label="Discard" class="p-button-danger" @click="discard" />
             </template>
         </Toolbar>
@@ -53,7 +53,7 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label class="p-text-bold">Dose</label>
-                                <Dropdown class="p-shadow-1 p-inputtext-sm" v-model="dose" optionLabel="name" optionValue="id" :options="doses" placeholder="Select a dose" />
+                                <Dropdown class="p-shadow-1 p-inputtext-sm" v-model="dose" optionLabel="name" optionValue="id" :options="doses" placeholder="Select a dose" @change="doseSelected" />
                             </div>
                         </div>
                         <hr />
@@ -65,7 +65,7 @@
                                 <Button type="button" @click="addRow" icon="pi pi-plus" class="p-button-sm p-button-secondary" />
                             </template>
                         </Toolbar>
-                        <div v-for="row in rows" :key="row">
+                        <div v-for="(row, i) in vitalSigns" :key="row">
                             <hr />
                             <div class="p-fluid p-formgrid p-grid">
                                 <div class="p-field p-col-12 p-md-2">
@@ -105,7 +105,7 @@
                                     <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
-                                    <Button type="button" @click="removeRow" icon="pi pi-trash" class="p-button-sm p-button-danger p-mt-4" />
+                                    <Button type="button" @click="removeRow(i)" icon="pi pi-trash" class="p-button-sm p-button-danger p-mt-4" />
                                 </div>
                             </div>
                         </div>
@@ -115,7 +115,7 @@
                                 <h4 class="header-blue p-text-bold">HEALTH DECLARATION SCREENING FORM</h4>
                             </template>
                         </Toolbar>
-                        <DataTable :value="personalInfo.pre_assessment.assessments" class="p-datatable-sm" dataKey="key">
+                        <DataTable :value="healthDeclaration.assessments" class="p-datatable-sm" dataKey="key">
                             <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
                                 <template #body="slotProps">
                                     <RadioButton :value="true" v-model="slotProps.data['value']" />
@@ -211,7 +211,12 @@ import Card from 'primevue/card/sfc';
 import { reactive, toRefs, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { getPersonalInfo, postScreeningInfo, getSelections, getVaccinators } from '../../api/vaccination'
+import {
+    getPersonalInfo,
+    postScreeningInfo,
+    getSelections,
+    getVaccinators
+} from '../../api/vaccination'
 
 export default {
     components: {
@@ -243,13 +248,13 @@ export default {
         const route = useRoute()
         const { params } = route || {}
         const { qr } = params || null
-        
-        console.log(qr)
 
         const state = reactive({
             personalInfo: {},
-            vitalSigns: {},
-            healthDeclaration: {},
+            vitalSigns: [],
+            healthDeclaration: {
+                assessments: []
+            },
             selections: [],
             pres: [],
             vaccinators: [],
@@ -259,56 +264,96 @@ export default {
             ]
         })
 
-        const dose = ref(1);
-
-        if (qr!=null) {
+        const doseSelected = () => {
             getPersonalInfo({ id: qr, dose: dose.value }).then(res => {
                 const { data: { data } } = res
-                console.log(data)
-                Object.assign(state, {...state, personalInfo: data})
-            }).then(err => {
+                const { pre_assessment, vitals } = data
+                Object.assign(state, {
+                    ...state,
+                    personalInfo: data,
+                    vitalSigns: vitals,
+                    healthDeclaration: pre_assessment,
+                })
+            }).catch(err => {
                 console.log(err)
             })
         }
 
-        const selectionsValue =  getSelections().then(res => {
+        const dose = ref(1);
+
+        if (qr!=null) {
+            doseSelected()
+        }
+
+        getSelections().then(res => {
             const { data: { data } } = res
-            console.log(data)
             Object.assign(state, {...state, selections: data})
-        }).then(err => {
+        }).catch(err => {
             console.log(err)
         })
 
-        const vaccinatorsValue =  getVaccinators().then(res => {
+        getVaccinators().then(res => {
             const { data: { data } } = res
-            console.log(data)
             Object.assign(state, {...state, vaccinators: data})
-        }).then(err => {
+        }).catch(err => {
             console.log(err)
         })
+
+        const addRow = () => {
+
+            const row = reactive({
+                date_collected: null,
+                time_collected: null,
+                systolic: null,
+                diastolic: null,
+                pulse_rate: null,
+                temperature: null,
+                respiratory_rate: null,
+                oxygen: null,
+                pain_score: null
+            });
+
+            state.vitalSigns.push(row);
+
+        }
+
+        const removeRow = (index) => {
+
+            state.vitalSigns.splice(index, 1)
+
+        }      
+
+        const save = () => {
+            const payload = {
+                id: qr,
+                dose: dose.value,
+                vitals: state.vitalSigns,
+                pre_assessment: state.healthDeclaration,
+            }
+            console.log(payload)
+            // postScreeningInfo(payload).then(res => {
+
+            // }).catch(err => {
+
+            // })
+        }
 
         return {
             ...toRefs(state),
             dose,
-            vaccinatorsValue,
-            selectionsValue
+            addRow,
+            removeRow,
+            save,
+            doseSelected,
         }
 
     },
     methods: {
-        discard(){
+        discard() {
 
             this.$router.push('/vaccines/list/screening')
             
         },
-        addRow(){
-
-           this.rows.push({date_collected: ''});
-
-        },
-        removeRow(index){
-            this. rows.splice(index, 1)
-        }
     }
 }
 </script>
