@@ -17,6 +17,7 @@ use App\Models\Barangay;
 use App\Models\CityMun;
 use App\Models\Province;
 use App\Models\QrPass;
+use App\Models\ScreeningVital;
 
 use App\Http\Resources\VaccineResource;
 use App\Http\Resources\VaccineResourceCollection;
@@ -291,8 +292,10 @@ class VaccineController extends Controller
             'dosages' => 'array',
             'delete' => 'array'
         ];
-
         $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }        
 
         /** Get validated data */
         $data = $validator->valid();
@@ -359,14 +362,6 @@ class VaccineController extends Controller
             $post->fill($assessment);
             $dosage->post_assessment()->save($post);
         }
-    }
-
-    /**
-     * @group Screening
-     */
-    public function updateScreening()
-    {
-
     }
 
     /**
@@ -506,4 +501,31 @@ class VaccineController extends Controller
         return $this->jsonSuccessResponse(new RegistrationVaccineResource($registration), 200, 'Registration info updated successfully');         
 
     }
+
+    /**
+     * @group Screening
+     * 
+     * Update screening per dose
+     */
+    public function updateScreening(Request $request)
+    {
+        $rules = [
+            'id' => 'string',
+            'dosage_id' => 'integer',
+            'dose' => 'integer',
+            'vitals' => 'array',
+            'pre_assessment' => 'json',
+        ];        
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }
+        /** Get validated data */
+        $data = $validator->valid();
+
+        $qr_pass_id = $request->qr_pass_id;
+        $dose = $request->dose;
+        // $vitals = 
+
+    }    
 }
