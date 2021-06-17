@@ -165,13 +165,13 @@ class VaccineController extends Controller
     }
 
     /**
-     * @group Personal Info
+     * @group Screening
      * 
-     * Personal Info for Screening / Inoculation / Monitoring
+     * Personal Info for Screening
      * 
      * @bodyParam dose integer required Example: 1
      */
-    public function personalInfo(Request $request, $id)
+    public function screeningPersonalInfo(Request $request, $id)
     {
         if (filter_var($id, FILTER_VALIDATE_INT) === false ) {
             return $this->jsonErrorInvalidParameters();
@@ -359,6 +359,14 @@ class VaccineController extends Controller
             $post->fill($assessment);
             $dosage->post_assessment()->save($post);
         }
+    }
+
+    /**
+     * @group Screening
+     */
+    public function updateScreening()
+    {
+
     }
 
     /**

@@ -22,36 +22,8 @@ endpoints:
         name: search
         description: ''
         required: false
-        example: totam
+        example: ut
         type: string
     bodyParameters: []
-    responses: []
-    responseFields: []
-  -
-    httpMethods:
-      - POST
-    uri: 'api/doh/vaccines/info/{id}'
-    metadata:
-      title: 'Personal Info for Screening / Inoculation / Monitoring'
-      description: ''
-      authenticated: true
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the info.'
-        required: true
-        example: voluptatem
-        type: string
-    queryParameters: []
-    bodyParameters:
-      dose:
-        name: dose
-        description: ''
-        required: true
-        example: 1
-        type: integer
     responses: []
     responseFields: []
