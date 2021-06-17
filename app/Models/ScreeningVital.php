@@ -53,6 +53,29 @@ class ScreeningVital extends Model
         return Carbon::parse($value)->format('F j, Y h:i A');
     }
 
+    /**
+     * @param $value
+     * @return false|string
+     */
+    public function getDateCollectedAttribute($value)
+    {
+        return Carbon::parse($value)->format('m/d/Y');
+    }
+
+    /**
+     * @param $value
+     * @return false|string
+     */
+    public function getTimeCollectedAttribute($value)
+    {
+        return Carbon::parse($value)->format('h:i A');
+    }      
+
+    public function setTimeCollectedAttribute($value)
+    {
+        $this->attributes['time_collected'] = Carbon::parse($value)->format('H:i:s');
+    }    
+
     public function dosage()
     {
         return $this->belongsTo(Dosage::class, 'dosage_id', 'id');
