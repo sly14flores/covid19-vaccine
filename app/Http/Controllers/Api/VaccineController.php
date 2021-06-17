@@ -225,12 +225,29 @@ class VaccineController extends Controller
                 'qr_pass_id' => $id,
                 'dose' => $dose,
             ]);
-            $dosage->save();
+            $vaccine->dosages()->save($dosage);
         } else {
             $dosage = $q_dosage;
         }
 
-        // return $vaccine;
+        /**
+         * Check if pre assessment has entry
+         * If yes fetch it
+         * Otherwise insert one
+         */
+        $q_pre_assessment = PreAssessment::where([['dosage_id',$dosage->id],['dose',$dose]])->first();
+
+        if (is_null($q_pre_assessment)) {
+            $pre_assessment = new PreAssessment;
+            $pre_assessment->fill([
+                'qr_pass_id' => $id,
+                'dose' => $dose,
+                'assessments' => config('constants.pre_assessments')
+            ]);
+            $dosage->pre_assessment()->save($pre_assessment);
+        } else {
+            $pre_assessment = $q_pre_assessment;
+        }
 
         $data = new VaccinePersonalInfo($registration);
 
