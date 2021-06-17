@@ -18,13 +18,13 @@ endpoints:
         name: username
         description: ''
         required: true
-        example: fuga
+        example: hic
         type: string
       password:
         name: password
         description: ''
         required: true
-        example: exercitationem
+        example: iure
         type: string
     responses: []
     responseFields: []
@@ -52,7 +52,7 @@ endpoints:
       description: ''
       authenticated: false
     headers:
-      X-Api-Version: illum
+      X-Api-Version: quasi
       Content-Type: 'multipart/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS'
       Accept: application/json
     urlParameters: []
@@ -62,7 +62,7 @@ endpoints:
         name: name
         description: ''
         required: false
-        example: voluptatem
+        example: laboriosam
         type: string
     responses: []
     responseFields: []

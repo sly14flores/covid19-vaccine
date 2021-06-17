@@ -66,11 +66,14 @@ class VaccineController extends Controller
     }
 
     /**
-     * @group Screening
+     * @group Personal Info
      * 
      * List for vaccination
      * 
      * Search registrations by QR, first name, middle name, last name for vaccinations
+     * 
+     * @queryParam search string
+     * 
      */
     public function searchRegistrations(Request $request)
     {
@@ -178,6 +181,19 @@ class VaccineController extends Controller
 
         if (is_null($registration)) {
 			return $this->jsonErrorResourceNotFound();
+        }
+
+        /**
+         * Check entry in vaccine
+         * If an entry exists fetch it
+         * Otherwise insert one
+         */
+        $q_vaccine = Vaccine::where('qr_pass_id',$id)->first();
+
+        if (is_null($q_vaccine)) { # insert record
+            
+        } else { # use existing record
+            $vaccine = $q_vaccine;
         }
 
         $data = new VaccinePersonalInfo($registration);

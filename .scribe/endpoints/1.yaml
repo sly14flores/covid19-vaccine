@@ -3,6 +3,30 @@ description: ''
 endpoints:
   -
     httpMethods:
+      - GET
+    uri: api/doh/vaccines/search/registrations
+    metadata:
+      title: |-
+        List for vaccination
+
+        Search registrations by QR, first name, middle name, last name for vaccinations
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+    urlParameters: []
+    queryParameters:
+      search:
+        name: search
+        description: ''
+        required: false
+        example: totam
+        type: string
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
       - POST
     uri: 'api/doh/vaccines/info/{id}'
     metadata:
@@ -17,7 +41,7 @@ endpoints:
         name: id
         description: 'The ID of the info.'
         required: true
-        example: quia
+        example: voluptatem
         type: string
     queryParameters: []
     bodyParameters:
