@@ -10,7 +10,7 @@
           </div>
           <AppProfile />
           <AppMenu :model="menu" @menuitem-click="onMenuItemClick" />
-      </div>      
+      </div>
     </transition>
     <component v-bind:is="pageComponent" class="layout-main"></component>
     <AppFooter />    

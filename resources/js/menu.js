@@ -119,7 +119,7 @@ export {
     vaccines,
     screening,
     inoculation,
-    monitoring,
+    monitoring
 }
 
 /*
