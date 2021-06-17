@@ -31,10 +31,9 @@ const postScreeningInfo = (payload) => {
  * Selections
  *
  */
- const getSelections = (payload) => {
+ const getSelections = () => {
     return axios.get(
-        `${api_url}/api/doh/selections`,
-        {params: {...payload} }
+        `${api_url}/api/doh/selections`
     )
 }
 
@@ -43,10 +42,9 @@ const postScreeningInfo = (payload) => {
  * Vaccinators
  *
  */
- const getVaccinators = (payload) => {
+ const getVaccinators = () => {
     return axios.get(
-        `${api_url}/api/general/selections/vaccinators`,
-        {params: {...payload} }
+        `${api_url}/api/general/selections/vaccinators`
     )
 }
 
