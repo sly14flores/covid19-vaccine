@@ -151,7 +151,7 @@
                                     <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
-                                    <label><small>By: Systolic </small></label>
+                                    <label><small>BP: Systolic </small></label>
                                     <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">

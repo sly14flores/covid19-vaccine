@@ -99,7 +99,7 @@
                                <DataTable class="p-datatable-sm">
                                     <Column field="" header="Date Collected" headerStyle="width: 15%"></Column>
                                     <Column field="" header="Time Collected"></Column>
-                                    <Column field="" header="By: Systolic"></Column>
+                                    <Column field="" header="BP: Systolic"></Column>
                                     <Column field="" header="BP: Diastolic"></Column>
                                     <Column field="" header="Pulse Rate"></Column>
                                     <Column field="" header="Respiratory Rate"></Column>

@@ -77,7 +77,7 @@
                                     <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
-                                    <label><small>By: Systolic </small></label>
+                                    <label><small>BP: Systolic </small></label>
                                     <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
@@ -115,11 +115,11 @@
                                 <h4 class="header-blue p-text-bold">HEALTH DECLARATION SCREENING FORM</h4>
                             </template>
                         </Toolbar>
-                        <DataTable class="p-datatable-sm">
+                        <DataTable :value="personalInfo.pre_assessment.assessments" class="p-datatable-sm" dataKey="key">
                             <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
-                                <template>
-                                    <RadioButton :value="true" />
-                                    <RadioButton class="p-ml-4" :value="false" />
+                                <template #body="slotProps">
+                                    <RadioButton :value="true" v-model="slotProps.data['value']" />
+                                    <RadioButton class="p-ml-4" :value="false" v-model="slotProps.data['value']" />
                                 </template>
                             </Column>
                             <Column field="description" header="Description"></Column>
