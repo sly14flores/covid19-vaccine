@@ -23,11 +23,13 @@ use App\Http\Resources\VaccineResourceCollection;
 use App\Http\Resources\VaccinesListResourceCollection;
 use App\Http\Resources\RegistrationVaccineResource;
 use App\Http\Resources\RegistrationsListResourceCollection;
+use App\Http\Resources\VaccinePersonalInfo;
 
 use App\Traits\Messages;
 use App\Traits\DOHHelpers;
 use App\Traits\SelectionsRegistration;
 use App\Helpers\General\CollectionHelper;
+
 
 class VaccineController extends Controller
 {
@@ -43,10 +45,10 @@ class VaccineController extends Controller
         $this->http_code_ok = 200;
         $this->http_code_error = 500;
 
-	}    
+	}
 
     /**
-     * Display a listing of the resource.
+     * Display List of vaccinations
      *
      * @return \Illuminate\Http\Response
      */
@@ -64,6 +66,8 @@ class VaccineController extends Controller
     }
 
     /**
+     * @group Screening
+     * 
      * List for vaccination
      * 
      * Search registrations by QR, first name, middle name, last name for vaccinations
@@ -133,7 +137,9 @@ class VaccineController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show vaccine administration
+     * 
+     * Vaccine administration with dosages
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -153,6 +159,29 @@ class VaccineController extends Controller
         $data = new VaccineResource($vaccine);
 
         return $this->jsonSuccessResponse($data, 200);
+    }
+
+    /**
+     * @group Personal Info
+     * 
+     * Personal Info for Screening / Inoculation / Monitoring
+     */
+    public function personalInfo($id)
+    {
+        if (filter_var($id, FILTER_VALIDATE_INT) === false ) {
+            return $this->jsonErrorInvalidParameters();
+        }
+        
+        $registration = Registration::where('qr_pass_id',$id)->first();
+
+        if (is_null($registration)) {
+			return $this->jsonErrorResourceNotFound();
+        }
+
+        $data = new VaccinePersonalInfo($registration);
+
+        return $this->jsonSuccessResponse($data, 200);        
+        
     }
 
     /**
