@@ -49,6 +49,7 @@ class VaccinePersonalInfo extends JsonResource
             'pre_assessment' => $pre_assessment,
             'vitals' => $vitals,
             'dosage_id' => $dosage_id,
+            'dels' => [],
         ];
     }
 }

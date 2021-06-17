@@ -529,10 +529,12 @@ class VaccineController extends Controller
         $dose = $data['dose'];
         $vitals = $data['vitals'];
         $pre_assessment = $data['pre_assessment'];
+        $dels = $data['dels'];
 
         $dosage = Dosage::find($dosage_id);
         $preAssessment = PreAssessment::where('dosage_id',$dosage_id)->first();
         $pre_assessment_update = [
+            'user_id' => $pre_assessment['user_id'],
             'consent' => $pre_assessment['consent'],
             'reason' => $pre_assessment['reason'],
             'assessments' => $pre_assessment['assessments'],
@@ -551,9 +553,15 @@ class VaccineController extends Controller
                 $vital = new ScreeningVital;
             }
             $vitalData['dose'] = $dose;
-            $vitalData['time_collected'] = Carbon::parse($vitalData['time_collected'])->format('H:i:s');
             $vital->fill($vitalData);
             $dosage->vitals()->save($vital);
+        }
+
+        /**
+         * Delete vitals
+         */
+        if (count($dels)) {
+            $vitals = ScreeningVital::whereIn('id',$dels)->delete();
         }
 
         $registration = Registration::where('qr_pass_id',$qr_pass_id)->first();
