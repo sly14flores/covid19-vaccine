@@ -59,6 +59,7 @@ class DOHDataSelections extends Controller
             "day_value" => $this->dayValue(),
             "addresses"=>$this->addresses(),
             "indigenous_value"=>$this->indigenousValue(),
+            "deferral_value"=>$this->deferralValue(),
         ];
 
         return $this->jsonSuccessResponse($selections, 200);
@@ -153,32 +154,6 @@ class DOHDataSelections extends Controller
         ];
 
         return $this->jsonSuccessResponse($values, 200);
-    }
-
-    public function deferalValue()
-    {
-        $values = [
-            ["id" => "Fever", "name" => "Fever"],
-            ["id" => "Headache", "name" => "Headache"],
-            ["id" => "Cough", "name" => "Cough"],
-            ["id" => "Colds", "name" => "Colds"],
-            ["id" => "Sore Throat", "name" => "Sore Throat"],
-            ["id" => "Shortness of Breath or Difficulty in Breathing", "name" => "Shortness of Breath or Difficulty in Breathing"],
-            ["id" => "Chest Pain", "name" => "Chest Pain"],
-            ["id" => "Abdominal Pain", "name" => "Abdominal Pain"],
-            ["id" => "Changes in Bowel Movement", "name" => "Changes in Bowel Movement"],
-            ["id" => "Loss of taste/smell", "name" => "Loss of taste/smell"],
-            ["id" => "Fatigue/weakness", "name" => "Fatigue/weakness"],
-            ["id" => "COVID-19 in the past 90 days?", "name" => "COVID-19 in the past 90 days?"],
-            ["id" => "Bleeding disorder or blood thinner", "name" => "Bleeding disorder or blood thinner"],
-            ["id" => "Autoimmune disorder, HIV, AIDS, Cancer", "name" => "Autoimmune disorder, HIV, AIDS, Cancer"],
-            ["id" => "Received any vaccine 4 weeks ago", "name" => "Received any vaccine 4 weeks ago"],
-            ["id" => "Reaction from any previous vaccine?", "name" => "Reaction from any previous vaccine?"],
-            ["id" => "Pregnant, Breastfeeding, Planning Pregnancy", "name" => "Pregnant, Breastfeeding, Planning Pregnancy"],
-            ["id" => "Multiple conditions", "name" => "Multiple conditions"],
-        ];
-
-        return $this->jsonSuccessResponse($values, 200);        
     }
 
 }

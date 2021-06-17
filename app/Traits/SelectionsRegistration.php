@@ -408,6 +408,29 @@ trait SelectionsRegistration
             ["name"=>"Yogad", "id"=>"Yogad"],
         ];
     }
+    
+    public function deferralValue()
+    {
+        return [
+            ["name"=>"NONE", "id"=>"NONE"],
+            ["name"=>"Age Requirement", "id"=>"DC01_Age Requirement"],
+            ["name"=>"1st Dose Other Brand", "id"=>"DC02_1st Dose Other Brand"],
+            ["name"=>"Allergy to Vaccine component", "id"=>"DC03_Allergy to Vaccine component"],
+            ["name"=>"Severe Allergy to 1st Dose", "id"=>"DC04_Severe Allergy to 1st Dose"],
+            ["name"=>"Allergy/Asthma, No monitor", "id"=>"DC05_Allergy/Asthma, No monitor"],
+            ["name"=>"History of Anaphylaxis", "id"=>"DC06_History of Anaphylaxis"],
+            ["name"=>"Bleeding disorders/Taking anti-coagulants", "id"=>"DC07_Bleeding disorders/Taking anti-coagulants"],
+            ["name"=>"Symptomatic for COVID-19 Infection", "id"=>"DC08_Symptomatic for COVID-19 Infection"],
+            ["name"=>"High SBP, DBP, Organ Damage", "id"=>"DC09_High SBP, DBP, Organ Damage"],
+            ["name"=>"Covid-19 Exposure", "id"=>"DC10_Covid-19 Exposure"],
+            ["name"=>"Ongoing Covid-19 Treatment", "id"=>"DC11_Ongoing Covid-19 Treatment"],
+            ["name"=>"Attach, Admissions, Meds Change", "id"=>"DC12_Attach, Admissions, Meds Change"],
+            ["name"=>"Other Vaccine/s within 2 weeks", "id"=>"DC13_Other Vaccine/s within 2 weeks"],
+            ["name"=>"Plasma or Antibodies", "id"=>"DC14_Plasma or Antibodies"],
+            ["name"=>"Pregnant or Breastfeeding", "id"=>"DC15_Pregnant or Breastfeeding"],
+            ["name"=>"No Med Clearance for Comorbidity", "id"=>"DC16_No Med Clearance for Comorbidity"],
+        ];
+    }
 
     public function adverseEventsValue()
     {

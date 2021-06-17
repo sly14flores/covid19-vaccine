@@ -26,8 +26,35 @@ const postScreeningInfo = (payload) => {
 
 }
 
+/**
+ * 
+ * Selections
+ *
+ */
+ const getSelections = (payload) => {
+    return axios.get(
+        `${api_url}/api/doh/selections`,
+        {params: {...payload} }
+    )
+}
+
+/**
+ * 
+ * Vaccinators
+ *
+ */
+ const getVaccinators = (payload) => {
+    return axios.get(
+        `${api_url}/api/general/selections/vaccinators`,
+        {params: {...payload} }
+    )
+}
+
+
 export {
     getRegistrationsList,
     getPersonalInfo,
     postScreeningInfo,
+    getSelections,
+    getVaccinators
 }

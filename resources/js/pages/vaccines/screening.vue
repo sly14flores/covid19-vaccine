@@ -19,7 +19,7 @@
                     <div class="card p-fluid">
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-10 p-md-11">
-                                <h2 class="p-text-bold p-ml-4 name-size"> [263001] DELA CRUZ, JUAN LUNA JR. </h2>
+                                <h2 class="p-text-bold p-ml-4 name-size"> {{personalInfo.name}} </h2>
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
@@ -31,8 +31,8 @@
                                 <div class="vertical-line"></div>
                             </div>
                             <div class="p-field p-col-6 p-md-1">
-                                <p class="p-text-bold">24</p>
-                                <p class="p-text-bold">Female</p>
+                                <p class="p-text-bold">{{personalInfo.age}}</p>
+                                <p class="p-text-bold">{{personalInfo.gender}}</p>
                             </div>
 
                             <div class="p-field p-col-10 p-md-3 hide-div"></div>
@@ -44,15 +44,15 @@
                             <div class="p-field p-col-10 p-md-1 hide-div">
                                 <div class="vertical-line"></div>
                             </div>
-                            <div class="p-field p-col-6 p-md-1">
-                                <p class="p-text-bold">01-01-1990</p>
-                                <p class="p-text-bold">09123456789</p>
+                            <div class="p-field p-col-6 p-md-2">
+                                <p class="p-text-bold">{{personalInfo.birthdate}}</p>
+                                <p class="p-text-bold">{{personalInfo.contact_no}}</p>
                             </div>
                         </div>
                         <hr />
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
-                                <label>Dose</label>
+                                <label class="p-text-bold">Dose</label>
                                 <Dropdown class="p-shadow-1 p-inputtext-sm" v-model="dose" optionLabel="name" optionValue="id" :options="doses" placeholder="Select a dose" />
                             </div>
                         </div>
@@ -148,7 +148,7 @@
                                         <div class="p-grid">
                                            <div class="p-field p-col-12 p-md-12">
                                                 <label>Consent Received By</label>
-                                                <Dropdown class="p-shadow-1 p-inputtext-sm"/>
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="vaccinators" />
                                             </div>
                                         </div>
                                     </template>
@@ -177,7 +177,7 @@
                                         <div class="p-grid">
                                            <div class="p-field p-col-12 p-md-12">
                                                 <label>Reason for Deferral</label>
-                                                <Dropdown class="p-shadow-1 p-inputtext-sm"/>
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="selections.deferral_value" />
                                             </div>
                                         </div>
                                     </template>
@@ -211,7 +211,7 @@ import Card from 'primevue/card/sfc';
 import { reactive, toRefs, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { getPersonalInfo, postScreeningInfo } from '../../api/vaccination'
+import { getPersonalInfo, postScreeningInfo, getSelections, getVaccinators } from '../../api/vaccination'
 
 export default {
     components: {
@@ -250,6 +250,9 @@ export default {
             personalInfo: {},
             vitalSigns: {},
             healthDeclaration: {},
+            selections: [],
+            pres: [],
+            vaccinators: [],
             doses: [
                 {id: 1, name: 'First'},
                 {id: 2, name: 'Second'}
@@ -262,15 +265,33 @@ export default {
             getPersonalInfo({ id: qr, dose: dose.value }).then(res => {
                 const { data: { data } } = res
                 console.log(data)
-                Object.assign(state.personalInfo, data)
+                Object.assign(state, {...state, personalInfo: data})
             }).then(err => {
                 console.log(err)
             })
         }
 
+        const selectionsValue =  getSelections().then(res => {
+            const { data: { data } } = res
+            console.log(data)
+            Object.assign(state, {...state, selections: data})
+        }).then(err => {
+            console.log(err)
+        })
+
+        const vaccinatorsValue =  getVaccinators().then(res => {
+            const { data: { data } } = res
+            console.log(data)
+            Object.assign(state, {...state, vaccinators: data})
+        }).then(err => {
+            console.log(err)
+        })
+
         return {
             ...toRefs(state),
-            dose
+            dose,
+            vaccinatorsValue,
+            selectionsValue
         }
 
     },
