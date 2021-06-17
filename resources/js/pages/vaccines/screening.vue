@@ -64,16 +64,17 @@
                                         <div class="p-grid">
                                             <div class="p-field p-col-12 p-md-4">
                                                 <p class="p-text-sm">Consent Received</p>
+                                                <small class="p-error" v-if="vv.consent.$error">Consent is required</small>
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <div class="p-field-radiobutton">
-                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="healthDeclaration.consent"/>
+                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="vv.consent.$model" :class="{ 'p-invalid': vv.consent.$error }" />
                                                     <label for="yes_consent">Yes</label>
                                                 </div>
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <div class="p-field-radiobutton">
-                                                    <RadioButton id="no_consent" name="consent"  value="02_No" v-model="healthDeclaration.consent"/>
+                                                    <RadioButton id="no_consent" name="consent"  value="02_No" v-model="vv.consent.$model" :class="{ 'p-invalid': vv.consent.$error }" />
                                                     <label for="no_consent">No</label>
                                                 </div>
                                             </div>
@@ -81,8 +82,9 @@
                                         <div class="p-grid">
                                             <div class="p-field p-col-12 p-md-12">
                                                 <label>Consent Received By</label>
-                                                <Dropdown class="p-shadow-1 p-inputtext-sm" v-model="healthDeclaration.user_id" optionLabel="name" optionValue="id" :options="vaccinators" :disabled="healthDeclaration.consent == '02_No'" />
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" v-model="vv.user_id.$model" optionLabel="name" optionValue="id" :options="vaccinators" :disabled="vv.consent.$model == '02_No'" :class="{ 'p-invalid': vv.user_id.$error }" />
                                             </div>
+                                            <small class="p-error" v-if="vv.user_id.$error">Please specify who is receiving the consent</small>
                                         </div>
                                     </template>
                                 </Card>
@@ -93,16 +95,17 @@
                                         <div class="p-grid">
                                             <div class="p-field p-col-12 p-md-4">
                                                 <p class="p-text-sm">Defer</p>
+                                                <small class="p-error" v-if="vv.defer.$error">Please choose Yes or No</small>
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <div class="p-field-radiobutton">
-                                                    <RadioButton id="yes_defer" name="defer" value="01_Yes" v-model="defer" />
+                                                    <RadioButton id="yes_defer" name="defer" value="01_Yes" v-model="vv.defer.$model" :class="{ 'p-invalid': vv.defer.$error }" />
                                                     <label for="yes_defer">Yes</label>
                                                 </div>
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <div class="p-field-radiobutton">
-                                                    <RadioButton id="no_defer" name="defer" value="02_No" v-model="defer" />
+                                                    <RadioButton id="no_defer" name="defer" value="02_No" v-model="vv.defer.$model" :class="{ 'p-invalid': vv.defer.$error }" />
                                                     <label for="no_defer">No</label>
                                                 </div>
                                             </div>
@@ -110,7 +113,8 @@
                                         <div class="p-grid">
                                            <div class="p-field p-col-12 p-md-12">
                                                 <label>Reason for Deferral</label>
-                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="selections.deferral_value"  v-model="healthDeclaration.reason" :disabled="(defer=='02_No') || (defer==null)" />
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="selections.deferral_value"  v-model="vv.reason.$model" :disabled="(vv.defer.$model=='02_No') || (vv.defer.$model==null)" :class="{ 'p-invalid': vv.reason.$error }" />
+                                                <small class="p-error" v-if="vv.reason.$error">Please specify reason</small>
                                             </div>
                                         </div>
                                     </template>
@@ -126,7 +130,7 @@
                                 <Button type="button" @click="addRow" icon="pi pi-plus" class="p-button-sm p-button-secondary" />
                             </template>
                         </Toolbar>
-                        <div v-for="(row, i) in vitalSigns" :key="row">
+                        <!-- <div v-for="(row, i) in vitalSigns" :key="row">
                             <hr />
                             <div class="p-fluid p-formgrid p-grid">
                                 <div class="p-field p-col-12 p-md-2">
@@ -169,14 +173,26 @@
                                     <Button type="button" @click="removeRow(i)" icon="pi pi-trash" class="p-button-sm p-button-danger p-mt-4" />
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+                        <div v-for="(row, i) in vv.vitals.$each" :key="row">
+                            <hr />
+                            <div class="p-fluid p-formgrid p-grid">
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label><small>Date Collected </small></label>
+                                    <Calendar v-model="row.date_collected.$model" :manualInput="false" class="p-shadow-1 p-inputtext-sm" :class="{ 'p-invalid': row.date_collected.$error }" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <Button type="button" @click="removeRow(i)" icon="pi pi-trash" class="p-button-sm p-button-danger p-mt-4" />
+                                </div>
+                            </div>
+                        </div>                        
                         <hr />
                         <Toolbar>
                             <template #left>
                                 <h4 class="header-blue p-text-bold">HEALTH DECLARATION SCREENING FORM</h4>
                             </template>
                         </Toolbar>
-                        <DataTable :value="healthDeclaration.assessments" class="p-datatable-sm" dataKey="key">
+                        <DataTable v-if="vv.consent.$model == '01_Yes'" :value="healthDeclaration.assessments" class="p-datatable-sm" dataKey="key">
                             <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
                                 <template #body="slotProps">
                                     <RadioButton :value="true" v-model="slotProps.data['value']" />
@@ -209,8 +225,11 @@ import DataTable from 'primevue/datatable/sfc';
 import Column from 'primevue/column/sfc';
 import Card from 'primevue/card/sfc';
 
-import { reactive, toRefs, ref, watch } from 'vue'
+import { reactive, computed, toRefs, toRef, ref, watch, unref, toRaw } from 'vue'
 import { useRoute } from 'vue-router'
+
+import useValidate, { useVuelidate } from '@vuelidate/core'
+import { required, requiredIf } from '@vuelidate/validators'
 
 import {
     getPersonalInfo,
@@ -262,11 +281,11 @@ export default {
             doses: [
                 {id: 1, name: 'First'},
                 {id: 2, name: 'Second'}
-            ]
+            ],
+            defer: null,
         })
 
         const dose = ref(1);
-        const defer = ref(null)
 
         const doseSelected = () => {
             getPersonalInfo({ id: qr, dose: dose.value }).then(res => {
@@ -278,8 +297,8 @@ export default {
                     vitalSigns: vitals,
                     healthDeclaration: pre_assessment,
                     dels,
+                    defer: (pre_assessment.reason != null)?'01_Yes':null
                 })
-                defer.value = (pre_assessment.reason != null)?'01_Yes':'02_No'
             }).catch(err => {
                 console.log(err)
             })
@@ -303,22 +322,61 @@ export default {
             console.log(err)
         })
 
+        /**
+         * Validations
+         */
+        const propsToValidate = {
+            consent: toRef(state.healthDeclaration, 'consent'),
+            user_id: toRef(state.healthDeclaration, 'user_id'),
+            defer: toRef(state, 'defer'),
+            reason: toRef(state.healthDeclaration, 'reason'),
+            vitals: []
+        }
+
+        const rules = computed(() => {
+            return {
+                consent: { required },
+                user_id: { required: requiredIf(function() {
+                    return propsToValidate.consent.value == '01_Yes'
+                }) },
+                defer: { required },
+                reason: { required: requiredIf(function() {
+                    return propsToValidate.defer.value == '01_Yes'
+                }) },
+                vitals: { required, $each: {
+                    date_collected: { required },
+                    // time_collected: { required },
+                    // systolic: { required },
+                    // diastolic: { required },
+                    // pulse_rate: { required },
+                    // temperature: { required },
+                    // respiratory_rate: { required },
+                    // oxygen: { required },
+                    // pain_score: { required },               
+                } }
+            }
+        })        
+
+        const vv = useVuelidate(rules, propsToValidate)
+
         const addRow = () => {
 
             const row = reactive({
-                id: 0,
+                // id: 0,
                 date_collected: null,
-                time_collected: null,
-                systolic: null,
-                diastolic: null,
-                pulse_rate: null,
-                temperature: null,
-                respiratory_rate: null,
-                oxygen: null,
-                pain_score: null
+                // time_collected: null,
+                // systolic: null,
+                // diastolic: null,
+                // pulse_rate: null,
+                // temperature: null,
+                // respiratory_rate: null,
+                // oxygen: null,
+                // pain_score: null
             });
 
-            state.vitalSigns.push(row);
+            // state.vitalSigns.push(row);
+            console.log('push')
+            propsToValidate.vitals.push(row);
 
         }
 
@@ -329,9 +387,24 @@ export default {
             if (id) state.dels.push(id)
             state.vitalSigns.splice(index, 1)
 
-        }      
+        }
 
         const save = () => {
+
+            vv.value.$touch();
+
+            console.log(vv.value.$invalid)
+            console.log(vv.value.vitals)
+            
+            if (vv.value.$invalid) {
+                // Swal here
+                return
+            }
+
+            Object.keys(propsToValidate).forEach(function(key) {
+                state.healthDeclaration[key] = propsToValidate[key].value
+            });
+
             const payload = {
                 id: qr,
                 dosage_id: state.personalInfo.dosage_id,
@@ -340,6 +413,11 @@ export default {
                 pre_assessment: state.healthDeclaration,
                 dels: state.dels
             }
+
+            console.log(payload)
+
+            return
+
             postScreeningInfo(payload).then(res => {
                 const { data: { data } } = res
                 const { pre_assessment, vitals, dels } = data
@@ -356,19 +434,19 @@ export default {
         }
 
         watch(
-            () => defer.value,
+            () => propsToValidate.defer.value,
             (value, prevValue) => {
                 if (value == '02_No') {
-                    state.healthDeclaration.reason = null
+                    propsToValidate.reason.value = null
                 }
             }
         )
 
         watch(
-            () => state.healthDeclaration.consent,
+            () => propsToValidate.consent.value,
             (value, prevValue) => {
                 if (value == '02_No') {
-                    state.healthDeclaration.user_id = null
+                    propsToValidate.user_id.value = null
                 }
             }
         )
@@ -380,7 +458,7 @@ export default {
             removeRow,
             save,
             doseSelected,
-            defer,
+            vv,
         }
 
     },
