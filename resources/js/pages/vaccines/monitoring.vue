@@ -146,24 +146,12 @@
                                     <label><small>Date Collected </small></label>
                                     <Calendar v-model="row.date_collected" modelValue="{{row.date_collected}}" :manualInput="false" class="p-shadow-1 p-inputtext-sm" />
                                 </div>
-                                <div class="p-field p-col-12 p-md-1">
+                                <div class="p-field p-col-12 p-md-2">
                                     <label><small>Time Collected </small> </label>
                                     <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
                                 </div>
-                                <div class="p-field p-col-12 p-md-2">
-                                    <label><small>Temperature (Celsius) </small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <label><small>By: Systolic </small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>Pulse Rate </small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>O2 Sat</small></label>
                                     <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
@@ -171,7 +159,19 @@
                                     <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
+                                    <label><small>Pulse Rate </small></label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
                                     <label><small>Respiratory Rate</small></label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>Temp. (Celsius) </small></label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>O2 Sat</small></label>
                                     <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
@@ -185,20 +185,50 @@
                         </div>
                         <hr />
                         <h4 class="header-blue p-text-bold">ADVERSED EVENTS</h4>
-                        <DataTable class="p-datatable-sm">
-                            <Column field="value" header="Action" headerStyle="width: 15%">
-                                <template>
-                                    <Checkbox />
-                                </template>
-                            </Column>
-                            <Column field="description" header="Description"></Column>
-                        </DataTable>
-                         <div class="p-fluid p-formgrid p-grid p-mt-2">
-                            <div class="p-field p-col-12 p-md-12">
-                                <label>Others: </label>
-                                <Textarea v-model="value" rows="5" cols="30" />
+                        <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-6">
+                                <Card>
+                                    <template #content>
+                                        <div class="p-grid">
+                                            <div class="p-field p-col-12 p-md-4">
+                                                <p class="p-text-sm">Adverse Event</p>
+                                            </div>
+                                            <div class="p-field p-col-12 p-md-3">
+                                                <div class="p-field-radiobutton">
+                                                    <RadioButton id="yes_adverse" name="adverse" />
+                                                    <label for="yes_adverse">Yes</label>
+                                                </div>
+                                            </div>
+                                            <div class="p-field p-col-12 p-md-3">
+                                                <div class="p-field-radiobutton">
+                                                    <RadioButton id="no_adverse" name="adverse" />
+                                                    <label for="no_adverse">No</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="p-grid">
+                                           <div class="p-field p-col-12 p-md-12">
+                                                <label>Adverse Event Condition</label>
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm"/>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </Card>
+                            </div>
+                            <div class="p-field p-col-12 p-md-6">
+                                <Card>
+                                    <template #content>
+                                        <div class="p-grid">
+                                            <div class="p-field p-col-12 p-md-12">
+                                                <label>Others: </label>
+                                                <Textarea v-model="value" rows="3" cols="30" />
+                                            </div>
+                                        </div>
+                                    </template>
+                                </Card>
                             </div>
                         </div>
+                            
                     </div>
                 </form>
             </div>

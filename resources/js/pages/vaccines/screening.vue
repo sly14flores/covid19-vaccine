@@ -50,6 +50,13 @@
                             </div>
                         </div>
                         <hr />
+                        <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Dose</label>
+                                <Dropdown class="p-shadow-1 p-inputtext-sm"/>
+                            </div>
+                        </div>
+                        <hr />
                         <Toolbar>
                             <template #left>
                                 <h4 class="header-blue p-text-bold">VITAL SIGNS</h4>
@@ -65,24 +72,12 @@
                                     <label><small>Date Collected </small></label>
                                     <Calendar v-model="row.date_collected" modelValue="{{row.date_collected}}" :manualInput="false" class="p-shadow-1 p-inputtext-sm" />
                                 </div>
-                                <div class="p-field p-col-12 p-md-1">
+                                <div class="p-field p-col-12 p-md-2">
                                     <label><small>Time Collected </small> </label>
                                     <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
                                 </div>
-                                <div class="p-field p-col-12 p-md-2">
-                                    <label><small>Temperature (Celsius) </small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <label><small>By: Systolic </small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>Pulse Rate </small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>O2 Sat</small></label>
                                     <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
@@ -90,7 +85,19 @@
                                     <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
+                                    <label><small>Pulse Rate </small></label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>Temp. (Celsius) </small></label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
                                     <label><small>Respiratory Rate</small></label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>O2 Sat</small></label>
                                     <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
