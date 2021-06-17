@@ -18,6 +18,7 @@ class ScreeningVital extends Model
      */
     protected $fillable = [
         'dosage_id',
+        'dose',
         'date_collected',
         'time_collected',
         'systolic',
@@ -40,7 +41,7 @@ class ScreeningVital extends Model
      */
     protected $casts = [
         'dose' => 'integer',
-        'date_collected' => 'date'
+        'date_collected' => 'date',
     ];
 
     /**

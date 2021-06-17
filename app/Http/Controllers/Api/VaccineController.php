@@ -31,6 +31,7 @@ use App\Traits\DOHHelpers;
 use App\Traits\SelectionsRegistration;
 use App\Helpers\General\CollectionHelper;
 
+use Carbon\Carbon;
 
 class VaccineController extends Controller
 {
@@ -514,7 +515,7 @@ class VaccineController extends Controller
             'dosage_id' => 'integer',
             'dose' => 'integer',
             'vitals' => 'array',
-            'pre_assessment' => 'json',
+            'pre_assessment' => 'array',
         ];        
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
@@ -523,9 +524,43 @@ class VaccineController extends Controller
         /** Get validated data */
         $data = $validator->valid();
 
-        $qr_pass_id = $request->qr_pass_id;
-        $dose = $request->dose;
-        // $vitals = 
+        $qr_pass_id = $data['id'];
+        $dosage_id = $data['dosage_id'];
+        $dose = $data['dose'];
+        $vitals = $data['vitals'];
+        $pre_assessment = $data['pre_assessment'];
+
+        $dosage = Dosage::find($dosage_id);
+        $preAssessment = PreAssessment::where('dosage_id',$dosage_id)->first();
+        $pre_assessment_update = [
+            'consent' => $pre_assessment['consent'],
+            'reason' => $pre_assessment['reason'],
+            'assessments' => $pre_assessment['assessments'],
+        ];
+
+        $preAssessment->fill($pre_assessment_update);
+        $preAssessment->save();
+
+        /**
+         * Save vitals
+         */
+        foreach($vitals as $vitalData) {
+            if ($vitalData['id']) {
+                $vital = ScreeningVital::find($vitalData['id']);
+            } else {
+                $vital = new ScreeningVital;
+            }
+            $vitalData['dose'] = $dose;
+            $vitalData['time_collected'] = Carbon::parse($vitalData['time_collected'])->format('H:i:s');
+            $vital->fill($vitalData);
+            $dosage->vitals()->save($vital);
+        }
+
+        $registration = Registration::where('qr_pass_id',$qr_pass_id)->first();
+        
+        $data = new VaccinePersonalInfo($registration);
+
+        return $this->jsonSuccessResponse($data, 200);        
 
     }    
 }
