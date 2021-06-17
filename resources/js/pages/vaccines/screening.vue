@@ -57,73 +57,6 @@
                             </div>
                         </div>
                         <hr />
-                        <Toolbar>
-                            <template #left>
-                                <h4 class="header-blue p-text-bold">VITAL SIGNS</h4>
-                            </template>
-                            <template #right>
-                                <Button type="button" @click="addRow" icon="pi pi-plus" class="p-button-sm p-button-secondary" />
-                            </template>
-                        </Toolbar>
-                        <div v-for="(row, i) in vitalSigns" :key="row">
-                            <hr />
-                            <div class="p-fluid p-formgrid p-grid">
-                                <div class="p-field p-col-12 p-md-2">
-                                    <label><small>Date Collected </small></label>
-                                    <Calendar v-model="row.date_collected" modelValue="{{row.date_collected}}" :manualInput="false" class="p-shadow-1 p-inputtext-sm" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-2">
-                                    <label><small>Time Collected </small> </label>
-                                    <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>BP: Systolic </small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>BP: Diastolic</small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>Pulse Rate </small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>Temp. (Celsius) </small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>Respiratory Rate</small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>O2 Sat</small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>Pain Score</small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <Button type="button" @click="removeRow(i)" icon="pi pi-trash" class="p-button-sm p-button-danger p-mt-4" />
-                                </div>
-                            </div>
-                        </div>
-                        <hr />
-                        <Toolbar>
-                            <template #left>
-                                <h4 class="header-blue p-text-bold">HEALTH DECLARATION SCREENING FORM</h4>
-                            </template>
-                        </Toolbar>
-                        <DataTable :value="healthDeclaration.assessments" class="p-datatable-sm" dataKey="key">
-                            <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
-                                <template #body="slotProps">
-                                    <RadioButton :value="true" v-model="slotProps.data['value']" />
-                                    <RadioButton class="p-ml-4" :value="false" v-model="slotProps.data['value']" />
-                                </template>
-                            </Column>
-                            <Column field="description" header="Description"></Column>
-                        </DataTable>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-6">
                                 <Card>
@@ -134,13 +67,13 @@
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <div class="p-field-radiobutton">
-                                                    <RadioButton id="yes_consent" name="consent" />
+                                                    <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="healthDeclaration.consent"/>
                                                     <label for="yes_consent">Yes</label>
                                                 </div>
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <div class="p-field-radiobutton">
-                                                    <RadioButton id="no_consent" name="consent" />
+                                                    <RadioButton id="no_consent" name="consent"  value="02_No" v-model="healthDeclaration.consent"/>
                                                     <label for="no_consent">No</label>
                                                 </div>
                                             </div>
@@ -163,13 +96,13 @@
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <div class="p-field-radiobutton">
-                                                    <RadioButton id="yes_defer" name="defer" />
+                                                    <RadioButton id="yes_defer" name="defer" value="01_Yes"/>
                                                     <label for="yes_defer">Yes</label>
                                                 </div>
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <div class="p-field-radiobutton">
-                                                    <RadioButton id="no_defer" name="defer" />
+                                                    <RadioButton id="no_defer" name="defer" value="02_No" />
                                                     <label for="no_defer">No</label>
                                                 </div>
                                             </div>
@@ -177,13 +110,81 @@
                                         <div class="p-grid">
                                            <div class="p-field p-col-12 p-md-12">
                                                 <label>Reason for Deferral</label>
-                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="selections.deferral_value" />
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="selections.deferral_value"  v-model="healthDeclaration.reason" />
                                             </div>
                                         </div>
                                     </template>
                                 </Card>
                             </div>
                         </div>
+                        <hr />
+                        <Toolbar>
+                            <template #left>
+                                <h4 class="header-blue p-text-bold">VITAL SIGNS</h4>
+                            </template>
+                            <template #right>
+                                <Button type="button" @click="addRow" icon="pi pi-plus" class="p-button-sm p-button-secondary" />
+                            </template>
+                        </Toolbar>
+                        <div v-for="(row, i) in vitalSigns" :key="row">
+                            <hr />
+                            <div class="p-fluid p-formgrid p-grid">
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label><small>Date Collected </small></label>
+                                    <Calendar v-model="row.date_collected" :manualInput="false" class="p-shadow-1 p-inputtext-sm" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label><small>Time Collected </small> </label>
+                                    <Calendar v-model="row.time_collected" :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>BP: Systolic </small></label>
+                                    <InputText v-model="row.systolic" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>BP: Diastolic</small></label>
+                                    <InputText v-model="row.diastolic" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>Pulse Rate </small></label>
+                                    <InputText v-model="row.pulse_rate" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>Temp. (Celsius) </small></label>
+                                    <InputText v-model="row.temperature" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>Respiratory Rate</small></label>
+                                    <InputText v-model="row.respiratory_rate" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>O2 Sat</small></label>
+                                    <InputText v-model="row.oxygen" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>Pain Score</small></label>
+                                    <InputText v-model="row.pain_score" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <Button type="button" @click="removeRow(i)" icon="pi pi-trash" class="p-button-sm p-button-danger p-mt-4" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <Toolbar>
+                            <template #left>
+                                <h4 class="header-blue p-text-bold">HEALTH DECLARATION SCREENING FORM</h4>
+                            </template>
+                        </Toolbar>
+                        <DataTable :value="healthDeclaration.assessments" class="p-datatable-sm" dataKey="key">
+                            <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
+                                <template #body="slotProps">
+                                    <RadioButton :value="true" v-model="slotProps.data['value']" />
+                                    <RadioButton class="p-ml-4" :value="false" v-model="slotProps.data['value']" />
+                                </template>
+                            </Column>
+                            <Column field="description" header="Description"></Column>
+                        </DataTable>
                     </div>
                 </form>
             </div>
@@ -326,6 +327,7 @@ export default {
         const save = () => {
             const payload = {
                 id: qr,
+                dosage_id: state.personalInfo.dosage_id,
                 dose: dose.value,
                 vitals: state.vitalSigns,
                 pre_assessment: state.healthDeclaration,
