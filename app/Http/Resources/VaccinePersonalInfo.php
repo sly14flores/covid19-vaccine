@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use App\Models\Dosage;
 use Carbon\Carbon;
 
 class VaccinePersonalInfo extends JsonResource
@@ -16,6 +17,8 @@ class VaccinePersonalInfo extends JsonResource
      */
     public function toArray($request)
     {
+        $dose = $request->dose;
+
         $name = "[{$this->qr_pass_id}], {$this->last_name}, {$this->first_name}";
 
         if ($this->suffix!=="NA") {
@@ -27,6 +30,12 @@ class VaccinePersonalInfo extends JsonResource
             "02_Male" => "Male"
         ];
 
+        $dosage = $this->vaccine->dosages()->get()->filter(function($d) use ($dose) {
+            return $d->dose == $dose;
+        });
+
+        $pre_assessment = $dosage->first()->pre_assessment;
+
         return [
             'id' => $this->id,
             'qr_pass_id' => $this->qr_pass_id,
@@ -35,6 +44,7 @@ class VaccinePersonalInfo extends JsonResource
             'birthdate' => Carbon::parse($this->birthdate)->format("F j, Y"),
             'gender' => $genders[$this->gender],
             'contact_no' => $this->contact_no,
+            'pre_assessment' => $pre_assessment,
         ];
     }
 }
