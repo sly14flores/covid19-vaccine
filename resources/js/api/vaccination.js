@@ -23,7 +23,7 @@ const getPersonalInfo = (payload) => {
 }
 
 const postScreeningInfo = (payload) => {
-
+    return axios.post(`${api_url}/api/doh/vaccines/screening/update`, { ...payload })    
 }
 
 /**
