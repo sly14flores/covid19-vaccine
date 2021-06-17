@@ -53,7 +53,7 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Dose</label>
-                                <Dropdown class="p-shadow-1 p-inputtext-sm"/>
+                                <Dropdown class="p-shadow-1 p-inputtext-sm" v-model="dose" optionLabel="name" optionValue="id" :options="doses" placeholder="Select a dose" />
                             </div>
                         </div>
                         <hr />
@@ -208,7 +208,7 @@ import DataTable from 'primevue/datatable/sfc';
 import Column from 'primevue/column/sfc';
 import Card from 'primevue/card/sfc';
 
-import { reactive, toRefs } from 'vue'
+import { reactive, toRefs, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { getScreeningInfo, postScreeningInfo } from '../../api/vaccination'
@@ -235,7 +235,7 @@ export default {
         return {
             home: {icon: 'pi pi-search', to: '/vaccines/list/screening'},
             items: [{label: 'Screening', to: `${this.$route.fullPath}`}],
-            rows: [] 
+            rows: []
         }
     },
     setup() {
@@ -250,7 +250,13 @@ export default {
             personalInfo: {},
             vitalSigns: {},
             healthDeclaration: {},
+            doses: [
+                {id: 1, name: 'First'},
+                {id: 2, name: 'Second'}
+            ]
         })
+
+        const dose = ref(1);
 
         // API call, get
         if (qr!=null) {
@@ -258,7 +264,8 @@ export default {
         }
 
         return {
-            ...toRefs(state)
+            ...toRefs(state),
+            dose
         }
 
     },
