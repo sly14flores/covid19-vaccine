@@ -14,11 +14,12 @@ import { api_url } from '../url.js'
  }
 
  /**
-  * Screening
+  * Fetch Personal Information
   */
- // Fetch screening information
-const getScreeningInfo = (payload) => {
-
+const getPersonalInfo = (payload) => {
+    const { id, dose } = payload
+    const url =  route(`${api_url}/api/doh/vaccines/info/:id`, { id })
+    return axios.post(url, { dose })
 }
 
 const postScreeningInfo = (payload) => {
@@ -27,6 +28,6 @@ const postScreeningInfo = (payload) => {
 
 export {
     getRegistrationsList,
-    getScreeningInfo,
+    getPersonalInfo,
     postScreeningInfo,
 }

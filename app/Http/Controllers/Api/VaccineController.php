@@ -171,7 +171,7 @@ class VaccineController extends Controller
      * 
      * @bodyParam dose integer required Example: 1
      */
-    public function personalInfo($id)
+    public function personalInfo(Request $request, $id)
     {
         if (filter_var($id, FILTER_VALIDATE_INT) === false ) {
             return $this->jsonErrorInvalidParameters();
@@ -183,6 +183,16 @@ class VaccineController extends Controller
 			return $this->jsonErrorResourceNotFound();
         }
 
+        $rules = [
+            'dose' => 'integer',
+        ];    
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }
+        /** Get validated data */
+        $data = $validator->valid();            
+
         /**
          * Check entry in vaccine
          * If an entry exists fetch it
@@ -191,10 +201,36 @@ class VaccineController extends Controller
         $q_vaccine = Vaccine::where('qr_pass_id',$id)->first();
 
         if (is_null($q_vaccine)) { # insert record
-            
+            $d = [
+                'qr_pass_id' => $id,
+            ];
+            $vaccine = new Vaccine;
+            $vaccine->fill($d);
+            $vaccine->save();
         } else { # use existing record
             $vaccine = $q_vaccine;
         }
+
+        /**
+         * Check if dose already exists
+         * If no insert one
+         * Otherwise use existing
+         */
+        $dose = $data['dose'];
+        $q_dosage = Dosage::where([['qr_pass_id',$id],['dose',$dose]])->first();
+
+        if (is_null($q_dosage)) {
+            $dosage = new Dosage;
+            $dosage->fill([
+                'qr_pass_id' => $id,
+                'dose' => $dose,
+            ]);
+            $dosage->save();
+        } else {
+            $dosage = $q_dosage;
+        }
+
+        // return $vaccine;
 
         $data = new VaccinePersonalInfo($registration);
 
