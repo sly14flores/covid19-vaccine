@@ -303,6 +303,7 @@ export default {
         const addRow = () => {
 
             const row = reactive({
+                id: 0,
                 date_collected: null,
                 time_collected: null,
                 systolic: null,
@@ -333,11 +334,11 @@ export default {
                 pre_assessment: state.healthDeclaration,
             }
             console.log(payload)
-            // postScreeningInfo(payload).then(res => {
+            postScreeningInfo(payload).then(res => {
 
-            // }).catch(err => {
+            }).catch(err => {
 
-            // })
+            })
         }
 
         return {
