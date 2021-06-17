@@ -128,7 +128,12 @@ class Dosage extends Model
     public function aefi()
     {
         return $this->hasOne(Aefi::class,'dosage_id');
-    }    
+    }
+
+    public function vitals()
+    {
+        return $this->hasMany(ScreeningVital::class, 'dosage_id', 'id');
+    }
 
     /**
      * @param $value
