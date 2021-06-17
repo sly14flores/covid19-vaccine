@@ -96,7 +96,17 @@
                                 </div>
                             </TabPanel>
                             <TabPanel header="Vital Signs">
-                                Vital Signs
+                               <DataTable class="p-datatable-sm">
+                                    <Column field="" header="Date Collected" headerStyle="width: 15%"></Column>
+                                    <Column field="" header="Time Collected"></Column>
+                                    <Column field="" header="By: Systolic"></Column>
+                                    <Column field="" header="BP: Diastolic"></Column>
+                                    <Column field="" header="Pulse Rate"></Column>
+                                    <Column field="" header="Respiratory Rate"></Column>
+                                    <Column field="" header="Temp. (Celsius)"></Column>
+                                    <Column field="" header="O2 Sat"></Column>
+                                    <Column field="" header="Pain Score"></Column>
+                                </DataTable>
                             </TabPanel>
                         </TabView>
                         <hr />
