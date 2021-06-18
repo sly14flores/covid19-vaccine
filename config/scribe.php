@@ -73,7 +73,7 @@ return [
                  * Additional headers to be added to the example requests
                  */
                 'headers' => [
-                    'Accept' => 'application/json',                    
+                    'Accept' => 'application/json',
                 ],
 
                 /*

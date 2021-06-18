@@ -13,7 +13,6 @@ endpoints:
       authenticated: false
     headers:
       Accept: application/json
-      Content-Type: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters:
@@ -21,13 +20,13 @@ endpoints:
         name: username
         description: ''
         required: true
-        example: ratione
+        example: unde
         type: string
       password:
         name: password
         description: ''
         required: true
-        example: libero
+        example: hic
         type: string
     responses: []
     responseFields: []
@@ -57,8 +56,6 @@ endpoints:
       authenticated: false
     headers:
       Accept: application/json
-      X-Api-Version: omnis
-      Content-Type: 'multipart/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS'
     urlParameters: []
     queryParameters: []
     bodyParameters:
@@ -66,7 +63,7 @@ endpoints:
         name: name
         description: ''
         required: false
-        example: ut
+        example: voluptas
         type: string
     responses: []
     responseFields: []

@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\Dosage;
 use Carbon\Carbon;
 
-class VaccinePersonalInfo extends JsonResource
+class VaccineScreeningInfo extends JsonResource
 {
     /**
      * Transform the resource into an array.
