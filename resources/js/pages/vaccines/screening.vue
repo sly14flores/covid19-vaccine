@@ -51,9 +51,13 @@
                         </div>
                         <hr />
                         <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-4">
-                                <label class="p-text-bold">Dose</label>
-                                <Dropdown class="p-shadow-1 p-inputtext-sm" v-model="dose" optionLabel="name" optionValue="id" :options="doses" placeholder="Select a dose" @change="doseSelected" />
+                            <div class="p-field p-col-12 p-md-6">
+                                <Card>
+                                    <template #content>
+                                        <label>Dose</label>
+                                        <Dropdown class="p-shadow-1 p-inputtext-sm p-mt-2" v-model="dose" optionLabel="name" optionValue="id" :options="doses" placeholder="Select a dose" @change="doseSelected" />
+                                    </template>
+                                </Card>
                             </div>
                         </div>
                         <hr />
@@ -81,7 +85,7 @@
                                         <div class="p-grid">
                                             <div class="p-field p-col-12 p-md-12">
                                                 <label>Consent Received By</label>
-                                                <Dropdown class="p-shadow-1 p-inputtext-sm" v-model="healthDeclaration.user_id" optionLabel="name" optionValue="id" :options="vaccinators" :disabled="healthDeclaration.consent == '02_No'" />
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" v-model="healthDeclaration.user_id" optionLabel="name" optionValue="id" :options="vaccinators" :class="{'disabled': (healthDeclaration.consent=='02_No') || (healthDeclaration.consent==null)}" :disabled="healthDeclaration.consent == '02_No'" />
                                             </div>
                                         </div>
                                     </template>
@@ -110,7 +114,7 @@
                                         <div class="p-grid">
                                            <div class="p-field p-col-12 p-md-12">
                                                 <label>Reason for Deferral</label>
-                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="selections.deferral_value"  v-model="healthDeclaration.reason" :disabled="(defer=='02_No') || (defer==null)" />
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="selections.deferral_value"  v-model="healthDeclaration.reason" :class="{'disabled': (defer=='02_No') || (defer==null)}" :disabled="(defer=='02_No') || (defer==null)" />
                                             </div>
                                         </div>
                                     </template>
@@ -209,6 +213,8 @@ import DataTable from 'primevue/datatable/sfc';
 import Column from 'primevue/column/sfc';
 import Card from 'primevue/card/sfc';
 
+import Swal from 'sweetalert2'
+
 import { reactive, toRefs, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -235,7 +241,8 @@ export default {
         Calendar,
         DataTable,
         Column,
-        Card
+        Card,
+        Swal
     },
     data() {
         return {
@@ -281,19 +288,35 @@ export default {
                 })
                 defer.value = (pre_assessment.reason != null)?'01_Yes':'02_No'
             }).catch(err => {
-                console.log(err)
+               
             })
         }
 
         if (qr!=null) {
             doseSelected()
         }
+    
+        const loadingSwal = Swal.fire({
+            title: 'Please wait...',
+            willOpen () {
+            Swal.showLoading ()
+            },
+            didClose () {
+            Swal.hideLoading()
+            },
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false
+        })
 
-        getSelections().then(res => {
+        getSelections(loadingSwal).then(res => {
             const { data: { data } } = res
             Object.assign(state, {...state, selections: data})
+            Swal.close()
         }).catch(err => {
             console.log(err)
+            Swal.close()
         })
 
         getVaccinators().then(res => {
@@ -349,9 +372,17 @@ export default {
                     vitalSigns: vitals,
                     healthDeclaration: pre_assessment,
                     dels,
-                })       
-            }).catch(err => {
+                })
 
+                Swal.fire({
+                    title: '<p class="text-success" style="font-size: 25px;">Successfully saved!</p>',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+
+            }).catch(err => {
+                
             })
         }
 
@@ -416,5 +447,10 @@ export default {
         font-size: 20px;
         text-align: center;
     }
+}
+.disabled {
+    background: rgb(219, 219, 219);
+    border-bottom: 1px solid black;
+    cursor: not-allowed; 
 }
 </style>
