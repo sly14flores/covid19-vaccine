@@ -9,13 +9,13 @@
             </template>
 
             <template #right>
-                <Button label="Save" class="p-button-primary p-mr-2" @click="save" />
+                <Button label="Save" class="p-button-primary p-mr-2" v-on:click.capture="submit" />
                 <Button label="Discard" class="p-button-danger" @click="discard" />
             </template>
         </Toolbar>
         <div class="p-grid">
             <div class="p-col-12 p-mt-2">
-                <form>
+                <form :validation-schema="screeningSchema" ref="screeningForm" v-on:submit.prevent="save">
                     <div class="card p-fluid">
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-10 p-md-11">
@@ -212,6 +212,9 @@ import Card from 'primevue/card/sfc';
 import { reactive, toRefs, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
+import { Field, Form, ErrorMessage } from "vee-validate"
+import * as yup from "yup"
+
 import {
     getPersonalInfo,
     postScreeningInfo,
@@ -331,7 +334,11 @@ export default {
 
         }      
 
-        const save = () => {
+        const save = (values) => {
+
+            console.log(values)
+            //
+
             const payload = {
                 id: qr,
                 dosage_id: state.personalInfo.dosage_id,
@@ -373,6 +380,11 @@ export default {
             }
         )
 
+        const screeningSchema = yup.object({
+            consent: yup.string().required(),
+            defer: yup.string().required(),
+        });        
+
         return {
             ...toRefs(state),
             dose,
@@ -381,6 +393,7 @@ export default {
             save,
             doseSelected,
             defer,
+            screeningSchema,
         }
 
     },
@@ -390,6 +403,9 @@ export default {
             this.$router.push('/vaccines/list/screening')
             
         },
+        submit() {
+            this.$refs['screeningForm'].submit()
+        }
     }
 }
 </script>
