@@ -34,8 +34,9 @@ class VaccinePersonalInfo extends JsonResource
             return $d->dose == $dose;
         });
 
+        $dosage_id = (is_null($dosage->first()))?null:$dosage->first()->id;
         $pre_assessment = (is_null($dosage->first()))?null:$dosage->first()->pre_assessment;
-        $vitals = (is_null($dosage->first()))?null:$dosage->first()->vitals()->where('dose',$dose)->get();
+        $vitals = (is_null($dosage->first()))?null:$dosage->first()->vitals()->get();
 
         return [
             'id' => $this->id,
@@ -47,6 +48,8 @@ class VaccinePersonalInfo extends JsonResource
             'contact_no' => $this->contact_no,
             'pre_assessment' => $pre_assessment,
             'vitals' => $vitals,
+            'dosage_id' => $dosage_id,
+            'dels' => [],
         ];
     }
 }

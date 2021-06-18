@@ -79,9 +79,9 @@
                                             </div>
                                         </div>
                                         <div class="p-grid">
-                                           <div class="p-field p-col-12 p-md-12">
+                                            <div class="p-field p-col-12 p-md-12">
                                                 <label>Consent Received By</label>
-                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="vaccinators" />
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" v-model="healthDeclaration.user_id" optionLabel="name" optionValue="id" :options="vaccinators" :disabled="healthDeclaration.consent == '02_No'" />
                                             </div>
                                         </div>
                                     </template>
@@ -96,13 +96,13 @@
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <div class="p-field-radiobutton">
-                                                    <RadioButton id="yes_defer" name="defer" value="01_Yes"/>
+                                                    <RadioButton id="yes_defer" name="defer" value="01_Yes" v-model="defer" />
                                                     <label for="yes_defer">Yes</label>
                                                 </div>
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <div class="p-field-radiobutton">
-                                                    <RadioButton id="no_defer" name="defer" value="02_No" />
+                                                    <RadioButton id="no_defer" name="defer" value="02_No" v-model="defer" />
                                                     <label for="no_defer">No</label>
                                                 </div>
                                             </div>
@@ -110,7 +110,7 @@
                                         <div class="p-grid">
                                            <div class="p-field p-col-12 p-md-12">
                                                 <label>Reason for Deferral</label>
-                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="selections.deferral_value"  v-model="healthDeclaration.reason" />
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="selections.deferral_value"  v-model="healthDeclaration.reason" :disabled="(defer=='02_No') || (defer==null)" />
                                             </div>
                                         </div>
                                     </template>
@@ -209,7 +209,7 @@ import DataTable from 'primevue/datatable/sfc';
 import Column from 'primevue/column/sfc';
 import Card from 'primevue/card/sfc';
 
-import { reactive, toRefs, ref } from 'vue'
+import { reactive, toRefs, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 import {
@@ -241,7 +241,6 @@ export default {
         return {
             home: {icon: 'pi pi-search', to: '/vaccines/list/screening'},
             items: [{label: 'Screening', to: `${this.$route.fullPath}`}],
-            rows: []
         }
     },
     setup() {
@@ -256,6 +255,7 @@ export default {
             healthDeclaration: {
                 assessments: []
             },
+            dels: [],
             selections: [],
             pres: [],
             vaccinators: [],
@@ -265,22 +265,25 @@ export default {
             ]
         })
 
+        const dose = ref(1);
+        const defer = ref(null)
+
         const doseSelected = () => {
             getPersonalInfo({ id: qr, dose: dose.value }).then(res => {
                 const { data: { data } } = res
-                const { pre_assessment, vitals } = data
+                const { pre_assessment, vitals, dels } = data
                 Object.assign(state, {
                     ...state,
                     personalInfo: data,
                     vitalSigns: vitals,
                     healthDeclaration: pre_assessment,
+                    dels,
                 })
+                defer.value = (pre_assessment.reason != null)?'01_Yes':'02_No'
             }).catch(err => {
                 console.log(err)
             })
         }
-
-        const dose = ref(1);
 
         if (qr!=null) {
             doseSelected()
@@ -303,6 +306,7 @@ export default {
         const addRow = () => {
 
             const row = reactive({
+                id: 0,
                 date_collected: null,
                 time_collected: null,
                 systolic: null,
@@ -320,6 +324,9 @@ export default {
 
         const removeRow = (index) => {
 
+            const vital = {...state.vitalSigns[index]}
+            const { id } = vital
+            if (id) state.dels.push(id)
             state.vitalSigns.splice(index, 1)
 
         }      
@@ -331,14 +338,40 @@ export default {
                 dose: dose.value,
                 vitals: state.vitalSigns,
                 pre_assessment: state.healthDeclaration,
+                dels: state.dels
             }
-            console.log(payload)
-            // postScreeningInfo(payload).then(res => {
+            postScreeningInfo(payload).then(res => {
+                const { data: { data } } = res
+                const { pre_assessment, vitals, dels } = data
+                Object.assign(state, {
+                    ...state,
+                    personalInfo: data,
+                    vitalSigns: vitals,
+                    healthDeclaration: pre_assessment,
+                    dels,
+                })       
+            }).catch(err => {
 
-            // }).catch(err => {
-
-            // })
+            })
         }
+
+        watch(
+            () => defer.value,
+            (value, prevValue) => {
+                if (value == '02_No') {
+                    state.healthDeclaration.reason = null
+                }
+            }
+        )
+
+        watch(
+            () => state.healthDeclaration.consent,
+            (value, prevValue) => {
+                if (value == '02_No') {
+                    state.healthDeclaration.user_id = null
+                }
+            }
+        )
 
         return {
             ...toRefs(state),
@@ -347,6 +380,7 @@ export default {
             removeRow,
             save,
             doseSelected,
+            defer,
         }
 
     },

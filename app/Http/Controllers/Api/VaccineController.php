@@ -17,6 +17,7 @@ use App\Models\Barangay;
 use App\Models\CityMun;
 use App\Models\Province;
 use App\Models\QrPass;
+use App\Models\ScreeningVital;
 
 use App\Http\Resources\VaccineResource;
 use App\Http\Resources\VaccineResourceCollection;
@@ -30,6 +31,7 @@ use App\Traits\DOHHelpers;
 use App\Traits\SelectionsRegistration;
 use App\Helpers\General\CollectionHelper;
 
+use Carbon\Carbon;
 
 class VaccineController extends Controller
 {
@@ -291,8 +293,10 @@ class VaccineController extends Controller
             'dosages' => 'array',
             'delete' => 'array'
         ];
-
         $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }        
 
         /** Get validated data */
         $data = $validator->valid();
@@ -359,14 +363,6 @@ class VaccineController extends Controller
             $post->fill($assessment);
             $dosage->post_assessment()->save($post);
         }
-    }
-
-    /**
-     * @group Screening
-     */
-    public function updateScreening()
-    {
-
     }
 
     /**
@@ -506,4 +502,73 @@ class VaccineController extends Controller
         return $this->jsonSuccessResponse(new RegistrationVaccineResource($registration), 200, 'Registration info updated successfully');         
 
     }
+
+    /**
+     * @group Screening
+     * 
+     * Update screening per dose
+     */
+    public function updateScreening(Request $request)
+    {
+        $rules = [
+            'id' => 'string',
+            'dosage_id' => 'integer',
+            'dose' => 'integer',
+            'vitals' => 'array',
+            'pre_assessment' => 'array',
+        ];        
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }
+        /** Get validated data */
+        $data = $validator->valid();
+
+        $qr_pass_id = $data['id'];
+        $dosage_id = $data['dosage_id'];
+        $dose = $data['dose'];
+        $vitals = $data['vitals'];
+        $pre_assessment = $data['pre_assessment'];
+        $dels = $data['dels'];
+
+        $dosage = Dosage::find($dosage_id);
+        $preAssessment = PreAssessment::where('dosage_id',$dosage_id)->first();
+        $pre_assessment_update = [
+            'user_id' => $pre_assessment['user_id'],
+            'consent' => $pre_assessment['consent'],
+            'reason' => $pre_assessment['reason'],
+            'assessments' => $pre_assessment['assessments'],
+        ];
+
+        $preAssessment->fill($pre_assessment_update);
+        $preAssessment->save();
+
+        /**
+         * Save vitals
+         */
+        foreach($vitals as $vitalData) {
+            if ($vitalData['id']) {
+                $vital = ScreeningVital::find($vitalData['id']);
+            } else {
+                $vital = new ScreeningVital;
+            }
+            $vitalData['dose'] = $dose;
+            $vital->fill($vitalData);
+            $dosage->vitals()->save($vital);
+        }
+
+        /**
+         * Delete vitals
+         */
+        if (count($dels)) {
+            $vitals = ScreeningVital::whereIn('id',$dels)->delete();
+        }
+
+        $registration = Registration::where('qr_pass_id',$qr_pass_id)->first();
+        
+        $data = new VaccinePersonalInfo($registration);
+
+        return $this->jsonSuccessResponse($data, 200);        
+
+    }    
 }
