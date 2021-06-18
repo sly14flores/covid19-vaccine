@@ -223,6 +223,8 @@ import { useRoute } from 'vue-router'
 import useValidate, { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf } from '@vuelidate/validators'
 
+import Swal from 'sweetalert2'
+
 import {
     getPersonalInfo,
     postScreeningInfo,
