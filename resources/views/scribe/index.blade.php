@@ -95,8 +95,8 @@ let headers = {
 };
 
 let body = {
-    "username": "eaque",
-    "password": "non"
+    "username": "ratione",
+    "password": "libero"
 }
 
 fetch(url, {
@@ -244,12 +244,12 @@ fetch(url, {
 
 let headers = {
     "Accept": "application/json",
-    "X-Api-Version": "in",
+    "X-Api-Version": "omnis",
     "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS",
 };
 
 let body = {
-    "name": "eaque"
+    "name": "ut"
 }
 
 fetch(url, {
@@ -272,7 +272,7 @@ fetch(url, {
       data-path="api/authenticate"
       data-authed="0"
       data-hasfiles=""
-      data-headers='{"Accept":"application\/json","X-Api-Version":"in","Content-Type":"multipart\/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS"}'
+      data-headers='{"Accept":"application\/json","X-Api-Version":"omnis","Content-Type":"multipart\/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS"}'
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-authenticate', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -327,7 +327,7 @@ Search registrations by QR, first name, middle name, last name for vaccinations<
 );
 
 let params = {
-    "search": "molestias",
+    "search": "fugiat",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -412,7 +412,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccines/screening/info/labore"
+    "https://vaccines.local/api/doh/vaccines/screening/info/delectus"
 );
 
 let headers = {
@@ -513,38 +513,35 @@ let headers = {
 };
 
 let body = {
-    "id": "laudantium",
-    "dosage_id": 18,
-    "dose": 3,
+    "id": "culpa",
+    "dosage_id": 9,
+    "dose": 13,
     "vitals": [
         {
             "dose": 13
         },
-        {
-            "dose": 13
-        }
+        []
     ],
     "pre_assessment": {
-        "dose": 17,
-        "dosage_id": 11,
-        "consent": "dolor",
-        "user_id": 19,
-        "reason": "recusandae",
+        "dose": 11,
+        "dosage_id": 19,
+        "consent": "sint",
+        "user_id": 15,
+        "reason": "ut",
         "assessments": [
             {
-                "key": 20,
-                "description": "perferendis",
-                "value": false
+                "key": 10,
+                "description": "molestiae",
+                "value": true
             },
             {
-                "key": 20,
-                "value": false
+                "description": "molestiae"
             }
         ]
     },
     "dels": [
-        15,
-        2
+        20,
+        1
     ]
 }
 
@@ -725,9 +722,9 @@ let headers = {
 };
 
 let body = {
-    "currentPassword": "id",
-    "newPassword": "ggeru",
-    "confirmNewPassword": "cbipjulg"
+    "currentPassword": "voluptatum",
+    "newPassword": "ww",
+    "confirmNewPassword": "zosu"
 }
 
 fetch(url, {
@@ -894,8 +891,8 @@ let headers = {
 };
 
 let body = {
-    "qr_pass_id": "porro",
-    "vaccination_facility": 18
+    "qr_pass_id": "maiores",
+    "vaccination_facility": 19
 }
 
 fetch(url, {
@@ -1119,7 +1116,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccine/16"
+    "https://vaccines.local/api/doh/vaccine/17"
 );
 
 let headers = {
@@ -1197,7 +1194,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/survey/2"
+    "https://vaccines.local/api/survey/18"
 );
 
 let headers = {
@@ -1275,7 +1272,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccine/5"
+    "https://vaccines.local/api/doh/vaccine/15"
 );
 
 let headers = {
@@ -1285,13 +1282,13 @@ let headers = {
 };
 
 let body = {
-    "facility_others": "aliquam",
-    "vaccination_session": 12,
+    "facility_others": "voluptatem",
+    "vaccination_session": 16,
     "dosages": [
-        "et"
+        "repellat"
     ],
     "delete": [
-        "ducimus"
+        "et"
     ]
 }
 
@@ -1394,7 +1391,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/survey/18"
+    "https://vaccines.local/api/survey/9"
 );
 
 let headers = {
@@ -1476,7 +1473,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccine/1"
+    "https://vaccines.local/api/doh/vaccine/16"
 );
 
 let headers = {
@@ -1554,7 +1551,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccines/qr/tenetur"
+    "https://vaccines.local/api/doh/vaccines/qr/et"
 );
 
 let headers = {
@@ -1632,7 +1629,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/survey/19"
+    "https://vaccines.local/api/survey/6"
 );
 
 let headers = {
@@ -1710,7 +1707,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccines/update/registration/16"
+    "https://vaccines.local/api/doh/vaccines/update/registration/1"
 );
 
 let headers = {
@@ -1721,28 +1718,28 @@ let headers = {
 
 let body = {
     "id": 7,
-    "qr_pass_id": "omnis",
-    "first_name": "ab",
-    "middle_name": "quis",
-    "last_name": "qui",
-    "suffix": "sunt",
-    "birthdate": "et",
-    "gender": "ut",
-    "address": "quidem",
-    "barangay": "nihil",
-    "town_city": "occaecati",
-    "province": "perspiciatis",
-    "contact_no": "qui",
-    "category": "minus",
-    "category_id": "velit",
-    "category_id_no": "debitis",
-    "philhealth": "ipsam",
-    "pwd_id": "est",
-    "priority_group": "alias",
-    "sub_priority_group": "omnis",
-    "allergic_to_vaccines": "omnis",
+    "qr_pass_id": "nostrum",
+    "first_name": "nemo",
+    "middle_name": "dolor",
+    "last_name": "et",
+    "suffix": "sed",
+    "birthdate": "quisquam",
+    "gender": "in",
+    "address": "a",
+    "barangay": "eos",
+    "town_city": "rerum",
+    "province": "qui",
+    "contact_no": "veritatis",
+    "category": "occaecati",
+    "category_id": "est",
+    "category_id_no": "mollitia",
+    "philhealth": "voluptatibus",
+    "pwd_id": "quas",
+    "priority_group": "ut",
+    "sub_priority_group": "sed",
+    "allergic_to_vaccines": "eaque",
     "is_registered": "et",
-    "with_comorbidity": "vero"
+    "with_comorbidity": "quia"
 }
 
 fetch(url, {
@@ -2015,13 +2012,13 @@ let headers = {
 };
 
 let body = {
-    "firstname": "vel",
-    "lastname": "quisquam",
-    "username": "ipsa",
-    "password": "adipisci",
-    "group_id": 7,
-    "profession": "laudantium",
-    "prc_number": "voluptatibus"
+    "firstname": "illo",
+    "lastname": "vel",
+    "username": "consequatur",
+    "password": "occaecati",
+    "group_id": 9,
+    "profession": "molestiae",
+    "prc_number": "commodi"
 }
 
 fetch(url, {
@@ -2126,7 +2123,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/user/16"
+    "https://vaccines.local/api/user/18"
 );
 
 let headers = {
@@ -2204,7 +2201,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/user/2"
+    "https://vaccines.local/api/user/16"
 );
 
 let headers = {
@@ -2214,12 +2211,12 @@ let headers = {
 };
 
 let body = {
-    "firstname": "mollitia",
-    "lastname": "voluptatum",
-    "username": "repellendus",
-    "group_id": 11,
-    "profession": "delectus",
-    "prc_number": "aut"
+    "firstname": "eos",
+    "lastname": "ad",
+    "username": "natus",
+    "group_id": 5,
+    "profession": "quasi",
+    "prc_number": "dolor"
 }
 
 fetch(url, {
@@ -2329,7 +2326,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/user/3"
+    "https://vaccines.local/api/user/12"
 );
 
 let headers = {
@@ -2489,8 +2486,8 @@ let headers = {
 };
 
 let body = {
-    "description": "vitae",
-    "slots": 3
+    "description": "itaque",
+    "slots": 7
 }
 
 fetch(url, {
@@ -2570,7 +2567,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/hospital/4"
+    "https://vaccines.local/api/hospital/17"
 );
 
 let headers = {
@@ -2648,7 +2645,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/hospital/3"
+    "https://vaccines.local/api/hospital/9"
 );
 
 let headers = {
@@ -2658,8 +2655,8 @@ let headers = {
 };
 
 let body = {
-    "description": "sit",
-    "slots": 4
+    "description": "doloribus",
+    "slots": 11
 }
 
 fetch(url, {
@@ -2749,7 +2746,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/hospital/16"
+    "https://vaccines.local/api/hospital/19"
 );
 
 let headers = {
@@ -2905,7 +2902,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/napanam/check/registration/17/mollitia"
+    "https://vaccines.local/api/napanam/check/registration/19/voluptatem"
 );
 
 let headers = {
@@ -2988,7 +2985,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/napanam/check/registrationID/non"
+    "https://vaccines.local/api/napanam/check/registrationID/quos"
 );
 
 let headers = {
@@ -3652,36 +3649,36 @@ let headers = {
 };
 
 let body = {
-    "qr_pass_id": "et",
-    "first_name": "tenetur",
-    "middle_name": "voluptas",
-    "last_name": "quae",
-    "suffix": "optio",
-    "birthdate": "ad",
-    "gender": "sed",
-    "region": "voluptatem",
-    "address": "dolor",
-    "barangay": "velit",
-    "town_city": "minima",
-    "province": "omnis",
-    "contact_no": "possimus",
-    "category": "praesentium",
-    "category_id": "possimus",
-    "category_id_no": "aspernatur",
-    "philhealth": "dolorum",
-    "pwd_id": "sit",
-    "indigenous_member": "tenetur",
-    "civil_status": "quidem",
-    "priority_group": "rerum",
-    "sub_priority_group": "omnis",
-    "occupation": "eligendi",
-    "with_allergy": "quia",
-    "with_comorbidity": "earum",
-    "is_registered": "aut",
-    "origin": "quisquam",
-    "employer_name": "magnam",
-    "employer_address": "reprehenderit",
-    "employer_lgu": "eaque"
+    "qr_pass_id": "quae",
+    "first_name": "harum",
+    "middle_name": "quia",
+    "last_name": "blanditiis",
+    "suffix": "laudantium",
+    "birthdate": "dolore",
+    "gender": "consequatur",
+    "region": "unde",
+    "address": "nemo",
+    "barangay": "perferendis",
+    "town_city": "corporis",
+    "province": "ipsam",
+    "contact_no": "nostrum",
+    "category": "numquam",
+    "category_id": "consectetur",
+    "category_id_no": "odit",
+    "philhealth": "eos",
+    "pwd_id": "quae",
+    "indigenous_member": "culpa",
+    "civil_status": "enim",
+    "priority_group": "id",
+    "sub_priority_group": "sed",
+    "occupation": "qui",
+    "with_allergy": "sunt",
+    "with_comorbidity": "at",
+    "is_registered": "a",
+    "origin": "aut",
+    "employer_name": "saepe",
+    "employer_address": "quo",
+    "employer_lgu": "ut"
 }
 
 fetch(url, {
@@ -3901,7 +3898,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/registration/5"
+    "https://vaccines.local/api/doh/registration/3"
 );
 
 let headers = {
@@ -3979,7 +3976,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/registration/17"
+    "https://vaccines.local/api/doh/registration/18"
 );
 
 let headers = {
@@ -3989,36 +3986,36 @@ let headers = {
 };
 
 let body = {
-    "qr_pass_id": "molestias",
-    "first_name": "minima",
-    "middle_name": "incidunt",
-    "last_name": "culpa",
-    "suffix": "aliquam",
-    "birthdate": "mollitia",
-    "gender": "eum",
-    "region": "labore",
-    "address": "labore",
-    "barangay": "voluptatibus",
-    "town_city": "architecto",
-    "province": "asperiores",
-    "contact_no": "aut",
-    "civil_status": "vitae",
-    "category": "sit",
-    "category_id": "laudantium",
+    "qr_pass_id": "ut",
+    "first_name": "fuga",
+    "middle_name": "amet",
+    "last_name": "autem",
+    "suffix": "non",
+    "birthdate": "voluptatem",
+    "gender": "impedit",
+    "region": "possimus",
+    "address": "odio",
+    "barangay": "non",
+    "town_city": "ut",
+    "province": "mollitia",
+    "contact_no": "alias",
+    "civil_status": "in",
+    "category": "deleniti",
+    "category_id": "nulla",
     "category_id_no": "consequatur",
-    "philhealth": "enim",
-    "pwd_id": "perspiciatis",
-    "indigenous_member": "ipsam",
-    "priority_group": "eveniet",
-    "sub_priority_group": "aut",
-    "occupation": "iusto",
-    "with_allergy": "magni",
-    "with_comorbidity": "quo",
-    "is_registered": "et",
-    "origin": "aut",
+    "philhealth": "nemo",
+    "pwd_id": "quis",
+    "indigenous_member": "sed",
+    "priority_group": "aspernatur",
+    "sub_priority_group": "omnis",
+    "occupation": "cupiditate",
+    "with_allergy": "repellat",
+    "with_comorbidity": "a",
+    "is_registered": "consequatur",
+    "origin": "nesciunt",
     "employer_name": "consequatur",
-    "employer_address": "et",
-    "employer_lgu": "veniam"
+    "employer_address": "consequatur",
+    "employer_lgu": "pariatur"
 }
 
 fetch(url, {
@@ -4248,7 +4245,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/registration/2"
+    "https://vaccines.local/api/doh/registration/20"
 );
 
 let headers = {
@@ -4326,7 +4323,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/dosages/18"
+    "https://vaccines.local/api/doh/dosages/2"
 );
 
 let headers = {
@@ -4414,20 +4411,20 @@ let headers = {
 };
 
 let body = {
-    "vaccine_id": 10,
-    "qr_pass_id": "ab",
-    "user_id": 17,
-    "brand_name": 7,
-    "vaccine_name": 6,
-    "site_of_injection": "voluptas",
-    "expiry_date": "2021-06-18T15:22:33",
-    "batch_number": 1,
-    "lot_number": 2,
-    "dose": 17,
-    "diluent_batch_number": 18,
-    "diluent_lot_number": 14,
-    "date_of_vaccination": "2021-06-18T15:22:33",
-    "next_vaccination": "2021-06-18T15:22:33"
+    "vaccine_id": 18,
+    "qr_pass_id": "dicta",
+    "user_id": 6,
+    "brand_name": 10,
+    "vaccine_name": 7,
+    "site_of_injection": "incidunt",
+    "expiry_date": "2021-06-18T15:37:03",
+    "batch_number": 4,
+    "lot_number": 1,
+    "dose": 19,
+    "diluent_batch_number": 3,
+    "diluent_lot_number": 10,
+    "date_of_vaccination": "2021-06-18T15:37:03",
+    "next_vaccination": "2021-06-18T15:37:03"
 }
 
 fetch(url, {
@@ -4567,7 +4564,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/dosage/13"
+    "https://vaccines.local/api/doh/dosage/16"
 );
 
 let headers = {
@@ -4645,7 +4642,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/dosage/6"
+    "https://vaccines.local/api/doh/dosage/10"
 );
 
 let headers = {
@@ -4657,15 +4654,15 @@ let headers = {
 let body = {
     "vaccine_id": 18,
     "user_id": 15,
-    "brand_name": 12,
-    "vaccine_name": "et",
-    "site_of_injection": "quo",
-    "expiry_date": "2021-06-18T15:22:33",
+    "brand_name": 14,
+    "vaccine_name": "ut",
+    "site_of_injection": "quos",
+    "expiry_date": "2021-06-18T15:37:03",
     "batch_number": 7,
-    "lot_number": 11,
-    "dose": 5,
-    "date_of_vaccination": "2021-06-18T15:22:33",
-    "next_vaccination": "2021-06-18T15:22:33"
+    "lot_number": 19,
+    "dose": 12,
+    "date_of_vaccination": "2021-06-18T15:37:03",
+    "next_vaccination": "2021-06-18T15:37:03"
 }
 
 fetch(url, {
@@ -4800,7 +4797,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/dosage/19"
+    "https://vaccines.local/api/doh/dosage/10"
 );
 
 let headers = {
@@ -4950,7 +4947,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/pres/inventore"
+    "https://vaccines.local/api/doh/pres/recusandae"
 );
 
 let headers = {
@@ -5100,7 +5097,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/pre/dolorem"
+    "https://vaccines.local/api/doh/pre/impedit"
 );
 
 let headers = {
@@ -5178,7 +5175,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/pre/et"
+    "https://vaccines.local/api/doh/pre/in"
 );
 
 let headers = {
@@ -5188,12 +5185,12 @@ let headers = {
 };
 
 let body = {
-    "consent": 5,
-    "blood_pressure": "et",
-    "oxygen_saturation": "quibusdam",
-    "pulse_rate": "molestiae",
+    "consent": 12,
+    "blood_pressure": "cum",
+    "oxygen_saturation": "dolor",
+    "pulse_rate": "expedita",
     "assessments": [
-        "soluta"
+        "quia"
     ]
 }
 
@@ -5300,7 +5297,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/pre/provident"
+    "https://vaccines.local/api/doh/pre/perferendis"
 );
 
 let headers = {
@@ -5450,7 +5447,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/posts/quo"
+    "https://vaccines.local/api/doh/posts/deleniti"
 );
 
 let headers = {
@@ -5600,7 +5597,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/post/voluptatibus"
+    "https://vaccines.local/api/doh/post/dolore"
 );
 
 let headers = {
@@ -5678,7 +5675,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/post/illo"
+    "https://vaccines.local/api/doh/post/placeat"
 );
 
 let headers = {
@@ -5689,11 +5686,11 @@ let headers = {
 
 let body = {
     "assessments": [
-        "dolorum"
+        "inventore"
     ],
-    "blood_pressure": "quisquam",
-    "oxygen_saturation": "dolores",
-    "pulse_rate": "exercitationem"
+    "blood_pressure": "voluptates",
+    "oxygen_saturation": "enim",
+    "pulse_rate": "qui"
 }
 
 fetch(url, {
@@ -5794,7 +5791,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/post/voluptatem"
+    "https://vaccines.local/api/doh/post/eum"
 );
 
 let headers = {
@@ -5954,7 +5951,7 @@ let headers = {
 };
 
 let body = {
-    "excel": "nulla"
+    "excel": "perspiciatis"
 }
 
 fetch(url, {

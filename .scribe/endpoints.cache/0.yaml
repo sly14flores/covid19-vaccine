@@ -21,13 +21,13 @@ endpoints:
         name: username
         description: ''
         required: true
-        example: eaque
+        example: ratione
         type: string
       password:
         name: password
         description: ''
         required: true
-        example: non
+        example: libero
         type: string
     responses: []
     responseFields: []
@@ -57,7 +57,7 @@ endpoints:
       authenticated: false
     headers:
       Accept: application/json
-      X-Api-Version: in
+      X-Api-Version: omnis
       Content-Type: 'multipart/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS'
     urlParameters: []
     queryParameters: []
@@ -66,7 +66,7 @@ endpoints:
         name: name
         description: ''
         required: false
-        example: eaque
+        example: ut
         type: string
     responses: []
     responseFields: []
