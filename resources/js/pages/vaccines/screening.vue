@@ -51,9 +51,13 @@
                         </div>
                         <hr />
                         <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-4">
-                                <label class="p-text-bold">Dose</label>
-                                <Dropdown class="p-shadow-1 p-inputtext-sm" v-model="dose" optionLabel="name" optionValue="id" :options="doses" placeholder="Select a dose" @change="doseSelected" />
+                            <div class="p-field p-col-12 p-md-6">
+                                <Card>
+                                    <template #content>
+                                        <label>Dose</label>
+                                        <Dropdown class="p-shadow-1 p-inputtext-sm p-mt-2" v-model="dose" optionLabel="name" optionValue="id" :options="doses" placeholder="Select a dose" @change="doseSelected" />
+                                    </template>
+                                </Card>
                             </div>
                         </div>
                         <hr />
@@ -242,7 +246,8 @@ export default {
         Calendar,
         DataTable,
         Column,
-        Card
+        Card,
+        Swal
     },
     data() {
         return {
@@ -288,19 +293,35 @@ export default {
                     defer: (pre_assessment.reason != null)?'01_Yes':null
                 })
             }).catch(err => {
-                console.log(err)
+               
             })
         }
 
         if (qr!=null) {
             doseSelected()
         }
+    
+        const loadingSwal = Swal.fire({
+            title: 'Please wait...',
+            willOpen () {
+            Swal.showLoading ()
+            },
+            didClose () {
+            Swal.hideLoading()
+            },
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false
+        })
 
-        getSelections().then(res => {
+        getSelections(loadingSwal).then(res => {
             const { data: { data } } = res
             Object.assign(state, {...state, selections: data})
+            Swal.close()
         }).catch(err => {
             console.log(err)
+            Swal.close()
         })
 
         getVaccinators().then(res => {
@@ -394,9 +415,17 @@ export default {
                     vitalSigns: vitals,
                     healthDeclaration: pre_assessment,
                     dels,
-                })       
-            }).catch(err => {
+                })
 
+                Swal.fire({
+                    title: '<p class="text-success" style="font-size: 25px;">Successfully saved!</p>',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+
+            }).catch(err => {
+                
             })
         }
 
@@ -461,5 +490,10 @@ export default {
         font-size: 20px;
         text-align: center;
     }
+}
+.disabled {
+    background: rgb(219, 219, 219);
+    border-bottom: 1px solid black;
+    cursor: not-allowed; 
 }
 </style>
