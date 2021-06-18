@@ -1,31 +1,28 @@
-name: Screening
+name: 'Personal Info'
 description: ''
 endpoints:
   -
     httpMethods:
-      - POST
-    uri: 'api/doh/vaccines/screening/info/{id}'
+      - GET
+    uri: api/doh/vaccines/search/registrations
     metadata:
-      title: 'Personal Info for Screening'
+      title: |-
+        List for vaccination
+
+        Search registrations by QR, first name, middle name, last name for vaccinations
       description: ''
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the info.'
-        required: true
-        example: quis
-        type: string
-    queryParameters: []
-    bodyParameters:
-      dose:
-        name: dose
+      Accept: application/json
+    urlParameters: []
+    queryParameters:
+      search:
+        name: search
         description: ''
-        required: true
-        example: 1
-        type: integer
+        required: false
+        example: aliquam
+        type: string
+    bodyParameters: []
     responses: []
     responseFields: []

@@ -24,7 +24,7 @@ use App\Http\Resources\VaccineResourceCollection;
 use App\Http\Resources\VaccinesListResourceCollection;
 use App\Http\Resources\RegistrationVaccineResource;
 use App\Http\Resources\RegistrationsListResourceCollection;
-use App\Http\Resources\VaccinePersonalInfo;
+use App\Http\Resources\VaccineScreeningInfo;
 
 use App\Traits\Messages;
 use App\Traits\DOHHelpers;
@@ -80,8 +80,26 @@ class VaccineController extends Controller
     public function searchRegistrations(Request $request)
     {
         $search = (isset($request->search))?$request->search:null;
+        $phase = (isset($request->phase))?$request->phase:'screening';
 
-        $registrations = Registration::all();
+        if ($phase == "screening") {
+            $registrations = Registration::all();
+        } else if ($phase == "inoculation") {
+            /**
+             * vacines->dosages->pre_assessment
+             * Consent is '01_Yes', reason is null
+             */
+            $registrations = Registration::has('vaccine')->get();
+        } else {
+            /**
+             * vacines->dosages->pre_assessment
+             * Consent is '01_Yes', reason is null
+             * dosage(s) ok / date_of_vaccination
+             * 
+             * Exclude vaccine->vaccine_completed
+             */
+            $registrations = Registration::all();
+        }
 
         $registrations = $registrations->filter(function($registration) use ($search) {
             $text = "{$registration->qr_pass_id} {$registration->first_name}, {$registration->middle_name}, {$registration->last_name}";            
@@ -251,10 +269,47 @@ class VaccineController extends Controller
             $pre_assessment = $q_pre_assessment;
         }
 
-        $data = new VaccinePersonalInfo($registration);
+        $data = new VaccineScreeningInfo($registration);
 
         return $this->jsonSuccessResponse($data, 200);        
         
+    }
+
+    /**
+     * @group Inoculation
+     * 
+     * Personal Info for Inoculation
+     * 
+     * @bodyParam dose integer required Example: 1
+     */
+    public function inoculationPersonalInfo(Request $request, $id)
+    {
+        if (filter_var($id, FILTER_VALIDATE_INT) === false ) {
+            return $this->jsonErrorInvalidParameters();
+        }
+        
+        $registration = Registration::where('qr_pass_id',$id)->first();
+
+        if (is_null($registration)) {
+			return $this->jsonErrorResourceNotFound();
+        }
+
+        /**
+         * Validate if passed screening
+         */
+        // return $this->jsonSuccessResponse(null, 406, "Patient has not been screened yet");
+
+
+        $rules = [
+            'dose' => 'integer',
+        ];    
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }
+        /** Get validated data */
+        $data = $validator->valid();
+
     }
 
     /**
@@ -507,6 +562,24 @@ class VaccineController extends Controller
      * @group Screening
      * 
      * Update screening per dose
+     * 
+     * @bodyParam id string required
+     * @bodyParam dosage_id integer required
+     * @bodyParam dose integer required
+     * @bodyParam pre_assessment object required
+     * @bodyParam pre_assessment.dose integer required
+     * @bodyParam pre_assessment.dosage_id integer required
+     * @bodyParam pre_assessment.consent string required
+     * @bodyParam pre_assessment.user_id integer
+     * @bodyParam pre_assessment.reason string required
+     * @bodyParam pre_assessment.assessments object[]
+     * @bodyParam pre_assessment.assessments[].key integer
+     * @bodyParam pre_assessment.assessments[].description string
+     * @bodyParam pre_assessment.assessments[].value boolean
+     * @bodyParam vitals object[]
+     * @bodyParam vitals[].dose integer
+     * @bodyParam dels integer[]
+     * 
      */
     public function updateScreening(Request $request)
     {
@@ -566,7 +639,7 @@ class VaccineController extends Controller
 
         $registration = Registration::where('qr_pass_id',$qr_pass_id)->first();
         
-        $data = new VaccinePersonalInfo($registration);
+        $data = new VaccineScreeningInfo($registration);
 
         return $this->jsonSuccessResponse($data, 200);        
 

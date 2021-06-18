@@ -10,7 +10,7 @@ endpoints:
       description: 'Login using username and password'
       authenticated: false
     headers:
-      Content-Type: application/json
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters:
@@ -18,13 +18,13 @@ endpoints:
         name: username
         description: ''
         required: true
-        example: sed
+        example: unde
         type: string
       password:
         name: password
         description: ''
         required: true
-        example: quae
+        example: hic
         type: string
     responses: []
     responseFields: []
@@ -38,6 +38,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -52,8 +53,6 @@ endpoints:
       description: ''
       authenticated: false
     headers:
-      X-Api-Version: et
-      Content-Type: 'multipart/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS'
       Accept: application/json
     urlParameters: []
     queryParameters: []
@@ -62,7 +61,7 @@ endpoints:
         name: name
         description: ''
         required: false
-        example: incidunt
+        example: voluptas
         type: string
     responses: []
     responseFields: []
