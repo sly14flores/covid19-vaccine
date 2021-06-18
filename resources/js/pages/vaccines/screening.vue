@@ -130,62 +130,50 @@
                                 <Button type="button" @click="addRow" icon="pi pi-plus" class="p-button-sm p-button-secondary" />
                             </template>
                         </Toolbar>
-                        <!-- <div v-for="(row, i) in vitalSigns" :key="row">
+                        <div v-for="(row, i) in vitalSigns" :key="row">
                             <hr />
                             <div class="p-fluid p-formgrid p-grid">
                                 <div class="p-field p-col-12 p-md-2">
                                     <label><small>Date Collected </small></label>
-                                    <Calendar v-model="row.date_collected" :manualInput="false" class="p-shadow-1 p-inputtext-sm" />
+                                    <Calendar v-model="row.date_collected" :ref="`date_collected-${i}`" :manualInput="false" class="p-shadow-1 p-inputtext-sm" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-2">
                                     <label><small>Time Collected </small> </label>
-                                    <Calendar v-model="row.time_collected" :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
+                                    <Calendar v-model="row.time_collected" :ref="`time_collected-${i}`" :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <label><small>BP: Systolic </small></label>
-                                    <InputText v-model="row.systolic" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                    <InputText v-model="row.systolic" :ref="`systolic-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <label><small>BP: Diastolic</small></label>
-                                    <InputText v-model="row.diastolic" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                    <InputText v-model="row.diastolic" :ref="`diastolic-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <label><small>Pulse Rate </small></label>
-                                    <InputText v-model="row.pulse_rate" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                    <InputText v-model="row.pulse_rate" :ref="`pulse_rate-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <label><small>Temp. (Celsius) </small></label>
-                                    <InputText v-model="row.temperature" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                    <InputText v-model="row.temperature" :ref="`temperature-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <label><small>Respiratory Rate</small></label>
-                                    <InputText v-model="row.respiratory_rate" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                    <InputText v-model="row.respiratory_rate" :ref="`respiratory_rate-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <label><small>O2 Sat</small></label>
-                                    <InputText v-model="row.oxygen" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                    <InputText v-model="row.oxygen" :ref="`oxygen-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <label><small>Pain Score</small></label>
-                                    <InputText v-model="row.pain_score" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                    <InputText v-model="row.pain_score" :ref="`pain_score-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <Button type="button" @click="removeRow(i)" icon="pi pi-trash" class="p-button-sm p-button-danger p-mt-4" />
                                 </div>
                             </div>
-                        </div> -->
-                        <div v-for="(row, i) in vv.vitals.$each" :key="row">
-                            <hr />
-                            <div class="p-fluid p-formgrid p-grid">
-                                <div class="p-field p-col-12 p-md-2">
-                                    <label><small>Date Collected </small></label>
-                                    <Calendar v-model="row.date_collected.$model" :manualInput="false" class="p-shadow-1 p-inputtext-sm" :class="{ 'p-invalid': row.date_collected.$error }" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <Button type="button" @click="removeRow(i)" icon="pi pi-trash" class="p-button-sm p-button-danger p-mt-4" />
-                                </div>
-                            </div>
-                        </div>                        
+                        </div>    
                         <hr />
                         <Toolbar>
                             <template #left>
@@ -225,7 +213,7 @@ import DataTable from 'primevue/datatable/sfc';
 import Column from 'primevue/column/sfc';
 import Card from 'primevue/card/sfc';
 
-import { reactive, computed, toRefs, toRef, ref, watch, unref, toRaw } from 'vue'
+import { reactive, computed, toRefs, toRef, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 import useValidate, { useVuelidate } from '@vuelidate/core'
@@ -330,7 +318,6 @@ export default {
             user_id: toRef(state.healthDeclaration, 'user_id'),
             defer: toRef(state, 'defer'),
             reason: toRef(state.healthDeclaration, 'reason'),
-            vitals: []
         }
 
         const rules = computed(() => {
@@ -343,17 +330,6 @@ export default {
                 reason: { required: requiredIf(function() {
                     return propsToValidate.defer.value == '01_Yes'
                 }) },
-                vitals: { required, $each: {
-                    date_collected: { required },
-                    // time_collected: { required },
-                    // systolic: { required },
-                    // diastolic: { required },
-                    // pulse_rate: { required },
-                    // temperature: { required },
-                    // respiratory_rate: { required },
-                    // oxygen: { required },
-                    // pain_score: { required },               
-                } }
             }
         })        
 
@@ -362,21 +338,19 @@ export default {
         const addRow = () => {
 
             const row = reactive({
-                // id: 0,
+                id: 0,
                 date_collected: null,
-                // time_collected: null,
-                // systolic: null,
-                // diastolic: null,
-                // pulse_rate: null,
-                // temperature: null,
-                // respiratory_rate: null,
-                // oxygen: null,
-                // pain_score: null
+                time_collected: null,
+                systolic: null,
+                diastolic: null,
+                pulse_rate: null,
+                temperature: null,
+                respiratory_rate: null,
+                oxygen: null,
+                pain_score: null,
             });
 
-            // state.vitalSigns.push(row);
-            console.log('push')
-            propsToValidate.vitals.push(row);
+            state.vitalSigns.push(row);
 
         }
 
@@ -391,11 +365,8 @@ export default {
 
         const save = () => {
 
-            vv.value.$touch();
+            vv.value.$touch();       
 
-            console.log(vv.value.$invalid)
-            console.log(vv.value.vitals)
-            
             if (vv.value.$invalid) {
                 // Swal here
                 return
@@ -413,10 +384,6 @@ export default {
                 pre_assessment: state.healthDeclaration,
                 dels: state.dels
             }
-
-            console.log(payload)
-
-            return
 
             postScreeningInfo(payload).then(res => {
                 const { data: { data } } = res
