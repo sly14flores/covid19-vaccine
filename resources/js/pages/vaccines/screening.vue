@@ -249,7 +249,6 @@ export default {
         DataTable,
         Column,
         Card,
-        Swal
     },
     data() {
         return {
