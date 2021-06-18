@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Covid19 Vaccines</title>
+    <title>API DOCS - Covid19 Vaccines</title>
 
     <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
 
@@ -49,7 +49,7 @@
                             <li><a href="{{ route("scribe.openapi") }}">View OpenAPI spec</a></li>
                     </ul>
             <ul class="toc-footer" id="last-updated">
-            <li>Last updated: June 17 2021</li>
+            <li>Last updated: June 18 2021</li>
         </ul>
 </div>
 <div class="page-wrapper">
@@ -69,102 +69,6 @@ You can switch the language used with the tabs at the top right (or from the nav
 <p>To authenticate requests, include an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_AUTH_KEY}"</code></strong>.</p>
 <p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
 <p>You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.</p>
-
-        <h1 id="screening">Screening</h1>
-    <p>
-        
-    </p>
-
-            <h2 id="screening-POSTapi-doh-vaccines-screening-info--id-">Personal Info for Screening</h2>
-
-<p>
-<small class="badge badge-darkred">requires authentication</small>
-</p>
-
-
-
-<blockquote>Example request:</blockquote>
-
-
-<pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccines/screening/info/quis"
-);
-
-let headers = {
-    "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "dose": 1
-}
-
-fetch(url, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(body),
-}).then(response =&gt; response.json());</code></pre>
-
-<div id="execution-results-POSTapi-doh-vaccines-screening-info--id-" hidden>
-    <blockquote>Received response<span
-                id="execution-response-status-POSTapi-doh-vaccines-screening-info--id-"></span>:
-    </blockquote>
-    <pre class="json"><code id="execution-response-content-POSTapi-doh-vaccines-screening-info--id-"></code></pre>
-</div>
-<div id="execution-error-POSTapi-doh-vaccines-screening-info--id-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTapi-doh-vaccines-screening-info--id-"></code></pre>
-</div>
-<form id="form-POSTapi-doh-vaccines-screening-info--id-" data-method="POST"
-      data-path="api/doh/vaccines/screening/info/{id}"
-      data-authed="1"
-      data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
-      onsubmit="event.preventDefault(); executeTryOut('POSTapi-doh-vaccines-screening-info--id-', this);">
-    <h3>
-        Request&nbsp;&nbsp;&nbsp;
-                    <button type="button"
-                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-POSTapi-doh-vaccines-screening-info--id-"
-                    onclick="tryItOut('POSTapi-doh-vaccines-screening-info--id-');">Try it out ⚡
-            </button>
-            <button type="button"
-                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-POSTapi-doh-vaccines-screening-info--id-"
-                    onclick="cancelTryOut('POSTapi-doh-vaccines-screening-info--id-');" hidden>Cancel
-            </button>&nbsp;&nbsp;
-            <button type="submit"
-                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-POSTapi-doh-vaccines-screening-info--id-" hidden>Send Request 💥
-            </button>
-            </h3>
-            <p>
-            <small class="badge badge-black">POST</small>
-            <b><code>api/doh/vaccines/screening/info/{id}</code></b>
-        </p>
-                <p>
-            <label id="auth-POSTapi-doh-vaccines-screening-info--id-" hidden>Authorization header:
-                <b><code>Bearer </code></b><input type="text"
-                                                                name="Authorization"
-                                                                data-prefix="Bearer "
-                                                                data-endpoint="POSTapi-doh-vaccines-screening-info--id-"
-                                                                data-component="header"></label>
-        </p>
-                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-                    <p>
-                <b><code>id</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<input type="text" name="id" data-endpoint="POSTapi-doh-vaccines-screening-info--id-" data-component="url" required  hidden>
-<br>
-<p>The ID of the info.</p>            </p>
-                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-        <p>
-            <b><code>dose</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
-<input type="number" name="dose" data-endpoint="POSTapi-doh-vaccines-screening-info--id-" data-component="body" required  hidden>
-<br>
-        </p>
-    
-    </form>
 
         <h1 id="authentication">Authentication</h1>
     <p>
@@ -186,13 +90,13 @@ fetch(url, {
 );
 
 let headers = {
-    "Content-Type": "application/json",
     "Accept": "application/json",
+    "Content-Type": "application/json",
 };
 
 let body = {
-    "username": "sed",
-    "password": "quae"
+    "username": "eaque",
+    "password": "non"
 }
 
 fetch(url, {
@@ -215,7 +119,7 @@ fetch(url, {
       data-path="api/login"
       data-authed="0"
       data-hasfiles=""
-      data-headers='{"Content-Type":"application\/json"}'
+      data-headers='{"Accept":"application\/json","Content-Type":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-login', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -291,7 +195,7 @@ fetch(url, {
       data-path="api/logout"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-logout', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -339,13 +243,13 @@ fetch(url, {
 );
 
 let headers = {
-    "X-Api-Version": "et",
-    "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS",
     "Accept": "application/json",
+    "X-Api-Version": "in",
+    "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS",
 };
 
 let body = {
-    "name": "incidunt"
+    "name": "eaque"
 }
 
 fetch(url, {
@@ -368,7 +272,7 @@ fetch(url, {
       data-path="api/authenticate"
       data-authed="0"
       data-hasfiles=""
-      data-headers='{"X-Api-Version":"et","Content-Type":"multipart\/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS","Accept":"application\/json"}'
+      data-headers='{"Accept":"application\/json","X-Api-Version":"in","Content-Type":"multipart\/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS"}'
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-authenticate', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -423,7 +327,7 @@ Search registrations by QR, first name, middle name, last name for vaccinations<
 );
 
 let params = {
-    "search": "ut",
+    "search": "molestias",
 };
 Object.keys(params)
     .forEach(key =&gt; url.searchParams.append(key, params[key]));
@@ -452,7 +356,7 @@ fetch(url, {
       data-path="api/doh/vaccines/search/registrations"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-vaccines-search-registrations', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -491,6 +395,309 @@ fetch(url, {
             </p>
                 </form>
 
+        <h1 id="screening">Screening</h1>
+    <p>
+        
+    </p>
+
+            <h2 id="screening-POSTapi-doh-vaccines-screening-info--id-">Personal Info for Screening</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<blockquote>Example request:</blockquote>
+
+
+<pre><code class="language-javascript">const url = new URL(
+    "https://vaccines.local/api/doh/vaccines/screening/info/labore"
+);
+
+let headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+};
+
+let body = {
+    "dose": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre>
+
+<div id="execution-results-POSTapi-doh-vaccines-screening-info--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-doh-vaccines-screening-info--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-doh-vaccines-screening-info--id-"></code></pre>
+</div>
+<div id="execution-error-POSTapi-doh-vaccines-screening-info--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-doh-vaccines-screening-info--id-"></code></pre>
+</div>
+<form id="form-POSTapi-doh-vaccines-screening-info--id-" data-method="POST"
+      data-path="api/doh/vaccines/screening/info/{id}"
+      data-authed="1"
+      data-hasfiles=""
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json","Content-Type":"application\/json"}'
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-doh-vaccines-screening-info--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-doh-vaccines-screening-info--id-"
+                    onclick="tryItOut('POSTapi-doh-vaccines-screening-info--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-doh-vaccines-screening-info--id-"
+                    onclick="cancelTryOut('POSTapi-doh-vaccines-screening-info--id-');" hidden>Cancel
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-doh-vaccines-screening-info--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/doh/vaccines/screening/info/{id}</code></b>
+        </p>
+                <p>
+            <label id="auth-POSTapi-doh-vaccines-screening-info--id-" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="POSTapi-doh-vaccines-screening-info--id-"
+                                                                data-component="header"></label>
+        </p>
+                <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="id" data-endpoint="POSTapi-doh-vaccines-screening-info--id-" data-component="url" required  hidden>
+<br>
+<p>The ID of the info.</p>            </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>dose</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="dose" data-endpoint="POSTapi-doh-vaccines-screening-info--id-" data-component="body" required  hidden>
+<br>
+        </p>
+    
+    </form>
+
+            <h2 id="screening-POSTapi-doh-vaccines-screening-update">Update screening per dose</h2>
+
+<p>
+<small class="badge badge-darkred">requires authentication</small>
+</p>
+
+
+
+<blockquote>Example request:</blockquote>
+
+
+<pre><code class="language-javascript">const url = new URL(
+    "https://vaccines.local/api/doh/vaccines/screening/update"
+);
+
+let headers = {
+    "Authorization": "Bearer {YOUR_AUTH_KEY}",
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+};
+
+let body = {
+    "id": "laudantium",
+    "dosage_id": 18,
+    "dose": 3,
+    "vitals": [
+        {
+            "dose": 13
+        },
+        {
+            "dose": 13
+        }
+    ],
+    "pre_assessment": {
+        "dose": 17,
+        "dosage_id": 11,
+        "consent": "dolor",
+        "user_id": 19,
+        "reason": "recusandae",
+        "assessments": [
+            {
+                "key": 20,
+                "description": "perferendis",
+                "value": false
+            },
+            {
+                "key": 20,
+                "value": false
+            }
+        ]
+    },
+    "dels": [
+        15,
+        2
+    ]
+}
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre>
+
+<div id="execution-results-POSTapi-doh-vaccines-screening-update" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-doh-vaccines-screening-update"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-doh-vaccines-screening-update"></code></pre>
+</div>
+<div id="execution-error-POSTapi-doh-vaccines-screening-update" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-doh-vaccines-screening-update"></code></pre>
+</div>
+<form id="form-POSTapi-doh-vaccines-screening-update" data-method="POST"
+      data-path="api/doh/vaccines/screening/update"
+      data-authed="1"
+      data-hasfiles=""
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json","Content-Type":"application\/json"}'
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-doh-vaccines-screening-update', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-doh-vaccines-screening-update"
+                    onclick="tryItOut('POSTapi-doh-vaccines-screening-update');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-doh-vaccines-screening-update"
+                    onclick="cancelTryOut('POSTapi-doh-vaccines-screening-update');" hidden>Cancel
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-doh-vaccines-screening-update" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/doh/vaccines/screening/update</code></b>
+        </p>
+                <p>
+            <label id="auth-POSTapi-doh-vaccines-screening-update" hidden>Authorization header:
+                <b><code>Bearer </code></b><input type="text"
+                                                                name="Authorization"
+                                                                data-prefix="Bearer "
+                                                                data-endpoint="POSTapi-doh-vaccines-screening-update"
+                                                                data-component="header"></label>
+        </p>
+                        <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>id</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="id" data-endpoint="POSTapi-doh-vaccines-screening-update" data-component="body" required  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>dosage_id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="dosage_id" data-endpoint="POSTapi-doh-vaccines-screening-update" data-component="body" required  hidden>
+<br>
+        </p>
+                <p>
+            <b><code>dose</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="dose" data-endpoint="POSTapi-doh-vaccines-screening-update" data-component="body" required  hidden>
+<br>
+        </p>
+                <p>
+        <details>
+            <summary>
+                <b><code>vitals</code></b>&nbsp;&nbsp;<small>object[]</small>     <i>optional</i> &nbsp;
+<br>
+            </summary>
+            <br>
+                                                <p>
+                        <b><code>vitals[].dose</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="vitals.0.dose" data-endpoint="POSTapi-doh-vaccines-screening-update" data-component="body"  hidden>
+<br>
+                    </p>
+                                    </details>
+        </p>
+                <p>
+        <details>
+            <summary>
+                <b><code>pre_assessment</code></b>&nbsp;&nbsp;<small>object</small>  &nbsp;
+<br>
+            </summary>
+            <br>
+                                                <p>
+                        <b><code>pre_assessment.dose</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="pre_assessment.dose" data-endpoint="POSTapi-doh-vaccines-screening-update" data-component="body" required  hidden>
+<br>
+                    </p>
+                                                                <p>
+                        <b><code>pre_assessment.dosage_id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="pre_assessment.dosage_id" data-endpoint="POSTapi-doh-vaccines-screening-update" data-component="body" required  hidden>
+<br>
+                    </p>
+                                                                <p>
+                        <b><code>pre_assessment.consent</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="pre_assessment.consent" data-endpoint="POSTapi-doh-vaccines-screening-update" data-component="body" required  hidden>
+<br>
+                    </p>
+                                                                <p>
+                        <b><code>pre_assessment.user_id</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="pre_assessment.user_id" data-endpoint="POSTapi-doh-vaccines-screening-update" data-component="body"  hidden>
+<br>
+                    </p>
+                                                                <p>
+                        <b><code>pre_assessment.reason</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="pre_assessment.reason" data-endpoint="POSTapi-doh-vaccines-screening-update" data-component="body" required  hidden>
+<br>
+                    </p>
+                                                                <p>
+        <details>
+            <summary>
+                <b><code>pre_assessment.assessments</code></b>&nbsp;&nbsp;<small>object[]</small>     <i>optional</i> &nbsp;
+<br>
+            </summary>
+            <br>
+                                                <p>
+                        <b><code>pre_assessment.assessments[].key</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+<input type="number" name="pre_assessment.assessments.0.key" data-endpoint="POSTapi-doh-vaccines-screening-update" data-component="body"  hidden>
+<br>
+                    </p>
+                                                                <p>
+                        <b><code>pre_assessment.assessments[].description</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="pre_assessment.assessments.0.description" data-endpoint="POSTapi-doh-vaccines-screening-update" data-component="body"  hidden>
+<br>
+                    </p>
+                                                                <p>
+                        <b><code>pre_assessment.assessments[].value</code></b>&nbsp;&nbsp;<small>boolean</small>     <i>optional</i> &nbsp;
+<label data-endpoint="POSTapi-doh-vaccines-screening-update" hidden><input type="radio" name="pre_assessment.assessments.0.value" value="true" data-endpoint="POSTapi-doh-vaccines-screening-update" data-component="body" ><code>true</code></label>
+<label data-endpoint="POSTapi-doh-vaccines-screening-update" hidden><input type="radio" name="pre_assessment.assessments.0.value" value="false" data-endpoint="POSTapi-doh-vaccines-screening-update" data-component="body" ><code>false</code></label>
+<br>
+                    </p>
+                                    </details>
+        </p>
+    
+                                    </details>
+        </p>
+                <p>
+            <b><code>dels</code></b>&nbsp;&nbsp;<small>integer[]</small>     <i>optional</i> &nbsp;
+<input type="number" name="dels.0" data-endpoint="POSTapi-doh-vaccines-screening-update" data-component="body"  hidden>
+<input type="number" name="dels.1" data-endpoint="POSTapi-doh-vaccines-screening-update" data-component="body" hidden>
+<br>
+        </p>
+    
+    </form>
+
         <h1 id="uncategorized">Uncategorized</h1>
     <p>
         
@@ -513,14 +720,14 @@ fetch(url, {
 
 let headers = {
     "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
     "Accept": "application/json",
+    "Content-Type": "application/json",
 };
 
 let body = {
-    "currentPassword": "dolores",
-    "newPassword": "nwfy",
-    "confirmNewPassword": "cxnpha"
+    "currentPassword": "id",
+    "newPassword": "ggeru",
+    "confirmNewPassword": "cbipjulg"
 }
 
 fetch(url, {
@@ -543,7 +750,7 @@ fetch(url, {
       data-path="api/change/password"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json","Content-Type":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-change-password', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -632,7 +839,7 @@ fetch(url, {
       data-path="api/doh/vaccines"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-vaccines', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -682,13 +889,13 @@ fetch(url, {
 
 let headers = {
     "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
     "Accept": "application/json",
+    "Content-Type": "application/json",
 };
 
 let body = {
-    "qr_pass_id": "mollitia",
-    "vaccination_facility": 5
+    "qr_pass_id": "porro",
+    "vaccination_facility": 18
 }
 
 fetch(url, {
@@ -711,7 +918,7 @@ fetch(url, {
       data-path="api/doh/vaccine"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json","Content-Type":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-doh-vaccine', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -795,7 +1002,7 @@ fetch(url, {
       data-path="api/surveys"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-surveys', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -867,7 +1074,7 @@ fetch(url, {
       data-path="api/survey"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-survey', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -912,7 +1119,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccine/8"
+    "https://vaccines.local/api/doh/vaccine/16"
 );
 
 let headers = {
@@ -939,7 +1146,7 @@ fetch(url, {
       data-path="api/doh/vaccine/{vaccine}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-vaccine--vaccine-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -990,7 +1197,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/survey/19"
+    "https://vaccines.local/api/survey/2"
 );
 
 let headers = {
@@ -1017,7 +1224,7 @@ fetch(url, {
       data-path="api/survey/{survey}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-survey--survey-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -1068,23 +1275,23 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccine/13"
+    "https://vaccines.local/api/doh/vaccine/5"
 );
 
 let headers = {
     "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
     "Accept": "application/json",
+    "Content-Type": "application/json",
 };
 
 let body = {
-    "facility_others": "cumque",
-    "vaccination_session": 3,
+    "facility_others": "aliquam",
+    "vaccination_session": 12,
     "dosages": [
-        "nobis"
+        "et"
     ],
     "delete": [
-        "praesentium"
+        "ducimus"
     ]
 }
 
@@ -1108,7 +1315,7 @@ fetch(url, {
       data-path="api/doh/vaccine/{vaccine}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json","Content-Type":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('PUTapi-doh-vaccine--vaccine-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -1187,7 +1394,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/survey/2"
+    "https://vaccines.local/api/survey/18"
 );
 
 let headers = {
@@ -1214,7 +1421,7 @@ fetch(url, {
       data-path="api/survey/{survey}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('PUTapi-survey--survey-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -1269,7 +1476,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccine/12"
+    "https://vaccines.local/api/doh/vaccine/1"
 );
 
 let headers = {
@@ -1296,7 +1503,7 @@ fetch(url, {
       data-path="api/doh/vaccine/{vaccine}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('DELETEapi-doh-vaccine--vaccine-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -1347,7 +1554,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccines/qr/suscipit"
+    "https://vaccines.local/api/doh/vaccines/qr/tenetur"
 );
 
 let headers = {
@@ -1374,7 +1581,7 @@ fetch(url, {
       data-path="api/doh/vaccines/qr/{id}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-vaccines-qr--id-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -1425,7 +1632,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/survey/12"
+    "https://vaccines.local/api/survey/19"
 );
 
 let headers = {
@@ -1452,7 +1659,7 @@ fetch(url, {
       data-path="api/survey/{survey}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('DELETEapi-survey--survey-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -1503,39 +1710,39 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/vaccines/update/registration/15"
+    "https://vaccines.local/api/doh/vaccines/update/registration/16"
 );
 
 let headers = {
     "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
     "Accept": "application/json",
+    "Content-Type": "application/json",
 };
 
 let body = {
-    "id": 16,
-    "qr_pass_id": "eaque",
-    "first_name": "ad",
-    "middle_name": "quia",
-    "last_name": "beatae",
-    "suffix": "ut",
-    "birthdate": "eveniet",
-    "gender": "perspiciatis",
-    "address": "quisquam",
-    "barangay": "explicabo",
-    "town_city": "molestias",
-    "province": "ea",
-    "contact_no": "ipsam",
-    "category": "eveniet",
-    "category_id": "aperiam",
-    "category_id_no": "quia",
-    "philhealth": "repellat",
-    "pwd_id": "cum",
-    "priority_group": "ut",
-    "sub_priority_group": "eum",
-    "allergic_to_vaccines": "aspernatur",
-    "is_registered": "magnam",
-    "with_comorbidity": "est"
+    "id": 7,
+    "qr_pass_id": "omnis",
+    "first_name": "ab",
+    "middle_name": "quis",
+    "last_name": "qui",
+    "suffix": "sunt",
+    "birthdate": "et",
+    "gender": "ut",
+    "address": "quidem",
+    "barangay": "nihil",
+    "town_city": "occaecati",
+    "province": "perspiciatis",
+    "contact_no": "qui",
+    "category": "minus",
+    "category_id": "velit",
+    "category_id_no": "debitis",
+    "philhealth": "ipsam",
+    "pwd_id": "est",
+    "priority_group": "alias",
+    "sub_priority_group": "omnis",
+    "allergic_to_vaccines": "omnis",
+    "is_registered": "et",
+    "with_comorbidity": "vero"
 }
 
 fetch(url, {
@@ -1558,7 +1765,7 @@ fetch(url, {
       data-path="api/doh/vaccines/update/registration/{id}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json","Content-Type":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('PUTapi-doh-vaccines-update-registration--id-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -1753,7 +1960,7 @@ fetch(url, {
       data-path="api/users"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-users', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -1803,18 +2010,18 @@ fetch(url, {
 
 let headers = {
     "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
     "Accept": "application/json",
+    "Content-Type": "application/json",
 };
 
 let body = {
-    "firstname": "dolor",
-    "lastname": "rerum",
-    "username": "et",
-    "password": "minus",
-    "group_id": 5,
-    "profession": "et",
-    "prc_number": "commodi"
+    "firstname": "vel",
+    "lastname": "quisquam",
+    "username": "ipsa",
+    "password": "adipisci",
+    "group_id": 7,
+    "profession": "laudantium",
+    "prc_number": "voluptatibus"
 }
 
 fetch(url, {
@@ -1837,7 +2044,7 @@ fetch(url, {
       data-path="api/user"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json","Content-Type":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-user', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -1919,7 +2126,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/user/1"
+    "https://vaccines.local/api/user/16"
 );
 
 let headers = {
@@ -1946,7 +2153,7 @@ fetch(url, {
       data-path="api/user/{user}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-user--user-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -1997,22 +2204,22 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/user/4"
+    "https://vaccines.local/api/user/2"
 );
 
 let headers = {
     "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
     "Accept": "application/json",
+    "Content-Type": "application/json",
 };
 
 let body = {
-    "firstname": "sint",
-    "lastname": "sed",
-    "username": "qui",
-    "group_id": 7,
-    "profession": "culpa",
-    "prc_number": "ipsa"
+    "firstname": "mollitia",
+    "lastname": "voluptatum",
+    "username": "repellendus",
+    "group_id": 11,
+    "profession": "delectus",
+    "prc_number": "aut"
 }
 
 fetch(url, {
@@ -2035,7 +2242,7 @@ fetch(url, {
       data-path="api/user/{user}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json","Content-Type":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('PUTapi-user--user-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -2122,7 +2329,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/user/2"
+    "https://vaccines.local/api/user/3"
 );
 
 let headers = {
@@ -2149,7 +2356,7 @@ fetch(url, {
       data-path="api/user/{user}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('DELETEapi-user--user-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -2227,7 +2434,7 @@ fetch(url, {
       data-path="api/hospitals"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-hospitals', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -2277,13 +2484,13 @@ fetch(url, {
 
 let headers = {
     "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
     "Accept": "application/json",
+    "Content-Type": "application/json",
 };
 
 let body = {
-    "description": "in",
-    "slots": 17
+    "description": "vitae",
+    "slots": 3
 }
 
 fetch(url, {
@@ -2306,7 +2513,7 @@ fetch(url, {
       data-path="api/hospital"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json","Content-Type":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-hospital', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -2363,7 +2570,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/hospital/7"
+    "https://vaccines.local/api/hospital/4"
 );
 
 let headers = {
@@ -2390,7 +2597,7 @@ fetch(url, {
       data-path="api/hospital/{hospital}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-hospital--hospital-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -2441,18 +2648,18 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/hospital/4"
+    "https://vaccines.local/api/hospital/3"
 );
 
 let headers = {
     "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
     "Accept": "application/json",
+    "Content-Type": "application/json",
 };
 
 let body = {
-    "description": "et",
-    "slots": 14
+    "description": "sit",
+    "slots": 4
 }
 
 fetch(url, {
@@ -2475,7 +2682,7 @@ fetch(url, {
       data-path="api/hospital/{hospital}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json","Content-Type":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('PUTapi-hospital--hospital-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -2542,7 +2749,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/hospital/17"
+    "https://vaccines.local/api/hospital/16"
 );
 
 let headers = {
@@ -2569,7 +2776,7 @@ fetch(url, {
       data-path="api/hospital/{hospital}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('DELETEapi-hospital--hospital-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -2620,7 +2827,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/napanam/check/registration/5"
+    "https://vaccines.local/api/napanam/check/registration/15"
 );
 
 let headers = {
@@ -2647,7 +2854,7 @@ fetch(url, {
       data-path="api/napanam/check/registration/{id}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-napanam-check-registration--id-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -2698,7 +2905,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/napanam/check/registration/12/facilis"
+    "https://vaccines.local/api/napanam/check/registration/17/mollitia"
 );
 
 let headers = {
@@ -2725,7 +2932,7 @@ fetch(url, {
       data-path="api/napanam/check/registration/{id}/{birthday}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-napanam-check-registration--id---birthday-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -2781,7 +2988,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/napanam/check/registrationID/quis"
+    "https://vaccines.local/api/napanam/check/registrationID/non"
 );
 
 let headers = {
@@ -2808,7 +3015,7 @@ fetch(url, {
       data-path="api/napanam/check/registrationID/{id}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-napanam-check-registrationID--id-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -2886,7 +3093,7 @@ fetch(url, {
       data-path="api/doh/selections"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-selections', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -2958,7 +3165,7 @@ fetch(url, {
       data-path="api/doh/selections/addresses"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-selections-addresses', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -3030,7 +3237,7 @@ fetch(url, {
       data-path="api/doh/selections/brands"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-selections-brands', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -3102,7 +3309,7 @@ fetch(url, {
       data-path="api/doh/selections/vaccination/sessions"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-selections-vaccination-sessions', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -3174,7 +3381,7 @@ fetch(url, {
       data-path="api/doh/selections/groups"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-selections-groups', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -3246,7 +3453,7 @@ fetch(url, {
       data-path="api/doh/selections/priority/groups"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-selections-priority-groups', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -3318,7 +3525,7 @@ fetch(url, {
       data-path="api/doh/selections/vaccine/refusals"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-selections-vaccine-refusals', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -3390,7 +3597,7 @@ fetch(url, {
       data-path="api/doh/registrations"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-registrations', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -3440,41 +3647,41 @@ fetch(url, {
 
 let headers = {
     "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
     "Accept": "application/json",
+    "Content-Type": "application/json",
 };
 
 let body = {
-    "qr_pass_id": "autem",
-    "first_name": "amet",
-    "middle_name": "sed",
-    "last_name": "molestiae",
-    "suffix": "veritatis",
-    "birthdate": "officiis",
-    "gender": "ut",
-    "region": "sequi",
-    "address": "consequatur",
-    "barangay": "voluptate",
-    "town_city": "voluptatibus",
-    "province": "quos",
-    "contact_no": "ex",
-    "category": "rerum",
-    "category_id": "dolor",
-    "category_id_no": "quia",
-    "philhealth": "corrupti",
-    "pwd_id": "illo",
-    "indigenous_member": "qui",
-    "civil_status": "et",
-    "priority_group": "non",
-    "sub_priority_group": "ratione",
-    "occupation": "qui",
-    "with_allergy": "aperiam",
-    "with_comorbidity": "id",
-    "is_registered": "sed",
-    "origin": "ad",
-    "employer_name": "sunt",
+    "qr_pass_id": "et",
+    "first_name": "tenetur",
+    "middle_name": "voluptas",
+    "last_name": "quae",
+    "suffix": "optio",
+    "birthdate": "ad",
+    "gender": "sed",
+    "region": "voluptatem",
+    "address": "dolor",
+    "barangay": "velit",
+    "town_city": "minima",
+    "province": "omnis",
+    "contact_no": "possimus",
+    "category": "praesentium",
+    "category_id": "possimus",
+    "category_id_no": "aspernatur",
+    "philhealth": "dolorum",
+    "pwd_id": "sit",
+    "indigenous_member": "tenetur",
+    "civil_status": "quidem",
+    "priority_group": "rerum",
+    "sub_priority_group": "omnis",
+    "occupation": "eligendi",
+    "with_allergy": "quia",
+    "with_comorbidity": "earum",
+    "is_registered": "aut",
+    "origin": "quisquam",
+    "employer_name": "magnam",
     "employer_address": "reprehenderit",
-    "employer_lgu": "porro"
+    "employer_lgu": "eaque"
 }
 
 fetch(url, {
@@ -3497,7 +3704,7 @@ fetch(url, {
       data-path="api/doh/registration"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json","Content-Type":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-doh-registration', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -3694,7 +3901,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/registration/11"
+    "https://vaccines.local/api/doh/registration/5"
 );
 
 let headers = {
@@ -3721,7 +3928,7 @@ fetch(url, {
       data-path="api/doh/registration/{registration}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-registration--registration-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -3772,46 +3979,46 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/registration/9"
+    "https://vaccines.local/api/doh/registration/17"
 );
 
 let headers = {
     "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
     "Accept": "application/json",
+    "Content-Type": "application/json",
 };
 
 let body = {
-    "qr_pass_id": "dolor",
-    "first_name": "optio",
-    "middle_name": "facere",
-    "last_name": "unde",
-    "suffix": "ad",
-    "birthdate": "provident",
-    "gender": "aut",
-    "region": "itaque",
-    "address": "voluptatem",
-    "barangay": "aspernatur",
-    "town_city": "natus",
-    "province": "illo",
-    "contact_no": "consectetur",
-    "civil_status": "rerum",
-    "category": "quasi",
-    "category_id": "sapiente",
-    "category_id_no": "qui",
-    "philhealth": "et",
-    "pwd_id": "dolore",
-    "indigenous_member": "qui",
-    "priority_group": "aut",
-    "sub_priority_group": "reiciendis",
-    "occupation": "commodi",
-    "with_allergy": "quia",
-    "with_comorbidity": "velit",
-    "is_registered": "molestiae",
-    "origin": "minus",
-    "employer_name": "nihil",
-    "employer_address": "harum",
-    "employer_lgu": "libero"
+    "qr_pass_id": "molestias",
+    "first_name": "minima",
+    "middle_name": "incidunt",
+    "last_name": "culpa",
+    "suffix": "aliquam",
+    "birthdate": "mollitia",
+    "gender": "eum",
+    "region": "labore",
+    "address": "labore",
+    "barangay": "voluptatibus",
+    "town_city": "architecto",
+    "province": "asperiores",
+    "contact_no": "aut",
+    "civil_status": "vitae",
+    "category": "sit",
+    "category_id": "laudantium",
+    "category_id_no": "consequatur",
+    "philhealth": "enim",
+    "pwd_id": "perspiciatis",
+    "indigenous_member": "ipsam",
+    "priority_group": "eveniet",
+    "sub_priority_group": "aut",
+    "occupation": "iusto",
+    "with_allergy": "magni",
+    "with_comorbidity": "quo",
+    "is_registered": "et",
+    "origin": "aut",
+    "employer_name": "consequatur",
+    "employer_address": "et",
+    "employer_lgu": "veniam"
 }
 
 fetch(url, {
@@ -3834,7 +4041,7 @@ fetch(url, {
       data-path="api/doh/registration/{registration}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json","Content-Type":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('PUTapi-doh-registration--registration-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -4041,7 +4248,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/registration/6"
+    "https://vaccines.local/api/doh/registration/2"
 );
 
 let headers = {
@@ -4068,7 +4275,7 @@ fetch(url, {
       data-path="api/doh/registration/{registration}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('DELETEapi-doh-registration--registration-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -4119,7 +4326,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/dosages/8"
+    "https://vaccines.local/api/doh/dosages/18"
 );
 
 let headers = {
@@ -4146,7 +4353,7 @@ fetch(url, {
       data-path="api/doh/dosages/{id}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-dosages--id-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -4202,25 +4409,25 @@ fetch(url, {
 
 let headers = {
     "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
     "Accept": "application/json",
+    "Content-Type": "application/json",
 };
 
 let body = {
-    "vaccine_id": 14,
-    "qr_pass_id": "est",
-    "user_id": 8,
-    "brand_name": 13,
-    "vaccine_name": 2,
-    "site_of_injection": "deleniti",
-    "expiry_date": "2021-06-17T15:17:16",
-    "batch_number": 5,
-    "lot_number": 4,
-    "dose": 4,
-    "diluent_batch_number": 12,
-    "diluent_lot_number": 20,
-    "date_of_vaccination": "2021-06-17T15:17:16",
-    "next_vaccination": "2021-06-17T15:17:16"
+    "vaccine_id": 10,
+    "qr_pass_id": "ab",
+    "user_id": 17,
+    "brand_name": 7,
+    "vaccine_name": 6,
+    "site_of_injection": "voluptas",
+    "expiry_date": "2021-06-18T15:22:33",
+    "batch_number": 1,
+    "lot_number": 2,
+    "dose": 17,
+    "diluent_batch_number": 18,
+    "diluent_lot_number": 14,
+    "date_of_vaccination": "2021-06-18T15:22:33",
+    "next_vaccination": "2021-06-18T15:22:33"
 }
 
 fetch(url, {
@@ -4243,7 +4450,7 @@ fetch(url, {
       data-path="api/doh/dosage"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json","Content-Type":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-doh-dosage', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -4360,7 +4567,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/dosage/8"
+    "https://vaccines.local/api/doh/dosage/13"
 );
 
 let headers = {
@@ -4387,7 +4594,7 @@ fetch(url, {
       data-path="api/doh/dosage/{dosage}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-dosage--dosage-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -4438,27 +4645,27 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/dosage/14"
+    "https://vaccines.local/api/doh/dosage/6"
 );
 
 let headers = {
     "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
     "Accept": "application/json",
+    "Content-Type": "application/json",
 };
 
 let body = {
-    "vaccine_id": 11,
-    "user_id": 12,
-    "brand_name": 17,
-    "vaccine_name": "quis",
-    "site_of_injection": "aspernatur",
-    "expiry_date": "2021-06-17T15:17:16",
-    "batch_number": 20,
+    "vaccine_id": 18,
+    "user_id": 15,
+    "brand_name": 12,
+    "vaccine_name": "et",
+    "site_of_injection": "quo",
+    "expiry_date": "2021-06-18T15:22:33",
+    "batch_number": 7,
     "lot_number": 11,
-    "dose": 14,
-    "date_of_vaccination": "2021-06-17T15:17:16",
-    "next_vaccination": "2021-06-17T15:17:16"
+    "dose": 5,
+    "date_of_vaccination": "2021-06-18T15:22:33",
+    "next_vaccination": "2021-06-18T15:22:33"
 }
 
 fetch(url, {
@@ -4481,7 +4688,7 @@ fetch(url, {
       data-path="api/doh/dosage/{dosage}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json","Content-Type":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('PUTapi-doh-dosage--dosage-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -4593,7 +4800,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/dosage/16"
+    "https://vaccines.local/api/doh/dosage/19"
 );
 
 let headers = {
@@ -4620,7 +4827,7 @@ fetch(url, {
       data-path="api/doh/dosage/{dosage}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('DELETEapi-doh-dosage--dosage-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -4698,7 +4905,7 @@ fetch(url, {
       data-path="api/doh/vaccines/default/vaccinator"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-vaccines-default-vaccinator', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -4743,7 +4950,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/pres/deserunt"
+    "https://vaccines.local/api/doh/pres/inventore"
 );
 
 let headers = {
@@ -4770,7 +4977,7 @@ fetch(url, {
       data-path="api/doh/pres/{id}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-pres--id-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -4848,7 +5055,7 @@ fetch(url, {
       data-path="api/doh/pre"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-doh-pre', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -4893,7 +5100,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/pre/ducimus"
+    "https://vaccines.local/api/doh/pre/dolorem"
 );
 
 let headers = {
@@ -4920,7 +5127,7 @@ fetch(url, {
       data-path="api/doh/pre/{pre}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-pre--pre-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -4971,22 +5178,22 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/pre/facere"
+    "https://vaccines.local/api/doh/pre/et"
 );
 
 let headers = {
     "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
     "Accept": "application/json",
+    "Content-Type": "application/json",
 };
 
 let body = {
-    "consent": 13,
-    "blood_pressure": "quasi",
-    "oxygen_saturation": "sint",
-    "pulse_rate": "sed",
+    "consent": 5,
+    "blood_pressure": "et",
+    "oxygen_saturation": "quibusdam",
+    "pulse_rate": "molestiae",
     "assessments": [
-        "voluptatem"
+        "soluta"
     ]
 }
 
@@ -5010,7 +5217,7 @@ fetch(url, {
       data-path="api/doh/pre/{pre}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json","Content-Type":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('PUTapi-doh-pre--pre-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -5093,7 +5300,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/pre/quod"
+    "https://vaccines.local/api/doh/pre/provident"
 );
 
 let headers = {
@@ -5120,7 +5327,7 @@ fetch(url, {
       data-path="api/doh/pre/{pre}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('DELETEapi-doh-pre--pre-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -5198,7 +5405,7 @@ fetch(url, {
       data-path="api/doh/structure/assessments/pre"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-structure-assessments-pre', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -5243,7 +5450,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/posts/aut"
+    "https://vaccines.local/api/doh/posts/quo"
 );
 
 let headers = {
@@ -5270,7 +5477,7 @@ fetch(url, {
       data-path="api/doh/posts/{id}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-posts--id-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -5348,7 +5555,7 @@ fetch(url, {
       data-path="api/doh/post"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-doh-post', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -5393,7 +5600,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/post/aspernatur"
+    "https://vaccines.local/api/doh/post/voluptatibus"
 );
 
 let headers = {
@@ -5420,7 +5627,7 @@ fetch(url, {
       data-path="api/doh/post/{post}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-post--post-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -5471,22 +5678,22 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/post/ut"
+    "https://vaccines.local/api/doh/post/illo"
 );
 
 let headers = {
     "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
     "Accept": "application/json",
+    "Content-Type": "application/json",
 };
 
 let body = {
     "assessments": [
-        "vero"
+        "dolorum"
     ],
-    "blood_pressure": "temporibus",
-    "oxygen_saturation": "voluptatem",
-    "pulse_rate": "fugiat"
+    "blood_pressure": "quisquam",
+    "oxygen_saturation": "dolores",
+    "pulse_rate": "exercitationem"
 }
 
 fetch(url, {
@@ -5509,7 +5716,7 @@ fetch(url, {
       data-path="api/doh/post/{post}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json","Content-Type":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('PUTapi-doh-post--post-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -5587,7 +5794,7 @@ fetch(url, {
 
 
 <pre><code class="language-javascript">const url = new URL(
-    "https://vaccines.local/api/doh/post/minima"
+    "https://vaccines.local/api/doh/post/voluptatem"
 );
 
 let headers = {
@@ -5614,7 +5821,7 @@ fetch(url, {
       data-path="api/doh/post/{post}"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('DELETEapi-doh-post--post-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -5692,7 +5899,7 @@ fetch(url, {
       data-path="api/doh/structure/assessments/post"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-doh-structure-assessments-post', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -5742,12 +5949,12 @@ fetch(url, {
 
 let headers = {
     "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
     "Accept": "application/json",
+    "Content-Type": "application/json",
 };
 
 let body = {
-    "excel": "quod"
+    "excel": "nulla"
 }
 
 fetch(url, {
@@ -5770,7 +5977,7 @@ fetch(url, {
       data-path="api/doh/upload/excel"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json","Content-Type":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-doh-upload-excel', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -5849,7 +6056,7 @@ fetch(url, {
       data-path="api/doh/excel/data/structure"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-doh-excel-data-structure', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -5921,7 +6128,7 @@ fetch(url, {
       data-path="api/doh/excel/data/import"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('POSTapi-doh-excel-data-import', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -5993,7 +6200,7 @@ fetch(url, {
       data-path="api/general/selections/hospitals"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-general-selections-hospitals', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -6065,7 +6272,7 @@ fetch(url, {
       data-path="api/general/selections/groups"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-general-selections-groups', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -6137,7 +6344,7 @@ fetch(url, {
       data-path="api/general/selections/users"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-general-selections-users', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -6209,7 +6416,7 @@ fetch(url, {
       data-path="api/general/selections/vaccinators"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-general-selections-vaccinators', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -6281,7 +6488,7 @@ fetch(url, {
       data-path="api/summary/surveys"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-summary-surveys', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -6353,7 +6560,7 @@ fetch(url, {
       data-path="api/summary/registrations"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-summary-registrations', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
@@ -6425,7 +6632,7 @@ fetch(url, {
       data-path="api/summary/vaccination"
       data-authed="1"
       data-hasfiles=""
-      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}"}'
+      data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Accept":"application\/json"}'
       onsubmit="event.preventDefault(); executeTryOut('GETapi-summary-vaccination', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;

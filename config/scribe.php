@@ -9,7 +9,7 @@ return [
     /*
      * The HTML <title> for the generated documentation. If this is empty, Scribe will infer it from config('app.name').
      */
-    'title' => "Covid19 Vaccines",
+    'title' => "API DOCS - Covid19 Vaccines",
 
     /*
      * A short description of your API. Will be included in the docs webpage, Postman collection and OpenAPI spec.
@@ -73,8 +73,7 @@ return [
                  * Additional headers to be added to the example requests
                  */
                 'headers' => [
-                    // 'Content-Type' => 'multipart/form-data; boundary=*',
-                    // 'Accept' => 'application/json',
+                    'Accept' => 'application/json',                    
                 ],
 
                 /*

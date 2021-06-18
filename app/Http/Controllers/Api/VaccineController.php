@@ -507,6 +507,24 @@ class VaccineController extends Controller
      * @group Screening
      * 
      * Update screening per dose
+     * 
+     * @bodyParam id string required
+     * @bodyParam dosage_id integer required
+     * @bodyParam dose integer required
+     * @bodyParam pre_assessment object required
+     * @bodyParam pre_assessment.dose integer required
+     * @bodyParam pre_assessment.dosage_id integer required
+     * @bodyParam pre_assessment.consent string required
+     * @bodyParam pre_assessment.user_id integer
+     * @bodyParam pre_assessment.reason string required
+     * @bodyParam pre_assessment.assessments object[]
+     * @bodyParam pre_assessment.assessments[].key integer
+     * @bodyParam pre_assessment.assessments[].description string
+     * @bodyParam pre_assessment.assessments[].value boolean
+     * @bodyParam vitals object[]
+     * @bodyParam vitals[].dose integer
+     * @bodyParam dels integer[]
+     * 
      */
     public function updateScreening(Request $request)
     {

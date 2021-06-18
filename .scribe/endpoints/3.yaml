@@ -11,6 +11,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
       Content-Type: application/json
     urlParameters: []
     queryParameters: []
@@ -19,19 +20,19 @@ endpoints:
         name: currentPassword
         description: ''
         required: true
-        example: dolores
+        example: id
         type: string
       newPassword:
         name: newPassword
         description: validation.min.
         required: true
-        example: nwfy
+        example: ggeru
         type: string
       confirmNewPassword:
         name: confirmNewPassword
         description: 'validation.same validation.min.'
         required: true
-        example: cxnpha
+        example: cbipjulg
         type: string
     responses: []
     responseFields: []
@@ -45,6 +46,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -60,6 +62,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
       Content-Type: application/json
     urlParameters: []
     queryParameters: []
@@ -68,13 +71,13 @@ endpoints:
         name: qr_pass_id
         description: ''
         required: false
-        example: mollitia
+        example: porro
         type: string
       vaccination_facility:
         name: vaccination_facility
         description: ''
         required: false
-        example: 5
+        example: 18
         type: integer
     responses: []
     responseFields: []
@@ -88,6 +91,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -103,6 +107,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -118,12 +123,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       vaccine:
         name: vaccine
         description: ''
         required: true
-        example: 8
+        example: 16
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -139,12 +145,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       survey:
         name: survey
         description: ''
         required: true
-        example: 19
+        example: 2
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -161,13 +168,14 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
       Content-Type: application/json
     urlParameters:
       vaccine:
         name: vaccine
         description: ''
         required: true
-        example: 13
+        example: 5
         type: integer
     queryParameters: []
     bodyParameters:
@@ -175,27 +183,27 @@ endpoints:
         name: facility_others
         description: ''
         required: false
-        example: cumque
+        example: aliquam
         type: string
       vaccination_session:
         name: vaccination_session
         description: ''
         required: false
-        example: 3
+        example: 12
         type: integer
       dosages:
         name: dosages
         description: ''
         required: false
         example:
-          - nobis
+          - et
         type: 'string[]'
       delete:
         name: delete
         description: ''
         required: false
         example:
-          - praesentium
+          - ducimus
         type: 'string[]'
     responses: []
     responseFields: []
@@ -210,12 +218,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       survey:
         name: survey
         description: ''
         required: true
-        example: 2
+        example: 18
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -231,12 +240,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       vaccine:
         name: vaccine
         description: ''
         required: true
-        example: 12
+        example: 1
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -252,12 +262,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       id:
         name: id
         description: 'The ID of the qr.'
         required: true
-        example: suscipit
+        example: tenetur
         type: string
     queryParameters: []
     bodyParameters: []
@@ -273,12 +284,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       survey:
         name: survey
         description: ''
         required: true
-        example: 12
+        example: 19
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -294,13 +306,14 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
       Content-Type: application/json
     urlParameters:
       id:
         name: id
         description: 'The ID of the registration.'
         required: true
-        example: 15
+        example: 16
         type: integer
     queryParameters: []
     bodyParameters:
@@ -308,139 +321,139 @@ endpoints:
         name: id
         description: ''
         required: false
-        example: 16
+        example: 7
         type: integer
       qr_pass_id:
         name: qr_pass_id
         description: ''
         required: false
-        example: eaque
+        example: omnis
         type: string
       first_name:
         name: first_name
         description: ''
         required: false
-        example: ad
+        example: ab
         type: string
       middle_name:
         name: middle_name
         description: ''
         required: false
-        example: quia
+        example: quis
         type: string
       last_name:
         name: last_name
         description: ''
         required: false
-        example: beatae
+        example: qui
         type: string
       suffix:
         name: suffix
         description: ''
         required: false
-        example: ut
+        example: sunt
         type: string
       birthdate:
         name: birthdate
         description: ''
         required: false
-        example: eveniet
+        example: et
         type: string
       gender:
         name: gender
         description: ''
         required: false
-        example: perspiciatis
+        example: ut
         type: string
       address:
         name: address
         description: ''
         required: false
-        example: quisquam
+        example: quidem
         type: string
       barangay:
         name: barangay
         description: ''
         required: false
-        example: explicabo
+        example: nihil
         type: string
       town_city:
         name: town_city
         description: ''
         required: false
-        example: molestias
+        example: occaecati
         type: string
       province:
         name: province
         description: ''
         required: false
-        example: ea
+        example: perspiciatis
         type: string
       contact_no:
         name: contact_no
         description: ''
         required: false
-        example: ipsam
+        example: qui
         type: string
       category:
         name: category
         description: ''
         required: false
-        example: eveniet
+        example: minus
         type: string
       category_id:
         name: category_id
         description: ''
         required: false
-        example: aperiam
+        example: velit
         type: string
       category_id_no:
         name: category_id_no
         description: ''
         required: false
-        example: quia
+        example: debitis
         type: string
       philhealth:
         name: philhealth
         description: ''
         required: false
-        example: repellat
+        example: ipsam
         type: string
       pwd_id:
         name: pwd_id
         description: ''
         required: false
-        example: cum
+        example: est
         type: string
       priority_group:
         name: priority_group
         description: ''
         required: false
-        example: ut
+        example: alias
         type: string
       sub_priority_group:
         name: sub_priority_group
         description: ''
         required: false
-        example: eum
+        example: omnis
         type: string
       allergic_to_vaccines:
         name: allergic_to_vaccines
         description: ''
         required: false
-        example: aspernatur
+        example: omnis
         type: string
       is_registered:
         name: is_registered
         description: ''
         required: false
-        example: magnam
+        example: et
         type: string
       with_comorbidity:
         name: with_comorbidity
         description: ''
         required: false
-        example: est
+        example: vero
         type: string
     responses: []
     responseFields: []
@@ -454,6 +467,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -469,6 +483,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
       Content-Type: application/json
     urlParameters: []
     queryParameters: []
@@ -477,43 +492,43 @@ endpoints:
         name: firstname
         description: ''
         required: false
-        example: dolor
+        example: vel
         type: string
       lastname:
         name: lastname
         description: ''
         required: false
-        example: rerum
+        example: quisquam
         type: string
       username:
         name: username
         description: '''email'' => [''string'',''email'',''max:191'',''unique:users''],.'
         required: false
-        example: et
+        example: ipsa
         type: string
       password:
         name: password
         description: ''
         required: false
-        example: minus
+        example: adipisci
         type: string
       group_id:
         name: group_id
         description: ''
         required: false
-        example: 5
+        example: 7
         type: integer
       profession:
         name: profession
         description: ''
         required: false
-        example: et
+        example: laudantium
         type: string
       prc_number:
         name: prc_number
         description: ''
         required: false
-        example: commodi
+        example: voluptatibus
         type: string
     responses: []
     responseFields: []
@@ -527,12 +542,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       user:
         name: user
         description: ''
         required: true
-        example: 1
+        example: 16
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -549,13 +565,14 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
       Content-Type: application/json
     urlParameters:
       user:
         name: user
         description: ''
         required: true
-        example: 4
+        example: 2
         type: integer
     queryParameters: []
     bodyParameters:
@@ -563,37 +580,37 @@ endpoints:
         name: firstname
         description: ''
         required: false
-        example: sint
+        example: mollitia
         type: string
       lastname:
         name: lastname
         description: ''
         required: false
-        example: sed
+        example: voluptatum
         type: string
       username:
         name: username
         description: ''
         required: false
-        example: qui
+        example: repellendus
         type: string
       group_id:
         name: group_id
         description: ''
         required: false
-        example: 7
+        example: 11
         type: integer
       profession:
         name: profession
         description: ''
         required: false
-        example: culpa
+        example: delectus
         type: string
       prc_number:
         name: prc_number
         description: ''
         required: false
-        example: ipsa
+        example: aut
         type: string
     responses: []
     responseFields: []
@@ -607,12 +624,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       user:
         name: user
         description: ''
         required: true
-        example: 2
+        example: 3
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -628,6 +646,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -643,6 +662,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
       Content-Type: application/json
     urlParameters: []
     queryParameters: []
@@ -651,13 +671,13 @@ endpoints:
         name: description
         description: ''
         required: false
-        example: in
+        example: vitae
         type: string
       slots:
         name: slots
         description: ''
         required: false
-        example: 17
+        example: 3
         type: integer
     responses: []
     responseFields: []
@@ -671,12 +691,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       hospital:
         name: hospital
         description: ''
         required: true
-        example: 7
+        example: 4
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -693,13 +714,14 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
       Content-Type: application/json
     urlParameters:
       hospital:
         name: hospital
         description: ''
         required: true
-        example: 4
+        example: 3
         type: integer
     queryParameters: []
     bodyParameters:
@@ -707,13 +729,13 @@ endpoints:
         name: description
         description: ''
         required: false
-        example: et
+        example: sit
         type: string
       slots:
         name: slots
         description: ''
         required: false
-        example: 14
+        example: 4
         type: integer
     responses: []
     responseFields: []
@@ -727,12 +749,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       hospital:
         name: hospital
         description: ''
         required: true
-        example: 17
+        example: 16
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -748,12 +771,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       id:
         name: id
         description: 'The ID of the registration.'
         required: true
-        example: 5
+        example: 15
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -769,18 +793,19 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       id:
         name: id
         description: 'The ID of the registration.'
         required: true
-        example: 12
+        example: 17
         type: integer
       birthday:
         name: birthday
         description: ''
         required: true
-        example: facilis
+        example: mollitia
         type: string
     queryParameters: []
     bodyParameters: []
@@ -796,12 +821,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       id:
         name: id
         description: 'The ID of the registrationID.'
         required: true
-        example: quis
+        example: non
         type: string
     queryParameters: []
     bodyParameters: []
@@ -817,6 +843,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -832,6 +859,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -847,6 +875,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -862,6 +891,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -877,6 +907,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -892,6 +923,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -907,6 +939,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -922,6 +955,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -937,6 +971,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
       Content-Type: application/json
     urlParameters: []
     queryParameters: []
@@ -945,169 +980,169 @@ endpoints:
         name: qr_pass_id
         description: ''
         required: false
-        example: autem
+        example: et
         type: string
       first_name:
         name: first_name
         description: ''
         required: false
-        example: amet
+        example: tenetur
         type: string
       middle_name:
         name: middle_name
         description: ''
         required: false
-        example: sed
+        example: voluptas
         type: string
       last_name:
         name: last_name
         description: ''
         required: false
-        example: molestiae
+        example: quae
         type: string
       suffix:
         name: suffix
         description: ''
         required: false
-        example: veritatis
+        example: optio
         type: string
       birthdate:
         name: birthdate
         description: ''
         required: false
-        example: officiis
+        example: ad
         type: string
       gender:
         name: gender
         description: ''
         required: false
-        example: ut
+        example: sed
         type: string
       region:
         name: region
         description: ''
         required: false
-        example: sequi
+        example: voluptatem
         type: string
       address:
         name: address
         description: ''
         required: false
-        example: consequatur
+        example: dolor
         type: string
       barangay:
         name: barangay
         description: ''
         required: false
-        example: voluptate
+        example: velit
         type: string
       town_city:
         name: town_city
         description: ''
         required: false
-        example: voluptatibus
+        example: minima
         type: string
       province:
         name: province
         description: ''
         required: false
-        example: quos
+        example: omnis
         type: string
       contact_no:
         name: contact_no
         description: ''
         required: false
-        example: ex
+        example: possimus
         type: string
       category:
         name: category
         description: ''
         required: false
-        example: rerum
+        example: praesentium
         type: string
       category_id:
         name: category_id
         description: ''
         required: false
-        example: dolor
+        example: possimus
         type: string
       category_id_no:
         name: category_id_no
         description: ''
         required: false
-        example: quia
+        example: aspernatur
         type: string
       philhealth:
         name: philhealth
         description: ''
         required: false
-        example: corrupti
+        example: dolorum
         type: string
       pwd_id:
         name: pwd_id
         description: ''
         required: false
-        example: illo
+        example: sit
         type: string
       indigenous_member:
         name: indigenous_member
         description: ''
         required: false
-        example: qui
+        example: tenetur
         type: string
       civil_status:
         name: civil_status
         description: ''
         required: false
-        example: et
+        example: quidem
         type: string
       priority_group:
         name: priority_group
         description: ''
         required: false
-        example: non
+        example: rerum
         type: string
       sub_priority_group:
         name: sub_priority_group
         description: ''
         required: false
-        example: ratione
+        example: omnis
         type: string
       occupation:
         name: occupation
         description: ''
         required: false
-        example: qui
+        example: eligendi
         type: string
       with_allergy:
         name: with_allergy
         description: ''
         required: false
-        example: aperiam
+        example: quia
         type: string
       with_comorbidity:
         name: with_comorbidity
         description: ''
         required: false
-        example: id
+        example: earum
         type: string
       is_registered:
         name: is_registered
         description: ''
         required: false
-        example: sed
+        example: aut
         type: string
       origin:
         name: origin
         description: ''
         required: false
-        example: ad
+        example: quisquam
         type: string
       employer_name:
         name: employer_name
         description: ''
         required: false
-        example: sunt
+        example: magnam
         type: string
       employer_address:
         name: employer_address
@@ -1119,7 +1154,7 @@ endpoints:
         name: employer_lgu
         description: ''
         required: false
-        example: porro
+        example: eaque
         type: string
     responses: []
     responseFields: []
@@ -1133,12 +1168,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       registration:
         name: registration
         description: ''
         required: true
-        example: 11
+        example: 5
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -1155,13 +1191,14 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
       Content-Type: application/json
     urlParameters:
       registration:
         name: registration
         description: ''
         required: true
-        example: 9
+        example: 17
         type: integer
     queryParameters: []
     bodyParameters:
@@ -1169,181 +1206,181 @@ endpoints:
         name: qr_pass_id
         description: ''
         required: false
-        example: dolor
+        example: molestias
         type: string
       first_name:
         name: first_name
         description: ''
         required: false
-        example: optio
+        example: minima
         type: string
       middle_name:
         name: middle_name
         description: ''
         required: false
-        example: facere
+        example: incidunt
         type: string
       last_name:
         name: last_name
         description: ''
         required: false
-        example: unde
+        example: culpa
         type: string
       suffix:
         name: suffix
         description: ''
         required: false
-        example: ad
+        example: aliquam
         type: string
       birthdate:
         name: birthdate
         description: ''
         required: false
-        example: provident
+        example: mollitia
         type: string
       gender:
         name: gender
         description: ''
         required: false
-        example: aut
+        example: eum
         type: string
       region:
         name: region
         description: ''
         required: false
-        example: itaque
+        example: labore
         type: string
       address:
         name: address
         description: ''
         required: false
-        example: voluptatem
+        example: labore
         type: string
       barangay:
         name: barangay
         description: ''
         required: false
-        example: aspernatur
+        example: voluptatibus
         type: string
       town_city:
         name: town_city
         description: ''
         required: false
-        example: natus
+        example: architecto
         type: string
       province:
         name: province
         description: ''
         required: false
-        example: illo
+        example: asperiores
         type: string
       contact_no:
         name: contact_no
         description: ''
         required: false
-        example: consectetur
+        example: aut
         type: string
       civil_status:
         name: civil_status
         description: ''
         required: false
-        example: rerum
+        example: vitae
         type: string
       category:
         name: category
         description: ''
         required: false
-        example: quasi
+        example: sit
         type: string
       category_id:
         name: category_id
         description: ''
         required: false
-        example: sapiente
+        example: laudantium
         type: string
       category_id_no:
         name: category_id_no
         description: ''
         required: false
-        example: qui
+        example: consequatur
         type: string
       philhealth:
         name: philhealth
         description: ''
         required: false
-        example: et
+        example: enim
         type: string
       pwd_id:
         name: pwd_id
         description: ''
         required: false
-        example: dolore
+        example: perspiciatis
         type: string
       indigenous_member:
         name: indigenous_member
         description: ''
         required: false
-        example: qui
+        example: ipsam
         type: string
       priority_group:
         name: priority_group
         description: ''
         required: false
-        example: aut
+        example: eveniet
         type: string
       sub_priority_group:
         name: sub_priority_group
         description: ''
         required: false
-        example: reiciendis
+        example: aut
         type: string
       occupation:
         name: occupation
         description: ''
         required: false
-        example: commodi
+        example: iusto
         type: string
       with_allergy:
         name: with_allergy
         description: ''
         required: false
-        example: quia
+        example: magni
         type: string
       with_comorbidity:
         name: with_comorbidity
         description: ''
         required: false
-        example: velit
+        example: quo
         type: string
       is_registered:
         name: is_registered
         description: ''
         required: false
-        example: molestiae
+        example: et
         type: string
       origin:
         name: origin
         description: ''
         required: false
-        example: minus
+        example: aut
         type: string
       employer_name:
         name: employer_name
         description: ''
         required: false
-        example: nihil
+        example: consequatur
         type: string
       employer_address:
         name: employer_address
         description: ''
         required: false
-        example: harum
+        example: et
         type: string
       employer_lgu:
         name: employer_lgu
         description: ''
         required: false
-        example: libero
+        example: veniam
         type: string
     responses: []
     responseFields: []
@@ -1357,12 +1394,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       registration:
         name: registration
         description: ''
         required: true
-        example: 6
+        example: 2
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -1378,12 +1416,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       id:
         name: id
         description: 'The ID of the dosage.'
         required: true
-        example: 8
+        example: 18
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -1399,6 +1438,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
       Content-Type: application/json
     urlParameters: []
     queryParameters: []
@@ -1407,85 +1447,85 @@ endpoints:
         name: vaccine_id
         description: ''
         required: false
-        example: 14
+        example: 10
         type: integer
       qr_pass_id:
         name: qr_pass_id
         description: ''
         required: false
-        example: est
+        example: ab
         type: string
       user_id:
         name: user_id
         description: ''
         required: false
-        example: 8
+        example: 17
         type: integer
       brand_name:
         name: brand_name
         description: ''
         required: false
-        example: 13
+        example: 7
         type: integer
       vaccine_name:
         name: vaccine_name
         description: ''
         required: false
-        example: 2
+        example: 6
         type: integer
       site_of_injection:
         name: site_of_injection
         description: ''
         required: false
-        example: deleniti
+        example: voluptas
         type: string
       expiry_date:
         name: expiry_date
         description: validation.date.
         required: false
-        example: '2021-06-17T15:17:16'
+        example: '2021-06-18T15:22:33'
         type: string
       batch_number:
         name: batch_number
         description: ''
         required: false
-        example: 5
+        example: 1
         type: integer
       lot_number:
         name: lot_number
         description: ''
         required: false
-        example: 4
+        example: 2
         type: integer
       dose:
         name: dose
         description: ''
         required: false
-        example: 4
+        example: 17
         type: integer
       diluent_batch_number:
         name: diluent_batch_number
         description: ''
         required: false
-        example: 12
+        example: 18
         type: integer
       diluent_lot_number:
         name: diluent_lot_number
         description: ''
         required: false
-        example: 20
+        example: 14
         type: integer
       date_of_vaccination:
         name: date_of_vaccination
         description: validation.date.
         required: false
-        example: '2021-06-17T15:17:16'
+        example: '2021-06-18T15:22:33'
         type: string
       next_vaccination:
         name: next_vaccination
         description: validation.date.
         required: false
-        example: '2021-06-17T15:17:16'
+        example: '2021-06-18T15:22:33'
         type: string
     responses: []
     responseFields: []
@@ -1499,12 +1539,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       dosage:
         name: dosage
         description: ''
         required: true
-        example: 8
+        example: 13
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -1521,13 +1562,14 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
       Content-Type: application/json
     urlParameters:
       dosage:
         name: dosage
         description: ''
         required: true
-        example: 14
+        example: 6
         type: integer
     queryParameters: []
     bodyParameters:
@@ -1535,43 +1577,43 @@ endpoints:
         name: vaccine_id
         description: ''
         required: false
-        example: 11
+        example: 18
         type: integer
       user_id:
         name: user_id
         description: ''
         required: false
-        example: 12
+        example: 15
         type: integer
       brand_name:
         name: brand_name
         description: ''
         required: false
-        example: 17
+        example: 12
         type: integer
       vaccine_name:
         name: vaccine_name
         description: ''
         required: false
-        example: quis
+        example: et
         type: string
       site_of_injection:
         name: site_of_injection
         description: ''
         required: false
-        example: aspernatur
+        example: quo
         type: string
       expiry_date:
         name: expiry_date
         description: validation.date.
         required: false
-        example: '2021-06-17T15:17:16'
+        example: '2021-06-18T15:22:33'
         type: string
       batch_number:
         name: batch_number
         description: ''
         required: false
-        example: 20
+        example: 7
         type: integer
       lot_number:
         name: lot_number
@@ -1583,19 +1625,19 @@ endpoints:
         name: dose
         description: ''
         required: false
-        example: 14
+        example: 5
         type: integer
       date_of_vaccination:
         name: date_of_vaccination
         description: validation.date.
         required: false
-        example: '2021-06-17T15:17:16'
+        example: '2021-06-18T15:22:33'
         type: string
       next_vaccination:
         name: next_vaccination
         description: validation.date.
         required: false
-        example: '2021-06-17T15:17:16'
+        example: '2021-06-18T15:22:33'
         type: string
     responses: []
     responseFields: []
@@ -1609,12 +1651,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       dosage:
         name: dosage
         description: ''
         required: true
-        example: 16
+        example: 19
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -1630,6 +1673,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -1645,12 +1689,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       id:
         name: id
         description: 'The ID of the pre.'
         required: true
-        example: deserunt
+        example: inventore
         type: string
     queryParameters: []
     bodyParameters: []
@@ -1666,6 +1711,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -1681,12 +1727,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       pre:
         name: pre
         description: ''
         required: true
-        example: ducimus
+        example: dolorem
         type: string
     queryParameters: []
     bodyParameters: []
@@ -1703,13 +1750,14 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
       Content-Type: application/json
     urlParameters:
       pre:
         name: pre
         description: ''
         required: true
-        example: facere
+        example: et
         type: string
     queryParameters: []
     bodyParameters:
@@ -1717,32 +1765,32 @@ endpoints:
         name: consent
         description: ''
         required: false
-        example: 13
+        example: 5
         type: integer
       blood_pressure:
         name: blood_pressure
         description: ''
         required: false
-        example: quasi
+        example: et
         type: string
       oxygen_saturation:
         name: oxygen_saturation
         description: ''
         required: false
-        example: sint
+        example: quibusdam
         type: string
       pulse_rate:
         name: pulse_rate
         description: ''
         required: false
-        example: sed
+        example: molestiae
         type: string
       assessments:
         name: assessments
         description: ''
         required: false
         example:
-          - voluptatem
+          - soluta
         type: 'string[]'
     responses: []
     responseFields: []
@@ -1756,12 +1804,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       pre:
         name: pre
         description: ''
         required: true
-        example: quod
+        example: provident
         type: string
     queryParameters: []
     bodyParameters: []
@@ -1777,6 +1826,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -1792,12 +1842,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       id:
         name: id
         description: 'The ID of the post.'
         required: true
-        example: aut
+        example: quo
         type: string
     queryParameters: []
     bodyParameters: []
@@ -1813,6 +1864,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -1828,12 +1880,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       post:
         name: post
         description: ''
         required: true
-        example: aspernatur
+        example: voluptatibus
         type: string
     queryParameters: []
     bodyParameters: []
@@ -1850,13 +1903,14 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
       Content-Type: application/json
     urlParameters:
       post:
         name: post
         description: ''
         required: true
-        example: ut
+        example: illo
         type: string
     queryParameters: []
     bodyParameters:
@@ -1865,25 +1919,25 @@ endpoints:
         description: ''
         required: false
         example:
-          - vero
+          - dolorum
         type: 'string[]'
       blood_pressure:
         name: blood_pressure
         description: '# array.'
         required: false
-        example: temporibus
+        example: quisquam
         type: string
       oxygen_saturation:
         name: oxygen_saturation
         description: ''
         required: false
-        example: voluptatem
+        example: dolores
         type: string
       pulse_rate:
         name: pulse_rate
         description: ''
         required: false
-        example: fugiat
+        example: exercitationem
         type: string
     responses: []
     responseFields: []
@@ -1897,12 +1951,13 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters:
       post:
         name: post
         description: ''
         required: true
-        example: minima
+        example: voluptatem
         type: string
     queryParameters: []
     bodyParameters: []
@@ -1918,6 +1973,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -1933,6 +1989,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
       Content-Type: application/json
     urlParameters: []
     queryParameters: []
@@ -1941,7 +1998,7 @@ endpoints:
         name: excel
         description: ''
         required: true
-        example: quod
+        example: nulla
         type: string
     responses: []
     responseFields: []
@@ -1955,6 +2012,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -1970,6 +2028,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -1985,6 +2044,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -2000,6 +2060,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -2015,6 +2076,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -2030,6 +2092,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -2045,6 +2108,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -2060,6 +2124,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []
@@ -2075,6 +2140,7 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters: []
     bodyParameters: []

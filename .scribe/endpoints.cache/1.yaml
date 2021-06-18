@@ -16,13 +16,14 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
     urlParameters: []
     queryParameters:
       search:
         name: search
         description: ''
         required: false
-        example: ut
+        example: molestias
         type: string
     bodyParameters: []
     responses: []

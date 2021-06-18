@@ -11,13 +11,14 @@ endpoints:
       authenticated: true
     headers:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
       Content-Type: application/json
     urlParameters:
       id:
         name: id
         description: 'The ID of the info.'
         required: true
-        example: quis
+        example: labore
         type: string
     queryParameters: []
     bodyParameters:
@@ -27,5 +28,124 @@ endpoints:
         required: true
         example: 1
         type: integer
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/doh/vaccines/screening/update
+    metadata:
+      title: 'Update screening per dose'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      id:
+        name: id
+        description: ''
+        required: true
+        example: laudantium
+        type: string
+      dosage_id:
+        name: dosage_id
+        description: ''
+        required: true
+        example: 18
+        type: integer
+      dose:
+        name: dose
+        description: ''
+        required: true
+        example: 3
+        type: integer
+      vitals:
+        name: vitals
+        description: ''
+        required: false
+        example:
+          - []
+          - []
+        type: 'object[]'
+      pre_assessment:
+        name: pre_assessment
+        description: ''
+        required: true
+        example: []
+        type: object
+      pre_assessment.dose:
+        name: pre_assessment.dose
+        description: ''
+        required: true
+        example: 17
+        type: integer
+      pre_assessment.dosage_id:
+        name: pre_assessment.dosage_id
+        description: ''
+        required: true
+        example: 11
+        type: integer
+      pre_assessment.consent:
+        name: pre_assessment.consent
+        description: ''
+        required: true
+        example: dolor
+        type: string
+      pre_assessment.user_id:
+        name: pre_assessment.user_id
+        description: ''
+        required: false
+        example: 19
+        type: integer
+      pre_assessment.reason:
+        name: pre_assessment.reason
+        description: ''
+        required: true
+        example: recusandae
+        type: string
+      pre_assessment.assessments:
+        name: pre_assessment.assessments
+        description: ''
+        required: false
+        example:
+          - []
+          - []
+        type: 'object[]'
+      'pre_assessment.assessments[].key':
+        name: 'pre_assessment.assessments[].key'
+        description: ''
+        required: false
+        example: 20
+        type: integer
+      'pre_assessment.assessments[].description':
+        name: 'pre_assessment.assessments[].description'
+        description: ''
+        required: false
+        example: perferendis
+        type: string
+      'pre_assessment.assessments[].value':
+        name: 'pre_assessment.assessments[].value'
+        description: ''
+        required: false
+        example: false
+        type: boolean
+      'vitals[].dose':
+        name: 'vitals[].dose'
+        description: ''
+        required: false
+        example: 13
+        type: integer
+      dels:
+        name: dels
+        description: ''
+        required: false
+        example:
+          - 15
+          - 2
+        type: 'integer[]'
     responses: []
     responseFields: []
