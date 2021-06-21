@@ -19,7 +19,7 @@ endpoints:
         name: id
         description: 'The ID of the info.'
         required: true
-        example: ut
+        example: sunt
         type: string
     queryParameters: []
     bodyParameters:
