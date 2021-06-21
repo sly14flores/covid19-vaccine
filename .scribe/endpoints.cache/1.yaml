@@ -8,7 +8,12 @@ endpoints:
       - POST
     uri: 'api/doh/vaccines/inoculation/info/{id}'
     metadata:
-      title: 'Personal Info for Inoculation'
+      title: |-
+        Personal Info for Inoculation
+
+        Returns 200 if patient has been screened.
+        Returns selected dose vital signs along with inoculation and diluent data
+        Returns 406 if patient has no
       description: ''
       authenticated: true
     headers:
@@ -19,7 +24,7 @@ endpoints:
         name: id
         description: 'The ID of the info.'
         required: true
-        example: sunt
+        example: illo
         type: string
     queryParameters: []
     bodyParameters:

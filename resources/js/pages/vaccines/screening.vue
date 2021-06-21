@@ -305,10 +305,10 @@ export default {
         const loadingSwal = Swal.fire({
             title: 'Please wait...',
             willOpen () {
-            Swal.showLoading ()
+                Swal.showLoading ()
             },
             didClose () {
-            Swal.hideLoading()
+                Swal.hideLoading()
             },
             showConfirmButton: false,
             allowOutsideClick: false,
@@ -429,6 +429,34 @@ export default {
                 
             })
         }
+
+        /**
+         * Update consent / consent received by
+         */
+        watch(
+            () => state.healthDeclaration.consent,
+            (value, prevValue) => {
+                propsToValidate.consent.value = value
+                if (value!=null) {
+                    propsToValidate.user_id.value = state.healthDeclaration.user_id
+                }
+            }
+        )
+
+        /**
+         * Update defer / reason
+         */
+        watch(
+            () => state.healthDeclaration.reason,
+            (value, prevValue) => {
+                propsToValidate.reason.value = value
+                if (value!=null) {
+                    propsToValidate.defer.value = "01_Yes"
+                } else {
+                    propsToValidate.defer.value = "02_No"
+                }
+            }
+        )
 
         watch(
             () => propsToValidate.defer.value,
