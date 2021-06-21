@@ -35,10 +35,11 @@ class HospitalsListResourceCollection extends ResourceCollection
      * @return array
      */
     public function toArray($request)
-    {
-        // return parent::toArray($request);
+    {   
+        $collection = (gettype($this->collection)=='object')?$this->collection->values()->all():$this->collection;
+
         return [
-            'data' => $this->collection,
+            'data' => $collection,
             'pagination' => $this->pagination
         ];        
     }

@@ -27,9 +27,9 @@ const getUser = (payload) => {
 
 const GET_USERS = `${api_url}/api/users`
 const getUsers = (payload) => {
-    const { page } = payload
+    const { page, search } = payload
     const pageNo = page + 1
-    return axios.get(GET_USERS, {params: { page: pageNo } })
+    return axios.get(GET_USERS, {params: { page: pageNo, search } })
 }
 
 const DELETE_USER = `${api_url}/api/user/:id`
@@ -219,7 +219,7 @@ const actions = {
     },
     async GET_USERS({dispatch}, payload) {
         Swal.fire({
-            title: 'Loading...',
+            title: 'Please wait...',
 
             onBeforeOpen () {
               Swal.showLoading ()
@@ -233,8 +233,8 @@ const actions = {
             allowEnterKey: false
         })
         try {
-            const { page } = payload
-            const { data: { data: { data, pagination } } } = await getUsers({ page })
+            const { page, search } = payload
+            const { data: { data: { data, pagination } } } = await getUsers({ page, search })
             dispatch('GET_USERS_SUCCESS', { data, pagination })
         } catch (error) {
             const { response } = error

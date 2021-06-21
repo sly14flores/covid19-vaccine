@@ -6,17 +6,21 @@
                 <div class="card p-fluid">
                     <h5>List</h5>
                     <hr />
-                    <DataTable :value="users" dataKey="id" v-model:users="users" >
-                        <template #header>
-                            <div class="p-d-flex p-jc-between">
-                                <div class="p-field p-col-12 p-md-4">
-                                    <span class="p-input-icon-left">
-                                        <i class="pi pi-search" />
-                                        <InputText v-model="search" placeholder="Search. . ." />
-                                    </span>
+                    <Toolbar class="p-mb-2">
+                        <template #left>
+                            <div class="p-fluid p-grid p-formgrid">
+                                <div class="p-field p-col-12 p-md-10">
+                                    <label for="basic"><small>Quick Search first name or last name</small></label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" v-model="search" placeholder="Search . . ." />
+                                </div>
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label>&nbsp;</label>
+                                    <Button class="p-button-sm" label="Go!" @click="filterUsers({page: 0})" />
                                 </div>
                             </div>
                         </template>
+                    </Toolbar>
+                    <DataTable :value="users" dataKey="id" v-model:users="users">
                         <Column field="firstname" header="First Name"></Column>
                         <Column field="lastname" header="Last Name"></Column>
                         <Column field="username" header="Username"></Column>
@@ -45,6 +49,7 @@ import Button from 'primevue/button/sfc';
 import ConfirmDialog from 'primevue/confirmdialog/sfc';
 import Paginator from 'primevue/paginator/sfc';
 import InputText from 'primevue/inputtext/sfc';
+import Toolbar from 'primevue/toolbar/sfc';
 
 export default {
     setup() {
@@ -57,7 +62,8 @@ export default {
         Column,
         Button,
         ConfirmDialog,
-        InputText
+        InputText,
+        Toolbar
     },
     data() {
         return {
@@ -68,23 +74,23 @@ export default {
     },
     computed: {
         users() {
-            return this.$store.state.users.users.filter(user => {
-                return user.firstname.toLowerCase().includes(this.search.toLowerCase()) ||
-                user.lastname.toLowerCase().includes(this.search.toLowerCase())
-            })
+            return this.$store.state.users.users
         },
         pagination() {
             return this.$store.state.users.pagination
         }
     },
     methods: {
+        filterUsers() {
+            this.fetchUsers({ page: 0 })
+        },
         fetchUsers(event) {
             // event.page: New page number
             // event.first: Index of first record
             // event.rows: Number of rows to display in new page
             // event.pageCount: Total number of pages
             const { page } = event
-            this.$store.dispatch('users/GET_USERS', { page })
+            this.$store.dispatch('users/GET_USERS', { page, search: this.search })
         },
         deleteUser(id) {
             this.$confirm.require({

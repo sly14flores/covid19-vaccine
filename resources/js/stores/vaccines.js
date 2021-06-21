@@ -392,7 +392,7 @@ const mutations = {
     },
     LOADING(){
         Swal.fire({
-            title: 'Loading...',
+            title: 'Please wait...',
             willOpen () {
               Swal.showLoading ()
             },

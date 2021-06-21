@@ -6,6 +6,20 @@
                 <div class="card p-fluid">
                     <h5>List</h5>
                     <hr />
+                    <Toolbar class="p-mb-2">
+                        <template #left>
+                            <div class="p-fluid p-grid p-formgrid">
+                                <div class="p-field p-col-12 p-md-10">
+                                    <label for="basic"><small>Quick Search description</small></label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" v-model="search" placeholder="Search . . ." />
+                                </div>
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label>&nbsp;</label>
+                                    <Button class="p-button-sm" label="Go!" @click="filterHospitals({page: 0})" />
+                                </div>
+                            </div>
+                        </template>
+                    </Toolbar>
                     <DataTable :value="hospitals" dataKey="id">
                         <Column field="description" header="Description"></Column>
                         <Column field="slots" header="Slots"></Column>
@@ -31,6 +45,8 @@ import Column from 'primevue/column/sfc';
 import Button from 'primevue/button/sfc';
 import ConfirmDialog from 'primevue/confirmdialog/sfc';
 import Paginator from 'primevue/paginator/sfc';
+import InputText from 'primevue/inputtext/sfc';
+import Toolbar from 'primevue/toolbar/sfc';
 
 export default {
     setup() {
@@ -42,12 +58,15 @@ export default {
         Paginator,
         Column,
         Button,
-        ConfirmDialog
+        ConfirmDialog,
+        InputText,
+        Toolbar
     },
     data() {
         return {
             home: {icon: 'pi pi-home', to: '/hospitals'},
-            items: []
+            items: [],
+            search: ''
         }
     },
     computed: {
@@ -59,13 +78,16 @@ export default {
         }
     },
     methods: {
+        filterHospitals() {
+            this.fetchHospitals({ page: 0 })
+        },
         fetchHospitals(event) {
             // event.page: New page number
             // event.first: Index of first record
             // event.rows: Number of rows to display in new page
             // event.pageCount: Total number of pages
             const { page } = event
-            this.$store.dispatch('hospitals/GET_HOSPITALS', { page })
+            this.$store.dispatch('hospitals/GET_HOSPITALS', { page, search: this.search })
         },
         deleteHospital(id) {
             this.$confirm.require({

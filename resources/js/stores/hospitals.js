@@ -27,9 +27,9 @@ const getHospital = (payload) => {
 
 const GET_HOSPITALS = `${api_url}/api/hospitals`
 const getHospitals = (payload) => {
-    const { page } = payload
+    const { page, search } = payload
     const pageNo = page + 1
-    return axios.get(GET_HOSPITALS, {params: { page: pageNo } })
+    return axios.get(GET_HOSPITALS, {params: { page: pageNo, search } })
 }
 
 const DELETE_HOSPITAL = `${api_url}/api/hospital/:id`
@@ -204,8 +204,8 @@ const actions = {
             allowEnterKey: false
         })
         try {
-            const { page } = payload
-            const { data: { data: { data, pagination } } } = await getHospitals({ page })
+            const { page, search } = payload
+            const { data: { data: { data, pagination } } } = await getHospitals({ page, search })
             dispatch('GET_HOSPITALS_SUCCESS', { data, pagination })
         } catch (error) {
             const { response } = error
