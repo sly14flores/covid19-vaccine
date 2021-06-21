@@ -280,6 +280,10 @@ class VaccineController extends Controller
      * 
      * Personal Info for Inoculation
      * 
+     * Returns 200 if patient has been screened.
+     * Returns selected dose vital signs along with inoculation and diluent data
+     * Returns 406 if patient has no
+     * 
      * @bodyParam dose integer required Example: 1
      */
     public function inoculationPersonalInfo(Request $request, $id)
@@ -296,9 +300,9 @@ class VaccineController extends Controller
 
         /**
          * Validate if passed screening
+         * Patient passes screening if they are marked as screened
          */
         // return $this->jsonSuccessResponse(null, 406, "Patient has not been screened yet");
-
 
         $rules = [
             'dose' => 'integer',
@@ -309,6 +313,8 @@ class VaccineController extends Controller
         }
         /** Get validated data */
         $data = $validator->valid();
+
+        
 
     }
 
