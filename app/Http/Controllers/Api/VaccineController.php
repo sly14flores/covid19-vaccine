@@ -68,9 +68,9 @@ class VaccineController extends Controller
     }
 
     /**
-     * @group Personal Info
+     * @group Vaccination List
      * 
-     * List for vaccination
+     * List for registered persons for vaccination
      * 
      * Search registrations by QR, first name, middle name, last name for vaccinations
      * 
