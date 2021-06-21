@@ -27,6 +27,7 @@ class PreAssessment extends Model
         'blood_pressure',
         'oxygen_saturation',
         'pulse_rate',
+        'screened',
     ];
 
     /**
@@ -38,6 +39,7 @@ class PreAssessment extends Model
         'dose' => 'integer',
         'dosage_id' => 'integer',
         'user_id' => 'integer', 
+        'screened' => 'boolean', 
     ];    
 
     protected $hidden = [
