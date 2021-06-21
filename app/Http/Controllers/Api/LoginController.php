@@ -80,8 +80,6 @@ class LoginController extends Controller
     /**
      * Testing
      * 
-     * @header X-Api-Version
-     * @header Content-Type multipart/form-data; boundary=----WebKitFormBoundaryVUiskm3xdfBM7eKS
      * @header Accept application/json
      * 
      * @bodyParam name string
