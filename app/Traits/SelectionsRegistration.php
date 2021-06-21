@@ -99,7 +99,22 @@ trait SelectionsRegistration
                 "name"=>"Adult with Comorbidity",
                 "description"=>"(A3) Adult with Comorbidity",
                 "id"=>"03_A3",
-                "subs"=> []
+                "subs"=> [
+                    ["name"=>"Chronic Respiratory Disease", "description"=>"(A3.1) Chronic Respiratory Disease", "id"=>"10_A3.1"],
+                    ["name"=>"Hypertension", "description"=>"(A3.2) Hypertension", "id"=>"11_A3.2"],
+                    ["name"=>"Cardiovascular Disease", "description"=>"(A3.3) Cardiovascular Disease", "id"=>"12_A3.3"],
+                    ["name"=>"Chronic Kidney Disease", "description"=>"(A3.4) Chronic Kidney Disease", "id"=>"13_A3.4"],
+                    ["name"=>"Cerebrovascular Accident", "description"=>"(A3.5) Cerebrovascular Accident", "id"=>"14_A3.5"],
+                    ["name"=>"Malignancy", "description"=>"(A3.6) Malignancy", "id"=>"15_A3.6"],
+                    ["name"=>"Diabetes", "description"=>"(A3.7) Diabetes", "id"=>"16_A3.7"],
+                    ["name"=>"Obesity", "description"=>"(A3.8) Obesity", "id"=>"17_A3.8"],
+                    ["name"=>"Neurologic Disease", "description"=>"(A3.9) Neurologic Disease", "id"=>"18_A3.9"],
+                    ["name"=>"Chronic Liver Disease", "description"=>"(A3.10) Chronic Liver Disease", "id"=>"19_A3.10"],
+                    ["name"=>"Tuberculosis", "description"=>"(A3.11) Tuberculosis", "id"=>"20_A3.11"],
+                    ["name"=>"Chronic Respiratory Tract Infection", "description"=>"(A3.12) Chronic Respiratory Tract Infection", "id"=>"21_A3.12"],
+                    ["name"=>"Immunodeficiency State", "description"=>"(A3.13) Immunodeficiency State", "id"=>"22_A3.13"],
+                    ["name"=>"Others", "description"=>"(A3.14) Others", "id"=>"23_A3.14"]
+                ]
             ],
             [
                 "name"=>"Frontline Personnel in Essential Sector",

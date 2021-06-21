@@ -8,10 +8,12 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserResourceCollection;
+use App\Http\Resources\UsersListResource;
 use App\Http\Resources\UsersListResourceCollection;
 
 use Illuminate\Support\Facades\Validator;
 use App\Traits\Messages;
+use App\Helpers\General\CollectionHelper;
 
 use Illuminate\Support\Facades\Hash;
 
@@ -36,14 +38,29 @@ class UserController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * 
+     * @queryParam search string
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::with('userHospital')->paginate(10);
+        $search = (isset($request->search))?$request->search:null;
 
-        $data = new UsersListResourceCollection($users);
+        $users = User::with('userHospital')->get();
 
-        return $this->jsonSuccessResponse($data, 200);
+        $users = $users->filter(function($user) use ($search) {
+            $text = "{$user->firstname}, {$user->middlename}, {$user->lastname}, {$user->username}";            
+            $user->text = $text;
+            if (is_null($search)) return true;
+            $search = preg_replace('/[^A-Za-z0-9\s\-]/', '', $search);
+            $pattern = "/".str_replace(" ","(.*)",$search)."/i";            
+            return preg_match($pattern, $text);
+        });
+
+        $paginated = CollectionHelper::paginate($users, 10);
+
+        $data = new UsersListResourceCollection($paginated);
+        
+        return $this->jsonSuccessResponse($data, 200); 
     }
 
     /**

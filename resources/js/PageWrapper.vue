@@ -42,10 +42,10 @@ export default {
       ...registrations,
       ...facilities,
       ..._users,
-      // ...vaccines,
-      ...screening,
-      ...inoculation,
-      ...monitoring
+      ...vaccines,
+      // ...screening,
+      // ...inoculation,
+      // ...monitoring
     ]
 
     return {

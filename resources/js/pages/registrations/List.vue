@@ -38,45 +38,37 @@
             <template #left>
                 <div class=" p-fluid p-grid p-formgrid">
                     <div class="p-field p-col-12 p-md-4">
-                        <label for="basic">City/Municipality</label>
-                        <Dropdown class="p-shadow-1" optionLabel="name" :options="municipalities" v-model="town_city" optionValue="id" :disabled="!isAdmin" />
+                        <label for="basic"><small>Napanam ID No, first name or last name</small></label>
+                        <InputText class="p-shadow-1 p-inputtext-sm" v-model="search" placeholder="Search . . ." />
                     </div>
                     <div class="p-field p-col-12 p-md-3">
-                        <label for="basic">Start Date:</label>
-                        <Calendar class="p-shadow-1" id="start_date" v-model="start_date" />
-                    </div>
-                    <div class="p-field p-col-12 p-md-3">
-                        <label for="basic">End Date:</label>
-                        <Calendar class="p-shadow-1" id="end_date" v-model="end_date" />
+                        <label for="basic"><small>City/Municipality</small></label>
+                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="municipalities" v-model="town_city" optionValue="id" :disabled="!isAdmin" />
                     </div>
                     <div class="p-field p-col-12 p-md-2">
+                        <label for="basic"><small>Start Date:</small></label>
+                        <Calendar class="p-shadow-1 p-inputtext-sm" id="start_date" v-model="start_date" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+                        <label for="basic"><small>End Date:</small></label>
+                        <Calendar class="p-shadow-1 p-inputtext-sm" id="end_date" v-model="end_date" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-1">
                         <label for="basic">&nbsp;</label>
-                        <Button label="Go!" @click="filterRegistrations" />
+                        <Button class="p-button-sm" label="Go!" @click="filterRegistrations" />
                     </div>
                 </div>
             </template>
             <template #right>
                 <div class="p-fluid p-grid p-formgrid">
                     <div class="p-field p-col-12 p-md-12">
-                       <button  type="button" class="p-mr-2 p-mb-2 p-mt-4 p-button p-component p-button-success" @click="exportToExcel">
-                            <i class="pi pi-upload"></i>&nbsp; Export to Excel
-                        </button>
+                        <Button class="p-button-sm p-mt-2 p-button-success" icon="pi pi-upload" label="Export to Excel" @click="exportToExcel" />
                     </div>
                 </div>
             </template>
         </Toolbar>
         
         <Panel header="List">
-            <div class="p-grid">
-                <div class="p-sm-12 p-md-6 p-lg-4">
-                    <div class="p-inputgroup">
-                        <span class="p-inputgroup-addon">
-                            <i class="pi pi-search"></i>
-                        </span>
-                        <InputText v-model="search" placeholder="Quick search QR, first name, or last name" />
-                    </div>
-                </div>
-            </div>
             <DataTable :value="registrations" responsiveLayout="scroll">
                 <Column field="qr_pass_id" header="Napanam ID No" sortable="true"></Column>
                 <Column field="first_name" header="First Name" sortable="true"></Column>
@@ -166,11 +158,7 @@ export default {
     },
     computed: {
         registrations() {
-            return this.$store.state.registrations.registrations.filter(registration => {
-                return registration.qr_pass_id.toLowerCase().includes(this.search.toLowerCase()) ||
-                    registration.first_name.toLowerCase().includes(this.search.toLowerCase()) ||
-                    registration.last_name.toLowerCase().includes(this.search.toLowerCase())
-            })
+            return this.$store.state.registrations.registrations
         },
         pagination() {
             return this.$store.state.registrations.pagination
@@ -251,7 +239,7 @@ export default {
             // event.rows: Number of rows to display in new page
             // event.pageCount: Total number of pages
             const { page } = event
-            this.$store.dispatch('registrations/GET_REGISTRATIONS', { page, town_city: this.town_city, start_date: this.start_date.toLocaleDateString(), end_date: this.end_date.toLocaleDateString() })
+            this.$store.dispatch('registrations/GET_REGISTRATIONS', { page, town_city: this.town_city, start_date: this.start_date.toLocaleDateString(), end_date: this.end_date.toLocaleDateString(), search: this.search })
         },
         deleteRegistration(id) {
             this.$confirm.require({

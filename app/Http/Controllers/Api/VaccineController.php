@@ -96,7 +96,7 @@ class VaccineController extends Controller
 
         $data = new RegistrationsListResourceCollection($paginated);
         
-        return $this->jsonSuccessResponse($data, 200);        
+        return $this->jsonSuccessResponse($data, 200);       
     }
 
     /**
