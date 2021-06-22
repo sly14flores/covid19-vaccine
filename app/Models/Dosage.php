@@ -76,6 +76,11 @@ class Dosage extends Model
         return "{$this->user->firstname} {$this->user->lastname}";
     }
 
+    public function dohVaccinator()
+    {
+        return ucfirst(strtolower($this->user->lastname)).", ".ucfirst(strtolower($this->user->firstname));
+    }    
+
     public function proffession()
     {
         return $this->user->profession;
