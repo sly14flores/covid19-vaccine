@@ -8,7 +8,12 @@ endpoints:
       - POST
     uri: 'api/doh/vaccines/inoculation/info/{id}'
     metadata:
-      title: 'Personal Info for Inoculation'
+      title: |-
+        Personal Info for Inoculation
+
+        Returns 200 if patient has been screened.
+        Returns selected dose vital signs along with inoculation and diluent data
+        Returns 406 if patient is not yet screened
       description: ''
       authenticated: true
     headers:
@@ -19,7 +24,7 @@ endpoints:
         name: id
         description: 'The ID of the info.'
         required: true
-        example: ut
+        example: officiis
         type: string
     queryParameters: []
     bodyParameters:
@@ -28,6 +33,124 @@ endpoints:
         description: ''
         required: true
         example: 1
+        type: integer
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/doh/vaccines/inoculation/update
+    metadata:
+      title: 'Update inoculation information'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      id:
+        name: id
+        description: 'This is dosage id not qr pass id.'
+        required: true
+        example: 3
+        type: integer
+      brand_name:
+        name: brand_name
+        description: ''
+        required: true
+        example: 6
+        type: integer
+      date_of_vaccination:
+        name: date_of_vaccination
+        description: ''
+        required: true
+        example: dolorum
+        type: date
+      time_of_vaccination:
+        name: time_of_vaccination
+        description: ''
+        required: true
+        example: quidem
+        type: time
+      site_of_injection:
+        name: site_of_injection
+        description: ''
+        required: true
+        example: error
+        type: string
+      lot_number:
+        name: lot_number
+        description: ''
+        required: true
+        example: voluptatem
+        type: string
+      batch_number:
+        name: batch_number
+        description: ''
+        required: true
+        example: veritatis
+        type: string
+      vaccination_facility:
+        name: vaccination_facility
+        description: ''
+        required: true
+        example: 10
+        type: integer
+      user_id:
+        name: user_id
+        description: ''
+        required: true
+        example: 13
+        type: integer
+      encoder_user_id:
+        name: encoder_user_id
+        description: ''
+        required: true
+        example: 5
+        type: integer
+      diluent:
+        name: diluent
+        description: ''
+        required: true
+        example: itaque
+        type: string
+      date_of_reconstitution:
+        name: date_of_reconstitution
+        description: ''
+        required: true
+        example: rem
+        type: date
+      time_of_reconstitution:
+        name: time_of_reconstitution
+        description: ''
+        required: true
+        example: dolores
+        type: time
+      diluent_lot_number:
+        name: diluent_lot_number
+        description: ''
+        required: true
+        example: 4
+        type: integer
+      diluent_batch_number:
+        name: diluent_batch_number
+        description: ''
+        required: true
+        example: 12
+        type: integer
+      next_vaccination:
+        name: next_vaccination
+        description: ''
+        required: true
+        example: ipsum
+        type: date
+      dose:
+        name: dose
+        description: ''
+        required: true
+        example: 6
         type: integer
     responses: []
     responseFields: []

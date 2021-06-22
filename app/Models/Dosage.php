@@ -22,10 +22,12 @@ class Dosage extends Model
     protected $fillable = [
         'vaccine_id',
         'user_id',
+        'encoder_user_id',
         'qr_pass_id',
         'brand_name',
         'vaccine_name',
         'site_of_injection',
+        'vaccination_facility',
         'expiry_date',
         'batch_number',
         'lot_number',
@@ -36,6 +38,7 @@ class Dosage extends Model
         'diluent_batch_number',
         'diluent_lot_number',
         'date_of_vaccination',
+        'time_of_vaccination',
         'next_vaccination'
     ];
 
@@ -112,7 +115,7 @@ class Dosage extends Model
 
     public function vaccine()
     {
-        return $this->belongsTo(VaccineAdministration::class);
+        return $this->belongsTo(Vaccine::class);
     }
 
     public function pre_assessment()

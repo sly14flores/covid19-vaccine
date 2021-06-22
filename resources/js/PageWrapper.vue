@@ -36,16 +36,20 @@ export default {
 
     const isAdmin = store.state.profile.group_id == 1
     const _users =  (isAdmin)?users:[]
+    const _facilities = (isAdmin)?facilities:[]
+    const _screening = (isAdmin)?screening:[]
+    const _inoculation = (isAdmin)?inoculation:[]
+    const _monitoring = (isAdmin)?monitoring:[]
 
     const menu = [
       ...summary,
       ...registrations,
-      ...facilities,
+      ..._facilities,
       ..._users,
       ...vaccines,
-      // ...screening,
-      // ...inoculation,
-      // ...monitoring
+      ..._screening,
+      ..._inoculation,
+      ..._monitoring
     ]
 
     return {

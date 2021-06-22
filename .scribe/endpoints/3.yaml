@@ -1,40 +1,12 @@
-name: Screening
+name: Uncategorized
 description: ''
 endpoints:
   -
     httpMethods:
       - POST
-    uri: 'api/doh/vaccines/screening/info/{id}'
+    uri: api/change/password
     metadata:
-      title: 'Personal Info for Screening'
-      description: ''
-      authenticated: true
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the info.'
-        required: true
-        example: sit
-        type: string
-    queryParameters: []
-    bodyParameters:
-      dose:
-        name: dose
-        description: ''
-        required: true
-        example: 1
-        type: integer
-    responses: []
-    responseFields: []
-  -
-    httpMethods:
-      - POST
-    uri: api/doh/vaccines/screening/update
-    metadata:
-      title: 'Update screening per dose'
+      title: 'Handle the incoming request.'
       description: ''
       authenticated: true
     headers:
@@ -43,107 +15,2131 @@ endpoints:
     urlParameters: []
     queryParameters: []
     bodyParameters:
-      id:
-        name: id
+      currentPassword:
+        name: currentPassword
         description: ''
         required: true
-        example: itaque
+        example: eos
         type: string
-      dosage_id:
-        name: dosage_id
+      newPassword:
+        name: newPassword
+        description: validation.min.
+        required: true
+        example: uhghtr
+        type: string
+      confirmNewPassword:
+        name: confirmNewPassword
+        description: 'validation.same validation.min.'
+        required: true
+        example: tifwqul
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/surveys
+    metadata:
+      title: 'Display a listing of the resource.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/survey
+    metadata:
+      title: 'Store a newly created resource in storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/survey/{survey}'
+    metadata:
+      title: 'Display the specified resource.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      survey:
+        name: survey
         description: ''
         required: true
-        example: 4
+        example: 3
         type: integer
-      dose:
-        name: dose
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/survey/{survey}'
+    metadata:
+      title: 'Update the specified resource in storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      survey:
+        name: survey
         description: ''
         required: true
         example: 6
         type: integer
-      vitals:
-        name: vitals
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/survey/{survey}'
+    metadata:
+      title: 'Remove the specified resource from storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      survey:
+        name: survey
+        description: ''
+        required: true
+        example: 10
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/users
+    metadata:
+      title: 'Display a listing of the resource.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters:
+      search:
+        name: search
         description: ''
         required: false
-        example:
-          - []
-          - []
-        type: 'object[]'
-      pre_assessment:
-        name: pre_assessment
+        example: at
+        type: string
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/user
+    metadata:
+      title: 'Store a newly created resource in storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      firstname:
+        name: firstname
         description: ''
-        required: true
-        example: []
-        type: object
-      pre_assessment.dose:
-        name: pre_assessment.dose
+        required: false
+        example: dicta
+        type: string
+      lastname:
+        name: lastname
         description: ''
-        required: true
-        example: 7
+        required: false
+        example: quod
+        type: string
+      username:
+        name: username
+        description: '''email'' => [''string'',''email'',''max:191'',''unique:users''],.'
+        required: false
+        example: consequatur
+        type: string
+      password:
+        name: password
+        description: ''
+        required: false
+        example: corporis
+        type: string
+      group_id:
+        name: group_id
+        description: ''
+        required: false
+        example: 12
         type: integer
-      pre_assessment.dosage_id:
-        name: pre_assessment.dosage_id
+      profession:
+        name: profession
+        description: ''
+        required: false
+        example: voluptas
+        type: string
+      prc_number:
+        name: prc_number
+        description: ''
+        required: false
+        example: corrupti
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/user/{user}'
+    metadata:
+      title: 'Display the specified resource.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      user:
+        name: user
+        description: ''
+        required: true
+        example: 3
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/user/{user}'
+    metadata:
+      title: 'Update the specified resource in storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      user:
+        name: user
+        description: ''
+        required: true
+        example: 6
+        type: integer
+    queryParameters: []
+    bodyParameters:
+      firstname:
+        name: firstname
+        description: ''
+        required: false
+        example: magnam
+        type: string
+      lastname:
+        name: lastname
+        description: ''
+        required: false
+        example: non
+        type: string
+      username:
+        name: username
+        description: ''
+        required: false
+        example: error
+        type: string
+      group_id:
+        name: group_id
+        description: ''
+        required: false
+        example: 17
+        type: integer
+      profession:
+        name: profession
+        description: ''
+        required: false
+        example: quo
+        type: string
+      prc_number:
+        name: prc_number
+        description: ''
+        required: false
+        example: soluta
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/user/{user}'
+    metadata:
+      title: 'Remove the specified resource from storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      user:
+        name: user
+        description: ''
+        required: true
+        example: 16
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/hospitals
+    metadata:
+      title: 'Display a listing of the resource.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters:
+      search:
+        name: search
+        description: ''
+        required: false
+        example: et
+        type: string
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/hospital
+    metadata:
+      title: 'Store a newly created resource in storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      description:
+        name: description
+        description: ''
+        required: false
+        example: sit
+        type: string
+      slots:
+        name: slots
+        description: ''
+        required: false
+        example: 18
+        type: integer
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/hospital/{hospital}'
+    metadata:
+      title: 'Display the specified resource.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      hospital:
+        name: hospital
+        description: ''
+        required: true
+        example: 8
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/hospital/{hospital}'
+    metadata:
+      title: 'Update the specified resource in storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      hospital:
+        name: hospital
+        description: ''
+        required: true
+        example: 8
+        type: integer
+    queryParameters: []
+    bodyParameters:
+      description:
+        name: description
+        description: ''
+        required: false
+        example: fuga
+        type: string
+      slots:
+        name: slots
+        description: ''
+        required: false
+        example: 1
+        type: integer
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/hospital/{hospital}'
+    metadata:
+      title: 'Remove the specified resource from storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      hospital:
+        name: hospital
         description: ''
         required: true
         example: 15
         type: integer
-      pre_assessment.consent:
-        name: pre_assessment.consent
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/napanam/check/registration/{id}'
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the registration.'
+        required: true
+        example: 18
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/napanam/check/registration/{id}/{birthday}'
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the registration.'
+        required: true
+        example: 10
+        type: integer
+      birthday:
+        name: birthday
         description: ''
         required: true
+        example: recusandae
+        type: string
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/napanam/check/registrationID/{id}'
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the registrationID.'
+        required: true
+        example: repellat
+        type: string
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/doh/selections
+    metadata:
+      title: 'Handle the incoming request.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/doh/selections/addresses
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/doh/selections/brands
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/doh/selections/vaccination/sessions
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/doh/selections/groups
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/doh/selections/priority/groups
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/doh/selections/vaccine/refusals
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/doh/registrations
+    metadata:
+      title: 'Display a listing of the resource.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/doh/registration
+    metadata:
+      title: 'Store a newly created resource in storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      qr_pass_id:
+        name: qr_pass_id
+        description: ''
+        required: false
+        example: omnis
+        type: string
+      first_name:
+        name: first_name
+        description: ''
+        required: false
+        example: eum
+        type: string
+      middle_name:
+        name: middle_name
+        description: ''
+        required: false
+        example: voluptas
+        type: string
+      last_name:
+        name: last_name
+        description: ''
+        required: false
+        example: qui
+        type: string
+      suffix:
+        name: suffix
+        description: ''
+        required: false
+        example: id
+        type: string
+      birthdate:
+        name: birthdate
+        description: ''
+        required: false
+        example: aliquam
+        type: string
+      gender:
+        name: gender
+        description: ''
+        required: false
+        example: sunt
+        type: string
+      region:
+        name: region
+        description: ''
+        required: false
+        example: nesciunt
+        type: string
+      address:
+        name: address
+        description: ''
+        required: false
+        example: eveniet
+        type: string
+      barangay:
+        name: barangay
+        description: ''
+        required: false
+        example: quo
+        type: string
+      town_city:
+        name: town_city
+        description: ''
+        required: false
+        example: harum
+        type: string
+      province:
+        name: province
+        description: ''
+        required: false
+        example: doloremque
+        type: string
+      contact_no:
+        name: contact_no
+        description: ''
+        required: false
         example: consequatur
         type: string
-      pre_assessment.user_id:
-        name: pre_assessment.user_id
+      category:
+        name: category
         description: ''
         required: false
-        example: 9
-        type: integer
-      pre_assessment.reason:
-        name: pre_assessment.reason
-        description: ''
-        required: true
-        example: vitae
+        example: numquam
         type: string
-      pre_assessment.assessments:
-        name: pre_assessment.assessments
+      category_id:
+        name: category_id
         description: ''
         required: false
-        example:
-          - []
-          - []
-        type: 'object[]'
-      'pre_assessment.assessments[].key':
-        name: 'pre_assessment.assessments[].key'
+        example: soluta
+        type: string
+      category_id_no:
+        name: category_id_no
         description: ''
         required: false
-        example: 5
-        type: integer
-      'pre_assessment.assessments[].description':
-        name: 'pre_assessment.assessments[].description'
+        example: illum
+        type: string
+      philhealth:
+        name: philhealth
+        description: ''
+        required: false
+        example: autem
+        type: string
+      pwd_id:
+        name: pwd_id
         description: ''
         required: false
         example: laudantium
         type: string
-      'pre_assessment.assessments[].value':
-        name: 'pre_assessment.assessments[].value'
+      indigenous_member:
+        name: indigenous_member
         description: ''
         required: false
-        example: false
-        type: boolean
-      'vitals[].dose':
-        name: 'vitals[].dose'
+        example: nesciunt
+        type: string
+      civil_status:
+        name: civil_status
+        description: ''
+        required: false
+        example: quis
+        type: string
+      priority_group:
+        name: priority_group
+        description: ''
+        required: false
+        example: velit
+        type: string
+      sub_priority_group:
+        name: sub_priority_group
+        description: ''
+        required: false
+        example: incidunt
+        type: string
+      occupation:
+        name: occupation
+        description: ''
+        required: false
+        example: ipsam
+        type: string
+      with_allergy:
+        name: with_allergy
+        description: ''
+        required: false
+        example: quia
+        type: string
+      with_comorbidity:
+        name: with_comorbidity
+        description: ''
+        required: false
+        example: id
+        type: string
+      is_registered:
+        name: is_registered
+        description: ''
+        required: false
+        example: qui
+        type: string
+      origin:
+        name: origin
+        description: ''
+        required: false
+        example: laudantium
+        type: string
+      employer_name:
+        name: employer_name
+        description: ''
+        required: false
+        example: nobis
+        type: string
+      employer_address:
+        name: employer_address
+        description: ''
+        required: false
+        example: ut
+        type: string
+      employer_lgu:
+        name: employer_lgu
+        description: ''
+        required: false
+        example: accusamus
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/doh/registration/{registration}'
+    metadata:
+      title: 'Display the specified resource.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      registration:
+        name: registration
+        description: ''
+        required: true
+        example: 16
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/doh/registration/{registration}'
+    metadata:
+      title: 'Update the specified resource in storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      registration:
+        name: registration
+        description: ''
+        required: true
+        example: 1
+        type: integer
+    queryParameters: []
+    bodyParameters:
+      qr_pass_id:
+        name: qr_pass_id
+        description: ''
+        required: false
+        example: praesentium
+        type: string
+      first_name:
+        name: first_name
+        description: ''
+        required: false
+        example: error
+        type: string
+      middle_name:
+        name: middle_name
+        description: ''
+        required: false
+        example: impedit
+        type: string
+      last_name:
+        name: last_name
+        description: ''
+        required: false
+        example: voluptates
+        type: string
+      suffix:
+        name: suffix
+        description: ''
+        required: false
+        example: fugit
+        type: string
+      birthdate:
+        name: birthdate
+        description: ''
+        required: false
+        example: voluptatem
+        type: string
+      gender:
+        name: gender
+        description: ''
+        required: false
+        example: quo
+        type: string
+      region:
+        name: region
+        description: ''
+        required: false
+        example: ut
+        type: string
+      address:
+        name: address
+        description: ''
+        required: false
+        example: est
+        type: string
+      barangay:
+        name: barangay
+        description: ''
+        required: false
+        example: consectetur
+        type: string
+      town_city:
+        name: town_city
+        description: ''
+        required: false
+        example: numquam
+        type: string
+      province:
+        name: province
+        description: ''
+        required: false
+        example: blanditiis
+        type: string
+      contact_no:
+        name: contact_no
+        description: ''
+        required: false
+        example: magnam
+        type: string
+      civil_status:
+        name: civil_status
+        description: ''
+        required: false
+        example: consequuntur
+        type: string
+      category:
+        name: category
+        description: ''
+        required: false
+        example: consectetur
+        type: string
+      category_id:
+        name: category_id
+        description: ''
+        required: false
+        example: aperiam
+        type: string
+      category_id_no:
+        name: category_id_no
+        description: ''
+        required: false
+        example: perferendis
+        type: string
+      philhealth:
+        name: philhealth
+        description: ''
+        required: false
+        example: consectetur
+        type: string
+      pwd_id:
+        name: pwd_id
+        description: ''
+        required: false
+        example: aut
+        type: string
+      indigenous_member:
+        name: indigenous_member
+        description: ''
+        required: false
+        example: eos
+        type: string
+      priority_group:
+        name: priority_group
+        description: ''
+        required: false
+        example: dolor
+        type: string
+      sub_priority_group:
+        name: sub_priority_group
+        description: ''
+        required: false
+        example: eaque
+        type: string
+      occupation:
+        name: occupation
+        description: ''
+        required: false
+        example: assumenda
+        type: string
+      with_allergy:
+        name: with_allergy
+        description: ''
+        required: false
+        example: quo
+        type: string
+      with_comorbidity:
+        name: with_comorbidity
+        description: ''
+        required: false
+        example: corporis
+        type: string
+      is_registered:
+        name: is_registered
+        description: ''
+        required: false
+        example: est
+        type: string
+      origin:
+        name: origin
+        description: ''
+        required: false
+        example: iste
+        type: string
+      employer_name:
+        name: employer_name
+        description: ''
+        required: false
+        example: laudantium
+        type: string
+      employer_address:
+        name: employer_address
+        description: ''
+        required: false
+        example: itaque
+        type: string
+      employer_lgu:
+        name: employer_lgu
+        description: ''
+        required: false
+        example: qui
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/doh/registration/{registration}'
+    metadata:
+      title: 'Remove the specified resource from storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      registration:
+        name: registration
+        description: ''
+        required: true
+        example: 16
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/doh/vaccines
+    metadata:
+      title: 'Display List of vaccinations'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/doh/dosages/{id}'
+    metadata:
+      title: 'Display a listing of the resource.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the dosage.'
+        required: true
+        example: 10
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/doh/vaccine
+    metadata:
+      title: 'Store a newly created resource in storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      qr_pass_id:
+        name: qr_pass_id
+        description: ''
+        required: false
+        example: molestiae
+        type: string
+      vaccination_facility:
+        name: vaccination_facility
+        description: ''
+        required: false
+        example: 5
+        type: integer
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/doh/vaccine/{vaccine}'
+    metadata:
+      title: 'Show vaccine administration'
+      description: 'Vaccine administration with dosages'
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      vaccine:
+        name: vaccine
+        description: ''
+        required: true
+        example: 4
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/doh/vaccine/{vaccine}'
+    metadata:
+      title: 'Update the specified resource in storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      vaccine:
+        name: vaccine
+        description: ''
+        required: true
+        example: 12
+        type: integer
+    queryParameters: []
+    bodyParameters:
+      facility_others:
+        name: facility_others
+        description: ''
+        required: false
+        example: qui
+        type: string
+      vaccination_session:
+        name: vaccination_session
+        description: ''
+        required: false
+        example: 4
+        type: integer
+      dosages:
+        name: dosages
+        description: ''
+        required: false
+        example:
+          - iusto
+        type: 'string[]'
+      delete:
+        name: delete
+        description: ''
+        required: false
+        example:
+          - quia
+        type: 'string[]'
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/doh/vaccine/{vaccine}'
+    metadata:
+      title: 'Remove the specified resource from storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      vaccine:
+        name: vaccine
+        description: ''
+        required: true
+        example: 7
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/doh/dosage
+    metadata:
+      title: 'Store a newly created resource in storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      vaccine_id:
+        name: vaccine_id
         description: ''
         required: false
         example: 9
         type: integer
-      dels:
-        name: dels
+      qr_pass_id:
+        name: qr_pass_id
+        description: ''
+        required: false
+        example: non
+        type: string
+      user_id:
+        name: user_id
+        description: ''
+        required: false
+        example: 15
+        type: integer
+      brand_name:
+        name: brand_name
+        description: ''
+        required: false
+        example: 16
+        type: integer
+      vaccine_name:
+        name: vaccine_name
+        description: ''
+        required: false
+        example: 11
+        type: integer
+      site_of_injection:
+        name: site_of_injection
+        description: ''
+        required: false
+        example: aliquid
+        type: string
+      expiry_date:
+        name: expiry_date
+        description: validation.date.
+        required: false
+        example: '2021-06-22T00:53:27'
+        type: string
+      batch_number:
+        name: batch_number
+        description: ''
+        required: false
+        example: 13
+        type: integer
+      lot_number:
+        name: lot_number
+        description: ''
+        required: false
+        example: 20
+        type: integer
+      dose:
+        name: dose
+        description: ''
+        required: false
+        example: 8
+        type: integer
+      diluent_batch_number:
+        name: diluent_batch_number
+        description: ''
+        required: false
+        example: 12
+        type: integer
+      diluent_lot_number:
+        name: diluent_lot_number
+        description: ''
+        required: false
+        example: 9
+        type: integer
+      date_of_vaccination:
+        name: date_of_vaccination
+        description: validation.date.
+        required: false
+        example: '2021-06-22T00:53:27'
+        type: string
+      next_vaccination:
+        name: next_vaccination
+        description: validation.date.
+        required: false
+        example: '2021-06-22T00:53:27'
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/doh/dosage/{dosage}'
+    metadata:
+      title: 'Display the specified resource.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      dosage:
+        name: dosage
+        description: ''
+        required: true
+        example: 3
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/doh/dosage/{dosage}'
+    metadata:
+      title: 'Update the specified resource in storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      dosage:
+        name: dosage
+        description: ''
+        required: true
+        example: 20
+        type: integer
+    queryParameters: []
+    bodyParameters:
+      vaccine_id:
+        name: vaccine_id
+        description: ''
+        required: false
+        example: 13
+        type: integer
+      user_id:
+        name: user_id
+        description: ''
+        required: false
+        example: 17
+        type: integer
+      brand_name:
+        name: brand_name
+        description: ''
+        required: false
+        example: 16
+        type: integer
+      vaccine_name:
+        name: vaccine_name
+        description: ''
+        required: false
+        example: consequuntur
+        type: string
+      site_of_injection:
+        name: site_of_injection
+        description: ''
+        required: false
+        example: eligendi
+        type: string
+      expiry_date:
+        name: expiry_date
+        description: validation.date.
+        required: false
+        example: '2021-06-22T00:53:27'
+        type: string
+      batch_number:
+        name: batch_number
+        description: ''
+        required: false
+        example: 6
+        type: integer
+      lot_number:
+        name: lot_number
+        description: ''
+        required: false
+        example: 2
+        type: integer
+      dose:
+        name: dose
+        description: ''
+        required: false
+        example: 13
+        type: integer
+      date_of_vaccination:
+        name: date_of_vaccination
+        description: validation.date.
+        required: false
+        example: '2021-06-22T00:53:27'
+        type: string
+      next_vaccination:
+        name: next_vaccination
+        description: validation.date.
+        required: false
+        example: '2021-06-22T00:53:27'
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/doh/dosage/{dosage}'
+    metadata:
+      title: 'Remove the specified resource from storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      dosage:
+        name: dosage
+        description: ''
+        required: true
+        example: 7
+        type: integer
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/doh/vaccines/qr/{id}'
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the qr.'
+        required: true
+        example: ipsam
+        type: string
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - PUT
+    uri: 'api/doh/vaccines/update/registration/{id}'
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the registration.'
+        required: true
+        example: 8
+        type: integer
+    queryParameters: []
+    bodyParameters:
+      id:
+        name: id
+        description: ''
+        required: false
+        example: 9
+        type: integer
+      qr_pass_id:
+        name: qr_pass_id
+        description: ''
+        required: false
+        example: libero
+        type: string
+      first_name:
+        name: first_name
+        description: ''
+        required: false
+        example: optio
+        type: string
+      middle_name:
+        name: middle_name
+        description: ''
+        required: false
+        example: laborum
+        type: string
+      last_name:
+        name: last_name
+        description: ''
+        required: false
+        example: tempore
+        type: string
+      suffix:
+        name: suffix
+        description: ''
+        required: false
+        example: eaque
+        type: string
+      birthdate:
+        name: birthdate
+        description: ''
+        required: false
+        example: sed
+        type: string
+      gender:
+        name: gender
+        description: ''
+        required: false
+        example: quae
+        type: string
+      address:
+        name: address
+        description: ''
+        required: false
+        example: et
+        type: string
+      barangay:
+        name: barangay
+        description: ''
+        required: false
+        example: vel
+        type: string
+      town_city:
+        name: town_city
+        description: ''
+        required: false
+        example: adipisci
+        type: string
+      province:
+        name: province
+        description: ''
+        required: false
+        example: fugit
+        type: string
+      contact_no:
+        name: contact_no
+        description: ''
+        required: false
+        example: delectus
+        type: string
+      category:
+        name: category
+        description: ''
+        required: false
+        example: sit
+        type: string
+      category_id:
+        name: category_id
+        description: ''
+        required: false
+        example: aut
+        type: string
+      category_id_no:
+        name: category_id_no
+        description: ''
+        required: false
+        example: velit
+        type: string
+      philhealth:
+        name: philhealth
+        description: ''
+        required: false
+        example: voluptatem
+        type: string
+      pwd_id:
+        name: pwd_id
+        description: ''
+        required: false
+        example: at
+        type: string
+      priority_group:
+        name: priority_group
+        description: ''
+        required: false
+        example: id
+        type: string
+      sub_priority_group:
+        name: sub_priority_group
+        description: ''
+        required: false
+        example: eligendi
+        type: string
+      allergic_to_vaccines:
+        name: allergic_to_vaccines
+        description: ''
+        required: false
+        example: ut
+        type: string
+      is_registered:
+        name: is_registered
+        description: ''
+        required: false
+        example: vel
+        type: string
+      with_comorbidity:
+        name: with_comorbidity
+        description: ''
+        required: false
+        example: natus
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/doh/vaccines/default/vaccinator
+    metadata:
+      title: 'Handle the incoming request.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/doh/pres/{id}'
+    metadata:
+      title: 'Display a listing of the resource.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the pre.'
+        required: true
+        example: perferendis
+        type: string
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/doh/pre
+    metadata:
+      title: 'Store a newly created resource in storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/doh/pre/{pre}'
+    metadata:
+      title: 'Display the specified resource.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      pre:
+        name: pre
+        description: ''
+        required: true
+        example: quod
+        type: string
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/doh/pre/{pre}'
+    metadata:
+      title: 'Update the specified resource in storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      pre:
+        name: pre
+        description: ''
+        required: true
+        example: aut
+        type: string
+    queryParameters: []
+    bodyParameters:
+      consent:
+        name: consent
+        description: ''
+        required: false
+        example: 16
+        type: integer
+      blood_pressure:
+        name: blood_pressure
+        description: ''
+        required: false
+        example: sunt
+        type: string
+      oxygen_saturation:
+        name: oxygen_saturation
+        description: ''
+        required: false
+        example: culpa
+        type: string
+      pulse_rate:
+        name: pulse_rate
+        description: ''
+        required: false
+        example: earum
+        type: string
+      assessments:
+        name: assessments
         description: ''
         required: false
         example:
-          - 15
-          - 12
-        type: 'integer[]'
+          - earum
+        type: 'string[]'
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/doh/pre/{pre}'
+    metadata:
+      title: 'Remove the specified resource from storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      pre:
+        name: pre
+        description: ''
+        required: true
+        example: quo
+        type: string
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/doh/structure/assessments/pre
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/doh/posts/{id}'
+    metadata:
+      title: 'Display a listing of the resource.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the post.'
+        required: true
+        example: facilis
+        type: string
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/doh/post
+    metadata:
+      title: 'Store a newly created resource in storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/doh/post/{post}'
+    metadata:
+      title: 'Display the specified resource.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      post:
+        name: post
+        description: ''
+        required: true
+        example: quo
+        type: string
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/doh/post/{post}'
+    metadata:
+      title: 'Update the specified resource in storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      post:
+        name: post
+        description: ''
+        required: true
+        example: id
+        type: string
+    queryParameters: []
+    bodyParameters:
+      assessments:
+        name: assessments
+        description: ''
+        required: false
+        example:
+          - omnis
+        type: 'string[]'
+      blood_pressure:
+        name: blood_pressure
+        description: '# array.'
+        required: false
+        example: autem
+        type: string
+      oxygen_saturation:
+        name: oxygen_saturation
+        description: ''
+        required: false
+        example: ullam
+        type: string
+      pulse_rate:
+        name: pulse_rate
+        description: ''
+        required: false
+        example: odio
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/doh/post/{post}'
+    metadata:
+      title: 'Remove the specified resource from storage.'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters:
+      post:
+        name: post
+        description: ''
+        required: true
+        example: consectetur
+        type: string
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/doh/structure/assessments/post
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/doh/upload/excel
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      excel:
+        name: excel
+        description: ''
+        required: true
+        example: qui
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/doh/excel/data/structure
+    metadata:
+      title: 'Check if excel file has correct structures'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/doh/excel/data/import
+    metadata:
+      title: 'Import row from excel file'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/general/selections/hospitals
+    metadata:
+      title: 'Hospital selection'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/general/selections/groups
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/general/selections/users
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/general/selections/vaccinators
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/summary/surveys
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/summary/registrations
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/summary/vaccination
+    metadata:
+      title: ''
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
     responses: []
     responseFields: []
