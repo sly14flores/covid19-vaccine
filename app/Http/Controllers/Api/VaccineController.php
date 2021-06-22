@@ -362,7 +362,7 @@ class VaccineController extends Controller
         }
 
         $rules = [
-            'facility_others' => 'string',
+            // 'facility_others' => 'string',
             'vaccination_session' => 'integer',
             'dosages' => 'array',
             'delete' => 'array'
