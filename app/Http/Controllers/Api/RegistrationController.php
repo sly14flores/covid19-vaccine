@@ -137,15 +137,33 @@ class RegistrationController extends Controller
 
         $tc = explode("_",$data['town_city']);
         $data['town_city_code'] = $tc[1];
-        
-        $registration = new Registration;
-        $registration->fill($data);
 
-        $registration->save();
+        try {
 
-        $data = new RegistrationResource($registration);
+            $registration = new Registration;
+            $registration->fill($data);
 
-        return $this->jsonSuccessResponse($data, 200);    
+            $registration->save();
+
+            $data = new RegistrationResource($registration);
+
+            return $this->jsonSuccessResponse($data, 200);             
+
+        } catch (\Exception $e) {
+
+            if ($e instanceof QueryException) {
+                if ($e->getCode()!=="23000") {
+                    report($e);
+                    return $this->jsonFailedResponse(null, 406, $e->getMessage());
+                }
+                return $this->jsonFailedResponse(null, 500, $e->getMessage());
+            } else {
+                report($e);
+                return $this->jsonFailedResponse(null, 500, $e->getMessage());
+            }
+
+        }
+   
     }
 
     /**
