@@ -130,7 +130,7 @@ class VasReportcontroller extends Controller
                             if (is_null($province)) {
                                 $value = "";
                             } else {
-                                $value = $province->psgcCode.ucfirst(strtolower($province->provDesc));
+                                $value = $province->psgcCode.ucwords(strtolower($province->provDesc));
                             }
                         }
                         if ($p=="MUNI_CITY") {
@@ -140,7 +140,7 @@ class VasReportcontroller extends Controller
                             if (is_null($cityMun)) {
                                 $value = "";
                             } else {
-                                $value = $cityMun->psgcCode.ucfirst(strtolower($cityMun->citymunDesc));
+                                $value = $cityMun->psgcCode.ucwords(strtolower($cityMun->citymunDesc));
                             }                            
                         }
                         if ($p=="BARANGAY") {
