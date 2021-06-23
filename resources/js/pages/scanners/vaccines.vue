@@ -54,10 +54,6 @@
                                             <label for="basic">End Date:</label>
                                             <Calendar class="p-shadow-1" id="end_date" v-model="end_date" />
                                         </div>
-                                        <div class="p-field p-col-12 p-md-2">
-                                            <label for="basic">&nbsp;</label>
-                                            <Button label="Go!" />
-                                        </div>
                                     </div>
                                 </template>
                                 <template #right>
@@ -223,9 +219,13 @@ import { useForm, useField } from 'vee-validate';
 import { watch } from 'vue';
 import { useConfirm } from "primevue/useconfirm";
 
+import { api_url } from '../../url.js'
+
 export default {
     props: ['editOn'],
     setup(props) {
+
+        const downloadUrl = `${api_url}/home/reports/vas`        
 
         const { editOn } = props
         const editMode = eval(editOn)
@@ -353,7 +353,8 @@ export default {
             onSubmit,
             editMode,
             onDecode,
-            getNapanam
+            getNapanam,
+            downloadUrl,
         }
 
 
@@ -579,7 +580,7 @@ export default {
         },
         exportToExcel() {
 
-            // Export
+            window.open(`${this.downloadUrl}?date=${this.start_date.toLocaleDateString()}&start_date=${this.start_date.toLocaleDateString()}`)          
            
         },
     },
