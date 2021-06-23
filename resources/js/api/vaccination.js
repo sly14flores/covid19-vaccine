@@ -1,0 +1,58 @@
+import route from '../library/route'
+import { api_url } from '../url.js'
+
+/**
+ * Registrations list for vaccinations
+ * 
+ * Search by QR, first name, middle name, last name
+ */
+ const getRegistrationsList = (payload) => {
+     return axios.get(
+         `${api_url}/api/doh/vaccines/search/registrations`,
+         {params: {...payload} }
+     )
+ }
+
+ /**
+  * Fetch Personal Information
+  */
+const getPersonalInfo = (payload) => {
+    const { id, dose } = payload
+    const url =  route(`${api_url}/api/doh/vaccines/screening/info/:id`, { id })
+    return axios.post(url, { dose })
+}
+
+const postScreeningInfo = (payload) => {
+    return axios.post(`${api_url}/api/doh/vaccines/screening/update`, { ...payload })    
+}
+
+/**
+ * 
+ * Selections
+ *
+ */
+ const getSelections = () => {
+    return axios.get(
+        `${api_url}/api/doh/selections`
+    )
+}
+
+/**
+ * 
+ * Vaccinators
+ *
+ */
+ const getVaccinators = () => {
+    return axios.get(
+        `${api_url}/api/general/selections/vaccinators`
+    )
+}
+
+
+export {
+    getRegistrationsList,
+    getPersonalInfo,
+    postScreeningInfo,
+    getSelections,
+    getVaccinators
+}

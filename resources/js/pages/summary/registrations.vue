@@ -17,15 +17,11 @@
         <Toolbar class="p-mb-2">
             <template #left>
                 <div class="p-fluid p-grid p-formgrid">
-                    <div class="p-field p-col-12 p-md-4">
-                        <label for="basic">City/Municipality</label>
-                        <Dropdown class="p-shadow-1" optionLabel="name" :options="municipalities" v-model="town_city" optionValue="id" :disabled="!isAdmin" />
-                    </div>
-                    <div class="p-field p-col-12 p-md-3">
+                    <div class="p-field p-col-12 p-md-5">
                         <label for="basic">Start Date:</label>
                         <Calendar class="p-shadow-1" id="start_date" v-model="start_date" />
                     </div>
-                    <div class="p-field p-col-12 p-md-3">
+                    <div class="p-field p-col-12 p-md-5">
                         <label for="basic">End Date:</label>
                         <Calendar class="p-shadow-1" id="end_date" v-model="end_date" />
                     </div>
@@ -40,104 +36,66 @@
         <div class="card p-mt-1">
             <div class="card">
                 <div class="p-fluid p-grid">
-                    <div class="p-col-12 p-md-3">
+                    <div class="p-col-12 p-md-4">
                         <div class="card card-bg-pg p-shadow-2">
                             <div class="p-grid">
                                 <div class="p-col-4 p-sm-4 p-md-4">
-                                    <img src="img/dashboard-icons/total_vaccinated.png" class="hundred"/>
+                                    <img src="img/dashboard-icons/groups.png" class="sixty" />
                                 </div>
                                 <div class="p-col-8 p-sm-8 p-md-8">
-                                    <h6 class="card-text-gray">Total No. Vaccinated</h6>
-                                    <h6 class="card-text-red">{{total_vaccinated}}</h6>
+                                    <h6 class="card-text-gray">Total Registered</h6>
+                                    <h6 class="card-text-brown">{{total_registered}}</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="p-col-12 p-md-3">
+                    <div class="p-col-12 p-md-4">
                         <div class="card card-bg-pg p-shadow-2">
                             <div class="p-grid">
                                 <div class="p-col-4 p-sm-4 p-md-4">
-                                    <img src="img/dashboard-icons/vaccinated_dose_1.png" class="hundred" />
+                                    <img src="img/dashboard-icons/male.png" class="sixty" />
                                 </div>
                                 <div class="p-col-8 p-sm-8 p-md-8">
-                                    <h6 class="card-text-gray">Vaccinated (DOSE 1)</h6>
-                                    <h6 class="card-text-red">{{first_dosage}}</h6>
+                                    <h6 class="card-text-gray">Male</h6>
+                                    <h6 class="card-text-brown">{{male_value}}</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
-                        
-                    <div class="p-col-12 p-md-3">
+                    <div class="p-col-12 p-md-4">
                         <div class="card card-bg-pg p-shadow-2">
                             <div class="p-grid">
                                 <div class="p-col-4 p-sm-4 p-md-4">
-                                    <img src="img/dashboard-icons/vaccinated_dose_1.png" class="hundred" />
+                                    <img src="img/dashboard-icons/female.png" class="sixty" />
                                 </div>
                                 <div class="p-col-8 p-sm-8 p-md-8">
-                                    <h6 class="card-text-gray">Vaccinated (DOSE 2)</h6>
-                                    <h6 class="card-text-red">{{second_dosage}}</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-col-12 p-md-3">
-                        <div class="card card-bg-pg p-shadow-2">
-                            <div class="p-grid">
-                                <div class="p-col-4 p-sm-4 p-md-4">
-                                    <img src="img/dashboard-icons/complete_immunization.png" class="hundred" />
-                                </div>
-                                <div class="p-col-8 p-sm-8 p-md-8">
-                                    <h6 class="card-text-gray">Complete Immunization</h6>
-                                    <h6 class="card-text-red">{{complete_immunization_value}}</h6>
+                                    <h6 class="card-text-gray">Female</h6>
+                                    <h6 class="card-text-brown">{{female_value}}</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="p-fluid p-grid">
-                    <div class="p-col-12 p-md-4">
-                        <div class="card card-bg-pg p-shadow-2">
-                            <div class="p-grid">
-                                <div class="p-col-4 p-sm-4 p-md-4">
-                                    <img src="img/dashboard-icons/eligible.png" class="sixty" />
-                                </div>
-                                <div class="p-col-8 p-sm-8 p-md-8">
-                                    <h6 class="card-text-gray">Number of Individual (Eligible) </h6>
-                                    <h6 class="card-text-brown">{{individual_eligible_value}}</h6>
-                                </div>
-                            </div>
+                <Panel header="Total Registered per LGU">
+                    <div class="p-grid">
+                        <div class="p-col-12 p-md-12">
+                            <DataTable :value="municipalities_value" :paginator="true" :rows="10"
+                                paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+                                :rowsPerPageOptions="[10,20]" responsiveLayout="scroll"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords}">
+                                <Column field="town.description" header="Facility Name" headerStyle="width: 20%"></Column>
+                                <Column field="A1" header="Health Workers (A1)" headerStyle="width: 10%"></Column>
+                                <Column field="A2" header="Senior Citizens (A2)" headerStyle="width: 10%"></Column>
+                                <Column field="A3" header="Adult with Comorbidity (A3)" headerStyle="width: 10%"></Column>
+                                <Column field="A4" header="Frontliner Personnel in Essential Sector (A4)" headerStyle="width: 10%"></Column>
+                                <Column field="total" header="Total" headerStyle="width: 10%"></Column>
+                            </DataTable>
                         </div>
                     </div>
-                    <div class="p-col-12 p-md-4">
-                        <div class="card card-bg-pg p-shadow-2">
-                            <div class="p-grid">
-                                <div class="p-col-4 p-sm-4 p-md-4">
-                                    <img src="img/dashboard-icons/waiting_list.png" class="sixty" />
-                                </div>
-                                <div class="p-col-8 p-sm-8 p-md-8">
-                                    <h6 class="card-text-gray">Waiting List (Willing to be Vaccinated)</h6>
-                                    <h6 class="card-text-brown">{{waiting_value}}</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-col-12 p-md-4">
-                        <div class="card card-bg-pg p-shadow-2">
-                            <div class="p-grid">
-                                <div class="p-col-4 p-sm-4 p-md-4">
-                                    <img src="img/dashboard-icons/percentage.png" class="sixty" />
-                                </div>
-                                <div class="p-col-8 p-sm-8 p-md-8">
-                                    <h6 class="card-text-gray">Percentage (Immunized/Total Eligible)</h6>
-                                    <h6 class="card-text-brown">{{immunized_vs_eligible_value}}</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </Panel>
 
-                <div class="p-fluid p-grid">
+                <!-- <div class="p-fluid p-grid">
                     <div class="p-col-12 p-md-4">
                         <div class="card p-shadow-1">
                             <div class="p-grid">
@@ -303,54 +261,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="p-grid header-text">
-                    <div class="p-col-12 p-md-2"></div>
-                    <div class="p-col-12 p-md-8">
-                        COVID-19 VACCINE ADMINISTERED
-                    </div>
-                    <div class="p-col-12 p-md-2"></div>
-                </div>
-                <Panel header="Total Doses (by vaccination site)" class="p-mb-2">
-                    <div class="p-grid">
-                        <div class="p-col-12 p-md-12">
-                            <DataTable :value="total_doses_value" :paginator="true" :rows="10"
-                                paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
-                                :rowsPerPageOptions="[10,20,50]" responsiveLayout="scroll"
-                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords}">
-                             <Column field="facility_name" header="Facility Name" headerStyle="width: 20%"></Column>
-                                <Column field="health_workers" header="Health Workers (A1)" headerStyle="width: 10%"></Column>
-                                <Column field="senior_citizens" header="Senior Citizens (A2)" headerStyle="width: 10%"></Column>
-                                <Column field="adults_with_comorbidity" header="Adult with Comorbidity (A3)" headerStyle="width: 10%"></Column>
-                                <Column field="frontliners" header="Frontliner Personnel in Essential Sector (A4)" headerStyle="width: 10%"></Column>
-                            </DataTable>
-                        </div>
-                    </div>
-                </Panel>
-
-                <Panel header="Total Number of Vaccine Used (per vaccine type)">
-                    <div class="p-grid">
-                        <div class="p-col-12 p-md-12">
-                            <DataTable :value="total_vaccines_used_value" :paginator="true" :rows="10"
-                                paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
-                                :rowsPerPageOptions="[10,20,50]" responsiveLayout="scroll"
-                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords}">
-                                <Column field="facility_name" header="Facility Name" headerStyle="width: 20%"></Column>
-                                <Column field="oxford" header="Oxford Astrazenica" headerStyle="width: 10%"></Column>
-                                <Column field="pfizer" header="Pfizer-BioNTech" headerStyle="width: 10%"></Column>
-                                <Column field="sinovac" header="Sinovac CoronaVac" headerStyle="width: 10%"></Column>
-                                <Column field="novavax" header="Novavax" headerStyle="width: 10%"></Column>
-                                <Column field="moderna" header="Moderna" headerStyle="width: 10%"></Column>
-                                <Column field="janssen" header="Janssen" headerStyle="width: 10%"></Column>
-                                <Column field="gamaleya" header="Gamaleya Sputnik V" headerStyle="width: 10%"></Column>
-                                <Column field="bharat" header="Bharat BioTech" headerStyle="width: 10%"></Column>
-                                <Column field="total" header="Total # of Vaccine Used" headerStyle="width: 10%"></Column>
-                            </DataTable>
-                        </div>
-                    </div>
-                </Panel>
-                
             </div>
         </div>
         <ScrollTop />
@@ -379,7 +291,7 @@ export default {
         const { dispatch } = store
 
         dispatch('AUTHENTICATE')
-        dispatch('registered/GET_SELECTIONS')
+        // dispatch('registered/GET_SELECTIONS')
 
     },    
     components: {
@@ -403,101 +315,50 @@ export default {
             start_date: null,
             end_date: new Date(),
             province: "_0133_LA_UNION",
-            town_city: null
+            town_city: 'all'
         }
     },
     computed: { 
+        municipalities_value() {
+            return this.$store.state.registered.registered.municipalities
+        },
         total_registered() {
             return this.$store.state.registered.registered.total_registered
         },
-        total_vaccinated() {
-            return this.$store.state.registered.registered.total_vaccinated
+        male_value() {
+            return this.$store.state.registered.registered.gender.male
         },
-        first_dosage() {
-            return this.$store.state.registered.registered.dosages.first_dosage
+        female_value() {
+            return this.$store.state.registered.registered.gender.female
         },
-        second_dosage() {
-            return this.$store.state.registered.registered.dosages.second_dosage
-        },
-        third_dosage() {
-            return this.$store.state.registered.registered.dosages.third_dosage
-        },
-        adult_with_comorbidity_value() {
-            return this.$store.state.registered.registered.priority_group.adult_with_comorbidity
-        },
-        frontline_personnel_essential_sector_value() {
-            return this.$store.state.registered.registered.priority_group.frontline_personnel_essential_sector
-        },
-        health_workers_value() {
-            return this.$store.state.registered.registered.priority_group.health_workers
-        },
-        ofw_value() {
-            return this.$store.state.registered.registered.priority_group.ofw
-        },
-        other_essential_workers_value() {
-            return this.$store.state.registered.registered.priority_group.other_essential_workers
-        },
-        other_government_workers_value() {
-            return this.$store.state.registered.registered.priority_group.other_government_workers
-        },
-        other_remaining_workforce_value() {
-            return this.$store.state.registered.registered.priority_group.other_remaining_workforce
-        },
-        poor_population_value() {
-            return this.$store.state.registered.registered.priority_group.poor_population
-        },
-        rest_of_the_population_value() {
-            return this.$store.state.registered.registered.priority_group.rest_of_the_population
-        },
-        senior_citizen_value() {
-            return this.$store.state.registered.registered.priority_group.senior_citizen
-        },
-        socio_demographic_groups_value() {
-            return this.$store.state.registered.registered.priority_group.socio_demographic_groups
-        },
-        teacher_value() {
-            return this.$store.state.registered.registered.priority_group.teacher
-        },
-        individual_eligible_value(){
-            return this.$store.state.registered.registered.individual_eligible
-        },
-        immunized_vs_eligible_value(){
-            return this.$store.state.registered.registered.immunized_vs_eligible
-        },
-        complete_immunization_value(){
-            return this.$store.state.registered.registered.complete_immunization
-        },
-        waiting_value(){
-            return this.$store.state.registered.registered.waiting
-        },
-        waiting_value(){
-            return this.$store.state.registered.registered.waiting
-        },
-        total_doses_value(){
-            return this.$store.state.registered.registered.total_doses
-        },
-        total_vaccines_used_value(){
-            return this.$store.state.registered.registered.total_vaccines_used
-        },
-        provinces(){
-            return this.$store.state.registered.selections.addresses.province_value
-        },
-        municipalities() {
+        // provinces(){
+        //     return this.$store.state.registered.selections.addresses.province_value
+        // },
+        // municipalities() {
 
-            if (!this.provinces) return []
+        //     if (!this.provinces) return []
 
-            const province = this.provinces.filter(province => {
-                return province.id == this.province
-            })
+        //     const province = this.provinces.filter(province => {
+        //         return province.id == this.province
+        //     })
 
-            if (province.length==0) return []
+        //     if (province.length==0) return []
 
-            const municipalities = province[0].municipalities
+        //     const municipalities = [
+        //         {
+        //             id: 'all',
+        //             code: 0,
+        //             name: "All",
+        //             provCode: '',
+        //             provId: '',
+        //             barangays: [],
+        //         },
+        //         ...province[0].municipalities
+        //     ]
 
-            return municipalities
+        //     return municipalities
 
-
-        },
+        // },
         isAdmin() {
             return this.$store.state.profile.is_admin
         }
@@ -529,13 +390,16 @@ export default {
     },
     created() {
         
-        const date = new Date()
-        date.setDate(1)
+        const year = new Date().getFullYear()
+        const date = new Date(year, 1, 1)
+        date.setDate(5)
 
         this.start_date = date
 
         if (!this.$store.state.profile.is_admin) {
             this.town_city = this.$store.state.profile.town_city_doh
+        } else {
+            this.town_city = 'all'
         }
 
     },

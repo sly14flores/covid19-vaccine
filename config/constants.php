@@ -74,6 +74,7 @@ return [
                 ]
             ],
             'dosages' => 2,
+            'shortname' => 'Pfizer',
         ],
         [
             'id' => 2,
@@ -84,7 +85,8 @@ return [
                     'name' => 'Moderna COVID-19 Vaccine (mRNA-1273)'
                 ]
             ],
-            'dosages' => 2,            
+            'dosages' => 2,
+            'shortname' => 'Moderna',         
         ],
         [
             'id' => 3,
@@ -95,7 +97,8 @@ return [
                     'name' => 'COVID-19 Vaccine AstraZeneca (AZD1222)'
                 ]
             ],
-            'dosages' => 2,          
+            'dosages' => 2,
+            'shortname' => 'BARDA',       
         ],
         [
             'id' => 4,
@@ -107,6 +110,7 @@ return [
                 ]
             ],
             'dosages' => 2,
+            'shortname' => 'Gamaleya',
         ],
         [
             'id' => 5,
@@ -118,6 +122,7 @@ return [
                 ]
             ],
             'dosages' => 1,
+            'shortname' => 'Johnson & Johnson',
         ],
         [
             'id' => 6,
@@ -129,6 +134,7 @@ return [
                 ]
             ],
             'dosages' => 2,
+            'shortname' => 'Sinovac',
         ],
         [
             'id' => 7,
@@ -140,6 +146,7 @@ return [
                 ]
             ],
             'dosages' => 2,
+            'shortname' => 'Bharat Biotech',
         ],
         [
             'id' => 8,
@@ -151,6 +158,7 @@ return [
                 ]
             ],
             'dosages' => 2,
+            'shortname' => 'Federal',
         ],
         [
             'id' => 9,
@@ -161,7 +169,8 @@ return [
                     'name' => 'CoviVac'
                 ]
             ],
-            'dosages' => 2,            
+            'dosages' => 2,
+            'shortname' => 'Chumakov',       
         ],
         [
             'id' => 10,
@@ -172,7 +181,8 @@ return [
                     'name' => 'Novavax COVID-19'
                 ]
             ],
-            'dosages' => 2,      
+            'dosages' => 2,
+            'shortname' => 'Novavax',   
         ],
         [
             'id' => 11,
@@ -184,6 +194,7 @@ return [
                 ]
             ],
             'dosages' => 3,
+            'shortname' => 'Oxford',
         ],                  
     ],
 
@@ -211,21 +222,43 @@ return [
     ],
 
     'pre_assessments' => [
-        ["key"=>1,"description"=>"Age more than 16 years old?","value"=>false],
-        ["key"=>2,"description"=>"Has no allergies to PEG or polysorbate?","value"=>false],
-        ["key"=>3,"description"=>"Has no severe allergic reaction after the 1st dose of the vaccine?","value"=>false],
-        ["key"=>4,"description"=>"Has no allergy to food, egg, medicines, and no asthma?","value"=>false],
-        ["key"=>5,"description"=>"Has no history of bleeding disorders or currently taking anti-coagulants?","value"=>false],
-        ["key"=>6,"description"=>"If with bleeding history, is a gauge 23 - 25 syringe available for injection?","value"=>false],
-        ["key"=>7,"description"=>"Has no history of exposure to a confirmed or suspected COVID-19 case in the past 2 weeks?","value"=>false],
-        ["key"=>8,"description"=>"Has not been previously treated for COVID-19 in the past 90 days?","value"=>false],
-        ["key"=>9,"description"=>"Has not received any vaccine in the past 2 weeks?","value"=>false],
-        ["key"=>10,"description"=>"Has not received convalescent plasma or monoclonal antibodies for COVID-19 in the past 90 days?","value"=>false],
-        ["key"=>11,"description"=>"Not Pregnant?","value"=>false],
-        ["key"=>12,"description"=>"If pregnant, 2nd or 3rd Trimester?","value"=>false],
-        ["key"=>13,"description"=>"Does not have any of the following: HIV, Cancer/ Malignancy, Underwent Transplant, Under Steroid Medication/ Treatment, Bed Ridden, terminal illness, less than 6 months prognosis","value"=>false],
-        ["key"=>14,"description"=>"If with mentioned condition/s, specify.","value"=>false],
-        ["key"=>15,"description"=>"If with mentioned condition, has presented medical clearance prior to vaccination day?","value"=>false],
+        ["key"=>1,"description"=>"Below 18 years old?","value"=>false],
+        ["key"=>2,"description"=>"Has allergy to polysorbate or any other components (L-Histidine, L-Histidine hydrochloride monohydrate, Magnesium chloride hexahydrate, Polysorbate 80, Ethanol, Sucrose, Sodium chloride, Disodium edetate, Water for injections) of the vaccine?","value"=>false],
+        ["key"=>3,"description"=>"Had severe allergic reaction after the 1st dose of the vaccine?","value"=>false],
+        ["key"=>4,"description"=>"Allergy to food, egg, medicines? has asthma?","value"=>false],
+        ["key"=>5,"description"=>"If with allergy or asthma, will monitoring the patient for 30 minutes be a problem?","value"=>false],
+        ["key"=>6,"description"=>"Has history of bleeding disorders or currently taking anti-coagulants?","value"=>false],
+        ["key"=>7,"description"=>"If with bleeding history or currently taking anti-coagulants, is there a problem securing a gauge 23 - 25 syringe for injection?","value"=>false],
+        ["key"=>8,"description"=>"Manifests any one of the following symptoms?","value"=>false,
+            "subs" => [
+                ["key"=>1,"description"=>"Fever/chills","value"=>false],
+                ["key"=>2,"description"=>"Headache","value"=>false],
+                ["key"=>3,"description"=>"Cough","value"=>false],
+                ["key"=>4,"description"=>"Colds","value"=>false],
+                ["key"=>5,"description"=>"Sore Throat","value"=>false],
+                ["key"=>6,"description"=>"Myalgia","value"=>false],
+                ["key"=>7,"description"=>"Fatigue","value"=>false],
+                ["key"=>8,"description"=>"Weakness","value"=>false],
+                ["key"=>9,"description"=>"Loss of smell/taste","value"=>false],
+                ["key"=>10,"description"=>"Diarrhea","value"=>false],
+                ["key"=>11,"description"=>"Shortness of breath/difficult in breathing","value"=>false],
+                ["key"=>12,"description"=>"Rashes","value"=>false],
+            ]
+        ],
+        ["key"=>9,"description"=>"Has history of exposure to a confirmed or suspected COVID-19 in the past 14 days?","value"=>false],
+        ["key"=>10,"description"=>"Previously treated for COVID-19 in the past 90 days","value"=>false],
+        ["key"=>11,"description"=>"Has recieved any vaccine in the past 14 days or plans to recieve another vaccine 14 days following vaccination?","value"=>false],
+        ["key"=>12,"description"=>"Pregnant?","value"=>false],
+        ["key"=>13,"description"=>"Has any of the following diseases or health condition?","value"=>false,
+            "subs"  =>[
+                ["key"=>1,"description"=>"HIV","value"=>false],
+                ["key"=>2,"description"=>"Cancer/Malignancy","value"=>false],
+                ["key"=>3,"description"=>"Underwent Transplant","value"=>false],
+                ["key"=>4,"description"=>"Under Steroid Medication/Treatment","value"=>false],
+                ["key"=>5,"description"=>"Bed ridden, terminal illness, less than 6 months prognosis","value"=>false],
+                ["key"=>6,"description"=>"Autoimmune disease","value"=>false]
+            ]
+        ],
     ],
 
     'post_assessments' => [

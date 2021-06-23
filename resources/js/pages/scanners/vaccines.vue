@@ -22,11 +22,11 @@
                                 </div>
                                 <div class="p-grid p-jc-center p-mt-2">
                                     <h2 class="p-label-blue">QR Code Scanning</h2>
-                                    </div>
+                                </div>
                                 <div class="p-grid">
                                     <div class="p-field p-col-11 p-md-12">
                                         <div class="center stream">
-                                            <qr-stream camera="rear" @decode="onDecode" class="mb p-shadow-3" @init="onInit">
+                                            <qr-stream :camera="camera" @decode="onDecode" class="mb p-shadow-3" @init="onInit">
                                                 <div class="frame" v-if="frame"></div>
                                                 <div class="loading-indicator p-mt-6" v-if="loading">
                                                     <div class="p-grid p-jc-center">
@@ -43,6 +43,23 @@
                             </div>
                         </div>
                         <div class="p-lg-8 p-sm-12 p-xs-12">
+                            <Toolbar class="p-mb-2" v-if="isAdmin">
+                                <template #left>
+                                    <div class=" p-fluid p-grid p-formgrid">
+                                        <div class="p-field p-col-12 p-md-5">
+                                            <label for="basic">Start Date:</label>
+                                            <Calendar class="p-shadow-1" id="start_date" v-model="start_date" />
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-5">
+                                            <label for="basic">End Date:</label>
+                                            <Calendar class="p-shadow-1" id="end_date" v-model="end_date" />
+                                        </div>
+                                    </div>
+                                </template>
+                                <template #right>
+                                    <Button label="Export to Excel" icon="pi pi-upload" class="p-button-success" @click="exportToExcel" />
+                                </template>
+                            </Toolbar>
                             <div class="p-fluid p-shadow-2">
                                 <form @submit="onSubmit">
                                     <div class="card p-shadow-2">
@@ -119,39 +136,39 @@
                                                 <label>Barangay <i class="p-error">*</i></label>
                                                 <Dropdown class="p-shadow-1" optionLabel="name" :options="barangays" optionValue="id" v-model="barangay" :class="{'p-invalid': barangayError, 'disabled': !writeOn}" placeholder="Select a barangay" :disabled="!writeOn" />
                                             </div>
-                                            <div class="p-field p-col-12 p-md-4">
-                                                <label>Unit/Building/Street/House No. <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="address" :disabled="!writeOn" />
-                                            </div>
-                                            <div class="p-field p-col-12 p-md-4">
+                                            <!-- <div class="p-field p-col-12 p-md-4">
+                                                <label>Unit/Building/Street/House No.</label>
+                                                <InputText class="p-shadow-1" type="text" v-model="address" :disabled="!writeOn" />
+                                            </div> -->
+                                            <div class="p-field p-col-12 p-md-8">
                                                 <label>Occupation</label>
                                                 <InputText class="p-shadow-1" type="text" v-model="occupation" :disabled="!writeOn" />
                                             </div>
                                         </div>
                                         <div class="p-fluid p-formgrid p-grid">
-                                                <div class="p-field p-col-12 p-md-4">
-                                                    <label>Category </label>
-                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" optionValue="id" v-model="category" :class="{disabled: !writeOn}" placeholder="Select a category" :disabled="!writeOn" />
-                                                </div>
-                                                <div class="p-field p-col-12 p-md-4">
-                                                    <label>Category ID</label>
-                                                    <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" optionValue="id" v-model="category_id" :class="{disabled: !writeOn}" placeholder="Select a category" :disabled="!writeOn" />
-                                                </div>
-                                                <div class="p-field p-col-12 p-md-4">
-                                                    <label>Category ID No. </label>
-                                                    <InputText class="p-shadow-1" type="text" v-model="category_id_no" :disabled="!writeOn" />
-                                                </div>
+                                            <div class="p-field p-col-12 p-md-4">
+                                                <label>Category </label>
+                                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" optionValue="id" v-model="category" :class="{'disabled': !writeOn}" :disabled="!writeOn" placeholder="Select a category" />
                                             </div>
-                                            <div class="p-fluid p-formgrid p-grid">
-                                                <div class="p-field p-col-12 p-md-6">
-                                                    <label>Philhealth No. </label>
-                                                    <InputText class="p-shadow-1" type="text" v-model="philhealth" :disabled="!writeOn" />
-                                                </div>
-                                                <div class="p-field p-col-12 p-md-6">
-                                                    <label>PWD ID</label>
-                                                    <InputText class="p-shadow-1" type="text" v-model="pwd_id" :disabled="!writeOn" />
-                                                </div>
+                                            <div class="p-field p-col-12 p-md-4">
+                                                <label>Category ID </label>
+                                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" optionValue="id" v-model="category_id" :class="{'disabled': !writeOn}" :disabled="!writeOn" placeholder="Select a category id" />
                                             </div>
+                                            <div class="p-field p-col-12 p-md-4">
+                                                <label>Category ID No. </label>
+                                                <InputText class="p-shadow-1" type="text" v-model="category_id_no" :disabled="!writeOn" />
+                                            </div>
+                                        </div>
+                                        <div class="p-fluid p-formgrid p-grid">
+                                            <div class="p-field p-col-12 p-md-6">
+                                                <label>Philhealth No. </label>
+                                                <InputText class="p-shadow-1" type="text" v-model="philhealth" :disabled="!writeOn" />
+                                            </div>
+                                            <div class="p-field p-col-12 p-md-6">
+                                                <label>PWD ID</label>
+                                                <InputText class="p-shadow-1" type="text" v-model="pwd_id" :disabled="!writeOn" />
+                                            </div>
+                                        </div>
                                         <div class="p-fluid">
                                             <div class="p-fluid p-formgrid p-grid p-mt-2">
                                                 <div class="p-field p-col-12 p-md-10"></div>
@@ -194,6 +211,7 @@ import Panel from 'primevue/panel/sfc';
 import Toolbar from 'primevue/toolbar/sfc';
 import SelectButton from 'primevue/selectbutton/sfc';
 import Vaccination from './vaccination'
+import Calendar from 'primevue/calendar/sfc';
 
 import { QrStream, QrCapture, QrDropzone } from 'vue3-qr-reader';
 import { useStore } from 'vuex';
@@ -201,9 +219,13 @@ import { useForm, useField } from 'vee-validate';
 import { watch } from 'vue';
 import { useConfirm } from "primevue/useconfirm";
 
+import { api_url } from '../../url.js'
+
 export default {
     props: ['editOn'],
     setup(props) {
+
+        const downloadUrl = `${api_url}/home/reports/vas`        
 
         const { editOn } = props
         const editMode = eval(editOn)
@@ -256,6 +278,7 @@ export default {
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
                     dispatch('vaccines/UPDATE_REGISTRATION', vaccine)
+                    console.log(vaccine)
                 },
                 reject: () => {
                     //callback to execute when registration rejects the action
@@ -288,9 +311,10 @@ export default {
         const { value: province, errorMessage: provinceError } = useField('vaccine.province',validateField);
         const { value: town_city, errorMessage: town_cityError } = useField('vaccine.town_city',validateField);
         const { value: barangay, errorMessage: barangayError } = useField('vaccine.barangay',validateField);
-        const { value: address } = useField('vaccine.address',validField);
         const { value: contact_no } = useField('vaccine.contact_no',validField);
         const { value: occupation } = useField('vaccine.occupation',validField);
+        // const { value: address } = useField('vaccine.address',validField);
+        
         const { value: category } = useField('vaccine.category',validField);
         const { value: category_id } = useField('vaccine.category_id',validField);
         const { value: category_id_no } = useField('vaccine.category_id_no',validField);
@@ -309,7 +333,7 @@ export default {
             region,
             province,
             town_city,
-            address, // street
+            // address,
             barangay,
             contact_no,
             occupation, // End Personal
@@ -329,8 +353,10 @@ export default {
             onSubmit,
             editMode,
             onDecode,
-            getNapanam
+            getNapanam,
+            downloadUrl,
         }
+
 
     },
     data() {
@@ -340,7 +366,9 @@ export default {
             noFrontCamera: false,
             switchCameraModel: false,
             loading: false,
-            frame: false
+            frame: false,
+            start_date: new Date(),
+            end_date: new Date()
       }
     },
     components: {
@@ -365,8 +393,14 @@ export default {
         SelectButton,
         Toolbar,
         Vaccination,
+        Calendar
     },
     computed: {
+        isAdmin() {
+            
+            return this.$store.state.profile.is_admin
+            
+        },
         suffix_value() {
 
             return this.$store.state.vaccines.selections.suffix_value
@@ -543,6 +577,11 @@ export default {
         },
         toggleWrite() {
             this.writeOn = !this.writeOn
+        },
+        exportToExcel() {
+
+            window.open(`${this.downloadUrl}?date=${this.start_date.toLocaleDateString()}&start_date=${this.start_date.toLocaleDateString()}`)          
+           
         },
     },
     created() {

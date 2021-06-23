@@ -127,6 +127,7 @@ trait Summary
             "SUDIPEN",
             "TUBAO",
         ];
+
         foreach ($municipalities as $m) {
             $municipality[] = [
                 "description"=>$m,
@@ -148,6 +149,7 @@ trait Summary
             "others_health_condition"=>"Others",
             "none_of_the_above"=>"None of the above",
         ];
+
         foreach ($comorbidities as $key => $c) {
             $comorbidity[] = [
                 "description"=>$c,
@@ -229,7 +231,7 @@ trait Summary
 
     }
 
-    public static function registrations($filter)
+    public static function vaccination ($filter)
     {
 
         $startFilter = Carbon::parse($filter['start'])->format("Y-m-d 00:00:00");
@@ -241,13 +243,15 @@ trait Summary
         $townCityCode = null;
         $wheres = [];
         if (isset($filter['town_city'])) {
-            $townCity = $filter['town_city'];
-            $tc = explode("_",$townCity);
-            $townCityCode = $tc[1];
-            $wheres[] = ['town_city_code',$townCityCode];
+            if ($filter['town_city']!="all") {
+                $townCity = $filter['town_city'];
+                $tc = explode("_",$townCity);
+                $townCityCode = $tc[1];
+                $wheres[] = ['town_city_code',$townCityCode];
+            }
         }
 
-        // $registrations = Registration::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $registrations_all = Registration::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
         $registrations = Registration::where($wheres)->whereHas('vaccine.dosages', function(Builder $query) use ($startFilter,$endFilter) {
             $query->whereBetween('created_at',[$startFilter,$endFilter]);
         })->get();
@@ -334,7 +338,7 @@ trait Summary
         /**
          * No of individual eligible
          */
-        $individual_eligible = $registrations->whereIn('priority_group',['01_A1','02_A2','04_A4'])->count();
+        $individual_eligible = $registrations_all->whereIn('priority_group',['01_A1','02_A2','03_A3','04_A4'])->count();
 
         /**
          * Total Population
@@ -512,6 +516,7 @@ trait Summary
             });        
 
             $all_vaccines_used = $oxford->sum() + $pfizer->sum() + $sinovac->sum() + $novavax->sum() + $moderna->sum() + $janssen->sum() + $gamaleya->sum() + $bharat->sum();
+            
             $total_vaccines_used = [
                 'id' => $facility_id,
                 'facility_name' => $facility->description,
@@ -554,7 +559,7 @@ trait Summary
             ],
             'complete_immunization' => $complete_immunization,
             'waiting' => 0,
-            'individual_eligible' => $individual_eligible,
+            'individual_eligible' => number_format($individual_eligible),
             'immunized_vs_eligible'=> round($immunized_vs_eligible,5),
             'total_doses' => $total_doses,
             'total_vaccines_used' => $total_vaccines_useds,
@@ -562,6 +567,78 @@ trait Summary
 
         return $data;
 
+    }
+
+    public static function registrations ($filter)
+    {
+        $startFilter = Carbon::parse($filter['start'])->format("Y-m-d 00:00:00");
+        $endFilter = Carbon::parse($filter['end'])->addDays(1)->format("Y-m-d 00:00:00");
+
+        $townCityCode = null;
+        $wheres = [];
+        if (isset($filter['town_city'])) {
+            if ($filter['town_city']!="all") {
+                $townCity = $filter['town_city'];
+                $tc = explode("_",$townCity);
+                $townCityCode = $tc[1];
+                $wheres[] = ['town_city_code',$townCityCode];
+            }
+        }
+
+        $registrations = Registration::whereBetween('created_at',[$startFilter,$endFilter])->get();
+
+        $total_registration = $registrations->count();
+        
+        $female = $registrations->where('gender','01_Female')->count();
+        $male = $registrations->where('gender','02_Male')->count();
+
+        $municipality = [];
+        $municipalities = [
+            "agoo" => [ "code" => "_13301_AGOO", "description" => "AGOO" ],
+            "aringay" => [ "code" => "_13302_ARINGAY", "description" => "ARINGAY" ],
+            "bacnotan" => [ "code" => "_13303_BACNOTAN", "description" => "BACNOTAN" ],
+            "bagulin" => [ "code" => "_13304_BAGULIN", "description" => "BAGULIN" ],
+            "balaoan" => [ "code" => "_13305_BALAOAN", "description" => "BALAOAN" ],
+            "bangar" => [ "code" => "_13306_BANGAR", "description" => "BANGAR" ],
+            "bauang" => [ "code" => "_13307_BAUANG", "description" => "BAUANG" ],
+            "burgos" => [ "code" => "_13308_BURGOS", "description" => "BURGOS" ],
+            "caba" => [ "code" => "_13309_CABA", "description" => "CABA" ],
+            "luna" => [ "code" => "_13310_LUNA", "description" => "LUNA" ],
+            "naguilian" => [ "code" => "_13311_NAGUILIAN", "description" => "NAGUILIAN" ],
+            "pugo" => [ "code" => "_13312_PUGO", "description" => "PUGO" ],
+            "rosario" => [ "code" => "_13313_ROSARIO", "description" => "ROSARIO" ],
+            "sfc" => [ "code" => "_13314_CITY_OF_SAN_FERNANDO", "description" => "SAN FERNANDO CITY" ],
+            "san_gabriel" => [ "code" => "_13315_SAN_GABRIEL", "description" => "SAN GABRIEL" ],
+            "san_juan" => [ "code" => "_13316_SAN_JUAN", "description" => "SAN JUAN" ],
+            "santo_tomas" => [ "code" => "_13317_SANTO_TOMAS", "description" => "SANTO TOMAS" ],
+            "santol" => [ "code" => "_13318_SANTOL", "description" => "SANTOL" ],
+            "sudipen" => [ "code" => "_13319_SUDIPEN", "description" => "SUDIPEN" ],
+            "tubado" => [ "code" => "_13320_TUBAO", "description" => "TUBAO" ],
+        ];
+
+        foreach ($municipalities as $m) {
+            $municipality[] = [
+                "town" => $m,
+                "A1" => $registrations->where('priority_group','01_A1')->where('town_city',$m['code'])->count(),
+                "A2" => $registrations->where('priority_group','02_A2')->where('town_city',$m['code'])->count(),
+                "A3" => $registrations->where('priority_group','03_A3')->where('town_city',$m['code'])->count(),
+                "A4" => $registrations->where('priority_group','04_A4')->where('town_city',$m['code'])->count(),
+                "total" => $registrations->where('priority_group','01_A1')->where('town_city',$m['code'])->count() + $registrations->where('priority_group','02_A2')->where('town_city',$m['code'])->count() + $registrations->where('priority_group','03_A3')->where('town_city',$m['code'])->count() + $registrations->where('priority_group','04_A4')->where('town_city',$m['code'])->count()
+            ];
+        };
+
+
+
+        $data = [
+            'total_registered'=> number_format($total_registration),
+            'gender' => [ 
+                'male' => number_format($male),
+                'female' => number_format($female)
+            ],
+            'municipalities'=>$municipality,
+        ];
+
+        return $data;
     }
 
 }

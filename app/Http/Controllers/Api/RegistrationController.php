@@ -14,6 +14,7 @@ use App\Models\Registration;
 use App\Http\Resources\RegistrationResource;
 use App\Http\Resources\RegistrationResourceCollection;
 use App\Http\Resources\RegistrationsListResourceCollection;
+use App\Helpers\General\CollectionHelper;
 
 class RegistrationController extends Controller
 {
@@ -41,14 +42,15 @@ class RegistrationController extends Controller
             $wheres[] = ['town_city_code',$location];
         }
 
-        $town = $request->town_city;
+        $town_city = $request->town_city;
         
         $townCityCode = null;
-        if (isset($town)) {
-            $townCity = $town;
-            $tc = explode("_",$townCity);
-            $townCityCode = $tc[1];
-            $wheres[] = ['town_city_code',$townCityCode];
+        if (isset($town_city)) {
+            if ($town_city!="all") {
+                $tc = explode("_",$town_city);
+                $townCityCode = $tc[1];
+                $wheres[] = ['town_city_code',$townCityCode];
+            }
         }
 
         $start_date = $request->start_date;
@@ -57,9 +59,22 @@ class RegistrationController extends Controller
         $startFilter = Carbon::parse($start_date)->format("Y-m-d 00:00:00");
         $endFilter = Carbon::parse($end_date)->addDays(1)->format("Y-m-d 00:00:00");
 
-        $registrations = Registration::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->paginate(10);
+        $search = (isset($request->search))?$request->search:null;
 
-        $data = new RegistrationsListResourceCollection($registrations);
+        $registrations = Registration::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        
+        $registrations = $registrations->filter(function($registration) use ($search) {
+            $text = "{$registration->qr_pass_id} {$registration->first_name}, {$registration->middle_name}, {$registration->last_name}";            
+            $registration->text = $text;
+            if (is_null($search)) return true;
+            $search = preg_replace('/[^A-Za-z0-9\s\-]/', '', $search);
+            $pattern = "/".str_replace(" ","(.*)",$search)."/i";            
+            return preg_match($pattern, $text);
+        });
+
+        $paginated = CollectionHelper::paginate($registrations, 10);
+
+        $data = new RegistrationsListResourceCollection($paginated);
 
         return $this->jsonSuccessResponse($data, 200);
     }
@@ -101,6 +116,7 @@ class RegistrationController extends Controller
             'category_id_no' => 'string',
             'philhealth' => 'string',
             'pwd_id' => 'string',
+            'indigenous_member' => 'string',
             'civil_status' => 'string',
             'priority_group' => 'string',
             'sub_priority_group' => 'string',
@@ -109,6 +125,9 @@ class RegistrationController extends Controller
             'with_comorbidity' => 'string',   
             'is_registered' => 'string',
             'origin' => 'string',
+            'employer_name' => 'string',
+            'employer_address' => 'string',
+            'employer_lgu' => 'string',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -202,6 +221,7 @@ class RegistrationController extends Controller
             'category_id_no' => 'string',
             'philhealth' => 'string',
             'pwd_id' => 'string',
+            'indigenous_member' => 'string',
             'priority_group' => 'string',
             'sub_priority_group' => 'string',
             'occupation' => 'string',
@@ -209,6 +229,9 @@ class RegistrationController extends Controller
             'with_comorbidity' => 'string',
             'is_registered' => 'string',
             'origin' => 'string',
+            'employer_name' => 'string',
+            'employer_address' => 'string',
+            'employer_lgu' => 'string',
         ];
 
         $validator = Validator::make($request->all(), $rules);        

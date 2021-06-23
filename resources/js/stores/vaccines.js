@@ -144,12 +144,18 @@ const dosage = {
         dose: null, //
         consent: null,
         reason: null,
+        blood_pressure: null,
+        oxygen_saturation: null,
+        pulse_rate: null,
         assessments: []
     },
     post_assessment: {
         id: 0,
         qr_pass_id: null, //
         dose: null, //
+        blood_pressure: null,
+        oxygen_saturation: null,
+        pulse_rate: null,
         assessments: []
     },
     date_of_vaccination: null,
@@ -306,13 +312,13 @@ const mutations = {
         state.vaccine.province = payload.province
         state.vaccine.town_city = payload.town_city
         state.vaccine.barangay = payload.barangay
-        state.vaccine.address = payload.address // street
+        // state.vaccine.address = payload.address
         state.vaccine.occupation = payload.occupation
         state.vaccine.category = payload.category
         state.vaccine.category_id = payload.category_id
         state.vaccine.category_id_no = payload.category_id_no
         state.vaccine.philhealth = payload.philhealth
-        state.vaccine.pwd_id = payload.pwd_id
+        // state.vaccine.philhealth = (state.vaccine.philhealth)?payload.philhealth:"N/A"
 
         state.dosage.qr_pass_id = payload.qr_pass_id
         state.dosage.pre_assessment.qr_pass_id = payload.qr_pass_id
@@ -386,7 +392,7 @@ const mutations = {
     },
     LOADING(){
         Swal.fire({
-            title: 'Loading...',
+            title: 'Please wait...',
             willOpen () {
               Swal.showLoading ()
             },
@@ -592,20 +598,31 @@ const actions = {
     ADD_DOSAGE({state,commit},payload) {
 
         payload.qr_pass_id = state.vaccine.qr_pass_id
-        const expiry_date = payload.expiry_date.setDate(payload.expiry_date.getDate() + 1);
-        payload.expiry_date = new Date(expiry_date).toISOString().split('T')[0];
+
+        if(payload.expiry_date!=null){
+            const expiry_date = payload.expiry_date.setDate(payload.expiry_date.getDate() + 1);
+            payload.expiry_date = new Date(expiry_date).toISOString().split('T')[0];
+        }
+
+        if(payload.date_of_reconstitution!=null){
+            payload.date_of_reconstitution = (payload.date_of_reconstitution)?payload.date_of_reconstitution = payload.date_of_reconstitution.setDate(payload.date_of_reconstitution.getDate() + 1):null
+            payload.date_of_reconstitution = new Date(payload.date_of_reconstitution).toISOString().split('T')[0];
+        }
+
+        if(payload.date_of_vaccination!=null){
+            payload.date_of_vaccination = (payload.date_of_vaccination)?payload.date_of_vaccination = payload.date_of_vaccination.setDate(payload.date_of_vaccination.getDate() + 1):null
+            payload.date_of_vaccination = new Date(payload.date_of_vaccination).toISOString().split('T')[0];
+        }
+
+        if(payload.next_vaccination!=null){
+            payload.next_vaccination = (payload.next_vaccination)?payload.next_vaccination = payload.next_vaccination.setDate(payload.next_vaccination.getDate() + 1):null
+            payload.next_vaccination = new Date(payload.next_vaccination).toISOString().split('T')[0];
+        }
+
+        if(payload.time_of_reconstitution!=null){
+            payload.time_of_reconstitution = (payload.time_of_reconstitution)?payload.time_of_reconstitution = payload.time_of_reconstitution.toLocaleTimeString('en-GB'):null        
+        }
         
-        payload.date_of_reconstitution = (payload.date_of_reconstitution)?payload.date_of_reconstitution = payload.date_of_reconstitution.setDate(payload.date_of_reconstitution.getDate() + 1):null
-        payload.date_of_reconstitution = new Date(payload.date_of_reconstitution).toISOString().split('T')[0];
-
-        payload.date_of_vaccination = (payload.date_of_vaccination)?payload.date_of_vaccination = payload.date_of_vaccination.setDate(payload.date_of_vaccination.getDate() + 1):null
-        payload.date_of_vaccination = new Date(payload.date_of_vaccination).toISOString().split('T')[0];
-
-        payload.next_vaccination = (payload.next_vaccination)?payload.next_vaccination = payload.next_vaccination.setDate(payload.next_vaccination.getDate() + 1):null
-        payload.next_vaccination = new Date(payload.next_vaccination).toISOString().split('T')[0];
-        
-        payload.time_of_reconstitution = (payload.time_of_reconstitution)?payload.time_of_reconstitution = payload.time_of_reconstitution.toLocaleTimeString('en-GB'):null        
-
         const users = state.vaccinators.filter(vaccinator => {
             return vaccinator.id == payload.user_id
         })

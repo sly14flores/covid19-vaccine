@@ -76,13 +76,17 @@
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-8">
+                            <div class="p-field p-col-12 p-md-4">
                                 <label>Barangay <small><i>(Barangay)</i></small> <i class="p-error">*</i></label>
                                 <Dropdown class="p-shadow-1" optionLabel="name" :options="barangays" optionValue="id" v-model="barangay" :class="{'p-invalid': barangayError, 'disabled': editMode && !writeOn}" placeholder="Select a barangay" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Unit/Building/Street/House No. <small><i>(Gusali/Numero ng Tahanan)</i></small> <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1" type="text" v-model="address" :disabled="editMode && !writeOn" />
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Indigenous Member</label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="indigenous_value" optionValue="id" v-model="indigenous_member" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                             </div>
                         </div>
                     </div>
@@ -91,11 +95,11 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Category </label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" optionValue="id" v-model="category" placeholder="Select a category" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" optionValue="id" v-model="category" placeholder="Select a category" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
-                                <label>Category ID</label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" optionValue="id" v-model="category_id" placeholder="Select a category" :disabled="editMode && !writeOn" />
+                                <label>Category ID </label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" optionValue="id" v-model="category_id" placeholder="Select a category" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Category ID No. </label>
@@ -125,6 +129,20 @@
                             <div class="p-field p-col-12 p-md-12">
                                 <label>Occupation <small><i>(Trabaho)</i></small></label>
                                 <InputText class="p-shadow-1" type="text" v-model="occupation" :disabled="editMode && !writeOn" />
+                            </div>
+                        </div>
+                        <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Employer Name </label>
+                                <InputText class="p-shadow-1" type="text" v-model="employer_name" :disabled="editMode && !writeOn" />
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Employer Province</label>
+                                <Dropdown class="p-shadow-1 disabled" optionLabel="name" :options="employer_provinces" optionValue="id" v-model="employer_address" placeholder="Select a province" disabled />
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Employer City/Municipality </label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employer_municipalities" optionValue="id" v-model="employer_lgu" :class="{'disabled': editMode && !writeOn}" placeholder="Select a municipality" :disabled="editMode && !writeOn" />
                             </div>
                         </div>
                     </div>
@@ -341,6 +359,11 @@ export default {
         const { value: category_id_no } = useField('registration.category_id_no',validField);
         const { value: philhealth } = useField('registration.philhealth',validField);
         const { value: pwd_id } = useField('registration.pwd_id',validField);
+        const { value: indigenous_member } = useField('registration.indigenous_member',validField);
+
+        const { value: employer_name } = useField('registration.employer_name',validField);
+        const { value: employer_address } = useField('registration.employer_address',validField);
+        const { value: employer_lgu } = useField('registration.employer_lgu',validField);
 
         const { value: priority_group, errorMessage: priority_groupError } = useField('registration.priority_group',validateField);
         const { value: sub_priority_group } = useField('registration.sub_priority_group',validField);
@@ -364,6 +387,10 @@ export default {
             barangay,
             contact_no,
             occupation,
+            indigenous_member,
+            employer_name,
+            employer_address,
+            employer_lgu,
             category,
             category_id,
             category_id_no,
@@ -412,6 +439,11 @@ export default {
         Checkbox,
     },
     computed: {
+        indigenous_value() {
+
+            return this.$store.state.registrations.selections.indigenous_value
+
+        },
         suffix_value() {
 
             return this.$store.state.registrations.selections.suffix_value
@@ -537,7 +569,27 @@ export default {
             
             return barangays
 
-        },                     
+        }, 
+        employer_provinces() {
+
+            return this.$store.state.registrations.selections.addresses.province_value
+
+        },
+        employer_municipalities() {
+
+            if (!this.employer_provinces) return []
+
+            const employer_address = this.employer_provinces.filter(employer_address => {
+                return employer_address.id == this.employer_address
+            })
+
+            if (employer_address.length==0) return []
+
+            const employer_municipalities = employer_address[0].municipalities
+
+            return employer_municipalities
+
+        },               
         saving() {
             return this.$store.state.registrations.saving
         },

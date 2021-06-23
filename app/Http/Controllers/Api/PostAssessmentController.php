@@ -114,7 +114,12 @@ class PostAssessmentController extends Controller
         }
 
         $rules = [
+            
             'assessments' => 'array', # array
+            'blood_pressure' => 'string',
+            'oxygen_saturation' => 'string',
+            'pulse_rate' => 'string',
+            
         ];
 
         $validator = Validator::make($request->all(), $rules);

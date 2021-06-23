@@ -78,7 +78,26 @@ class ExportRegistrations extends Controller
         /**
          * Populate cells
          */
-        $registrations = Registration::all();
+        $filter = [
+            "start" => $request->start_date,
+            "end" => $request->end_date,
+            "town_city" => $request->town_city,
+        ];
+
+        $startFilter = Carbon::parse($filter['start'])->format("Y-m-d 00:00:00");
+        $endFilter = Carbon::parse($filter['end'])->addDays(1)->format("Y-m-d 00:00:00");
+        
+        $wheres = [];
+        if (isset($filter['town_city'])) {
+            if ($filter['town_city']!="all") {
+                $townCity = $filter['town_city'];
+                $tc = explode("_",$townCity);
+                $townCityCode = $tc[1];
+                $wheres[] = ['town_city_code',$townCityCode];
+            }
+        }
+         
+        $registrations = Registration::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
 
         $i = 2;
         foreach ($registrations->toArray() as $registration) {

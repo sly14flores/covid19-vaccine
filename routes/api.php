@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\PostAssessmentController;
 use App\Http\Controllers\Api\RegistrationImportController;
 use App\Http\Controllers\Api\SurveysSummary;
 use App\Http\Controllers\Api\RegistrationsSummary;
+use App\Http\Controllers\Api\VaccinationSummary;
 use App\Http\Controllers\Api\ChangePassword;
 use App\Http\Controllers\Api\DefaultVaccinator;
 
@@ -109,6 +110,8 @@ Route::prefix('doh')->group(function() {
     Route::get('selections/vaccination/sessions', [DOHDataSelections::class, 'vaccinationSession']);
     Route::get('selections/groups', [DOHDataSelections::class, 'groups']);
     Route::get('selections/priority/groups', [DOHDataSelections::class, 'priorityGroups']);
+    Route::get('selections/vaccine/refusals', [DOHDataSelections::class, 'refusalValue']);   
+    Route::get('selections/vaccine/deferrals', [DOHDataSelections::class, 'deferalValue']);    
 
     /**
      * Registration
@@ -142,8 +145,20 @@ Route::prefix('doh')->group(function() {
     Route::get('vaccines/qr/{id}', [VaccineController::class, 'qrRegistration']);
     Route::put('vaccines/update/registration/{id}', [VaccineController::class, 'updateRegistration']);
     Route::get('vaccines/default/vaccinator', DefaultVaccinator::class);
-    Route::get('selections/vaccine/refusals', [DOHDataSelections::class, 'refusalValue']);   
-    Route::get('selections/vaccine/deferrals', [DOHDataSelections::class, 'deferalValue']);
+    /**
+     * Vaccination flow
+     */
+    Route::get('vaccines/search/registrations', [VaccineController::class, 'searchRegistrations']);
+    /**
+     * Screening
+     */
+    Route::post('vaccines/screening/info/{id}', [VaccineController::class, 'screeningPersonalInfo']);
+    Route::post('vaccines/screening/update', [VaccineController::class, 'updateScreening']);
+    /**
+     * Inoculation
+     */
+    Route::post('vaccines/inoculation/info/{id}', [VaccineController::class, 'inoculationPersonalInfo']);
+    Route::post('vaccines/inoculation/update', [VaccineController::class, 'updateInoculation']);
 
     /**
      * Pre Assessments
@@ -223,5 +238,6 @@ Route::prefix('summary')->group(function() {
 
     Route::get('surveys', [SurveysSummary::class, 'getSummary']);
     Route::get('registrations', [RegistrationsSummary::class, 'getSummary']);
+    Route::get('vaccination', [VaccinationSummary::class, 'getSummary']);
 
 });

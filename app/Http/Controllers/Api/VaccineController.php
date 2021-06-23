@@ -17,15 +17,22 @@ use App\Models\Barangay;
 use App\Models\CityMun;
 use App\Models\Province;
 use App\Models\QrPass;
+use App\Models\ScreeningVital;
 
 use App\Http\Resources\VaccineResource;
 use App\Http\Resources\VaccineResourceCollection;
 use App\Http\Resources\VaccinesListResourceCollection;
 use App\Http\Resources\RegistrationVaccineResource;
+use App\Http\Resources\RegistrationsListResourceCollection;
+use App\Http\Resources\VaccineScreeningInfo;
+use App\Http\Resources\VaccineInoculationInfo;
 
 use App\Traits\Messages;
 use App\Traits\DOHHelpers;
 use App\Traits\SelectionsRegistration;
+use App\Helpers\General\CollectionHelper;
+
+use Carbon\Carbon;
 
 class VaccineController extends Controller
 {
@@ -41,10 +48,10 @@ class VaccineController extends Controller
         $this->http_code_ok = 200;
         $this->http_code_error = 500;
 
-	}    
+	}
 
     /**
-     * Display a listing of the resource.
+     * Display List of vaccinations
      *
      * @return \Illuminate\Http\Response
      */
@@ -59,6 +66,56 @@ class VaccineController extends Controller
         $data = new VaccinesListResourceCollection($vaccines);
 
         return $this->jsonSuccessResponse($data, 200);
+    }
+
+    /**
+     * @group Vaccination List
+     * 
+     * List for registered persons for vaccination
+     * 
+     * Search registrations by QR, first name, middle name, last name for vaccinations
+     * 
+     * @queryParam search string
+     * 
+     */
+    public function searchRegistrations(Request $request)
+    {
+        $search = (isset($request->search))?$request->search:null;
+        $phase = (isset($request->phase))?$request->phase:'screening';
+
+        if ($phase == "screening") {
+            $registrations = Registration::all();
+        } else if ($phase == "inoculation") {
+            /**
+             * vacines->dosages->pre_assessment
+             * Consent is '01_Yes', reason is null
+             */
+            $registrations = Registration::has('vaccine')->get();
+        } else {
+            /**
+             * vacines->dosages->pre_assessment
+             * Consent is '01_Yes', reason is null
+             * dosage(s) ok / date_of_vaccination
+             * 
+             * Exclude vaccine->vaccine_completed
+             */
+            $registrations = Registration::all();
+        }
+
+        $registrations = $registrations->filter(function($registration) use ($search) {
+            $text = "{$registration->qr_pass_id} {$registration->first_name}, {$registration->middle_name}, {$registration->last_name}";            
+            $registration->text = $text;
+            if (is_null($search)) return true;
+            $search = preg_replace('/[^A-Za-z0-9\s\-]/', '', $search);
+            $pattern = "/".str_replace(" ","(.*)",$search)."/i";            
+            return preg_match($pattern, $text);
+        });
+
+        $paginated = CollectionHelper::paginate($registrations, 10);
+
+        $data = new RegistrationsListResourceCollection($paginated);
+        
+        return $this->jsonSuccessResponse($data, 200);       
     }
 
     /**
@@ -104,7 +161,9 @@ class VaccineController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show vaccine administration
+     * 
+     * Vaccine administration with dosages
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -124,6 +183,152 @@ class VaccineController extends Controller
         $data = new VaccineResource($vaccine);
 
         return $this->jsonSuccessResponse($data, 200);
+    }
+
+    /**
+     * @group Screening
+     * 
+     * Personal Info for Screening
+     * 
+     * @bodyParam dose integer required Example: 1
+     */
+    public function screeningPersonalInfo(Request $request, $id)
+    {
+        if (filter_var($id, FILTER_VALIDATE_INT) === false ) {
+            return $this->jsonErrorInvalidParameters();
+        }
+        
+        $registration = Registration::where('qr_pass_id',$id)->first();
+
+        if (is_null($registration)) {
+			return $this->jsonErrorResourceNotFound();
+        }
+
+        $rules = [
+            'dose' => 'integer',
+        ];    
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }
+        /** Get validated data */
+        $data = $validator->valid();            
+
+        /**
+         * Check entry in vaccine
+         * If an entry exists fetch it
+         * Otherwise insert one
+         */
+        $q_vaccine = Vaccine::where('qr_pass_id',$id)->first();
+
+        if (is_null($q_vaccine)) { # insert record
+            $d = [
+                'qr_pass_id' => $id,
+            ];
+            $vaccine = new Vaccine;
+            $vaccine->fill($d);
+            $vaccine->save();
+        } else { # use existing record
+            $vaccine = $q_vaccine;
+        }
+
+        /**
+         * Check if dose already exists
+         * If no insert one
+         * Otherwise use existing
+         */
+        $dose = $data['dose'];
+        $q_dosage = Dosage::where([['qr_pass_id',$id],['dose',$dose]])->first();
+
+        if (is_null($q_dosage)) {
+            $dosage = new Dosage;
+            $dosage->fill([
+                'qr_pass_id' => $id,
+                'dose' => $dose,
+            ]);
+            $vaccine->dosages()->save($dosage);
+        } else {
+            $dosage = $q_dosage;
+        }
+
+        /**
+         * Check if pre assessment has entry
+         * If yes fetch it
+         * Otherwise insert one
+         */
+        $q_pre_assessment = PreAssessment::where([['dosage_id',$dosage->id],['dose',$dose]])->first();
+
+        if (is_null($q_pre_assessment)) {
+            $pre_assessment = new PreAssessment;
+            $pre_assessment->fill([
+                'qr_pass_id' => $id,
+                'dose' => $dose,
+                'assessments' => config('constants.pre_assessments')
+            ]);
+            $dosage->pre_assessment()->save($pre_assessment);
+        } else {
+            $pre_assessment = $q_pre_assessment;
+        }
+
+        $result = new VaccineScreeningInfo($registration);
+
+        return $this->jsonSuccessResponse($result, 200);        
+        
+    }
+
+    /**
+     * @group Inoculation
+     * 
+     * Personal Info for Inoculation
+     * 
+     * Returns 200 if patient has been screened.
+     * Returns selected dose vital signs along with inoculation and diluent data
+     * Returns 406 if patient is not yet screened
+     * 
+     * @bodyParam dose integer required Example: 1
+     */
+    public function inoculationPersonalInfo(Request $request, $id)
+    {
+        if (filter_var($id, FILTER_VALIDATE_INT) === false ) {
+            return $this->jsonErrorInvalidParameters();
+        }
+        
+        $registration = Registration::where('qr_pass_id',$id)->first();
+
+        if (is_null($registration)) {
+			return $this->jsonErrorResourceNotFound();
+        }
+
+        $rules = [
+            'dose' => 'integer',
+        ];    
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }
+        /** Get validated data */
+        $data = $validator->valid();
+
+        /**
+         * Validate if passed screening
+         * Patient passes screening if they have pre_assessments data are marked as screened
+         */
+        $dose = $data['dose'];
+        $check_pre = PreAssessment::where([['qr_pass_id',$id],['dose',$dose]])->first();
+
+        if (is_null($check_pre)) {
+            return $this->jsonFailedResponse(null, 406, "Patient has not been screened yet");
+        }
+
+        if ($check_pre!=null && (is_null($check_pre->screened) || !$check_pre->screened)) {
+            return $this->jsonFailedResponse(null, 406, "Patient has not been screened yet");
+        }
+
+        $result = new VaccineInoculationInfo($registration);
+
+        return $this->jsonSuccessResponse($result, 200);
+
+
     }
 
     /**
@@ -157,13 +362,15 @@ class VaccineController extends Controller
         }
 
         $rules = [
-            'facility_others' => 'string',
+            // 'facility_others' => 'string',
             'vaccination_session' => 'integer',
             'dosages' => 'array',
             'delete' => 'array'
         ];
-
         $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }        
 
         /** Get validated data */
         $data = $validator->valid();
@@ -208,6 +415,7 @@ class VaccineController extends Controller
 
     public function pre_assessment($dosage,$assessment)
     {
+        $assessment['dose'] = $dosage['dose'];
         if ($assessment['id']) {
             $pre = PreAssessment::find($assessment['id']);
             $pre->fill($assessment);
@@ -221,6 +429,7 @@ class VaccineController extends Controller
 
     public function post_assessment($dosage,$assessment)
     {
+        $assessment['dose'] = $dosage['dose'];
         if ($assessment['id']) {
             $post = PostAssessment::find($assessment['id']);
             $post->fill($assessment);
@@ -309,11 +518,11 @@ class VaccineController extends Controller
             'town_city' => 'string',
             'province' => 'string',
             'contact_no' => 'string',
-            // 'category' => 'string',
-            // 'category_id' => 'string',
-            // 'category_id_no' => 'string',
-            // 'philhealth' => 'string',
-            // 'pwd_id' => 'string',
+            'category' => 'string',
+            'category_id' => 'string',
+            'category_id_no' => 'string',
+            'philhealth' => 'string',
+            'pwd_id' => 'string',
             'priority_group' => 'string',
             'sub_priority_group' => 'string',
             'allergic_to_vaccines' => 'string',
@@ -368,5 +577,157 @@ class VaccineController extends Controller
 
         return $this->jsonSuccessResponse(new RegistrationVaccineResource($registration), 200, 'Registration info updated successfully');         
 
+    }
+
+    /**
+     * @group Screening
+     * 
+     * Update screening per dose
+     * 
+     * @bodyParam id string required
+     * @bodyParam dosage_id integer required
+     * @bodyParam dose integer required
+     * @bodyParam pre_assessment object required
+     * @bodyParam pre_assessment.dose integer required
+     * @bodyParam pre_assessment.dosage_id integer required
+     * @bodyParam pre_assessment.consent string required
+     * @bodyParam pre_assessment.user_id integer
+     * @bodyParam pre_assessment.reason string required
+     * @bodyParam pre_assessment.assessments object[]
+     * @bodyParam pre_assessment.assessments[].key integer
+     * @bodyParam pre_assessment.assessments[].description string
+     * @bodyParam pre_assessment.assessments[].value boolean
+     * @bodyParam vitals object[]
+     * @bodyParam vitals[].dose integer
+     * @bodyParam dels integer[]
+     * 
+     */
+    public function updateScreening(Request $request)
+    {
+        $rules = [
+            'id' => 'string',
+            'dosage_id' => 'integer',
+            'dose' => 'integer',
+            'vitals' => 'array',
+            'pre_assessment' => 'array',
+        ];        
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }
+        /** Get validated data */
+        $data = $validator->valid();
+
+        $qr_pass_id = $data['id'];
+        $dosage_id = $data['dosage_id'];
+        $dose = $data['dose'];
+        $vitals = $data['vitals'];
+        $pre_assessment = $data['pre_assessment'];
+        $dels = $data['dels'];
+
+        $dosage = Dosage::find($dosage_id);
+        $preAssessment = PreAssessment::where('dosage_id',$dosage_id)->first();
+        $pre_assessment_update = [
+            'user_id' => $pre_assessment['user_id'],
+            'consent' => $pre_assessment['consent'],
+            'reason' => $pre_assessment['reason'],
+            'assessments' => $pre_assessment['assessments'],
+        ];
+
+        $preAssessment->fill($pre_assessment_update);
+        $preAssessment->save();
+
+        /**
+         * Save vitals
+         */
+        foreach($vitals as $vitalData) {
+            if ($vitalData['id']) {
+                $vital = ScreeningVital::find($vitalData['id']);
+            } else {
+                $vital = new ScreeningVital;
+            }
+            $vitalData['dose'] = $dose;
+            $vital->fill($vitalData);
+            $dosage->vitals()->save($vital);
+        }
+
+        /**
+         * Delete vitals
+         */
+        if (count($dels)) {
+            $vitals = ScreeningVital::whereIn('id',$dels)->delete();
+        }
+
+        $registration = Registration::where('qr_pass_id',$qr_pass_id)->first();
+        
+        $result = new VaccineScreeningInfo($registration);
+
+        return $this->jsonSuccessResponse($result, 200);      
+
+    }
+
+    /**
+     * @group Inoculation
+     * 
+     * Update inoculation information
+     * 
+     * @bodyParam id integer required This is dosage id not qr pass id.
+     * @bodyParam brand_name integer required
+     * @bodyParam date_of_vaccination date required
+     * @bodyParam time_of_vaccination time required
+     * @bodyParam site_of_injection string required
+     * @bodyParam lot_number string required
+     * @bodyParam batch_number string required
+     * @bodyParam vaccination_facility integer required
+     * @bodyParam user_id integer required
+     * @bodyParam encoder_user_id integer required
+     * @bodyParam diluent string required
+     * @bodyParam date_of_reconstitution date required
+     * @bodyParam time_of_reconstitution time required
+     * @bodyParam diluent_lot_number integer required
+     * @bodyParam diluent_batch_number integer required
+     * @bodyParam next_vaccination date required
+     * @bodyParam dose integer required
+     */
+    public function updateInoculation(Request $request){
+        $rules = [
+            'id' => 'integer',
+            'brand_name' => 'integer',
+            'date_of_vaccination' => 'date',
+            'time_of_vaccination' => 'string',
+            'site_of_injection' => 'string',
+            'lot_number' => 'string',
+            'batch_number' => 'string',
+            'vaccination_facility' => 'integer',
+            'user_id' => 'integer',
+            'encoder_user_id' => 'integer',
+            'diluent' => 'string',
+            'date_of_reconstitution' => 'date',
+            'time_of_reconstitution' => 'string',
+            'diluent_lot_number' => 'integer',
+            'diluent_batch_number' => 'integer',
+            'next_vaccination' => 'date',
+            'dose' => 'integer',
+        ];        
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }
+        /** Get validated data */
+        $data = $validator->valid();
+        $dosage = Dosage::find($data['id']);
+
+        if (is_null($dosage)) {
+            return $this->jsonErrorResourceNotFound();
+        }
+
+        $dosage->fill($data);
+        $dosage->save();
+
+        $registration = Registration::where('qr_pass_id',$dosage->qr_pass_id)->first();
+        
+        $result = new VaccineInoculationInfo($registration);
+
+        return $this->jsonSuccessResponse($result, 200); 
     }
 }

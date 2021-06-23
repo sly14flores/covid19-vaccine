@@ -43,9 +43,9 @@ const getNapanamID = (payload) => {
 
 const GET_REGISTRATIONS = `${api_url}/api/doh/registrations`
 const getRegistrations = (payload) => {
-    const { page, start_date, end_date, town_city } = payload
+    const { page, start_date, end_date, town_city, search } = payload
     const pageNo = page + 1
-    return axios.get(GET_REGISTRATIONS, {params: { page: pageNo, town_city, start_date, end_date } })
+    return axios.get(GET_REGISTRATIONS, {params: { page: pageNo, town_city, start_date, end_date, search } })
 }
 
 const GET_REGISTRATION = `${api_url}/api/doh/registration/:id`
@@ -81,6 +81,7 @@ const registration = {
     province: null,
     town_city: null,
     barangay: null,
+    indigenous_member: null,
     contact_no: null,
     category: null,
     category_id: null,
@@ -93,7 +94,10 @@ const registration = {
     with_allergy: null,
     with_comorbidity: null,
     is_registered: null,
-    origin: null
+    origin: null,
+    employer_name: null,
+    employer_address: "_0133_LA_UNION",
+    employer_lgu: null
 }
 
 const suffix_value = [];
@@ -111,7 +115,8 @@ const employer_municipality_value = [];
 const month_value = [];
 const day_value = [];
 const addresses = [];
-const priority_group_value = []
+const priority_group_value = [];
+const indigenous_value = [];
 
 const selections = {
     suffix_value,
@@ -129,7 +134,8 @@ const selections = {
     month_value,
     day_value,
     addresses,
-    priority_group_value
+    priority_group_value,
+    indigenous_value
 };
 
 const registrations = []
@@ -193,7 +199,7 @@ const mutations = {
     },
     LOADING(){
         Swal.fire({
-            title: 'Loading...',
+            title: 'Please wait...',
             willOpen () {
               Swal.showLoading ()
             },
@@ -218,7 +224,7 @@ const actions = {
     TOGGLE_WRITE({commit}, payload) {
         commit('TOGGLE_WRITE', payload)
     },
-    async CREATE_REGISTRATION({commit, dispatch,state}, payload) {
+    async CREATE_REGISTRATION({commit, dispatch}, payload) {
         commit('SAVING',true)
         try {
             payload.origin = "Manual"
@@ -269,8 +275,8 @@ const actions = {
     async GET_REGISTRATIONS({dispatch, commit}, payload) {
         commit('LOADING')
         try {
-            const { page, town_city, start_date, end_date } = payload
-            const { data: { data: { data, pagination } } } = await getRegistrations({ page, town_city, start_date, end_date })
+            const { page, town_city, start_date, end_date, search } = payload
+            const { data: { data: { data, pagination } } } = await getRegistrations({ page, town_city, start_date, end_date, search })
             dispatch('GET_REGISTRATIONS_SUCCESS', { data, pagination })
         } catch (error) {
             const { response } = error
@@ -315,6 +321,23 @@ const actions = {
     },
     GET_SELECTIONS_ERROR({commit}, payload) {
         // console.log(payload)
+        if(payload.status==500){
+            Swal.fire({
+                title: '<p>Oops...</p>',
+                icon: 'error',
+                html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                showCancelButton: false,
+                focusConfirm: true,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+                confirmButtonText: 'Reresh this page',
+            }).then((result) => {
+                if (result.value) {
+                    location.reload();
+                }
+            })	
+        }
     },
     async GET_ADDRESSES({dispatch}) {
         Swal.fire({

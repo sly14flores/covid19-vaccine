@@ -11,8 +11,13 @@ const summary = [
           {
               label:'Registrations',
               icon:'pi pi-fw pi-users',
-              to: '/summary/registrations'                
+              to: '/summary/registrations'
           },
+          {
+            label:'Vaccination',
+            icon:'pi pi-fw pi-desktop',
+            to: '/summary/vaccination'
+        },
         ]
     },    
 ]
@@ -68,7 +73,7 @@ const facilities = [
           {
               label:'New',
               icon:'pi pi-fw pi-plus-circle',
-              to: '/hospitals/new'          
+              to: '/hospitals/new'
           },
         ]
     },
@@ -82,12 +87,39 @@ const vaccines = [
     }    
 ]
 
+const screening = [
+    {
+        label:'Screening',
+        icon:'pi pi-search',
+        to: '/vaccines/list/screening'
+    }    
+]
+
+const inoculation = [
+    {
+        label:'Inoculation',
+        icon:'pi pi-check-square',
+        to: '/vaccines/list/inoculation'
+    }    
+]
+
+const monitoring = [
+    {
+        label:'Monitoring',
+        icon:'pi pi-fw pi-desktop',
+        to: '/vaccines/list/monitoring'
+    }    
+]
+
 export {
     summary,
     registrations,
     users,
     facilities,
     vaccines,
+    screening,
+    inoculation,
+    monitoring
 }
 
 /*

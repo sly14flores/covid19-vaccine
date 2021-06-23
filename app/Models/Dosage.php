@@ -22,10 +22,12 @@ class Dosage extends Model
     protected $fillable = [
         'vaccine_id',
         'user_id',
+        'encoder_user_id',
         'qr_pass_id',
         'brand_name',
         'vaccine_name',
         'site_of_injection',
+        'vaccination_facility',
         'expiry_date',
         'batch_number',
         'lot_number',
@@ -36,6 +38,7 @@ class Dosage extends Model
         'diluent_batch_number',
         'diluent_lot_number',
         'date_of_vaccination',
+        'time_of_vaccination',
         'next_vaccination'
     ];
 
@@ -47,8 +50,8 @@ class Dosage extends Model
     protected $casts = [
         'brand_name' => 'integer',
         'vaccine_name' => 'integer',
-        'batch_number' => 'integer',
-        'lot_number' => 'integer',
+        // 'batch_number' => 'integer',
+        // 'lot_number' => 'integer',
         'dose' => 'integer',
         'diluent_batch_number' => 'integer',
         'diluent_lot_number' => 'integer',
@@ -72,6 +75,16 @@ class Dosage extends Model
     {
         return "{$this->user->firstname} {$this->user->lastname}";
     }
+
+    public function dohVaccinator()
+    {
+        if (is_null($this->user)) {
+            $vaccinator = "";
+        } else {
+            $vaccinator = ucfirst(strtolower($this->user->lastname)).", ".ucfirst(strtolower($this->user->firstname));
+        }
+        return $vaccinator;
+    }    
 
     public function proffession()
     {
@@ -112,7 +125,7 @@ class Dosage extends Model
 
     public function vaccine()
     {
-        return $this->belongsTo(VaccineAdministration::class);
+        return $this->belongsTo(Vaccine::class);
     }
 
     public function pre_assessment()
@@ -128,7 +141,12 @@ class Dosage extends Model
     public function aefi()
     {
         return $this->hasOne(Aefi::class,'dosage_id');
-    }    
+    }
+
+    public function vitals()
+    {
+        return $this->hasMany(ScreeningVital::class, 'dosage_id', 'id');
+    }
 
     /**
      * @param $value

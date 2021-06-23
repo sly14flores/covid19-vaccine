@@ -70,9 +70,13 @@
                                 <label>Barangay <small><i>(Barangay)</i></small> <i class="p-error">*</i></label>
                                 <Dropdown class="p-shadow-1 disabled" optionLabel="name" :options="barangays" optionValue="id" v-model="barangay" disabled />
                             </div>
-                            <div class="p-field p-col-12 p-md-8">
+                            <div class="p-field p-col-12 p-md-4">
                                 <label>Unit/Building/Street/House No. <small><i>(Gusali/Numero ng Tahanan)</i></small> <i class="p-error">*</i></label>
                                 <InputText class="p-shadow-1 disabled" type="text" v-model="address" disabled />
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Indigenous Member</label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="indigenous_value" optionValue="id" v-model="indigenous_member" />
                             </div>
                         </div>
                     </div>
@@ -83,6 +87,30 @@
                 <div class="p-lg-11 p-sm-12 p-xs-12">
                     <div class="card p-fluid p-border-left">
                         <h4 class="p-mt-2"><b>Others</b></h4> <hr />
+                        <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Category </label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_value" optionValue="id" v-model="category" placeholder="Select a category" :disabled="editMode && !writeOn" />
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Category ID</label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="category_id_value" optionValue="id" v-model="category_id" placeholder="Select a category" :disabled="editMode && !writeOn" />
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Category ID No. </label>
+                                <InputText class="p-shadow-1" type="text" v-model="category_id_no" :disabled="editMode && !writeOn" />
+                            </div>
+                        </div>
+                        <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-6">
+                                <label>Philhealth No. </label>
+                                <InputText class="p-shadow-1" type="text" v-model="philhealth" :disabled="editMode && !writeOn" />
+                            </div>
+                            <div class="p-field p-col-12 p-md-6">
+                                <label>PWD ID</label>
+                                <InputText class="p-shadow-1" type="text" v-model="pwd_id" :disabled="editMode && !writeOn" />
+                            </div>
+                        </div>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-12">
                                 <label>Priority Group <small><i>(Grupong Prayoridad)</i></small> <i class="p-error">*</i></label>
@@ -96,6 +124,20 @@
                             <div class="p-field p-col-12 p-md-12">
                                 <label>Occupation <small><i>(Trabaho)</i></small></label>
                                 <InputText class="p-shadow-1" type="text" v-model="occupation" />
+                            </div>
+                        </div>
+                        <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Employer Name </label>
+                                <InputText class="p-shadow-1" type="text" v-model="employer_name" :disabled="editMode && !writeOn" />
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Employer Province</label>
+                                <Dropdown class="p-shadow-1 disabled" optionLabel="name" :options="employer_provinces" optionValue="id" v-model="employer_address" placeholder="Select a province" disabled />
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Employer City/Municipality </label>
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="employer_municipalities" optionValue="id" v-model="employer_lgu" placeholder="Select a municipality" />
                             </div>
                         </div>
                     </div>
@@ -280,6 +322,15 @@ export default {
         const { value: barangay } = useField('registration.barangay',validField);
         const { value: contact_no } = useField('registration.contact_no',validField);
         const { value: occupation } = useField('registration.occupation',validField);
+        const { value: category } = useField('registration.category',validField);
+        const { value: category_id } = useField('registration.category_id',validField);
+        const { value: category_id_no } = useField('registration.category_id_no',validField);
+        const { value: philhealth } = useField('registration.philhealth',validField);
+        const { value: pwd_id } = useField('registration.pwd_id',validField);
+        const { value: employer_name } = useField('registration.employer_name',validField);
+        const { value: employer_address } = useField('registration.employer_address',validField);
+        const { value: employer_lgu } = useField('registration.employer_lgu',validField);
+        const { value: indigenous_member } = useField('registration.indigenous_member',validField);
         const { value: priority_group, errorMessage: priority_groupError } = useField('registration.priority_group',validateRadio);
         const { value: sub_priority_group } = useField('registration.sub_priority_group',validField);
         const { value: allergic_to_vaccines, errorMessage: allergic_to_vaccinesError } = useField('registration.allergic_to_vaccines',validateRadio);
@@ -302,6 +353,15 @@ export default {
             barangay,
             contact_no,
             occupation,
+            category,
+            category_id,
+            category_id_no,
+            indigenous_member,
+            philhealth,
+            pwd_id,
+            employer_name,
+            employer_address,
+            employer_lgu,
             priority_group,
             sub_priority_group,
             allergic_to_vaccines,
@@ -335,6 +395,11 @@ export default {
         }
     },
     computed: {
+        indigenous_value() {
+
+            return this.$store.state.registrations.selections.indigenous_value
+
+        },
         suffix_value() {
 
             return this.$store.state.registrations.selections.suffix_value
@@ -400,6 +465,16 @@ export default {
             return this.$store.state.registrations.selections.priority_group_value
 
         },
+        category_value() {
+
+            return this.$store.state.registrations.selections.category_value
+
+        },
+        category_id_value() {
+
+            return this.$store.state.registrations.selections.category_id_value
+
+        },
         subs() {
 
             if (!this.priority_group_value) return []
@@ -450,7 +525,27 @@ export default {
             
             return barangays
 
-        },  
+        },
+        employer_provinces() {
+
+            return this.$store.state.registrations.selections.addresses.province_value
+
+        },
+        employer_municipalities() {
+
+            if (!this.employer_provinces) return []
+
+            const employer_address = this.employer_provinces.filter(employer_address => {
+                return employer_address.id == this.employer_address
+            })
+
+            if (employer_address.length==0) return []
+
+            const employer_municipalities = employer_address[0].municipalities
+
+            return employer_municipalities
+
+        },
         saving() {
 
             return this.$store.state.registrations.saving

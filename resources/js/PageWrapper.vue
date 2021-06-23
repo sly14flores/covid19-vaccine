@@ -10,7 +10,7 @@
           </div>
           <AppProfile />
           <AppMenu :model="menu" @menuitem-click="onMenuItemClick" />
-      </div>      
+      </div>
     </transition>
     <component v-bind:is="pageComponent" class="layout-main"></component>
     <AppFooter />    
@@ -26,7 +26,7 @@ import AppFooter from './AppFooter.vue';
 
 import { useStore } from 'vuex';
 
-import { summary, registrations, users, facilities, vaccines } from './menu.js';
+import { summary, registrations, users, facilities, vaccines, screening, inoculation, monitoring } from './menu.js';
 
 export default {
   props: ['pageComponent'],
@@ -36,13 +36,20 @@ export default {
 
     const isAdmin = store.state.profile.group_id == 1
     const _users =  (isAdmin)?users:[]
+    const _facilities = (isAdmin)?facilities:[]
+    const _screening = (isAdmin)?screening:[]
+    const _inoculation = (isAdmin)?inoculation:[]
+    const _monitoring = (isAdmin)?monitoring:[]
 
     const menu = [
       ...summary,
       ...registrations,
-      ...facilities,
+      ..._facilities,
       ..._users,
-      ...vaccines
+      ...vaccines,
+      ..._screening,
+      ..._inoculation,
+      ..._monitoring
     ]
 
     return {

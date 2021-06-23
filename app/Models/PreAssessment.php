@@ -18,11 +18,16 @@ class PreAssessment extends Model
      */
     protected $fillable = [
         'dosage_id',
+        'user_id',
         'qr_pass_id',
         'consent',
         'reason',
         'dose',
         'assessments',
+        'blood_pressure',
+        'oxygen_saturation',
+        'pulse_rate',
+        'screened',
     ];
 
     /**
@@ -32,6 +37,9 @@ class PreAssessment extends Model
      */
     protected $casts = [
         'dose' => 'integer',
+        'dosage_id' => 'integer',
+        'user_id' => 'integer', 
+        'screened' => 'boolean', 
     ];    
 
     protected $hidden = [

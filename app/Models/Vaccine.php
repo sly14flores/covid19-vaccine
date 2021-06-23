@@ -51,6 +51,11 @@ class Vaccine extends Model
         return (count($session))?$session->first()['name']:null;
     }
 
+    public function registration()
+    {
+        return $this->belongsTo(Registration::class, 'qr_pass_id', 'qr_pass_id');
+    }
+
     public function dosages()
     {
         return $this->hasMany(Dosage::class, 'vaccine_id', 'id');

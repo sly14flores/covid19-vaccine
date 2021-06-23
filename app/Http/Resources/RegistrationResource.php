@@ -37,6 +37,7 @@ class RegistrationResource extends JsonResource
             'category_id_no' => $this->category_id_no,
             'philhealth' => $this->philhealth,
             'pwd_id' => $this->pwd_id,
+            'indigenous_member' => $this->indigenous_member,
             'priority_group' => $this->priority_group,
             'sub_priority_group' => $this->sub_priority_group,
             'occupation' => $this->occupation,
@@ -44,7 +45,10 @@ class RegistrationResource extends JsonResource
             'with_allergy' => $this->with_allergy,
             'with_comorbidity' => $this->with_comorbidity,
             'is_registered' => $this->is_registered,
-            'origin' => $this->origin
+            'origin' => $this->origin,
+            'employer_name' => $this->employer_name,
+            'employer_address' => $this->employer_address,
+            'employer_lgu' => $this->employer_lgu,
         ];
     }
 }

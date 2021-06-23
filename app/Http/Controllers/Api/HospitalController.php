@@ -8,10 +8,12 @@ use Illuminate\Http\Request;
 use App\Models\Hospital;
 use App\Http\Resources\HospitalResource;
 use App\Http\Resources\HospitalResourceCollection;
+use App\Http\Resources\HospitalListResource;
 use App\Http\Resources\HospitalsListResourceCollection;
 
 use Illuminate\Support\Facades\Validator;
 use App\Traits\Messages;
+use App\Helpers\General\CollectionHelper;
 
 class HospitalController extends Controller
 {
@@ -33,14 +35,30 @@ class HospitalController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * 
+     * @queryParam search string
      */
-    public function index()
+    public function index(Request $request)
     {
-        $hospitals = Hospital::paginate(10);
+        $search = (isset($request->search))?$request->search:null;
 
-        $data = new HospitalsListResourceCollection($hospitals);
+        $hospitals = Hospital::all();
 
-        return $this->jsonSuccessResponse($data, 200);
+        $hospitals = $hospitals->filter(function($hospital) use ($search) {
+            $text = "{$hospital->description}";            
+            $hospital->text = $text;
+            if (is_null($search)) return true;
+            $search = preg_replace('/[^A-Za-z0-9\s\-]/', '', $search);
+            $pattern = "/".str_replace(" ","(.*)",$search)."/i";            
+            return preg_match($pattern, $text);
+        });
+
+        $paginated = CollectionHelper::paginate($hospitals, 10);
+
+        $data = new HospitalsListResourceCollection($paginated);
+        
+        return $this->jsonSuccessResponse($data, 200); 
+
     }
 
     /**

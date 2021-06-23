@@ -6,11 +6,11 @@
                 <div class="p-fluid p-formgrid p-grid">
                     <div class="p-field p-col-12 p-md-4">
                         <label>Date of Vaccination</label>
-                        <Calendar id="date_of_reconstitution" class="p-shadow-1 p-inputtext-sm" v-model="dosage.date_of_vaccination" name="date_of_vaccination" />
+                        <Calendar :manualInput="false" id="date_of_reconstitution" class="p-shadow-1 p-inputtext-sm" v-model="dosage.date_of_vaccination" name="date_of_vaccination" />
                     </div>
                     <div class="p-field p-col-12 p-md-4">
                         <label>Next Vaccination</label>
-                        <Calendar id="next_vaccination" class="p-shadow-1 p-inputtext-sm" v-model="dosage.next_vaccination" name="next_vaccination" />
+                        <Calendar :manualInput="false" id="next_vaccination" class="p-shadow-1 p-inputtext-sm" v-model="dosage.next_vaccination" name="next_vaccination" />
                     </div>
                 </div>
                 <div class="p-fluid p-formgrid p-grid">
@@ -42,7 +42,7 @@
                     </div>
                     <div class="p-field p-col-12 p-md-2">
                         <label>Expiry Date</label>
-                        <Calendar class="p-shadow-1 p-inputtext-sm" v-model="vv.expiry_date.$model" name="expiry_date" />
+                        <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" v-model="vv.expiry_date.$model" name="expiry_date" />
                     </div>
                     <div class="p-field p-col-12 p-md-2">
                         <label>Batch Number <i class="p-error">*</i></label>
@@ -63,11 +63,11 @@
                     </div>
                     <div class="p-field p-col-12 p-md-2">
                         <label>Date of Reconstitution</label>
-                        <Calendar id="date_of_reconstitution" class="p-shadow-1 p-inputtext-sm" v-model="dosage.date_of_reconstitution" name="date_of_reconstitution" />
+                        <Calendar :manualInput="false" id="date_of_reconstitution" class="p-shadow-1 p-inputtext-sm" v-model="dosage.date_of_reconstitution" name="date_of_reconstitution" />
                     </div>
                     <div class="p-field p-col-12 p-md-2">
                         <label>Time of Reconstitution</label>
-                        <Calendar id="time_of_reconstitution" class="p-shadow-1 p-inputtext-sm" v-model="dosage.time_of_reconstitution" :timeOnly="true" hourFormat="12" />
+                        <Calendar :manualInput="false" id="time_of_reconstitution" class="p-shadow-1 p-inputtext-sm" v-model="dosage.time_of_reconstitution" :timeOnly="true" hourFormat="12" />
                     </div>
                     <div class="p-field p-col-12 p-md-2">
                         <label>Diluent Batch Number</label>
@@ -86,6 +86,21 @@
                             <span>Pre-Assessment</span>
                         </template>
                         <div class="p-fluid">
+                            <div class="p-fluid p-formgrid p-grid p-mt-2">
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label>Blood Pressure</label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="blood_pressure" v-model="vv.pre_assessment.blood_pressure.$model" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label>Oxygen Saturation</label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="oxygen_saturation" v-model="vv.pre_assessment.oxygen_saturation.$model" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label>Pulse Rate</label>
+                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="pulse_rate" v-model="vv.pre_assessment.pulse_rate.$model" />
+                                </div>
+                            </div>
+                            <hr />
                             <div class="p-fluid p-formgrid p-grid p-mt-2">
                                 <div class="p-field p-col-12 p-md-2">
                                     <p class="p-text-sm">Consent</p>
@@ -128,6 +143,20 @@
                             <i class="pi pi-desktop p-mr-2"></i>
                             <span> Post Monitoring </span>
                         </template>
+                        <div class="p-fluid p-formgrid p-grid p-mt-2">
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Blood Pressure</label>
+                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="blood_pressure" v-model="vv.post_assessment.blood_pressure.$model" />
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Oxygen Saturation</label>
+                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="oxygen_saturation" v-model="vv.post_assessment.oxygen_saturation.$model" />
+                            </div>
+                            <div class="p-field p-col-12 p-md-4">
+                                <label>Pulse Rate</label>
+                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" id="pulse_rate" v-model="vv.post_assessment.pulse_rate.$model" />
+                            </div>
+                        </div>
                         <DataTable class="p-datatable-sm" :value="dosage.post_assessment.assessments" dataKey="key">
                             <Column field="description" header="Description"></Column>
                             <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
@@ -235,13 +264,20 @@ export default {
             diluent_lot_number: {},
             pre_assessment: {
                 consent: { required },
+                blood_pressure: { },
+                oxygen_saturation: { },
+                pulse_rate: { },
                 reason: {
                     required: requiredIf(function() {
                         return dosage.pre_assessment.consent == '02_No'
                     })
                 }
             },
-            post_assessment: {},
+            post_assessment: {
+                blood_pressure: { },
+                oxygen_saturation: { },
+                pulse_rate: { },
+            },
             date_of_vaccination: {},
             next_vaccination: {},
         }
