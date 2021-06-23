@@ -580,7 +580,7 @@ export default {
         },
         exportToExcel() {
 
-            window.open(`${this.downloadUrl}?date=${this.start_date.toLocaleDateString()}&start_date=${this.start_date.toLocaleDateString()}`)          
+            window.open(`${this.downloadUrl}?date=${this.start_date.toLocaleDateString()}&start_date=${this.start_date.toLocaleDateString()}&end_date=${this.end_date.toLocaleDateString()}`)          
            
         },
     },
