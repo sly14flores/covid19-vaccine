@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Traits\Messages;
 use App\Traits\UserLocation;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\QueryException;
 
 use Carbon\Carbon;
 
