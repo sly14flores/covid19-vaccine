@@ -23,7 +23,8 @@ trait UserLocation
     public static function userLocationDesc()
     {
         $user = Auth::user();
-        $location = (is_null($user->userHospital))?0:$user->userHospital->townCity->citymunDesc;
+        $hospital = (is_null($user->userHospital))?null:$user->userHospital;
+        $location = (is_null($hospital->townCity))?0:$hospital->townCity->citymunDesc;
 
         return $location;        
     }
