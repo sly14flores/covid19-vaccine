@@ -29,7 +29,7 @@
                     <div class="p-fluid p-formgrid p-grid">
                         <div class="p-field p-col-12 p-md-6">
                             <label for="cbcr_id">Bakuna Center CBCR ID <i class="p-error">*</i></label>
-                            <InputText class="p-shadow-1" id="cbcr_id" type="text" placeholder="Enter Description" v-model="cbcr_id" :class="{'p-invalid': cbcr_idError}" :disabled="editMode && !writeOn" />
+                            <InputText class="p-shadow-1" id="cbcr_id" type="text" placeholder="Enter Bakuna Center CBCR ID" v-model="cbcr_id" :class="{'p-invalid': cbcr_idError}" :disabled="editMode && !writeOn" />
                             <small class="p-error">{{ cbcr_idError }}</small>
                         </div>
                     </div>
