@@ -26,6 +26,13 @@
                             <small class="p-error">{{ slotsError }}</small>
                         </div>
                     </div>
+                    <div class="p-fluid p-formgrid p-grid">
+                        <div class="p-field p-col-12 p-md-6">
+                            <label for="cbcr_id">Bakuna Center CBCR ID <i class="p-error">*</i></label>
+                            <InputText class="p-shadow-1" id="cbcr_id" type="text" placeholder="Enter Description" v-model="cbcr_id" :class="{'p-invalid': cbcr_idError}" :disabled="editMode && !writeOn" />
+                            <small class="p-error">{{ cbcr_idError }}</small>
+                        </div>
+                    </div>
                     <hr />
                     <div class="p-fluid p-formgrid p-grid">
                         <div class="p-field p-col-12 p-md-10"></div>
@@ -134,12 +141,15 @@ export default {
         // No need to define rules for fields
         const { value: id } = useField('hospital.id',validField);
         const { value: description, errorMessage: descriptionError } = useField('hospital.description',validateField);
+        const { value: cbcr_id, errorMessage: cbcr_idError } = useField('hospital.cbcr_id',validateField);
         const { value: slots, errorMessage: slotsError } = useField('hospital.slots',validateField);
 
         return {
             id,
             description,
             slots,
+            cbcr_id,
+            cbcr_idError,
             descriptionError,
             slotsError,
             onSubmit,
