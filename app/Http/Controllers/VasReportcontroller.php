@@ -23,7 +23,8 @@ class VasReportcontroller extends Controller
 
         $date = $request->date ?? now();
         $date = Carbon::parse($date)->format("Y-m-d");
-        $fileName = "VAS Report {$date}.csv";
+        $ddate = Carbon::now()->format("Y-m-d His");
+        $fileName = "PGLU VAS Report {$ddate}.csv";
 
         $dosages = Dosage::where('date_of_vaccination',$date)->get();
 
