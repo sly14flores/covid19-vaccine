@@ -43,6 +43,27 @@
                             </div>
                         </div>
                         <div class="p-lg-8 p-sm-12 p-xs-12">
+                            <Toolbar class="p-mb-2" v-if="isAdmin">
+                                <template #left>
+                                    <div class=" p-fluid p-grid p-formgrid">
+                                        <div class="p-field p-col-12 p-md-5">
+                                            <label for="basic">Start Date:</label>
+                                            <Calendar class="p-shadow-1" id="start_date" v-model="start_date" />
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-5">
+                                            <label for="basic">End Date:</label>
+                                            <Calendar class="p-shadow-1" id="end_date" v-model="end_date" />
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-2">
+                                            <label for="basic">&nbsp;</label>
+                                            <Button label="Go!" />
+                                        </div>
+                                    </div>
+                                </template>
+                                <template #right>
+                                    <Button label="Export to Excel" icon="pi pi-upload" class="p-button-success" @click="exportToExcel" />
+                                </template>
+                            </Toolbar>
                             <div class="p-fluid p-shadow-2">
                                 <form @submit="onSubmit">
                                     <div class="card p-shadow-2">
@@ -194,6 +215,7 @@ import Panel from 'primevue/panel/sfc';
 import Toolbar from 'primevue/toolbar/sfc';
 import SelectButton from 'primevue/selectbutton/sfc';
 import Vaccination from './vaccination'
+import Calendar from 'primevue/calendar/sfc';
 
 import { QrStream, QrCapture, QrDropzone } from 'vue3-qr-reader';
 import { useStore } from 'vuex';
@@ -334,6 +356,7 @@ export default {
             getNapanam
         }
 
+
     },
     data() {
       return {
@@ -342,7 +365,9 @@ export default {
             noFrontCamera: false,
             switchCameraModel: false,
             loading: false,
-            frame: false
+            frame: false,
+            start_date: new Date(),
+            end_date: new Date()
       }
     },
     components: {
@@ -367,8 +392,14 @@ export default {
         SelectButton,
         Toolbar,
         Vaccination,
+        Calendar
     },
     computed: {
+        isAdmin() {
+            
+            return this.$store.state.profile.is_admin
+            
+        },
         suffix_value() {
 
             return this.$store.state.vaccines.selections.suffix_value
@@ -545,6 +576,11 @@ export default {
         },
         toggleWrite() {
             this.writeOn = !this.writeOn
+        },
+        exportToExcel() {
+
+            // Export
+           
         },
     },
     created() {
