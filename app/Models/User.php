@@ -63,7 +63,7 @@ class User extends Authenticatable
 
     public function userHospital()
     {
-        return $this->belongsTo(Hospital::class, 'hospital');
+        return $this->belongsTo(Hospital::class, 'hospital', 'id');
     }
 
     public function groupName($id)

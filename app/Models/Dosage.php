@@ -149,6 +149,20 @@ class Dosage extends Model
     }
 
     /**
+     * Dosage Hospital Rel
+     */
+    public function cbcr()
+    {
+        return $this->belongsTo(Hospital::class, 'vaccination_facility', 'id');
+    }
+
+    public function cbcr_id()
+    {
+        $hospital = (is_null($this->user))?null:$this->user->userHospital;
+        return (is_null($hospital))?"":$hospital->cbcr_id;
+    }
+
+    /**
      * @param $value
      * @return false|string
      */

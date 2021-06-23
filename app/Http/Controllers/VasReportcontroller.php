@@ -193,7 +193,12 @@ class VasReportcontroller extends Controller
                             $value = $this->getVaccineShortName($value);
                         }
                         if ($p=="BAKUNA_CENTER_CBCR_ID") {
-                            $value = "cho01";
+                            if (is_null($dosage->vaccination_facility)) {
+                                $value = $dosage->cbcr_id();
+                            } else {
+                                $value = $dosage->cbcr->cbcr_id;
+                            }
+                            // $value = "cho01";
                         }
                         if ($p=="VACCINATOR_NAME") {
                             $value = $dosage->dohVaccinator();
