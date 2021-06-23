@@ -21,12 +21,24 @@ class VasReportcontroller extends Controller
     public function __invoke(Request $request)
     {
 
-        $date = $request->date ?? now();
-        $date = Carbon::parse($date)->format("Y-m-d");
-        $ddate = Carbon::now()->format("Y-m-d His");
-        $fileName = "PGLU VAS Report {$ddate}.csv";
+        $start_date = $request->start_date ?? now();
+        $start_date = Carbon::parse($start_date)->format("Y-m-d");
 
-        $dosages = Dosage::where('date_of_vaccination',$date)->get();
+        $end_date = $request->end_date ?? now();
+        $end_date = Carbon::parse($end_date)->format("Y-m-d");
+
+        $coverage = "";
+        if (Carbon::parse($start_date)->isSameDay(Carbon::parse($end_date))) {
+            $coverage = Carbon::parse($start_date)->format("F j Y");
+        } else {
+            $coverage = Carbon::parse($start_date)->format("F j - ");
+            $coverage .= Carbon::parse($end_date)->format("F j Y");
+        }
+
+        $asof = Carbon::now()->format("F j Y His");
+        $fileName = "PGLU VAS Report as of {$asof} Coverage ({$coverage}).csv";
+
+        $dosages = Dosage::whereBetween('date_of_vaccination',[$start_date,$end_date])->get();
 
         $headers = [
             "Content-type"        => "text/csv",
