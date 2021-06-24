@@ -188,7 +188,7 @@ class VasReportcontroller extends Controller
                     if (($i >=17 ) && ($i <= 24)) { # dosaoges
                         $value = $dosage->{$a};
                         if ($p=="VACCINATION_DATE") {
-                            $value = Carbon::parse($value)->format("m/d/y");
+                            $value = Carbon::parse($value)->format("n/d/y");
                         }
                         if ($p=="VACCINE_MANUFACTURER_NAME") {
                             $value = $this->getVaccineShortName($value);
