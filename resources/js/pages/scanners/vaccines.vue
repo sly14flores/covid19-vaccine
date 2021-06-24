@@ -1,5 +1,6 @@
 <template>
     <div>
+    <Toast class="p-mt-6" position="top-right" />
         <div class="card">
             <h5>Vaccination </h5>
             <TabView>
@@ -64,11 +65,11 @@
                                 <form @submit="onSubmit">
                                     <div class="card p-shadow-2">
                                         <div class="p-fluid p-formgrid p-grid">
-                                            <div class="p-field p-col-10 p-md-11">
+                                            <div class="p-field p-col-10 p-md-10">
                                                 <h6><i class="pi pi-user"></i> Personal Information</h6>
                                             </div>
-                                            <div class="p-field p-col-2 p-md-1">
-                                                <ToggleButton v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" change="toggleWrite" />
+                                            <div class="p-field p-col-2 p-md-2">
+                                                <ToggleButton v-model="writeOn" onIcon="pi pi-ban" offIcon="pi pi-pencil" onLabel="Disable" offLabel="Edit" change="toggleWrite" />
                                             </div>
                                         </div>
                                         <hr />
@@ -76,7 +77,7 @@
                                             <div class="p-field p-col-12 p-md-6">
                                                 <label for="qr_pass_id">Napanam ID No.: <i class="p-error">*</i></label>
                                                 <div class="p-inputgroup">
-                                                    <InputText class="p-shadow-1 p-inputtext-sm" id="qr_pass_id " type="number" placeholder="Enter Napanam ID No." v-model="qr_pass_id" :class="{'p-invalid': qr_pass_idError}" />
+                                                    <InputText class="p-shadow-1 p-inputtext-sm" id="qr_pass_id " type="number" placeholder="Enter Napanam ID No." v-model="qr_pass_id" :class="{'p-invalid': qr_pass_idError}" v-on:keyup.enter="getNapanam" />
                                                     <Button label="Fetch" class="p-button-sm p-shadow-1 p-button-primary" @click="getNapanam" />
                                                 </div>
                                                 <small class="p-error">{{ first_nameError }}</small>
@@ -100,21 +101,24 @@
                                             <div class="p-field p-col-12 p-md-3">
                                                 <label>Suffix/Extension Name <i class="p-error">*</i></label>
                                                 <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="suffix_value" optionValue="id" v-model="suffix" placeholder="Select a Suffix" :class="{'p-invalid': suffixError, 'disabled': !writeOn}" :disabled="!writeOn" />
-                                                <small class="p-error">{{ suffixError }}</small>    
+                                                <small class="p-error">{{ suffixError }}</small>
                                             </div>
                                         </div>
                                         <div class="p-fluid p-formgrid p-grid">
                                             <div class="p-field p-col-12 p-md-4">
                                                 <label>Birthdate <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1 p-inputtext-sm" type="date" v-model="birthdate" :class="{disabled: !writeOn}" :disabled="!writeOn" />
+                                                <InputText class="p-shadow-1 p-inputtext-sm" type="date" v-model="birthdate" :class="{'p-invalid': birthdateError, 'disabled': !writeOn}" :disabled="!writeOn" />
+                                                <small class="p-error">{{ birthdateError }}</small>
                                             </div>
                                             <div class="p-field p-col-12 p-md-4">
                                                 <label>Sex <i class="p-error">*</i></label>
-                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" placeholder="Select a Gender" :class="{disabled: !writeOn}" :disabled="!writeOn" />
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" placeholder="Select a Gender" :class="{'p-invalid': genderError, 'disabled': !writeOn}" :disabled="!writeOn" />
+                                                <small class="p-error">{{ genderError }}</small>
                                             </div>
                                             <div class="p-field p-col-12 p-md-4">
                                                 <label>Contact No.: <i class="p-error">*</i></label>
-                                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="contact_no" :disabled="!writeOn" />
+                                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="contact_no" :class="{'p-invalid': contact_noError, 'disabled': !writeOn}" :disabled="!writeOn" />
+                                                <small class="p-error">{{ contact_noError }}</small>
                                             </div>
                                         </div>
                                         <div class="p-fluid p-formgrid p-grid">
@@ -133,16 +137,12 @@
                                         </div>
                                         <div class="p-fluid p-formgrid p-grid">
                                             <div class="p-field p-col-12 p-md-4">
-                                                <label>Barangay <i class="p-error">*</i></label>
-                                                <Dropdown class="p-shadow-1" optionLabel="name" :options="barangays" optionValue="id" v-model="barangay" :class="{'p-invalid': barangayError, 'disabled': !writeOn}" placeholder="Select a barangay" :disabled="!writeOn" />
+                                                <label>Barangay</label>
+                                                <Dropdown class="p-shadow-1" optionLabel="name" :options="barangays" optionValue="id" v-model="barangay" :class="{'disabled': !writeOn}" placeholder="Select a barangay" :disabled="!writeOn" />
                                             </div>
-                                            <!-- <div class="p-field p-col-12 p-md-4">
+                                            <div class="p-field p-col-12 p-md-8">
                                                 <label>Unit/Building/Street/House No.</label>
                                                 <InputText class="p-shadow-1" type="text" v-model="address" :disabled="!writeOn" />
-                                            </div> -->
-                                            <div class="p-field p-col-12 p-md-8">
-                                                <label>Occupation</label>
-                                                <InputText class="p-shadow-1" type="text" v-model="occupation" :disabled="!writeOn" />
                                             </div>
                                         </div>
                                         <div class="p-fluid p-formgrid p-grid">
@@ -160,11 +160,15 @@
                                             </div>
                                         </div>
                                         <div class="p-fluid p-formgrid p-grid">
-                                            <div class="p-field p-col-12 p-md-6">
+                                            <div class="p-field p-col-12 p-md-4">
+                                                <label>Occupation</label>
+                                                <InputText class="p-shadow-1" type="text" v-model="occupation" :disabled="!writeOn" />
+                                            </div>
+                                            <div class="p-field p-col-12 p-md-4">
                                                 <label>Philhealth No. </label>
                                                 <InputText class="p-shadow-1" type="text" v-model="philhealth" :disabled="!writeOn" />
                                             </div>
-                                            <div class="p-field p-col-12 p-md-6">
+                                            <div class="p-field p-col-12 p-md-4">
                                                 <label>PWD ID</label>
                                                 <InputText class="p-shadow-1" type="text" v-model="pwd_id" :disabled="!writeOn" />
                                             </div>
@@ -213,6 +217,9 @@ import SelectButton from 'primevue/selectbutton/sfc';
 import Vaccination from './vaccination'
 import Calendar from 'primevue/calendar/sfc';
 
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast"
+
 import { QrStream, QrCapture, QrDropzone } from 'vue3-qr-reader';
 import { useStore } from 'vuex';
 import { useForm, useField } from 'vee-validate';
@@ -225,6 +232,7 @@ export default {
     props: ['editOn'],
     setup(props) {
 
+        const toast = useToast()
         const downloadUrl = `${api_url}/home/reports/vas`        
 
         const { editOn } = props
@@ -268,6 +276,8 @@ export default {
         }
 
         const onSubmit = handleSubmit((values, actions) => {
+            
+            console.log(actions)
 
             const { resetForm } = actions
             const { vaccine } = values
@@ -278,7 +288,8 @@ export default {
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
                     dispatch('vaccines/UPDATE_REGISTRATION', vaccine)
-                    console.log(vaccine)
+                    toast.add({severity:'success', summary: 'Successfully Saved!', detail:'Personal Information', life: 3000});
+                    // console.log(vaccine)
                 },
                 reject: () => {
                     //callback to execute when registration rejects the action
@@ -305,15 +316,15 @@ export default {
         const { value: middle_name } = useField('vaccine.middle_name',validField);
         const { value: last_name, errorMessage: last_nameError } = useField('vaccine.last_name',validateField);
         const { value: suffix, errorMessage: suffixError } = useField('vaccine.suffix',validateField);
-        const { value: birthdate } = useField('vaccine.birthdate',validField);
+        const { value: birthdate, errorMessage: birthdateError } = useField('vaccine.birthdate',validateField);
         const { value: gender, errorMessage: genderError } = useField('vaccine.gender',validateField);
         const { value: region } = useField('vaccine.region',validField);
         const { value: province, errorMessage: provinceError } = useField('vaccine.province',validateField);
         const { value: town_city, errorMessage: town_cityError } = useField('vaccine.town_city',validateField);
-        const { value: barangay, errorMessage: barangayError } = useField('vaccine.barangay',validateField);
-        const { value: contact_no } = useField('vaccine.contact_no',validField);
+        const { value: barangay } = useField('vaccine.barangay',validField);
+        const { value: contact_no, errorMessage: contact_noError } = useField('vaccine.contact_no',validateField);
         const { value: occupation } = useField('vaccine.occupation',validField);
-        // const { value: address } = useField('vaccine.address',validField);
+        const { value: address } = useField('vaccine.address',validField);
         
         const { value: category } = useField('vaccine.category',validField);
         const { value: category_id } = useField('vaccine.category_id',validField);
@@ -328,12 +339,14 @@ export default {
             middle_name,
             last_name,
             suffix,
+            birthdateError,
+            contact_noError,
             birthdate,
             gender,
             region,
             province,
             town_city,
-            // address,
+            address,
             barangay,
             contact_no,
             occupation, // End Personal
@@ -349,7 +362,6 @@ export default {
             genderError,
             provinceError,
             town_cityError,
-            barangayError,
             onSubmit,
             editMode,
             onDecode,
@@ -393,7 +405,8 @@ export default {
         SelectButton,
         Toolbar,
         Vaccination,
-        Calendar
+        Calendar,
+        Toast
     },
     computed: {
         isAdmin() {
