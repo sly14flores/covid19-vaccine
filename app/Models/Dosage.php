@@ -73,8 +73,23 @@ class Dosage extends Model
 
     public function vaccinator()
     {
-        return "{$this->user->firstname} {$this->user->lastname}";
+        if (is_null($this->user)) {
+            $vaccinator = "";
+        } else {
+            $vaccinator = "{$this->user->firstname} {$this->user->lastname}";
+        }
+        return $vaccinator;
     }
+
+    public function dohVaccinator()
+    {
+        if (is_null($this->user)) {
+            $vaccinator = "";
+        } else {
+            $vaccinator = ucfirst(strtolower($this->user->lastname)).", ".ucfirst(strtolower($this->user->firstname));
+        }
+        return $vaccinator;
+    }    
 
     public function proffession()
     {
@@ -136,6 +151,20 @@ class Dosage extends Model
     public function vitals()
     {
         return $this->hasMany(ScreeningVital::class, 'dosage_id', 'id');
+    }
+
+    /**
+     * Dosage Hospital Rel
+     */
+    public function cbcr()
+    {
+        return $this->belongsTo(Hospital::class, 'vaccination_facility', 'id');
+    }
+
+    public function cbcr_id()
+    {
+        $hospital = (is_null($this->user))?null:$this->user->userHospital;
+        return (is_null($hospital))?"":$hospital->cbcr_id;
     }
 
     /**

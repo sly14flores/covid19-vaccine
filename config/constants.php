@@ -74,6 +74,7 @@ return [
                 ]
             ],
             'dosages' => 2,
+            'shortname' => 'Pfizer',
         ],
         [
             'id' => 2,
@@ -84,7 +85,8 @@ return [
                     'name' => 'Moderna COVID-19 Vaccine (mRNA-1273)'
                 ]
             ],
-            'dosages' => 2,            
+            'dosages' => 2,
+            'shortname' => 'Moderna',         
         ],
         [
             'id' => 3,
@@ -95,7 +97,8 @@ return [
                     'name' => 'COVID-19 Vaccine AstraZeneca (AZD1222)'
                 ]
             ],
-            'dosages' => 2,          
+            'dosages' => 2,
+            'shortname' => 'BARDA',       
         ],
         [
             'id' => 4,
@@ -107,6 +110,7 @@ return [
                 ]
             ],
             'dosages' => 2,
+            'shortname' => 'Gamaleya',
         ],
         [
             'id' => 5,
@@ -118,6 +122,7 @@ return [
                 ]
             ],
             'dosages' => 1,
+            'shortname' => 'Johnson & Johnson',
         ],
         [
             'id' => 6,
@@ -129,6 +134,7 @@ return [
                 ]
             ],
             'dosages' => 2,
+            'shortname' => 'Sinovac',
         ],
         [
             'id' => 7,
@@ -140,6 +146,7 @@ return [
                 ]
             ],
             'dosages' => 2,
+            'shortname' => 'Bharat Biotech',
         ],
         [
             'id' => 8,
@@ -151,6 +158,7 @@ return [
                 ]
             ],
             'dosages' => 2,
+            'shortname' => 'Federal',
         ],
         [
             'id' => 9,
@@ -161,7 +169,8 @@ return [
                     'name' => 'CoviVac'
                 ]
             ],
-            'dosages' => 2,            
+            'dosages' => 2,
+            'shortname' => 'Chumakov',       
         ],
         [
             'id' => 10,
@@ -172,7 +181,8 @@ return [
                     'name' => 'Novavax COVID-19'
                 ]
             ],
-            'dosages' => 2,      
+            'dosages' => 2,
+            'shortname' => 'Novavax',   
         ],
         [
             'id' => 11,
@@ -184,6 +194,7 @@ return [
                 ]
             ],
             'dosages' => 3,
+            'shortname' => 'Oxford',
         ],                  
     ],
 

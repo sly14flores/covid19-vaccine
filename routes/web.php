@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ExportSurveys;
 use App\Http\Controllers\ExportRegistrations;
+use App\Http\Controllers\VasReportcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,11 +39,11 @@ Route::get('/registration', function () {
 
 Route::get('/home/reports/surveys', ExportSurveys::class);
 Route::get('/home/reports/registrations', ExportRegistrations::class);
+Route::get('/home/reports/vas', VasReportcontroller::class);
 
 Route::get('/survey/{id}', function($id) {
 	
 	return view('survey');
 	
 });
-
 
