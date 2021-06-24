@@ -73,7 +73,12 @@ class Dosage extends Model
 
     public function vaccinator()
     {
-        return "{$this->user->firstname} {$this->user->lastname}";
+        if (is_null($this->user)) {
+            $vaccinator = "";
+        } else {
+            $vaccinator = "{$this->user->firstname} {$this->user->lastname}";
+        }
+        return $vaccinator;
     }
 
     public function dohVaccinator()
