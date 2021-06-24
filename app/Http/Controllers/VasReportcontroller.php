@@ -169,7 +169,8 @@ class VasReportcontroller extends Controller
                             $value = $genders[$value];
                         }
                         if ($p=="BIRTHDATE") {
-                            $value = Carbon::parse($value)->format("m/d/y");
+                            // $value = Carbon::parse($value)->format("m/d/y");
+                            $value = date("n/d/Y",strtotime($value));
                         }                        
                         $values[] = $value;
                     }
