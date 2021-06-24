@@ -137,7 +137,7 @@
                     </div>
                 </div>
 
-                <div class="p-fluid p-grid">
+                <!-- <div class="p-fluid p-grid">
                     <div class="p-col-12 p-md-4">
                         <div class="card p-shadow-1">
                             <div class="p-grid">
@@ -303,7 +303,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="p-grid header-text">
                     <div class="p-col-12 p-md-2"></div>
@@ -422,45 +422,45 @@ export default {
         third_dosage() {
             return this.$store.state.vaccination.vaccination.dosages.third_dosage
         },
-        adult_with_comorbidity_value() {
-            return this.$store.state.vaccination.vaccination.priority_group.adult_with_comorbidity
-        },
-        frontline_personnel_essential_sector_value() {
-            return this.$store.state.vaccination.vaccination.priority_group.frontline_personnel_essential_sector
-        },
-        health_workers_value() {
-            return this.$store.state.vaccination.vaccination.priority_group.health_workers
-        },
-        ofw_value() {
-            return this.$store.state.vaccination.vaccination.priority_group.ofw
-        },
-        other_essential_workers_value() {
-            return this.$store.state.vaccination.vaccination.priority_group.other_essential_workers
-        },
-        other_government_workers_value() {
-            return this.$store.state.vaccination.vaccination.priority_group.other_government_workers
-        },
-        other_remaining_workforce_value() {
-            return this.$store.state.vaccination.vaccination.priority_group.other_remaining_workforce
-        },
-        poor_population_value() {
-            return this.$store.state.vaccination.vaccination.priority_group.poor_population
-        },
-        rest_of_the_population_value() {
-            return this.$store.state.vaccination.vaccination.priority_group.rest_of_the_population
-        },
-        senior_citizen_value() {
-            return this.$store.state.vaccination.vaccination.priority_group.senior_citizen
-        },
-        socio_demographic_groups_value() {
-            return this.$store.state.vaccination.vaccination.priority_group.socio_demographic_groups
-        },
-        teacher_value() {
-            return this.$store.state.vaccination.vaccination.priority_group.teacher
-        },
-        individual_eligible_value(){
-            return this.$store.state.vaccination.vaccination.individual_eligible
-        },
+        // adult_with_comorbidity_value() {
+        //     return this.$store.state.vaccination.vaccination.priority_group.adult_with_comorbidity
+        // },
+        // frontline_personnel_essential_sector_value() {
+        //     return this.$store.state.vaccination.vaccination.priority_group.frontline_personnel_essential_sector
+        // },
+        // health_workers_value() {
+        //     return this.$store.state.vaccination.vaccination.priority_group.health_workers
+        // },
+        // ofw_value() {
+        //     return this.$store.state.vaccination.vaccination.priority_group.ofw
+        // },
+        // other_essential_workers_value() {
+        //     return this.$store.state.vaccination.vaccination.priority_group.other_essential_workers
+        // },
+        // other_government_workers_value() {
+        //     return this.$store.state.vaccination.vaccination.priority_group.other_government_workers
+        // },
+        // other_remaining_workforce_value() {
+        //     return this.$store.state.vaccination.vaccination.priority_group.other_remaining_workforce
+        // },
+        // poor_population_value() {
+        //     return this.$store.state.vaccination.vaccination.priority_group.poor_population
+        // },
+        // rest_of_the_population_value() {
+        //     return this.$store.state.vaccination.vaccination.priority_group.rest_of_the_population
+        // },
+        // senior_citizen_value() {
+        //     return this.$store.state.vaccination.vaccination.priority_group.senior_citizen
+        // },
+        // socio_demographic_groups_value() {
+        //     return this.$store.state.vaccination.vaccination.priority_group.socio_demographic_groups
+        // },
+        // teacher_value() {
+        //     return this.$store.state.vaccination.vaccination.priority_group.teacher
+        // },
+        // individual_eligible_value(){
+        //     return this.$store.state.vaccination.vaccination.individual_eligible
+        // },
         immunized_vs_eligible_value(){
             return this.$store.state.vaccination.vaccination.immunized_vs_eligible
         },
@@ -539,10 +539,14 @@ export default {
     created() {
         
         const year = new Date().getFullYear()
-        const date = new Date(year, 1, 1)
-        date.setDate(5)
+        const date = new(Date)
+        
+        const firstDay = new Date(date. getFullYear(), date. getMonth(), 1);
 
-        this.start_date = date
+        // const date = new Date(year, 4, 1)
+        // date.setDate(5)
+
+        this.start_date = new(Date)
 
         if (!this.$store.state.profile.is_admin) {
             this.town_city = this.$store.state.profile.town_city_doh

@@ -139,7 +139,7 @@ class VaccineController extends Controller
         $rules = [
             'qr_pass_id' => 'string',
             'vaccination_facility' => 'integer',
-        ];    
+        ];
 
         $validator = Validator::make($request->all(), $rules);
 
@@ -508,21 +508,14 @@ class VaccineController extends Controller
             'id' => 'integer',
             'qr_pass_id' => 'string',
             'first_name' => 'string',
-            'middle_name' => 'string',
             'last_name' => 'string',
             'suffix' => 'string',
             'birthdate' => 'string',
             'gender' => 'string',
-            'address' => 'string',
             'barangay' => 'string',
             'town_city' => 'string',
             'province' => 'string',
             'contact_no' => 'string',
-            'category' => 'string',
-            'category_id' => 'string',
-            'category_id_no' => 'string',
-            'philhealth' => 'string',
-            'pwd_id' => 'string',
             'priority_group' => 'string',
             'sub_priority_group' => 'string',
             'allergic_to_vaccines' => 'string',
@@ -593,6 +586,7 @@ class VaccineController extends Controller
      * @bodyParam pre_assessment.consent string required
      * @bodyParam pre_assessment.user_id integer
      * @bodyParam pre_assessment.reason string required
+     * @bodyParam pre_assessment.screened boolean required
      * @bodyParam pre_assessment.assessments object[]
      * @bodyParam pre_assessment.assessments[].key integer
      * @bodyParam pre_assessment.assessments[].description string
@@ -608,6 +602,7 @@ class VaccineController extends Controller
             'id' => 'string',
             'dosage_id' => 'integer',
             'dose' => 'integer',
+            'screened' => 'boolean',
             'vitals' => 'array',
             'pre_assessment' => 'array',
         ];        
@@ -630,6 +625,7 @@ class VaccineController extends Controller
         $pre_assessment_update = [
             'user_id' => $pre_assessment['user_id'],
             'consent' => $pre_assessment['consent'],
+            'screened' => $pre_assessment['screened'],
             'reason' => $pre_assessment['reason'],
             'assessments' => $pre_assessment['assessments'],
         ];
@@ -698,7 +694,7 @@ class VaccineController extends Controller
             'site_of_injection' => 'string',
             'lot_number' => 'string',
             'batch_number' => 'string',
-            'vaccination_facility' => 'integer',
+            // 'vaccination_facility' => 'integer',
             'user_id' => 'integer',
             'encoder_user_id' => 'integer',
             'diluent' => 'string',

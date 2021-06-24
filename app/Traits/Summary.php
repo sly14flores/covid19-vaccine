@@ -304,18 +304,18 @@ trait Summary
         $total_registered = $registrations->count();
         $total_vaccinated = $vaccines->count();
 
-        $health_workers = $registrations->where('priority_group','01_A1')->count();
-        $senior_citizen = $registrations->where('priority_group','02_A2')->count();
-        $adult_with_comorbidity = $registrations->where('priority_group','03_A3')->count();
-        $frontline_personnel_essential_sector = $registrations->where('priority_group','04_A4')->count();
-        $poor_population = $registrations->where('priority_group','05_A5')->count();
-        $teacher = $registrations->where('priority_group','06_B1')->count();
-        $other_government_workers = $registrations->where('priority_group','07_B2')->count();
-        $other_essential_workers = $registrations->where('priority_group','08_B3')->count();
-        $socio_demographic_groups = $registrations->where('priority_group','09_B4')->count();
-        $ofw = $registrations->where('priority_group','10_B5')->count();
-        $other_remaining_workforce = $registrations->where('priority_group','11_B6')->count();
-        $rest_of_the_population = $registrations->where('priority_group','12_C')->count();
+        // $health_workers = $registrations->where('priority_group','01_A1')->count();
+        // $senior_citizen = $registrations->where('priority_group','02_A2')->count();
+        // $adult_with_comorbidity = $registrations->where('priority_group','03_A3')->count();
+        // $frontline_personnel_essential_sector = $registrations->where('priority_group','04_A4')->count();
+        // $poor_population = $registrations->where('priority_group','05_A5')->count();
+        // $teacher = $registrations->where('priority_group','06_B1')->count();
+        // $other_government_workers = $registrations->where('priority_group','07_B2')->count();
+        // $other_essential_workers = $registrations->where('priority_group','08_B3')->count();
+        // $socio_demographic_groups = $registrations->where('priority_group','09_B4')->count();
+        // $ofw = $registrations->where('priority_group','10_B5')->count();
+        // $other_remaining_workforce = $registrations->where('priority_group','11_B6')->count();
+        // $rest_of_the_population = $registrations->where('priority_group','12_C')->count();
 
         $brands = config('constants.brands');
 
@@ -543,20 +543,20 @@ trait Summary
                 'second_dosage' => number_format($second_dosage->sum()),
                 'third_dosage' => number_format($third_dosage->sum())
             ],
-            'priority_group' => [
-                'health_workers' => $health_workers,
-                'senior_citizen' => $senior_citizen,
-                'adult_with_comorbidity' => $adult_with_comorbidity,
-                'frontline_personnel_essential_sector' => $frontline_personnel_essential_sector,
-                'poor_population' => $poor_population,
-                'teacher' => $teacher,
-                'other_government_workers' => $other_government_workers,
-                'other_essential_workers' => $other_essential_workers,
-                'socio_demographic_groups' => $socio_demographic_groups,
-                'ofw' => $ofw,
-                'other_remaining_workforce' => $other_remaining_workforce,
-                'rest_of_the_population' => $rest_of_the_population,
-            ],
+            // 'priority_group' => [
+            //     'health_workers' => $health_workers,
+            //     'senior_citizen' => $senior_citizen,
+            //     'adult_with_comorbidity' => $adult_with_comorbidity,
+            //     'frontline_personnel_essential_sector' => $frontline_personnel_essential_sector,
+            //     'poor_population' => $poor_population,
+            //     'teacher' => $teacher,
+            //     'other_government_workers' => $other_government_workers,
+            //     'other_essential_workers' => $other_essential_workers,
+            //     'socio_demographic_groups' => $socio_demographic_groups,
+            //     'ofw' => $ofw,
+            //     'other_remaining_workforce' => $other_remaining_workforce,
+            //     'rest_of_the_population' => $rest_of_the_population,
+            // ],
             'complete_immunization' => $complete_immunization,
             'waiting' => 0,
             'individual_eligible' => number_format($individual_eligible),

@@ -1,5 +1,6 @@
 <template>
     <div class="p-fluid">
+        <Toast class="p-mt-6" position="top-right" />
         <Panel header="Vaccine Administration">
             <form>
                 <div class="p-fluid p-formgrid p-grid">
@@ -63,6 +64,9 @@ import VaccineDialogForm from "./Dosage.vue";
 import { useStore } from 'vuex';
 import { reactive, watch, ref } from 'vue';
 
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast"
+
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 
@@ -70,6 +74,7 @@ export default {
     props: ['editOn'],    
     setup(props) {
 
+        const toast = useToast()
         const { editOn } = props
         const editMode = eval(editOn)
         const store = useStore()
@@ -105,6 +110,8 @@ export default {
             if (ss.value.vaccination_session.$error) return
             
             store.dispatch('vaccines/UPDATE_VACCINATION',{ vaccination })
+            
+            toast.add({severity:'success', summary: 'Successfully Saved!', detail:'Vaccine/s Information', life: 3000});
 
         }
 
@@ -125,7 +132,8 @@ export default {
         DataTable,
         Column,
         ConfirmDialog,
-        VaccineDialogForm
+        VaccineDialogForm,
+        Toast
     },
     computed: {
         writeOn: {
