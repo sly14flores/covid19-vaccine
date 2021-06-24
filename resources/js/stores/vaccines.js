@@ -340,7 +340,7 @@ const mutations = {
     UPDATE_DOSAGE(state,payload) {
         console.log('UPDATE_DOSAGE')
         const dosages = state.vaccination.dosages.map((dosage,i) => {
-         
+
             console.log(`${i}:${state.dosageIndexToUpdate}`)
             if (dosage.id) {
                 if (dosage.id==payload.id) {
@@ -553,24 +553,26 @@ const actions = {
 
             payload.vaccination.dosages.filter((dosage,i) => {
 
-                const date_vac = new Date(dosage.date_of_vaccination).toISOString().split('T')[0]
-                const next_vac = new Date(dosage.next_vaccination).toISOString().split('T')[0]
-                const expiry_vac = new Date(dosage.expiry_date).toISOString().split('T')[0]
-                const date_rec = new Date(dosage.date_of_reconstitution).toISOString().split('T')[0]
-                
-                const date1 = new Date(date_vac);
-                const date2 = new Date(next_vac);
-                const date3 = new Date(expiry_vac);
-                const date4 = new Date(date_rec);
-                const new_date1 = new Date(date1.setDate(date1.getDate() + 1));
-                const new_date2 = new Date(date2.setDate(date2.getDate() + 1));
-                const new_date3 = new Date(date3.setDate(date3.getDate() + 1));
-                const new_date4 = new Date(date4.setDate(date4.getDate() + 1));
+                if(dosage.id!=0){
+                    const date_vac = new Date(dosage.date_of_vaccination).toISOString().split('T')[0]
+                    const next_vac = new Date(dosage.next_vaccination).toISOString().split('T')[0]
+                    const expiry_vac = new Date(dosage.expiry_date).toISOString().split('T')[0]
+                    const date_rec = new Date(dosage.date_of_reconstitution).toISOString().split('T')[0]
+                    
+                    const date1 = new Date(date_vac);
+                    const date2 = new Date(next_vac);
+                    const date3 = new Date(expiry_vac);
+                    const date4 = new Date(date_rec);
+                    const new_date1 = new Date(date1.setDate(date1.getDate() + 1));
+                    const new_date2 = new Date(date2.setDate(date2.getDate() + 1));
+                    const new_date3 = new Date(date3.setDate(date3.getDate() + 1));
+                    const new_date4 = new Date(date4.setDate(date4.getDate() + 1));
 
-                payload.vaccination.dosages[i].date_of_vaccination = new_date1
-                payload.vaccination.dosages[i].next_vaccination = new_date2
-                payload.vaccination.dosages[i].expiry_date = new_date3
-                payload.vaccination.dosages[i].date_of_reconstitution = new_date4
+                    payload.vaccination.dosages[i].date_of_vaccination = new_date1
+                    payload.vaccination.dosages[i].next_vaccination = new_date2
+                    payload.vaccination.dosages[i].expiry_date = new_date3
+                    payload.vaccination.dosages[i].date_of_reconstitution = new_date4
+                }
                 
             })
 
