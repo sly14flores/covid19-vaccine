@@ -593,7 +593,9 @@ export default {
         },
         exportToExcel() {
 
-            window.open(`${this.downloadUrl}?date=${this.start_date.toLocaleDateString()}&start_date=${this.start_date.toLocaleDateString()}&end_date=${this.end_date.toLocaleDateString()}`)          
+            const user_id = this.$store.state.profile.id
+
+            window.open(`${this.downloadUrl}?date=${this.start_date.toLocaleDateString()}&start_date=${this.start_date.toLocaleDateString()}&end_date=${this.end_date.toLocaleDateString()}&user_id=${user_id}`)
            
         },
     },
