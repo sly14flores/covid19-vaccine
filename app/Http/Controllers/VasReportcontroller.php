@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Dosage;
 use App\Models\Province;
 use App\Models\CityMun;
 use App\Models\Barangay;
+use App\Models\User;
 use Carbon\Carbon;
 
 class VasReportcontroller extends Controller
@@ -20,6 +23,8 @@ class VasReportcontroller extends Controller
      */
     public function __invoke(Request $request)
     {
+
+        $user_id = $request->user_id;
 
         $start_date = $request->start_date ?? now();
         $start_date = Carbon::parse($start_date)->format("Y-m-d");
@@ -115,12 +120,22 @@ class VasReportcontroller extends Controller
             "02_Male" => "M",
         ];
 
-        $callback = function() use ($columns, $props, $dosages, $genders) {
+        $callback = function() use ($columns, $props, $dosages, $genders, $user_id) {
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
 
             foreach ($dosages as $dosage) {
-                $values = [];
+
+                if (is_null($dosage->user->userHospital)) continue;
+                $vaccinator = $dosage->user->userHospital->location;
+
+                if (is_null($user_id)) continue;
+                $encoder = User::find($user_id);
+                if (is_null($encoder)) continue;
+
+                if (is_null($encoder)) continue;
+                if ($vaccinator!=$encoder->userHospital->location) continue;
+
                 $i = 0;
                 foreach ($props as $p => $a) {
                     if (($i >=0 ) && ($i <= 14)) { # registrations
