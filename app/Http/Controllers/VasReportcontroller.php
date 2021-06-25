@@ -126,19 +126,38 @@ class VasReportcontroller extends Controller
 
             foreach ($dosages as $dosage) {
 
-                if (is_null($dosage->user->userHospital)) continue;
+                $i = 0;                
+
+                if (is_null($dosage->user->userHospital)) {
+                    $i++;
+                    continue;
+                }
                 $vaccinator = $dosage->user->userHospital->location;
 
-                if (is_null($user_id)) continue;
+                if (is_null($user_id)) {
+                    $i++;
+                    continue;
+                }
                 $encoder = User::find($user_id);
-                if (is_null($encoder)) continue;
+                if (is_null($encoder)) {
+                    $i++;
+                    continue;
+                }
 
-                if (is_null($encoder)) continue;
+                if (is_null($encoder)) {
+                    $i++;
+                    continue;
+                }
                 $encoder_hospital = $encoder->userHospital;
-                if (is_null($encoder_hospital)) continue;
-                if ($vaccinator!=$encoder_hospital->location) continue;
+                if (is_null($encoder_hospital)) {
+                    $i++;
+                    continue;
+                }
+                if ($vaccinator!=$encoder_hospital->location) {
+                    $i++;
+                    continue;
+                }
 
-                $i = 0;
                 foreach ($props as $p => $a) {
                     if (($i >=0 ) && ($i <= 14)) { # registrations
                         $value = $dosage->vaccine->registration->{$a};
