@@ -42,25 +42,28 @@
                                     </div>
                                 </div>
                             </div>
+                            <Panel class="p-mt-2" header="VAS Report (Export to Excel)" :toggleable="true" :collapsed="true" v-if="isAdmin">
+                                <Toolbar class="p-mb-2">
+                                    <template #left>
+                                        <div class=" p-fluid p-grid p-formgrid">
+                                            <div class="p-field p-col-12 p-md-12">
+                                                <label for="basic">Start Date:</label>
+                                                <Calendar class="p-shadow-1" id="start_date" v-model="start_date" />
+                                            </div>
+                                            <div class="p-field p-col-12 p-md-12">
+                                                <label for="basic">End Date:</label>
+                                                <Calendar class="p-shadow-1" id="end_date" v-model="end_date" />
+                                            </div>
+                                            <div class="p-field p-col-12 p-md-12">
+                                                <Button label="Export to Excel" icon="pi pi-upload" class="p-button-success" @click="exportToExcel" />
+                                            </div>
+                                        </div>
+                                    </template>
+                                </Toolbar>
+                            </Panel>
                         </div>
+
                         <div class="p-lg-8 p-sm-12 p-xs-12">
-                            <Toolbar class="p-mb-2" v-if="isAdmin">
-                                <template #left>
-                                    <div class=" p-fluid p-grid p-formgrid">
-                                        <div class="p-field p-col-12 p-md-5">
-                                            <label for="basic">Start Date:</label>
-                                            <Calendar class="p-shadow-1" id="start_date" v-model="start_date" />
-                                        </div>
-                                        <div class="p-field p-col-12 p-md-5">
-                                            <label for="basic">End Date:</label>
-                                            <Calendar class="p-shadow-1" id="end_date" v-model="end_date" />
-                                        </div>
-                                    </div>
-                                </template>
-                                <template #right>
-                                    <Button label="Export to Excel" icon="pi pi-upload" class="p-button-success" @click="exportToExcel" />
-                                </template>
-                            </Toolbar>
                             <div class="p-fluid p-shadow-2">
                                 <form @submit="onSubmit">
                                     <div class="card p-shadow-2">
@@ -272,7 +275,7 @@ export default {
         )
 
         const getNapanam = () => {
-            store.dispatch('vaccines/GET_BY_QR', { id: qr_pass_id.value })
+            setTimeout(() => store.dispatch('vaccines/GET_BY_QR', { id: qr_pass_id.value }), 1000);
         }
 
         const onSubmit = handleSubmit((values, actions) => {
