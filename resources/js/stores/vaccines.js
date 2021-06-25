@@ -158,7 +158,7 @@ const dosage = {
         pulse_rate: null,
         assessments: []
     },
-    date_of_vaccination: null,
+    date_of_vaccination: new Date(),
     next_vaccination: null
 }
 

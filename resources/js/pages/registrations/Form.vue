@@ -27,17 +27,17 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-3">
                                 <label for="first_name">First Name <small><i>(Pangalan)</i></small> <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" id="first_name " type="text" placeholder="Enter First Name" v-model="first_name" :class="{'p-invalid': first_nameError}" :disabled="editMode && !writeOn" />
+                                <InputText class="p-shadow-1" id="first_name " type="text" placeholder="Enter First Name" v-model="first_name" :class="{'p-invalid': first_nameError}" disabled />
                                 <small class="p-error">{{ first_nameError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-3">
                                 <label for="last_name">Last Name <small><i>(Apelyido)</i></small> <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" id="last_name" type="text" placeholder="Enter Last Name" v-model="last_name" :class="{'p-invalid': last_nameError}" :disabled="editMode && !writeOn" />
+                                <InputText class="p-shadow-1" id="last_name" type="text" placeholder="Enter Last Name" v-model="last_name" :class="{'p-invalid': last_nameError}" disabled />
                                 <small class="p-error">{{ last_nameError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-3">
                                 <label for="middle_name">Middle Name <small><i>(Gitnang Apelyido)</i></small> </label>
-                                <InputText class="p-shadow-1" id="middle_name" type="text" placeholder="Enter Middle Name" v-model="middle_name" :disabled="editMode && !writeOn" />
+                                <InputText class="p-shadow-1" id="middle_name" type="text" placeholder="Enter Middle Name" v-model="middle_name" disabled />
                             </div>
                             <div class="p-field p-col-12 p-md-3">
                                 <label>Suffix/Extension Name <small><i>(Karugtong na Pangalan)</i></small> <i class="p-error">*</i></label>
@@ -48,41 +48,41 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Birthdate <small><i>(Araw ng Kapanganakan)</i></small> <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="date" v-model="birthdate" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
+                                <InputText class="p-shadow-1 disabled" type="date" v-model="birthdate" disabled />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Sex <small><i>(Kasarian)</i></small> <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" :class="{'p-invalid': genderError, 'disabled': editMode && !writeOn}" placeholder="Select a Gender" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1 disabled" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" placeholder="Select a Gender" disabled />
                                 <small class="p-error">{{ genderError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Contact No. <small><i>(Telepono)</i></small> <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="text" v-model="contact_no" :disabled="editMode && !writeOn" />
+                                <InputText class="p-shadow-1 disabled" type="text" v-model="contact_no" disabled />
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Region <small><i>(Rehiyon)</i></small> <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="text" v-model="region" :disabled="editMode && !writeOn" />
+                                <InputText class="p-shadow-1 disabled" type="text" v-model="region" disabled />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Province <small><i>(Probinsya)</i></small> <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="provinces" optionValue="id" v-model="province" :class="{'p-invalid': provinceError, 'disabled': editMode && !writeOn}" placeholder="Select a province" :disabled="editMode && !writeOn" />
-                                <small class="p-error">{{ provinceError }}</small>
+                                <Dropdown class="p-shadow-1 disabled" optionLabel="name" :options="provinces" optionValue="id" v-model="province" placeholder="Select a province" disabled />
+                                
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Municipality <small><i>(Munisipyo)</i></small> <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="municipalities" optionValue="id" v-model="town_city" :class="{'p-invalid': town_cityError, 'disabled': editMode && !writeOn}" placeholder="Select a municipality" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1 disabled" optionLabel="name" :options="municipalities" optionValue="id" v-model="town_city" placeholder="Select a municipality" disabled />
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Barangay <small><i>(Barangay)</i></small> <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1" optionLabel="name" :options="barangays" optionValue="id" v-model="barangay" :class="{'p-invalid': barangayError, 'disabled': editMode && !writeOn}" placeholder="Select a barangay" :disabled="editMode && !writeOn" />
+                                <Dropdown class="p-shadow-1 disabled" optionLabel="name" :options="barangays" optionValue="id" v-model="barangay" placeholder="Select a barangay" disabled />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Unit/Building/Street/House No. <small><i>(Gusali/Numero ng Tahanan)</i></small> <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" type="text" v-model="address" :disabled="editMode && !writeOn" />
+                                <InputText class="p-shadow-1 disabled" type="text" v-model="address" disabled />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Indigenous Member</label>
