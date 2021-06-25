@@ -126,8 +126,6 @@ class VasReportcontroller extends Controller
 
             foreach ($dosages as $dosage) {
 
-                $i = 0;                
-
                 if (is_null($dosage->user->userHospital)) {
                     $i++;
                     continue;
@@ -157,6 +155,9 @@ class VasReportcontroller extends Controller
                     $i++;
                     continue;
                 }
+
+                $values = [];
+                $i = 0;                
 
                 foreach ($props as $p => $a) {
                     if (($i >=0 ) && ($i <= 14)) { # registrations
