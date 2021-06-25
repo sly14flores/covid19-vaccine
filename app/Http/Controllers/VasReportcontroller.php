@@ -134,7 +134,9 @@ class VasReportcontroller extends Controller
                 if (is_null($encoder)) continue;
 
                 if (is_null($encoder)) continue;
-                if ($vaccinator!=$encoder->userHospital->location) continue;
+                $encoder_hospital = $encoder->userHospital;
+                if (is_null($encoder_hospital)) continue;
+                if ($vaccinator!=$encoder_hospital->location) continue;
 
                 $i = 0;
                 foreach ($props as $p => $a) {
