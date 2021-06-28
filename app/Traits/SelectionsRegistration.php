@@ -20,6 +20,23 @@ trait SelectionsRegistration
         ];
     }
 
+    public function vaccinesValue()
+    {
+        return [
+            ["name"=>"Pfizer", "id"=>1],            
+            ["name"=>"Moderna", "id"=>2],
+            ["name"=>"AstraZeneca ", "id"=>3],
+            ["name"=>"Sputnik V/Gamaleya", "id"=>4],
+            ["name"=>"Johnson and Johnson", "id"=>5],
+            ["name"=>"Sinovac", "id"=>6],
+            ["name"=>"Covaxin", "id"=>7],
+            ["name"=>"EpicVacCorona", "id"=>8],
+            ["name"=>"CoviVac", "id"=>9],
+            ["name"=>"Novavax", "id"=>10],
+            ["name"=>"Oxford Astrazenica", "id"=>11],
+        ];
+    }
+
     public function suffixValue()
     {
         return [

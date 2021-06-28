@@ -51,13 +51,31 @@
                         </div>
                         <hr />
                         <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-6">
-                                <Card>
-                                    <template #content>
-                                        <label>Dose</label>
-                                        <Dropdown class="p-shadow-1 p-inputtext-sm p-mt-2" v-model="dose" optionLabel="name" optionValue="id" :options="doses" placeholder="Select a dose" @change="doseSelected" />
-                                    </template>
-                                </Card>
+                            <div class="p-field p-col-12 p-md-12">
+                                <div class="p-grid">
+                                    <div class="p-field p-col-12 p-md-6">
+                                        <Card>
+                                            <template #content>
+                                                <label>Dose</label>
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm p-mt-2" v-model="dose" optionLabel="name" optionValue="id" :options="doses" placeholder="Select a dose" @change="doseSelected" />
+                                            </template>
+                                        </Card>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-6">
+                                        <Card>
+                                            <template #content>
+                                                <div class="p-grid">
+                                                    <div class="p-field p-col-12 p-md-12">
+                                                        <label>Screened</label>
+                                                    </div>
+                                                    <div class="p-field p-col-12 p-md-12">
+                                                        <Checkbox :binary="true" v-model="healthDeclaration.screened" />
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </Card>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <hr />
@@ -78,7 +96,7 @@
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <div class="p-field-radiobutton">
-                                                    <RadioButton id="no_consent" name="consent"  value="02_No" v-model="vv.consent.$model" :class="{ 'p-invalid': vv.consent.$error }" />
+                                                    <RadioButton id="no_consent" name="consent" value="02_No" v-model="vv.consent.$model" :class="{ 'p-invalid': vv.consent.$error }" />
                                                     <label for="no_consent">No</label>
                                                 </div>
                                             </div>
@@ -117,7 +135,7 @@
                                         <div class="p-grid">
                                            <div class="p-field p-col-12 p-md-12">
                                                 <label>Reason for Deferral</label>
-                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="selections.deferral_value"  v-model="vv.reason.$model" :disabled="(vv.defer.$model=='02_No') || (vv.defer.$model==null)" :class="{ 'p-invalid': vv.reason.$error }" />
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="selections.deferral_value" v-model="vv.reason.$model" :disabled="(vv.defer.$model=='02_No') || (vv.defer.$model==null)" :class="{ 'p-invalid': vv.reason.$error }" />
                                                 <small class="p-error" v-if="vv.reason.$error">Please specify reason</small>
                                             </div>
                                         </div>
@@ -226,7 +244,7 @@ import { required, requiredIf } from '@vuelidate/validators'
 import Swal from 'sweetalert2'
 
 import {
-    getPersonalInfo,
+    getScreeningPersonalInfo,
     postScreeningInfo,
     getSelections,
     getVaccinators
@@ -253,7 +271,7 @@ export default {
     data() {
         return {
             home: {icon: 'pi pi-search', to: '/vaccines/list/screening'},
-            items: [{label: 'Screening', to: `${this.$route.fullPath}`}],
+            items: [{label: 'Screening', to: `${this.$route.fullPath}`}]
         }
     },
     setup() {
@@ -282,9 +300,10 @@ export default {
         const dose = ref(1);
 
         const doseSelected = () => {
-            getPersonalInfo({ id: qr, dose: dose.value }).then(res => {
+            getScreeningPersonalInfo({ id: qr, dose: dose.value }).then(res => {
                 const { data: { data } } = res
                 const { pre_assessment, vitals, dels } = data
+
                 Object.assign(state, {
                     ...state,
                     personalInfo: data,
@@ -293,6 +312,7 @@ export default {
                     dels,
                     defer: (pre_assessment.reason != null)?'01_Yes':null
                 })
+
             }).catch(err => {
                
             })
@@ -301,28 +321,26 @@ export default {
         if (qr!=null) {
             doseSelected()
         }
-    
-        const loadingSwal = Swal.fire({
-            title: 'Please wait...',
-            willOpen () {
-                Swal.showLoading ()
-            },
-            didClose () {
-                Swal.hideLoading()
-            },
-            showConfirmButton: false,
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false
-        })
+        
+        // const loadingSwal = Swal.fire({
+        //     title: 'Please wait...',
+        //     willOpen () {
+        //         Swal.showLoading ()
+        //     },
+        //     didClose () {
+        //         Swal.hideLoading()
+        //     },
+        //     showConfirmButton: false,
+        //     allowOutsideClick: false,
+        //     allowEscapeKey: false,
+        //     allowEnterKey: false
+        // })
 
-        getSelections(loadingSwal).then(res => {
+        getSelections().then(res => {
             const { data: { data } } = res
             Object.assign(state, {...state, selections: data})
-            Swal.close()
         }).catch(err => {
             console.log(err)
-            Swal.close()
         })
 
         getVaccinators().then(res => {
@@ -336,6 +354,7 @@ export default {
          * Validations
          */
         const propsToValidate = {
+            // screened: toRef(state.healthDeclaration, 'screened'),
             consent: toRef(state.healthDeclaration, 'consent'),
             user_id: toRef(state.healthDeclaration, 'user_id'),
             defer: toRef(state, 'defer'),
@@ -344,6 +363,7 @@ export default {
 
         const rules = computed(() => {
             return {
+                // screened: { required },
                 consent: { required },
                 user_id: { required: requiredIf(function() {
                     return propsToValidate.consent.value == '01_Yes'
@@ -353,7 +373,7 @@ export default {
                     return propsToValidate.defer.value == '01_Yes'
                 }) },
             }
-        })        
+        })
 
         const vv = useVuelidate(rules, propsToValidate)
 
@@ -483,7 +503,7 @@ export default {
             removeRow,
             save,
             doseSelected,
-            vv,
+            vv
         }
 
     },

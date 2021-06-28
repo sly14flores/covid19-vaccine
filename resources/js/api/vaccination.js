@@ -14,9 +14,9 @@ import { api_url } from '../url.js'
  }
 
  /**
-  * Fetch Personal Information
+  * Fetch Personal Information Screening
   */
-const getPersonalInfo = (payload) => {
+const getScreeningPersonalInfo = (payload) => {
     const { id, dose } = payload
     const url =  route(`${api_url}/api/doh/vaccines/screening/info/:id`, { id })
     return axios.post(url, { dose })
@@ -24,6 +24,19 @@ const getPersonalInfo = (payload) => {
 
 const postScreeningInfo = (payload) => {
     return axios.post(`${api_url}/api/doh/vaccines/screening/update`, { ...payload })    
+}
+
+ /**
+  * Fetch Personal Information Inoculation
+  */
+  const getInoculationPersonalInfo = (payload) => {
+    const { id, dose } = payload
+    const url =  route(`${api_url}/api/doh/vaccines/inoculation/info/:id`, { id })
+    return axios.post(url, { dose })
+}
+
+const postInoculationInfo = (payload) => {
+    return axios.post(`${api_url}/api/doh/vaccines/inoculation/update`, { ...payload })    
 }
 
 /**
@@ -48,11 +61,25 @@ const postScreeningInfo = (payload) => {
     )
 }
 
+/**
+ * 
+ * Users
+ *
+ */
+ const getUsers = () => {
+    return axios.get(
+        `${api_url}/api/general/selections/users`
+    )
+}
+
 
 export {
     getRegistrationsList,
-    getPersonalInfo,
+    getScreeningPersonalInfo,
     postScreeningInfo,
+    getInoculationPersonalInfo,
+    postInoculationInfo,
     getSelections,
-    getVaccinators
+    getVaccinators,
+    getUsers
 }

@@ -39,7 +39,7 @@ class PreAssessment extends Model
         'dose' => 'integer',
         'dosage_id' => 'integer',
         'user_id' => 'integer', 
-        'screened' => 'boolean', 
+        'screened' => 'boolean',
     ];    
 
     protected $hidden = [
