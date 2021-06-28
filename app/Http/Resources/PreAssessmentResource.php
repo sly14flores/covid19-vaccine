@@ -23,6 +23,7 @@ class PreAssessmentResource extends JsonResource
             'blood_pressure' => $this->blood_pressure,
             'oxygen_saturation' => $this->oxygen_saturation,
             'pulse_rate' => $this->pulse_rate,
+            'screened' => $this->screened,
         ];
     }
 }
