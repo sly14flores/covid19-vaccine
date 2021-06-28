@@ -50,11 +50,7 @@ class Dosage extends Model
     protected $casts = [
         'brand_name' => 'integer',
         'vaccine_name' => 'integer',
-        // 'batch_number' => 'integer',
-        // 'lot_number' => 'integer',
         'dose' => 'integer',
-        'diluent_batch_number' => 'integer',
-        'diluent_lot_number' => 'integer',
         'expiry_date' => 'date',
         'date_of_reconstitution' => 'date',
         'date_of_vaccination' => 'date',
@@ -223,7 +219,21 @@ class Dosage extends Model
 
     public function setTimeOfReconstitutionAttribute($value)
     {
-        $this->attributes['time_of_reconstitution'] = Carbon::parse($value)->timezone('Asia/Manila')->format('Y-m-d H:i:s');
+        $this->attributes['time_of_reconstitution'] = Carbon::parse($value)->timezone('Asia/Manila')->format('H:i:s');
     }
+
+    /**
+     * @param $value
+     * @return false|string
+     */
+    public function getTimeOfVaccinationAttribute($value)
+    {
+        return Carbon::parse($value)->format('h:i A');
+    }
+
+    public function setTimeOfVaccinationAttribute($value)
+    {
+        $this->attributes['time_of_vaccination'] = Carbon::parse($value)->timezone('Asia/Manila')->format('H:i:s');
+    }    
 
 }

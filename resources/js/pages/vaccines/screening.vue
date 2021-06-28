@@ -69,7 +69,7 @@
                                                         <label>Screened</label>
                                                     </div>
                                                     <div class="p-field p-col-12 p-md-12">
-                                                        <Checkbox :binary="true" v-model="healthDeclaration.screened" />
+                                                        <Checkbox :binary="true" v-model="vv.screened.$model" />
                                                     </div>
                                                 </div>
                                             </template>
@@ -354,7 +354,7 @@ export default {
          * Validations
          */
         const propsToValidate = {
-            // screened: toRef(state.healthDeclaration, 'screened'),
+            screened: toRef(state.healthDeclaration, 'screened'),
             consent: toRef(state.healthDeclaration, 'consent'),
             user_id: toRef(state.healthDeclaration, 'user_id'),
             defer: toRef(state, 'defer'),
@@ -363,7 +363,7 @@ export default {
 
         const rules = computed(() => {
             return {
-                // screened: { required },
+                screened: { required },
                 consent: { required },
                 user_id: { required: requiredIf(function() {
                     return propsToValidate.consent.value == '01_Yes'
@@ -479,6 +479,13 @@ export default {
         )
 
         watch(
+            () => state.healthDeclaration.screened,
+            (value, prevValue) => {
+                propsToValidate.screened.value = value
+            }
+        )        
+
+        watch(
             () => propsToValidate.defer.value,
             (value, prevValue) => {
                 if (value == '02_No') {
@@ -495,6 +502,7 @@ export default {
                 }
             }
         )
+        
 
         return {
             ...toRefs(state),

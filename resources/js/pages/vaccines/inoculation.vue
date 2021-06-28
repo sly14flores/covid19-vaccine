@@ -62,28 +62,29 @@
                                     <div class="p-field p-col-12 p-md-4">
                                         <label>Vaccine </label>
                                         <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="selections.vaccines_value" v-model="vv.brand_name.$model" :class="{ 'p-invalid': vv.brand_name.$error }" />
+                                        <small class="p-error" v-if="vv.brand_name.$error">Please select vaccine</small>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label>Date Inoculated </label>
-                                        <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" v-model="vv.date_of_vaccination.$model" />
+                                        <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" v-model="vv.date_of_vaccination.$model" :class="{ 'p-invalid': vv.date_of_vaccination.$error }" />
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label>Time Inoculated</label>
-                                        <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" v-model="vv.time_of_vaccination.$model" />
+                                        <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" v-model="vv.time_of_vaccination.$model" :class="{ 'p-invalid': vv.time_of_vaccination.$error }" />
                                     </div>
                                 </div>
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-4">
                                         <label>Injection Site </label>
-                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="sites" v-model="vv.site_of_injection.$model" />
+                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="sites" v-model="vv.site_of_injection.$model" :class="{ 'p-invalid': vv.site_of_injection.$error }" />
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label>Lot No. </label>
-                                        <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.lot_number.$model" />
+                                        <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.lot_number.$model" :class="{ 'p-invalid': vv.lot_number.$error }" />
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label>Batch No.</label>
-                                        <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.batch_number.$model" />
+                                        <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.batch_number.$model" :class="{ 'p-invalid': vv.batch_number.$error }" />
                                     </div>
                                 </div>
                                 <div class="p-fluid p-formgrid p-grid">
@@ -93,11 +94,11 @@
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label>Vaccinator </label>
-                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="vaccinators" v-model="vv.user_id.$model" />
+                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="vaccinators" v-model="vv.user_id.$model" :class="{ 'p-invalid': vv.user_id.$error }" />
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label>Encoder</label>
-                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="users" v-model="vv.encoder_user_id.$model"  />
+                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="users" v-model="vv.encoder_user_id.$model" :class="{ 'p-invalid': vv.encoder_user_id.$error }" />
                                     </div>
                                 </div>
                             </TabPanel>
@@ -120,26 +121,26 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Diluent</label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent.$model" />
+                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent.$model" :class="{ 'p-invalid': vv.diluent.$error }" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Date of Reconstitution </label>
-                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" v-model="vv.date_of_reconstitution.$model" />
+                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" v-model="vv.date_of_reconstitution.$model" :class="{ 'p-invalid': vv.date_of_reconstitution.$error }" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Time of Reconstitution</label>
-                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" v-model="vv.time_of_reconstitution.$model" />
+                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" v-model="vv.time_of_reconstitution.$model" :class="{ 'p-invalid': vv.time_of_reconstitution.$error }" />
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4"></div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Diluent Lot No. </label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent_lot_number.$model" />
+                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent_lot_number.$model" :class="{ 'p-invalid': vv.diluent_lot_number.$error }" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Diluent Batch No.</label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent_batch_number.$model" />
+                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent_batch_number.$model" :class="{ 'p-invalid': vv.diluent_batch_number.$error }" />
                             </div>
                         </div>
                         <hr />
@@ -147,7 +148,7 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Next Vaccination Schedule </label>
-                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" v-model="vv.next_vaccination.$model" />
+                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" v-model="vv.next_vaccination.$model" :class="{ 'p-invalid': vv.next_vaccination.$error }" />
                             </div>
                         </div>
                     </div>
@@ -323,70 +324,67 @@ export default {
         const rules = computed(() => {
             return {
                 brand_name: { required },
-                date_of_vaccination: { },
-                time_of_vaccination: { },
-                site_of_injection: { },
-                lot_number: { },
-                batch_number: { },
-                user_id: { },
-                encoder_user_id: { },
-                diluent: { },
-                date_of_reconstitution: { },
-                time_of_reconstitution: { },
-                diluent_lot_number: { },
-                diluent_batch_number: { },
-                next_vaccination: { }
+                date_of_vaccination: { required },
+                time_of_vaccination: { required },
+                site_of_injection: { required },
+                lot_number: { required },
+                batch_number: { required },
+                // vaccination_facility  : { required },
+                user_id: { required },
+                encoder_user_id: { required },
+                diluent: { required },
+                date_of_reconstitution: { required },
+                time_of_reconstitution: { required },
+                diluent_lot_number: { required },
+                diluent_batch_number: { required },
+                next_vaccination: { required }
             }
         })
 
         const vv = useVuelidate(rules, propsToValidate)
 
-        // const save = () => {
+        const save = () => {
 
-        //     vv.value.$touch();
+            vv.value.$touch();
 
-        //     if (vv.value.$invalid) {
-        //         // Swal here
-        //         return
-        //     }
+            if (vv.value.$invalid) {
+                // Swal here
+                return
+            }
 
-        //     const payload = {
-        //         id: qr,
-        //         dosage_id: state.personalInfo.dosage_id,
-        //         dose: dose.value,
-        //         vitals: state.vitalSigns,
-        //         dosage: state.dosageData
-        //     }
+            const payload = {
+                ...state.dosageData
+            }
 
-        //     postInoculationInfo(payload).then(res => {
-        //         const { data: { data } } = res
-        //         const { vitals, dosage } = data
-        //         Object.assign(state, {
-        //             ...state,
-        //             personalInfo: data,
-        //             vitalSigns: vitals,
-        //             dosageData: dosage
-        //         })
+            postInoculationInfo(payload).then(res => {
+                const { data: { data } } = res
+                const { vitals, dosage } = data
+                Object.assign(state, {
+                    ...state,
+                    personalInfo: data,
+                    vitalSigns: vitals,
+                    dosageData: dosage
+                })
 
-        //         Swal.fire({
-        //             title: '<p class="text-success" style="font-size: 25px;">Successfully saved!</p>',
-        //             icon: 'success',
-        //             showConfirmButton: false,
-        //             timer: 1500,
-        //         })
+                Swal.fire({
+                    title: '<p class="text-success" style="font-size: 25px;">Successfully saved!</p>',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
 
-        //     }).catch(err => {
+            }).catch(err => {
 
-        //         console.log(payload)
+                console.log(payload)
 
-        //     })
-        // }
+            })
+        }
 
         return {
             ...toRefs(state),
             doseSelected,
             dose,
-            // save,
+            save,
             vv
         }
 

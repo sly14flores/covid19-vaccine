@@ -685,7 +685,8 @@ class VaccineController extends Controller
      * @bodyParam next_vaccination date required
      * @bodyParam dose integer required
      */
-    public function updateInoculation(Request $request){
+    public function updateInoculation(Request $request) {
+
         $rules = [
             'id' => 'integer',
             'brand_name' => 'integer',
@@ -700,13 +701,14 @@ class VaccineController extends Controller
             'diluent' => 'string',
             'date_of_reconstitution' => 'date',
             'time_of_reconstitution' => 'string',
-            'diluent_lot_number' => 'integer',
-            'diluent_batch_number' => 'integer',
+            'diluent_lot_number' => 'string',
+            'diluent_batch_number' => 'string',
             'next_vaccination' => 'date',
             'dose' => 'integer',
-        ];        
+        ];     
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
+            // return $validator->errors();
             return $this->jsonErrorDataValidation();
         }
         /** Get validated data */
@@ -724,6 +726,7 @@ class VaccineController extends Controller
         
         $result = new VaccineInoculationInfo($registration);
 
-        return $this->jsonSuccessResponse($result, 200); 
+        return $this->jsonSuccessResponse($result, 200);
+
     }
 }
