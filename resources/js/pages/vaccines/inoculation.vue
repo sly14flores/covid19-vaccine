@@ -177,17 +177,17 @@ import Card from 'primevue/card/sfc';
 import TabView from 'primevue/tabview/sfc';
 import TabPanel from 'primevue/tabpanel/sfc';
 
-import { reactive, computed, toRefs, toRef, ref } from 'vue'
+import { reactive, computed, toRefs, toRef, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 import useValidate, { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf } from '@vuelidate/validators'
 
-// import Swal from 'sweetalert2'
+import Swal from 'sweetalert2'
 
 import {
     getInoculationPersonalInfo,
-    // postInoculationInfo,
+    postInoculationInfo,
     getSelections,
     getVaccinators,
     getUsers
@@ -243,6 +243,23 @@ export default {
             ]
         })
 
+        const propsToValidate = {
+            brand_name: toRef(state.dosageData, 'brand_name'),
+            date_of_vaccination: toRef(state.dosageData, 'date_of_vaccination'),
+            time_of_vaccination: toRef(state.dosageData, 'time_of_vaccination'),
+            site_of_injection: toRef(state.dosageData, 'site_of_injection'),
+            lot_number: toRef(state.dosageData, 'lot_number'),
+            batch_number: toRef(state.dosageData, 'batch_number'),
+            user_id: toRef(state.dosageData, 'user_id'),
+            encoder_user_id: toRef(state.dosageData, 'encoder_user_id'),
+            diluent: toRef(state.dosageData, 'diluent'),
+            date_of_reconstitution: toRef(state.dosageData, 'date_of_reconstitution'),
+            time_of_reconstitution: toRef(state.dosageData, 'time_of_reconstitution'),
+            diluent_lot_number: toRef(state.dosageData, 'diluent_lot_number'),
+            diluent_batch_number: toRef(state.dosageData, 'diluent_batch_number'),
+            next_vaccination: toRef(state.dosageData, 'next_vaccination')
+        }        
+
         const dose = ref(1);
 
         const doseSelected = () => {
@@ -254,8 +271,12 @@ export default {
                     ...state,
                     personalInfo: data,
                     vitalSigns: vitals,
-                    dosageData: dosage[0]
+                    dosageData: dosage
                 })
+
+                Object.keys(propsToValidate).forEach(function(key) {
+                    propsToValidate[key].value = dosage[key]
+                });
 
             }).catch(err => {
                
@@ -304,22 +325,6 @@ export default {
          /**
          * Validations
          */
-        const propsToValidate = {
-            brand_name: toRef(state.dosageData, 'brand_name'),
-            date_of_vaccination: toRef(state.dosageData, 'date_of_vaccination'),
-            time_of_vaccination: toRef(state.dosageData, 'time_of_vaccination'),
-            site_of_injection: toRef(state.dosageData, 'site_of_injection'),
-            lot_number: toRef(state.dosageData, 'lot_number'),
-            batch_number: toRef(state.dosageData, 'batch_number'),
-            user_id: toRef(state.dosageData, 'user_id'),
-            encoder_user_id: toRef(state.dosageData, 'encoder_user_id'),
-            diluent: toRef(state.dosageData, 'diluent'),
-            date_of_reconstitution: toRef(state.dosageData, 'date_of_reconstitution'),
-            time_of_reconstitution: toRef(state.dosageData, 'time_of_reconstitution'),
-            diluent_lot_number: toRef(state.dosageData, 'diluent_lot_number'),
-            diluent_batch_number: toRef(state.dosageData, 'diluent_batch_number'),
-            next_vaccination: toRef(state.dosageData, 'next_vaccination')
-        }
 
         const rules = computed(() => {
             return {
@@ -352,6 +357,10 @@ export default {
                 return
             }
 
+            Object.keys(propsToValidate).forEach(function(key) {
+                state.dosageData[key] = propsToValidate[key].value
+            })
+
             const payload = {
                 ...state.dosageData
             }
@@ -359,12 +368,17 @@ export default {
             postInoculationInfo(payload).then(res => {
                 const { data: { data } } = res
                 const { vitals, dosage } = data
+
                 Object.assign(state, {
                     ...state,
                     personalInfo: data,
                     vitalSigns: vitals,
                     dosageData: dosage
                 })
+
+                Object.keys(propsToValidate).forEach(function(key) {
+                    propsToValidate[key].value = dosage[key]
+                });               
 
                 Swal.fire({
                     title: '<p class="text-success" style="font-size: 25px;">Successfully saved!</p>',
@@ -390,7 +404,7 @@ export default {
 
     },
     methods: {
-        discard(){
+        discard() {
 
             this.$router.push('/vaccines/list/inoculation')
             
