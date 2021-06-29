@@ -144,6 +144,12 @@ class DOHDataSelections extends Controller
         return $this->jsonSuccessResponse($priorityGroups, 200);        
     }
 
+    public function adverseEvents()
+    {
+        $adverseEvents = $this->adverseEventsValue();
+        return $this->jsonSuccessResponse($adverseEvents, 200);        
+    }
+
     public function refusalValue()
     {
         $values = [

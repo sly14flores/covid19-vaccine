@@ -80,6 +80,7 @@
                                         <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" v-model="vv.time_of_vaccination.$model" :class="{ 'p-invalid': vv.time_of_vaccination.$error }" />
                                         <small class="p-error" v-if="vv.time_of_vaccination.$error">This field is required</small>
                                     </div>
+                                    
                                 </div>
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-4">
@@ -137,40 +138,46 @@
                             </TabPanel>
                         </TabView>
                         <hr />
-                        <h4 class="header-blue p-text-bold">DILUENT</h4>
-                        <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Diluent</label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent.$model" />
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Date of Reconstitution </label>
-                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" v-model="vv.date_of_reconstitution.$model"/>
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Time of Reconstitution</label>
-                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" v-model="vv.time_of_reconstitution.$model" />
-                            </div>
-                        </div>
-                        <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-4"></div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Diluent Lot No. </label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent_lot_number.$model" />
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Diluent Batch No.</label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent_batch_number.$model" />
-                            </div>
-                        </div>
+                        <TabView>
+                            <TabPanel header="Diluent Information">
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label>Diluent</label>
+                                        <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent.$model" />
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label>Date of Reconstitution </label>
+                                        <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" v-model="vv.date_of_reconstitution.$model" :touchUI="true"/>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label>Time of Reconstitution</label>
+                                        <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" v-model="vv.time_of_reconstitution.$model" />
+                                    </div>
+                                </div>
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-4"></div>
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label>Diluent Lot No. </label>
+                                        <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent_lot_number.$model" />
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label>Diluent Batch No.</label>
+                                        <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent_batch_number.$model" />
+                                    </div>
+                                </div>
+                            </TabPanel>
+                        </TabView>
                         <hr />
-                        <h4 class="header-blue p-text-bold">Next Vaccination Schedule</h4>
-                        <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Next Vaccination Schedule <i class="p-error">*</i></label>
-                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" v-model="vv.next_vaccination.$model" :class="{ 'p-invalid': vv.next_vaccination.$error }" />
-                            </div>
-                        </div>
+                        <TabView>
+                            <TabPanel header="Next Vaccination Schedule">
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label>Next Vaccination Schedule <i class="p-error">*</i></label>
+                                        <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" v-model="vv.next_vaccination.$model" :class="{ 'p-invalid': vv.next_vaccination.$error }" :touchUI="true" />
+                                    </div>
+                                </div>
+                            </TabPanel>
+                        </TabView>
                     </div>
                 </form>
             </div>
@@ -307,6 +314,24 @@ export default {
                 });
 
             }).catch(err => {
+
+                if(err?.response?.status === 406){
+                    Swal.fire({
+                        title: '<p>Oops...</p>',
+                        icon: 'error',
+                        html: '<h5 style="font-size: 18px;">Patient has not been screened yet </h5>',
+                        showCancelButton: false,
+                        focusConfirm: true,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        confirmButtonText: 'Close',
+                    }).then((result) => {
+                        if (result.value) {
+                        window.location.href = 'admin#/vaccines/list/inoculation';
+                        }
+                    })
+                }
                
             })
         }
@@ -315,25 +340,43 @@ export default {
             doseSelected()
         }
 
-        // const loadingSwal = Swal.fire({
-        //     title: 'Please wait...',
-        //     willOpen () {
-        //         Swal.showLoading ()
-        //     },
-        //     didClose () {
-        //         Swal.hideLoading()
-        //     },
-        //     showConfirmButton: false,
-        //     allowOutsideClick: false,
-        //     allowEscapeKey: false,
-        //     allowEnterKey: false
-        // })
-
-        getSelections().then(res => {
+        getSelections(
+            Swal.fire({
+                title: 'Please wait...',
+                willOpen () {
+                    Swal.showLoading ()
+                },
+                didClose () {
+                    Swal.hideLoading()
+                },
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false
+            })
+        ).then(res => {
             const { data: { data } } = res
             Object.assign(state, {...state, selections: data})
+            Swal.close()
         }).catch(err => {
-            console.log(err)
+            console.log(err.response)
+            if(err?.response?.status === 500){
+                Swal.fire({
+                    title: '<p>Oops...</p>',
+                    icon: 'error',
+                    html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                    showCancelButton: false,
+                    focusConfirm: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    confirmButtonText: 'Reresh this page',
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+            }
         })
 
         getVaccinators().then(res => {
@@ -341,6 +384,23 @@ export default {
             Object.assign(state, {...state, vaccinators: data})
         }).catch(err => {
             console.log(err)
+            if(err?.response?.status === 500){
+                Swal.fire({
+                    title: '<p>Oops...</p>',
+                    icon: 'error',
+                    html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                    showCancelButton: false,
+                    focusConfirm: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    confirmButtonText: 'Reresh this page',
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+            }
         })
 
         getUsers().then(res => {
@@ -348,6 +408,23 @@ export default {
             Object.assign(state, {...state, users: data})
         }).catch(err => {
             console.log(err)
+            if(err?.response?.status === 500){
+                Swal.fire({
+                    title: '<p>Oops...</p>',
+                    icon: 'error',
+                    html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                    showCancelButton: false,
+                    focusConfirm: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    confirmButtonText: 'Reresh this page',
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+            }
         })
 
         getHospitals().then(res => {
@@ -355,6 +432,23 @@ export default {
             Object.assign(state, {...state, hospitals: data})
         }).catch(err => {
             console.log(err)
+            if(err?.response?.status === 500){
+                Swal.fire({
+                    title: '<p>Oops...</p>',
+                    icon: 'error',
+                    html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                    showCancelButton: false,
+                    focusConfirm: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    confirmButtonText: 'Reresh this page',
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+            }
         })
 
          /**

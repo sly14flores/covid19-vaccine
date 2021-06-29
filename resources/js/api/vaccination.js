@@ -83,6 +83,17 @@ const postInoculationInfo = (payload) => {
     )
 }
 
+/**
+ * 
+ * Adverse Events
+ *
+ */
+ const getAdverseEvents = () => {
+    return axios.get(
+        `${api_url}/api/doh/selections/vaccine/events`
+    )
+}
+
 
 export {
     getRegistrationsList,
@@ -93,5 +104,6 @@ export {
     getSelections,
     getVaccinators,
     getUsers,
-    getHospitals
+    getHospitals,
+    getAdverseEvents
 }

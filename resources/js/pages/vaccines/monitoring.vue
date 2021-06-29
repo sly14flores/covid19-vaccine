@@ -1,10 +1,12 @@
 <template>
     <div>
+        <Toast class="p-mt-6" position="top-right" />
         <MyBreadcrumb :home="home" :items="items" />
         <Toolbar class="header-bg">
             <template #left>
                 <div class="p-grid p-col-12">
                     <h4 class="p-text-bold">MONITORING</h4>
+                    <p><i> Note: Field marked with an asterisk ( <i class="p-error">*</i> ) are required.</i></p>
                 </div>
             </template>
 
@@ -27,7 +29,7 @@
                                 <label class="p-text-bold">Currently administering: </label>
                             </div>
                             <div class="p-field p-col-12 p-md-3">
-                                <Dropdown class="p-shadow-1 p-inputtext-sm" />
+                                <Dropdown class="p-shadow-1 p-inputtext-sm" :options="doses" optionLabel="name" optionValue="id" />
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
@@ -57,79 +59,112 @@
                                 <p class="p-text-bold">09123456789</p>
                             </div>
                         </div>
-                        <hr />
                         <TabView>
                             <TabPanel header="Post Monitoring">
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-4">
-                                        <label>Vaccine </label>
-                                        <Dropdown class="p-shadow-1 p-inputtext-sm" />
+                                        <label class="p-text-normal">Vaccine Name:</label>
+                                        <p class="text-value">Pfizer</p>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
-                                        <label>Date Inoculated </label>
-                                        <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" />
+                                        <label class="p-text-normal">Date Inoculated: </label>
+                                        <p class="text-value">June 26, 2021</p>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
-                                        <label>Time Inoculated</label>
-                                        <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
-                                    </div>
-                                </div>
-                                <div class="p-fluid p-formgrid p-grid">
-                                    <div class="p-field p-col-12 p-md-4">
-                                        <label>Injection Site </label>
-                                        <Dropdown class="p-shadow-1 p-inputtext-sm" />
-                                    </div>
-                                    <div class="p-field p-col-12 p-md-4">
-                                        <label>Lot No. </label>
-                                        <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                                    </div>
-                                    <div class="p-field p-col-12 p-md-4">
-                                        <label>Batch No.</label>
-                                        <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                        <label class="p-text-normal">Time: </label>
+                                        <p class="text-value">05:00 Am</p>
                                     </div>
                                 </div>
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-4">
-                                        <label>Vaccinator </label>
-                                        <Dropdown class="p-shadow-1 p-inputtext-sm" />
+                                        <label class="p-text-normal">Injection Site:</label>
+                                        <p class="text-value">Right</p>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
-                                        <label>Next Vaccination Schedule</label>
-                                        <Dropdown class="p-shadow-1 p-inputtext-sm" />
+                                        <label class="p-text-normal">Lot No.:</label>
+                                        <p class="text-value">CMTV0123</p>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label class="p-text-normal">Batch No.:</label>
+                                        <p class="text-value">CMTV0123</p>
+                                    </div>
+                                </div>
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label class="p-text-normal">Vaccinator:</label>
+                                        <p class="text-value">John Paul Balanon</p>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label class="p-text-normal">Next Vaccination Schedule:</label>
+                                        <p class="text-value">June 30, 2021</p>
                                     </div>
                                 </div>
                             </TabPanel>
                             <TabPanel header="Personal Information">
-                                Personal Information
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label class="p-text-normal">Region:</label>
+                                        <p class="text-value">Ilocos</p>
+                                    </div>
+                                </div>
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label class="p-text-normal">Province:</label>
+                                        <p class="text-value">La Union</p>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label class="p-text-normal">City/Municipality:</label>
+                                        <p class="text-value">San Fernando City</p>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label class="p-text-normal">Barangay:</label>
+                                        <p class="text-value">Sevilla Norte</p>
+                                    </div>
+                                </div>
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label class="p-text-normal">Street:</label>
+                                        <p class="text-value">san eugenio aringay la union</p>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label class="p-text-normal">Occupation:</label>
+                                        <p class="text-value">Government Employee</p>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label class="p-text-normal">Philhealth:</label>
+                                        <p class="text-value">123123123</p>
+                                    </div>
+                                </div>
                             </TabPanel>
                         </TabView>
-                        <hr />
-                        <h4 class="header-blue p-text-bold">DILUENT</h4>
-                        <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Diluent</label>
-                                <Dropdown class="p-shadow-1 p-inputtext-sm" />
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Date of Reconstitution </label>
-                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" />
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Time of Reconstitution</label>
-                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
-                            </div>
-                        </div>
-                        <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-4"></div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Diluent Lot No. </label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                            </div>
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Diluent Batch No.</label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                            </div>
-                        </div>
+                        <TabView>
+                            <TabPanel header="Diluent">
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label class="p-text-normal">Diluent:</label>
+                                        <p class="text-value">John Paul Balanon</p>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label class="p-text-normal">Date of Reconstitution:</label>
+                                        <p class="text-value">June 02, 2021</p>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label class="p-text-normal">Time of Reconstitution:</label>
+                                        <p class="text-value">June 02, 2021</p>
+                                    </div>
+                                </div>
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label class="p-text-normal">Diluent Lot No.:</label>
+                                        <p class="text-value">CMTV0123</p>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label class="p-text-normal">Diluent Batch No.:</label>
+                                        <p class="text-value">CMTV0123</p>
+                                    </div>
+                                </div>
+                            </TabPanel>
+                        </TabView>
                         <hr />
                         <Toolbar>
                             <template #left>
@@ -184,7 +219,11 @@
                             </div>
                         </div>
                         <hr />
-                        <h4 class="header-blue p-text-bold">ADVERSED EVENTS</h4>
+                        <Toolbar>
+                            <template #left>
+                                <h4 class="header-blue p-text-bold">ADVERSED EVENTS</h4>
+                            </template>
+                        </Toolbar>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-6">
                                 <Card>
@@ -209,7 +248,7 @@
                                         <div class="p-grid">
                                            <div class="p-field p-col-12 p-md-12">
                                                 <label>Adverse Event Condition</label>
-                                                <Dropdown class="p-shadow-1 p-inputtext-sm"/>
+                                                <Dropdown :options="events" optionLabel="name" optionValue="id" class="p-shadow-1 p-inputtext-sm"/>
                                             </div>
                                         </div>
                                     </template>
@@ -256,6 +295,21 @@ import TabView from 'primevue/tabview/sfc';
 import TabPanel from 'primevue/tabpanel/sfc';
 import Textarea from 'primevue/textarea/sfc';
 
+import { reactive, computed, toRefs, toRef, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+import useValidate, { useVuelidate } from '@vuelidate/core'
+import { required, requiredIf } from '@vuelidate/validators'
+
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast"
+
+import Swal from 'sweetalert2'
+
+import {
+    getAdverseEvents
+} from '../../api/vaccination'
+
 export default {
     components: {
         MyBreadcrumb,
@@ -275,7 +329,8 @@ export default {
         Card,
         TabView,
         TabPanel,
-        Textarea
+        Textarea,
+        Toast
     },
     data() {
         return {
@@ -283,6 +338,33 @@ export default {
             items: [{label: 'Monitoring', to: `${this.$route.fullPath}`}],
             rows: []
         }
+    },
+    setup() {
+
+        const toast = useToast()
+        const route = useRoute()
+        const { params } = route || {}
+        const { qr } = params || null
+
+        const state = reactive({
+            events: [],
+             doses: [
+                {id: 1, name: 'First'},
+                {id: 2, name: 'Second'}
+            ],
+        })
+
+        getAdverseEvents().then(res => {
+            const { data: { data } } = res
+            Object.assign(state, {...state, events: data})
+        }).catch(err => {
+            console.log(err)
+        })
+
+        return {
+            ...toRefs(state)
+        }
+        
     },
     methods: {
         discard(){
@@ -303,6 +385,15 @@ export default {
 </script>
 
 <style scoped>
+.text-value {
+    font-size: 18px;
+    color: #235c7d;
+    font-family: "Times New Roman", Times, serif, bold;
+}
+.text-label {
+    font-size: 15px;
+    font-family: "Times New Roman", Times, serif, bold;
+}
 .header-bg {
     background-color: #92c1bd;
 }
