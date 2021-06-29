@@ -20,7 +20,7 @@ class GeneralDataSelections extends Controller
      */
     public function hospitals()
     {
-        $hospitals = hospital::select(['id','description'])->get();
+        $hospitals = Hospital::select(['id','description','cbcr_id'])->orderBy('cbcr_id')->get();
 
         return $this->jsonSuccessResponse($hospitals, 200);
     }

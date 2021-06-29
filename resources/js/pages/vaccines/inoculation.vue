@@ -1,10 +1,12 @@
 <template>
     <div>
+    <Toast class="p-mt-6" position="top-right" />
         <MyBreadcrumb :home="home" :items="items" />
         <Toolbar class="header-bg">
             <template #left>
                 <div class="p-grid p-col-12">
                     <h4 class="p-text-bold">INOCULATION</h4>
+                    <p><i> Note: Field marked with an asterisk ( <i class="p-error">*</i> ) are required.</i></p>
                 </div>
             </template>
 
@@ -18,7 +20,7 @@
                 <form>
                     <div class="card p-fluid">
                         <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-10 p-md-11">
+                            <div class="p-field p-col-10 p-md-12">
                                 <h2 class="p-text-bold p-ml-4 name-size"> {{personalInfo.name}} </h2>
                             </div>
                         </div>
@@ -48,57 +50,75 @@
                                 <p class="p-text-bold">{{personalInfo.birthdate}}</p>
                                 <p class="p-text-bold">{{personalInfo.contact_no}}</p>
                             </div>
-                        </div><hr />
-                        <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-4">
-                                <label>Dose</label>
-                                <Dropdown class="p-shadow-1 p-inputtext-sm p-mt-2" v-model="dose" optionLabel="name" optionValue="id" :options="doses" placeholder="Select a dose" @change="doseSelected" />
-                            </div>
                         </div>
+                        <hr />
+                        <TabView>
+                            <TabPanel header="Dose">
+                                <div class="p-fluid p-formgrid p-grid">
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <Dropdown class="p-shadow-1 p-inputtext-sm p-mt-2" v-model="dose" optionLabel="name" optionValue="id" :options="doses" placeholder="Select a dose" @change="doseSelected" />
+                                    </div>
+                                </div>
+                            </TabPanel>
+                        </TabView>
                         <hr />
                         <TabView>
                             <TabPanel header="Inoculation">
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-4">
-                                        <label>Vaccine </label>
+                                        <label>Vaccine Name <i class="p-error">*</i></label>
                                         <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="selections.vaccines_value" v-model="vv.brand_name.$model" :class="{ 'p-invalid': vv.brand_name.$error }" />
-                                        <small class="p-error" v-if="vv.brand_name.$error">Please select vaccine</small>
+                                        <small class="p-error" v-if="vv.brand_name.$error">This field is required</small>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
-                                        <label>Date Inoculated </label>
-                                        <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" v-model="vv.date_of_vaccination.$model" :class="{ 'p-invalid': vv.date_of_vaccination.$error }" />
+                                        <label>Date Inoculated <i class="p-error">*</i></label>
+                                        <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" v-model="vv.date_of_vaccination.$model" :class="{ 'p-invalid': vv.date_of_vaccination.$error }" :touchUI="true" />
+                                        <small class="p-error" v-if="vv.date_of_vaccination.$error">This field is required</small>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
-                                        <label>Time Inoculated</label>
+                                        <label>Time Inoculated <i class="p-error">*</i></label>
                                         <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" v-model="vv.time_of_vaccination.$model" :class="{ 'p-invalid': vv.time_of_vaccination.$error }" />
+                                        <small class="p-error" v-if="vv.time_of_vaccination.$error">This field is required</small>
                                     </div>
                                 </div>
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-4">
-                                        <label>Injection Site </label>
+                                        <label>Injection Site <i class="p-error">*</i></label>
                                         <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="sites" v-model="vv.site_of_injection.$model" :class="{ 'p-invalid': vv.site_of_injection.$error }" />
+                                        <small class="p-error" v-if="vv.site_of_injection.$error">This field is required</small>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
-                                        <label>Lot No. </label>
+                                        <label>Lot No. <i class="p-error">*</i></label>
                                         <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.lot_number.$model" :class="{ 'p-invalid': vv.lot_number.$error }" />
+                                        <small class="p-error" v-if="vv.lot_number.$error">This field is required</small>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
-                                        <label>Batch No.</label>
+                                        <label>Batch No. <i class="p-error">*</i></label>
                                         <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.batch_number.$model" :class="{ 'p-invalid': vv.batch_number.$error }" />
+                                        <small class="p-error" v-if="vv.batch_number.$error">This field is required</small>
                                     </div>
                                 </div>
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-4">
-                                        <label>Bakuna Center (CBCR ID) </label>
-                                        <InputText class="p-shadow-1 p-inputtext-sm" />
+                                        <label>Bakuna Center (CBCR ID) <i class="p-error">*</i></label>
+                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="cbcr_id" optionValue="id" :options="hospitals" v-model="vv.vaccination_facility.$model" :class="{ 'p-invalid': vv.vaccination_facility.$error }">
+                                        <template #option="slotProps">
+                                            <div class="country-item">
+                                                <div>{{slotProps.option.cbcr_id}} - {{slotProps.option.description}}</div>
+                                            </div>
+                                        </template>
+                                        </Dropdown>
+                                        <small class="p-error" v-if="vv.vaccination_facility.$error">This field is required</small>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
-                                        <label>Vaccinator </label>
+                                        <label>Vaccinator <i class="p-error">*</i></label>
                                         <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="vaccinators" v-model="vv.user_id.$model" :class="{ 'p-invalid': vv.user_id.$error }" />
+                                        <small class="p-error" v-if="vv.user_id.$error">This field is required</small>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
-                                        <label>Encoder</label>
+                                        <label>Encoder <i class="p-error">*</i></label>
                                         <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="users" v-model="vv.encoder_user_id.$model" :class="{ 'p-invalid': vv.encoder_user_id.$error }" />
+                                        <small class="p-error" v-if="vv.encoder_user_id.$error">This field is required</small>
                                     </div>
                                 </div>
                             </TabPanel>
@@ -121,33 +141,33 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Diluent</label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent.$model" :class="{ 'p-invalid': vv.diluent.$error }" />
+                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent.$model" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Date of Reconstitution </label>
-                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" v-model="vv.date_of_reconstitution.$model" :class="{ 'p-invalid': vv.date_of_reconstitution.$error }" />
+                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" v-model="vv.date_of_reconstitution.$model"/>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Time of Reconstitution</label>
-                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" v-model="vv.time_of_reconstitution.$model" :class="{ 'p-invalid': vv.time_of_reconstitution.$error }" />
+                                <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" v-model="vv.time_of_reconstitution.$model" />
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4"></div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Diluent Lot No. </label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent_lot_number.$model" :class="{ 'p-invalid': vv.diluent_lot_number.$error }" />
+                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent_lot_number.$model" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Diluent Batch No.</label>
-                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent_batch_number.$model" :class="{ 'p-invalid': vv.diluent_batch_number.$error }" />
+                                <InputText class="p-shadow-1 p-inputtext-sm" type="text" v-model="vv.diluent_batch_number.$model" />
                             </div>
                         </div>
                         <hr />
                         <h4 class="header-blue p-text-bold">Next Vaccination Schedule</h4>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
-                                <label>Next Vaccination Schedule </label>
+                                <label>Next Vaccination Schedule <i class="p-error">*</i></label>
                                 <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" v-model="vv.next_vaccination.$model" :class="{ 'p-invalid': vv.next_vaccination.$error }" />
                             </div>
                         </div>
@@ -183,6 +203,9 @@ import { useRoute } from 'vue-router'
 import useValidate, { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf } from '@vuelidate/validators'
 
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast"
+
 import Swal from 'sweetalert2'
 
 import {
@@ -190,7 +213,8 @@ import {
     postInoculationInfo,
     getSelections,
     getVaccinators,
-    getUsers
+    getUsers,
+    getHospitals
 } from '../../api/vaccination'
 
 export default {
@@ -211,7 +235,8 @@ export default {
         Column,
         Card,
         TabView,
-        TabPanel
+        TabPanel,
+        Toast
     },
     data() {
         return {
@@ -221,6 +246,7 @@ export default {
     },
     setup() {
 
+        const toast = useToast()
         const route = useRoute()
         const { params } = route || {}
         const { qr } = params || null
@@ -233,6 +259,7 @@ export default {
             vaccinators: [],
             vaccines: [],
             users: [],
+            hospitals: [],
             doses: [
                 {id: 1, name: 'First'},
                 {id: 2, name: 'Second'}
@@ -253,6 +280,7 @@ export default {
             user_id: toRef(state.dosageData, 'user_id'),
             encoder_user_id: toRef(state.dosageData, 'encoder_user_id'),
             diluent: toRef(state.dosageData, 'diluent'),
+            vaccination_facility: toRef(state.dosageData, 'vaccination_facility'),
             date_of_reconstitution: toRef(state.dosageData, 'date_of_reconstitution'),
             time_of_reconstitution: toRef(state.dosageData, 'time_of_reconstitution'),
             diluent_lot_number: toRef(state.dosageData, 'diluent_lot_number'),
@@ -322,6 +350,13 @@ export default {
             console.log(err)
         })
 
+        getHospitals().then(res => {
+            const { data: { data } } = res
+            Object.assign(state, {...state, hospitals: data})
+        }).catch(err => {
+            console.log(err)
+        })
+
          /**
          * Validations
          */
@@ -334,14 +369,14 @@ export default {
                 site_of_injection: { required },
                 lot_number: { required },
                 batch_number: { required },
-                // vaccination_facility  : { required },
+                vaccination_facility  : { required },
                 user_id: { required },
                 encoder_user_id: { required },
-                diluent: { required },
-                date_of_reconstitution: { required },
-                time_of_reconstitution: { required },
-                diluent_lot_number: { required },
-                diluent_batch_number: { required },
+                diluent: { },
+                date_of_reconstitution: { },
+                time_of_reconstitution: { },
+                diluent_lot_number: { },
+                diluent_batch_number: { },
                 next_vaccination: { required }
             }
         })
@@ -366,6 +401,7 @@ export default {
             }
 
             postInoculationInfo(payload).then(res => {
+
                 const { data: { data } } = res
                 const { vitals, dosage } = data
 
@@ -380,12 +416,7 @@ export default {
                     propsToValidate[key].value = dosage[key]
                 });               
 
-                Swal.fire({
-                    title: '<p class="text-success" style="font-size: 25px;">Successfully saved!</p>',
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
+                toast.add({severity:'success', summary: 'Successfully Saved!', detail:'Inoculation Information', life: 3000});
 
             }).catch(err => {
 
