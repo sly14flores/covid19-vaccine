@@ -18,13 +18,13 @@ endpoints:
         name: username
         description: ''
         required: true
-        example: illum
+        example: nesciunt
         type: string
       password:
         name: password
         description: ''
         required: true
-        example: sint
+        example: doloribus
         type: string
     responses: []
     responseFields: []
@@ -61,7 +61,7 @@ endpoints:
         name: name
         description: ''
         required: false
-        example: aut
+        example: quia
         type: string
     responses: []
     responseFields: []

@@ -170,7 +170,7 @@ class Dosage extends Model
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('F j, Y h:i A');
-    }    
+    }
 
     /**
      * @param $value
@@ -178,8 +178,17 @@ class Dosage extends Model
      */
     public function getExpiryDateAttribute($value)
     {
-        return Carbon::parse($value)->format('Y-m-d');
+        return Carbon::parse($value)->format('n/d/Y');
     }
+
+    /**
+     * @param $value
+     * @return false|string
+     */
+    public function setExpiryDateAttribute()
+    {
+        $this->attributes['expiry_date'] = Carbon::parse($value)->timezone('Asia/Manila')->format('Y-m-d');
+    }    
 
     /**
      * @param $value
@@ -194,10 +203,28 @@ class Dosage extends Model
      * @param $value
      * @return false|string
      */
+    public function setDateOfReconstitutionAttribute($value)
+    {
+        $this->attributes['date_of_reconstitution'] = Carbon::parse($value)->timezone('Asia/Manila')->format('Y-m-d');
+    }
+
+    /**
+     * @param $value
+     * @return false|string
+     */
     public function getDateOfVaccinationAttribute($value)
     {
         return Carbon::parse($value)->format('Y-m-d');
     }
+
+    /**
+     * @param $value
+     * @return false|string
+     */
+    public function setDateOfVaccinationAttribute($value)
+    {
+        $this->attributes['date_of_vaccination'] = Carbon::parse($value)->timezone('Asia/Manila')->format('Y-m-d');
+    }    
 
      /**
      * @param $value
@@ -206,6 +233,15 @@ class Dosage extends Model
     public function getNextVaccinationAttribute($value)
     {
         return Carbon::parse($value)->format('Y-m-d');
+    }
+
+     /**
+     * @param $value
+     * @return false|string
+     */
+    public function setNextVaccinationAttribute($value)
+    {
+        $this->attributes['next_vaccination'] = Carbon::parse($value)->timezone('Asia/Manila')->format('Y-m-d');
     }
     
     /**
