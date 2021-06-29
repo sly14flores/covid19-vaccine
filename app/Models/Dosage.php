@@ -110,7 +110,8 @@ class Dosage extends Model
             return $brand['id'] == $id;
         })->first();
 
-        return $brand['name'];
+        return $brand['name'] ?? "";
+
     }
 
     public function vaccine_description($brand_id,$vaccine_id)

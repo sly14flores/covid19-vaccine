@@ -87,11 +87,9 @@ class VaccineController extends Controller
         if ($phase == "screening") {
             $registrations = Registration::all();
         } else if ($phase == "inoculation") {
-            /**
-             * vacines->dosages->pre_assessment
-             * Consent is '01_Yes', reason is null
-             */
             $registrations = Registration::has('vaccine')->get();
+        } else if ($phase == "monitoring") {
+            
         } else {
             /**
              * vacines->dosages->pre_assessment
