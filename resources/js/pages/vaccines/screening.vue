@@ -2,6 +2,7 @@
     <div>
     <Toast class="p-mt-6" position="top-right" />
         <MyBreadcrumb :home="home" :items="items" />
+
         <Toolbar class="header-bg">
             <template #left>
                 <div class="p-grid p-col-12">
@@ -15,12 +16,13 @@
                 <Button label="Discard" class="p-button-danger" @click="discard" />
             </template>
         </Toolbar>
+
         <div class="p-grid">
             <div class="p-col-12 p-mt-2">
                 <form>
                     <div class="card p-fluid">
                         <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-10 p-md-12">
+                            <div class="p-field p-col-10 p-md-8">
                                 <h2 class="p-text-bold p-ml-4 name-size"> {{personalInfo.name}} </h2>
                             </div>
                         </div>
@@ -140,7 +142,7 @@
                                             </div>
                                         </div>
                                         <div class="p-grid">
-                                           <div class="p-field p-col-12 p-md-12">
+                                        <div class="p-field p-col-12 p-md-12">
                                                 <label>Reason for Deferral</label>
                                                 <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="selections.deferral_value" v-model="vv.reason.$model" :disabled="(vv.defer.$model=='02_No') || (vv.defer.$model==null)" :class="{ 'p-invalid': vv.reason.$error }" />
                                                 <small class="p-error" v-if="vv.reason.$error">Please specify reason</small>
@@ -244,7 +246,6 @@ import Card from 'primevue/card/sfc';
 import BlockUI from 'primevue/blockui/sfc';
 import InputSwitch from 'primevue/inputswitch/sfc';
 
-
 import { reactive, computed, toRefs, toRef, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -332,6 +333,24 @@ export default {
 
             }).catch(err => {
                
+               if(err?.response?.status === 500){
+                    Swal.fire({
+                        title: '<p>Oops...</p>',
+                        icon: 'error',
+                        html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                        showCancelButton: false,
+                        focusConfirm: true,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        confirmButtonText: 'Reresh this page',
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    })
+                }
+
             })
         }
 
@@ -339,27 +358,43 @@ export default {
             doseSelected()
         }
         
-        const loadingSwal = Swal.fire({
-            title: 'Please wait...',
-            willOpen () {
-                Swal.showLoading ()
-            },
-            didClose () {
-                Swal.hideLoading()
-            },
-            showConfirmButton: false,
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false
-        })
-
-        getSelections(loadingSwal).then(res => {
+        getSelections(
+            Swal.fire({
+                title: 'Please wait...',
+                willOpen () {
+                    Swal.showLoading ()
+                },
+                didClose () {
+                    Swal.hideLoading()
+                },
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false
+            })
+        ).then(res => {
             const { data: { data } } = res
             Object.assign(state, {...state, selections: data})
             Swal.close()
         }).catch(err => {
             console.log(err)
-            Swal.close()
+            if(err?.response?.status === 500){
+                Swal.fire({
+                    title: '<p>Oops...</p>',
+                    icon: 'error',
+                    html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                    showCancelButton: false,
+                    focusConfirm: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    confirmButtonText: 'Reresh this page',
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+            }
         })
 
         getVaccinators().then(res => {
@@ -367,6 +402,23 @@ export default {
             Object.assign(state, {...state, vaccinators: data})
         }).catch(err => {
             console.log(err)
+            if(err?.response?.status === 500){
+                Swal.fire({
+                    title: '<p>Oops...</p>',
+                    icon: 'error',
+                    html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                    showCancelButton: false,
+                    focusConfirm: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    confirmButtonText: 'Reresh this page',
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+            }
         })
 
         /**
