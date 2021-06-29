@@ -185,7 +185,7 @@ class Dosage extends Model
      * @param $value
      * @return false|string
      */
-    public function setExpiryDateAttribute()
+    public function setExpiryDateAttribute($value)
     {
         $this->attributes['expiry_date'] = Carbon::parse($value)->timezone('Asia/Manila')->format('Y-m-d');
     }    
