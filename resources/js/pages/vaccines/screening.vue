@@ -1,10 +1,12 @@
 <template>
     <div>
+    <Toast class="p-mt-6" position="top-right" />
         <MyBreadcrumb :home="home" :items="items" />
         <Toolbar class="header-bg">
             <template #left>
                 <div class="p-grid p-col-12">
                     <h4 class="p-text-bold">SCREENING</h4>
+                    <p><i> Note: Field marked with an asterisk ( <i class="p-error">*</i> ) are required.</i></p>
                 </div>
             </template>
 
@@ -18,7 +20,7 @@
                 <form>
                     <div class="card p-fluid">
                         <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-10 p-md-11">
+                            <div class="p-field p-col-10 p-md-12">
                                 <h2 class="p-text-bold p-ml-4 name-size"> {{personalInfo.name}} </h2>
                             </div>
                         </div>
@@ -52,6 +54,11 @@
                         <hr />
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-12">
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-12">
                                 <div class="p-grid">
                                     <div class="p-field p-col-12 p-md-6">
                                         <Card>
@@ -69,7 +76,7 @@
                                                         <label>Screened</label>
                                                     </div>
                                                     <div class="p-field p-col-12 p-md-12">
-                                                        <Checkbox :binary="true" v-model="vv.screened.$model" />
+                                                        <InputSwitch v-model="vv.screened.$model" />
                                                     </div>
                                                 </div>
                                             </template>
@@ -85,7 +92,7 @@
                                     <template #content>
                                         <div class="p-grid">
                                             <div class="p-field p-col-12 p-md-4">
-                                                <p class="p-text-sm">Consent Received</p>
+                                                <p class="p-text-sm">Consent Received <i class="p-error">*</i></p>
                                                 <small class="p-error" v-if="vv.consent.$error">Consent is required</small>
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
@@ -116,7 +123,7 @@
                                     <template #content>
                                         <div class="p-grid">
                                             <div class="p-field p-col-12 p-md-4">
-                                                <p class="p-text-sm">Defer</p>
+                                                <p class="p-text-sm">Defer <i class="p-error">*</i></p>
                                                 <small class="p-error" v-if="vv.defer.$error">Please choose Yes or No</small>
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
@@ -234,12 +241,18 @@ import Calendar from 'primevue/calendar/sfc';
 import DataTable from 'primevue/datatable/sfc';
 import Column from 'primevue/column/sfc';
 import Card from 'primevue/card/sfc';
+import BlockUI from 'primevue/blockui/sfc';
+import InputSwitch from 'primevue/inputswitch/sfc';
+
 
 import { reactive, computed, toRefs, toRef, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 import useValidate, { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf } from '@vuelidate/validators'
+
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast"
 
 import Swal from 'sweetalert2'
 
@@ -267,6 +280,9 @@ export default {
         DataTable,
         Column,
         Card,
+        Toast,
+        BlockUI,
+        InputSwitch
     },
     data() {
         return {
@@ -276,6 +292,7 @@ export default {
     },
     setup() {
 
+        const toast = useToast()
         const route = useRoute()
         const { params } = route || {}
         const { qr } = params || null
@@ -322,25 +339,27 @@ export default {
             doseSelected()
         }
         
-        // const loadingSwal = Swal.fire({
-        //     title: 'Please wait...',
-        //     willOpen () {
-        //         Swal.showLoading ()
-        //     },
-        //     didClose () {
-        //         Swal.hideLoading()
-        //     },
-        //     showConfirmButton: false,
-        //     allowOutsideClick: false,
-        //     allowEscapeKey: false,
-        //     allowEnterKey: false
-        // })
+        const loadingSwal = Swal.fire({
+            title: 'Please wait...',
+            willOpen () {
+                Swal.showLoading ()
+            },
+            didClose () {
+                Swal.hideLoading()
+            },
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false
+        })
 
-        getSelections().then(res => {
+        getSelections(loadingSwal).then(res => {
             const { data: { data } } = res
             Object.assign(state, {...state, selections: data})
+            Swal.close()
         }).catch(err => {
             console.log(err)
+            Swal.close()
         })
 
         getVaccinators().then(res => {
@@ -438,15 +457,10 @@ export default {
                     dels,
                 })
 
-                Swal.fire({
-                    title: '<p class="text-success" style="font-size: 25px;">Successfully saved!</p>',
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
+                toast.add({severity:'success', summary: 'Successfully Saved!', detail:'Screening Information', life: 3000});
 
             }).catch(err => {
-                
+
             })
         }
 

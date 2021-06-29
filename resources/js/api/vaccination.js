@@ -72,6 +72,17 @@ const postInoculationInfo = (payload) => {
     )
 }
 
+/**
+ * 
+ * Hospitals
+ *
+ */
+ const getHospitals = () => {
+    return axios.get(
+        `${api_url}/api/general/selections/hospitals`
+    )
+}
+
 
 export {
     getRegistrationsList,
@@ -81,5 +92,6 @@ export {
     postInoculationInfo,
     getSelections,
     getVaccinators,
-    getUsers
+    getUsers,
+    getHospitals
 }

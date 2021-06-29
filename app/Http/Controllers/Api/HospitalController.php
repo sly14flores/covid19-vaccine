@@ -45,7 +45,7 @@ class HospitalController extends Controller
         $hospitals = Hospital::all();
 
         $hospitals = $hospitals->filter(function($hospital) use ($search) {
-            $text = "{$hospital->description}";            
+            $text = "{$hospital->description} {$hospital->cbcr_id}";            
             $hospital->text = $text;
             if (is_null($search)) return true;
             $search = preg_replace('/[^A-Za-z0-9\s\-]/', '', $search);
