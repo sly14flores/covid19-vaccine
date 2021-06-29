@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Carbon\Carbon;
+
 class Registration extends Model
 {
     use HasFactory;
@@ -114,6 +116,7 @@ class Registration extends Model
 
     protected $casts = [
         'diagnosed_date' => 'date',
+        'birthdate' => 'date',
     ];
 
     public function townCity()
@@ -126,5 +129,15 @@ class Registration extends Model
     {
         return $this->hasOne(Vaccine::class, 'qr_pass_id', 'qr_pass_id');
     }
+
+
+    /**
+     * @param $value
+     * @return false|string
+     */
+    public function getBirthdateAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d');
+    }    
 
 }
