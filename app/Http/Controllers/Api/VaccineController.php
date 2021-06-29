@@ -76,6 +76,7 @@ class VaccineController extends Controller
      * Search registrations by QR, first name, middle name, last name for vaccinations
      * 
      * @queryParam search string
+     * @queryParam phase string
      * 
      */
     public function searchRegistrations(Request $request)
