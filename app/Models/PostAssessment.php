@@ -60,7 +60,7 @@ class PostAssessment extends Model
 
     public function dosage()
     {
-        return $this->belongsTo(Vaccine::class,'dosage_id');
+        return $this->belongsTo(Dosage::class,'dosage_id');
     }
 
 }
