@@ -37,7 +37,7 @@ class VaccineMonitoringInfo extends JsonResource
         $post_assessment = (is_null($dosage))?null:$dosage->post_assessment;
         $aefi = (is_null($dosage))?null:$dosage->aefi;;
         if (!is_null($dosage)) {
-            $dosage->name_of_vaccine = $this->getVaccineShortName($dosage->brand_name);
+            $dosage->name_of_vaccine = $this->getVaccineShortName($dosage->brand_name) ?? null;
             $dosage->name_of_vaccinator = $dosage->vaccinator();
             $dosage->vaccination_date = Carbon::parse($dosage->date_of_vaccination)->format("F j, Y");
             $dosage->vaccination_next = Carbon::parse($dosage->next_vaccination)->format("F j, Y");
