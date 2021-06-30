@@ -20,6 +20,8 @@ use App\Models\CityMun;
 use App\Models\Province;
 use App\Models\QrPass;
 use App\Models\ScreeningVital;
+use App\Models\MonitoringVital;
+use App\Models\Aefi;
 
 use App\Http\Resources\VaccineResource;
 use App\Http\Resources\VaccineResourceCollection;
@@ -28,6 +30,7 @@ use App\Http\Resources\RegistrationVaccineResource;
 use App\Http\Resources\RegistrationsListResourceCollection;
 use App\Http\Resources\VaccineScreeningInfo;
 use App\Http\Resources\VaccineInoculationInfo;
+use App\Http\Resources\VaccineMonitoringInfo;
 
 use App\Traits\Messages;
 use App\Traits\DOHHelpers;
@@ -350,6 +353,92 @@ class VaccineController extends Controller
 
 
     }
+
+    /**
+     * @group Monitoring
+     * 
+     * Personal Info for Monitoring
+     * 
+     * @bodyParam dose integer required Example: 1
+     */
+    public function monitoringPersonalInfo(Request $request, $id)
+    {
+        if (filter_var($id, FILTER_VALIDATE_INT) === false ) {
+            return $this->jsonErrorInvalidParameters();
+        }
+        
+        $registration = Registration::where('qr_pass_id',$id)->first();
+
+        if (is_null($registration)) {
+			return $this->jsonErrorResourceNotFound();
+        }
+
+        $rules = [
+            'dose' => 'integer',
+        ];    
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }
+        /** Get validated data */
+        $data = $validator->valid();
+
+        /**
+         * Validate if for monitoring
+         * Patient passes screening if they have pre_assessments data are marked as screened
+         */
+        $dose = $data['dose'];
+        $check_dose = Dosage::where([['qr_pass_id',$id],['dose',$dose]])->first();
+
+        if (is_null($check_dose)) {
+            return $this->jsonFailedResponse(null, 406, "Patient has not been vaccinated yet");
+        }
+
+        if (($check_dose!=null) && (is_null($check_dose->date_of_vaccination))) {
+            return $this->jsonFailedResponse(null, 406, "Patient has not been vaccinated yet");
+        }
+
+        /**
+         * Check if post assessment has entry
+         * If yes fetch it
+         * Otherwise insert one
+         */
+        $q_post_assessment = PostAssessment::where([['dosage_id',$check_dose->id],['dose',$dose]])->first();
+
+        if (is_null($q_post_assessment)) {
+            $post_assessment = new PostAssessment;
+            $post_assessment->fill([
+                'qr_pass_id' => $id,
+                'dose' => $dose,
+                'assessments' => config('constants.post_assessments')
+            ]);
+            $check_dose->post_assessment()->save($post_assessment);
+        } else {
+            $post_assessment = $q_post_assessment;
+        }
+
+        /**
+         * Check if has aefi entry
+         * If yes fetch it
+         * Otherwise insert one
+         */
+        $q_aefi = Aefi::where([['dosage_id',$check_dose->id],['dose',$dose]])->first();
+        if (is_null($q_aefi)) {
+            $aefi = new Aefi;
+            $aefi->fill([
+                'qr_pass_id' => $id,
+                'dose' => $dose,
+            ]);
+            $check_dose->aefi()->save($aefi);
+        } else {
+            $aefi = $q_aefi;
+        }
+
+        $result = new VaccineMonitoringInfo($registration);
+
+        return $this->jsonSuccessResponse($result, 200);
+
+    }    
 
     /**
      * Show the form for editing the specified resource.

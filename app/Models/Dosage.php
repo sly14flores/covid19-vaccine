@@ -150,6 +150,11 @@ class Dosage extends Model
         return $this->hasMany(ScreeningVital::class, 'dosage_id', 'id');
     }
 
+    public function monitoringVitals()
+    {
+        return $this->hasMany(MonitoringVital::class, 'dosage_id', 'id');
+    }    
+
     /**
      * Dosage Hospital Rel
      */

@@ -24,7 +24,7 @@ endpoints:
         name: id
         description: 'The ID of the info.'
         required: true
-        example: est
+        example: aspernatur
         type: string
     queryParameters: []
     bodyParameters:
@@ -54,103 +54,103 @@ endpoints:
         name: id
         description: 'This is dosage id not qr pass id.'
         required: true
-        example: 11
+        example: 2
         type: integer
       brand_name:
         name: brand_name
         description: ''
         required: true
-        example: 5
+        example: 10
         type: integer
       date_of_vaccination:
         name: date_of_vaccination
         description: ''
         required: true
-        example: ipsum
+        example: iusto
         type: date
       time_of_vaccination:
         name: time_of_vaccination
         description: ''
         required: true
-        example: deserunt
+        example: rerum
         type: time
       site_of_injection:
         name: site_of_injection
         description: ''
         required: true
-        example: dolor
+        example: aliquam
         type: string
       lot_number:
         name: lot_number
         description: ''
         required: true
-        example: illo
+        example: quidem
         type: string
       batch_number:
         name: batch_number
         description: ''
         required: true
-        example: ab
+        example: ipsa
         type: string
+      vaccination_facility:
+        name: vaccination_facility
+        description: ''
+        required: true
+        example: 2
+        type: integer
       user_id:
         name: user_id
         description: ''
         required: true
-        example: 13
+        example: 10
         type: integer
       encoder_user_id:
         name: encoder_user_id
         description: ''
         required: true
-        example: 3
-        type: integer
-      diluent:
-        name: diluent
-        description: ''
-        required: true
-        example: eveniet
-        type: string
-      date_of_reconstitution:
-        name: date_of_reconstitution
-        description: ''
-        required: true
-        example: atque
-        type: date
-      time_of_reconstitution:
-        name: time_of_reconstitution
-        description: ''
-        required: true
-        example: laboriosam
-        type: time
-      diluent_lot_number:
-        name: diluent_lot_number
-        description: ''
-        required: true
-        example: 18
-        type: integer
-      diluent_batch_number:
-        name: diluent_batch_number
-        description: ''
-        required: true
-        example: 4
+        example: 15
         type: integer
       next_vaccination:
         name: next_vaccination
         description: ''
         required: true
-        example: eum
+        example: magni
         type: date
       dose:
         name: dose
         description: ''
         required: true
-        example: 15
+        example: 4
         type: integer
-      vaccination_facility:
-        name: vaccination_facility
+      diluent:
+        name: diluent
         description: ''
         required: true
-        example: 6
+        example: veritatis
+        type: string
+      date_of_reconstitution:
+        name: date_of_reconstitution
+        description: ''
+        required: true
+        example: quia
+        type: date
+      time_of_reconstitution:
+        name: time_of_reconstitution
+        description: ''
+        required: true
+        example: qui
+        type: time
+      diluent_lot_number:
+        name: diluent_lot_number
+        description: ''
+        required: true
+        example: 17
+        type: integer
+      diluent_batch_number:
+        name: diluent_batch_number
+        description: ''
+        required: true
+        example: 3
         type: integer
     responses: []
     responseFields: []
