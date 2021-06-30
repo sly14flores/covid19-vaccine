@@ -95,9 +95,10 @@ class VaccineController extends Controller
             /**
              * no vaccine-dose / dose 1
              */
-            $registrations = Registration::whereHas('dosages', function(Builder $query) {
+            $registrations = Registration::all();
+            // $registrations = Registration::whereHas('dosages', function(Builder $query) {
                 
-            })->get();
+            // })->get();
         } else if ($phase == "inoculation") {
             /**
              * screened is 1
