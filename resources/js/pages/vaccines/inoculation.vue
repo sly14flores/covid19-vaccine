@@ -67,7 +67,7 @@
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-4">
                                         <label>Vaccine Name <i class="p-error">*</i></label>
-                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="selections.vaccines_value" v-model="vv.brand_name.$model" :class="{ 'p-invalid': vv.brand_name.$error }" />
+                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="vaccines" v-model="vv.brand_name.$model" :class="{ 'p-invalid': vv.brand_name.$error }" />
                                         <small class="p-error" v-if="vv.brand_name.$error">This field is required</small>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
@@ -102,7 +102,7 @@
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-4">
                                         <label>Bakuna Center (CBCR ID) <i class="p-error">*</i></label>
-                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="cbcr_id" optionValue="id" :options="hospitals" v-model="vv.vaccination_facility.$model" :class="{ 'p-invalid': vv.vaccination_facility.$error }">
+                                        <Dropdown class="p-shadow-1 p-inputtext-sm" :filter="true" optionLabel="description" optionValue="id" :options="hospitals" v-model="vv.vaccination_facility.$model" :class="{ 'p-invalid': vv.vaccination_facility.$error }">
                                         <template #option="slotProps">
                                             <div class="country-item">
                                                 <div>{{slotProps.option.cbcr_id}} - {{slotProps.option.description}}</div>
@@ -218,7 +218,7 @@ import Swal from 'sweetalert2'
 import {
     getInoculationPersonalInfo,
     postInoculationInfo,
-    getSelections,
+    getVaccines,
     getVaccinators,
     getUsers,
     getHospitals
@@ -262,7 +262,6 @@ export default {
             personalInfo: {},
             dosageData: {},
             vitalSigns: [],
-            selections: [],
             vaccinators: [],
             vaccines: [],
             users: [],
@@ -319,16 +318,17 @@ export default {
                     Swal.fire({
                         title: '<p>Oops...</p>',
                         icon: 'error',
-                        html: '<h5 style="font-size: 18px;">Patient has not been screened yet </h5>',
+                        html: '<p style="font-size: 16px;">Patient did not undergo assessment. ' +
+                            'Please proceed to the SCREENING STATION.</p>',
                         showCancelButton: false,
                         focusConfirm: true,
                         allowOutsideClick: false,
                         allowEscapeKey: false,
                         allowEnterKey: false,
-                        confirmButtonText: 'Close',
+                        confirmButtonText: 'Ok',
                     }).then((result) => {
                         if (result.value) {
-                        window.location.href = 'admin#/vaccines/list/inoculation';
+                            window.location.href = 'admin#/vaccines/list/screening';
                         }
                     })
                 }
@@ -339,27 +339,12 @@ export default {
         if (qr!=null) {
             doseSelected()
         }
-
-        getSelections(
-            Swal.fire({
-                title: 'Please wait...',
-                willOpen () {
-                    Swal.showLoading ()
-                },
-                didClose () {
-                    Swal.hideLoading()
-                },
-                showConfirmButton: false,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                allowEnterKey: false
-            })
-        ).then(res => {
+        
+        getVaccines().then(res => {
             const { data: { data } } = res
-            Object.assign(state, {...state, selections: data})
-            Swal.close()
+            Object.assign(state, {...state, vaccines: data})
         }).catch(err => {
-            console.log(err.response)
+            console.log(err)
             if(err?.response?.status === 500){
                 Swal.fire({
                     title: '<p>Oops...</p>',

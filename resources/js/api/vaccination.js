@@ -41,17 +41,6 @@ const postInoculationInfo = (payload) => {
 
 /**
  * 
- * Selections
- *
- */
- const getSelections = () => {
-    return axios.get(
-        `${api_url}/api/doh/selections`
-    )
-}
-
-/**
- * 
  * Vaccinators
  *
  */
@@ -94,6 +83,28 @@ const postInoculationInfo = (payload) => {
     )
 }
 
+/**
+ * 
+ * Vaccines
+ *
+ */
+ const getVaccines = () => {
+    return axios.get(
+        `${api_url}/api/doh/selections/vaccine/vaccines`
+    )
+}
+
+/**
+ * 
+ * Deferrals
+ *
+ */
+ const getDeferrals = () => {
+    return axios.get(
+        `${api_url}/api/doh/selections/vaccine/deferrals`
+    )
+}
+
 
 export {
     getRegistrationsList,
@@ -101,9 +112,10 @@ export {
     postScreeningInfo,
     getInoculationPersonalInfo,
     postInoculationInfo,
-    getSelections,
     getVaccinators,
     getUsers,
     getHospitals,
-    getAdverseEvents
+    getAdverseEvents,
+    getVaccines,
+    getDeferrals
 }

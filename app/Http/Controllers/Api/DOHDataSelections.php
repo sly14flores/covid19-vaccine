@@ -150,6 +150,18 @@ class DOHDataSelections extends Controller
         return $this->jsonSuccessResponse($adverseEvents, 200);        
     }
 
+    public function vaccines()
+    {
+        $vaccines = $this->vaccinesValue();
+        return $this->jsonSuccessResponse($vaccines, 200);
+    }
+
+    public function deferrals()
+    {
+        $deferrals = $this->deferralValue();
+        return $this->jsonSuccessResponse($deferrals, 200);
+    }
+
     public function refusalValue()
     {
         $values = [
