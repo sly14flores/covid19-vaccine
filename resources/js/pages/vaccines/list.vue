@@ -22,8 +22,8 @@
                     <Column field="first_name" header="First Name" :sortable="true"></Column>
                     <Column field="middle_name" header="Middle Name" :sortable="true"></Column>
                     <Column field="last_name" header="Last Name" :sortable="true"></Column>
+                    <Column field="screening_for_dose" header="Screening For" :sortable="true"></Column>
                     <Column field="townCity" header="Municipality/City" :sortable="true"></Column>
-                    <!-- <Column field="" header="Priority Group" :sortable="true"></Column> -->
                     <Column field="qr_pass_id" header="Actions">
                         <template #body="slotProps">
                             <router-link :to="`/vaccines/${phase}/${slotProps.data.qr_pass_id}`"><Button icon="pi pi-fw pi-eye" class="p-button-rounded p-button-success p-mr-2" /></router-link>
