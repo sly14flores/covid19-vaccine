@@ -137,7 +137,7 @@ class RegistrationController extends Controller
         $data = $validator->valid();
 
         $tc = $data['town_city'] ?? explode("_",$data['town_city']);
-        $data['town_city_code'] = $tc ?? $tc[1];
+        $data['town_city_code'] = $tc[1] ?? null;
 
         try {
 
@@ -260,7 +260,7 @@ class RegistrationController extends Controller
         unset($data['id']);
 
         $tc = explode("_",$data['town_city']);
-        $data['town_city_code'] = $tc[1];
+        $data['town_city_code'] = $tc[1] ?? null;
 
         $registration->fill($data);
 
