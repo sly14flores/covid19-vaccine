@@ -20,6 +20,8 @@ class Aefi extends Model
         'dosage_id',
         'qr_pass_id',
         'dose',
+        'has_adverse_event',
+        'adverse_event_condition',
         'adverse_events', // serialize_array
         'others',
         'date',
@@ -32,6 +34,7 @@ class Aefi extends Model
 
     protected $casts = [
       'is_serious' => 'boolean',
+      'has_adverse_event' => 'boolean',
       'dose' => 'integer',
     ];
 
