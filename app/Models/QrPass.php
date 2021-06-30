@@ -38,6 +38,9 @@ class QrPass extends Model
         'addressbrgy',
         'addressmunicity',
         'addressprovince',
+        'link_status',
+        'qrpass_status',
+        'health_status',
     ];
 
     protected $hidden = [
