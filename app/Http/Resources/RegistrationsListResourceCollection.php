@@ -32,6 +32,8 @@ class RegistrationsListResourceCollection extends ResourceCollection
     {
         $collection = (gettype($this->collection)=='object')?$this->collection->values()->all():$this->collection;
 
+        // $phase = $request->phase ?? 'screening';
+
         return [
             'data' => $collection,
             'pagination' => $this->pagination

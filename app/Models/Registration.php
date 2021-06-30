@@ -132,7 +132,14 @@ class Registration extends Model
 
     public function dosages()
     {
-        return $this->hasManyThrough(Dosage::class, Vaccine::class);
+        return $this->hasManyThrough(
+            Dosage::class,
+            Vaccine::class,
+            'qr_pass_id',
+            'vaccine_id',
+            'qr_pass_id',
+            'id',
+        );
     }
 
     /**
