@@ -25,6 +25,7 @@ class RegistrationsListResource extends JsonResource
             'address' => $this->address,
             'townCity' => (is_null($this->townCity))?"":$this->townCity->citymunDesc,
             'text' => $this->text,
+            // 'vaccine_count' => $this->vaccine_count,
         ];
     }
 }

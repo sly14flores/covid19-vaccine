@@ -13,6 +13,7 @@ trait DOHHelpers
 
     public function toDOHProv($province)
     {
+        if (is_null($province['provCode'])) return null;
         $doh_prov = "_0{$province['provCode']}_";
         $spaceWithUn = str_replace(' ','_',$province['provDesc']);
         $spaceWithUn = str_replace('(','',$spaceWithUn);

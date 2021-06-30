@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+use Illuminate\Database\Eloquent\Builder;
+
 use App\Models\Registration;
 use App\Models\Vaccine;
 use App\Models\Dosage;
@@ -84,20 +86,33 @@ class VaccineController extends Controller
         $search = (isset($request->search))?$request->search:null;
         $phase = (isset($request->phase))?$request->phase:'screening';
 
+        /**
+         * Get user municipality / city
+         * 
+         */
+
         if ($phase == "screening") {
-            $registrations = Registration::all();
-        } else if ($phase == "inoculation") {
-            $registrations = Registration::has('vaccine')->get();
-        } else if ($phase == "monitoring") {
-            
-        } else {
             /**
-             * vacines->dosages->pre_assessment
-             * Consent is '01_Yes', reason is null
-             * dosage(s) ok / date_of_vaccination
-             * 
-             * Exclude vaccine->vaccine_completed
+             * no vaccine-dose / dose 1
              */
+            $registrations = Registration::with('dosages', function(Builder $query) {
+                
+            })->get();
+        } else if ($phase == "inoculation") {
+            /**
+             * screened is 1
+             */
+            $registrations = Registration::whereHas('vaccine.dosages.pre_assessment', function(Builder $query) {
+                $query->where('screened',1);
+            })->get();
+        } else if ($phase == "monitoring") {
+            /**
+             * date_of_vaccination not null
+             */
+            $registrations = Registration::whereHas('vaccine.dosages', function(Builder $query) {
+                $query->whereNotNull('date_of_vaccination');
+            })->get();   
+        } else {
             $registrations = Registration::all();
         }
 
