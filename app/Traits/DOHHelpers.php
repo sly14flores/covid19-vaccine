@@ -140,7 +140,7 @@ trait DOHHelpers
 
         $brand = collect($brands)->where('id',$id);
 
-        return $brand->first()['shortname'];
+        return $brand->first()['shortname'] ?? null;
     }
 
 }
