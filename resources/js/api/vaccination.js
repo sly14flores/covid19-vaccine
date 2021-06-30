@@ -40,6 +40,15 @@ const postInoculationInfo = (payload) => {
 }
 
 /**
+  * Fetch Personal Information Monitoring
+  */
+ const getMonitoringPersonalInfo = (payload) => {
+    const { id, dose } = payload
+    const url =  route(`${api_url}/api/doh/vaccines/monitoring/info/:id`, { id })
+    return axios.post(url, { dose })
+}
+
+/**
  * 
  * Vaccinators
  *
@@ -112,6 +121,7 @@ export {
     postScreeningInfo,
     getInoculationPersonalInfo,
     postInoculationInfo,
+    getMonitoringPersonalInfo,
     getVaccinators,
     getUsers,
     getHospitals,

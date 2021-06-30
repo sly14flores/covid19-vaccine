@@ -22,7 +22,7 @@
                     <Column field="first_name" header="First Name" :sortable="true"></Column>
                     <Column field="middle_name" header="Middle Name" :sortable="true"></Column>
                     <Column field="last_name" header="Last Name" :sortable="true"></Column>
-                    <Column field="screening_for_dose" header="Screening For" :sortable="true"></Column>
+                    <Column field="screening_for_dose" header="Screening For" :sortable="true" v-show="phase=='screening'"></Column>
                     <Column field="townCity" header="Municipality/City" :sortable="true"></Column>
                     <Column field="qr_pass_id" header="Actions">
                         <template #body="slotProps">
@@ -96,6 +96,7 @@ export default {
             ...toRefs(state),
             fetchRegistrations,
             blocked,
+            phase
         }
         
     },

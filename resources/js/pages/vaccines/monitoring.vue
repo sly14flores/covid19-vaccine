@@ -21,7 +21,7 @@
                     <div class="card p-fluid">
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-10 p-md-11">
-                                <h2 class="p-text-bold p-ml-4 name-size"> [263001] DELA CRUZ, JUAN LUNA JR. </h2>
+                                <h2 class="p-text-bold p-ml-4 name-size"> {{personalInfo.name}} </h2>
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
@@ -29,7 +29,7 @@
                                 <label class="p-text-bold">Currently administering: </label>
                             </div>
                             <div class="p-field p-col-12 p-md-3">
-                                <Dropdown class="p-shadow-1 p-inputtext-sm" :options="doses" optionLabel="name" optionValue="id" />
+                                <Dropdown class="p-shadow-1 p-inputtext-sm p-mt-2" v-model="dose" optionLabel="name" optionValue="id" :options="doses" placeholder="Select a dose" @change="doseSelected" />
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
@@ -41,8 +41,8 @@
                                 <div class="vertical-line"></div>
                             </div>
                             <div class="p-field p-col-6 p-md-1">
-                                <p class="p-text-bold">24</p>
-                                <p class="p-text-bold">Female</p>
+                                <p class="p-text-bold">{{personalInfo.age}}</p>
+                                <p class="p-text-bold">{{personalInfo.gender}}</p>
                             </div>
 
                             <div class="p-field p-col-10 p-md-3 hide-div"></div>
@@ -54,9 +54,9 @@
                             <div class="p-field p-col-10 p-md-1 hide-div">
                                 <div class="vertical-line"></div>
                             </div>
-                            <div class="p-field p-col-6 p-md-1">
-                                <p class="p-text-bold">01-01-1990</p>
-                                <p class="p-text-bold">09123456789</p>
+                            <div class="p-field p-col-6 p-md-2">
+                                <p class="p-text-bold">{{personalInfo.birthdate}}</p>
+                                <p class="p-text-bold">{{personalInfo.contact_no}}</p>
                             </div>
                         </div>
                         <TabView>
@@ -64,75 +64,71 @@
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Vaccine Name:</label>
-                                        <p class="text-value">Pfizer</p>
+                                        <p class="text-value">{{dosageData.name_of_vaccine}}</p>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Date Inoculated: </label>
-                                        <p class="text-value">June 26, 2021</p>
+                                        <p class="text-value">{{dosageData.vaccination_date}}</p>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Time: </label>
-                                        <p class="text-value">05:00 Am</p>
+                                        <p class="text-value">{{dosageData.time_of_vaccination}}</p>
                                     </div>
                                 </div>
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Injection Site:</label>
-                                        <p class="text-value">Right</p>
+                                        <p class="text-value">{{dosageData.site_of_injection}}</p>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Lot No.:</label>
-                                        <p class="text-value">CMTV0123</p>
+                                        <p class="text-value">{{dosageData.lot_number}}</p>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Batch No.:</label>
-                                        <p class="text-value">CMTV0123</p>
+                                        <p class="text-value">{{dosageData.batch_number}}</p>
                                     </div>
                                 </div>
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Vaccinator:</label>
-                                        <p class="text-value">John Paul Balanon</p>
+                                        <p class="text-value">{{dosageData.name_of_vaccinator}}</p>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Next Vaccination Schedule:</label>
-                                        <p class="text-value">June 30, 2021</p>
+                                        <p class="text-value">{{dosageData.vaccination_next}}</p>
                                     </div>
                                 </div>
                             </TabPanel>
-                            <TabPanel header="Personal Information">
+                            <TabPanel header="Additional Information">
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Region:</label>
-                                        <p class="text-value">Ilocos</p>
+                                        <p class="text-value">{{personalInfo.region}}</p>
                                     </div>
                                 </div>
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Province:</label>
-                                        <p class="text-value">La Union</p>
+                                        <p class="text-value">{{personalInfo.province}}</p>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">City/Municipality:</label>
-                                        <p class="text-value">San Fernando City</p>
+                                        <p class="text-value">{{personalInfo.town_city}}</p>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Barangay:</label>
-                                        <p class="text-value">Sevilla Norte</p>
+                                        <p class="text-value">{{personalInfo.barangay}}</p>
                                     </div>
                                 </div>
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-4">
-                                        <label class="p-text-normal">Street:</label>
-                                        <p class="text-value">san eugenio aringay la union</p>
-                                    </div>
-                                    <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Occupation:</label>
-                                        <p class="text-value">Government Employee</p>
+                                        <p class="text-value">{{personalInfo.occupation}}</p>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Philhealth:</label>
-                                        <p class="text-value">123123123</p>
+                                        <p class="text-value">{{personalInfo.philhealth}}</p>
                                     </div>
                                 </div>
                             </TabPanel>
@@ -142,25 +138,25 @@
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Diluent:</label>
-                                        <p class="text-value">John Paul Balanon</p>
+                                        <p class="text-value">{{dosageData.diluent}}</p>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Date of Reconstitution:</label>
-                                        <p class="text-value">June 02, 2021</p>
+                                        <p class="text-value">{{dosageData.reconstitution_date}}</p>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Time of Reconstitution:</label>
-                                        <p class="text-value">June 02, 2021</p>
+                                        <p class="text-value">{{dosageData.time_of_reconstitution}}</p>
                                     </div>
                                 </div>
                                 <div class="p-fluid p-formgrid p-grid">
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Diluent Lot No.:</label>
-                                        <p class="text-value">CMTV0123</p>
+                                        <p class="text-value">{{dosageData.diluent_lot_number}}</p>
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label class="p-text-normal">Diluent Batch No.:</label>
-                                        <p class="text-value">CMTV0123</p>
+                                        <p class="text-value">{{dosageData.diluent_batch_number}}</p>
                                     </div>
                                 </div>
                             </TabPanel>
@@ -307,7 +303,8 @@ import { useToast } from "primevue/usetoast"
 import Swal from 'sweetalert2'
 
 import {
-    getAdverseEvents
+    getAdverseEvents,
+    getMonitoringPersonalInfo
 } from '../../api/vaccination'
 
 export default {
@@ -347,12 +344,56 @@ export default {
         const { qr } = params || null
 
         const state = reactive({
+            personalInfo: {},
+            dosageData: {},
+            vitalSigns: [],
             events: [],
-             doses: [
+            doses: [
                 {id: 1, name: 'First'},
                 {id: 2, name: 'Second'}
             ],
         })
+
+        const dose = ref(1);
+
+        const doseSelected = () => {
+            getMonitoringPersonalInfo({ id: qr, dose: dose.value }).then(res => {
+                const { data: { data } } = res
+                const { vitals, dosage } = data
+
+                Object.assign(state, {
+                    ...state,
+                    personalInfo: data,
+                    vitalSigns: vitals,
+                    dosageData: dosage
+                })
+
+            }).catch(err => {
+
+                if(err?.response?.status === 406){
+                    Swal.fire({
+                        title: '<p>Oops...</p>',
+                        icon: 'error',
+                        html: '<p style="font-size: 16px;">Patient has not been vaccinated yet. ',
+                        showCancelButton: false,
+                        focusConfirm: true,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        confirmButtonText: 'Ok',
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.href = 'admin#/vaccines/list/screening';
+                        }
+                    })
+                }
+               
+            })
+        }
+
+        if (qr!=null) {
+            doseSelected()
+        }
 
         getAdverseEvents().then(res => {
             const { data: { data } } = res
@@ -362,7 +403,9 @@ export default {
         })
 
         return {
-            ...toRefs(state)
+            ...toRefs(state),
+            dose,
+            doseSelected
         }
         
     },
@@ -386,9 +429,10 @@ export default {
 
 <style scoped>
 .text-value {
-    font-size: 18px;
+    font-size: 16px;
     color: #235c7d;
-    font-family: "Times New Roman", Times, serif, bold;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
 }
 .text-label {
     font-size: 15px;
