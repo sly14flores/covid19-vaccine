@@ -12,6 +12,117 @@ trait SelectionsRegistration
 
     use DOHHelpers;
 
+    public function contactsValue()
+    {
+        return [
+            [
+                "name" => "AGOO", 
+                "id" => "_13301_AGOO",
+                "contact" => ['number' => '<b>Mobile No.</b> <br> 0998 961 1519  <br> <b>Tel. No.</b><br> (072) 607-8723 <br> (072) 242-5550 <br> 911']
+            ],
+            [
+                "name" => "ARINGAY", 
+                "id" => "_13302_ARINGAY",
+                "contact" => ['number' => '<b>Mobile No.</b> <br> 0917 800 1605 <br> 0907 313 9072 <br> <b>Tel. No.</b><br> 607-4878 <br> 607-9464']
+            ],
+            [
+                "name" => "BACNOTAN", 
+                "id" => "_13303_BACNOTAN",
+                "contact" => ['number' => '<b>Mobile No.</b> <br> 0949 472 4161 <br> 0909 847 1268 <br> 0917 773 9994']
+            ],
+            [
+                "name" => "BAGULIN", 
+                "id" => "_13304_BAGULIN",
+                "contact" => ['number' => '<b>Mobile No.</b> <br> 0977 265 9798 <br> 0915 889 3737 <br> 0946 638 7988']
+            ],
+            [
+                "name" => "BALAOAN", 
+                "id" => "_13305_BALAOAN",
+                "contact" => ['number' => '<b>Mobile No.</b> <br> 0927 714 2308 <br> 0961 021 6145 <br> 0908 867 1786 <br> 0946 072 2976']
+            ],
+            [
+                "name" => "BANGAR", 
+                "id" => "_13306_BANGAR",
+                "contact" => ['number' => '<b>Mobile No.</b> <br> 0998 343 4568 <br> <b>Tel. No.</b><br> (072) 607-4245']
+            ],
+            [
+                "name" => "BAUANG", 
+                "id" => "_13307_BAUANG",
+                "contact" => ['number' => '<b>Mobile No.</b> <br> 0998 575 3188']
+            ],
+            [
+                "name" => "BURGOS", 
+                "id" => "_13308_BURGOS",
+                "contact" => ['number' => '<b>Mobile No.</b> <br> 0939 903 4750 <br> 0950 320 3145']
+            ],
+            [
+                "name" => "CABA", 
+                "id" => "_13309_CABA",
+                "contact" => ['number' => '<b>Mobile No.</b> <br> 0915 247 3936 <br> 0917 856 3808 <br> <b>Tel. No.</b><br> (072) 607-3420']
+            ],
+            [
+                "name" => "LUNA", 
+                "id" => "_13310_LUNA",
+                "contact" => ['number' => '<b>Mobile No.</b> <br> 0918 257 3612 <br> 0998 967 3041']
+            ],
+            [
+                "name" => "NAGUILIAN", 
+                "id" => "_13311_NAGUILIAN",
+                "contact" => ['number' => '<b>Mobile No.</b> <br> 0953 238 5049 <br> 0921 471 6619 <br> <b>Tel. No.</b><br> (072) 619-4928']
+            ],
+            [
+                "name" => "PUGO", 
+                "id" => "_13312_PUGO",
+                "contact" => ['number' => '<b>Mobile No.</b> <br> 0956 407 8212 <br> 0917 501 2397 <br> 0945 826 1416']
+            ],
+            [
+                "name" => "ROSARIO", 
+                "id" => "_13313_ROSARIO",
+                "contact" => ['number' => '<b>Mobile No.</b> <br> 0917 714 0515 <br> 0912 267 4723']
+            ],
+            [
+                "name" => "SAN FERNANDO CITY", 
+                "id" => "_13314_CITY_OF_SAN_FERNANDO",
+                "contact" => ['number' => '<b>Mobile No.</b> <br> 0928 193 7818 <br> 0917 676 7673 <br> 0928 522 0622 <br> <b>Tel. No.</b><br> (072) 888-6915 <br> (072) 607-7880']
+            ],
+            [
+                "name" => "SAN FERNANDO CITY", 
+                "id" => "_13314_CITY_OF_SAN_FERNANDO",
+                "contact" => ['number' => '<b>Mobile No.</b> <br> 0928 193 7818 <br> 0917 676 7673 <br> 0928 522 0622 <br> <b>Tel. No.</b><br> (072) 888-6915 <br> (072) 607-7880']
+            ],
+            [
+                "name" => "SAN GABRIEL", 
+                "id" => "_13315_SAN_GABRIEL",
+                "contact" => ['number' => '<b>Mobile No.</b><br> 0905 819 7375 <br> 0912 010 6747 <br> 0917 185 2711 <br> <b>Tel. No.</b><br> (072) 682-0504']
+            ],
+            [
+                "name" => "SAN JUAN", 
+                "id" => "_13316_SAN_JUAN",
+                "contact" => ['number' => '<b>Mobile No.</b><br> 0936 082 4277 <br> 0951 100 6212']
+            ],
+            [
+                "name" => "SANTO TOMAS", 
+                "id" => "_13317_SANTO_TOMAS",
+                "contact" => ['number' => '<b>Mobile No.</b><br> 0950 393 8326 <br> 0945 198 8450 <br> 0927 469 4472']
+            ],
+            [
+                "name" => "SANTOL", 
+                "id" => "_13318_SANTOL",
+                "contact" => ['number' => '<b>Mobile No.</b><br> 0918 391 3674 <br> 0908 910 1225 <br> 0945 821 8228 <br> <b>Tel. No.</b><br> (072) 619-4164']
+            ],
+            [
+                "name" => "SUDIPEN", 
+                "id" => "_13319_SUDIPEN",
+                "contact" => ['number' => '<b>Mobile No.</b><br> 0939 968 8330 <br> <b>Tel. No.</b><br> (072) 607-2351']
+            ],
+            [
+                "name" => "TUBAO", 
+                "id" => "_13320_TUBAO",
+                "contact" => ['number' => '<b>Mobile No.</b><br> 0999 788 0606 <br> 0915 999 8432']
+            ],
+        ];
+    }
+
     public function genderValue()
     {
         return [

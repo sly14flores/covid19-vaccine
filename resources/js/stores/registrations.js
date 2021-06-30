@@ -117,6 +117,7 @@ const day_value = [];
 const addresses = [];
 const priority_group_value = [];
 const indigenous_value = [];
+const contact_value = [];
 
 const selections = {
     suffix_value,
@@ -135,7 +136,8 @@ const selections = {
     day_value,
     addresses,
     priority_group_value,
-    indigenous_value
+    indigenous_value,
+    contact_value
 };
 
 const registrations = []
@@ -148,7 +150,8 @@ const state = () => {
         registration,
         registrations,
         selections,
-        pagination
+        pagination,
+        contact_lgu: ""
     }
 }
 
@@ -373,61 +376,59 @@ const actions = {
         commit('SAVING', 'pi pi-spin pi-spinner')
         
         try {
-            // payload.drug_allergy = (payload.drug_allergy)?"01_Yes":"02_No"
-            // payload.food_allergy = (payload.food_allergy)?"01_Yes":"02_No"
-            // payload.insect_allergy = (payload.insect_allergy)?"01_Yes":"02_No"
-            // payload.latex_allergy = (payload.latex_allergy)?"01_Yes":"02_No"
-            // payload.mold_allergy = (payload.mold_allergy)?"01_Yes":"02_No"
-            // payload.pet_allergy = (payload.pet_allergy)?"01_Yes":"02_No"
-            // payload.pollen_allergy = (payload.pollen_allergy)?"01_Yes":"02_No"
 
-            // payload.hypertension = (payload.hypertension)?"01_Yes":"02_No"
-            // payload.heart_disease = (payload.heart_disease)?"01_Yes":"02_No"
-            // payload.kidney_disease = (payload.kidney_disease)?"01_Yes":"02_No"
-            // payload.diabetes_mellitus = (payload.diabetes_mellitus)?"01_Yes":"02_No"
-            // payload.bronchial_asthma = (payload.bronchial_asthma)?"01_Yes":"02_No"
-            // payload.immuno_deficiency_status = (payload.immuno_deficiency_status)?"01_Yes":"02_No"
-            // payload.cancer = (payload.cancer)?"01_Yes":"02_No"
-            // payload.comorbidity_others = (payload.comorbidity_others)?"01_Yes":"02_No"
             payload.origin = "Online"
+
+            console.log(payload)
+
+            state.selections.contact_value.map((contact,i) => {
+
+                if(contact.id==payload.town_city){
+                    state.contact_lgu = contact
+                }
+                
+            })
+            
+            console.log(state.contact_lgu)
+
             const { data: { data } } = await createRegistration(payload)
-            dispatch('CREATE_SUCCESS', data)
+
+            Swal.fire({
+                position: 'top',
+                title: '<p class="text-success" style="font-size: 23px;">Registration completed successfully</p>',
+                icon: 'success',
+                html: 
+                    '<b style="font-size: 18px;">Agyamankami Kaprobinsiaan!</b> <br>' +
+                    '<b style="font-size: 13px;"><i> For inquiries, please contact your respective LGU: </i></b> <br>' +
+                    '<hr><div class="p-fluid p-formgrid p-grid"> <div class="p-field p-col-12 p-md-6"> <b>'+state.contact_lgu.name+''+'</b> <hr>'+state.contact_lgu.contact.number+''+'</div> <div class="p-field p-col-12 p-md-6"> <b>PROVINCIAL HOTLINES </b></div></div>',
+                    // '<b style="font-size: 13px;">'+state.contact_lgu.contact.number+''+'</b>',
+                    // '<b class="text-danger" style="font-size: 15px;"><i>Tel. No. (072) 242-5550 loc. 299</i></b>',
+                showCancelButton: false,
+                focusConfirm: false,
+                confirmButtonText: 'Ok',
+                confirmButtonColor: '#68bca4',
+                cancelButtonText: 'Close',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+            }).then((result) => {
+                if (result.value) {
+                    
+                    window.location = api_url;
+                    
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    
+                    window.location = api_url;
+                    
+                }
+            })
+
         } catch(error) {
             const { response } = error
             dispatch('CREATE_ERROR', response)
         }
     },
-    CREATE_SUCCESS({commit}, payload) {
-        commit('SAVING', '')
 
-        Swal.fire({
-            title: '<p class="text-success" style="font-size: 25px;">Registration completed successfully</p>',
-            icon: 'success',
-            html: 
-                '<b style="font-size: 20px;">Agyamankami Kaprobinsiaan!</b> <br>' +
-                '<b style="font-size: 15px;"><i> For inquiries, please contact us at: </i></b> <br>' +
-                '<b class="text-danger" style="font-size: 15px;"><i>Tel. No. (072) 242-5550 loc. 299</i></b>',
-            showCancelButton: false,
-            focusConfirm: false,
-            confirmButtonText: 'Ok',
-            confirmButtonColor: '#68bca4',
-            cancelButtonText: 'Close',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false,
-        }).then((result) => {
-        if (result.value) {
-            
-            window.location = api_url;
-            
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            
-            window.location = api_url;
-            
-        }
-        })
-
-    },
     CREATE_ERROR({commit}, payload) {
         commit('SAVING', '')
         // console.log(payload)
