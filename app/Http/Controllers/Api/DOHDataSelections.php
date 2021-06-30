@@ -61,6 +61,7 @@ class DOHDataSelections extends Controller
             "indigenous_value"=>$this->indigenousValue(),
             "deferral_value"=>$this->deferralValue(),
             "vaccines_value"=>$this->vaccinesValue(),
+            "contact_value"=>$this->contactsValue()
         ];
 
         return $this->jsonSuccessResponse($selections, 200);
