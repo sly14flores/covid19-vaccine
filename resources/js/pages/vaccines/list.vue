@@ -63,9 +63,11 @@ export default {
         InputText,
         BlockUI,
     },
-    setup() {
+    setup(props) {
 
         const blocked = ref(false)
+
+        const phase = props?.phase
 
         const search = ref('')
         const state = reactive({
@@ -79,7 +81,7 @@ export default {
 
             blocked.value = true
 
-            getRegistrationsList({page: page+1, search: search.value}).then(res => {
+            getRegistrationsList({page: page+1, search: search.value, phase}).then(res => {
                 const { data: { data: { data, pagination } } } = res
                 Object.assign(state, {registrations: data, pagination})
                 blocked.value = false

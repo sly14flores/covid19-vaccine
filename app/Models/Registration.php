@@ -130,6 +130,10 @@ class Registration extends Model
         return $this->hasOne(Vaccine::class, 'qr_pass_id', 'qr_pass_id');
     }
 
+    public function dosages()
+    {
+        return $this->hasManyThrough(Dosage::class, Vaccine::class);
+    }
 
     /**
      * @param $value
@@ -138,6 +142,6 @@ class Registration extends Model
     public function getBirthdateAttribute($value)
     {
         return Carbon::parse($value)->format('Y-m-d');
-    }    
+    }
 
 }
