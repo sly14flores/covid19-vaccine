@@ -74,10 +74,11 @@
                                         <Card>
                                             <template #content>
                                                 <div class="p-grid">
-                                                    <div class="p-field p-col-12 p-md-12">
+                                                    <div class="p-field p-col-12 p-md-10">
                                                         <label>Screened</label>
+                                                        <p class="p-error" v-if="vv.screened.$error">Screened is required</p>
                                                     </div>
-                                                    <div class="p-field p-col-12 p-md-12">
+                                                    <div class="p-field p-col-12 p-md-2">
                                                         <InputSwitch v-model="vv.screened.$model" />
                                                     </div>
                                                 </div>
@@ -113,9 +114,9 @@
                                         <div class="p-grid">
                                             <div class="p-field p-col-12 p-md-12">
                                                 <label>Consent Received By</label>
-                                                <Dropdown class="p-shadow-1 p-inputtext-sm" v-model="vv.user_id.$model" optionLabel="name" optionValue="id" :options="vaccinators" :disabled="vv.consent.$model == '02_No'" :class="{ 'p-invalid': vv.user_id.$error }" />
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" v-model="vv.user_id.$model" optionLabel="name" optionValue="id" :options="vaccinators" :disabled="vv.consent.$model == '02_No'" :class="{'disabled': vv.consent.$model == '02_No', 'p-invalid': vv.user_id.$error }" />
+                                                <small class="p-error" v-if="vv.user_id.$error">Please specify who is receiving the consent</small>
                                             </div>
-                                            <small class="p-error" v-if="vv.user_id.$error">Please specify who is receiving the consent</small>
                                         </div>
                                     </template>
                                 </Card>
@@ -144,7 +145,7 @@
                                         <div class="p-grid">
                                         <div class="p-field p-col-12 p-md-12">
                                                 <label>Reason for Deferral</label>
-                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="selections.deferral_value" v-model="vv.reason.$model" :disabled="(vv.defer.$model=='02_No') || (vv.defer.$model==null)" :class="{ 'p-invalid': vv.reason.$error }" />
+                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="deferrals" v-model="vv.reason.$model" :disabled="(vv.defer.$model=='02_No') || (vv.defer.$model==null)" :class="{'disabled': vv.defer.$model == '02_No', 'p-invalid': vv.reason.$error }" />
                                                 <small class="p-error" v-if="vv.reason.$error">Please specify reason</small>
                                             </div>
                                         </div>
@@ -261,7 +262,8 @@ import {
     getScreeningPersonalInfo,
     postScreeningInfo,
     getSelections,
-    getVaccinators
+    getVaccinators,
+    getDeferrals
 } from '../../api/vaccination'
 
 export default {
@@ -305,7 +307,7 @@ export default {
                 assessments: []
             },
             dels: [],
-            selections: [],
+            deferrals: [],
             pres: [],
             vaccinators: [],
             doses: [
@@ -358,23 +360,9 @@ export default {
             doseSelected()
         }
         
-        getSelections(
-            Swal.fire({
-                title: 'Please wait...',
-                willOpen () {
-                    Swal.showLoading ()
-                },
-                didClose () {
-                    Swal.hideLoading()
-                },
-                showConfirmButton: false,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                allowEnterKey: false
-            })
-        ).then(res => {
+        getDeferrals().then(res => {
             const { data: { data } } = res
-            Object.assign(state, {...state, selections: data})
+            Object.assign(state, {...state, deferrals: data})
             Swal.close()
         }).catch(err => {
             console.log(err)
