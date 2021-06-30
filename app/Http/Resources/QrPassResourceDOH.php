@@ -22,9 +22,9 @@ class QrPassResourceDOH extends JsonResource
     public function toArray($request)
     {
 
-        $provDesc = ($this->province) ? "" : $this->province->provDesc;
-        $citymunDesc = ($this->cityMun) ? "" : $this->cityMun->citymunDesc.", ";
-        $brgyDesc = ($this->barangay) ? "" : $this->barangay->brgyDesc.", ";
+        $provDesc = ($this->province==null) ? "" : $this->province->provDesc;
+        $citymunDesc = ($this->cityMun==null) ? "" : $this->cityMun->citymunDesc.", ";
+        $brgyDesc = ($this->barangay==null) ? "" : $this->barangay->brgyDesc.", ";
 
         $complete_address = "{$this->address} {$brgyDesc}{$citymunDesc}{$provDesc}";        
 
@@ -42,12 +42,12 @@ class QrPassResourceDOH extends JsonResource
             // "addressmunicity" => $this->addressmunicity,
             // "addressprovince" => $this->addressprovince,
             // "address" => $this->address,
-            "province" => $this->province ?? $this->toDOHProv($this->province),
-            "provinceDesc" => $this->province ?? $this->province->provDesc,
-            "cityMun" => $this->cityMun ?? $this->toDOHMun($this->cityMun),
-            "cityMunDesc" => $this->cityMun ?? $this->cityMun->citymunDesc,
-            "barangay" => $this->barangay ?? $this->toDOHBrgy($this->barangay),
-            "barangayDesc" => $this->barangay ?? $this->barangay->brgyDesc,
+            "province" => ($this->province) ? $this->toDOHProv($this->province) : null,
+            "provinceDesc" => ($this->province) ? $this->province->provDesc : null,
+            "cityMun" => ($this->cityMun) ? $this->toDOHMun($this->cityMun) : null,
+            "cityMunDesc" => ($this->cityMun) ? $this->cityMun->citymunDesc : null,
+            "barangay" => ($this->barangay) ? $this->toDOHBrgy($this->barangay) : null,
+            "barangayDesc" => ($this->barangay) ? $this->barangay->brgyDesc : null,
             "contact_no" => $this->mobile_number,
             "complete_address" => $complete_address,
         ];
