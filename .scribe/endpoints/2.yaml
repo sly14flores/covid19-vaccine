@@ -1,12 +1,12 @@
-name: Screening
+name: Monitoring
 description: ''
 endpoints:
   -
     httpMethods:
       - POST
-    uri: 'api/doh/vaccines/screening/info/{id}'
+    uri: 'api/doh/vaccines/monitoring/info/{id}'
     metadata:
-      title: 'Personal Info for Screening'
+      title: 'Personal Info for Monitoring'
       description: ''
       authenticated: true
     headers:
@@ -17,7 +17,7 @@ endpoints:
         name: id
         description: 'The ID of the info.'
         required: true
-        example: laudantium
+        example: dolorem
         type: string
     queryParameters: []
     bodyParameters:
@@ -27,135 +27,5 @@ endpoints:
         required: true
         example: 1
         type: integer
-    responses: []
-    responseFields: []
-  -
-    httpMethods:
-      - POST
-    uri: api/doh/vaccines/screening/update
-    metadata:
-      title: 'Update screening per dose'
-      description: ''
-      authenticated: true
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Accept: application/json
-    urlParameters: []
-    queryParameters: []
-    bodyParameters:
-      id:
-        name: id
-        description: ''
-        required: true
-        example: nemo
-        type: string
-      dosage_id:
-        name: dosage_id
-        description: ''
-        required: true
-        example: 12
-        type: integer
-      dose:
-        name: dose
-        description: ''
-        required: true
-        example: 2
-        type: integer
-      screened:
-        name: screened
-        description: ''
-        required: false
-        example: false
-        type: boolean
-      vitals:
-        name: vitals
-        description: ''
-        required: false
-        example:
-          - []
-          - []
-        type: 'object[]'
-      pre_assessment:
-        name: pre_assessment
-        description: ''
-        required: true
-        example: []
-        type: object
-      pre_assessment.dose:
-        name: pre_assessment.dose
-        description: ''
-        required: true
-        example: 4
-        type: integer
-      pre_assessment.dosage_id:
-        name: pre_assessment.dosage_id
-        description: ''
-        required: true
-        example: 8
-        type: integer
-      pre_assessment.consent:
-        name: pre_assessment.consent
-        description: ''
-        required: true
-        example: velit
-        type: string
-      pre_assessment.user_id:
-        name: pre_assessment.user_id
-        description: ''
-        required: false
-        example: 14
-        type: integer
-      pre_assessment.reason:
-        name: pre_assessment.reason
-        description: ''
-        required: true
-        example: sapiente
-        type: string
-      pre_assessment.screened:
-        name: pre_assessment.screened
-        description: ''
-        required: true
-        example: true
-        type: boolean
-      pre_assessment.assessments:
-        name: pre_assessment.assessments
-        description: ''
-        required: false
-        example:
-          - []
-          - []
-        type: 'object[]'
-      'pre_assessment.assessments[].key':
-        name: 'pre_assessment.assessments[].key'
-        description: ''
-        required: false
-        example: 5
-        type: integer
-      'pre_assessment.assessments[].description':
-        name: 'pre_assessment.assessments[].description'
-        description: ''
-        required: false
-        example: ullam
-        type: string
-      'pre_assessment.assessments[].value':
-        name: 'pre_assessment.assessments[].value'
-        description: ''
-        required: false
-        example: true
-        type: boolean
-      'vitals[].dose':
-        name: 'vitals[].dose'
-        description: ''
-        required: false
-        example: 12
-        type: integer
-      dels:
-        name: dels
-        description: ''
-        required: false
-        example:
-          - 20
-          - 6
-        type: 'integer[]'
     responses: []
     responseFields: []

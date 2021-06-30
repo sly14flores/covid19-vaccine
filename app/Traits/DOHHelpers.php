@@ -134,4 +134,13 @@ trait DOHHelpers
         return $birthday->format("%y");
     }
 
+    public function getVaccineShortName($id)
+    {
+        $brands = config('constants.brands');
+
+        $brand = collect($brands)->where('id',$id);
+
+        return $brand->first()['shortname'];
+    }
+
 }
