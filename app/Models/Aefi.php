@@ -22,6 +22,7 @@ class Aefi extends Model
         'dose',
         'has_adverse_event',
         'adverse_event_condition',
+        'other_adverse_event_condition',
         'adverse_events', // serialize_array
         'others',
         'date',
