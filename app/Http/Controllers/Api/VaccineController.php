@@ -88,33 +88,38 @@ class VaccineController extends Controller
 
         /**
          * Get user municipality / city
-         * 
          */
+        $user = Auth::guard('api')->user();
+        $town_city_code = $user->userHospital->location ?? null;
+
+        $location = [];
+        if (!$user->isAdmin()) {
+            $location = [['town_city_code',$town_city_code]];
+        }
 
         if ($phase == "screening") {
             /**
-             * no vaccine-dose / dose 1
+             * no vaccine-dose / and at least 1 dose
              */
-            $registrations = Registration::all();
-            // $registrations = Registration::whereHas('dosages', function(Builder $query) {
-                
-            // })->get();
+            $registrations = Registration::where($location)->doesntHave('vaccine')->orWhereHas('dosages', function(Builder $query) {
+                $query->where('dose',1);        
+            })->get();
         } else if ($phase == "inoculation") {
             /**
              * screened is 1
              */
             $registrations = Registration::whereHas('vaccine.dosages.pre_assessment', function(Builder $query) {
                 $query->where('screened',1);
-            })->get();
+            })->where($location)->get();
         } else if ($phase == "monitoring") {
             /**
              * date_of_vaccination not null
              */
             $registrations = Registration::whereHas('vaccine.dosages', function(Builder $query) {
                 $query->whereNotNull('date_of_vaccination');
-            })->get();   
+            })->where($location)->get();   
         } else {
-            $registrations = Registration::all();
+            $registrations = Registration::where($location)->get();
         }
 
         $registrations = $registrations->filter(function($registration) use ($search) {
