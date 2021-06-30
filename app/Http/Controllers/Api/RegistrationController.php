@@ -136,8 +136,8 @@ class RegistrationController extends Controller
         /** Get validated data */
         $data = $validator->valid();
 
-        $tc = explode("_",$data['town_city']);
-        $data['town_city_code'] = $tc[1];
+        $tc = $data['town_city'] ?? explode("_",$data['town_city']);
+        $data['town_city_code'] = $tc ?? $tc[1];
 
         try {
 
