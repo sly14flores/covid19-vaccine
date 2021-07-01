@@ -328,7 +328,7 @@ export default {
                         confirmButtonText: 'Ok',
                     }).then((result) => {
                         if (result.value) {
-                            window.location.href = 'admin#/vaccines/list/screening';
+                            window.location.href = 'admin#/vaccines/list/inoculation';
                         }
                     })
                 }
