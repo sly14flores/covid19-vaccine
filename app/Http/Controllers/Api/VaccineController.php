@@ -884,6 +884,7 @@ class VaccineController extends Controller
 
         $qr_pass_id = $data['id'];
         $dosage_id = $data['dosage_id'];
+        $dose = $data['dose'];
         $aefi = $data['aefi'];
         $vitals = $data['vitals'];
         $dels = $data['dels'];
