@@ -48,6 +48,10 @@ const postInoculationInfo = (payload) => {
     return axios.post(url, { dose })
 }
 
+const postMonitoringInfo = (payload) => {
+    return axios.post(`${api_url}/api/doh/vaccines/monitoring/update`, { ...payload })    
+}
+
 /**
  * 
  * Vaccinators
@@ -122,6 +126,7 @@ export {
     getInoculationPersonalInfo,
     postInoculationInfo,
     getMonitoringPersonalInfo,
+    postMonitoringInfo,
     getVaccinators,
     getUsers,
     getHospitals,

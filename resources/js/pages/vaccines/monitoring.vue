@@ -11,7 +11,7 @@
             </template>
 
             <template #right>
-                <Button label="Save" class="p-button-primary p-mr-2" />
+                <Button label="Save" class="p-button-primary p-mr-2" @click="save" />
                 <Button label="Discard" class="p-button-danger" @click="discard" />
             </template>
         </Toolbar>
@@ -230,13 +230,13 @@
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <div class="p-field-radiobutton">
-                                                    <RadioButton id="yes_adverse" name="adverse" />
+                                                    <RadioButton id="yes_adverse" name="adverse" value="true" v-model="vv.has_adverse_event.$model" />
                                                     <label for="yes_adverse">Yes</label>
                                                 </div>
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <div class="p-field-radiobutton">
-                                                    <RadioButton id="no_adverse" name="adverse" />
+                                                    <RadioButton id="no_adverse" name="adverse" value="false" v-model="vv.has_adverse_event.$model" />
                                                     <label for="no_adverse">No</label>
                                                 </div>
                                             </div>
@@ -244,7 +244,7 @@
                                         <div class="p-grid">
                                            <div class="p-field p-col-12 p-md-12">
                                                 <label>Adverse Event Condition</label>
-                                                <Dropdown :options="events" optionLabel="name" optionValue="id" class="p-shadow-1 p-inputtext-sm"/>
+                                                <Dropdown :options="events" optionLabel="name" optionValue="id" v-model="vv.adverse_event_condition.$model" class="p-shadow-1 p-inputtext-sm"/>
                                             </div>
                                         </div>
                                     </template>
@@ -256,7 +256,7 @@
                                         <div class="p-grid">
                                             <div class="p-field p-col-12 p-md-12">
                                                 <label>Others: </label>
-                                                <Textarea class="p-shadow-1" v-model="value" rows="3" cols="30" />
+                                                <Textarea class="p-shadow-1" v-model="vv.other_adverse_event_condition.$model" rows="3" cols="30" />
                                             </div>
                                         </div>
                                     </template>
@@ -304,7 +304,8 @@ import Swal from 'sweetalert2'
 
 import {
     getAdverseEvents,
-    getMonitoringPersonalInfo
+    getMonitoringPersonalInfo,
+    postMonitoringInfo
 } from '../../api/vaccination'
 
 export default {
@@ -346,28 +347,47 @@ export default {
         const state = reactive({
             personalInfo: {},
             dosageData: {},
-            aefi: {},
+            aefiData: {},
             vitalSigns: [],
             events: [],
             doses: [
                 {id: 1, name: 'First'},
                 {id: 2, name: 'Second'}
             ],
+            dels: []
         })
+        
+        /**
+         * Validations
+         */
+        const propsToValidate = {
+            has_adverse_event: toRef(state.aefiData, 'has_adverse_event'),
+            adverse_event_condition: toRef(state.aefiData, 'adverse_event_condition'),
+            other_adverse_event_condition: toRef(state.aefiData, 'other_adverse_event_condition')
+        }
 
         const dose = ref(1);
 
         const doseSelected = () => {
             getMonitoringPersonalInfo({ id: qr, dose: dose.value }).then(res => {
+
                 const { data: { data } } = res
                 const { vitals, dosage } = data
+                const { aefi } = dosage
+
+                console.log(aefi)
 
                 Object.assign(state, {
                     ...state,
                     personalInfo: data,
                     vitalSigns: vitals,
-                    dosageData: dosage
+                    dosageData: dosage,
+                    aefiData: aefi
                 })
+
+                Object.keys(propsToValidate).forEach(function(key) {
+                    propsToValidate[key].value = aefi[key]
+                });
 
             }).catch(err => {
 
@@ -384,7 +404,7 @@ export default {
                         confirmButtonText: 'Ok',
                     }).then((result) => {
                         if (result.value) {
-                            window.location.href = 'admin#/vaccines/list/screening';
+                            window.location.href = 'admin#/vaccines/list/monitoring';
                         }
                     })
                 }
@@ -403,29 +423,11 @@ export default {
             console.log(err)
         })
 
-        /**
-         * Validations
-         */
-        const propsToValidate = {
-            has_adverse_event: toRef(state.aefi, 'has_adverse_event'),
-            adverse_event_condition: toRef(state.aefi, 'adverse_event_condition'),
-            other_adverse_event_condition: toRef(state.aefi, 'other_adverse_event_condition'),
-        }
-
-        const rules = computed(() => {
-            return {
-                has_adverse_event: { },
-                adverse_event_condition: { },
-                other_adverse_event_condition: { },
-            }
-        })
-
-        const vv = useVuelidate(rules, propsToValidate)
-
         const addRow = () => {
 
             const row = reactive({
                 id: 0,
+                dosage_id: state.dosageData.id,
                 date_collected: null,
                 time_collected: null,
                 systolic: null,
@@ -450,6 +452,16 @@ export default {
 
         }
 
+        const rules = computed(() => {
+            return {
+                has_adverse_event: { },
+                adverse_event_condition: { },
+                other_adverse_event_condition: { },
+            }
+        })
+
+        const vv = useVuelidate(rules, propsToValidate)
+
         const save = () => {
 
             vv.value.$touch();       
@@ -458,6 +470,42 @@ export default {
                 // Swal here
                 return
             }
+
+            Object.keys(propsToValidate).forEach(function(key) {
+                state.dosageData.aefi[key] = propsToValidate[key].value
+            })
+
+            const payload = {
+                id: qr,
+                dosage_id: state.dosageData.id,
+                dose: dose.value,
+                aefi: state.aefiData,
+                vitals: state.vitalSigns,
+                dels: state.dels
+            }
+
+            postMonitoringInfo(payload).then(res => {
+
+                const { data: { data } } = res
+                const { vitals, aefi, dels } = data
+
+                Object.assign(state, {
+                    ...state,
+                    personalInfo: data,
+                    aefiData: aefi,
+                    vitalSigns: vitals,
+                    dels,
+                })
+
+                Object.keys(propsToValidate).forEach(function(key) {
+                    propsToValidate[key].value = aefi[key]
+                });
+
+                toast.add({severity:'success', summary: 'Successfully Saved!', detail:'Monitoring Information', life: 3000});
+
+            }).catch(err => {
+
+            })
 
         }
 
@@ -468,6 +516,7 @@ export default {
             removeRow,
             save,
             doseSelected,
+            Toast,
             vv
         }
         
