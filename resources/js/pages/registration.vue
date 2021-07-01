@@ -7,6 +7,7 @@
         <form @submit="onSubmit">
             <div class="p-grid p-jc-center p-mt-4">
                 <div class="p-lg-11 p-sm-12 p-xs-12">
+                    <p><i> Note: Field marked with an asterisk ( <i class="p-error">*</i> ) are required.</i></p>
                     <div class="card p-border-left">
                         <h5 class="p-mt-2">Form</h5> <hr />
                         <div class="p-fluid p-formgrid p-grid">
@@ -25,7 +26,7 @@
                                 <InputText class="p-shadow-1" type="text" v-model="last_name" disabled />
                             </div>
                             <div class="p-field p-col-12 p-md-3">
-                                <label>Middle Name <small><i>(Gitnang Apelyido)</i></small> <i class="p-error">*</i></label>
+                                <label>Middle Name <small><i>(Gitnang Apelyido)</i></small></label>
                                 <InputText class="p-shadow-1" type="text" v-model="middle_name" disabled />
                             </div>
                             <div class="p-field p-col-12 p-md-3">
