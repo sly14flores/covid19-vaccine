@@ -44,8 +44,8 @@ class VaccineMonitoringInfo extends JsonResource
             $dosage->reconstitution_date = Carbon::parse($dosage->date_of_reconstitution)->format("F j, Y");
         }
 
-        $dosage_id = (is_null($dosage->first()))?null:$dosage->first()->id;
-        $vitals = (is_null($dosage->first()))?null:$dosage->first()->monitoringVitals()->get();        
+        $dosage_id = (is_null($dosage))?null:$dosage->id;
+        $vitals = (is_null($dosage))?null:$dosage->monitoringVitals()->get();        
 
         return [
             'id' => $this->id,
