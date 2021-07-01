@@ -838,4 +838,97 @@ class VaccineController extends Controller
         return $this->jsonSuccessResponse($result, 200);
 
     }
+
+    /**
+     * @group Monitoring
+     * 
+     * Update monitoring per dose
+     * 
+     * @bodyParam id string required This is qr_pass_id
+     * @bodyParam dosage_id integer required
+     * @bodyParam dose integer required
+     * @bodyParam has_adverse_event boolean required
+     * @bodyParam adverse_event_condition string
+     * @bodyParam other_adverse_event_condition string
+     * @bodyParam vitals object[]
+     * @bodyParam vitals[].dose integer
+     * @bodyParam vitals[].date_collected string
+     * @bodyParam vitals[].time_collected string
+     * @bodyParam vitals[].systolic string
+     * @bodyParam vitals[].diastolic string
+     * @bodyParam vitals[].pulse_rate string
+     * @bodyParam vitals[].temperature string
+     * @bodyParam vitals[].respiratory_rate string
+     * @bodyParam vitals[].oxygen string
+     * @bodyParam vitals[].pain_score string
+     * @bodyParam dels integer[]
+     * 
+     */
+    public function updateMonitoring(Request $request)
+    {
+        $rules = [
+            'id' => 'string',
+            'dosage_id' => 'integer',
+            'dose' => 'integer',
+            'has_adverse_event' => 'string',
+            'adverse_event_condition' => 'string',
+            'other_adverse_event_condition' => 'string',
+            'vitals' => 'array',
+            'dels' => 'array',
+            // 'post_assessment' => 'array',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        }
+        /** Get validated data */
+        $data = $validator->valid();
+        return $data;
+        $qr_pass_id = $data['id'];
+        $dosage_id = $data['dosage_id'];
+        $dose = $data['dose'];
+        $vitals = $data['vitals'];
+        $dels = $data['dels'];
+
+        $data['has_adverse_event'] = ($data['has_adverse_event']==="true")?true:false;
+
+        $dosage = Dosage::find($dosage_id);
+        $aefi = Aefi::where('dosage_id',$dosage_id)->first();
+        $aefi->fill([
+            'dose' => $data['dose'],
+            'has_adverse_event' => $data['has_adverse_event'],
+            'adverse_event_condition' => $data['adverse_event_condition'],
+            'other_adverse_event_condition' => $data['other_adverse_event_condition'],            
+        ]);
+        $dosage->aefi()->save($aefi);
+
+        /**
+         * Save vitals
+         */
+        foreach($vitals as $vitalData) {
+            if ($vitalData['id']) {
+                $vital = MonitoringVital::find($vitalData['id']);
+            } else {
+                $vital = new MonitoringVital;
+            }
+            $vitalData['dose'] = $dose;
+            $vital->fill($vitalData);
+            $dosage->monitoringVitals()->save($vital);
+        }
+
+        /**
+         * Delete vitals
+         */
+        if (count($dels)) {
+            $vitals = MonitoringVital::whereIn('id',$dels)->delete();
+        }
+
+        $registration = Registration::where('qr_pass_id',$qr_pass_id)->first();
+        
+        $result = new VaccineMonitoringInfo($registration);
+
+        return $this->jsonSuccessResponse($result, 200);      
+
+    }
+    
 }

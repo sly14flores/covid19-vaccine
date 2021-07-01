@@ -65,6 +65,7 @@ class VaccineMonitoringInfo extends JsonResource
             'post_assessment' => $post_assessment,
             'vitals' => $vitals,
             'aefi' => $aefi,
+            'dels' => [],
         ];
     }
 }

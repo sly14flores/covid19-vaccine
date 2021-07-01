@@ -165,7 +165,7 @@ Route::prefix('doh')->group(function() {
      * Monitoring
      */
     Route::post('vaccines/monitoring/info/{id}', [VaccineController::class, 'monitoringPersonalInfo']);
-    // Route::post('vaccines/inoculation/update', [VaccineController::class, 'updateInoculation']);    
+    Route::post('vaccines/monitoring/update', [VaccineController::class, 'updateMonitoring']);    
 
     /**
      * Pre Assessments
