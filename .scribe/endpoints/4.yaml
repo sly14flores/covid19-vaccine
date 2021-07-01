@@ -19,19 +19,19 @@ endpoints:
         name: currentPassword
         description: ''
         required: true
-        example: et
+        example: qui
         type: string
       newPassword:
         name: newPassword
         description: validation.min.
         required: true
-        example: smve
+        example: m
         type: string
       confirmNewPassword:
         name: confirmNewPassword
         description: 'validation.same validation.min.'
         required: true
-        example: ellnhh
+        example: xyjhic
         type: string
     responses: []
     responseFields: []
@@ -83,7 +83,7 @@ endpoints:
         name: survey
         description: ''
         required: true
-        example: 19
+        example: 9
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -106,7 +106,7 @@ endpoints:
         name: survey
         description: ''
         required: true
-        example: 16
+        example: 17
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -128,7 +128,7 @@ endpoints:
         name: survey
         description: ''
         required: true
-        example: 1
+        example: 11
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -151,7 +151,7 @@ endpoints:
         name: search
         description: ''
         required: false
-        example: est
+        example: culpa
         type: string
     bodyParameters: []
     responses: []
@@ -174,43 +174,43 @@ endpoints:
         name: firstname
         description: ''
         required: false
-        example: aliquam
+        example: ipsam
         type: string
       lastname:
         name: lastname
         description: ''
         required: false
-        example: aliquam
+        example: error
         type: string
       username:
         name: username
         description: '''email'' => [''string'',''email'',''max:191'',''unique:users''],.'
         required: false
-        example: inventore
+        example: adipisci
         type: string
       password:
         name: password
         description: ''
         required: false
-        example: qui
+        example: itaque
         type: string
       group_id:
         name: group_id
         description: ''
         required: false
-        example: 17
+        example: 7
         type: integer
       profession:
         name: profession
         description: ''
         required: false
-        example: odit
+        example: aut
         type: string
       prc_number:
         name: prc_number
         description: ''
         required: false
-        example: rerum
+        example: similique
         type: string
     responses: []
     responseFields: []
@@ -230,7 +230,7 @@ endpoints:
         name: user
         description: ''
         required: true
-        example: 17
+        example: 10
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -253,7 +253,7 @@ endpoints:
         name: user
         description: ''
         required: true
-        example: 15
+        example: 4
         type: integer
     queryParameters: []
     bodyParameters:
@@ -261,7 +261,7 @@ endpoints:
         name: firstname
         description: ''
         required: false
-        example: minima
+        example: necessitatibus
         type: string
       lastname:
         name: lastname
@@ -273,25 +273,25 @@ endpoints:
         name: username
         description: ''
         required: false
-        example: maiores
+        example: minima
         type: string
       group_id:
         name: group_id
         description: ''
         required: false
-        example: 9
+        example: 18
         type: integer
       profession:
         name: profession
         description: ''
         required: false
-        example: iure
+        example: provident
         type: string
       prc_number:
         name: prc_number
         description: ''
         required: false
-        example: non
+        example: suscipit
         type: string
     responses: []
     responseFields: []
@@ -311,7 +311,7 @@ endpoints:
         name: user
         description: ''
         required: true
-        example: 7
+        example: 4
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -334,7 +334,7 @@ endpoints:
         name: search
         description: ''
         required: false
-        example: corporis
+        example: quis
         type: string
     bodyParameters: []
     responses: []
@@ -357,19 +357,19 @@ endpoints:
         name: description
         description: ''
         required: false
-        example: iste
+        example: dicta
         type: string
       slots:
         name: slots
         description: ''
         required: false
-        example: 10
+        example: 16
         type: integer
       cbcr_id:
         name: cbcr_id
         description: ''
         required: false
-        example: et
+        example: sunt
         type: string
     responses: []
     responseFields: []
@@ -389,7 +389,7 @@ endpoints:
         name: hospital
         description: ''
         required: true
-        example: 13
+        example: 17
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -412,7 +412,7 @@ endpoints:
         name: hospital
         description: ''
         required: true
-        example: 5
+        example: 11
         type: integer
     queryParameters: []
     bodyParameters:
@@ -420,19 +420,19 @@ endpoints:
         name: description
         description: ''
         required: false
-        example: numquam
+        example: ratione
         type: string
       slots:
         name: slots
         description: ''
         required: false
-        example: 14
+        example: 18
         type: integer
       cbcr_id:
         name: cbcr_id
         description: ''
         required: false
-        example: rerum
+        example: voluptatem
         type: string
     responses: []
     responseFields: []
@@ -452,7 +452,7 @@ endpoints:
         name: hospital
         description: ''
         required: true
-        example: 2
+        example: 19
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -474,7 +474,7 @@ endpoints:
         name: id
         description: 'The ID of the registration.'
         required: true
-        example: 12
+        example: 18
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -496,13 +496,13 @@ endpoints:
         name: id
         description: 'The ID of the registration.'
         required: true
-        example: 15
+        example: 5
         type: integer
       birthday:
         name: birthday
         description: ''
         required: true
-        example: minus
+        example: et
         type: string
     queryParameters: []
     bodyParameters: []
@@ -524,7 +524,7 @@ endpoints:
         name: id
         description: 'The ID of the registrationID.'
         required: true
-        example: illo
+        example: quaerat
         type: string
     queryParameters: []
     bodyParameters: []
@@ -676,91 +676,91 @@ endpoints:
         name: qr_pass_id
         description: ''
         required: false
-        example: ea
+        example: ad
         type: string
       first_name:
         name: first_name
         description: ''
         required: false
-        example: harum
+        example: nostrum
         type: string
       middle_name:
         name: middle_name
         description: ''
         required: false
-        example: odio
+        example: sit
         type: string
       last_name:
         name: last_name
         description: ''
         required: false
-        example: rerum
+        example: at
         type: string
       suffix:
         name: suffix
         description: ''
         required: false
-        example: quod
+        example: ut
         type: string
       birthdate:
         name: birthdate
         description: ''
         required: false
-        example: id
+        example: illum
         type: string
       gender:
         name: gender
         description: ''
         required: false
-        example: et
+        example: id
         type: string
       region:
         name: region
         description: ''
         required: false
-        example: cum
+        example: similique
         type: string
       address:
         name: address
         description: ''
         required: false
-        example: eius
+        example: veniam
         type: string
       barangay:
         name: barangay
         description: ''
         required: false
-        example: dolorem
+        example: excepturi
         type: string
       town_city:
         name: town_city
         description: ''
         required: false
-        example: et
+        example: vitae
         type: string
       province:
         name: province
         description: ''
         required: false
-        example: nihil
+        example: rerum
         type: string
       contact_no:
         name: contact_no
         description: ''
         required: false
-        example: omnis
+        example: nisi
         type: string
       category:
         name: category
         description: ''
         required: false
-        example: autem
+        example: tempora
         type: string
       category_id:
         name: category_id
         description: ''
         required: false
-        example: non
+        example: qui
         type: string
       category_id_no:
         name: category_id_no
@@ -772,85 +772,85 @@ endpoints:
         name: philhealth
         description: ''
         required: false
-        example: assumenda
+        example: est
         type: string
       pwd_id:
         name: pwd_id
         description: ''
         required: false
-        example: incidunt
+        example: doloribus
         type: string
       indigenous_member:
         name: indigenous_member
         description: ''
         required: false
-        example: et
+        example: sapiente
         type: string
       civil_status:
         name: civil_status
         description: ''
         required: false
-        example: ut
+        example: corrupti
         type: string
       priority_group:
         name: priority_group
         description: ''
         required: false
-        example: vel
+        example: in
         type: string
       sub_priority_group:
         name: sub_priority_group
         description: ''
         required: false
-        example: dolorem
+        example: cum
         type: string
       occupation:
         name: occupation
         description: ''
         required: false
-        example: a
+        example: natus
         type: string
       with_allergy:
         name: with_allergy
         description: ''
         required: false
-        example: blanditiis
+        example: doloribus
         type: string
       with_comorbidity:
         name: with_comorbidity
         description: ''
         required: false
-        example: consequatur
+        example: quidem
         type: string
       is_registered:
         name: is_registered
         description: ''
         required: false
-        example: iure
+        example: cumque
         type: string
       origin:
         name: origin
         description: ''
         required: false
-        example: autem
+        example: dolores
         type: string
       employer_name:
         name: employer_name
         description: ''
         required: false
-        example: hic
+        example: quae
         type: string
       employer_address:
         name: employer_address
         description: ''
         required: false
-        example: quia
+        example: eveniet
         type: string
       employer_lgu:
         name: employer_lgu
         description: ''
         required: false
-        example: sit
+        example: ut
         type: string
     responses: []
     responseFields: []
@@ -870,7 +870,7 @@ endpoints:
         name: registration
         description: ''
         required: true
-        example: 8
+        example: 2
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -893,7 +893,7 @@ endpoints:
         name: registration
         description: ''
         required: true
-        example: 1
+        example: 18
         type: integer
     queryParameters: []
     bodyParameters:
@@ -901,181 +901,181 @@ endpoints:
         name: qr_pass_id
         description: ''
         required: false
-        example: debitis
+        example: libero
         type: string
       first_name:
         name: first_name
         description: ''
         required: false
-        example: consectetur
+        example: facere
         type: string
       middle_name:
         name: middle_name
         description: ''
         required: false
-        example: veniam
+        example: eos
         type: string
       last_name:
         name: last_name
         description: ''
         required: false
-        example: est
+        example: optio
         type: string
       suffix:
         name: suffix
         description: ''
         required: false
-        example: deserunt
+        example: soluta
         type: string
       birthdate:
         name: birthdate
         description: ''
         required: false
-        example: aliquam
+        example: esse
         type: string
       gender:
         name: gender
         description: ''
         required: false
-        example: dolor
+        example: distinctio
         type: string
       region:
         name: region
         description: ''
         required: false
-        example: ullam
+        example: placeat
         type: string
       address:
         name: address
         description: ''
         required: false
-        example: et
+        example: quia
         type: string
       barangay:
         name: barangay
         description: ''
         required: false
-        example: dolor
+        example: nostrum
         type: string
       town_city:
         name: town_city
         description: ''
         required: false
-        example: quod
+        example: nihil
         type: string
       province:
         name: province
         description: ''
         required: false
-        example: architecto
+        example: vitae
         type: string
       contact_no:
         name: contact_no
         description: ''
         required: false
-        example: eos
+        example: qui
         type: string
       civil_status:
         name: civil_status
         description: ''
         required: false
-        example: porro
+        example: fugit
         type: string
       category:
         name: category
         description: ''
         required: false
-        example: autem
+        example: quo
         type: string
       category_id:
         name: category_id
         description: ''
         required: false
-        example: perferendis
+        example: soluta
         type: string
       category_id_no:
         name: category_id_no
         description: ''
         required: false
-        example: repellendus
+        example: natus
         type: string
       philhealth:
         name: philhealth
         description: ''
         required: false
-        example: veritatis
+        example: ad
         type: string
       pwd_id:
         name: pwd_id
         description: ''
         required: false
-        example: ipsa
+        example: quia
         type: string
       indigenous_member:
         name: indigenous_member
         description: ''
         required: false
-        example: ad
+        example: deserunt
         type: string
       priority_group:
         name: priority_group
         description: ''
         required: false
-        example: numquam
+        example: et
         type: string
       sub_priority_group:
         name: sub_priority_group
         description: ''
         required: false
-        example: blanditiis
+        example: porro
         type: string
       occupation:
         name: occupation
         description: ''
         required: false
-        example: qui
+        example: ad
         type: string
       with_allergy:
         name: with_allergy
         description: ''
         required: false
-        example: voluptatem
+        example: voluptate
         type: string
       with_comorbidity:
         name: with_comorbidity
         description: ''
         required: false
-        example: tempora
+        example: adipisci
         type: string
       is_registered:
         name: is_registered
         description: ''
         required: false
-        example: quisquam
+        example: velit
         type: string
       origin:
         name: origin
         description: ''
         required: false
-        example: enim
+        example: placeat
         type: string
       employer_name:
         name: employer_name
         description: ''
         required: false
-        example: ipsum
+        example: vero
         type: string
       employer_address:
         name: employer_address
         description: ''
         required: false
-        example: ut
+        example: esse
         type: string
       employer_lgu:
         name: employer_lgu
         description: ''
         required: false
-        example: veniam
+        example: quas
         type: string
     responses: []
     responseFields: []
@@ -1095,7 +1095,7 @@ endpoints:
         name: registration
         description: ''
         required: true
-        example: 2
+        example: 12
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -1133,7 +1133,7 @@ endpoints:
         name: id
         description: 'The ID of the dosage.'
         required: true
-        example: 9
+        example: 19
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -1157,13 +1157,13 @@ endpoints:
         name: qr_pass_id
         description: ''
         required: false
-        example: ratione
+        example: velit
         type: string
       vaccination_facility:
         name: vaccination_facility
         description: ''
         required: false
-        example: 18
+        example: 15
         type: integer
     responses: []
     responseFields: []
@@ -1183,7 +1183,7 @@ endpoints:
         name: vaccine
         description: ''
         required: true
-        example: 18
+        example: 1
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -1206,7 +1206,7 @@ endpoints:
         name: vaccine
         description: ''
         required: true
-        example: 12
+        example: 11
         type: integer
     queryParameters: []
     bodyParameters:
@@ -1214,21 +1214,21 @@ endpoints:
         name: vaccination_session
         description: '''facility_others'' => ''string'',.'
         required: false
-        example: 14
+        example: 1
         type: integer
       dosages:
         name: dosages
         description: ''
         required: false
         example:
-          - quae
+          - et
         type: 'string[]'
       delete:
         name: delete
         description: ''
         required: false
         example:
-          - cumque
+          - est
         type: 'string[]'
     responses: []
     responseFields: []
@@ -1248,7 +1248,7 @@ endpoints:
         name: vaccine
         description: ''
         required: true
-        example: 7
+        example: 4
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -1272,67 +1272,67 @@ endpoints:
         name: vaccine_id
         description: ''
         required: false
-        example: 16
+        example: 13
         type: integer
       qr_pass_id:
         name: qr_pass_id
         description: ''
         required: false
-        example: necessitatibus
+        example: et
         type: string
       user_id:
         name: user_id
         description: ''
         required: false
-        example: 17
+        example: 19
         type: integer
       brand_name:
         name: brand_name
         description: ''
         required: false
-        example: 2
+        example: 15
         type: integer
       vaccine_name:
         name: vaccine_name
         description: ''
         required: false
-        example: 18
+        example: 5
         type: integer
       site_of_injection:
         name: site_of_injection
         description: ''
         required: false
-        example: inventore
+        example: consequatur
         type: string
       expiry_date:
         name: expiry_date
         description: validation.date.
         required: false
-        example: '2021-06-30T14:46:30'
+        example: '2021-07-01T14:34:38'
         type: string
       batch_number:
         name: batch_number
         description: ''
         required: false
-        example: 11
+        example: 4
         type: integer
       lot_number:
         name: lot_number
         description: ''
         required: false
-        example: 15
+        example: 1
         type: integer
       dose:
         name: dose
         description: ''
         required: false
-        example: 14
+        example: 16
         type: integer
       diluent_batch_number:
         name: diluent_batch_number
         description: ''
         required: false
-        example: 9
+        example: 8
         type: integer
       diluent_lot_number:
         name: diluent_lot_number
@@ -1344,13 +1344,13 @@ endpoints:
         name: date_of_vaccination
         description: validation.date.
         required: false
-        example: '2021-06-30T14:46:30'
+        example: '2021-07-01T14:34:38'
         type: string
       next_vaccination:
         name: next_vaccination
         description: validation.date.
         required: false
-        example: '2021-06-30T14:46:30'
+        example: '2021-07-01T14:34:38'
         type: string
     responses: []
     responseFields: []
@@ -1370,7 +1370,7 @@ endpoints:
         name: dosage
         description: ''
         required: true
-        example: 1
+        example: 17
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -1393,7 +1393,7 @@ endpoints:
         name: dosage
         description: ''
         required: true
-        example: 4
+        example: 17
         type: integer
     queryParameters: []
     bodyParameters:
@@ -1401,67 +1401,67 @@ endpoints:
         name: vaccine_id
         description: ''
         required: false
-        example: 18
+        example: 17
         type: integer
       user_id:
         name: user_id
         description: ''
         required: false
-        example: 16
+        example: 2
         type: integer
       brand_name:
         name: brand_name
         description: ''
         required: false
-        example: 16
+        example: 7
         type: integer
       vaccine_name:
         name: vaccine_name
         description: ''
         required: false
-        example: alias
+        example: illo
         type: string
       site_of_injection:
         name: site_of_injection
         description: ''
         required: false
-        example: autem
+        example: accusamus
         type: string
       expiry_date:
         name: expiry_date
         description: validation.date.
         required: false
-        example: '2021-06-30T14:46:30'
+        example: '2021-07-01T14:34:39'
         type: string
       batch_number:
         name: batch_number
         description: ''
         required: false
-        example: 10
+        example: 9
         type: integer
       lot_number:
         name: lot_number
         description: ''
         required: false
-        example: 8
+        example: 9
         type: integer
       dose:
         name: dose
         description: ''
         required: false
-        example: 6
+        example: 4
         type: integer
       date_of_vaccination:
         name: date_of_vaccination
         description: validation.date.
         required: false
-        example: '2021-06-30T14:46:30'
+        example: '2021-07-01T14:34:39'
         type: string
       next_vaccination:
         name: next_vaccination
         description: validation.date.
         required: false
-        example: '2021-06-30T14:46:30'
+        example: '2021-07-01T14:34:39'
         type: string
     responses: []
     responseFields: []
@@ -1481,7 +1481,7 @@ endpoints:
         name: dosage
         description: ''
         required: true
-        example: 14
+        example: 19
         type: integer
     queryParameters: []
     bodyParameters: []
@@ -1503,7 +1503,7 @@ endpoints:
         name: id
         description: 'The ID of the qr.'
         required: true
-        example: sed
+        example: dolores
         type: string
     queryParameters: []
     bodyParameters: []
@@ -1525,7 +1525,7 @@ endpoints:
         name: id
         description: 'The ID of the registration.'
         required: true
-        example: 5
+        example: 19
         type: integer
     queryParameters: []
     bodyParameters:
@@ -1533,97 +1533,97 @@ endpoints:
         name: id
         description: ''
         required: false
-        example: 14
+        example: 5
         type: integer
       qr_pass_id:
         name: qr_pass_id
         description: ''
         required: false
-        example: ad
+        example: inventore
         type: string
       first_name:
         name: first_name
         description: ''
         required: false
-        example: saepe
+        example: ut
         type: string
       last_name:
         name: last_name
         description: ''
         required: false
-        example: hic
+        example: similique
         type: string
       suffix:
         name: suffix
         description: ''
         required: false
-        example: laudantium
+        example: quam
         type: string
       birthdate:
         name: birthdate
         description: ''
         required: false
-        example: aspernatur
+        example: inventore
         type: string
       gender:
         name: gender
         description: ''
         required: false
-        example: consequatur
+        example: autem
         type: string
       barangay:
         name: barangay
         description: ''
         required: false
-        example: optio
+        example: recusandae
         type: string
       town_city:
         name: town_city
         description: ''
         required: false
-        example: voluptatum
+        example: cupiditate
         type: string
       province:
         name: province
         description: ''
         required: false
-        example: asperiores
+        example: sunt
         type: string
       contact_no:
         name: contact_no
         description: ''
         required: false
-        example: harum
+        example: quo
         type: string
       priority_group:
         name: priority_group
         description: ''
         required: false
-        example: aliquam
+        example: tempore
         type: string
       sub_priority_group:
         name: sub_priority_group
         description: ''
         required: false
-        example: nihil
+        example: nostrum
         type: string
       allergic_to_vaccines:
         name: allergic_to_vaccines
         description: ''
         required: false
-        example: maiores
+        example: ut
         type: string
       is_registered:
         name: is_registered
         description: ''
         required: false
-        example: aspernatur
+        example: et
         type: string
       with_comorbidity:
         name: with_comorbidity
         description: ''
         required: false
-        example: dignissimos
+        example: voluptates
         type: string
     responses: []
     responseFields: []
@@ -1659,7 +1659,7 @@ endpoints:
         name: id
         description: 'The ID of the pre.'
         required: true
-        example: culpa
+        example: nihil
         type: string
     queryParameters: []
     bodyParameters: []
@@ -1697,7 +1697,7 @@ endpoints:
         name: pre
         description: ''
         required: true
-        example: ut
+        example: et
         type: string
     queryParameters: []
     bodyParameters: []
@@ -1720,7 +1720,7 @@ endpoints:
         name: pre
         description: ''
         required: true
-        example: et
+        example: quidem
         type: string
     queryParameters: []
     bodyParameters:
@@ -1728,32 +1728,32 @@ endpoints:
         name: consent
         description: ''
         required: false
-        example: 5
+        example: 9
         type: integer
       blood_pressure:
         name: blood_pressure
         description: ''
         required: false
-        example: repellat
+        example: sint
         type: string
       oxygen_saturation:
         name: oxygen_saturation
         description: ''
         required: false
-        example: similique
+        example: dolorem
         type: string
       pulse_rate:
         name: pulse_rate
         description: ''
         required: false
-        example: eligendi
+        example: quo
         type: string
       assessments:
         name: assessments
         description: ''
         required: false
         example:
-          - repellat
+          - et
         type: 'string[]'
     responses: []
     responseFields: []
@@ -1773,7 +1773,7 @@ endpoints:
         name: pre
         description: ''
         required: true
-        example: qui
+        example: vel
         type: string
     queryParameters: []
     bodyParameters: []
@@ -1811,7 +1811,7 @@ endpoints:
         name: id
         description: 'The ID of the post.'
         required: true
-        example: commodi
+        example: vitae
         type: string
     queryParameters: []
     bodyParameters: []
@@ -1849,7 +1849,7 @@ endpoints:
         name: post
         description: ''
         required: true
-        example: facilis
+        example: beatae
         type: string
     queryParameters: []
     bodyParameters: []
@@ -1872,7 +1872,7 @@ endpoints:
         name: post
         description: ''
         required: true
-        example: porro
+        example: veniam
         type: string
     queryParameters: []
     bodyParameters:
@@ -1881,25 +1881,25 @@ endpoints:
         description: ''
         required: false
         example:
-          - dolorem
+          - ex
         type: 'string[]'
       blood_pressure:
         name: blood_pressure
         description: '# array.'
         required: false
-        example: beatae
+        example: blanditiis
         type: string
       oxygen_saturation:
         name: oxygen_saturation
         description: ''
         required: false
-        example: minus
+        example: totam
         type: string
       pulse_rate:
         name: pulse_rate
         description: ''
         required: false
-        example: sed
+        example: quisquam
         type: string
     responses: []
     responseFields: []
@@ -1919,7 +1919,7 @@ endpoints:
         name: post
         description: ''
         required: true
-        example: facere
+        example: et
         type: string
     queryParameters: []
     bodyParameters: []
@@ -1959,7 +1959,7 @@ endpoints:
         name: excel
         description: ''
         required: true
-        example: quia
+        example: assumenda
         type: string
     responses: []
     responseFields: []
