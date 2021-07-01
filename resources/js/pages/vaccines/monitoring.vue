@@ -170,50 +170,50 @@
                                 <Button type="button" @click="addRow" icon="pi pi-plus" class="p-button-sm p-button-secondary" />
                             </template>
                         </Toolbar>
-                        <div v-for="row in rows" :key="row">
+                        <div v-for="(row, i) in vitalSigns" :key="row">
                             <hr />
                             <div class="p-fluid p-formgrid p-grid">
                                 <div class="p-field p-col-12 p-md-2">
                                     <label><small>Date Collected </small></label>
-                                    <Calendar v-model="row.date_collected" modelValue="{{row.date_collected}}" :manualInput="false" class="p-shadow-1 p-inputtext-sm" />
+                                    <Calendar v-model="row.date_collected" :ref="`date_collected-${i}`" :manualInput="false" class="p-shadow-1 p-inputtext-sm" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-2">
                                     <label><small>Time Collected </small> </label>
-                                    <Calendar :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
+                                    <Calendar v-model="row.time_collected" :ref="`time_collected-${i}`" :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <label><small>BP: Systolic </small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                    <InputText v-model="row.systolic" :ref="`systolic-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <label><small>BP: Diastolic</small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                    <InputText v-model="row.diastolic" :ref="`diastolic-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <label><small>Pulse Rate </small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>Respiratory Rate</small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                    <InputText v-model="row.pulse_rate" :ref="`pulse_rate-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <label><small>Temp. (Celsius) </small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                    <InputText v-model="row.temperature" :ref="`temperature-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>Respiratory Rate</small></label>
+                                    <InputText v-model="row.respiratory_rate" :ref="`respiratory_rate-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <label><small>O2 Sat</small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                    <InputText v-model="row.oxygen" :ref="`oxygen-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
                                     <label><small>Pain Score</small></label>
-                                    <InputText class="p-shadow-1 p-inputtext-sm" type="text" />
+                                    <InputText v-model="row.pain_score" :ref="`pain_score-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
                                 </div>
                                 <div class="p-field p-col-12 p-md-1">
-                                    <Button type="button" @click="removeRow" icon="pi pi-trash" class="p-button-sm p-button-danger p-mt-4" />
+                                    <Button type="button" @click="removeRow(i)" icon="pi pi-trash" class="p-button-sm p-button-danger p-mt-4" />
                                 </div>
                             </div>
-                        </div>
+                        </div>   
                         <hr />
                         <Toolbar>
                             <template #left>
@@ -256,7 +256,7 @@
                                         <div class="p-grid">
                                             <div class="p-field p-col-12 p-md-12">
                                                 <label>Others: </label>
-                                                <Textarea v-model="value" rows="3" cols="30" />
+                                                <Textarea class="p-shadow-1" v-model="value" rows="3" cols="30" />
                                             </div>
                                         </div>
                                     </template>
@@ -346,6 +346,7 @@ export default {
         const state = reactive({
             personalInfo: {},
             dosageData: {},
+            aefi: {},
             vitalSigns: [],
             events: [],
             doses: [
@@ -402,10 +403,72 @@ export default {
             console.log(err)
         })
 
+        /**
+         * Validations
+         */
+        const propsToValidate = {
+            has_adverse_event: toRef(state.aefi, 'has_adverse_event'),
+            adverse_event_condition: toRef(state.aefi, 'adverse_event_condition'),
+            other_adverse_event_condition: toRef(state.aefi, 'other_adverse_event_condition'),
+        }
+
+        const rules = computed(() => {
+            return {
+                has_adverse_event: { },
+                adverse_event_condition: { },
+                other_adverse_event_condition: { },
+            }
+        })
+
+        const vv = useVuelidate(rules, propsToValidate)
+
+        const addRow = () => {
+
+            const row = reactive({
+                id: 0,
+                date_collected: null,
+                time_collected: null,
+                systolic: null,
+                diastolic: null,
+                pulse_rate: null,
+                temperature: null,
+                respiratory_rate: null,
+                oxygen: null,
+                pain_score: null,
+            });
+
+            state.vitalSigns.push(row);
+
+        }
+
+        const removeRow = (index) => {
+
+            const vital = {...state.vitalSigns[index]}
+            const { id } = vital
+            if (id) state.dels.push(id)
+            state.vitalSigns.splice(index, 1)
+
+        }
+
+        const save = () => {
+
+            vv.value.$touch();       
+
+            if (vv.value.$invalid) {
+                // Swal here
+                return
+            }
+
+        }
+
         return {
             ...toRefs(state),
             dose,
-            doseSelected
+            addRow,
+            removeRow,
+            save,
+            doseSelected,
+            vv
         }
         
     },
@@ -415,14 +478,6 @@ export default {
             this.$router.push('/vaccines/list/monitoring')
             
         },
-        addRow(){
-
-           this.rows.push({date_collected: ''});
-
-        },
-        removeRow(index){
-            this. rows.splice(index, 1)
-        }
     }
 }
 </script>
