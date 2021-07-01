@@ -19,7 +19,7 @@ endpoints:
         name: id
         description: 'The ID of the info.'
         required: true
-        example: reprehenderit
+        example: natus
         type: string
     queryParameters: []
     bodyParameters:
@@ -49,7 +49,7 @@ endpoints:
         name: id
         description: ''
         required: true
-        example: autem
+        example: animi
         type: string
       dosage_id:
         name: dosage_id
@@ -61,7 +61,7 @@ endpoints:
         name: dose
         description: ''
         required: true
-        example: 3
+        example: 14
         type: integer
       screened:
         name: screened
@@ -87,31 +87,31 @@ endpoints:
         name: pre_assessment.dose
         description: ''
         required: true
-        example: 9
+        example: 15
         type: integer
       pre_assessment.dosage_id:
         name: pre_assessment.dosage_id
         description: ''
         required: true
-        example: 17
+        example: 7
         type: integer
       pre_assessment.consent:
         name: pre_assessment.consent
         description: ''
         required: true
-        example: natus
+        example: aut
         type: string
       pre_assessment.user_id:
         name: pre_assessment.user_id
         description: ''
         required: false
-        example: 12
+        example: 13
         type: integer
       pre_assessment.reason:
         name: pre_assessment.reason
         description: ''
         required: true
-        example: eos
+        example: omnis
         type: string
       pre_assessment.screened:
         name: pre_assessment.screened
@@ -131,13 +131,13 @@ endpoints:
         name: 'pre_assessment.assessments[].key'
         description: ''
         required: false
-        example: 5
+        example: 14
         type: integer
       'pre_assessment.assessments[].description':
         name: 'pre_assessment.assessments[].description'
         description: ''
         required: false
-        example: eos
+        example: quibusdam
         type: string
       'pre_assessment.assessments[].value':
         name: 'pre_assessment.assessments[].value'
@@ -149,15 +149,15 @@ endpoints:
         name: 'vitals[].dose'
         description: ''
         required: false
-        example: 13
+        example: 2
         type: integer
       dels:
         name: dels
         description: ''
         required: false
         example:
-          - 2
-          - 10
+          - 19
+          - 1
         type: 'integer[]'
     responses: []
     responseFields: []

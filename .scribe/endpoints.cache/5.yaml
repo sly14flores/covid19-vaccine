@@ -23,13 +23,13 @@ endpoints:
         name: search
         description: ''
         required: false
-        example: perspiciatis
+        example: aspernatur
         type: string
       phase:
         name: phase
         description: ''
         required: false
-        example: incidunt
+        example: id
         type: string
     bodyParameters: []
     responses: []

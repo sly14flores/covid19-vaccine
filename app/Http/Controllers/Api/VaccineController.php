@@ -846,10 +846,11 @@ class VaccineController extends Controller
      * 
      * @bodyParam id string required This is qr_pass_id
      * @bodyParam dosage_id integer required
-     * @bodyParam dose integer required
-     * @bodyParam has_adverse_event boolean required
-     * @bodyParam adverse_event_condition string
-     * @bodyParam other_adverse_event_condition string
+     * @bodyParam aefi object[]
+     * @bodyParam aefi[].dose integer required
+     * @bodyParam aefi[].has_adverse_event boolean required
+     * @bodyParam aefi[].adverse_event_condition string
+     * @bodyParam aefi[].other_adverse_event_condition string
      * @bodyParam vitals object[]
      * @bodyParam vitals[].dose integer
      * @bodyParam vitals[].date_collected string
@@ -870,9 +871,6 @@ class VaccineController extends Controller
             'id' => 'string',
             'dosage_id' => 'integer',
             'dose' => 'integer',
-            'has_adverse_event' => 'string',
-            'adverse_event_condition' => 'string',
-            'other_adverse_event_condition' => 'string',
             'vitals' => 'array',
             'dels' => 'array',
             // 'post_assessment' => 'array',
@@ -883,24 +881,19 @@ class VaccineController extends Controller
         }
         /** Get validated data */
         $data = $validator->valid();
-        return $data;
+
         $qr_pass_id = $data['id'];
         $dosage_id = $data['dosage_id'];
-        $dose = $data['dose'];
+        $aefi = $data['aefi'];
         $vitals = $data['vitals'];
         $dels = $data['dels'];
 
-        $data['has_adverse_event'] = ($data['has_adverse_event']==="true")?true:false;
+        $aefi['has_adverse_event'] = ($aefi['has_adverse_event']==="true")?true:false;
 
         $dosage = Dosage::find($dosage_id);
-        $aefi = Aefi::where('dosage_id',$dosage_id)->first();
-        $aefi->fill([
-            'dose' => $data['dose'],
-            'has_adverse_event' => $data['has_adverse_event'],
-            'adverse_event_condition' => $data['adverse_event_condition'],
-            'other_adverse_event_condition' => $data['other_adverse_event_condition'],            
-        ]);
-        $dosage->aefi()->save($aefi);
+        $update_aefi = Aefi::where('dosage_id',$dosage_id)->first();
+        $update_aefi->fill($aefi);
+        $dosage->aefi()->save($update_aefi);
 
         /**
          * Save vitals
