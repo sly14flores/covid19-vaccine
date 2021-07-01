@@ -17,7 +17,7 @@ endpoints:
         name: id
         description: 'The ID of the info.'
         required: true
-        example: odit
+        example: sit
         type: string
     queryParameters: []
     bodyParameters:
@@ -47,38 +47,20 @@ endpoints:
         name: id
         description: 'This is qr_pass_id'
         required: true
-        example: iusto
+        example: perspiciatis
         type: string
       dosage_id:
         name: dosage_id
         description: ''
         required: true
-        example: 3
+        example: 6
         type: integer
       dose:
         name: dose
         description: ''
-        required: true
-        example: 11
+        required: false
+        example: 15
         type: integer
-      has_adverse_event:
-        name: has_adverse_event
-        description: ''
-        required: true
-        example: false
-        type: boolean
-      adverse_event_condition:
-        name: adverse_event_condition
-        description: ''
-        required: false
-        example: exercitationem
-        type: string
-      other_adverse_event_condition:
-        name: other_adverse_event_condition
-        description: ''
-        required: false
-        example: ex
-        type: string
       vitals:
         name: vitals
         description: ''
@@ -92,68 +74,100 @@ endpoints:
         description: ''
         required: false
         example:
-          - 14
-          - 8
+          - 9
+          - 18
         type: 'integer[]'
+      aefi:
+        name: aefi
+        description: ''
+        required: false
+        example:
+          - []
+          - []
+        type: 'object[]'
+      'aefi[].dose':
+        name: 'aefi[].dose'
+        description: ''
+        required: true
+        example: 13
+        type: integer
+      'aefi[].has_adverse_event':
+        name: 'aefi[].has_adverse_event'
+        description: ''
+        required: true
+        example: false
+        type: boolean
+      'aefi[].adverse_event_condition':
+        name: 'aefi[].adverse_event_condition'
+        description: ''
+        required: false
+        example: aut
+        type: string
+      'aefi[].other_adverse_event_condition':
+        name: 'aefi[].other_adverse_event_condition'
+        description: ''
+        required: false
+        example: sequi
+        type: string
       'vitals[].dose':
         name: 'vitals[].dose'
         description: ''
         required: false
-        example: 6
+        example: 12
         type: integer
       'vitals[].date_collected':
         name: 'vitals[].date_collected'
         description: ''
         required: false
-        example: asperiores
+        example: animi
         type: string
       'vitals[].time_collected':
         name: 'vitals[].time_collected'
         description: ''
         required: false
-        example: deleniti
+        example: quos
         type: string
       'vitals[].systolic':
         name: 'vitals[].systolic'
         description: ''
         required: false
-        example: aut
+        example: magni
         type: string
       'vitals[].diastolic':
         name: 'vitals[].diastolic'
         description: ''
         required: false
-        example: perspiciatis
+        example: ex
         type: string
       'vitals[].pulse_rate':
         name: 'vitals[].pulse_rate'
         description: ''
         required: false
-        example: ut
+        example: dolorum
         type: string
       'vitals[].temperature':
         name: 'vitals[].temperature'
         description: ''
         required: false
-        example: voluptatem
+        example: distinctio
         type: string
       'vitals[].respiratory_rate':
         name: 'vitals[].respiratory_rate'
         description: ''
         required: false
-        example: veritatis
+        example: nemo
         type: string
       'vitals[].oxygen':
         name: 'vitals[].oxygen'
         description: ''
         required: false
-        example: dicta
+        example: molestias
         type: string
       'vitals[].pain_score':
         name: 'vitals[].pain_score'
         description: ''
         required: false
-        example: rerum
+        example: praesentium
         type: string
     responses: []
     responseFields: []
