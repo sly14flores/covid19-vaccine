@@ -20,13 +20,13 @@ endpoints:
         name: username
         description: ''
         required: true
-        example: eius
+        example: quisquam
         type: string
       password:
         name: password
         description: ''
         required: true
-        example: nihil
+        example: sit
         type: string
     responses: []
     responseFields: []
@@ -63,7 +63,7 @@ endpoints:
         name: name
         description: ''
         required: false
-        example: quos
+        example: quia
         type: string
     responses: []
     responseFields: []
