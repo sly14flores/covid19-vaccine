@@ -400,7 +400,7 @@ const actions = {
                 html: 
                     '<b style="font-size: 18px;">Agyamankami Kaprobinsiaan!</b> <br>' +
                     '<b style="font-size: 13px;"><i> For inquiries, please contact your respective LGU: </i></b> <br>' +
-                    '<div class="p-fluid p-formgrid p-grid"> <div class="p-field p-col-12 p-md-6"> <hr><b>'+state.contact_lgu.name+''+'</b> <hr>'+state.contact_lgu.contact.number+''+'</div> <div class="p-field p-col-12 p-md-6"> <hr><b>PROVINCIAL HOTLINES</b> <hr> <b>Mobile No.</b><br> 0998 961 1519 <br><b>Tel. No.</b><br> (072) 607-8723 <br> (072) 242-5550</div></div>',
+                    '<div class="p-fluid p-formgrid p-grid"> <div class="p-field p-col-12 p-md-6"> <hr><b>'+state.contact_lgu.name+''+'</b> <hr>'+state.contact_lgu.contact.number+''+'</div> <div class="p-field p-col-12 p-md-6"> <hr><b>PROVINCIAL HOTLINES</b> <hr> <b>Mobile No.</b><br> 0998 961 1519 <br><b>Tel. No.</b> <br> (072) 607-2633 <br> (072) 607-8723 <br> (072) 242-5550 <br> <b>Local</b> <br> 299 & 258</div></div>',
                     // '<b style="font-size: 13px;">'+state.contact_lgu.contact.number+''+'</b>',
                     // '<b class="text-danger" style="font-size: 15px;"><i>Tel. No. (072) 242-5550 loc. 299</i></b>',
                 showCancelButton: false,
