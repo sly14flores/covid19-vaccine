@@ -37,6 +37,8 @@ use App\Traits\DOHHelpers;
 use App\Traits\SelectionsRegistration;
 use App\Helpers\General\CollectionHelper;
 
+use Illuminate\Support\LazyCollection;
+
 use Carbon\Carbon;
 
 class VaccineController extends Controller
@@ -104,9 +106,12 @@ class VaccineController extends Controller
             /**
              * no vaccine-dose / and at least 1 dose
              */
-            $registrations = Registration::withCount(['vaccine', 'dosages'])->where($location)->doesntHave('vaccine')->orWhereHas('dosages', function(Builder $query) {
-                $query->where('dose',1);        
-            })->get();
+            // $registrations = Registration::withCount(['vaccine', 'dosages'])->where($location)->doesntHave('vaccine')->orWhereHas('dosages', function(Builder $query) {
+            //     $query->where('dose',1);        
+            // })->get();
+
+            $registrations = Registration::where($location)->get();
+
         } else if ($phase == "inoculation") {
             /**
              * screened is 1
@@ -130,7 +135,7 @@ class VaccineController extends Controller
             $registration->text = $text;
             if (is_null($search)) return true;
             $search = preg_replace('/[^A-Za-z0-9\s\-]/', '', $search);
-            $pattern = "/".str_replace(" ","(.*)",$search)."/i";            
+            $pattern = "/".str_replace(" ","(.*)",$search)."/i";        
             return preg_match($pattern, $text);
         });
 
