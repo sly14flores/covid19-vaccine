@@ -469,7 +469,7 @@ export default {
             vv.value.$touch();       
 
             if (vv.value.$invalid) {
-                // Swal here
+                toast.add({severity:'error', summary: 'Some fields are required.', detail:'Screening Information', life: 3000});
                 return
             }
 

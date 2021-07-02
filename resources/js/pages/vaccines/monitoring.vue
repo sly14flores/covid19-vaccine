@@ -230,13 +230,13 @@
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <div class="p-field-radiobutton">
-                                                    <RadioButton id="yes_adverse" name="adverse" value="true" v-model="vv.has_adverse_event.$model" />
+                                                    <RadioButton id="yes_adverse" name="has_adverse_event" :value="true" v-model="vv.has_adverse_event.$model" />
                                                     <label for="yes_adverse">Yes</label>
                                                 </div>
                                             </div>
                                             <div class="p-field p-col-12 p-md-3">
                                                 <div class="p-field-radiobutton">
-                                                    <RadioButton id="no_adverse" name="adverse" value="false" v-model="vv.has_adverse_event.$model" />
+                                                    <RadioButton id="no_adverse" name="has_adverse_event" :value="false" v-model="vv.has_adverse_event.$model" />
                                                     <label for="no_adverse">No</label>
                                                 </div>
                                             </div>
@@ -244,7 +244,7 @@
                                         <div class="p-grid">
                                            <div class="p-field p-col-12 p-md-12">
                                                 <label>Adverse Event Condition</label>
-                                                <Dropdown :options="events" optionLabel="name" optionValue="id" v-model="vv.adverse_event_condition.$model" class="p-shadow-1 p-inputtext-sm"/>
+                                                <Dropdown :options="events" optionLabel="name" optionValue="id" v-model="vv.adverse_event_condition.$model" :disabled="vv.has_adverse_event.$model==false" :class="{'disabled': vv.has_adverse_event.$model == false}" class="p-shadow-1 p-inputtext-sm"/>
                                             </div>
                                         </div>
                                     </template>
@@ -256,7 +256,7 @@
                                         <div class="p-grid">
                                             <div class="p-field p-col-12 p-md-12">
                                                 <label>Others: </label>
-                                                <Textarea class="p-shadow-1" v-model="vv.other_adverse_event_condition.$model" rows="3" cols="30" />
+                                                <Textarea class="p-shadow-1" v-model="vv.other_adverse_event_condition.$model" rows="3" cols="30" :disabled="vv.has_adverse_event.$model==false" :class="{'disabled': vv.has_adverse_event.$model == false}" />
                                             </div>
                                         </div>
                                     </template>
@@ -375,8 +375,6 @@ export default {
                 const { vitals, dosage } = data
                 const { aefi } = dosage
 
-                console.log(aefi)
-
                 Object.assign(state, {
                     ...state,
                     personalInfo: data,
@@ -405,6 +403,24 @@ export default {
                     }).then((result) => {
                         if (result.value) {
                             window.location.href = 'admin#/vaccines/list/monitoring';
+                        }
+                    })
+                }
+
+                if(err?.response?.status === 500){
+                    Swal.fire({
+                        title: '<p>Oops...</p>',
+                        icon: 'error',
+                        html: '<p style="font-size: 18px;">Check your internet connection and try again. ',
+                        showCancelButton: false,
+                        focusConfirm: true,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        confirmButtonText: 'Reresh this page',
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
                         }
                     })
                 }
@@ -467,7 +483,7 @@ export default {
             vv.value.$touch();       
 
             if (vv.value.$invalid) {
-                // Swal here
+                toast.add({severity:'error', summary: 'Some fields are required.', detail:'Monitoring Information', life: 3000});
                 return
             }
 
@@ -508,6 +524,16 @@ export default {
             })
 
         }
+
+        watch(
+            () => propsToValidate.has_adverse_event.value,
+            (value, prevValue) => {
+                if (value == false) {
+                    propsToValidate.adverse_event_condition.value = null
+                    propsToValidate.other_adverse_event_condition.value = null
+                }
+            }
+        )
 
         return {
             ...toRefs(state),
@@ -562,6 +588,11 @@ export default {
         font-size: 20px;
         text-align: center;
     }
+}
+.disabled {
+    background: rgb(219, 219, 219);
+    border-bottom: 1px solid black;
+    cursor: not-allowed; 
 }
 
 </style>
