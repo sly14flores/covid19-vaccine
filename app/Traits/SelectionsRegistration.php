@@ -221,8 +221,12 @@ trait SelectionsRegistration
                 "name"=>"Senior citizens aged 60 years old and above",
                 "description"=>"(A2) Senior citizens aged 60 years old and above",
                 "id"=>"02_A2",
-                "subs"=> []
+                "subs"=> [
+                    ["name"=>"Institutionalized Senior Citizens", "description"=>"(A2.1) Institutionalized Senior Citizens", "id"=>"08_A2.1"],
+                    ["name"=>"All Other Senior Citizens", "description"=>"(A2.2) All Other Senior Citizens", "id"=>"09_A2.2"]
+                ]
             ],
+            
             [
                 "name"=>"Adult with Comorbidity",
                 "description"=>"(A3) Adult with Comorbidity",
