@@ -49,6 +49,8 @@ import BlockUI from 'primevue/blockui/sfc';
 import { reactive, ref, toRefs } from 'vue'
 import { getRegistrationsList } from '../../api/vaccination'
 
+import Swal from 'sweetalert2'
+
 export default {
     props: ['phase'],
     name: 'VaccinationList',
@@ -78,14 +80,44 @@ export default {
 
             const { page } = event
 
-            blocked.value = true
+            Swal.fire({
+                title: 'Please wait...',
+                willOpen () {
+                Swal.showLoading ()
+                },
+                didClose () {
+                Swal.hideLoading()
+                },
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false
+            })
 
             getRegistrationsList({page: page+1, search: search.value, phase}).then(res => {
                 const { data: { data: { data, pagination } } } = res
                 Object.assign(state, {registrations: data, pagination})
-                blocked.value = false
+                Swal.close()
             }).catch(err => {
-                blocked.value = false
+                
+                if(err?.response?.status === 500){
+                    Swal.fire({
+                        title: '<p>Oops...</p>',
+                        icon: 'error',
+                        html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                        showCancelButton: false,
+                        focusConfirm: true,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        confirmButtonText: 'Reresh this page',
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    })
+                }
+                
             })
 
         }

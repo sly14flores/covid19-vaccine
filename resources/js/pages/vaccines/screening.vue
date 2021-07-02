@@ -221,6 +221,12 @@
                             </Column>
                             <Column field="description" header="Description"></Column>
                         </DataTable>
+                        <Toolbar>
+                            <template #right>
+                                <Button label="Save" class="p-button-primary p-mr-2" @click="save" />
+                                <Button label="Discard" class="p-button-danger" @click="discard" />
+                            </template>
+                        </Toolbar>
                     </div>
                 </form>
             </div>
@@ -365,7 +371,7 @@ export default {
             Object.assign(state, {...state, deferrals: data})
             Swal.close()
         }).catch(err => {
-            console.log(err)
+           
             if(err?.response?.status === 500){
                 Swal.fire({
                     title: '<p>Oops...</p>',

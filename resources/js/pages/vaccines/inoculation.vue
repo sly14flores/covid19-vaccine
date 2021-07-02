@@ -178,6 +178,12 @@
                                 </div>
                             </TabPanel>
                         </TabView>
+                        <Toolbar>
+                            <template #right>
+                                <Button label="Save" class="p-button-primary p-mr-2" @click="save" />
+                                <Button label="Discard" class="p-button-danger" @click="discard" />
+                            </template>
+                        </Toolbar>
                     </div>
                 </form>
             </div>
