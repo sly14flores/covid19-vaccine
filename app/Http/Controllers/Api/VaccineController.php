@@ -889,7 +889,7 @@ class VaccineController extends Controller
         $vitals = $data['vitals'];
         $dels = $data['dels'];
 
-        $aefi['has_adverse_event'] = ($aefi['has_adverse_event']==="true")?true:false;
+        // $aefi['has_adverse_event'] = ($aefi['has_adverse_event']==="true")?true:false;
 
         $dosage = Dosage::find($dosage_id);
         $update_aefi = Aefi::where('dosage_id',$dosage_id)->first();

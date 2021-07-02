@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import RegistrationsList from './list.vue'
+import RegistrationsList from './Monitoring-list.vue'
 
 export default {
     components: {
