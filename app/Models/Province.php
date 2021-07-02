@@ -9,7 +9,7 @@ class Province extends Model
 {
     use HasFactory;
 
-    protected $connection = 'napanam';
+    // protected $connection = 'napanam';
 
     protected $table = 'refprovince';
 }
