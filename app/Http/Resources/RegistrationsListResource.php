@@ -15,9 +15,11 @@ class RegistrationsListResource extends JsonResource
     public function toArray($request)
     {
         $doses = ["First Dose", "Second Dose"];
+        $colors = ["warning", "success"];
 
         $dosages_count = (is_null($this->dosages_count))?0:$this->dosages_count;
         $screening_for_dose = $doses[$dosages_count] ?? null;
+        $color_status = $colors[$dosages_count] ?? null;
 
         return [
             'id' => $this->id,
@@ -33,6 +35,7 @@ class RegistrationsListResource extends JsonResource
             'vaccine_count' => $this->vaccine_count,
             'dosages_count' => $this->dosages_count,
             'screening_for_dose' => $screening_for_dose,
+            "status" => $color_status
         ];
     }
 }
