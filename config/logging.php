@@ -114,7 +114,15 @@ return [
             'username' => 'sly@christian.com.ph',
             'emoji' => ':boom:',
             'level' => env('LOG_LEVEL', 'critical'),
-        ],         
+        ],
+        
+        'dump_debug' => [
+            'driver' => 'slack',
+            'url' => env('LOG_SLACK_DUMP_URL'),
+            'username' => 'Ultimate Overseer',
+            'emoji' => ':ghost:',
+            'level' => 'debug',
+        ],        
     ],
 
 ];

@@ -16,10 +16,15 @@ class RegistrationsListResource extends JsonResource
     {
         $doses = ["First Dose", "Second Dose"];
         $colors = ["warning", "success"];
+        $next_doses = [1,2];
 
-        $dosages_count = (is_null($this->dosages_count))?0:$this->dosages_count;
+        $dosages_count = 0;
+        if ($this->first_dose) {
+            $dosages_count++;
+        }
         $screening_for_dose = $doses[$dosages_count] ?? null;
         $color_status = $colors[$dosages_count] ?? null;
+        $next_dose = $next_doses[$dosages_count];
 
         return [
             'id' => $this->id,
@@ -32,9 +37,8 @@ class RegistrationsListResource extends JsonResource
             'address' => $this->address,
             'townCity' => (is_null($this->townCity))?"":$this->townCity->citymunDesc,
             'text' => $this->text,
-            'vaccine_count' => $this->vaccine_count,
-            'dosages_count' => $this->dosages_count,
             'screening_for_dose' => $screening_for_dose,
+            'next_dose' => $next_dose,
             "status" => $color_status
         ];
     }
