@@ -745,7 +745,12 @@ class VaccineController extends Controller
         $preAssessment->fill($pre_assessment_update);
         $preAssessment->save();
 
-        $this->screened($qr_pass_id,$pre_assessment['screened']);
+        if ($dose == 1) {
+            $this->firstDoseScreened($qr_pass_id,$pre_assessment['screened']);
+        }
+        if ($dose == 2) {
+            $this->secondDoseScreened($qr_pass_id,$pre_assessment['screened']);
+        }
 
         /**
          * Save vitals
