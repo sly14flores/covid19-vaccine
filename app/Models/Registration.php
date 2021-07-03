@@ -48,6 +48,12 @@ class Registration extends Model
         'employer_name', #
         'employer_address', #
         'employer_lgu', #
+        'screened',
+        'first_dose_screened',
+        'second_dose_screened',
+        'first_dose',
+        'second_dose',
+        'fully_vaccinated',
     ];
 
     // protected $fillable = [
@@ -117,6 +123,12 @@ class Registration extends Model
     protected $casts = [
         'diagnosed_date' => 'date',
         'birthdate' => 'date',
+        'screened' => 'boolean',
+        'first_dose_screened' => 'boolean',
+        'second_dose_screened' => 'boolean',
+        'first_dose' => 'boolean',
+        'second_dose' => 'boolean',
+        'fully_vaccinated' => 'boolean',
     ];
 
     public function townCity()
@@ -149,6 +161,66 @@ class Registration extends Model
     public function getBirthdateAttribute($value)
     {
         return Carbon::parse($value)->format('Y-m-d');
+    }
+
+    public function scopeScreened($query)
+    {
+        return $query->where('screened', 1);
+    }
+
+    public function scopeNotScreened($query)
+    {
+        return $query->where('screened', 0);
+    }
+
+    public function scopeFirstDoseScreened($query)
+    {
+        return $query->where('first_dose_screened', 1);
+    }
+
+    public function scopeNotFirstDoseScreened($query)
+    {
+        return $query->where('first_dose_screened', 0);
+    } 
+
+    public function scopeSecondDoseScreened($query)
+    {
+        return $query->where('second_dose_screened', 1);
+    }
+
+    public function scopeNotSecondDoseScreened($query)
+    {
+        return $query->where('second_dose_screened', 0);
+    }
+    
+    public function scopeOrNotSecondDoseScreened($query)
+    {
+        return $query->orWhere('second_dose_screened', 0);
+    }
+
+    public function scopeFirstDose($query)
+    {
+        return $query->where('first_dose', 1);
+    }
+
+    public function scopeOrFirstDose($query)
+    {
+        return $query->orWhere('first_dose', 1);
+    }    
+
+    public function scopeSecondDose($query)
+    {
+        return $query->where('second_dose', 1);
+    }
+
+    public function scopeOrSecondDose($query)
+    {
+        return $query->orWhere('second_dose', 1);
+    }    
+
+    public function scopeFullyVaccinated($query)
+    {
+        return $query->where('fully_vaccinated', 1);
     }
 
 }

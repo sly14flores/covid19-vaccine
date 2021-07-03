@@ -35,6 +35,8 @@ use App\Http\Resources\VaccineMonitoringInfo;
 use App\Traits\Messages;
 use App\Traits\DOHHelpers;
 use App\Traits\SelectionsRegistration;
+use App\Traits\Vaccinations;
+use App\Traits\Dumper;
 use App\Helpers\General\CollectionHelper;
 
 use Illuminate\Support\LazyCollection;
@@ -43,7 +45,7 @@ use Carbon\Carbon;
 
 class VaccineController extends Controller
 {
-    use Messages, DOHHelpers, SelectionsRegistration;
+    use Messages, DOHHelpers, SelectionsRegistration, Vaccinations, Dumper;
 
     private $http_code_ok;
     private $http_code_error;    
@@ -106,26 +108,22 @@ class VaccineController extends Controller
             /**
              * no vaccine-dose / and at least 1 dose
              */
-            // $registrations = Registration::withCount(['vaccine', 'dosages'])->where($location)->doesntHave('vaccine')->orWhereHas('dosages', function(Builder $query) {
-            //     $query->where('dose',1);        
-            // })->get();
-
-            $registrations = Registration::where($location)->get();
-
-        } else if ($phase == "inoculation") {
-            /**
-             * screened is 1
-             */
-            $registrations = Registration::whereHas('vaccine.dosages.pre_assessment', function(Builder $query) {
-                $query->where('screened',1);
-            })->where($location)->get();
+            $registrations = Registration::where($location)->where(function(Builder $query) {
+                $query->notFirstDoseScreened()->orNotSecondDoseScreened();
+            });
+            $this->dumpToSlack($registrations->toSql(),"screening");
+            $registrations = $registrations->get();
         } else if ($phase == "monitoring") {
             /**
              * date_of_vaccination not null
              */
-            $registrations = Registration::whereHas('vaccine.dosages', function(Builder $query) {
-                $query->whereNotNull('date_of_vaccination');
-            })->where($location)->get();   
+            $registrations = Registration::where($location)->where(function(Builder $query) {
+                $query->firstDoseScreened()->firstDose();
+            })->orWhere(function(Builder $query) {
+                $query->secondDoseScreened()->secondDose();
+            });
+            $this->dumpToSlack($registrations->toSql(),"monitoring");
+            $registrations = $registrations->get();
         } else {
             $registrations = Registration::where($location)->get();
         }
@@ -747,6 +745,8 @@ class VaccineController extends Controller
         $preAssessment->fill($pre_assessment_update);
         $preAssessment->save();
 
+        $this->screened($qr_pass_id,$pre_assessment['screened']);
+
         /**
          * Save vitals
          */
@@ -835,6 +835,14 @@ class VaccineController extends Controller
 
         $dosage->fill($data);
         $dosage->save();
+
+        if ($data['dose'] == 1) {
+            $this->firstDose($dosage->qr_pass_id,true);
+        }
+
+        if ($data['dose'] == 2) {
+            $this->secondDose($dosage->qr_pass_id,true);
+        }
 
         $registration = Registration::where('qr_pass_id',$dosage->qr_pass_id)->first();
         
