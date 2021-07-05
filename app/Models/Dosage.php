@@ -118,11 +118,11 @@ class Dosage extends Model
     {
         $brands = $this->brandValue();
         $brand = collect($brands)->where('id',$brand_id)->first();
-        $vaccines = $brand['vaccines'];
+        $vaccines = $brand['vaccines'] ?? [];
 
         $vaccine = collect($vaccines)->where('id',$vaccine_id)->first();
 
-        return $vaccine['name'];
+        return $vaccine['name'] ?? "";
     }
 
     public function vaccine()
