@@ -58,4 +58,9 @@ class Hospital extends Model
         return $municipality['name'];
     }
 
+    public function townCity()
+    {
+        return $this->belongsTo(CityMun::class, 'location', 'citymunCode');
+    }
+
 }
