@@ -82,11 +82,12 @@ class ExportRegistrations extends Controller
             "start" => $request->start_date,
             "end" => $request->end_date,
             "town_city" => $request->town_city,
+            "origin" => $request->origin,
         ];
 
         $startFilter = Carbon::parse($filter['start'])->format("Y-m-d 00:00:00");
         $endFilter = Carbon::parse($filter['end'])->addDays(1)->format("Y-m-d 00:00:00");
-        
+
         $wheres = [];
         if (isset($filter['town_city'])) {
             if ($filter['town_city']!="all") {
@@ -96,8 +97,14 @@ class ExportRegistrations extends Controller
                 $wheres[] = ['town_city_code',$townCityCode];
             }
         }
+        
+        $origin = $filter['origin'];
+
+        if($origin=="all") {
+            $origin = '<>';
+        }
          
-        $registrations = Registration::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $registrations = Registration::where($wheres)->where('origin', $origin, '')->whereBetween('created_at',[$startFilter,$endFilter])->get();
 
         $i = 2;
         foreach ($registrations->toArray() as $registration) {

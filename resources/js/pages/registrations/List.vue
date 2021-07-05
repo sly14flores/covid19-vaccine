@@ -37,13 +37,17 @@
         <Toolbar class="p-mb-2">
             <template #left>
                 <div class=" p-fluid p-grid p-formgrid">
-                    <div class="p-field p-col-12 p-md-4">
+                    <div class="p-field p-col-12 p-md-3">
                         <label for="basic"><small>Napanam ID No, first name or last name</small></label>
                         <InputText class="p-shadow-1 p-inputtext-sm" v-model="search" placeholder="Search . . ." />
                     </div>
-                    <div class="p-field p-col-12 p-md-3">
+                    <div class="p-field p-col-12 p-md-2">
                         <label for="basic"><small>City/Municipality</small></label>
                         <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="municipalities" v-model="town_city" optionValue="id" :disabled="!isAdmin" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+                        <label for="basic"><small>Origin</small></label>
+                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="origins" v-model="origin" optionValue="id" />
                     </div>
                     <div class="p-field p-col-12 p-md-2">
                         <label for="basic"><small>Start Date:</small></label>
@@ -153,7 +157,14 @@ export default {
             start_date: null,
             end_date: new Date(),
             province: "_0133_LA_UNION",
-            town_city: 'all'
+            town_city: 'all',
+            origin: 'all',
+            origins: [
+                {id: 'all', name: 'All'},
+                {id: 'Online', name: 'Online'},
+                {id: 'Manual', name: 'Manual'},
+                {id: 'Import', name: 'Import'},
+            ]
         }
     },
     computed: {
@@ -239,7 +250,7 @@ export default {
             // event.rows: Number of rows to display in new page
             // event.pageCount: Total number of pages
             const { page } = event
-            this.$store.dispatch('registrations/GET_REGISTRATIONS', { page, town_city: this.town_city, start_date: this.start_date.toLocaleDateString(), end_date: this.end_date.toLocaleDateString(), search: this.search })
+            this.$store.dispatch('registrations/GET_REGISTRATIONS', { page, origin: this.origin, town_city: this.town_city, start_date: this.start_date.toLocaleDateString(), end_date: this.end_date.toLocaleDateString(), search: this.search })
         },
         deleteRegistration(id) {
             this.$confirm.require({
@@ -294,7 +305,7 @@ export default {
         },
         exportToExcel() {
 
-            window.open(`${this.downloadUrl}?town_city=${this.town_city}&start_date=${this.start_date.toLocaleDateString()}&end_date=${this.end_date.toLocaleDateString()}`)
+            window.open(`${this.downloadUrl}?origin=${this.origin}&town_city=${this.town_city}&start_date=${this.start_date.toLocaleDateString()}&end_date=${this.end_date.toLocaleDateString()}`)
 
         }
     },

@@ -44,6 +44,7 @@ class RegistrationController extends Controller
         }
 
         $town_city = $request->town_city;
+        $origin = $request->origin;
         
         $townCityCode = null;
         if (isset($town_city)) {
@@ -61,8 +62,12 @@ class RegistrationController extends Controller
         $endFilter = Carbon::parse($end_date)->addDays(1)->format("Y-m-d 00:00:00");
 
         $search = (isset($request->search))?$request->search:null;
+        
+        if($origin=="all") {
+            $origin = '<>';
+        }
 
-        $registrations = Registration::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $registrations = Registration::where($wheres)->where('origin', $origin,'')->whereBetween('created_at',[$startFilter,$endFilter])->get();
         
         $registrations = $registrations->filter(function($registration) use ($search) {
             $text = "{$registration->qr_pass_id} {$registration->first_name}, {$registration->middle_name}, {$registration->last_name}";            
