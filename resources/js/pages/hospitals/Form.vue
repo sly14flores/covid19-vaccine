@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Toast class="p-mt-6" position="top-right" />
         <MyBreadcrumb :home="home" :items="items" />
         <div class="p-grid">
             <div class="p-col-12 p-mt-2">
@@ -31,6 +32,11 @@
                             <label for="cbcr_id">Bakuna Center CBCR ID <i class="p-error">*</i></label>
                             <InputText class="p-shadow-1" id="cbcr_id" type="text" placeholder="Enter Bakuna Center CBCR ID" v-model="cbcr_id" :class="{'p-invalid': cbcr_idError}" :disabled="editMode && !writeOn" />
                             <small class="p-error">{{ cbcr_idError }}</small>
+                        </div>
+                        <div class="p-field p-col-12 p-md-6">
+                            <label for="location">City/Municipality <i class="p-error">*</i></label>
+                            <Dropdown class="p-shadow-1" optionLabel="name" :options="municipalities" optionValue="id" v-model="location" placeholder="Select a city/municipality" :class="{'p-invalid': locationError, 'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
+                            <small class="p-error">{{ locationError }}</small>
                         </div>
                     </div>
                     <hr />
@@ -65,10 +71,14 @@ import { useRoute } from 'vue-router'
 import { watch } from 'vue'
 import { useConfirm } from "primevue/useconfirm"
 
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast"
+
 export default {
     props: ['editOn'],
     setup(props) {
-
+        
+        const toast = useToast()
         const { editOn } = props
         const editMode = eval(editOn)
         const route = useRoute()
@@ -115,8 +125,10 @@ export default {
                 accept: () => {
                     if (editMode) {
                         dispatch('hospitals/UPDATE_HOSPITAL', hospital)
+                        toast.add({severity:'success', summary: 'Successfully Updated!', detail:'Hospital Information', life: 3000});
                     } else {
                         dispatch('hospitals/CREATE_HOSPITAL', hospital)
+                        toast.add({severity:'success', summary: 'Successfully Added!', detail:'Hospital Information', life: 3000});
                         resetForm();
                     }
                 },
@@ -143,12 +155,15 @@ export default {
         const { value: description, errorMessage: descriptionError } = useField('hospital.description',validateField);
         const { value: cbcr_id, errorMessage: cbcr_idError } = useField('hospital.cbcr_id',validateField);
         const { value: slots, errorMessage: slotsError } = useField('hospital.slots',validateField);
+        const { value: location, errorMessage: locationError } = useField('hospital.location',validateField);
 
         return {
             id,
             description,
             slots,
             cbcr_id,
+            location,
+            locationError,
             cbcr_idError,
             descriptionError,
             slotsError,
@@ -168,7 +183,8 @@ export default {
         Button,
         Divider,
         ToggleButton,
-        Dropdown
+        Dropdown,
+        Toast
     },
     computed: {
         saving() {
@@ -181,7 +197,12 @@ export default {
             get() {
                 return this.$store.state.hospitals.writeOn
             }
-        }
+        },
+        municipalities() {
+
+            return this.$store.state.hospitals.municipalities
+
+        },
     },
     methods: {
         close() {
@@ -192,6 +213,9 @@ export default {
             this.writeOn = !this.writeOn
         }
     },
+    mounted(){
+        this.$store.dispatch('hospitals/GET_MUNICIPALITIES')
+    }
 }
 </script>
 
@@ -206,6 +230,11 @@ input[type="text"]:disabled {
     cursor: not-allowed; 
 }
 input[type="number"]:disabled {
+    background: rgb(219, 219, 219);
+    border-bottom: 1px solid black;
+    cursor: not-allowed; 
+}
+.disabled {
     background: rgb(219, 219, 219);
     border-bottom: 1px solid black;
     cursor: not-allowed; 

@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Toast class="p-mt-6" position="top-right" />
         <MyBreadcrumb :home="home" :items="items" />
         <div class="p-grid p-mt-1">
             <div class="p-lg-12 p-md-12 p-sm-12">
@@ -108,6 +109,9 @@ import Dropdown from 'primevue/dropdown/sfc';
 import { useStore } from 'vuex'
 import { watch } from 'vue'
 
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast"
+
 import { api_url } from '../../url.js'
 const uploadUrl = `${api_url}/api/doh/upload/excel`
 
@@ -116,6 +120,7 @@ export default {
 
         const store = useStore()
         const { state, dispatch } = store
+        const toast = useToast()
 
         const downloadUrl = `${api_url}/home/reports/registrations`        
         
@@ -132,7 +137,8 @@ export default {
 
         return {
             uploadUrl,
-            downloadUrl
+            downloadUrl,
+            toast
         }
 
     },  
@@ -147,7 +153,8 @@ export default {
         InputText,
         Toolbar,
         Calendar,
-        Dropdown
+        Dropdown,
+        Toast
     },
     data() {
         return {
@@ -260,6 +267,7 @@ export default {
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
                     this.$store.dispatch('registrations/DELETE_REGISTRATION', {id})
+                    this.toast.add({severity:'success', summary: 'Successfully Deleted!', detail:'Registration Information', life: 3000});
                 },
                 reject: () => {
                     //callback to execute when hospital rejects the action

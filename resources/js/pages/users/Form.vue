@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Toast class="p-mt-6" position="top-right" />
         <MyBreadcrumb :home="home" :items="items" />
         <div class="p-grid">
             <div class="p-col-12 p-mt-2">
@@ -92,10 +93,14 @@ import { useRoute } from 'vue-router'
 import { watch } from 'vue'
 import { useConfirm } from "primevue/useconfirm"
 
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast"
+
 export default {
     props: ['editOn'],
     setup(props) {
 
+        const toast = useToast()
         const { editOn } = props
         const editMode = eval(editOn)
         const route = useRoute()
@@ -142,8 +147,10 @@ export default {
                 accept: () => {
                     if (editMode) {
                         dispatch('users/UPDATE_USER', user)
+                        toast.add({severity:'success', summary: 'Successfully Updated!', detail:'User Information', life: 3000});
                     } else {
                         dispatch('users/CREATE_USER', user)
+                        toast.add({severity:'success', summary: 'Successfully Added!', detail:'User Information', life: 3000});
                         resetForm();
                     }
                 },
@@ -221,7 +228,8 @@ export default {
         Button,
         Divider,
         ToggleButton,
-        Dropdown
+        Dropdown,
+        Toast
     },
     computed: {
         saving() {

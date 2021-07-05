@@ -42,7 +42,6 @@ class DOHDataSelections extends Controller
         //
         $selections = [
             "region_value" => $this->regionValue(),
-            "employer_municipality_value" => $this->employerMunicipalityValue(),
             "suffix_value" => $this->suffixValue(),
             "gender_value" => $this->genderValue(),
             "civil_status_value" => $this->civilStatusValue(),
@@ -161,6 +160,12 @@ class DOHDataSelections extends Controller
     {
         $deferrals = $this->deferralValue();
         return $this->jsonSuccessResponse($deferrals, 200);
+    }
+
+    public function municipalities()
+    {
+        $municipalities = $this->municipalityValue();
+        return $this->jsonSuccessResponse($municipalities, 200);
     }
 
     public function refusalValue()

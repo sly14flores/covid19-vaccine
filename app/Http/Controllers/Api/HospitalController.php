@@ -82,7 +82,8 @@ class HospitalController extends Controller
         $rules = [
             'description' => 'string',
             'slots' => 'integer',
-            'cbcr_id' => 'string'
+            'cbcr_id' => 'string',
+            'location' => 'string'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -156,7 +157,8 @@ class HospitalController extends Controller
         $rules = [
             'description' => 'string',
             'slots' => 'integer',
-            'cbcr_id' => 'string'
+            'cbcr_id' => 'string',
+            'location' => 'string'
         ];
 
         $validator = Validator::make($request->all(), $rules);        

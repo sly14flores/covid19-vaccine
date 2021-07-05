@@ -880,6 +880,13 @@ trait SelectionsRegistration
         return $groups;
     }
 
+    public function municipalityValue()
+    {
+        $groups = config('constants.municipalities');
+
+        return $groups;
+    }
+
     public function yesNo()
     {
         return [
