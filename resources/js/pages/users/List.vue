@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Toast class="p-mt-6" position="top-right" />
         <MyBreadcrumb :home="home" :items="items" />        
         <div class="p-grid">
             <div class="p-col-12 p-mt-2">
@@ -51,8 +52,17 @@ import Paginator from 'primevue/paginator/sfc';
 import InputText from 'primevue/inputtext/sfc';
 import Toolbar from 'primevue/toolbar/sfc';
 
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast"
+
 export default {
     setup() {
+
+        const toast = useToast()
+
+        return {
+            toast
+        }
 
     },
     components: {
@@ -63,7 +73,8 @@ export default {
         Button,
         ConfirmDialog,
         InputText,
-        Toolbar
+        Toolbar,
+        Toast
     },
     data() {
         return {
@@ -100,6 +111,7 @@ export default {
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
                     this.$store.dispatch('users/DELETE_USER', {id})
+                    this.toast.add({severity:'success', summary: 'Successfully Deleted!', detail:'User Information', life: 3000});
                 },
                 reject: () => {
                     //callback to execute when user rejects the action

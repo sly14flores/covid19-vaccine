@@ -3,6 +3,32 @@
 return [
 
     /**
+     * Municipalities
+     */
+    'municipalities' => [
+        ["name"=>"AGOO", "id"=>"13301"],
+        ["name"=>"ARINGAY", "id"=>"13302"],
+        ["name"=>"BACNOTAN", "id"=>"13303"],
+        ["name"=>"BAGULIN", "id"=>"13304"],
+        ["name"=>"BALAOAN", "id"=>"13305"],
+        ["name"=>"BANGAR", "id"=>"13306"],
+        ["name"=>"BAUANG", "id"=>"13307"],
+        ["name"=>"BURGOS", "id"=>"13308"],
+        ["name"=>"CABA", "id"=>"13309"],
+        ["name"=>"LUNA", "id"=>"13310"],
+        ["name"=>"NAGUILIAN", "id"=>"13311"],
+        ["name"=>"PUGO", "id"=>"13312"],
+        ["name"=>"ROSARIO", "id"=>"13313"],
+        ["name"=>"CITY OF SAN FERNANDO", "id"=>"13314"],
+        ["name"=>"SAN GABRIEL", "id"=>"13315"],
+        ["name"=>"SAN JUAN", "id"=>"13316"],
+        ["name"=>"SANTO TOMAS", "id"=>"13317"],
+        ["name"=>"SANTOL", "id"=>"13318"],
+        ["name"=>"SUDIPEN", "id"=>"13319"],
+        ["name"=>"TUBAO", "id"=>"13320"]
+    ],
+
+    /**
      * Groups
      */
     'groups' => [

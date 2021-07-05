@@ -39,6 +39,11 @@ const deleteHospital = (payload) => {
     return axios.delete(url)
 }
 
+const GET_MUNICIPALITIES = `${api_url}/api/doh/selections/municipalities`
+const getMunicipalities = () => {
+    return axios.get(GET_MUNICIPALITIES)
+}
+
 const hospital = {
     id: 0,
     description: null,
@@ -48,6 +53,7 @@ const hospital = {
 const saving = false
 const hospitals = []
 const pagination = {}
+const municipalities = []
 
 const state = () => {
     return {
@@ -55,7 +61,8 @@ const state = () => {
         writeOn: false,
         hospital,
         hospitals,
-        pagination
+        pagination,
+        municipalities
     }
 }
 
@@ -69,6 +76,9 @@ const mutations = {
     },
     HOSPITALS(state, payload) {
         state.hospitals = payload
+    },
+    MUNICIPALITIES(state, payload) {
+        state.municipalities = payload
     },
     PAGINATION(state, payload) {
         state.pagination = {...payload}
@@ -103,17 +113,6 @@ const actions = {
     CREATE_HOSPITAL_SUCCESS({commit}, payload) {
         commit('SAVING',false)        
         console.log(payload)
-
-        Swal.fire({
-            title: '<p class="text-success" style="font-size: 25px;">Successfully saved!</p>',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 1500,
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false,
-        })
-
     },
     CREATE_HOSPITAL_ERROR({commit}, payload) {
         commit('SAVING',false) 
@@ -135,15 +134,6 @@ const actions = {
     UPDATE_HOSPITAL_SUCCESS({commit}, payload) {
         commit('SAVING',false)
         commit('TOGGLE_WRITE', false)
-        Swal.fire({
-            title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 1500,
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false,
-        })
     },
     UPDATE_HOSPITAL_ERROR({commit}, payload) {
         commit('SAVING',false)
@@ -163,12 +153,6 @@ const actions = {
     DELETE_HOSPITAL_SUCCESS({commit, dispatch}, payload) {
         console.log(payload)
         dispatch('GET_HOSPITALS', { page: 0 })
-        Swal.fire({
-            title: '<p class="text-success" style="font-size: 25px;">Successfully deleted!</p>',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 1500,
-        })
     },
     DELETE_HOSPITAL_ERROR({commit}, payload) {
         console.log(payload)
@@ -189,7 +173,7 @@ const actions = {
     GET_HOSPITAL_ERROR({commit}, payload) {
         console.log(payload)
     },
-    async GET_HOSPITALS({dispatch}, payload) {
+    async GET_HOSPITALS({commit}, payload) {
         Swal.fire({
             title: 'Loading...',
             willOpen() {
@@ -206,21 +190,47 @@ const actions = {
         try {
             const { page, search } = payload
             const { data: { data: { data, pagination } } } = await getHospitals({ page, search })
-            dispatch('GET_HOSPITALS_SUCCESS', { data, pagination })
+            commit('HOSPITALS',data)
+            commit('PAGINATION',pagination)
+            Swal.close()
         } catch (error) {
             const { response } = error
-            dispatch('GET_HOSPITALS_ERROR', response)
+            console.log(response)
+
+            if(response.status == 500){
+                Swal.fire({
+                    title: '<p>Oops...</p>',
+                    icon: 'error',
+                    html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                    showCancelButton: false,
+                    focusConfirm: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    confirmButtonText: 'Reresh this page',
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+            }
         }
     },
-    GET_HOSPITALS_SUCCESS({commit}, payload) {
-        const { data, pagination } = payload
-        commit('HOSPITALS',data)
-        commit('PAGINATION',pagination)
-        Swal.close()
+    async GET_MUNICIPALITIES({dispatch}) {
+        try {
+            const { data: { data } } = await getMunicipalities()
+            dispatch('GET_MUNICIPALITIES_SUCCESS', data)
+        } catch (error) {
+            const { response } = error
+            dispatch('GET_MUNICIPALITIES_ERROR', response)
+        }
     },
-    GET_HOSPITALS_ERROR({commit}, payload) {
+    GET_MUNICIPALITIES_SUCCESS({commit}, payload) {
+        commit('MUNICIPALITIES', payload)
+    },
+    GET_MUNICIPALITIES_ERROR({commit}, payload) {
         console.log(payload)
-    }
+    },
 }
 
 const getters = {

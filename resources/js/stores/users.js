@@ -133,15 +133,6 @@ const actions = {
     CREATE_USER_SUCCESS({commit}, payload) {
         commit('SAVING',false)        
         console.log(payload)
-        Swal.fire({
-            title: '<p class="text-success" style="font-size: 25px;">Successfully saved!</p>',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 1500,
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false,
-        })
     },
     CREATE_USER_ERROR({commit}, payload) {
         commit('SAVING',false) 
@@ -163,15 +154,6 @@ const actions = {
     UPDATE_USER_SUCCESS({commit}, payload) {
         commit('SAVING',false)
         commit('TOGGLE_WRITE', false)
-        Swal.fire({
-            title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 1500,
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false,
-        })
     },
     UPDATE_USER_ERROR({commit}, payload) {
         commit('SAVING',false)
@@ -191,12 +173,6 @@ const actions = {
     DELETE_USER_SUCCESS({commit, dispatch}, payload) {
         console.log(payload)
         dispatch('GET_USERS', { page: 0 })
-        Swal.fire({
-            title: '<p class="text-success" style="font-size: 25px;">Successfully deleted!</p>',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 1500,
-        })
     },
     DELETE_USER_ERROR({commit}, payload) {
         console.log(payload)
@@ -217,7 +193,7 @@ const actions = {
     GET_USER_ERROR({commit}, payload) {
         console.log(payload)
     },
-    async GET_USERS({dispatch}, payload) {
+    async GET_USERS({commit}, payload) {
         Swal.fire({
             title: 'Please wait...',
 
@@ -235,20 +211,30 @@ const actions = {
         try {
             const { page, search } = payload
             const { data: { data: { data, pagination } } } = await getUsers({ page, search })
-            dispatch('GET_USERS_SUCCESS', { data, pagination })
+            commit('USERS',data)
+            commit('PAGINATION',pagination)
+            Swal.close()
         } catch (error) {
             const { response } = error
-            dispatch('GET_USERS_ERROR', response)
+
+            if(response.status == 500){
+                Swal.fire({
+                    title: '<p>Oops...</p>',
+                    icon: 'error',
+                    html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                    showCancelButton: false,
+                    focusConfirm: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    confirmButtonText: 'Reresh this page',
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+            }
         }
-    },
-    GET_USERS_SUCCESS({commit}, payload) {
-        const { data, pagination } = payload
-        commit('USERS',data)
-        commit('PAGINATION',pagination)
-        Swal.close()
-    },
-    GET_USERS_ERROR({commit}, payload) {
-        console.log(payload)
     },
     async GET_HOSPITALS({dispatch}) {
         try {
