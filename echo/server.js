@@ -3,7 +3,7 @@ const {
 	authHost = null,
 	authEndpoint = '/api/broadcasting/auth',
 	protocol = 'https',
-	port = 6002,
+	port = 7002,
 	database = 'redis',
 	redisHost = 'localhost',
 	redisPort = 6379,
