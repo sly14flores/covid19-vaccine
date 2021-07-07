@@ -12,7 +12,7 @@
 
             <template #right>
                 <Button label="Save" class="p-button-primary p-mr-2" @click="save" />
-                <Button label="Discard" class="p-button-danger" @click="discard" />
+                <Button label="Close" class="p-button-danger" @click="discard" />
             </template>
         </Toolbar>
         <div class="p-grid">
@@ -181,7 +181,7 @@
                         <Toolbar>
                             <template #right>
                                 <Button label="Save" class="p-button-primary p-mr-2" @click="save" />
-                                <Button label="Discard" class="p-button-danger" @click="discard" />
+                                <Button label="Close" class="p-button-danger" @click="discard" />
                             </template>
                         </Toolbar>
                     </div>
