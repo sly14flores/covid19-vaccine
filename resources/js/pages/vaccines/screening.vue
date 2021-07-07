@@ -13,7 +13,7 @@
 
             <template #right>
                 <Button label="Save" class="p-button-primary p-mr-2" @click="save" />
-                <Button label="Discard" class="p-button-danger" @click="discard" />
+                <Button label="Close" class="p-button-danger" @click="discard" />
             </template>
         </Toolbar>
 
@@ -224,7 +224,7 @@
                         <Toolbar>
                             <template #right>
                                 <Button label="Save" class="p-button-primary p-mr-2" @click="save" />
-                                <Button label="Discard" class="p-button-danger" @click="discard" />
+                                <Button label="Close" class="p-button-danger" @click="discard" />
                             </template>
                         </Toolbar>
                     </div>
@@ -304,7 +304,7 @@ export default {
         const toast = useToast()
         const route = useRoute()
         const { params } = route || {}
-        const { qr } = params || null
+        const { qr, next_dose } = params || null
 
         const state = reactive({
             personalInfo: {},
@@ -323,7 +323,7 @@ export default {
             defer: null,
         })
 
-        const dose = ref(1);
+        const dose = ref(parseInt(next_dose));
 
         const doseSelected = () => {
             getScreeningPersonalInfo({ id: qr, dose: dose.value }).then(res => {
@@ -338,6 +338,8 @@ export default {
                     dels,
                     defer: (pre_assessment.reason != null)?'01_Yes':null
                 })
+
+
 
             }).catch(err => {
                

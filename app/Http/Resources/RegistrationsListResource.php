@@ -22,9 +22,27 @@ class RegistrationsListResource extends JsonResource
         if ($this->first_dose) {
             $dosages_count++;
         }
+
+        $color_status = $colors[$dosages_count] ?? null;        
+
         $screening_for_dose = $doses[$dosages_count] ?? null;
-        $color_status = $colors[$dosages_count] ?? null;
         $next_dose = $next_doses[$dosages_count];
+
+        $inoculation_for_dose = $doses[$dosages_count] ?? null;
+        $inoculation_dose = $next_doses[$dosages_count];
+
+        $monitoring_doses = ["","First Dose", "Second Dose"];
+        $monitoring_colors = ["","warning", "success"];      
+        $total_dosages = 0;
+        if ($this->first_dose) {
+            $total_dosages++;
+        }
+        if ($this->second_dose) {
+            $total_dosages++;
+        }
+        $monitoring_for_dose = $monitoring_doses[$total_dosages] ?? "";
+        $monitoring_dose = $total_dosages ?? 0;
+        $monitoring_status = $monitoring_colors[$monitoring_dose];
 
         return [
             'id' => $this->id,
@@ -39,7 +57,12 @@ class RegistrationsListResource extends JsonResource
             'text' => $this->text,
             'screening_for_dose' => $screening_for_dose,
             'next_dose' => $next_dose,
-            "status" => $color_status
+            'inoculation_for_dose' => $inoculation_for_dose,
+            'inoculation_dose' => $inoculation_dose,
+            'monitoring_for_dose' => $monitoring_for_dose,
+            'monitoring_dose' => $monitoring_dose,
+            'status' => $color_status,
+            'monitoring_status' => $monitoring_status,
         ];
     }
 }
