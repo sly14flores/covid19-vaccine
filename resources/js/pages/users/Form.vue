@@ -33,8 +33,8 @@
                     </div>
                     <div class="p-fluid p-formgrid p-grid">
                         <div class="p-field p-col-12 p-md-4">
-                            <label>Hospital</label>
-                            <Dropdown class="p-shadow-1" :options="hospitals" optionLabel="description" optionValue="id" v-model="hospital" placeholder="Select a Hospital" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
+                            <label>Facility</label>
+                            <Dropdown class="p-shadow-1" :options="hospitals" optionLabel="description" optionValue="id" v-model="hospital" placeholder="Select a Facility" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                         </div>
                         <div class="p-field p-col-12 p-md-4">
                             <label>Group</label>
