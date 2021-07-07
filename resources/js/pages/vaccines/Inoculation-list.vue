@@ -53,6 +53,7 @@ import BlockUI from 'primevue/blockui/sfc';
 import Tag from 'primevue/tag/sfc';
 
 import { reactive, ref, toRefs } from 'vue'
+import { useStore } from 'vuex'
 import { getRegistrationsList } from '../../api/vaccination'
 
 import Swal from 'sweetalert2'
@@ -72,6 +73,19 @@ export default {
         Tag,
     },
     setup(props) {
+
+        const store = useStore()
+
+        /**
+         * Subscribe to monitor channel
+         */
+        const privateChannel = window.Echo.private(
+            `vaccines.import.inoculation.${store.state.profile.id}`,
+        );
+
+        privateChannel.listen('.monitor', event => {
+            console.log(event)
+        });        
 
         const blocked = ref(false)
 

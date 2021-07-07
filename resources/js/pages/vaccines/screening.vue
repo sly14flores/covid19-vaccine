@@ -299,7 +299,7 @@ export default {
             items: [{label: 'Screening', to: `${this.$route.fullPath}`}]
         }
     },
-    setup() {
+    setup() {      
 
         const toast = useToast()
         const route = useRoute()
