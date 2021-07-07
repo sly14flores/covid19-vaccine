@@ -476,6 +476,7 @@ class VaccineController extends Controller
         $rules = [
             // 'facility_others' => 'string',
             'vaccination_session' => 'integer',
+            'vaccination_facility' => 'integer',
             'dosages' => 'array',
             'delete' => 'array'
         ];
@@ -489,7 +490,14 @@ class VaccineController extends Controller
 
         $dosages = (isset($data['dosages']))?$data['dosages']:[];
 
+        /**
+         * Get encoder
+         */
+        $encoder_user_id = Auth::guard('api')->id();
+
         foreach ($dosages as $dosage) {
+            $dosage['encoder_user_id'] = $encoder_user_id;
+            $dosage['vaccination_facility'] = $data['vaccination_facility'];
             $pre_assessment = $dosage['pre_assessment'];
             $post_assessment = $dosage['post_assessment'];
             // Check if dose already exists
