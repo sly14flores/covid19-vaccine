@@ -22,6 +22,11 @@
                     <Column field="first_name" header="First Name" :sortable="true"></Column>
                     <Column field="middle_name" header="Middle Name" :sortable="true"></Column>
                     <Column field="last_name" header="Last Name" :sortable="true"></Column>
+                    <Column field="monitoring_status" header="Monitoring For" :sortable="true">
+                        <template #body="slotProps">
+                            <Tag class="p-mr-2" :severity="slotProps.data.monitoring_status" :value="slotProps.data.monitoring_for_dose" rounded></Tag>
+                        </template>
+                    </Column>
                     <Column field="townCity" header="Municipality/City" :sortable="true"></Column>
                     <Column field="qr_pass_id" header="Actions">
                         <template #body="slotProps">
@@ -45,6 +50,7 @@ import Column from 'primevue/column/sfc';
 import Button from 'primevue/button/sfc';
 import InputText from 'primevue/inputtext/sfc';
 import BlockUI from 'primevue/blockui/sfc';
+import Tag from 'primevue/tag/sfc';
 
 import { reactive, ref, toRefs } from 'vue'
 import { getRegistrationsList } from '../../api/vaccination'
@@ -63,6 +69,7 @@ export default {
         Button,
         InputText,
         BlockUI,
+        Tag,
     },
     setup(props) {
 

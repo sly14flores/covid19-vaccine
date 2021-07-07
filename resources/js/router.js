@@ -136,7 +136,7 @@ const routes = [
         props: {pageComponent: QueryMonitoring},
       },
       {
-        path: "screening/:qr",
+        path: "screening/:qr/:next_dose",
         name: "Screening",
         component: VaccinePhase,
         props: {pageComponent: Screening},
