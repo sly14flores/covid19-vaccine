@@ -1,6 +1,6 @@
 const {
 	devMode = true,
-	authHost = 'https://vaccines.launion/gov.ph',
+	authHost = 'https://vaccines.launion.gov.ph',
 	authEndpoint = '/api/broadcasting/auth',
 	protocol = 'https',
 	port = 7001,
