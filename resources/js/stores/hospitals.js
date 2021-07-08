@@ -207,7 +207,7 @@ const actions = {
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     allowEnterKey: false,
-                    confirmButtonText: 'Reresh this page',
+                    confirmButtonText: 'Refresh this page',
                 }).then((result) => {
                     if (result.value) {
                         location.reload();

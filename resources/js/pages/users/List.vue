@@ -25,7 +25,7 @@
                         <Column field="firstname" header="First Name"></Column>
                         <Column field="lastname" header="Last Name"></Column>
                         <Column field="username" header="Username"></Column>
-                        <Column field="hospital" header="Hospital"></Column>
+                        <Column field="hospital" header="Facilities"></Column>
                         <Column field="group_name" header="Groups"></Column>
                         <Column field="id" header="Actions">
                             <template #body="slotProps">
