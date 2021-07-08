@@ -88,12 +88,12 @@ export default {
         // });
 
         const publicChannel = window.Echo.channel(
-            `vaccines.import.inoculation.${store.state.profile.id}`,
-        );        
+            `vaccines.import.inoculation.${store.state.profile.id}`
+        );
 
-        publicChannel.listen('monitor', event => {
+        publicChannel.listen('.monitor', event => {
             console.log(event)
-        });                
+        });           
 
         const blocked = ref(false)
 
