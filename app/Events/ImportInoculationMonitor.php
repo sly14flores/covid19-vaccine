@@ -47,7 +47,7 @@ class ImportInoculationMonitor implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        // $this->$user_id = Auth::guard('api')->id();        
-        return new PrivateChannel('vaccines.import.inoculation.209');
+        // return new PrivateChannel('vaccines.import.inoculation.209');
+        return ['vaccines.import.inoculation.209'];
     }
 }

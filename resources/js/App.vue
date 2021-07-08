@@ -23,11 +23,11 @@ export default {
     window.Echo = new Echo({
       broadcaster: 'socket.io',
       host: `${process.env.MIX_ECHO_SERVER}:${process.env.MIX_ECHO_SERVER_PORT}`,
-      auth: {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
+      // auth: {
+      //   headers: {
+      //     Authorization: `Bearer ${accessToken}`,
+      //   },
+      // }
     });
 
   }

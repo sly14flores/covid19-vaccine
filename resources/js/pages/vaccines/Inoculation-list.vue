@@ -79,13 +79,21 @@ export default {
         /**
          * Subscribe to monitor channel
          */
-        const privateChannel = window.Echo.private(
-            `vaccines.import.inoculation.${store.state.profile.id}`,
-        );
+        // const privateChannel = window.Echo.private(
+        //     `vaccines.import.inoculation.${store.state.profile.id}`,
+        // );        
 
-        privateChannel.listen('.monitor', event => {
+        // privateChannel.listen('.monitor', event => {
+        //     console.log(event)
+        // });
+
+        const publicChannel = window.Echo.channel(
+            `vaccines.import.inoculation.${store.state.profile.id}`,
+        );        
+
+        publicChannel.listen('monitor', event => {
             console.log(event)
-        });        
+        });                
 
         const blocked = ref(false)
 
