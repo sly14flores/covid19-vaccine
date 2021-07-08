@@ -1,6 +1,6 @@
 const {
 	devMode = true,
-	authHost = null,
+	authHost = 'https://vaccines.launion/gov.ph',
 	authEndpoint = '/api/broadcasting/auth',
 	protocol = 'https',
 	port = 7001,
@@ -11,7 +11,7 @@ const {
 } = process.env;
 
 require('laravel-echo-server').run({
-    authHost: process.env.APP_URL,
+    authHost,
     authEndpoint,
 	protocol,
 	host: null,
