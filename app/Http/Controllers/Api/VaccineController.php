@@ -699,6 +699,7 @@ class VaccineController extends Controller
      * @bodyParam pre_assessment.user_id integer
      * @bodyParam pre_assessment.reason string required
      * @bodyParam pre_assessment.screened boolean required
+     * @bodyParam pre_assessment.remarks string
      * @bodyParam pre_assessment.assessments object[]
      * @bodyParam pre_assessment.assessments[].key integer
      * @bodyParam pre_assessment.assessments[].description string
@@ -738,6 +739,7 @@ class VaccineController extends Controller
             'user_id' => $pre_assessment['user_id'],
             'consent' => $pre_assessment['consent'],
             'screened' => $pre_assessment['screened'],
+            'remarks' => $pre_assessment['remarks'],
             'reason' => $pre_assessment['reason'],
             'assessments' => $pre_assessment['assessments'],
         ];

@@ -89,6 +89,64 @@
                             </div>
                         </div>
                         <hr />
+                        <Toolbar>
+                            <template #left>
+                                <h5 class="header-blue p-text-bold">VITAL SIGNS</h5>
+                            </template>
+                            <template #right>
+                                <Button type="button" @click="addRow" icon="pi pi-plus" class="p-button-sm p-button-secondary" />
+                            </template>
+                        </Toolbar>
+                        <div v-for="(row, i) in vitalSigns" :key="row">
+                            <hr />
+                            <div class="p-fluid p-formgrid p-grid">
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label><small>Date Collected </small></label>
+                                    <Calendar v-model="row.date_collected" :ref="`date_collected-${i}`" :manualInput="false" class="p-shadow-1 p-inputtext-sm" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label><small>Time Collected </small> </label>
+                                    <Calendar v-model="row.time_collected" :ref="`time_collected-${i}`" :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>BP: Systolic </small></label>
+                                    <InputText v-model="row.systolic" :ref="`systolic-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>BP: Diastolic</small></label>
+                                    <InputText v-model="row.diastolic" :ref="`diastolic-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>Pulse Rate </small></label>
+                                    <InputText v-model="row.pulse_rate" :ref="`pulse_rate-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>Temp. (Celsius) </small></label>
+                                    <InputText v-model="row.temperature" :ref="`temperature-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>Respiratory Rate</small></label>
+                                    <InputText v-model="row.respiratory_rate" :ref="`respiratory_rate-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>O2 Sat</small></label>
+                                    <InputText v-model="row.oxygen" :ref="`oxygen-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label><small>Pain Score</small></label>
+                                    <InputText v-model="row.pain_score" :ref="`pain_score-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <Button type="button" @click="removeRow(i)" icon="pi pi-trash" class="p-button-sm p-button-danger p-mt-4" />
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <Toolbar>
+                            <template #left>
+                                <h5 class="header-blue p-text-bold">CONSENT</h5>
+                            </template>
+                        </Toolbar>
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-6">
                                 <Card>
@@ -156,60 +214,7 @@
                         <hr />
                         <Toolbar>
                             <template #left>
-                                <h4 class="header-blue p-text-bold">VITAL SIGNS</h4>
-                            </template>
-                            <template #right>
-                                <Button type="button" @click="addRow" icon="pi pi-plus" class="p-button-sm p-button-secondary" />
-                            </template>
-                        </Toolbar>
-                        <div v-for="(row, i) in vitalSigns" :key="row">
-                            <hr />
-                            <div class="p-fluid p-formgrid p-grid">
-                                <div class="p-field p-col-12 p-md-2">
-                                    <label><small>Date Collected </small></label>
-                                    <Calendar v-model="row.date_collected" :ref="`date_collected-${i}`" :manualInput="false" class="p-shadow-1 p-inputtext-sm" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-2">
-                                    <label><small>Time Collected </small> </label>
-                                    <Calendar v-model="row.time_collected" :ref="`time_collected-${i}`" :manualInput="false" class="p-shadow-1 p-inputtext-sm" :timeOnly="true" hourFormat="12" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>BP: Systolic </small></label>
-                                    <InputText v-model="row.systolic" :ref="`systolic-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>BP: Diastolic</small></label>
-                                    <InputText v-model="row.diastolic" :ref="`diastolic-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>Pulse Rate </small></label>
-                                    <InputText v-model="row.pulse_rate" :ref="`pulse_rate-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>Temp. (Celsius) </small></label>
-                                    <InputText v-model="row.temperature" :ref="`temperature-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>Respiratory Rate</small></label>
-                                    <InputText v-model="row.respiratory_rate" :ref="`respiratory_rate-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>O2 Sat</small></label>
-                                    <InputText v-model="row.oxygen" :ref="`oxygen-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <label><small>Pain Score</small></label>
-                                    <InputText v-model="row.pain_score" :ref="`pain_score-${i}`" class="p-shadow-1 p-inputtext-sm" type="text" />
-                                </div>
-                                <div class="p-field p-col-12 p-md-1">
-                                    <Button type="button" @click="removeRow(i)" icon="pi pi-trash" class="p-button-sm p-button-danger p-mt-4" />
-                                </div>
-                            </div>
-                        </div>    
-                        <hr />
-                        <Toolbar>
-                            <template #left>
-                                <h4 class="header-blue p-text-bold">HEALTH DECLARATION SCREENING FORM</h4>
+                                <h5 class="header-blue p-text-bold">HEALTH DECLARATION SCREENING FORM</h5>
                             </template>
                         </Toolbar>
                         <DataTable v-if="vv.consent.$model == '01_Yes'" :value="healthDeclaration.assessments" class="p-datatable-sm" dataKey="key">
@@ -221,6 +226,10 @@
                             </Column>
                             <Column field="description" header="Description"></Column>
                         </DataTable>
+                        <div class="p-field p-col-12 p-md-12" v-if="vv.consent.$model == '01_Yes'">
+                            <label>Remarks: </label>
+                            <Textarea class="p-shadow-1" v-model="vv.remarks.$model" rows="3" cols="30" />
+                        </div>
                         <Toolbar>
                             <template #right>
                                 <Button label="Save" class="p-button-primary p-mr-2" @click="save" />
@@ -252,6 +261,7 @@ import Column from 'primevue/column/sfc';
 import Card from 'primevue/card/sfc';
 import BlockUI from 'primevue/blockui/sfc';
 import InputSwitch from 'primevue/inputswitch/sfc';
+import Textarea from 'primevue/textarea/sfc';
 
 import { reactive, computed, toRefs, toRef, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
@@ -291,7 +301,8 @@ export default {
         Card,
         Toast,
         BlockUI,
-        InputSwitch
+        InputSwitch,
+        Textarea
     },
     data() {
         return {
@@ -419,6 +430,7 @@ export default {
          * Validations
          */
         const propsToValidate = {
+            remarks: toRef(state.healthDeclaration, 'remarks'),
             screened: toRef(state.healthDeclaration, 'screened'),
             consent: toRef(state.healthDeclaration, 'consent'),
             user_id: toRef(state.healthDeclaration, 'user_id'),
@@ -428,6 +440,7 @@ export default {
 
         const rules = computed(() => {
             return {
+                remarks: { },
                 screened: { required },
                 consent: { required },
                 user_id: { required: requiredIf(function() {
@@ -543,7 +556,14 @@ export default {
             (value, prevValue) => {
                 propsToValidate.screened.value = value
             }
-        )        
+        )
+        
+        watch(
+            () => state.healthDeclaration.remarks,
+            (value, prevValue) => {
+                propsToValidate.remarks.value = value
+            }
+        )
 
         watch(
             () => propsToValidate.defer.value,

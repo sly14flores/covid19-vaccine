@@ -28,6 +28,7 @@ class PreAssessment extends Model
         'oxygen_saturation',
         'pulse_rate',
         'screened',
+        'remarks'
     ];
 
     /**
