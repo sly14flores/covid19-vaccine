@@ -164,7 +164,7 @@
                         <hr />
                         <Toolbar>
                             <template #left>
-                                <h4 class="header-blue p-text-bold">VITAL SIGNS</h4>
+                                <h5 class="header-blue p-text-bold">VITAL SIGNS</h5>
                             </template>
                             <template #right>
                                 <Button type="button" @click="addRow" icon="pi pi-plus" class="p-button-sm p-button-secondary" />
@@ -217,7 +217,7 @@
                         <hr />
                         <Toolbar>
                             <template #left>
-                                <h4 class="header-blue p-text-bold">ADVERSED EVENTS</h4>
+                                <h5 class="header-blue p-text-bold">ADVERSED EVENTS</h5>
                             </template>
                         </Toolbar>
                         <div class="p-fluid p-formgrid p-grid">

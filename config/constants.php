@@ -248,10 +248,10 @@ return [
     ],
 
     'pre_assessments' => [
-        ["key"=>1,"description"=>"Below 18 years old?","value"=>false],
-        ["key"=>2,"description"=>"Has allergy to polysorbate or any other components (L-Histidine, L-Histidine hydrochloride monohydrate, Magnesium chloride hexahydrate, Polysorbate 80, Ethanol, Sucrose, Sodium chloride, Disodium edetate, Water for injections) of the vaccine?","value"=>false],
-        ["key"=>3,"description"=>"Had severe allergic reaction after the 1st dose of the vaccine?","value"=>false],
-        ["key"=>4,"description"=>"Allergy to food, egg, medicines? has asthma?","value"=>false],
+        ["key"=>1,"description"=>"Below 18 years old?","value"=>false,"remarks"=>"","has_remarks"=>1],
+        ["key"=>2,"description"=>"Has allergy to polysorbate or any other components (L-Histidine, L-Histidine hydrochloride monohydrate, Magnesium chloride hexahydrate, Polysorbate 80, Ethanol, Sucrose, Sodium chloride, Disodium edetate, Water for injections) of the vaccine?","value"=>false,"remarks"=>"","has_remarks"=>1],
+        ["key"=>3,"description"=>"Had severe allergic reaction after the 1st dose of the vaccine?","value"=>false,"remarks"=>"","has_remarks"=>1],
+        ["key"=>4,"description"=>"Allergy to food, egg, medicines? has asthma?","value"=>false,"remarks"=>"","has_remarks"=>1],
         ["key"=>5,"description"=>"If with allergy or asthma, will monitoring the patient for 30 minutes be a problem?","value"=>false],
         ["key"=>6,"description"=>"Has history of bleeding disorders or currently taking anti-coagulants?","value"=>false],
         ["key"=>7,"description"=>"If with bleeding history or currently taking anti-coagulants, is there a problem securing a gauge 23 - 25 syringe for injection?","value"=>false],

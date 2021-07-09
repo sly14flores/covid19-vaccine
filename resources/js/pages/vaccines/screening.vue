@@ -56,11 +56,6 @@
                         <hr />
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-12">
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-12">
                                 <div class="p-grid">
                                     <div class="p-field p-col-12 p-md-6">
                                         <Card>
@@ -70,25 +65,9 @@
                                             </template>
                                         </Card>
                                     </div>
-                                    <div class="p-field p-col-12 p-md-6">
-                                        <Card>
-                                            <template #content>
-                                                <div class="p-grid">
-                                                    <div class="p-field p-col-12 p-md-10">
-                                                        <label>Screened</label>
-                                                        <p class="p-error" v-if="vv.screened.$error">Screened is required</p>
-                                                    </div>
-                                                    <div class="p-field p-col-12 p-md-2">
-                                                        <InputSwitch v-model="vv.screened.$model" />
-                                                    </div>
-                                                </div>
-                                            </template>
-                                        </Card>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <hr />
                         <Toolbar>
                             <template #left>
                                 <h5 class="header-blue p-text-bold">VITAL SIGNS</h5>
@@ -98,7 +77,6 @@
                             </template>
                         </Toolbar>
                         <div v-for="(row, i) in vitalSigns" :key="row">
-                            <hr />
                             <div class="p-fluid p-formgrid p-grid">
                                 <div class="p-field p-col-12 p-md-2">
                                     <label><small>Date Collected </small></label>
@@ -140,37 +118,35 @@
                                     <Button type="button" @click="removeRow(i)" icon="pi pi-trash" class="p-button-sm p-button-danger p-mt-4" />
                                 </div>
                             </div>
+                            <hr />
                         </div>
-                        <hr />
-                        <Toolbar>
+                        <Toolbar class="p-mt-3">
                             <template #left>
                                 <h5 class="header-blue p-text-bold">CONSENT</h5>
                             </template>
                         </Toolbar>
                         <div class="p-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-6">
+                            <div class="p-field p-col-12 p-md-12">
                                 <Card>
                                     <template #content>
                                         <div class="p-grid">
-                                            <div class="p-field p-col-12 p-md-4">
+                                            <div class="p-field p-col-12 p-md-2 p-mt-4">
                                                 <p class="p-text-sm">Consent Received <i class="p-error">*</i></p>
                                                 <small class="p-error" v-if="vv.consent.$error">Consent is required</small>
                                             </div>
-                                            <div class="p-field p-col-12 p-md-3">
+                                            <div class="p-field p-col-12 p-md-2 p-mt-4">
                                                 <div class="p-field-radiobutton">
                                                     <RadioButton id="yes_consent" name="consent" value="01_Yes" v-model="vv.consent.$model" :class="{ 'p-invalid': vv.consent.$error }" />
                                                     <label for="yes_consent">Yes</label>
                                                 </div>
                                             </div>
-                                            <div class="p-field p-col-12 p-md-3">
+                                            <div class="p-field p-col-12 p-md-2 p-mt-4">
                                                 <div class="p-field-radiobutton">
                                                     <RadioButton id="no_consent" name="consent" value="02_No" v-model="vv.consent.$model" :class="{ 'p-invalid': vv.consent.$error }" />
                                                     <label for="no_consent">No</label>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="p-grid">
-                                            <div class="p-field p-col-12 p-md-12">
+                                            <div class="p-field p-col-12 p-md-6">
                                                 <label>Consent Received By</label>
                                                 <Dropdown class="p-shadow-1 p-inputtext-sm" v-model="vv.user_id.$model" optionLabel="name" optionValue="id" :options="vaccinators" :disabled="vv.consent.$model == '02_No'" :class="{'disabled': vv.consent.$model == '02_No', 'p-invalid': vv.user_id.$error }" />
                                                 <small class="p-error" v-if="vv.user_id.$error">Please specify who is receiving the consent</small>
@@ -179,56 +155,102 @@
                                     </template>
                                 </Card>
                             </div>
-                            <div class="p-field p-col-12 p-md-6">
-                                <Card>
-                                    <template #content>
-                                        <div class="p-grid">
-                                            <div class="p-field p-col-12 p-md-4">
-                                                <p class="p-text-sm">Defer <i class="p-error">*</i></p>
-                                                <small class="p-error" v-if="vv.defer.$error">Please choose Yes or No</small>
-                                            </div>
-                                            <div class="p-field p-col-12 p-md-3">
-                                                <div class="p-field-radiobutton">
-                                                    <RadioButton id="yes_defer" name="defer" value="01_Yes" v-model="vv.defer.$model" :class="{ 'p-invalid': vv.defer.$error }" />
-                                                    <label for="yes_defer">Yes</label>
-                                                </div>
-                                            </div>
-                                            <div class="p-field p-col-12 p-md-3">
-                                                <div class="p-field-radiobutton">
-                                                    <RadioButton id="no_defer" name="defer" value="02_No" v-model="vv.defer.$model" :class="{ 'p-invalid': vv.defer.$error }" />
-                                                    <label for="no_defer">No</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="p-grid">
-                                        <div class="p-field p-col-12 p-md-12">
-                                                <label>Reason for Deferral</label>
-                                                <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="deferrals" v-model="vv.reason.$model" :disabled="(vv.defer.$model=='02_No') || (vv.defer.$model==null)" :class="{'disabled': vv.defer.$model == '02_No', 'p-invalid': vv.reason.$error }" />
-                                                <small class="p-error" v-if="vv.reason.$error">Please specify reason</small>
-                                            </div>
-                                        </div>
-                                    </template>
-                                </Card>
-                            </div>
-                        </div>
-                        <hr />
+                        </div> 
                         <Toolbar>
                             <template #left>
                                 <h5 class="header-blue p-text-bold">HEALTH DECLARATION SCREENING FORM</h5>
                             </template>
                         </Toolbar>
-                        <DataTable v-if="vv.consent.$model == '01_Yes'" :value="healthDeclaration.assessments" class="p-datatable-sm" dataKey="key">
-                            <Column field="value" header="Yes  /  No" headerStyle="width: 15%">
-                                <template #body="slotProps">
-                                    <RadioButton :value="true" v-model="slotProps.data['value']" />
-                                    <RadioButton class="p-ml-4" :value="false" v-model="slotProps.data['value']" />
-                                </template>
-                            </Column>
-                            <Column field="description" header="Description"></Column>
-                        </DataTable>
-                        <div class="p-field p-col-12 p-md-12" v-if="vv.consent.$model == '01_Yes'">
-                            <label>Remarks: </label>
-                            <Textarea class="p-shadow-1" v-model="vv.remarks.$model" rows="3" cols="30" />
+                        <div class="p-grid p-col-12 p-md-12" v-if="vv.consent.$model == '01_Yes'">
+                            <div class="p-col-6 p-md-1">
+                                <h6 class="p-text-bold">YES / NO</h6>
+                            </div>
+                            <div class="p-col-6 p-md-11">
+                                <h6 class="p-text-bold">DESCRIPTION</h6>
+                            </div>
+                        </div>
+                        <div v-if="vv.consent.$model == '01_Yes'" >
+                            <div class="p-grid" v-for="item in healthDeclaration.assessments" :key="item.key">
+                                <div class="p-grid p-col-12 p-md-12">
+                                    <div class="p-col-4 p-md-1">
+                                        <RadioButton class="p-ml-2" :value="true" v-model="item.value" /> <RadioButton class="p-ml-2 p-mr-2" :value="false" v-model="item.value" />
+                                    </div>
+                                    <div class="p-col-8 p-md-11">
+                                        <label :for="item.key">{{item.description}}</label>
+                                        <div class="p-grid p-mt-1" v-if="(item.has_remarks==1 && item.value==true)">
+                                            <div class="p-col-12 p-md-1">
+                                                <label class="p-text-bold">Remarks</label>
+                                            </div>
+                                            <div class="p-col-12 p-md-11">
+                                                <Textarea class="p-shadow-1" v-model="item.remarks" rows="3" cols="30" />
+                                            </div>
+                                        </div>
+                                        <div class="p-field p-grid p-field-radiobutton p-ml-6 p-mt-2">
+                                            <div class="p-col-12 p-md-6 p-mb-2" v-for="sub in item.subs" :key="sub.key">
+                                                <Checkbox class="p-mr-2 p-inputtext-sm" :binary="true" v-model="sub.value" />
+                                                <label :for="sub.key">{{sub.description}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-field p-col-12 p-md-12" v-if="vv.consent.$model == '01_Yes'">
+                                <label>Remarks: </label>
+                                <Textarea class="p-shadow-1" v-model="vv.remarks.$model" rows="3" cols="30" />
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="p-fluid p-formgrid p-grid">
+                            <div class="p-field p-col-12 p-md-12">
+                                <div class="p-grid">
+                                    <div class="p-field p-col-12 p-md-6">
+                                        <Card>
+                                            <template #content>
+                                                <div class="p-grid">
+                                                    <div class="p-field p-col-12 p-md-4">
+                                                        <p class="p-text-sm">Defer <i class="p-error">*</i></p>
+                                                        <small class="p-error" v-if="vv.defer.$error">Please choose Yes or No</small>
+                                                    </div>
+                                                    <div class="p-field p-col-12 p-md-3">
+                                                        <div class="p-field-radiobutton">
+                                                            <RadioButton id="yes_defer" name="defer" value="01_Yes" v-model="vv.defer.$model" :class="{ 'p-invalid': vv.defer.$error }" />
+                                                            <label for="yes_defer">Yes</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="p-field p-col-12 p-md-3">
+                                                        <div class="p-field-radiobutton">
+                                                            <RadioButton id="no_defer" name="defer" value="02_No" v-model="vv.defer.$model" :class="{ 'p-invalid': vv.defer.$error }" />
+                                                            <label for="no_defer">No</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="p-grid" v-if="vv.defer.$model=='01_Yes'">
+                                                    <div class="p-field p-col-12 p-md-12">
+                                                        <label>Reason for Deferral</label>
+                                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="deferrals" v-model="vv.reason.$model" :disabled="(vv.defer.$model=='02_No') || (vv.defer.$model==null)" :class="{'disabled': vv.defer.$model == '02_No', 'p-invalid': vv.reason.$error }" />
+                                                        <small class="p-error" v-if="vv.reason.$error">Please specify reason</small>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </Card>
+                                    </div>
+                                    <div class="p-field p-col-12 p-md-6">
+                                        <Card>
+                                            <template #content>
+                                                <div class="p-grid">
+                                                    <div class="p-field p-col-12 p-md-10">
+                                                        <label>Screened <i class="p-error">*</i></label>
+                                                        <p class="p-error" v-if="vv.screened.$error">Screened is required</p>
+                                                    </div>
+                                                    <div class="p-field p-col-12 p-md-2">
+                                                        <InputSwitch v-model="vv.screened.$model" />
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </Card>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <Toolbar>
                             <template #right>
@@ -277,7 +299,6 @@ import Swal from 'sweetalert2'
 import {
     getScreeningPersonalInfo,
     postScreeningInfo,
-    getSelections,
     getVaccinators,
     getDeferrals
 } from '../../api/vaccination'
@@ -337,6 +358,20 @@ export default {
         const dose = ref(parseInt(next_dose));
 
         const doseSelected = () => {
+            Swal.fire({
+                title: 'Please wait...',
+                willOpen () {
+                Swal.showLoading ()
+                },
+                didClose () {
+                Swal.hideLoading()
+                },
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false
+            })
+
             getScreeningPersonalInfo({ id: qr, dose: dose.value }).then(res => {
                 const { data: { data } } = res
                 const { pre_assessment, vitals, dels } = data
@@ -350,7 +385,7 @@ export default {
                     defer: (pre_assessment.reason != null)?'01_Yes':null
                 })
 
-
+                Swal.close()
 
             }).catch(err => {
                
