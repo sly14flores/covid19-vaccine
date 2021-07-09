@@ -26,7 +26,7 @@ import AppFooter from './AppFooter.vue';
 
 import { useStore } from 'vuex';
 
-import { summary, registrations, users, facilities, vaccines, screening, inoculation, monitoring } from './menu.js';
+import { summary, registrations, users, facilities, vaccines, vaccines_administration } from './menu.js';
 
 export default {
   props: ['pageComponent'],
@@ -37,19 +37,21 @@ export default {
     const isAdmin = store.state.profile.group_id == 1
     const _users =  (isAdmin)?users:[]
     const _facilities = (isAdmin)?facilities:[]
-    const _screening = (isAdmin)?screening:[]
-    const _inoculation = (isAdmin)?inoculation:[]
-    const _monitoring = (isAdmin)?monitoring:[]
+    const _vaccines_administration = (isAdmin)?vaccines_administration:[]
+    // const _screening = (isAdmin)?screening:[]
+    // const _inoculation = (isAdmin)?inoculation:[]
+    // const _monitoring = (isAdmin)?monitoring:[]
 
     const menu = [
       ...summary,
       ...registrations,
+      ...vaccines,
+      ..._vaccines_administration,
       ..._facilities,
       ..._users,
-      ...vaccines,
-      ..._screening,
-      ..._inoculation,
-      ..._monitoring
+      // ..._screening,
+      // ..._inoculation,
+      // ..._monitoring
     ]
 
     return {
