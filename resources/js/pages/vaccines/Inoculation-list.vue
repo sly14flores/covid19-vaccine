@@ -2,7 +2,14 @@
     <div>
         <MyBreadcrumb :home="home" :items="items" />
         <Panel class="p-mt-4" header="Upload" :toggleable="true" :collapsed="false">
-            <div class="terminal">
+            <FileUpload name="excel" :url="uploadUrl" :multiple="false" withCredentials="true" @before-send="setBeforeSend" @upload="uploadComplete" @error="uploadError" :maxFileSize="24000000">
+                <template #empty>
+                    <div class="p-d-flex p-p-3" v-if="showTerminal">
+                        <Button type="Button" label="Start Import" class="p-button-danger p-ml-auto" :disabled="checking" @click="checkData" />
+                    </div>
+                </template>
+            </FileUpload>
+            <div id="terminal" class="terminal">
                 <p v-for="(c, i) in consoles" :key="i" :class="c.class">{{c.text}}</p>
             </div>
         </Panel>  
@@ -56,10 +63,18 @@ import Button from 'primevue/button/sfc';
 import InputText from 'primevue/inputtext/sfc';
 import BlockUI from 'primevue/blockui/sfc';
 import Tag from 'primevue/tag/sfc';
+import FileUpload from 'primevue/fileupload/sfc';
 
 import { reactive, ref, toRefs, onMounted, onBeforeUnmount } from 'vue'
 import { useStore } from 'vuex'
 import { getRegistrationsList } from '../../api/vaccination'
+
+import { api_url } from '../../url.js'
+const uploadUrl = `${api_url}/api/doh/vaccines/inoculation/upload`
+
+const checkVASData = (payload) => {
+    return axios.post(`${api_url}/api/doh/vaccines/inoculation/check`,{...payload})
+}
 
 import Swal from 'sweetalert2'
 
@@ -76,6 +91,7 @@ export default {
         InputText,
         BlockUI,
         Tag,
+        FileUpload,
     },
     setup(props) {
 
@@ -103,7 +119,9 @@ export default {
         publicChannel.listen('.monitor', event => {
             // console.log(event)
             const { payload } = event
-            consoles.push({class: payload.info, text: payload.text})
+            consoles.push({class: payload.class, text: payload.text})
+            const t = document.querySelector('#terminal')
+            t.scrollTo(0, t.scrollHeight)
         });
         
         //     
@@ -170,7 +188,8 @@ export default {
             fetchRegistrations,
             blocked,
             phase,
-            consoles
+            uploadUrl,
+            consoles,
         }
         
     },
@@ -178,7 +197,66 @@ export default {
         return {
             home: {icon: 'pi pi-search', to: `${this.$route.fullPath}`},
             items: [],
+            checking: false,
+            import: {
+                excel: null,
+                path: null
+            }
         }
+    },
+    computed: {
+        showTerminal() {
+            return this.import.excel !== null
+        }
+    },
+    methods: {
+        setBeforeSend(e) {
+            
+            e.xhr.setRequestHeader('Accept', 'application/json')
+            e.xhr.setRequestHeader('Authorization', `Bearer ${this.$store.state.profile.token}`)
+
+        },
+        uploadComplete(e) {
+
+            const { xhr: { response } } = e
+
+            const data = JSON.parse(response)
+
+            const { data: { filename, path } } = data
+
+            this.import.excel = filename
+            this.import.path = path
+            this.checking = false
+
+            this.consoles.push({class: 'info', text: "Excel uploaded, click 'START IMPORT' to begin"})
+
+        },
+        uploadError(e) {
+            
+            const { xhr: { response } } = e
+
+            const data = JSON.parse(response)
+
+            const { message } = data
+
+            this.checking = false
+
+            this.consoles.push({class: 'error', text: "Something went wrong, please try again"})
+
+        },
+        checkData() {
+
+            this.checking = true
+            this.consoles.push({class: 'info', text: "Analyzing data structures..."})
+
+            checkVASData(this.import).then(res => {
+                this.checking = false              
+            }).catch(e => {
+                this.checking = false
+                this.consoles.push({class: 'error', text: "Something went wrong, please try again"})
+            })
+
+        },       
     },
     beforeUpdate() {
         console.log('Update')
@@ -205,8 +283,12 @@ export default {
     padding: 0!important;
 }
 
-.terminal .info {
+.terminal .success {
     color: #00FF00;
+}
+
+.terminal .info {
+    color: #00d9ff;
 }
 
 .terminal .error {

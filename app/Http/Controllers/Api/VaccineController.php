@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 use Illuminate\Database\Eloquent\Builder;
 
@@ -42,6 +43,9 @@ use App\Helpers\General\CollectionHelper;
 use Illuminate\Support\LazyCollection;
 
 use Carbon\Carbon;
+use App\Rules\ExcelRule;
+
+use App\Events\ImportInoculationMonitor;
 
 class VaccineController extends Controller
 {
@@ -950,6 +954,56 @@ class VaccineController extends Controller
         $result = new VaccineMonitoringInfo($registration);
 
         return $this->jsonSuccessResponse($result, 200);      
+
+    }
+
+    public function upload(Request $request)
+    {
+
+		$rules = [
+			'excel' => ['required',new ExcelRule($request->file('excel'))],
+		];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return $this->jsonErrorDataValidation();
+        };
+
+        $hospital = Auth::user()->hospital;
+        if (is_null($hospital)) {
+            $hospital = Str::random(10);
+        }
+
+        $path = "vas/$hospital/";
+        $filename = Str::random(40).".".$request->file('excel')->getClientOriginalExtension();
+
+        $request->file('excel')->storeAs($path, $filename);
+
+        return $this->jsonCreateSuccessResponse([
+            'filename' => $filename,
+            'path' => $path
+        ]);
+
+    }
+
+    /**
+     * Check if excel file has correct structures
+     */
+    public function check(Request $request)
+    {
+
+        $id = Auth::guard('api')->id();
+        $excel = $request->excel;
+        $path = $request->path;
+
+        event(new ImportInoculationMonitor($id,['class'=>'info','text'=>"Initiating import..."]));
+
+        sleep(5);
+
+        for ($i=1; $i<=1000; $i++) {
+            event(new ImportInoculationMonitor($id,['class'=>'success','text'=>($i+1).' Imported']));
+        }        
 
     }
     
