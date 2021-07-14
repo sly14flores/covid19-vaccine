@@ -16,7 +16,7 @@ class ImportInoculationMonitor implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user_id = 209;
+    private $user_id;
 
     public $payload;
 
@@ -25,8 +25,9 @@ class ImportInoculationMonitor implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($payload)
+    public function __construct($user_id,$payload)
     {
+        $this->user_id = $user_id;
         $this->payload = $payload;
     }
 
@@ -48,6 +49,6 @@ class ImportInoculationMonitor implements ShouldBroadcast
     public function broadcastOn()
     {
         // return new PrivateChannel('vaccines.import.inoculation.209');
-        return ['vaccines.import.inoculation.209'];
+        return ['vaccines.import.inoculation.'.$this->user_id];
     }
 }

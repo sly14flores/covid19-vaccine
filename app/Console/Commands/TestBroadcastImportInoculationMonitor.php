@@ -41,8 +41,8 @@ class TestBroadcastImportInoculationMonitor extends Command
     public function handle()
     {      
         // ImportInoculationMonitorJob::dispatch();
-        for ($i=1; $i<=10; $i++) {
-            event(new ImportInoculationMonitor($i));
+        for ($i=1; $i<=1000; $i++) {
+            event(new ImportInoculationMonitor(209,['class'=>'info','text'=>'Hello, World']));
         }
 
         return 0;
