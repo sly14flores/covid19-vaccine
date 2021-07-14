@@ -1,6 +1,11 @@
 <template>
     <div>
-        <MyBreadcrumb :home="home" :items="items" />        
+        <MyBreadcrumb :home="home" :items="items" />
+        <Panel class="p-mt-4" header="Upload" :toggleable="true" :collapsed="false">
+            <div class="terminal">
+                <p v-for="(c, i) in consoles" :key="i" :class="c.class">{{c.text}}</p>
+            </div>
+        </Panel>  
         <Panel header="List" class="p-mt-4">
             <div class="p-grid">
                 <div class="p-sm-12 p-md-6 p-lg-4">
@@ -52,7 +57,7 @@ import InputText from 'primevue/inputtext/sfc';
 import BlockUI from 'primevue/blockui/sfc';
 import Tag from 'primevue/tag/sfc';
 
-import { reactive, ref, toRefs } from 'vue'
+import { reactive, ref, toRefs, onMounted, onBeforeUnmount } from 'vue'
 import { useStore } from 'vuex'
 import { getRegistrationsList } from '../../api/vaccination'
 
@@ -76,6 +81,10 @@ export default {
 
         const store = useStore()
 
+        const consoles = reactive([])
+
+        // consoles.push({class: 'info', text: 'Lorem, Ipsum'})
+
         /**
          * Subscribe to monitor channel
          */
@@ -92,8 +101,12 @@ export default {
         );
 
         publicChannel.listen('.monitor', event => {
-            console.log(event)
-        });           
+            // console.log(event)
+            const { payload } = event
+            consoles.push({class: payload.info, text: payload.text})
+        });
+        
+        //     
 
         const blocked = ref(false)
 
@@ -156,7 +169,8 @@ export default {
             ...toRefs(state),
             fetchRegistrations,
             blocked,
-            phase
+            phase,
+            consoles
         }
         
     },
@@ -171,6 +185,32 @@ export default {
     },
     mounted() {
         this.fetchRegistrations({ page: 0 })
-    }
+    }   
 }
 </script>
+
+<style>
+
+.terminal {
+    height: 300px;
+    overflow: scroll;
+    font-family: monospace;
+    background-color: #212121!important;
+    color: #ffffff!important;
+    padding: 5px 10px;
+}
+
+.terminal p {
+    margin: 0!important;
+    padding: 0!important;
+}
+
+.terminal .info {
+    color: #00FF00;
+}
+
+.terminal .error {
+    color: #ff0000;
+}
+
+</style>
