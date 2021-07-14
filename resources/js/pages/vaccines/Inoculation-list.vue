@@ -1,7 +1,7 @@
 <template>
     <div>
         <MyBreadcrumb :home="home" :items="items" />
-        <Panel class="p-mt-4" header="Upload" :toggleable="true" :collapsed="false">
+        <Panel class="p-mt-4" header="Upload" :toggleable="true" :collapsed="true">
             <FileUpload name="excel" :url="uploadUrl" :multiple="false" withCredentials="true" @before-send="setBeforeSend" @upload="uploadComplete" @error="uploadError" :maxFileSize="24000000">
                 <template #empty>
                     <div class="p-d-flex p-p-3" v-if="showTerminal">
