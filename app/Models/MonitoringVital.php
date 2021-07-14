@@ -66,6 +66,15 @@ class MonitoringVital extends Model
      * @param $value
      * @return false|string
      */
+    public function setDateCollectedAttribute($value)
+    {
+        $this->attributes['date_collected'] = Carbon::parse($value)->timezone('Asia/Manila')->format('Y-m-d');  
+    }    
+
+    /**
+     * @param $value
+     * @return false|string
+     */
     public function getTimeCollectedAttribute($value)
     {
         return Carbon::parse($value)->format('h:i A');
@@ -73,7 +82,7 @@ class MonitoringVital extends Model
 
     public function setTimeCollectedAttribute($value)
     {
-        $this->attributes['time_collected'] = Carbon::parse($value)->format('H:i:s');
+        $this->attributes['time_collected'] = Carbon::parse($value)->timezone('Asia/Manila')->format('H:i:s');
     }    
 
     public function dosage()

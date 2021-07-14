@@ -218,6 +218,18 @@ trait SelectionsRegistration
                 ]
             ],
             [
+                "name"=>"Outbound OFWS",
+                "description"=>"(A1.8) Outbound OFWS",
+                "id"=>"01_A1.8",
+                "subs"=> []
+            ],
+            [
+                "name"=>"Family Members of Healthcare Workers",
+                "description"=>"(A1.9) Family Members of Healthcare Workers",
+                "id"=>"01_A1.9",
+                "subs"=> []
+            ],
+            [
                 "name"=>"Senior citizens aged 60 years old and above",
                 "description"=>"(A2) Senior citizens aged 60 years old and above",
                 "id"=>"02_A2",
@@ -226,7 +238,6 @@ trait SelectionsRegistration
                     ["name"=>"All Other Senior Citizens", "description"=>"(A2.2) All Other Senior Citizens", "id"=>"09_A2.2"]
                 ]
             ],
-            
             [
                 "name"=>"Adult with Comorbidity",
                 "description"=>"(A3) Adult with Comorbidity",
@@ -275,11 +286,12 @@ trait SelectionsRegistration
                 //     ["name"=>"Department of Public Works and Highways personnel in charge of monitoring government infrastructure projects and their LGU counter parts", "description"=>"(A4.17) DPWH personnel in charge of monitoring government infrastructure projects and their LGU counter parts", "id"=>"17_A4.17"],
                 ]
             ],
-            // [
-            //     "name"=>"Poor Population",
-            //     "id"=>"05_A5",
-            //     "subs"=> []
-            // ],
+            [
+                "name"=>"Indigent Population",
+                "description"=>"(A5) Indigent Population",
+                "id"=>"05_A5",
+                "subs"=> []
+            ],
             // [
             //     "name"=>"Teachers and Social Workers",
             //     "id"=>"06_B1",
