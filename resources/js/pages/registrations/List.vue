@@ -5,7 +5,7 @@
         <div class="p-grid p-mt-1">
             <div class="p-lg-12 p-md-12 p-sm-12">
                 <Panel header="Upload" :toggleable="true" :collapsed="true">
-                    <FileUpload name="excel" :url="uploadUrl" :multiple="false" withCredentials="true" @before-send="setBeforeSend" @upload="uploadComplete" @error="uploadError" :maxFileSize="24000000">
+                    <FileUpload name="excel" :url="uploadUrl" :multiple="false" :withCredentials="true" @before-send="setBeforeSend" @upload="uploadComplete" @error="uploadError" :maxFileSize="24000000">
                         <template #empty>
                             <div v-if="showTerminal">
                                 <div class="p-d-flex p-p-3">
@@ -74,13 +74,13 @@
         </Toolbar>
         
         <Panel header="List">
-            <DataTable class="p-datatable-sm" :value="registrations" responsiveLayout="scroll">
-                <Column field="qr_pass_id" header="Napanam ID No" sortable="true"></Column>
-                <Column field="first_name" header="First Name" sortable="true"></Column>
-                <Column field="middle_name" header="Middle Name" sortable="true"></Column>
-                <Column field="last_name" header="Last Name" sortable="true"></Column>
-                <Column field="townCity" header="Municipality/City" sortable="true"></Column>
-                <!-- <Column field="" header="Priority Group" sortable="true"></Column> -->
+            <DataTable :value="registrations" responsiveLayout="scroll">
+                <Column field="qr_pass_id" header="Napanam ID No" :sortable="true"></Column>
+                <Column field="first_name" header="First Name" :sortable="true"></Column>
+                <Column field="middle_name" header="Middle Name" :sortable="true"></Column>
+                <Column field="last_name" header="Last Name" :sortable="true"></Column>
+                <Column field="townCity" header="Municipality/City" :sortable="true"></Column>
+                <!-- <Column field="" header="Priority Group" :sortable="true"></Column> -->
                 <Column field="id" header="Actions">
                     <template #body="slotProps">
                         <router-link :to="`/registrations/registration/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>
@@ -281,6 +281,8 @@ export default {
 
         },
         uploadComplete(e) {
+
+            console.log(e)
 
             const { xhr: { response } } = e
 
