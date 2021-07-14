@@ -342,13 +342,13 @@ class VaccineController extends Controller
         $dose = $data['dose'];
         $check_pre = PreAssessment::where([['qr_pass_id',$id],['dose',$dose]])->first();
 
-        if (is_null($check_pre)) {
-            return $this->jsonFailedResponse(null, 406, "Patient has not been screened yet");
-        }
+        // if (is_null($check_pre)) {
+        //     return $this->jsonFailedResponse(null, 406, "Patient has not been screened yet");
+        // }
 
-        if ($check_pre!=null && (is_null($check_pre->screened) || !$check_pre->screened)) {
-            return $this->jsonFailedResponse(null, 406, "Patient has not been screened yet");
-        }
+        // if ($check_pre!=null && (is_null($check_pre->screened) || !$check_pre->screened)) {
+        //     return $this->jsonFailedResponse(null, 406, "Patient has not been screened yet");
+        // }
 
         $result = new VaccineInoculationInfo($registration);
 
@@ -393,13 +393,13 @@ class VaccineController extends Controller
         $dose = $data['dose'];
         $check_dose = Dosage::where([['qr_pass_id',$id],['dose',$dose]])->first();
 
-        if (is_null($check_dose)) {
-            return $this->jsonFailedResponse(null, 406, "Patient has not been vaccinated yet");
-        }
+        // if (is_null($check_dose)) {
+        //     return $this->jsonFailedResponse(null, 406, "Patient has not been vaccinated yet");
+        // }
 
-        if (($check_dose!=null) && (is_null($check_dose->date_of_vaccination))) {
-            return $this->jsonFailedResponse(null, 406, "Patient has not been vaccinated yet");
-        }
+        // if (($check_dose!=null) && (is_null($check_dose->date_of_vaccination))) {
+        //     return $this->jsonFailedResponse(null, 406, "Patient has not been vaccinated yet");
+        // }
 
         /**
          * Check if post assessment has entry
