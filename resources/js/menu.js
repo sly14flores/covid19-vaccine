@@ -87,7 +87,7 @@ const vaccines = [
     }    
 ]
 
-const vaccines_administration = [
+const vaccine_administration = [
     {
         label:'Vaccine Administration',
         icon:'pi pi-fw pi-user-edit',
@@ -106,6 +106,35 @@ const vaccines_administration = [
             label:'Monitoring',
             icon:'pi pi-fw pi-desktop',
             to: '/vaccines/list/monitoring'
+          },
+        ]
+    },
+]
+
+const reports = [
+    {
+        label:'Reports',
+        icon:'pi pi-fw pi-copy',
+        items:[
+          {
+            label:'VAS',
+            icon:'pi pi-fw pi-file',
+            to: '/reports/list/vas'                    
+          },              
+          {
+            label:'Deferred',
+            icon:'pi pi-fw pi-file',
+            to: '/reports/list/deferred'
+          },
+          {
+            label:'Vaccine Schedule',
+            icon:'pi pi-fw pi-file',
+            to: '/reports/list/schedule'
+          },
+          {
+            label:'AEFI',
+            icon:'pi pi-fw pi-file',
+            to: '/reports/list/aefi'
           },
         ]
     },
@@ -141,7 +170,8 @@ export {
     users,
     facilities,
     vaccines,
-    vaccines_administration
+    vaccine_administration,
+    reports
 }
 
 /*

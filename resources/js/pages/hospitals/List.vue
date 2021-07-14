@@ -21,7 +21,7 @@
                             </div>
                         </template>
                     </Toolbar>
-                    <DataTable :value="hospitals" dataKey="id">
+                    <DataTable class="p-datatable-sm" :value="hospitals" dataKey="id">
                         <Column field="description" header="Description"></Column>
                         <Column field="town_city" header="City/Municipality"></Column>
                         <Column field="cbcr_id" header="Bakuna Center CBCR ID"></Column>

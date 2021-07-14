@@ -17,7 +17,7 @@
                 </div>
             </div>
             <BlockUI :blocked="blocked">
-                <DataTable class="p-mt-4" :value="registrations" responsiveLayout="scroll">
+                <DataTable class="p-mt-4 p-datatable-sm" :value="registrations" responsiveLayout="scroll">
                     <Column field="qr_pass_id" header="Napanam ID No" :sortable="true"></Column>
                     <Column field="first_name" header="First Name" :sortable="true"></Column>
                     <Column field="middle_name" header="Middle Name" :sortable="true"></Column>

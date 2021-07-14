@@ -21,7 +21,7 @@
                             </div>
                         </template>
                     </Toolbar>
-                    <DataTable :value="users" dataKey="id" v-model:users="users">
+                    <DataTable class="p-datatable-sm" :value="users" dataKey="id" v-model:users="users">
                         <Column field="firstname" header="First Name"></Column>
                         <Column field="lastname" header="Last Name"></Column>
                         <Column field="username" header="Username"></Column>
