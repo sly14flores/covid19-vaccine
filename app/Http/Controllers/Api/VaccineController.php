@@ -46,6 +46,10 @@ use Illuminate\Support\LazyCollection;
 use Carbon\Carbon;
 use App\Rules\ExcelRule;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Shared\Date as PODate;
+
 use App\Events\ImportInoculationMonitor;
 
 class VaccineController extends Controller
@@ -998,6 +1002,8 @@ class VaccineController extends Controller
         $excel = $request->excel;
         $path = $request->path;
 
+        $file_path = storage_path()."/app/{$path}{$excel}";      
+
         $properties = [
             "priority_group", # 0 registrations
             "qr_pass_id", # 1 registrations
@@ -1014,16 +1020,16 @@ class VaccineController extends Controller
             "barangay", # 12 registrations
             "gender", # 13 registrations
             "birthdate", # 14 registrations
-            "reason", # 15 pre_assessments / deferral: Y|N
+            "deferral", # 15 pre_assessments / deferral: Y|N
             "reason", # 16 pre_assessments / reason for deferral
             "date_of_vaccination", # 17* dosages
             "brand_name", # 18* dosages
             "batch_number", # 19* dosages
             "lot_number", # 20* dosages
             "cbcr_id", # 21* hospitals
-            "user_id", # 22* dosages / vaccinator name
-            "dose", # 23* dosages / first dose
-            "dose", # 24* dosages / second dose
+            "vaccinator_name", # 22* dosages / vaccinator name
+            "dose1", # 23* dosages / first dose
+            "dose2", # 24* dosages / second dose
             "has_adverse_event", # 25* aefis / adverse event
             "adverse_event_condition", # 26* aefis / adverse event condition
         ];
@@ -1190,7 +1196,7 @@ class VaccineController extends Controller
                 'na_if_empty' => false,
                 'none_if_empty' => false,
             ], # 14 registrations / m/d/Y
-            "reason" => [
+            "deferral" => [
                 'header' => 'DEFERRAL',
                 'required' => true,
                 'formatted' => true,
@@ -1253,7 +1259,7 @@ class VaccineController extends Controller
                 'na_if_empty' => false,
                 'none_if_empty' => false,
             ], # 21* hospitals
-            "user_id" => [
+            "vaccinator_name" => [
                 'header' => 'VACCINATOR_NAME',
                 'required' => true,
                 'formatted' => false,
@@ -1262,7 +1268,7 @@ class VaccineController extends Controller
                 'na_if_empty' => false,
                 'none_if_empty' => false,
             ], # 22* dosages / vaccinator name
-            "dose" => [
+            "dose1" => [
                 'header' => '1ST_DOSE',
                 'required' => true,
                 'formatted' => true,
@@ -1271,7 +1277,7 @@ class VaccineController extends Controller
                 'na_if_empty' => false,
                 'none_if_empty' => false,
             ], # 23* dosages / first dose
-            "dose" => [
+            "dose2" => [
                 'header' => '2ND_DOSE',
                 'required' => true,
                 'formatted' => true,
@@ -1300,9 +1306,57 @@ class VaccineController extends Controller
             ], # 26* aefis / adverse event condition            
         ];
 
-        $this->dumpToSlack($validations['adverse_event_condition'],"VALIDATIONS");        
+        event(new ImportInoculationMonitor($id,['class'=>'info','text'=>"Reading rows..."]));        
 
-        // event(new ImportInoculationMonitor($id,['class'=>'info','text'=>"Analyzing data..."]));
+        $reader = IOFactory::createReader('Xlsx');
+        $reader->setReadDataOnly(TRUE);
+        $spreadsheet = $reader->load($file_path);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+        
+        $rows = [];
+        foreach ($worksheet->getRowIterator() as $row) {
+
+            $cellIterator = $row->getCellIterator();
+            $cellIterator->setIterateOnlyExistingCells(FALSE);
+
+            $row = [];
+            foreach ($cellIterator as $cell) {
+                $row[] = trim($cell->getValue());
+            }          
+
+            $rows[] = $row;
+
+        }
+
+        $assocs = [];
+        foreach ($rows as $i => $row) {
+
+            if ($i == 0) continue;
+
+            $cols = [];
+            foreach($row as $key => $cell) {
+                if (isset($properties[$key])) {
+                    if ($properties[$key] == "birthdate") {
+                        $birthdate = date("Y-m-d",PODate::excelToTimestamp(intval($cell)));
+                        $cols[$properties[$key]] = ($birthdate=="1970-01-01")?"":$birthdate;
+                    } else if ($properties[$key] == "date_of_vaccination") {
+                        $date_of_vaccination = date("Y-m-d",PODate::excelToTimestamp(intval($cell)));
+                        $cols[$properties[$key]] = ($date_of_vaccination=="1970-01-01")?"":$date_of_vaccination;
+                    } else {
+                        $cols[$properties[$key]] = $cell;
+                    }
+                }
+            }
+
+            $cols['valid'] = false;
+
+            $assocs[] = $cols;
+        }        
+
+        event(new ImportInoculationMonitor($id,['class'=>'info','text'=>"Validating data..."]));        
+
+        $this->dumpToSlack($assocs,"ROWS");
 
     }
     
