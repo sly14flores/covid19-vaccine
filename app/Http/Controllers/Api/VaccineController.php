@@ -23,6 +23,7 @@ use App\Models\QrPass;
 use App\Models\ScreeningVital;
 use App\Models\MonitoringVital;
 use App\Models\Aefi;
+use App\Models\Hospital;
 
 use App\Http\Resources\VaccineResource;
 use App\Http\Resources\VaccineResourceCollection;
@@ -997,13 +998,311 @@ class VaccineController extends Controller
         $excel = $request->excel;
         $path = $request->path;
 
-        event(new ImportInoculationMonitor($id,['class'=>'info','text'=>"Initiating import..."]));
+        $properties = [
+            "priority_group", # 0 registrations
+            "qr_pass_id", # 1 registrations
+            "pwd_id", # 2 registrations
+            "indigenous_member", # 3 registrations
+            "last_name", # 4 registrations
+            "first_name", # 5 registrations
+            "middle_name", # 6 registrations
+            "suffix", # 7 registrations
+            "contact_no", # 8 registrations
+            "region", # 9 registrations
+            "province", # 10 registrations
+            "town_city", # 11 registrations
+            "barangay", # 12 registrations
+            "gender", # 13 registrations
+            "birthdate", # 14 registrations
+            "reason", # 15 pre_assessments / deferral: Y|N
+            "reason", # 16 pre_assessments / reason for deferral
+            "date_of_vaccination", # 17* dosages
+            "brand_name", # 18* dosages
+            "batch_number", # 19* dosages
+            "lot_number", # 20* dosages
+            "cbcr_id", # 21* hospitals
+            "user_id", # 22* dosages / vaccinator name
+            "dose", # 23* dosages / first dose
+            "dose", # 24* dosages / second dose
+            "has_adverse_event", # 25* aefis / adverse event
+            "adverse_event_condition", # 26* aefis / adverse event condition
+        ];
 
-        sleep(5);
+        $categories = collect($this->priorityGroupValue())->pluck('id');
+        $categories = $categories->map(function($cat) {
+            $exp = explode("_",$cat);
+            return $exp[1];
+        });
 
-        for ($i=1; $i<=1000; $i++) {
-            event(new ImportInoculationMonitor($id,['class'=>'success','text'=>($i+1).' Imported']));
-        }        
+        $indigenous = collect($this->indigenousValue())->pluck('id');
+
+        $regions = collect($this->regionValue())->pluck('id');
+
+        $provinces = $this->provinceVasValue();
+
+        # For town_city
+        // $province = $provinces->toArray()[2];
+        // $provCode = substr($province,0,3);
+        // $town_cities = $this->provMunCityVasValue($provCode);
+        #
+
+        $brands = collect($this->brandValue())->pluck('shortname');
+
+        $cbcrs = collect(Hospital::all())->pluck('cbcr_id');
+
+        $adverse_event_conditions = collect($this->adverseEventsValue())->pluck('id');
+
+        // $this->dumpToSlack($adverse_event_conditions->toArray(),"CATEGORY");
+
+        $validations = [
+            "priority_group" => [
+                'header' => 'CATEGORY',
+                'required' => true,
+                'formatted' => true,
+                'formats' => $categories->toArray(),
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 0 registrations
+            "qr_pass_id" => [
+                'header' => 'UNIQUE_PERSON_ID',
+                'required' => true,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 1 registrations
+            "pwd_id" => [
+                'header' => 'PWD',
+                'required' => true,
+                'formatted' => true,
+                'formats' => ["Y","N"],
+                'default_no' => true,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 2 registrations
+            "indigenous_member" => [
+                'header' => 'Indigenous Member',
+                'required' => true,
+                'formatted' => true,
+                'formats' => $indigenous->toArray(),
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 3 registrations
+            "last_name" => [
+                'header' => 'LAST_NAME',
+                'required' => true,
+                'formatted' => true,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 4 registrations
+            "first_name" => [
+                'header' => 'FIRST_NAME',
+                'required' => true,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 5 registrations
+            "middle_name" => [
+                'header' => 'MIDDLE_NAME',
+                'required' => true,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 6 registrations
+            "suffix" => [
+                'header' => 'SUFFIX',
+                'required' => false,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => true,
+                'none_if_empty' => false,
+            ], # 7 registrations
+            "contact_no" => [
+                'header' => 'CONTACT_NO',
+                'required' => true,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 8 registrations
+            "region" => [
+                'header' => 'REGION',
+                'required' => true,
+                'formatted' => true,
+                'formats' => $regions,
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 9 registrations
+            "province" => [
+                'header' => 'PROVINCE',
+                'required' => true,
+                'formatted' => true,
+                'formats' => $provinces,
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 10 registrations
+            "town_city" => [
+                'header' => 'MUNI_CITY',
+                'required' => true,
+                'formatted' => true,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 11 registrations
+            "barangay" => [
+                'header' => 'BARANGAY',
+                'required' => true,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 12 registrations
+            "gender" => [
+                'header' => 'SEX',
+                'required' => true,
+                'formatted' => true,
+                'formats' => ["M","F"],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 13 registrations
+            "birthdate" => [
+                'header' => 'BIRTHDATE',
+                'required' => true,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 14 registrations / m/d/Y
+            "reason" => [
+                'header' => 'DEFERRAL',
+                'required' => true,
+                'formatted' => true,
+                'formats' => ["Y","N"],
+                'default_no' => true,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 15 pre_assessments / deferral: Y|N
+            "reason" => [
+                'header' => 'REASON_FOR_DEFERRAL',
+                'required' => false, # true if reason is Y
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 16 pre_assessments / reason for deferral / m/d/Y
+            "date_of_vaccination" => [
+                'header' => 'VACCINATION_DATE',
+                'required' => true,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 17* dosages
+            "brand_name" => [
+                'header' => 'VACCINE_MANUFACTURER_NAME',
+                'required' => true,
+                'formatted' => true,
+                'formats' => $brands->toArray(),
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 18* dosages
+            "batch_number" => [
+                'header' => 'BATCH_NUMBER',
+                'required' => true,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 19* dosages
+            "lot_number" => [
+                'header' => 'LOT_NO',
+                'required' => true,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 20* dosages
+            "cbcr_id" => [
+                'header' => 'BAKUNA_CENTER_CBCR_ID',
+                'required' => true,
+                'formatted' => true,
+                'formats' => $cbcrs,
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 21* hospitals
+            "user_id" => [
+                'header' => 'VACCINATOR_NAME',
+                'required' => true,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 22* dosages / vaccinator name
+            "dose" => [
+                'header' => '1ST_DOSE',
+                'required' => true,
+                'formatted' => true,
+                'formats' => ["Y","N"],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 23* dosages / first dose
+            "dose" => [
+                'header' => '2ND_DOSE',
+                'required' => true,
+                'formatted' => true,
+                'formats' => ["Y","N"],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 24* dosages / second dose
+            "has_adverse_event" => [
+                'header' => 'Adverse Event',
+                'required' => true,
+                'formatted' => true,
+                'formats' => ["Y","N"],
+                'default_no' => true,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+            ], # 25* aefis / adverse event
+            "adverse_event_condition" => [
+                'header' => 'Adverse Event Condition',
+                'required' => false, # true if has_adverse_event is Y
+                'formatted' => false,
+                'formats' => $adverse_event_conditions->toArray(),
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => true,
+            ], # 26* aefis / adverse event condition            
+        ];
+
+        $this->dumpToSlack($validations['adverse_event_condition'],"VALIDATIONS");        
+
+        // event(new ImportInoculationMonitor($id,['class'=>'info','text'=>"Analyzing data..."]));
 
     }
     
