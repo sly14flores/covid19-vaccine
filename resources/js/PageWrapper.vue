@@ -34,11 +34,10 @@ export default {
 
     const store = useStore()
 
-    const isAdmin = store.state.profile.group_id == 1
-    const _users =  (isAdmin)?users:[]
-    const _facilities = (isAdmin)?facilities:[]
-    const _vaccine_administration = (isAdmin)?vaccine_administration:[]
-    const _reports = (isAdmin)?reports:[]
+    const notAuth = store.state.profile.group_id != 4 && 5
+    const _users =  (notAuth)?users:[]
+    const _facilities = (notAuth)?facilities:[]
+    const _reports = (notAuth)?reports:[]
     // const _screening = (isAdmin)?screening:[]
     // const _inoculation = (isAdmin)?inoculation:[]
     // const _monitoring = (isAdmin)?monitoring:[]
@@ -47,7 +46,7 @@ export default {
       ...summary,
       ...registrations,
       ...vaccines,
-      ..._vaccine_administration,
+      ...vaccine_administration,
       ..._reports,
       ..._facilities,
       ..._users,
