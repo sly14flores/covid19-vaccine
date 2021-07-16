@@ -218,6 +218,8 @@ export default {
         },
         uploadComplete(e) {
 
+            Object.assign(this, 'consoles', [])
+
             const { xhr: { response } } = e
 
             const data = JSON.parse(response)
@@ -247,7 +249,7 @@ export default {
         checkData() {
 
             this.checking = true
-            this.consoles.push({class: 'info', text: "Analyzing data structures..."})
+            // this.consoles.push({class: 'info', text: "Analyzing data structures..."})
 
             checkVASData(this.import).then(res => {
                 this.checking = false              

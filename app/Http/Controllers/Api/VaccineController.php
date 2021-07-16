@@ -1313,7 +1313,7 @@ class VaccineController extends Controller
         $spreadsheet = $reader->load($file_path);
 
         $worksheet = $spreadsheet->getActiveSheet();
-        
+
         $rows = [];
         foreach ($worksheet->getRowIterator() as $row) {
 
@@ -1321,11 +1321,15 @@ class VaccineController extends Controller
             $cellIterator->setIterateOnlyExistingCells(FALSE);
 
             $row = [];
+            $empties = [];
             foreach ($cellIterator as $cell) {
-                $row[] = trim($cell->getValue());
-            }          
+                $value = trim($cell->getValue());
+                $row[] = $value;
+                $empties[] = $value == "";
+            }
 
-            $rows[] = $row;
+            // $this->dumpToSlack($empties,"empties");
+            if (in_array(false,$empties)) $rows[] = $row;
 
         }
 
@@ -1352,11 +1356,11 @@ class VaccineController extends Controller
             $cols['valid'] = false;
 
             $assocs[] = $cols;
-        }        
+        }
 
         event(new ImportInoculationMonitor($id,['class'=>'info','text'=>"Validating data..."]));        
 
-        $this->dumpToSlack($assocs,"ROWS");
+        // $this->dumpToSlack($assocs,"ROWS");
 
     }
     
