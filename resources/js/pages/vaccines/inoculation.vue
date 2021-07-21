@@ -339,23 +339,23 @@ export default {
                     })
                 }
 
-                if(err?.response?.status === 500){
-                    Swal.fire({
-                        title: '<p>Oops...</p>',
-                        icon: 'error',
-                        html: '<p style="font-size: 18px;">Check your internet connection and try again. ',
-                        showCancelButton: false,
-                        focusConfirm: true,
-                        allowOutsideClick: false,
-                        allowEscapeKey: false,
-                        allowEnterKey: false,
-                        confirmButtonText: 'Reresh this page',
-                    }).then((result) => {
-                        if (result.value) {
-                            location.reload();
-                        }
-                    })
-                }
+                // if(err?.response?.status === 500){
+                //     Swal.fire({
+                //         title: '<p>Oops...</p>',
+                //         icon: 'error',
+                //         html: '<p style="font-size: 18px;">Check your internet connection and try again. ',
+                //         showCancelButton: false,
+                //         focusConfirm: true,
+                //         allowOutsideClick: false,
+                //         allowEscapeKey: false,
+                //         allowEnterKey: false,
+                //         confirmButtonText: 'Reresh this page',
+                //     }).then((result) => {
+                //         if (result.value) {
+                //             location.reload();
+                //         }
+                //     })
+                // }
                
             })
         }
