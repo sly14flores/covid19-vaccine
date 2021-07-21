@@ -26,6 +26,7 @@ import Vas from "./pages/reports/Vas.vue";
 import Deferred from "./pages/reports/Deferred.vue";
 import Schedule from "./pages/reports/Schedule.vue";
 import Aefi from "./pages/reports/Aefi.vue";
+import VaccinationCard from "./pages/reports/VaccinationCard.vue";
 
 import Login from "./pages/login.vue";
 // import Registration from "./pages/registration.vue";
@@ -192,6 +193,12 @@ const routes = [
         name: "AEFI",
         component: ReportPhase,
         props: {pageComponent: Aefi},
+      },
+      {
+        path: "list/card",
+        name: "Vaccination Card",
+        component: ReportPhase,
+        props: {pageComponent: VaccinationCard},
       },
     ]
   },

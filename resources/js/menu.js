@@ -136,6 +136,11 @@ const reports = [
             icon:'pi pi-fw pi-file',
             to: '/reports/list/aefi'
           },
+          {
+            label:'Vaccination Card',
+            icon:'pi pi-fw pi-file',
+            to: '/reports/list/card'
+          },
         ]
     },
 ]
