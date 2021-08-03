@@ -2,7 +2,7 @@
     <div>
         <MyBreadcrumb :home="home" :items="items" />
         <Panel class="p-mt-4" header="Upload" :toggleable="true" :collapsed="true">
-            <FileUpload name="excel" :url="uploadUrl" :multiple="false" withCredentials="true" @before-send="setBeforeSend" @upload="uploadComplete" @error="uploadError" :maxFileSize="24000000">
+            <FileUpload name="excel" :url="uploadUrl" :multiple="false" :withCredentials="true" @before-send="setBeforeSend" @upload="uploadComplete" @error="uploadError" :maxFileSize="24000000">
                 <template #empty>
                     <div class="p-d-flex p-p-3" v-if="showTerminal">
                         <Button type="Button" label="Start Import" class="p-button-danger p-ml-auto" :disabled="checking" @click="checkData" />
@@ -218,6 +218,8 @@ export default {
         },
         uploadComplete(e) {
 
+            Object.assign(this, 'consoles', [])
+
             const { xhr: { response } } = e
 
             const data = JSON.parse(response)
@@ -247,7 +249,7 @@ export default {
         checkData() {
 
             this.checking = true
-            this.consoles.push({class: 'info', text: "Analyzing data structures..."})
+            // this.consoles.push({class: 'info', text: "Analyzing data structures..."})
 
             checkVASData(this.import).then(res => {
                 this.checking = false              

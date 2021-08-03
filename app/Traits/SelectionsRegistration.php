@@ -808,17 +808,33 @@ trait SelectionsRegistration
 
     public function provinceValue()
     {
-        $provinces = Province::where('regCode',1)->select(['provCode','provDesc'])->get();
+        $provinces = Province::where('regCode',1)->select(['psgcCode','provCode','provDesc'])->get();
 
         $provinces = $provinces->map(function($province) {
 
             $province->doh = $this->toDOHProv($province->toArray());
+            $province->vas = $province->psgcCode.$province->provDesc;
             return $province;
 
         });
 
         return $provinces->pluck('doh');
     }
+
+    public function provinceVasValue()
+    {
+        $provinces = Province::where('regCode',1)->select(['psgcCode','provCode','provDesc'])->get();
+
+        $provinces = $provinces->map(function($province) {
+
+            $province->doh = $this->toDOHProv($province->toArray());
+            $province->vas = $province->psgcCode.ucwords(strtolower($province->provDesc));
+            return $province;
+
+        });
+
+        return $provinces->pluck('vas');
+    }    
 
     public function munCityValue()
     {
@@ -850,6 +866,21 @@ trait SelectionsRegistration
         });
 
         return $city_muns->pluck('doh');
+    }
+
+    public function provMunCityVasValue($provCode)
+    {
+ 
+        $city_muns = CityMun::where('provCode',intval($provCode))->select(['psgcCode','citymunCode','citymunDesc'])->get();
+
+        $city_muns = $city_muns->map(function($cm) {
+
+            $cm->vas = $cm->psgcCode.ucwords(strtolower($cm->citymunDesc));
+            return $cm;
+
+        });
+
+        return $city_muns->pluck('vas');
     }    
 
     public function barangayValue($doh_code)
