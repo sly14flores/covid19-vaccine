@@ -1519,6 +1519,10 @@ class VaccineController extends Controller
 
             }
 
+            // Check if napanam id exists
+
+            //
+
             $is_valid = !in_array(false,$valids);
             if ($is_valid) {
                 event(new ImportInoculationMonitor($id,['class'=>'success','text'=>"{$fullname}'s info is valid"]));
@@ -1569,7 +1573,7 @@ class VaccineController extends Controller
 
     private function import()
     {
-        
+
     }
     
 }
