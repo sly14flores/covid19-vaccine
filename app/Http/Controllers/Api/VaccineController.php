@@ -1455,6 +1455,25 @@ class VaccineController extends Controller
                     $validation = $validations[$p];
                     $value = $row[$p];
 
+
+                    // Check if napanam id exists
+                    // Check if registration exists
+                    if ($p=="qr_pass_id") {
+                        if ($value!="") {
+                            // $qr_pass = QrPass::find($value);
+                            // if (is_null($qr_pass)) {
+                            //     $valids[] = false;
+                            //     event(new ImportInoculationMonitor($id,['class'=>'error','text'=>"{$fullname}'s NAPANAM ID doesn't exists"]));
+                            // }
+                            $qr_pass_reg = Registration::where('qr_pass_id',$value)->first();
+                            if (is_null($qr_pass_reg)) {
+                                $valids[] = false;
+                                event(new ImportInoculationMonitor($id,['class'=>'error','text'=>"{$fullname}'s has no registration yet"]));
+                            }                            
+                        }
+                    }
+                    //          
+
                     if ($value=="") {
 
                         if ($validation['default_no']) {
@@ -1519,10 +1538,6 @@ class VaccineController extends Controller
 
             }
 
-            // Check if napanam id exists
-
-            //
-
             $is_valid = !in_array(false,$valids);
             if ($is_valid) {
                 event(new ImportInoculationMonitor($id,['class'=>'success','text'=>"{$fullname}'s info is valid"]));
@@ -1544,6 +1559,8 @@ class VaccineController extends Controller
             event(new ImportInoculationMonitor($id,['class'=>'info','text'=>"Please correct all the invalid information first, re-upload, then try importing again."]));
         } else {
             // Initiate import
+            event(new ImportInoculationMonitor($id,['class'=>'info','text'=>"All patients info are valid"]));
+            $this->import($id,$assocs);
         }
 
     }
@@ -1571,9 +1588,68 @@ class VaccineController extends Controller
 
     }
 
-    private function import()
+    private function import($id,$data)
     {
+        event(new ImportInoculationMonitor($id,['class'=>'info','text'=>"Initiating import..."]));
 
+        foreach ($data as $d) {
+
+            /**
+             * Vaccine
+             * qr_pass_id
+             */
+            $check_vaccine = Vaccine::where('qr_pass_id',$d['qr_pass_id'])->first();
+            if (is_null($check_vaccine)) {
+                $vaccine = new Vaccine;
+                $vaccine->fill([
+                    "qr_pass_id" => $d['qr_pass_id']
+                ]);
+                $vaccine->save();
+            } else {
+                $vaccine = $check_vaccine;
+            }
+
+             /**
+              * Dosage
+              * vaccine_id
+              * qr_pass_id
+              * date_of_vaccination
+              * brand_name
+              * batch_number                      
+              * lot_number
+              * vaccinator_name
+              * vaccination_facility | cbcr_id
+              * dose
+              */
+
+              /**
+               * PreAssessment
+               * qr_pass_id
+               * dosage_id
+               * dose
+               * consent 01_Yes | 02_No
+               * reason
+               * assessments
+               */
+
+               /**
+                * PostAssessment
+                * qr_pass_id
+                * dosage_id
+                * dose
+                * assessments
+                */
+
+                /**
+                 * Aefi
+                 * qr_pass_id
+                 * dosage_id
+                 * dose
+                 * has_adverse_event
+                 * adverse_event_condition
+                 */
+
+        }
     }
     
 }
