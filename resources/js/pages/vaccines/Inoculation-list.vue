@@ -222,6 +222,7 @@ export default {
         uploadComplete(e) {
 
             Object.assign(this, 'consoles', [])
+            // this.consoles = []
 
             const { xhr: { response } } = e
 
