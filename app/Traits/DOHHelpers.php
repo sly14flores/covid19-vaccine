@@ -143,4 +143,13 @@ trait DOHHelpers
         return $brand->first()['shortname'] ?? null;
     }
 
+    public function brandNameToId($name)
+    {
+        $brands = config('constants.brands');
+
+        $brand = collect($brands)->where('shortname',$name);
+
+        return $brand->first()['id'] ?? null;        
+    }
+
 }

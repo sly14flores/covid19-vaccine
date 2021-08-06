@@ -1420,7 +1420,8 @@ class VaccineController extends Controller
                         $birthdate = date("Y-m-d",PODate::excelToTimestamp(intval($cell)));
                         $cols[$properties[$key]] = ($birthdate=="1970-01-01")?"":$birthdate;
                     } else if ($properties[$key] == "date_of_vaccination") {
-                        $date_of_vaccination = date("Y-m-d",PODate::excelToTimestamp(intval($cell)));
+                        // $date_of_vaccination = date("Y-m-d",PODate::excelToTimestamp(intval($cell)));
+                        $date_of_vaccination = $cell;
                         $cols[$properties[$key]] = ($date_of_vaccination=="1970-01-01")?"":$date_of_vaccination;
                     } else {
                         $cols[$properties[$key]] = $cell;
@@ -1465,7 +1466,7 @@ class VaccineController extends Controller
                                 event(new ImportInoculationMonitor($id,['class'=>'error','text'=>"{$fullname}'s NAPANAM ID doesn't exists"]));
                             } else {
                                 $dob = $qr_pass->dob;
-                                $assocs[$i]['birthdate'] = $dob;
+                                $assocs[$i]['birthdate'] = Carbon::parse($dob)->format("Y-m-d");
                             }
                             // $qr_pass_reg = Registration::where('qr_pass_id',$value)->first();
                             // if (is_null($qr_pass_reg)) {
@@ -1597,6 +1598,8 @@ class VaccineController extends Controller
 
         foreach ($data as $d) {
 
+            $this->dumpToSlack($d,"DEBUG");  
+
             /**
              * Registration
              * 
@@ -1655,7 +1658,6 @@ class VaccineController extends Controller
                 "birthdate" => $d['birthdate'],
                 // "birthdate" => date("Y-m-d",PODate::excelToTimestamp(intval($d['birthdate']))),
             ];
-            $this->dumpToSlack($registration_data,"DEBUG");
             $check_registration = Registration::where('qr_pass_id',$d['qr_pass_id'])->first();
             if (is_null($check_registration)) {
                 $registration = new Registration;
@@ -1692,6 +1694,35 @@ class VaccineController extends Controller
              * vaccination_facility | cbcr_id
              * dose
              */
+            $dose = 1;
+            if ($d['dose2']=="Y") $dose = 2;
+            $vaccination_facility = null;
+            $get_vaccination_facility = Hospital::where('cbcr_id',$d['cbcr_id'])->first();
+            if (!is_null($get_vaccination_facility)) {
+                $vaccination_facility = $get_vaccination_facility->id;
+            }
+            $dosage_data = [
+                "qr_pass_id" => $d['qr_pass_id'],
+                "date_of_vaccination" => Carbon::parse($d['date_of_vaccination'])->format("Y-m-d"),
+                // "date_of_vaccination" => $d['date_of_vaccination'],
+                "brand_name" => $this->brandNameToId($d['brand_name']),
+                "brand_name_vas" => $d['brand_name'],
+                "batch_number" => $d['batch_number'],
+                "lot_number" => $d['lot_number'],
+                "vaccinator_name" => $d['vaccinator_name'],
+                "vaccination_facility" => $vaccination_facility,
+                "dose" => $dose,
+            ];
+            
+            $check_dosage = Dosage::where([['dose',$dose],['qr_pass_id',$d['qr_pass_id']]])->first();
+
+            if (is_null($check_dosage)) {
+                $dosage = new Dosage;
+                $dosage->fill($dosage_data);
+                $vaccine->dosages()->save($dosage);
+            } else {
+                $dosage = $check_dosage;
+            }
 
             /**
              * PreAssessment
@@ -1702,6 +1733,24 @@ class VaccineController extends Controller
              * reason
              * assessments
              */
+            $pre_assessments = config('constants.pre_assessments');
+            
+            $pre_data = [
+                "qr_pass_id" => $d['qr_pass_id'],
+                "dose" => $dose,
+                "consent" => ($d['reason']=="NONE")?"01_Yes":"02_No",
+                "reason" => $d['reason'],
+                "assessments" => $pre_assessments,
+            ];
+            $check_pre = PreAssessment::where([['dose',$dose],['qr_pass_id',$d['qr_pass_id']]])->first();
+            
+            if (is_null($check_pre)) {
+                $pre = new PreAssessment;
+                $pre->fill($pre_data);
+                $dosage->pre_assessment()->save($pre);
+            } else {
+                $pre = $check_pre;
+            }           
 
             /**
              * PostAssessment
@@ -1710,6 +1759,22 @@ class VaccineController extends Controller
              * dose
              * assessments
              */
+            $post_assessments = config('constants.post_assessments');
+            
+            $post_data = [
+                "qr_pass_id" => $d['qr_pass_id'],
+                "dose" => $dose,
+                "assessments" => $post_assessments,
+            ];
+            $check_post = PostAssessment::where([['dose',$dose],['qr_pass_id',$d['qr_pass_id']]])->first();
+            
+            if (is_null($check_post)) {
+                $post = new PostAssessment;
+                $post->fill($pre_data);
+                $dosage->post_assessment()->save($post);
+            } else {
+                $post = $check_post;
+            }       
 
             /**
              * Aefi
@@ -1719,11 +1784,29 @@ class VaccineController extends Controller
              * has_adverse_event
              * adverse_event_condition
              */
+            $aefi_data = [
+                "qr_pass_id" => $d['qr_pass_id'],
+                "dose" => $dose,
+                "has_adverse_event" => ($d['has_adverse_event']=="Y")?true:false,
+                "adverse_event_condition" => ($d['adverse_event_condition']=="")?null:$d['adverse_event_condition'],
+            ];
+            $check_aefi = Aefi::where([['dose',$dose],['qr_pass_id',$d['qr_pass_id']]])->first();
+            
+            if (is_null($check_aefi)) {
+                $aefi = new Aefi;
+                $aefi->fill($aefi_data);
+                $dosage->aefi()->save($aefi);
+            } else {
+                $aefi = $check_aefi;
+            }
+            $this->dumpToSlack($check_aefi,"DEBUG");             
 
-
-             break;
+            event(new ImportInoculationMonitor($id,['class'=>'success','text'=>"{$d['first_name']} {$d['last_name']}'s info successfully imported"]));
 
         }
+
+        event(new ImportInoculationMonitor($id,['class'=>'success','text'=>"All records successfully imported"]));
+
     }
     
 }
