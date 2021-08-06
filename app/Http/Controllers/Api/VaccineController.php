@@ -1455,16 +1455,18 @@ class VaccineController extends Controller
                     $validation = $validations[$p];
                     $value = $row[$p];
 
-
                     // Check if napanam id exists
                     // Check if registration exists
                     if ($p=="qr_pass_id") {
                         if ($value!="") {
-                            // $qr_pass = QrPass::find($value);
-                            // if (is_null($qr_pass)) {
-                            //     $valids[] = false;
-                            //     event(new ImportInoculationMonitor($id,['class'=>'error','text'=>"{$fullname}'s NAPANAM ID doesn't exists"]));
-                            // }
+                            $qr_pass = QrPass::find($value);
+                            if (is_null($qr_pass)) {
+                                $valids[] = false;
+                                event(new ImportInoculationMonitor($id,['class'=>'error','text'=>"{$fullname}'s NAPANAM ID doesn't exists"]));
+                            } else {
+                                $dob = $qr_pass->dob;
+                                $assocs[$i]['birthdate'] = $dob;
+                            }
                             // $qr_pass_reg = Registration::where('qr_pass_id',$value)->first();
                             // if (is_null($qr_pass_reg)) {
                             //     $valids[] = false;
@@ -1650,9 +1652,8 @@ class VaccineController extends Controller
                 "barangay" => null,
                 "barangay_vas" => $d['barangay'],
                 "gender" => $genders[$d['gender']],
-                // "birthdate" => Carbon::parse($d['birthdate'])->format("Y-m-d"),
+                "birthdate" => $d['birthdate'],
                 // "birthdate" => date("Y-m-d",PODate::excelToTimestamp(intval($d['birthdate']))),
-                "birthdate" => date("Y-m-d",strtotime($d['birthdate'])),
             ];
             $this->dumpToSlack($registration_data,"DEBUG");
             $check_registration = Registration::where('qr_pass_id',$d['qr_pass_id'])->first();
@@ -1718,6 +1719,7 @@ class VaccineController extends Controller
              * has_adverse_event
              * adverse_event_condition
              */
+
 
              break;
 
