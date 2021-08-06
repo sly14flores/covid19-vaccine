@@ -27,6 +27,9 @@ const second_dosage = {}
 const first_facility = {}
 const second_facility = {}
 
+const first_dose = "1st Dose"
+const second_dose = "2nd Dose"
+
 const state = () => {
     return {
         registration,
@@ -35,7 +38,9 @@ const state = () => {
         first_dosage,
         second_dosage,
         first_facility,
-        second_facility
+        second_facility,
+        first_dose,
+        second_dose
     }
 }
 
@@ -114,7 +119,7 @@ const actions = {
             })	
         }
     },
-    async GET_REGISTRATION({dispatch}, payload) {
+    async GET_REGISTRATION({dispatch,state}, payload) {
         const { id } = payload
         try {
             const { data: { data } } = await getRegistration({id})
@@ -134,12 +139,15 @@ const actions = {
             data.province = provinceStr.replace(/[0-9]/g, '');
             data.barangay = brgyStr.replace(/[0-9]/g, '');
 
-            if(data.dosages.length != 2) {
+            data.first_name = data.first_name.toUpperCase();
+            data.last_name = data.last_name.toUpperCase();
+
+            if(data.dosages.length == 0) {
 
                 Swal.fire({
                     // title: '<p>Oops...</p>',
                     icon: 'warning',
-                    html: '<h5 style="font-size: 18px;">Not fully vaccinated.</h5>',
+                    html: '<h5 style="font-size: 18px;">Not vaccinated yet</h5>',
                     showCancelButton: false,
                     focusConfirm: true,
                     allowOutsideClick: false,
@@ -159,9 +167,14 @@ const actions = {
             const day = `${first.toLocaleString('default', { month: 'long' })+' '+first.getDate()+', '+first.getFullYear()}`
             data.dosages[0].date_of_vaccination = day;
 
-            const second = new Date(data.dosages[1].date_of_vaccination);
-            const day2 = `${second.toLocaleString('default', { month: 'long' })+' '+second.getDate()+', '+second.getFullYear()}`
-            data.dosages[1].date_of_vaccination = day2;
+            // const second = new Date(data.dosages[1].date_of_vaccination);
+            // const day2 = `${second.toLocaleString('default', { month: 'long' })+' '+second.getDate()+', '+second.getFullYear()}`
+            // data.dosages[1].date_of_vaccination = day2;
+
+            // if(data.dosages[1].vaccine_description != null) {
+            //     data.dosages[1].date_of_vaccination = "";
+            //     state.second_dose = "";
+            // }
 
             dispatch('GET_REGISTRATION_SUCCESS', data)
 

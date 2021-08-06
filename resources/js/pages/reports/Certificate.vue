@@ -33,13 +33,14 @@
                     </div>
                   </div>
 
-                <br>
+                <br />
+                <br />
                 <div class="text-body">
                     <div class="title">Vaccination Details</div>
                     <div class="row">
                         <div class="column-75">
                         <p class="text-bold">{{first_dosage.vaccine_description}}</p>
-                        <p class="text-bold">1st Dose</p>
+                        <p class="text-bold">{{first_dose}}</p>
                         <p class="text-bold">{{first_dosage.date_of_vaccination}}</p>
                         <p class="text-bold">{{first_facility.description}}</p>
                         <p class="text-bold">{{first_dosage.lot_number}}</p>
@@ -52,10 +53,10 @@
                         <p>Lot Number: </p>
                         </div>
                     </div>
-                    <hr>
+                    <!-- <hr>
                     <div class="row">
                         <div class="column-75">
-                        <p class="text-bold">2nd Dose</p>
+                        <p class="text-bold">{{second_dose}}</p>
                         <p class="text-bold">&nbsp;{{second_dosage.date_of_vaccination}}</p>
                         <p class="text-bold">&nbsp;{{second_facility.description}}</p>
                         <p class="text-bold">&nbsp;{{second_dosage.lot_number}}</p>
@@ -66,21 +67,27 @@
                         <p>Vaccination Site:</p>
                         <p>Lot Number: </p>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
-                <div class="row">
-                    <div class="qr-code">
-                    <p>Scan QR Code to validate authenticity</p>
-                    <p>The QR Code should be directed to https://vaccines.launion.gov.ph.</p>
-                    </div>
-                    <div class="qr-code-img">
-                    <img src="img/qr.png" className="qr-image" />
-                    </div>
-                </div>
+                <br />
+                  <!-- <div class="row">
+                      <div class="qr-code">
+                        <p>Scan QR Code to validate authenticity</p>
+                        <p>The QR Code should be directed to https://vaccines.launion.gov.ph.</p>
+                      </div>
+                      <div class="qr-code-img">
+                        <img src="img/qr.png" className="qr-image" />
+                      </div>
+                  </div> -->
                     <div class="row">
                         <div class="column">
-                        <p class="text-center">This computer-generated document is issued by the Provincial Government of La Union, <br />through the Provincial Health Office. All data made available through <br /> https://vaccines.launion.gov.ph is verified and encrypted</p> <br/>
-                        <p class="text-center">Powered by Provincial Government of La Union - Information Communications and Technology Unit</p>
+                          <p class="text-center">This computer-generated document is issued by the Provincial Government of La Union, <br />through the Provincial Health Office. All data made available through <br /> https://vaccines.launion.gov.ph is verified and encrypted</p> <br/>
+                          <p class="text-center">Powered by Provincial Government of La Union - Information Communications and Technology Unit</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                          <p class="text-center">For any clarification, you may reach us thru email, pglupho.vax@gmail.com or <br /> telephone number (072) 242-5580 local 258</p>
                         </div>
                     </div>
                 </div>
@@ -174,11 +181,17 @@ export default {
         second_dosage() {
             return this.$store.state.certificates.second_dosage
         },
-        first_facility (){
+        first_facility( ){
             return this.$store.state.certificates.first_facility
         },
-        second_facility (){
+        second_facility() {
             return this.$store.state.certificates.second_facility
+        },
+        first_dose() {
+            return this.$store.state.certificates.first_dose
+        },
+        second_dose() {
+            return this.$store.state.certificates.second_dose
         }
     },
     methods: {

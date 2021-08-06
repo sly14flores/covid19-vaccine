@@ -26,9 +26,12 @@ class RegistrationsCertificateListResource extends JsonResource
         $label = 'Fully Vaccinated';
         $color = 'success';
 
-        if ($total_dosages != 2) {
+        if ($total_dosages == 1) {
             $label = 'Not Fully Vaccinated';
             $color = 'warning';
+        } else if ($total_dosages == 0) {
+            $label = 'Not vaccinated yet';
+            $color = 'danger';
         }
 
         return [
