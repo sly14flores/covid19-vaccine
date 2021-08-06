@@ -60,7 +60,7 @@ class Dosage extends Model
 
     protected $hidden = [
         'updated_at',
-    ];    
+    ];
 
     public function user()
     {
@@ -160,7 +160,7 @@ class Dosage extends Model
      */
     public function cbcr()
     {
-        return $this->belongsTo(Hospital::class, 'vaccination_facility', 'id');
+        return $this->hasOne(Hospital::class,'vaccination_facility');
     }
 
     public function cbcr_id()

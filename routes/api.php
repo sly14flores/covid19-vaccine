@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\RegistrationsSummary;
 use App\Http\Controllers\Api\VaccinationSummary;
 use App\Http\Controllers\Api\ChangePassword;
 use App\Http\Controllers\Api\DefaultVaccinator;
+use App\Http\Controllers\Api\VaccinationCertificateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -249,5 +250,27 @@ Route::prefix('summary')->group(function() {
     Route::get('surveys', [SurveysSummary::class, 'getSummary']);
     Route::get('registrations', [RegistrationsSummary::class, 'getSummary']);
     Route::get('vaccination', [VaccinationSummary::class, 'getSummary']);
+
+});
+
+/**
+ * Reports
+ */
+Route::prefix('reports')->group(function() {
+
+    /**
+     * Vaccination Certificate
+     */
+    Route::apiResources([
+        'registrations' => VaccinationCertificateController::class,
+    ],[
+        'only' => ['index']
+    ]);
+    
+    Route::apiResources([
+        'registration' => VaccinationCertificateController::class,
+    ],[
+        'except' => ['index']
+    ]);
 
 });

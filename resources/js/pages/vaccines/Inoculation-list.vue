@@ -42,7 +42,8 @@
                     <Column field="townCity" header="Municipality/City" :sortable="true"></Column>
                     <Column field="qr_pass_id" header="Actions">
                         <template #body="slotProps">
-                            <router-link :to="`/vaccines/${phase}/${slotProps.data.qr_pass_id}`"><Button icon="pi pi-fw pi-eye" class="p-button-rounded p-button-success p-mr-2" /></router-link>
+                            <router-link :to="`/vaccines/${phase}/${slotProps.data.qr_pass_id}`"><Button v-tooltip="'View'" icon="pi pi-fw pi-eye" class="p-button-rounded p-button-success p-mr-2" /></router-link>
+                            <router-link :to="`/reports/certificate/${slotProps.data.id}`"><Button v-tooltip="'Certificate'" icon="pi pi-fw pi-print" class="p-button-rounded p-button-secondary p-mr-2" /></router-link>
                         </template>
                     </Column>
                 </DataTable>
@@ -64,6 +65,7 @@ import InputText from 'primevue/inputtext/sfc';
 import BlockUI from 'primevue/blockui/sfc';
 import Tag from 'primevue/tag/sfc';
 import FileUpload from 'primevue/fileupload/sfc';
+import Tooltip from 'primevue/tooltip';
 
 import { reactive, ref, toRefs, onMounted, onBeforeUnmount } from 'vue'
 import { useStore } from 'vuex'
@@ -92,6 +94,7 @@ export default {
         BlockUI,
         Tag,
         FileUpload,
+        Tooltip
     },
     setup(props) {
 
