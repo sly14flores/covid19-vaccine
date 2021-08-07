@@ -161,7 +161,7 @@ class Dosage extends Model
      */
     public function cbcr()
     {
-        return $this->hasOne(Hospital::class,'vaccination_facility');
+        return $this->belongsTo(Hospital::class, 'vaccination_facility', 'id');
     }
 
     public function cbcr_id()

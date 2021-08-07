@@ -53,7 +53,7 @@
                         <p>Lot Number: </p>
                         </div>
                     </div>
-                    <!-- <hr>
+                   <hr>
                     <div class="row">
                         <div class="column-75">
                         <p class="text-bold">{{second_dose}}</p>
@@ -67,7 +67,7 @@
                         <p>Vaccination Site:</p>
                         <p>Lot Number: </p>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
                 <br />
                   <!-- <div class="row">
