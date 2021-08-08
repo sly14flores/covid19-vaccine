@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\RegistrationsSummary;
 use App\Http\Controllers\Api\VaccinationSummary;
 use App\Http\Controllers\Api\ChangePassword;
 use App\Http\Controllers\Api\DefaultVaccinator;
+use App\Http\Controllers\Api\VaccinationCertificateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,10 +109,13 @@ Route::prefix('doh')->group(function() {
     Route::get('selections/addresses', [DOHDataSelections::class, 'addresses']);
     Route::get('selections/brands', [DOHDataSelections::class, 'brands']);
     Route::get('selections/vaccination/sessions', [DOHDataSelections::class, 'vaccinationSession']);
+    Route::get('selections/municipalities', [DOHDataSelections::class, 'municipalities']);
     Route::get('selections/groups', [DOHDataSelections::class, 'groups']);
     Route::get('selections/priority/groups', [DOHDataSelections::class, 'priorityGroups']);
-    Route::get('selections/vaccine/refusals', [DOHDataSelections::class, 'refusalValue']);   
-    Route::get('selections/vaccine/deferrals', [DOHDataSelections::class, 'deferalValue']);    
+    Route::get('selections/vaccine/events', [DOHDataSelections::class, 'adverseEvents']);
+    Route::get('selections/vaccine/vaccines', [DOHDataSelections::class, 'vaccines']);
+    Route::get('selections/vaccine/refusals', [DOHDataSelections::class, 'refusalValue']);
+    Route::get('selections/vaccine/deferrals', [DOHDataSelections::class, 'deferrals']);
 
     /**
      * Registration
@@ -159,6 +163,13 @@ Route::prefix('doh')->group(function() {
      */
     Route::post('vaccines/inoculation/info/{id}', [VaccineController::class, 'inoculationPersonalInfo']);
     Route::post('vaccines/inoculation/update', [VaccineController::class, 'updateInoculation']);
+    Route::post('vaccines/inoculation/upload', [VaccineController::class, 'upload']);
+    Route::post('vaccines/inoculation/check', [VaccineController::class, 'check']);
+    /**
+     * Monitoring
+     */
+    Route::post('vaccines/monitoring/info/{id}', [VaccineController::class, 'monitoringPersonalInfo']);
+    Route::post('vaccines/monitoring/update', [VaccineController::class, 'updateMonitoring']);    
 
     /**
      * Pre Assessments
@@ -222,7 +233,7 @@ Route::prefix('general')->group(function() {
         Route::get('users', [GeneralDataSelections::class, 'users']);
 
         /**
-         * Users
+         * Vaccinators
          */
         Route::get('vaccinators', [GeneralDataSelections::class, 'vaccinators']);        
 
@@ -239,5 +250,27 @@ Route::prefix('summary')->group(function() {
     Route::get('surveys', [SurveysSummary::class, 'getSummary']);
     Route::get('registrations', [RegistrationsSummary::class, 'getSummary']);
     Route::get('vaccination', [VaccinationSummary::class, 'getSummary']);
+
+});
+
+/**
+ * Reports
+ */
+Route::prefix('reports')->group(function() {
+
+    /**
+     * Vaccination Certificate
+     */
+    Route::apiResources([
+        'registrations' => VaccinationCertificateController::class,
+    ],[
+        'only' => ['index']
+    ]);
+    
+    Route::apiResources([
+        'registration' => VaccinationCertificateController::class,
+    ],[
+        'except' => ['index']
+    ]);
 
 });

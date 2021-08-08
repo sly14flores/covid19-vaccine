@@ -18,6 +18,8 @@ class HospitalResource extends JsonResource
             'id' => $this->id,
             'description' => $this->description,
             'slots' => $this->slots,
+            'cbcr_id' => $this->cbcr_id,
+            'location' => $this->location
         ];
     }
 }

@@ -3,6 +3,32 @@
 return [
 
     /**
+     * Municipalities
+     */
+    'municipalities' => [
+        ["name"=>"AGOO", "id"=>"13301"],
+        ["name"=>"ARINGAY", "id"=>"13302"],
+        ["name"=>"BACNOTAN", "id"=>"13303"],
+        ["name"=>"BAGULIN", "id"=>"13304"],
+        ["name"=>"BALAOAN", "id"=>"13305"],
+        ["name"=>"BANGAR", "id"=>"13306"],
+        ["name"=>"BAUANG", "id"=>"13307"],
+        ["name"=>"BURGOS", "id"=>"13308"],
+        ["name"=>"CABA", "id"=>"13309"],
+        ["name"=>"LUNA", "id"=>"13310"],
+        ["name"=>"NAGUILIAN", "id"=>"13311"],
+        ["name"=>"PUGO", "id"=>"13312"],
+        ["name"=>"ROSARIO", "id"=>"13313"],
+        ["name"=>"CITY OF SAN FERNANDO", "id"=>"13314"],
+        ["name"=>"SAN GABRIEL", "id"=>"13315"],
+        ["name"=>"SAN JUAN", "id"=>"13316"],
+        ["name"=>"SANTO TOMAS", "id"=>"13317"],
+        ["name"=>"SANTOL", "id"=>"13318"],
+        ["name"=>"SUDIPEN", "id"=>"13319"],
+        ["name"=>"TUBAO", "id"=>"13320"]
+    ],
+
+    /**
      * Groups
      */
     'groups' => [
@@ -222,10 +248,10 @@ return [
     ],
 
     'pre_assessments' => [
-        ["key"=>1,"description"=>"Below 18 years old?","value"=>false],
-        ["key"=>2,"description"=>"Has allergy to polysorbate or any other components (L-Histidine, L-Histidine hydrochloride monohydrate, Magnesium chloride hexahydrate, Polysorbate 80, Ethanol, Sucrose, Sodium chloride, Disodium edetate, Water for injections) of the vaccine?","value"=>false],
-        ["key"=>3,"description"=>"Had severe allergic reaction after the 1st dose of the vaccine?","value"=>false],
-        ["key"=>4,"description"=>"Allergy to food, egg, medicines? has asthma?","value"=>false],
+        ["key"=>1,"description"=>"Below 18 years old?","value"=>false,"remarks"=>"","has_remarks"=>1],
+        ["key"=>2,"description"=>"Has allergy to polysorbate or any other components (L-Histidine, L-Histidine hydrochloride monohydrate, Magnesium chloride hexahydrate, Polysorbate 80, Ethanol, Sucrose, Sodium chloride, Disodium edetate, Water for injections) of the vaccine?","value"=>false,"remarks"=>"","has_remarks"=>1],
+        ["key"=>3,"description"=>"Had severe allergic reaction after the 1st dose of the vaccine?","value"=>false,"remarks"=>"","has_remarks"=>1],
+        ["key"=>4,"description"=>"Allergy to food, egg, medicines? has asthma?","value"=>false,"remarks"=>"","has_remarks"=>1],
         ["key"=>5,"description"=>"If with allergy or asthma, will monitoring the patient for 30 minutes be a problem?","value"=>false],
         ["key"=>6,"description"=>"Has history of bleeding disorders or currently taking anti-coagulants?","value"=>false],
         ["key"=>7,"description"=>"If with bleeding history or currently taking anti-coagulants, is there a problem securing a gauge 23 - 25 syringe for injection?","value"=>false],

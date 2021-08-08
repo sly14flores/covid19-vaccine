@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Carbon\Carbon;
+
 class Registration extends Model
 {
     use HasFactory;
@@ -25,9 +27,12 @@ class Registration extends Model
         'region', #
         'address', #
         'barangay', #
+        'barangay_vas', #
         'town_city', #
+        'town_city_vas', #
         'town_city_code', #
         'province', #
+        'province_vas', #
         'contact_no', #
         'category', #
         'category_id', #
@@ -46,6 +51,12 @@ class Registration extends Model
         'employer_name', #
         'employer_address', #
         'employer_lgu', #
+        'screened',
+        'first_dose_screened',
+        'second_dose_screened',
+        'first_dose',
+        'second_dose',
+        'fully_vaccinated',
     ];
 
     // protected $fillable = [
@@ -114,6 +125,13 @@ class Registration extends Model
 
     protected $casts = [
         'diagnosed_date' => 'date',
+        'birthdate' => 'date',
+        'screened' => 'boolean',
+        'first_dose_screened' => 'boolean',
+        'second_dose_screened' => 'boolean',
+        'first_dose' => 'boolean',
+        'second_dose' => 'boolean',
+        'fully_vaccinated' => 'boolean',
     ];
 
     public function townCity()
@@ -125,6 +143,87 @@ class Registration extends Model
     public function vaccine()
     {
         return $this->hasOne(Vaccine::class, 'qr_pass_id', 'qr_pass_id');
+    }
+
+    public function dosages()
+    {
+        return $this->hasManyThrough(
+            Dosage::class,
+            Vaccine::class,
+            'qr_pass_id',
+            'vaccine_id',
+            'qr_pass_id',
+            'id',
+        );
+    }
+
+    /**
+     * @param $value
+     * @return false|string
+     */
+    public function getBirthdateAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d');
+    }
+
+    public function scopeScreened($query)
+    {
+        return $query->where('screened', 1);
+    }
+
+    public function scopeNotScreened($query)
+    {
+        return $query->where('screened', 0);
+    }
+
+    public function scopeFirstDoseScreened($query)
+    {
+        return $query->where('first_dose_screened', 1);
+    }
+
+    public function scopeNotFirstDoseScreened($query)
+    {
+        return $query->where('first_dose_screened', 0);
+    } 
+
+    public function scopeSecondDoseScreened($query)
+    {
+        return $query->where('second_dose_screened', 1);
+    }
+
+    public function scopeNotSecondDoseScreened($query)
+    {
+        return $query->where('second_dose_screened', 0);
+    }
+    
+    public function scopeOrNotSecondDoseScreened($query)
+    {
+        return $query->orWhere('second_dose_screened', 0);
+    }
+
+    public function scopeFirstDose($query)
+    {
+        return $query->where('first_dose', 1);
+    }
+
+    public function scopeOrFirstDose($query)
+    {
+        return $query->orWhere('first_dose', 1);
+    }    
+
+    public function scopeSecondDose($query)
+    {
+        return $query->where('second_dose', 1);
+    }
+
+    public function scopeOrSecondDose($query)
+    {
+        return $query->orWhere('second_dose', 1);
+    }    
+
+    public function scopeFullyVaccinated($query)
+    {
+        return $query->where('fully_vaccinated', 1);
     }
 
 }

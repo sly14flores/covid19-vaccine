@@ -1,10 +1,11 @@
 <template>
     <div>
+        <Toast class="p-mt-6" position="top-right" />
         <MyBreadcrumb :home="home" :items="items" />
         <div class="p-grid p-mt-1">
             <div class="p-lg-12 p-md-12 p-sm-12">
                 <Panel header="Upload" :toggleable="true" :collapsed="true">
-                    <FileUpload name="excel" :url="uploadUrl" :multiple="false" withCredentials="true" @before-send="setBeforeSend" @upload="uploadComplete" @error="uploadError" :maxFileSize="24000000">
+                    <FileUpload name="excel" :url="uploadUrl" :multiple="false" :withCredentials="true" @before-send="setBeforeSend" @upload="uploadComplete" @error="uploadError" :maxFileSize="24000000">
                         <template #empty>
                             <div v-if="showTerminal">
                                 <div class="p-d-flex p-p-3">
@@ -37,13 +38,17 @@
         <Toolbar class="p-mb-2">
             <template #left>
                 <div class=" p-fluid p-grid p-formgrid">
-                    <div class="p-field p-col-12 p-md-4">
+                    <div class="p-field p-col-12 p-md-3">
                         <label for="basic"><small>Napanam ID No, first name or last name</small></label>
                         <InputText class="p-shadow-1 p-inputtext-sm" v-model="search" placeholder="Search . . ." />
                     </div>
-                    <div class="p-field p-col-12 p-md-3">
+                    <div class="p-field p-col-12 p-md-2">
                         <label for="basic"><small>City/Municipality</small></label>
                         <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="municipalities" v-model="town_city" optionValue="id" :disabled="!isAdmin" />
+                    </div>
+                    <div class="p-field p-col-12 p-md-2">
+                        <label for="basic"><small>Origin</small></label>
+                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="origins" v-model="origin" optionValue="id" />
                     </div>
                     <div class="p-field p-col-12 p-md-2">
                         <label for="basic"><small>Start Date:</small></label>
@@ -70,12 +75,12 @@
         
         <Panel header="List">
             <DataTable :value="registrations" responsiveLayout="scroll">
-                <Column field="qr_pass_id" header="Napanam ID No" sortable="true"></Column>
-                <Column field="first_name" header="First Name" sortable="true"></Column>
-                <Column field="middle_name" header="Middle Name" sortable="true"></Column>
-                <Column field="last_name" header="Last Name" sortable="true"></Column>
-                <Column field="townCity" header="Municipality/City" sortable="true"></Column>
-                <!-- <Column field="" header="Priority Group" sortable="true"></Column> -->
+                <Column field="qr_pass_id" header="Napanam ID No" :sortable="true"></Column>
+                <Column field="first_name" header="First Name" :sortable="true"></Column>
+                <Column field="middle_name" header="Middle Name" :sortable="true"></Column>
+                <Column field="last_name" header="Last Name" :sortable="true"></Column>
+                <Column field="townCity" header="Municipality/City" :sortable="true"></Column>
+                <!-- <Column field="" header="Priority Group" :sortable="true"></Column> -->
                 <Column field="id" header="Actions">
                     <template #body="slotProps">
                         <router-link :to="`/registrations/registration/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>
@@ -104,6 +109,9 @@ import Dropdown from 'primevue/dropdown/sfc';
 import { useStore } from 'vuex'
 import { watch } from 'vue'
 
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast"
+
 import { api_url } from '../../url.js'
 const uploadUrl = `${api_url}/api/doh/upload/excel`
 
@@ -112,6 +120,7 @@ export default {
 
         const store = useStore()
         const { state, dispatch } = store
+        const toast = useToast()
 
         const downloadUrl = `${api_url}/home/reports/registrations`        
         
@@ -128,7 +137,8 @@ export default {
 
         return {
             uploadUrl,
-            downloadUrl
+            downloadUrl,
+            toast
         }
 
     },  
@@ -143,7 +153,8 @@ export default {
         InputText,
         Toolbar,
         Calendar,
-        Dropdown
+        Dropdown,
+        Toast
     },
     data() {
         return {
@@ -153,7 +164,14 @@ export default {
             start_date: null,
             end_date: new Date(),
             province: "_0133_LA_UNION",
-            town_city: 'all'
+            town_city: 'all',
+            origin: 'all',
+            origins: [
+                {id: 'all', name: 'All'},
+                {id: 'Online', name: 'Online'},
+                {id: 'Manual', name: 'Manual'},
+                {id: 'Import', name: 'Import'},
+            ]
         }
     },
     computed: {
@@ -239,7 +257,7 @@ export default {
             // event.rows: Number of rows to display in new page
             // event.pageCount: Total number of pages
             const { page } = event
-            this.$store.dispatch('registrations/GET_REGISTRATIONS', { page, town_city: this.town_city, start_date: this.start_date.toLocaleDateString(), end_date: this.end_date.toLocaleDateString(), search: this.search })
+            this.$store.dispatch('registrations/GET_REGISTRATIONS', { page, origin: this.origin, town_city: this.town_city, start_date: this.start_date.toLocaleDateString(), end_date: this.end_date.toLocaleDateString(), search: this.search })
         },
         deleteRegistration(id) {
             this.$confirm.require({
@@ -249,6 +267,7 @@ export default {
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
                     this.$store.dispatch('registrations/DELETE_REGISTRATION', {id})
+                    this.toast.add({severity:'success', summary: 'Successfully Deleted!', detail:'Registration Information', life: 3000});
                 },
                 reject: () => {
                     //callback to execute when hospital rejects the action
@@ -262,6 +281,8 @@ export default {
 
         },
         uploadComplete(e) {
+
+            console.log(e)
 
             const { xhr: { response } } = e
 
@@ -294,7 +315,7 @@ export default {
         },
         exportToExcel() {
 
-            window.open(`${this.downloadUrl}?town_city=${this.town_city}&start_date=${this.start_date.toLocaleDateString()}&end_date=${this.end_date.toLocaleDateString()}`)
+            window.open(`${this.downloadUrl}?origin=${this.origin}&town_city=${this.town_city}&start_date=${this.start_date.toLocaleDateString()}&end_date=${this.end_date.toLocaleDateString()}`)
 
         }
     },

@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Dosage;
 use App\Models\Province;
 use App\Models\CityMun;
 use App\Models\Barangay;
+use App\Models\User;
 use Carbon\Carbon;
 
 class VasReportcontroller extends Controller
@@ -21,12 +24,26 @@ class VasReportcontroller extends Controller
     public function __invoke(Request $request)
     {
 
-        $date = $request->date ?? now();
-        $date = Carbon::parse($date)->format("Y-m-d");
-        $ddate = Carbon::now()->format("Y-m-d His");
-        $fileName = "PGLU VAS Report {$ddate}.csv";
+        $user_id = $request->user_id;
 
-        $dosages = Dosage::where('date_of_vaccination',$date)->get();
+        $start_date = $request->start_date ?? now();
+        $start_date = Carbon::parse($start_date)->format("Y-m-d");
+
+        $end_date = $request->end_date ?? now();
+        $end_date = Carbon::parse($end_date)->format("Y-m-d");
+
+        $coverage = "";
+        if (Carbon::parse($start_date)->isSameDay(Carbon::parse($end_date))) {
+            $coverage = Carbon::parse($start_date)->format("F j Y");
+        } else {
+            $coverage = Carbon::parse($start_date)->format("F j - ");
+            $coverage .= Carbon::parse($end_date)->format("F j Y");
+        }
+
+        $asof = Carbon::now()->format("F j Y His");
+        $fileName = "PGLU VAS Report as of {$asof} Coverage ({$coverage}).csv";
+
+        $dosages = Dosage::whereBetween('date_of_vaccination',[$start_date,$end_date])->get();
 
         $headers = [
             "Content-type"        => "text/csv",
@@ -103,13 +120,39 @@ class VasReportcontroller extends Controller
             "02_Male" => "M",
         ];
 
-        $callback = function() use ($columns, $props, $dosages, $genders) {
+        $callback = function() use ($columns, $props, $dosages, $genders, $user_id) {
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
 
             foreach ($dosages as $dosage) {
+
+                if (is_null($dosage->user->userHospital)) {
+                    continue;
+                }
+                $vaccinator = $dosage->user->userHospital->location;
+
+                if (is_null($user_id)) {
+                    continue;
+                }
+                $encoder = User::find($user_id);
+                if (is_null($encoder)) {
+                    continue;
+                }
+
+                if (is_null($encoder)) {
+                    continue;
+                }
+                $encoder_hospital = $encoder->userHospital;
+                if (is_null($encoder_hospital)) {
+                    continue;
+                }
+                if ($vaccinator!=$encoder_hospital->location) {
+                    continue;
+                }
+
                 $values = [];
-                $i = 0;
+                $i = 0;                
+
                 foreach ($props as $p => $a) {
                     if (($i >=0 ) && ($i <= 14)) { # registrations
                         $value = $dosage->vaccine->registration->{$a};
@@ -157,8 +200,9 @@ class VasReportcontroller extends Controller
                             $value = $genders[$value];
                         }
                         if ($p=="BIRTHDATE") {
-                            $value = Carbon::parse($value)->format("m/d/y");
-                        }                        
+                            $value = Carbon::parse($value)->format("n/d/Y");
+                            // $value = date("n/d/Y",strtotime($value));
+                        }
                         $values[] = $value;
                     }
                     if (($i >=15 ) && ($i <= 16)) { # pre_assessments
@@ -175,13 +219,19 @@ class VasReportcontroller extends Controller
                     if (($i >=17 ) && ($i <= 24)) { # dosaoges
                         $value = $dosage->{$a};
                         if ($p=="VACCINATION_DATE") {
-                            $value = Carbon::parse($value)->format("m/d/y");
+                            // $value = Carbon::parse($value)->format("n/d/y");
+                            $value = date("n/d/Y",strtotime($value));
                         }
                         if ($p=="VACCINE_MANUFACTURER_NAME") {
                             $value = $this->getVaccineShortName($value);
                         }
                         if ($p=="BAKUNA_CENTER_CBCR_ID") {
-                            $value = "cho01";
+                            if (is_null($dosage->vaccination_facility)) {
+                                $value = $dosage->cbcr_id();
+                            } else {
+                                $value = $dosage->cbcr->cbcr_id;
+                            }
+                            // $value = "cho01";
                         }
                         if ($p=="VACCINATOR_NAME") {
                             $value = $dosage->dohVaccinator();

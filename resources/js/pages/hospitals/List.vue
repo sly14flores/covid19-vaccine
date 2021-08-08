@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Toast class="p-mt-6" position="top-right" />
         <MyBreadcrumb :home="home" :items="items" />
         <div class="p-grid">
             <div class="p-col-12 p-mt-2">
@@ -20,8 +21,10 @@
                             </div>
                         </template>
                     </Toolbar>
-                    <DataTable :value="hospitals" dataKey="id">
+                    <DataTable class="p-datatable-sm" :value="hospitals" dataKey="id">
                         <Column field="description" header="Description"></Column>
+                        <Column field="town_city" header="City/Municipality"></Column>
+                        <Column field="cbcr_id" header="Bakuna Center CBCR ID"></Column>
                         <Column field="slots" header="Slots"></Column>
                         <Column field="id" header="Actions">
                             <template #body="slotProps">
@@ -48,8 +51,17 @@ import Paginator from 'primevue/paginator/sfc';
 import InputText from 'primevue/inputtext/sfc';
 import Toolbar from 'primevue/toolbar/sfc';
 
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast"
+
 export default {
     setup() {
+
+        const toast = useToast()
+
+        return {
+            toast
+        }
 
     },
     components: {
@@ -60,7 +72,8 @@ export default {
         Button,
         ConfirmDialog,
         InputText,
-        Toolbar
+        Toolbar,
+        Toast
     },
     data() {
         return {
@@ -97,6 +110,7 @@ export default {
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
                     this.$store.dispatch('hospitals/DELETE_HOSPITAL', {id})
+                    this.toast.add({severity:'success', summary: 'Successfully Deleted!', detail:'Hospital Information', life: 3000});
                 },
                 reject: () => {
                     //callback to execute when hospital rejects the action

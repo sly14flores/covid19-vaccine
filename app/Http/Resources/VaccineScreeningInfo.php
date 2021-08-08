@@ -38,11 +38,16 @@ class VaccineScreeningInfo extends JsonResource
         $pre_assessment = (is_null($dosage->first()))?null:$dosage->first()->pre_assessment;
         $vitals = (is_null($dosage->first()))?null:$dosage->first()->vitals()->get();
 
+        $today = date("Y-m-d");
+        $diff = date_diff(date_create($this->birthdate), date_create($today));
+        $age = $diff->format('%y');
+        
+
         return [
             'id' => $this->id,
             'qr_pass_id' => $this->qr_pass_id,
             'name' => $name,
-            'age' => Carbon::createFromFormat("ymd", Carbon::parse($this->birthdate)->format("ymd"))->age,
+            'age' => $age,
             'birthdate' => Carbon::parse($this->birthdate)->format("F j, Y"),
             'gender' => $genders[$this->gender],
             'contact_no' => $this->contact_no,

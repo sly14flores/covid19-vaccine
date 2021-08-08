@@ -28,6 +28,7 @@ class PreAssessment extends Model
         'oxygen_saturation',
         'pulse_rate',
         'screened',
+        'remarks'
     ];
 
     /**
@@ -39,7 +40,7 @@ class PreAssessment extends Model
         'dose' => 'integer',
         'dosage_id' => 'integer',
         'user_id' => 'integer', 
-        'screened' => 'boolean', 
+        'screened' => 'boolean',
     ];    
 
     protected $hidden = [
@@ -67,7 +68,7 @@ class PreAssessment extends Model
 
     public function dosage()
     {
-        return $this->belongsTo(Vaccine::class,'dosage_id');
+        return $this->belongsTo(Dosage::class,'dosage_id');
     }
 
 }

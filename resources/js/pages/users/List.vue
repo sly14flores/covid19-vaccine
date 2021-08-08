@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Toast class="p-mt-6" position="top-right" />
         <MyBreadcrumb :home="home" :items="items" />        
         <div class="p-grid">
             <div class="p-col-12 p-mt-2">
@@ -20,11 +21,11 @@
                             </div>
                         </template>
                     </Toolbar>
-                    <DataTable :value="users" dataKey="id" v-model:users="users">
+                    <DataTable class="p-datatable-sm" :value="users" dataKey="id" v-model:users="users">
                         <Column field="firstname" header="First Name"></Column>
                         <Column field="lastname" header="Last Name"></Column>
                         <Column field="username" header="Username"></Column>
-                        <Column field="hospital" header="Hospital"></Column>
+                        <Column field="hospital" header="Facilities"></Column>
                         <Column field="group_name" header="Groups"></Column>
                         <Column field="id" header="Actions">
                             <template #body="slotProps">
@@ -51,8 +52,17 @@ import Paginator from 'primevue/paginator/sfc';
 import InputText from 'primevue/inputtext/sfc';
 import Toolbar from 'primevue/toolbar/sfc';
 
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast"
+
 export default {
     setup() {
+
+        const toast = useToast()
+
+        return {
+            toast
+        }
 
     },
     components: {
@@ -63,7 +73,8 @@ export default {
         Button,
         ConfirmDialog,
         InputText,
-        Toolbar
+        Toolbar,
+        Toast
     },
     data() {
         return {
@@ -100,6 +111,7 @@ export default {
                 icon: 'pi pi-exclamation-triangle',
                 accept: () => {
                     this.$store.dispatch('users/DELETE_USER', {id})
+                    this.toast.add({severity:'success', summary: 'Successfully Deleted!', detail:'User Information', life: 3000});
                 },
                 reject: () => {
                     //callback to execute when user rejects the action

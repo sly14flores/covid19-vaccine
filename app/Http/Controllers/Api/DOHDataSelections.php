@@ -42,7 +42,6 @@ class DOHDataSelections extends Controller
         //
         $selections = [
             "region_value" => $this->regionValue(),
-            "employer_municipality_value" => $this->employerMunicipalityValue(),
             "suffix_value" => $this->suffixValue(),
             "gender_value" => $this->genderValue(),
             "civil_status_value" => $this->civilStatusValue(),
@@ -60,6 +59,8 @@ class DOHDataSelections extends Controller
             "addresses"=>$this->addresses(),
             "indigenous_value"=>$this->indigenousValue(),
             "deferral_value"=>$this->deferralValue(),
+            "vaccines_value"=>$this->vaccinesValue(),
+            "contact_value"=>$this->contactsValue()
         ];
 
         return $this->jsonSuccessResponse($selections, 200);
@@ -141,6 +142,30 @@ class DOHDataSelections extends Controller
     {
         $priorityGroups = $this->priorityGroupValue();
         return $this->jsonSuccessResponse($priorityGroups, 200);        
+    }
+
+    public function adverseEvents()
+    {
+        $adverseEvents = $this->adverseEventsValue();
+        return $this->jsonSuccessResponse($adverseEvents, 200);        
+    }
+
+    public function vaccines()
+    {
+        $vaccines = $this->vaccinesValue();
+        return $this->jsonSuccessResponse($vaccines, 200);
+    }
+
+    public function deferrals()
+    {
+        $deferrals = $this->deferralValue();
+        return $this->jsonSuccessResponse($deferrals, 200);
+    }
+
+    public function municipalities()
+    {
+        $municipalities = $this->municipalityValue();
+        return $this->jsonSuccessResponse($municipalities, 200);
     }
 
     public function refusalValue()

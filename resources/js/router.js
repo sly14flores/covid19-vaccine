@@ -19,6 +19,17 @@ import Screening from "./pages/vaccines/screening.vue";
 import Inoculation from "./pages/vaccines/inoculation.vue";
 import Monitoring from "./pages/vaccines/monitoring.vue";
 
+// reports
+import ReportWrapper from "./pages/reports/Wrapper.vue";
+import ReportPhase from "./pages/reports/Phase.vue";
+import Vas from "./pages/reports/Vas.vue";
+import Deferred from "./pages/reports/Deferred.vue";
+import Schedule from "./pages/reports/Schedule.vue";
+import Aefi from "./pages/reports/Aefi.vue";
+import VaccinationCard from "./pages/reports/VaccinationCard.vue";
+import VaccinationCertificate from "./pages/reports/VaccinationCertificate.vue";
+import Certificate from "./pages/reports/Certificate.vue";
+
 import Login from "./pages/login.vue";
 // import Registration from "./pages/registration.vue";
 import Booking from "./pages/booking.vue";
@@ -136,7 +147,7 @@ const routes = [
         props: {pageComponent: QueryMonitoring},
       },
       {
-        path: "screening/:qr",
+        path: "screening/:qr/:next_dose",
         name: "Screening",
         component: VaccinePhase,
         props: {pageComponent: Screening},
@@ -153,6 +164,56 @@ const routes = [
         component: VaccinePhase,
         props: {pageComponent: Monitoring},
       }
+    ]
+  },
+  {
+    path: "/reports",
+    name: "Reports",
+    component: PageWrapper,
+    props: {pageComponent: ReportWrapper},
+    children: [
+      {
+        path: "list/vas",
+        name: "Vas",
+        component: ReportPhase,
+        props: {pageComponent: Vas},
+      },
+      {
+        path: "list/deferred",
+        name: "Deferred",
+        component: ReportPhase,
+        props: {pageComponent: Deferred},
+      },
+      {
+        path: "list/schedule",
+        name: "Schedule",
+        component: ReportPhase,
+        props: {pageComponent: Schedule},
+      },
+      {
+        path: "list/aefi",
+        name: "AEFI",
+        component: ReportPhase,
+        props: {pageComponent: Aefi},
+      },
+      {
+        path: "list/card",
+        name: "Vaccination Card",
+        component: ReportPhase,
+        props: {pageComponent: VaccinationCard},
+      },
+      {
+        path: "list/certificate",
+        name: "Vaccination Certificate",
+        component: ReportPhase,
+        props: {pageComponent: VaccinationCertificate},
+      },
+      {
+        path: "certificate/:qr",
+        name: "Certificate",
+        component: ReportPhase,
+        props: {pageComponent: Certificate},
+      },
     ]
   },
   {

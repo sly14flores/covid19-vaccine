@@ -1,7 +1,7 @@
 <template>
   <div :class="containerClass" @click="onWrapperClick">
-    <AppTopBar @menu-toggle="onMenuToggle" />
-    <transition name="layout-sidebar">
+    <AppTopBar @menu-toggle="onMenuToggle" class="hidden" />
+    <transition name="layout-sidebar" class="hidden">
       <div :class="sidebarClass" @click="onSidebarClick" v-show="isSidebarVisible()">
           <div class="layout-logo">
               <router-link to="/">
@@ -13,7 +13,7 @@
       </div>
     </transition>
     <component v-bind:is="pageComponent" class="layout-main"></component>
-    <AppFooter />    
+    <AppFooter class="hidden" />    
   </div>
 </template>
 
@@ -26,7 +26,7 @@ import AppFooter from './AppFooter.vue';
 
 import { useStore } from 'vuex';
 
-import { summary, registrations, users, facilities, vaccines, screening, inoculation, monitoring } from './menu.js';
+import { summary, registrations, users, facilities, vaccines, vaccine_administration, reports } from './menu.js';
 
 export default {
   props: ['pageComponent'],
@@ -34,22 +34,25 @@ export default {
 
     const store = useStore()
 
-    const isAdmin = store.state.profile.group_id == 1
-    const _users =  (isAdmin)?users:[]
-    const _facilities = (isAdmin)?facilities:[]
-    const _screening = (isAdmin)?screening:[]
-    const _inoculation = (isAdmin)?inoculation:[]
-    const _monitoring = (isAdmin)?monitoring:[]
+    const notAuth = store.state.profile.group_id != 4 && 5
+    const _users =  (notAuth)?users:[]
+    const _facilities = (notAuth)?facilities:[]
+    const _reports = (notAuth)?reports:[]
+    // const _screening = (isAdmin)?screening:[]
+    // const _inoculation = (isAdmin)?inoculation:[]
+    // const _monitoring = (isAdmin)?monitoring:[]
 
     const menu = [
       ...summary,
       ...registrations,
+      ...vaccines,
+      ...vaccine_administration,
+      ..._reports,
       ..._facilities,
       ..._users,
-      ...vaccines,
-      ..._screening,
-      ..._inoculation,
-      ..._monitoring
+      // ..._screening,
+      // ..._inoculation,
+      // ..._monitoring
     ]
 
     return {
@@ -157,5 +160,12 @@ export default {
 <style scoped>
 img{
   height: 45px;
+}
+@media print
+{    
+    .hidden, .hidden *
+    {
+        display: none !important;
+    }
 }
 </style>

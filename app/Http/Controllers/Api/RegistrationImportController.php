@@ -516,6 +516,9 @@ class RegistrationImportController extends Controller
                         'addressbrgy' => $this->dohToBrgy($data['barangay']),
                         'addressmunicity' => $this->dohToMun($data['town_city']),
                         'addressprovince' => $this->dohToProv($data['province']),
+                        'link_status' => 'Vaccine',
+                        'qrpass_status' => 'Unlink',
+                        'health_status' => 'Manual',
                     ];
     
                     $qr_pass = new QrPass;

@@ -23,7 +23,6 @@
                     <Column field="middle_name" header="Middle Name" :sortable="true"></Column>
                     <Column field="last_name" header="Last Name" :sortable="true"></Column>
                     <Column field="townCity" header="Municipality/City" :sortable="true"></Column>
-                    <!-- <Column field="" header="Priority Group" :sortable="true"></Column> -->
                     <Column field="qr_pass_id" header="Actions">
                         <template #body="slotProps">
                             <router-link :to="`/vaccines/${phase}/${slotProps.data.qr_pass_id}`"><Button icon="pi pi-fw pi-eye" class="p-button-rounded p-button-success p-mr-2" /></router-link>
@@ -63,9 +62,11 @@ export default {
         InputText,
         BlockUI,
     },
-    setup() {
+    setup(props) {
 
         const blocked = ref(false)
+
+        const phase = props?.phase
 
         const search = ref('')
         const state = reactive({
@@ -79,7 +80,7 @@ export default {
 
             blocked.value = true
 
-            getRegistrationsList({page: page+1, search: search.value}).then(res => {
+            getRegistrationsList({page: page+1, search: search.value, phase}).then(res => {
                 const { data: { data: { data, pagination } } } = res
                 Object.assign(state, {registrations: data, pagination})
                 blocked.value = false
@@ -94,6 +95,7 @@ export default {
             ...toRefs(state),
             fetchRegistrations,
             blocked,
+            phase
         }
         
     },

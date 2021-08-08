@@ -1,12 +1,12 @@
-name: Screening
+name: Monitoring
 description: ''
 endpoints:
   -
     httpMethods:
       - POST
-    uri: 'api/doh/vaccines/screening/info/{id}'
+    uri: 'api/doh/vaccines/monitoring/info/{id}'
     metadata:
-      title: 'Personal Info for Screening'
+      title: 'Personal Info for Monitoring'
       description: ''
       authenticated: true
     headers:
@@ -17,7 +17,7 @@ endpoints:
         name: id
         description: 'The ID of the info.'
         required: true
-        example: minus
+        example: sit
         type: string
     queryParameters: []
     bodyParameters:
@@ -32,9 +32,9 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/doh/vaccines/screening/update
+    uri: api/doh/vaccines/monitoring/update
     metadata:
-      title: 'Update screening per dose'
+      title: 'Update monitoring per dose'
       description: ''
       authenticated: true
     headers:
@@ -45,9 +45,9 @@ endpoints:
     bodyParameters:
       id:
         name: id
-        description: ''
+        description: 'This is qr_pass_id'
         required: true
-        example: sapiente
+        example: perspiciatis
         type: string
       dosage_id:
         name: dosage_id
@@ -58,8 +58,8 @@ endpoints:
       dose:
         name: dose
         description: ''
-        required: true
-        example: 3
+        required: false
+        example: 15
         type: integer
       vitals:
         name: vitals
@@ -69,81 +69,105 @@ endpoints:
           - []
           - []
         type: 'object[]'
-      pre_assessment:
-        name: pre_assessment
-        description: ''
-        required: true
-        example: []
-        type: object
-      pre_assessment.dose:
-        name: pre_assessment.dose
-        description: ''
-        required: true
-        example: 15
-        type: integer
-      pre_assessment.dosage_id:
-        name: pre_assessment.dosage_id
-        description: ''
-        required: true
-        example: 17
-        type: integer
-      pre_assessment.consent:
-        name: pre_assessment.consent
-        description: ''
-        required: true
-        example: omnis
-        type: string
-      pre_assessment.user_id:
-        name: pre_assessment.user_id
+      dels:
+        name: dels
         description: ''
         required: false
-        example: 2
-        type: integer
-      pre_assessment.reason:
-        name: pre_assessment.reason
-        description: ''
-        required: true
-        example: commodi
-        type: string
-      pre_assessment.assessments:
-        name: pre_assessment.assessments
+        example:
+          - 9
+          - 18
+        type: 'integer[]'
+      aefi:
+        name: aefi
         description: ''
         required: false
         example:
           - []
           - []
         type: 'object[]'
-      'pre_assessment.assessments[].key':
-        name: 'pre_assessment.assessments[].key'
+      'aefi[].dose':
+        name: 'aefi[].dose'
         description: ''
-        required: false
-        example: 4
+        required: true
+        example: 13
         type: integer
-      'pre_assessment.assessments[].description':
-        name: 'pre_assessment.assessments[].description'
+      'aefi[].has_adverse_event':
+        name: 'aefi[].has_adverse_event'
         description: ''
-        required: false
-        example: impedit
-        type: string
-      'pre_assessment.assessments[].value':
-        name: 'pre_assessment.assessments[].value'
-        description: ''
-        required: false
+        required: true
         example: false
         type: boolean
+      'aefi[].adverse_event_condition':
+        name: 'aefi[].adverse_event_condition'
+        description: ''
+        required: false
+        example: aut
+        type: string
+      'aefi[].other_adverse_event_condition':
+        name: 'aefi[].other_adverse_event_condition'
+        description: ''
+        required: false
+        example: sequi
+        type: string
       'vitals[].dose':
         name: 'vitals[].dose'
         description: ''
         required: false
-        example: 10
+        example: 12
         type: integer
-      dels:
-        name: dels
+      'vitals[].date_collected':
+        name: 'vitals[].date_collected'
         description: ''
         required: false
-        example:
-          - 3
-          - 7
-        type: 'integer[]'
+        example: animi
+        type: string
+      'vitals[].time_collected':
+        name: 'vitals[].time_collected'
+        description: ''
+        required: false
+        example: quos
+        type: string
+      'vitals[].systolic':
+        name: 'vitals[].systolic'
+        description: ''
+        required: false
+        example: magni
+        type: string
+      'vitals[].diastolic':
+        name: 'vitals[].diastolic'
+        description: ''
+        required: false
+        example: ex
+        type: string
+      'vitals[].pulse_rate':
+        name: 'vitals[].pulse_rate'
+        description: ''
+        required: false
+        example: dolorum
+        type: string
+      'vitals[].temperature':
+        name: 'vitals[].temperature'
+        description: ''
+        required: false
+        example: distinctio
+        type: string
+      'vitals[].respiratory_rate':
+        name: 'vitals[].respiratory_rate'
+        description: ''
+        required: false
+        example: nemo
+        type: string
+      'vitals[].oxygen':
+        name: 'vitals[].oxygen'
+        description: ''
+        required: false
+        example: molestias
+        type: string
+      'vitals[].pain_score':
+        name: 'vitals[].pain_score'
+        description: ''
+        required: false
+        example: praesentium
+        type: string
     responses: []
     responseFields: []

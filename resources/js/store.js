@@ -5,6 +5,7 @@ import { registrationsStore } from './stores/registrations.js'
 import { surveyStore } from './stores/surveys.js'
 import { registeredStore } from './stores/summary-registrations'
 import { vaccinationStore } from './stores/summary-vaccination'
+import { certificateStore } from './stores/vaccination-certificate'
 import { hospitalsStore } from './stores/hospitals.js'
 import importData from './stores/importData.js'
 import { vaccinesStore } from './stores/vaccines.js'
@@ -26,6 +27,7 @@ export default createStore({
         surveys: surveyStore,
         registered: registeredStore,
         vaccination: vaccinationStore,
+        certificates: certificateStore,
         hospitals: hospitalsStore,
         importData,
         vaccines: vaccinesStore,

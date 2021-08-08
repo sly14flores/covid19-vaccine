@@ -14,9 +14,9 @@ import { api_url } from '../url.js'
  }
 
  /**
-  * Fetch Personal Information
+  * Fetch Personal Information Screening
   */
-const getPersonalInfo = (payload) => {
+const getScreeningPersonalInfo = (payload) => {
     const { id, dose } = payload
     const url =  route(`${api_url}/api/doh/vaccines/screening/info/:id`, { id })
     return axios.post(url, { dose })
@@ -27,14 +27,29 @@ const postScreeningInfo = (payload) => {
 }
 
 /**
- * 
- * Selections
- *
+ * Fetch Personal Information Inoculation
  */
- const getSelections = () => {
-    return axios.get(
-        `${api_url}/api/doh/selections`
-    )
+const getInoculationPersonalInfo = (payload) => {
+    const { id, dose } = payload
+    const url =  route(`${api_url}/api/doh/vaccines/inoculation/info/:id`, { id })
+    return axios.post(url, { dose })
+}
+
+const postInoculationInfo = (payload) => {
+    return axios.post(`${api_url}/api/doh/vaccines/inoculation/update`, { ...payload })    
+}
+
+/**
+  * Fetch Personal Information Monitoring
+  */
+ const getMonitoringPersonalInfo = (payload) => {
+    const { id, dose } = payload
+    const url =  route(`${api_url}/api/doh/vaccines/monitoring/info/:id`, { id })
+    return axios.post(url, { dose })
+}
+
+const postMonitoringInfo = (payload) => {
+    return axios.post(`${api_url}/api/doh/vaccines/monitoring/update`, { ...payload })    
 }
 
 /**
@@ -48,11 +63,73 @@ const postScreeningInfo = (payload) => {
     )
 }
 
+/**
+ * 
+ * Users
+ *
+ */
+ const getUsers = () => {
+    return axios.get(
+        `${api_url}/api/general/selections/users`
+    )
+}
+
+/**
+ * 
+ * Hospitals
+ *
+ */
+ const getHospitals = () => {
+    return axios.get(
+        `${api_url}/api/general/selections/hospitals`
+    )
+}
+
+/**
+ * 
+ * Adverse Events
+ *
+ */
+ const getAdverseEvents = () => {
+    return axios.get(
+        `${api_url}/api/doh/selections/vaccine/events`
+    )
+}
+
+/**
+ * 
+ * Vaccines
+ *
+ */
+ const getVaccines = () => {
+    return axios.get(
+        `${api_url}/api/doh/selections/vaccine/vaccines`
+    )
+}
+
+/**
+ * 
+ * Deferrals
+ *
+ */
+ const getDeferrals = () => {
+    return axios.get(
+        `${api_url}/api/doh/selections/vaccine/deferrals`
+    )
+}
 
 export {
     getRegistrationsList,
-    getPersonalInfo,
+    getScreeningPersonalInfo,
     postScreeningInfo,
-    getSelections,
-    getVaccinators
+    getInoculationPersonalInfo,
+    postInoculationInfo,
+    getMonitoringPersonalInfo,
+    postMonitoringInfo,
+    getVaccinators,
+    getUsers,
+    getHospitals,
+    getAdverseEvents,
+    getVaccines,
+    getDeferrals
 }

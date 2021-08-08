@@ -17,7 +17,10 @@ class HospitalsListResource extends JsonResource
         return [
             'id' => $this->id,
             'description' => $this->description,
-            'slots' => $this->slots
+            'slots' => $this->slots,
+            'cbcr_id' => $this->cbcr_id,
+            'location' => $this->location,
+            'town_city' => $this->municipalityName($this->location),
         ];
     }
 }

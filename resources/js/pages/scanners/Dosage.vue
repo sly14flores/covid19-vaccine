@@ -1,5 +1,6 @@
 <template>
     <div>
+    <Toast class="p-mt-6" position="top-right" />
         <Dialog header="Dosage" v-model:visible="displayDosage" :closable="false" :style="{width: '80vw'}" :maximizable="true" position="top" :modal="true">   
             <hr />
             <form autocomplete="off">
@@ -211,11 +212,16 @@ import { reactive, watch } from 'vue';
 import { useVuelidate } from "@vuelidate/core";
 import { required, requiredIf } from "@vuelidate/validators";
 
+import Toast from 'primevue/toast';
+import { useToast } from "primevue/usetoast"
+
 import { dosageInit } from '../../stores/vaccines'
 
 export default {
     props: ['editOn'],
     setup(props) {
+
+        const toast = useToast()
 
         const { editOn } = props
         const editMode = eval(editOn)
@@ -327,7 +333,8 @@ export default {
         Dialog,
         Calendar,
         Panel,
-        Toolbar
+        Toolbar,
+        Toast
 
     },
     computed: {

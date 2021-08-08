@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
 use App\Traits\Messages;
 
 use App\Models\Hospital;
@@ -20,7 +21,7 @@ class GeneralDataSelections extends Controller
      */
     public function hospitals()
     {
-        $hospitals = hospital::select(['id','description'])->get();
+        $hospitals = Hospital::select(['id','description','cbcr_id'])->orderBy('cbcr_id')->get();
 
         return $this->jsonSuccessResponse($hospitals, 200);
     }
@@ -49,7 +50,9 @@ class GeneralDataSelections extends Controller
 
     public function vaccinators()
     {
-        $users = User::where('group_id',5)->get();
+        $hospital_id = Auth::guard('api')->user()->hospital;
+
+        $users = User::where('group_id',5)->where('hospital',$hospital_id)->get();
 
         $users = $users->map(function($user) {
             $map = [

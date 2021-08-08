@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Traits\Messages;
 use App\Traits\UserLocation;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\QueryException;
 
 use Carbon\Carbon;
 
@@ -43,6 +44,7 @@ class RegistrationController extends Controller
         }
 
         $town_city = $request->town_city;
+        $origin = $request->origin;
         
         $townCityCode = null;
         if (isset($town_city)) {
@@ -60,8 +62,12 @@ class RegistrationController extends Controller
         $endFilter = Carbon::parse($end_date)->addDays(1)->format("Y-m-d 00:00:00");
 
         $search = (isset($request->search))?$request->search:null;
+        
+        if($origin=="all") {
+            $origin = '<>';
+        }
 
-        $registrations = Registration::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        $registrations = Registration::where($wheres)->where('origin', $origin,'')->whereBetween('created_at',[$startFilter,$endFilter])->get();
         
         $registrations = $registrations->filter(function($registration) use ($search) {
             $text = "{$registration->qr_pass_id} {$registration->first_name}, {$registration->middle_name}, {$registration->last_name}";            
@@ -135,17 +141,35 @@ class RegistrationController extends Controller
         /** Get validated data */
         $data = $validator->valid();
 
-        $tc = explode("_",$data['town_city']);
-        $data['town_city_code'] = $tc[1];
-        
-        $registration = new Registration;
-        $registration->fill($data);
+        $tc = $data['town_city'] ?? explode("_",$data['town_city']);
+        $data['town_city_code'] = $tc[1] ?? null;
 
-        $registration->save();
+        try {
 
-        $data = new RegistrationResource($registration);
+            $registration = new Registration;
+            $registration->fill($data);
 
-        return $this->jsonSuccessResponse($data, 200);    
+            $registration->save();
+
+            $data = new RegistrationResource($registration);
+
+            return $this->jsonSuccessResponse($data, 200);             
+
+        } catch (\Exception $e) {
+
+            if ($e instanceof QueryException) {
+                if ($e->getCode()!=="23000") {
+                    report($e);
+                    return $this->jsonFailedResponse(null, 406, $e->getMessage());
+                }
+                return $this->jsonFailedResponse(null, 500, $e->getMessage());
+            } else {
+                report($e);
+                return $this->jsonFailedResponse(null, 500, $e->getMessage());
+            }
+
+        }
+   
     }
 
     /**
@@ -241,7 +265,7 @@ class RegistrationController extends Controller
         unset($data['id']);
 
         $tc = explode("_",$data['town_city']);
-        $data['town_city_code'] = $tc[1];
+        $data['town_city_code'] = $tc[1] ?? null;
 
         $registration->fill($data);
 

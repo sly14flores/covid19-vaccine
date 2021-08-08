@@ -13,6 +13,7 @@ trait DOHHelpers
 
     public function toDOHProv($province)
     {
+        if (is_null($province['provCode'])) return null;
         $doh_prov = "_0{$province['provCode']}_";
         $spaceWithUn = str_replace(' ','_',$province['provDesc']);
         $spaceWithUn = str_replace('(','',$spaceWithUn);
@@ -131,6 +132,24 @@ trait DOHHelpers
         $birthday = Carbon::parse($dob)->diff($thisYear);
 
         return $birthday->format("%y");
+    }
+
+    public function getVaccineShortName($id)
+    {
+        $brands = config('constants.brands');
+
+        $brand = collect($brands)->where('id',$id);
+
+        return $brand->first()['shortname'] ?? null;
+    }
+
+    public function brandNameToId($name)
+    {
+        $brands = config('constants.brands');
+
+        $brand = collect($brands)->where('shortname',$name);
+
+        return $brand->first()['id'] ?? null;        
     }
 
 }

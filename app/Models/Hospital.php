@@ -21,7 +21,9 @@ class Hospital extends Model
      */
     protected $fillable = [
         'description',
-        'slots'
+        'slots',
+        'cbcr_id',
+        'location'
     ];
 
     protected $hidden = [
@@ -42,8 +44,23 @@ class Hospital extends Model
         return $this->hasMany(User::class, 'hospital');
     }
 
+    public function municipalityName($id)
+    {
+
+        if (is_null($id)) {
+            return null;
+        }
+
+        $municipalities = config('constants.municipalities');
+
+        $municipality = collect($municipalities)->where('id',$id)->first();
+
+        return $municipality['name'];
+    }
+
     public function townCity()
     {
         return $this->belongsTo(CityMun::class, 'location', 'citymunCode');
-    }    
+    }
+
 }

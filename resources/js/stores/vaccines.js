@@ -158,7 +158,7 @@ const dosage = {
         pulse_rate: null,
         assessments: []
     },
-    date_of_vaccination: null,
+    date_of_vaccination: new Date(),
     next_vaccination: null
 }
 
@@ -312,13 +312,13 @@ const mutations = {
         state.vaccine.province = payload.province
         state.vaccine.town_city = payload.town_city
         state.vaccine.barangay = payload.barangay
-        // state.vaccine.address = payload.address
+        state.vaccine.address = payload.address
         state.vaccine.occupation = payload.occupation
         state.vaccine.category = payload.category
         state.vaccine.category_id = payload.category_id
         state.vaccine.category_id_no = payload.category_id_no
         state.vaccine.philhealth = payload.philhealth
-        // state.vaccine.philhealth = (state.vaccine.philhealth)?payload.philhealth:"N/A"
+        state.vaccine.pwd_id = payload.pwd_id
 
         state.dosage.qr_pass_id = payload.qr_pass_id
         state.dosage.pre_assessment.qr_pass_id = payload.qr_pass_id
@@ -340,6 +340,7 @@ const mutations = {
     UPDATE_DOSAGE(state,payload) {
         console.log('UPDATE_DOSAGE')
         const dosages = state.vaccination.dosages.map((dosage,i) => {
+
             console.log(`${i}:${state.dosageIndexToUpdate}`)
             if (dosage.id) {
                 if (dosage.id==payload.id) {
@@ -562,8 +563,6 @@ const actions = {
 
             commit('VACCINATION',data)
             
-            commit('UPDATED')
-            
             return true
         } catch (error) {
             const { response } = error
@@ -573,16 +572,8 @@ const actions = {
 
     async UPDATE_REGISTRATION({dispatch}, payload) {
         try {
+
             const { data: { data } } = await updateRegistration(payload)
-            Swal.fire({
-                title: '<p class="text-success" style="font-size: 25px;">Successfully updated!</p>',
-                icon: 'success',
-                showConfirmButton: false,
-                timer: 1500,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                allowEnterKey: false,
-            })
             return true
         } catch (error) {
             const { response } = error
