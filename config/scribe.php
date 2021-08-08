@@ -9,12 +9,12 @@ return [
     /*
      * The HTML <title> for the generated documentation. If this is empty, Scribe will infer it from config('app.name').
      */
-    'title' => "API DOCS - Covid19 Vaccines",
+    'title' => null,
 
     /*
      * A short description of your API. Will be included in the docs webpage, Postman collection and OpenAPI spec.
      */
-    'description' => 'API Documentation',
+    'description' => 'PGLU Vaccines System API Documentation',
 
     /*
      * The base URL displayed in the docs. If this is empty, Scribe will use the value of config('app.url').
@@ -73,6 +73,7 @@ return [
                  * Additional headers to be added to the example requests
                  */
                 'headers' => [
+                    'Content-Type' => 'application/json',
                     'Accept' => 'application/json',
                 ],
 
@@ -246,12 +247,12 @@ INTRO
     /*
      * Example requests for each endpoint will be shown in each of these languages.
      * Supported options are: bash, javascript, php, python
-     * To add a language of your own, see https://scribe.knuckles.wtf/laravel/advanced/adding-example-languages
+     * To add a language of your own, see https://scribe.knuckles.wtf/laravel/advanced/example-requests
      *
      */
     'example_languages' => [
-        // 'bash',
         'javascript',
+        'bash',
     ],
 
     /*
@@ -278,7 +279,7 @@ INTRO
      * Setting `laravel.add_routes` to true (above) will also add a route for the spec.
      */
     'openapi' => [
-        'enabled' => true,
+        'enabled' => false,
 
         /*
          * Manually override some generated content in the spec. Dot notation is supported.
