@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use Carbon\Carbon;
+use App\Traits\SelectionsRegistration;
 
 class Certificate extends Model
 {
-    use HasFactory;
+    use HasFactory, SelectionsRegistration;
 
     protected $table = 'registrations';
 
@@ -86,6 +87,15 @@ class Certificate extends Model
     {
         return $this->belongsTo(CityMun::class, 'town_city_code', 'citymunCode');
 
+    }
+
+    public function priority($priority_group)
+    {
+        $groups = $this->priorityGroupValue();
+
+        $group = collect($groups)->where('id',$priority_group)->first();
+
+        return $group['name'] ?? "";
     }
 
 }

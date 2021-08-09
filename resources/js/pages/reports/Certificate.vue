@@ -12,7 +12,8 @@
                   <div class="main">
                     <img class="logo" src="https://launion.gov.ph/wp-content/uploads/2017/10/pglu-logo.png" >
                     <h2 class="text-center">Covid-19 Vaccination <br>  Certificate</h2> <br>
-                    <p class="text-center">This serves as proof that the vaccine whose made name and <br> details appear herein below has been vaccinated against of Covid-19.</p> <br>
+                    <p class="text-center">This serves as proof that the vaccine whose made name and <br> details appear herein below has been vaccinated against of Covid-19.</p>
+                    <p class="text-center">For any clarification, you may reach us thru email, pglupho.vax@gmail.com or <br /> telephone number (072) 242-5580 local 258</p><br />
                   </div>
                   <br class="hidden" />
                   <div class="text-body">
@@ -85,12 +86,8 @@
                           <p class="text-center">Powered by Provincial Government of La Union - Information Communications and Technology Unit</p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="column">
-                          <p class="text-center">For any clarification, you may reach us thru email, pglupho.vax@gmail.com or <br /> telephone number (072) 242-5580 local 258</p>
-                        </div>
-                    </div>
                 </div>
+                <Card />
             </div>
         </div>
     </div>
@@ -107,6 +104,7 @@ import RadioButton from 'primevue/radiobutton/sfc';
 import Menubar from 'primevue/menubar/sfc';
 import ConfirmDialog from 'primevue/confirmdialog/sfc';
 import Checkbox from 'primevue/checkbox/sfc';
+import Card from './Card.vue'
 
 import { registration } from '../../stores/registrations.js'
 import { useStore } from 'vuex'
@@ -169,7 +167,8 @@ export default {
         Menubar,
         ConfirmDialog,
         Checkbox,
-        Toast
+        Toast,
+        Card
     },
     computed: {
         registration() {
@@ -338,7 +337,7 @@ export default {
     }
     .main, .main *
     {
-        margin-top: -10px;
+        margin-top: -20px;
     }
 }
 </style>
