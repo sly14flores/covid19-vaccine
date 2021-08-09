@@ -44,6 +44,9 @@ class RegistrationCertificateResource extends JsonResource
             'townCity' => (is_null($this->townCity))?"":$this->townCity->citymunDesc,
             'barangay' => $this->barangay,
             'fully_vaccinated' => $this->fully_vaccinated,
+            'contact_no' => $this->contact_no,
+            'philhealth' => $this->philhealth,
+            'priority_group' => $this->priority($this->priority_group),
         ];
     }
 }
