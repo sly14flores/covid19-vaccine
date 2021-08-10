@@ -3,7 +3,10 @@
       <div class="row">
         <div class="column-100">
           <div class="card">
-            
+            <div class="row">
+              <Button icon="pi pi-fw pi-times" class="btn-right hidden p-button-sm p-button-danger p-mr-2" label="Cancel" @click="cancel()" />
+              <Button icon="pi pi-fw pi-print" class="btn-right hidden p-button-sm p-button-primary p-mr-2" label="Print" @click="print()" />
+            </div>
             <h2 style="margin-top: 5px;">
                 COVID-19 Vaccination Card
                 <img class="logos" src="img/card/logos/logo.png" alt="logo">
@@ -123,6 +126,7 @@
 
 <script>
 import Menubar from 'primevue/menubar/sfc';
+import Button from 'primevue/button/sfc';
 
 import { registration } from '../../stores/registrations.js'
 import { useStore } from 'vuex'
@@ -166,7 +170,8 @@ export default {
         }
     },
     components: {
-        Menubar
+        Menubar,
+        Button
     },
     computed: {
         registration() {
@@ -199,7 +204,7 @@ export default {
         },
         cancel() {
 
-          this.$router.push('/reports/list/certificate')
+          this.$router.push('/reports/list/card')
             
         }
     },
@@ -310,6 +315,9 @@ export default {
   height: 50px; 
   float: right; 
   margin-right: 5px;
+}
+.btn-right {
+  float: right;
 }
 
 /* On print */

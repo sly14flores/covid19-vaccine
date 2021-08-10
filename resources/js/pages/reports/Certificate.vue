@@ -40,11 +40,11 @@
                     <div class="title">Vaccination Details</div>
                     <div class="row">
                         <div class="column-75">
-                        <p class="text-bold">{{first_dosage.vaccine_description}}</p>
-                        <p class="text-bold">{{first_dose}}</p>
-                        <p class="text-bold">{{first_dosage.date_of_vaccination}}</p>
-                        <p class="text-bold">{{first_facility.description}}</p>
-                        <p class="text-bold">{{first_dosage.lot_number}}</p>
+                        <p class="text-bold">&nbsp;{{first_dosage.vaccine_description}}</p>
+                        <p class="text-bold">&nbsp;{{first_dose}}</p>
+                        <p class="text-bold">&nbsp;{{first_dosage.date_of_vaccination}}</p>
+                        <p class="text-bold">&nbsp;{{first_facility.description}}</p>
+                        <p class="text-bold">&nbsp;{{first_dosage.lot_number}}</p>
                         </div>
                         <div class="column-25">
                         <p>Vaccine Brand:</p>
@@ -54,10 +54,10 @@
                         <p>Lot Number: </p>
                         </div>
                     </div>
-                   <hr>
-                    <div class="row">
+                    <hr>
+                    <div class="row" v-if="toggle">
                         <div class="column-75">
-                        <p class="text-bold">{{second_dose}}</p>
+                        <p class="text-bold">&nbsp;{{second_dose}}</p>
                         <p class="text-bold">&nbsp;{{second_dosage.date_of_vaccination}}</p>
                         <p class="text-bold">&nbsp;{{second_facility.description}}</p>
                         <p class="text-bold">&nbsp;{{second_dosage.lot_number}}</p>
@@ -86,11 +86,9 @@
                           <p class="text-center">Powered by Provincial Government of La Union - Information Communications and Technology Unit</p>
                         </div>
                     </div>
-
-                    
-                  <div class="footer">
-                    <img class="banner-header" src="img/footer.png" />
-                  </div>
+                    <div class="footer">
+                      <img class="banner-header" src="img/footer.png" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -108,7 +106,6 @@ import RadioButton from 'primevue/radiobutton/sfc';
 import Menubar from 'primevue/menubar/sfc';
 import ConfirmDialog from 'primevue/confirmdialog/sfc';
 import Checkbox from 'primevue/checkbox/sfc';
-import Card from './Card.vue'
 
 import { registration } from '../../stores/registrations.js'
 import { useStore } from 'vuex'
@@ -157,7 +154,8 @@ export default {
     data() {
         return {
             home: {icon: 'pi pi-home', to: '/list/certificate'},
-            items: [{label: 'Certificate', to: `${this.$route.fullPath}`}]
+            items: [{label: 'Certificate', to: `${this.$route.fullPath}`}],
+            toggle: this.$store.state.certificates.second_dose_toggle
         }
     },
     components: {
@@ -171,8 +169,7 @@ export default {
         Menubar,
         ConfirmDialog,
         Checkbox,
-        Toast,
-        Card
+        Toast
     },
     computed: {
         registration() {
@@ -195,6 +192,9 @@ export default {
         },
         second_dose() {
             return this.$store.state.certificates.second_dose
+        },
+        second_dose_toggle() {
+            return this.$store.state.certificates.second_dose_toggle
         }
     },
     methods: {
@@ -329,7 +329,6 @@ export default {
     width: 150px;
     margin-top: 5px;
 }
-
 .btn-right {
   float: right;
 }

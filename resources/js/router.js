@@ -29,6 +29,7 @@ import Aefi from "./pages/reports/Aefi.vue";
 import VaccinationCard from "./pages/reports/VaccinationCard.vue";
 import VaccinationCertificate from "./pages/reports/VaccinationCertificate.vue";
 import Certificate from "./pages/reports/Certificate.vue";
+import Card from "./pages/reports/Card.vue";
 
 import Login from "./pages/login.vue";
 // import Registration from "./pages/registration.vue";
@@ -213,6 +214,12 @@ const routes = [
         name: "Certificate",
         component: ReportPhase,
         props: {pageComponent: Certificate},
+      },
+      {
+        path: "card/:qr",
+        name: "Card",
+        component: ReportPhase,
+        props: {pageComponent: Card},
       },
     ]
   },
