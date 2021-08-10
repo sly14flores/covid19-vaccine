@@ -29,6 +29,7 @@ const second_facility = {}
 
 const first_dose = "1st Dose"
 const second_dose = "2nd Dose"
+const second_dose_toggle = true
 
 const state = () => {
     return {
@@ -40,7 +41,8 @@ const state = () => {
         first_facility,
         second_facility,
         first_dose,
-        second_dose
+        second_dose,
+        second_dose_toggle
     }
 }
 
@@ -167,14 +169,17 @@ const actions = {
             const day = `${first.toLocaleString('default', { month: 'long' })+' '+first.getDate()+', '+first.getFullYear()}`
             data.dosages[0].date_of_vaccination = day;
 
-            // const second = new Date(data.dosages[1].date_of_vaccination);
-            // const day2 = `${second.toLocaleString('default', { month: 'long' })+' '+second.getDate()+', '+second.getFullYear()}`
-            // data.dosages[1].date_of_vaccination = day2;
+            if(data.dosages.length==2) {
 
-            // if(data.dosages[1].vaccine_description != null) {
-            //     data.dosages[1].date_of_vaccination = "";
-            //     state.second_dose = "";
-            // }
+                const second = new Date(data.dosages[1].date_of_vaccination);
+                const day2 = `${second.toLocaleString('default', { month: 'long' })+' '+second.getDate()+', '+second.getFullYear()}`
+                data.dosages[1].date_of_vaccination = day2;
+
+            } else {
+
+                state.second_dose_toggle = false
+                
+            }
 
             dispatch('GET_REGISTRATION_SUCCESS', data)
 
