@@ -2,11 +2,12 @@
     <div>
       <div class="row">
         <div class="column-100">
+          <div class="row">
+            <Button icon="pi pi-fw pi-times" class="btn-right hidden p-button-sm p-button-danger p-mr-2" label="Cancel" @click="cancel()" />
+            <Button icon="pi pi-fw pi-print" class="btn-right hidden p-button-sm p-button-primary p-mr-2" label="Print" @click="print()" />
+          </div>
+          <br />
           <div class="card">
-            <div class="row">
-              <Button icon="pi pi-fw pi-times" class="btn-right hidden p-button-sm p-button-danger p-mr-2" label="Cancel" @click="cancel()" />
-              <Button icon="pi pi-fw pi-print" class="btn-right hidden p-button-sm p-button-primary p-mr-2" label="Print" @click="print()" />
-            </div>
             <h2 style="margin-top: 5px;">
                 COVID-19 Vaccination Card
                 <img class="logos" src="img/card/logos/logo.png" alt="logo">
@@ -28,48 +29,54 @@
 
             <br>
             <div class="line-2 row">
-              <div class="column-33">
+              <div class="column-25">
                 <label class="text-bold">{{registration.last_name}}</label>
               </div>
-              <div class="column-33">
+              <div class="column-25">
                 <label class="text-bold"> {{registration.first_name}}</label>
               </div>
-              <div class="column-33">
+              <div class="column-25">
                 <label class="text-bold">{{registration.middle_name}}</label>
+              </div>
+              <div class="column-25">
+                <label class="text-bold">{{registration.suffix}}</label>
               </div>
             </div>
 
             <div class="row">
-              <div class="column-33">
+              <div class="column-25">
                 Surname
               </div>
-              <div class="column-33">
+              <div class="column-25">
                 First Name
               </div>
-              <div class="column-33">
-                Last Name
+              <div class="column-25">
+                Middle Name
+              </div>
+              <div class="column-25">
+                Suffix
               </div>
             </div>
 
             <br>
             <div class="row">
               <div class="column-66">
-                Address: <label class="text-bold">{{registration.barangay}}, {{registration.townCity}} {{registration.province}}</label>
+                Address: <label class="text-bold text-underline">{{registration.barangay}}, {{registration.townCity}} {{registration.province}}</label>
               </div>
               <div class="column-33">
-                Contact No.: <label class="text-bold">{{registration.contact_no}}</label>
+                Contact No.: <label class="text-bold text-underline">{{registration.contact_no}}</label>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="column-33">
-                Date Of Birth: <label class="text-bold">{{registration.birthdate}}</label>
+                Date Of Birth: <label class="text-bold text-underline">{{registration.birthdate}}</label>
               </div>
               <div class="column-33">
-                PhilHealth No.: <label class="text-bold">{{registration.philhealth}}</label>
+                PhilHealth No.: <label class="text-bold text-underline">{{registration.philhealth}}</label>
               </div>
               <div class="column-33">
-                Category: <label class="text-bold">{{registration.priority_group}}</label>
+                Category: <label class="text-bold text-underline">{{registration.priority_group}}</label>
               </div>
             </div>
 
@@ -78,14 +85,14 @@
               <table id="table">
                 <tr>
                   <th>Dosage Seq.</th>
-                  <th>Date</th>
+                  <th>Date <br/><small>(mm/dd/yyyy)</small></th>
                   <th>Vaccine Manufacturer</th>
                   <th>Batch No.</th>
                   <th>Lot No.</th>
                 </tr>
                 <tr>
                   <td class="text-center text-bold" rowspan="2" >{{first_dose}}</td>
-                  <td class="text-center text-bold">{{first_dosage.date_of_vaccination}}</td>
+                  <td class="text-center text-bold">{{card_first_date}}</td>
                   <td class="text-center text-bold">{{first_dosage.brand_description}}</td>
                   <td class="text-center text-bold">{{first_dosage.batch_number}}</td>
                   <td class="text-center text-bold">{{first_dosage.lot_number}}</td>
@@ -95,8 +102,8 @@
                   <td colspan="2">Signature: </td>
                 </tr>
                 <tr>
-                  <td class="text-center text-bold" rowspan="2">{{second_dose}}</td>
-                  <td class="text-center text-bold">{{second_dosage.date_of_vaccination}}</td>
+                  <td class="text-center text-bold" rowspan="2">{{second_dose}} <br/><small>(Schedule {{card_second_date}})</small></td>
+                  <td class="text-center text-bold">{{card_second_date}}</td>
                   <td class="text-center text-bold">{{second_dosage.brand_description}}</td>
                   <td class="text-center text-bold">{{second_dosage.batch_number}}</td>
                   <td class="text-center text-bold">{{second_dosage.lot_number}}</td>
@@ -110,12 +117,13 @@
             <br>
             <div class="row">
               <div class="column-66">
-                Health Facility Name: ____________________________________________________
+                Health Facility Name: <label class="text-bold text-underline">{{first_facility}}</label>
               </div>
               <div class="column-33">
-                Contact No. _________________________
+                Contact No. <label class="text-bold text-underline">(072) 607-2633</label>
               </div>
             </div>
+            <br/>
           </div>
           
         </div>
@@ -184,7 +192,7 @@ export default {
             return this.$store.state.certificates.second_dosage
         },
         first_facility( ){
-            return this.$store.state.certificates.first_facility
+            return this.$store.state.certificates.first_facility.description
         },
         second_facility() {
             return this.$store.state.certificates.second_facility
@@ -194,7 +202,13 @@ export default {
         },
         second_dose() {
             return this.$store.state.certificates.second_dose
-        }
+        },
+        card_first_date() {
+            return this.$store.state.certificates.card_first_date
+        },
+        card_second_date() {
+            return this.$store.state.certificates.card_second_date
+        },
     },
     methods: {
         print() {
@@ -249,6 +263,10 @@ export default {
 .column-30 {
   float: right;
   width: 30%;
+}
+.column-25 {
+  float: left;
+  width: 25%;
 }
 .column-33 {
   float: left;
@@ -306,7 +324,6 @@ export default {
 }
 .text-bold {
   font-weight: bold;
-  font-size: 16px;
 }
 .icon {
   width: 15px;
@@ -318,6 +335,9 @@ export default {
 }
 .btn-right {
   float: right;
+}
+.text-underline {
+  text-decoration: underline;
 }
 
 /* On print */
