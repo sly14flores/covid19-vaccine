@@ -118,7 +118,7 @@
                                     </div>
                                     <div class="p-field p-col-12 p-md-4">
                                         <label>Encoder <i class="p-error">*</i></label>
-                                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" optionValue="id" :options="users" v-model="vv.encoder_user_id.$model" :class="{ 'p-invalid': vv.encoder_user_id.$error }" />
+                                        <Dropdown class="p-shadow-1 p-inputtext-sm" :filter="true" optionLabel="name" optionValue="id" :options="users" v-model="vv.encoder_user_id.$model" :class="{ 'p-invalid': vv.encoder_user_id.$error }" />
                                         <small class="p-error" v-if="vv.encoder_user_id.$error">This field is required</small>
                                     </div>
                                 </div>

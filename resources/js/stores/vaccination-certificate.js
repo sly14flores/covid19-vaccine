@@ -31,6 +31,11 @@ const first_dose = "1st Dose"
 const second_dose = "2nd Dose"
 const second_dose_toggle = true
 
+const next_vaccination = ""
+const card_first_date = ""
+const card_second_date = ""
+const status = ""
+
 const state = () => {
     return {
         registration,
@@ -42,6 +47,10 @@ const state = () => {
         second_facility,
         first_dose,
         second_dose,
+        card_first_date,
+        card_second_date,
+        next_vaccination,
+        status,
         second_dose_toggle
     }
 }
@@ -166,18 +175,31 @@ const actions = {
             }
 
             const first = new Date(data.dosages[0].date_of_vaccination);
+
             const day = `${first.toLocaleString('default', { month: 'long' })+' '+first.getDate()+', '+first.getFullYear()}`
+
+            var first_date = first.toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" })
+            state.card_first_date = first_date;
+
             data.dosages[0].date_of_vaccination = day;
 
             if(data.dosages.length==2) {
 
+                state.status = "Fully Vaccinated";
+
                 const second = new Date(data.dosages[1].date_of_vaccination);
                 const day2 = `${second.toLocaleString('default', { month: 'long' })+' '+second.getDate()+', '+second.getFullYear()}`
+
+                var second_date = second.toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" })
+                state.card_second_date = second_date;
+
                 data.dosages[1].date_of_vaccination = day2;
+                
 
             } else {
 
                 state.second_dose_toggle = false
+                state.status = "Partially Vaccinated";
                 
             }
 

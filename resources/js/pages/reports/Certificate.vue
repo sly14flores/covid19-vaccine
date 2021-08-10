@@ -20,17 +20,20 @@
                   <div class="text-body">
                     <div class="title">Vaccinee Details</div>
                     <div class="row">
-                        <div class="column-75">
+                        <div class="column-25">
+                          <p>Status: {{status}}</p>
+                        </div>
+                        <div class="column-50">
                         <p label class="text-bold">{{registration.first_name}} {{registration.last_name}}</p>
                         <p label class="text-bold">{{registration.birthdate}}</p>
                         <p label class="text-bold">{{registration.gender}}</p>
                         <p label class="text-bold">{{registration.barangay}}, {{registration.townCity}}{{registration.province}}</p>
                         </div>
-                        <div class="column-25">
-                        <p>Name: </p>
-                        <p>Birthdate: </p>
-                        <p>Sex:</p>
-                        <p>Address: </p>
+                        <div class="column-20">
+                          <p>Name: </p>
+                          <p>Birthdate: </p>
+                          <p>Sex:</p>
+                          <p>Address: </p>
                         </div>
                     </div>
                   </div>
@@ -39,34 +42,36 @@
                 <div class="text-body">
                     <div class="title">Vaccination Details</div>
                     <div class="row">
-                        <div class="column-75">
-                        <p class="text-bold">&nbsp;{{first_dosage.vaccine_description}}</p>
-                        <p class="text-bold">&nbsp;{{first_dose}}</p>
-                        <p class="text-bold">&nbsp;{{first_dosage.date_of_vaccination}}</p>
-                        <p class="text-bold">&nbsp;{{first_facility.description}}</p>
-                        <p class="text-bold">&nbsp;{{first_dosage.lot_number}}</p>
+                        <div class="column-25"></div>
+                        <div class="column-50">
+                          <p class="text-bold">&nbsp;{{first_dosage.vaccine_description}}</p>
+                          <p class="text-bold">&nbsp;{{first_dose}}</p>
+                          <p class="text-bold">&nbsp;{{first_dosage.date_of_vaccination}}</p>
+                          <p class="text-bold">&nbsp;{{first_facility.description}}</p>
+                          <p class="text-bold">&nbsp;{{first_dosage.lot_number}}</p>
                         </div>
-                        <div class="column-25">
-                        <p>Vaccine Brand:</p>
-                        <p>Dose: </p>
-                        <p>Vaccination Date: </p>
-                        <p>Vaccination Site:</p>
-                        <p>Lot Number: </p>
+                        <div class="column-20">
+                          <p>Vaccine Brand:</p>
+                          <p>Dose: </p>
+                          <p>Vaccination Date: </p>
+                          <p>Vaccination Site:</p>
+                          <p>Lot Number: </p>
                         </div>
                     </div>
                     <hr>
                     <div class="row" v-if="toggle">
-                        <div class="column-75">
+                        <div class="column-25"></div>
+                        <div class="column-50">
                         <p class="text-bold">&nbsp;{{second_dose}}</p>
                         <p class="text-bold">&nbsp;{{second_dosage.date_of_vaccination}}</p>
                         <p class="text-bold">&nbsp;{{second_facility.description}}</p>
                         <p class="text-bold">&nbsp;{{second_dosage.lot_number}}</p>
                         </div>
-                        <div class="column-25">
-                        <p>Dose: </p>
-                        <p>Vaccination Date: </p>
-                        <p>Vaccination Site:</p>
-                        <p>Lot Number: </p>
+                        <div class="column-20">
+                          <p>Dose: </p>
+                          <p>Vaccination Date: </p>
+                          <p>Vaccination Site:</p>
+                          <p>Lot Number: </p>
                         </div>
                     </div>
                 </div>
@@ -195,6 +200,9 @@ export default {
         },
         second_dose_toggle() {
             return this.$store.state.certificates.second_dose_toggle
+        },
+        status() {
+            return this.$store.state.certificates.status
         }
     },
     methods: {
@@ -237,6 +245,14 @@ export default {
 .column-70 {
   float: left;
   width: 70%;
+}
+.column-20 {
+  float: right;
+  width: 20%;
+}
+.column-50 {
+  float: right;
+  width: 50%;
 }
 .column-30 {
   float: right;
