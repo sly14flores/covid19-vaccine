@@ -1,7 +1,7 @@
 <template>
   <div :class="containerClass" @click="onWrapperClick">
-    <AppTopBar @menu-toggle="onMenuToggle" />
-    <transition name="layout-sidebar">
+    <AppTopBar @menu-toggle="onMenuToggle" class="hidden" />
+    <transition name="layout-sidebar" class="hidden">
       <div :class="sidebarClass" @click="onSidebarClick" v-show="isSidebarVisible()">
           <div class="layout-logo">
               <router-link to="/">
@@ -13,7 +13,7 @@
       </div>
     </transition>
     <component v-bind:is="pageComponent" class="layout-main"></component>
-    <AppFooter />    
+    <AppFooter class="hidden" />    
   </div>
 </template>
 
@@ -160,5 +160,12 @@ export default {
 <style scoped>
 img{
   height: 45px;
+}
+@media print
+{    
+    .hidden, .hidden *
+    {
+        display: none !important;
+    }
 }
 </style>

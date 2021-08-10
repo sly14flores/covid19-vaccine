@@ -25,6 +25,7 @@ class Dosage extends Model
         'encoder_user_id',
         'qr_pass_id',
         'brand_name',
+        'brand_name_vas',
         'vaccine_name',
         'site_of_injection',
         'vaccination_facility',
@@ -60,7 +61,7 @@ class Dosage extends Model
 
     protected $hidden = [
         'updated_at',
-    ];    
+    ];
 
     public function user()
     {

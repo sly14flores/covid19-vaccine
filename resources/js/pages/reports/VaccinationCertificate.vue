@@ -28,7 +28,7 @@
                     </Column>
                 <Column field="id" header="Action">
                     <template #body="slotProps">
-                        <router-link :to="`/reports/card/${slotProps.data.id}`"><Button icon="pi pi-fw pi-print" class="p-button-rounded p-button-secondary p-mr-2" /></router-link>
+                        <router-link :to="`/reports/certificate/${slotProps.data.id}`"><Button icon="pi pi-fw pi-print" class="p-button-rounded p-button-secondary p-mr-2" /></router-link>
                     </template>
                 </Column>
             </DataTable>
@@ -79,8 +79,8 @@ export default {
     },
     data() {
         return {
-            home: {icon: 'pi pi-home', to: '/reports/list/card'},
-            items: [{label: 'Certificates', to: '/reports/list/card'}],
+            home: {icon: 'pi pi-home', to: '/reports/list/certificate'},
+            items: [{label: 'Certificates', to: '/reports/list/certificate'}],
             search: '',
         }
     },

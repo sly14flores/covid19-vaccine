@@ -141,6 +141,11 @@ const reports = [
             icon:'pi pi-fw pi-file',
             to: '/reports/list/card'
           },
+          {
+            label:'Vaccination Certificate',
+            icon:'pi pi-fw pi-file',
+            to: '/reports/list/certificate'
+          },
         ]
     },
 ]

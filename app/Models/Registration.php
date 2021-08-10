@@ -27,9 +27,12 @@ class Registration extends Model
         'region', #
         'address', #
         'barangay', #
+        'barangay_vas', #
         'town_city', #
+        'town_city_vas', #
         'town_city_code', #
         'province', #
+        'province_vas', #
         'contact_no', #
         'category', #
         'category_id', #

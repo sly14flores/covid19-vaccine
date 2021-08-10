@@ -10,6 +10,12 @@
                 margin: 0;
             }
 
+            @media print {
+                body {
+                    background-color: white !important;
+                }
+            }
+
         </style>
     </head>
     <body>

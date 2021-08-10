@@ -23,6 +23,7 @@ use App\Models\QrPass;
 use App\Models\ScreeningVital;
 use App\Models\MonitoringVital;
 use App\Models\Aefi;
+use App\Models\Hospital;
 
 use App\Http\Resources\VaccineResource;
 use App\Http\Resources\VaccineResourceCollection;
@@ -44,6 +45,10 @@ use Illuminate\Support\LazyCollection;
 
 use Carbon\Carbon;
 use App\Rules\ExcelRule;
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Shared\Date as PODate;
 
 use App\Events\ImportInoculationMonitor;
 
@@ -997,13 +1002,810 @@ class VaccineController extends Controller
         $excel = $request->excel;
         $path = $request->path;
 
+        $file_path = storage_path()."/app/{$path}{$excel}";      
+
+        $properties = [
+            "priority_group", # 0 registrations
+            "qr_pass_id", # 1 registrations
+            "pwd_id", # 2 registrations
+            "indigenous_member", # 3 registrations
+            "last_name", # 4 registrations
+            "first_name", # 5 registrations
+            "middle_name", # 6 registrations
+            "suffix", # 7 registrations
+            "contact_no", # 8 registrations
+            "region", # 9 registrations
+            "province", # 10 registrations
+            "town_city", # 11 registrations
+            "barangay", # 12 registrations
+            "gender", # 13 registrations
+            "birthdate", # 14 registrations
+            "deferral", # 15 pre_assessments / deferral: Y|N
+            "reason", # 16 pre_assessments / reason for deferral
+            "date_of_vaccination", # 17* dosages
+            "brand_name", # 18* dosages
+            "batch_number", # 19* dosages
+            "lot_number", # 20* dosages
+            "cbcr_id", # 21* hospitals
+            "vaccinator_name", # 22* dosages / vaccinator name
+            "dose1", # 23* dosages / first dose
+            "dose2", # 24* dosages / second dose
+            "has_adverse_event", # 25* aefis / adverse event
+            "adverse_event_condition", # 26* aefis / adverse event condition
+        ];
+
+        $categories = collect($this->priorityGroupValue())->pluck('id');
+        $categories = $categories->map(function($cat) {
+            $exp = explode("_",$cat);
+            return $exp[1];
+        });
+
+        $indigenous = collect($this->indigenousValue())->pluck('id');
+
+        $regions = collect($this->regionValue())->pluck('id');
+
+        $provinces = $this->provinceVasValue();
+
+        $brands = collect($this->brandValue())->pluck('shortname');
+
+        $cbcrs = collect(Hospital::all())->pluck('cbcr_id');
+
+        $adverse_event_conditions = collect($this->adverseEventsValue())->pluck('id');
+
+        // $this->dumpToSlack($adverse_event_conditions->toArray(),"CATEGORY");
+
+        $validations = [
+            "priority_group" => [
+                'header' => 'CATEGORY',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => true,
+                'formats' => $categories->toArray(),
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "CATEGORY is not defined",
+                'message_formatted' => "Invalid value for CATEGORY",
+            ], # 0 registrations
+            "qr_pass_id" => [
+                'header' => 'UNIQUE_PERSON_ID',
+                'required' => true,
+                'required_if' => null,                
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "UNIQUE_PERSON_ID is not defined",
+                'message_formatted' => null,
+            ], # 1 registrations
+            "pwd_id" => [
+                'header' => 'PWD',
+                'required' => false,
+                'required_if' => null,                
+                'formatted' => true,
+                'formats' => ["Y","N"],
+                'default_no' => true,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => null,
+                'message_formatted' => "Invalid value for PWD",         
+            ], # 2 registrations
+            "indigenous_member" => [
+                'header' => 'Indigenous Member',
+                'required' => false,
+                'required_if' => null,
+                'formatted' => true,
+                'formats' => $indigenous->toArray(),
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => null,
+                'message_formatted' => "Invalid value for Indigenous Member",             
+            ], # 3 registrations
+            "last_name" => [
+                'header' => 'LAST_NAME',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "LAST_NAME is not defined",
+                'message_formatted' => null,                
+            ], # 4 registrations
+            "first_name" => [
+                'header' => 'FIRST_NAME',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "FIRST_NAME is not defined",
+                'message_formatted' => null,                             
+            ], # 5 registrations
+            "middle_name" => [
+                'header' => 'MIDDLE_NAME',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "MIDDLE_NAME is not defined",
+                'message_formatted' => null,                           
+            ], # 6 registrations
+            "suffix" => [
+                'header' => 'SUFFIX',
+                'required' => false,
+                'required_if' => null,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => true,
+                'none_if_empty' => false,
+                'message' => null,
+                'message_formatted' => null,                
+            ], # 7 registrations
+            "contact_no" => [
+                'header' => 'CONTACT_NO',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "CONTACT_NO is not defined",
+                'message_formatted' => null,                               
+            ], # 8 registrations
+            "region" => [
+                'header' => 'REGION',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => true,
+                'formats' => $regions,
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "REGION is not defined",
+                'message_formatted' => "Invalid value for REGION",                               
+            ], # 9 registrations
+            "province" => [
+                'header' => 'PROVINCE',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => true,
+                'formats' => $provinces,
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "PROVINCE is not defined",
+                'message_formatted' => "Invalid value for PROVINCE",                       
+            ], # 10 registrations
+            "town_city" => [
+                'header' => 'MUNI_CITY',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => true,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "MUNI_CITY is not defined",
+                'message_formatted' => "Invalid value for MUNI_CITY",                   
+            ], # 11 registrations
+            "barangay" => [
+                'header' => 'BARANGAY',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => null,
+                'message_formatted' => null,                
+            ], # 12 registrations
+            "gender" => [
+                'header' => 'SEX',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => true,
+                'formats' => ["M","F"],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "SEX in not defined",
+                'message_formatted' => "Invalid value for SEX",                
+            ], # 13 registrations
+            "birthdate" => [
+                'header' => 'BIRTHDATE',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "BIRTHDATE is not defined",
+                'message_formatted' => null,                             
+            ], # 14 registrations / m/d/Y
+            "deferral" => [
+                'header' => 'DEFERRAL',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => true,
+                'formats' => ["Y","N"],
+                'default_no' => true,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "DEFERRAL is not defined",
+                'message_formatted' => "Invalid value for DEFERRAL",                       
+            ], # 15 pre_assessments / deferral: Y|N
+            "reason" => [
+                'header' => 'REASON_FOR_DEFERRAL',
+                'required' => false, # true if reason is Y
+                'required_if' => 'deferral',
+                'formatted' => true,
+                'formats' => $this->deferralValue(),
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "REASON_FOR_DEFERRAL is not defined",
+                'message_formatted' => "Invalid value for REASON_FOR_DEFERRAL",                       
+            ], # 16 pre_assessments / reason for deferral / m/d/Y
+            "date_of_vaccination" => [
+                'header' => 'VACCINATION_DATE',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "VACCINATION_DATE is not defined",
+                'message_formatted' => null,                  
+            ], # 17* dosages
+            "brand_name" => [
+                'header' => 'VACCINE_MANUFACTURER_NAME',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => true,
+                'formats' => $brands->toArray(),
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "VACCINE_MANUFACTURER_NAME is not defined",
+                'message_formatted' => "Invalid value for VACCINE_MANUFACTURER_NAME",
+            ], # 18* dosages
+            "batch_number" => [
+                'header' => 'BATCH_NUMBER',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "BATCH_NUMBER is not defined",
+                'message_formatted' => null,                       
+            ], # 19* dosages
+            "lot_number" => [
+                'header' => 'LOT_NO',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "LOT_NO is not defined",
+                'message_formatted' => null,      
+            ], # 20* dosages
+            "cbcr_id" => [
+                'header' => 'BAKUNA_CENTER_CBCR_ID',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => true,
+                'formats' => $cbcrs,
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "BAKUNA_CENTER_CBCR_ID is not defined",
+                'message_formatted' => "Invalid value for BAKUNA_CENTER_CBCR_ID",                
+            ], # 21* hospitals
+            "vaccinator_name" => [
+                'header' => 'VACCINATOR_NAME',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => false,
+                'formats' => [],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "VACCINATOR_NAME is not defined",
+                'message_formatted' => null,                
+            ], # 22* dosages / vaccinator name
+            "dose1" => [
+                'header' => '1ST_DOSE',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => true,
+                'formats' => ["Y","N"],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "1ST_DOSE is not defined",
+                'message_formatted' => "Invalid value for 1ST_DOSE",                
+            ], # 23* dosages / first dose
+            "dose2" => [
+                'header' => '2ND_DOSE',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => true,
+                'formats' => ["Y","N"],
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "2ND_DOSE is not defined",
+                'message_formatted' => "Invalid value for 2ND_DOSE",                   
+            ], # 24* dosages / second dose
+            "has_adverse_event" => [
+                'header' => 'Adverse Event',
+                'required' => true,
+                'required_if' => null,
+                'formatted' => true,
+                'formats' => ["Y","N"],
+                'default_no' => true,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "Adverse Event is not defined",
+                'message_formatted' => "Invalid value for Adverse Event",                     
+            ], # 25* aefis / adverse event
+            "adverse_event_condition" => [
+                'header' => 'Adverse Event Condition',
+                'required' => false, # true if has_adverse_event is Y
+                'required_if' => 'has_adverse_event',
+                'formatted' => true,
+                'formats' => $adverse_event_conditions->toArray(),
+                'default_no' => false,
+                'na_if_empty' => false,
+                'none_if_empty' => false,
+                'message' => "Adverse Event Condition is not defined",
+                'message_formatted' => "Invalid value for Adverse Event Condition",                           
+            ], # 26* aefis / adverse event condition            
+        ];
+
+        event(new ImportInoculationMonitor($id,['class'=>'info','text'=>"Reading rows..."]));        
+
+        $reader = IOFactory::createReader('Xlsx');
+        $reader->setReadDataOnly(TRUE);
+        $spreadsheet = $reader->load($file_path);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $rows = [];
+        foreach ($worksheet->getRowIterator() as $row) {
+
+            $cellIterator = $row->getCellIterator();
+            $cellIterator->setIterateOnlyExistingCells(FALSE);
+
+            $row = [];
+            $empties = [];
+            foreach ($cellIterator as $cell) {
+                $value = trim($cell->getValue());
+                $row[] = $value;
+                $empties[] = $value == "";
+            }
+
+            // $this->dumpToSlack($empties,"empties");
+            if (in_array(false,$empties)) $rows[] = $row;
+
+        }
+
+        $assocs = [];
+        foreach ($rows as $i => $row) {
+
+            if ($i == 0) continue;
+
+            $cols = [];
+            foreach($row as $key => $cell) {
+                if (isset($properties[$key])) {
+                    if ($properties[$key] == "birthdate") {
+                        $birthdate = date("Y-m-d",PODate::excelToTimestamp(intval($cell)));
+                        $cols[$properties[$key]] = ($birthdate=="1970-01-01")?"":$birthdate;
+                    } else if ($properties[$key] == "date_of_vaccination") {
+                        // $date_of_vaccination = date("Y-m-d",PODate::excelToTimestamp(intval($cell)));
+                        $date_of_vaccination = $cell;
+                        $cols[$properties[$key]] = ($date_of_vaccination=="1970-01-01")?"":$date_of_vaccination;
+                    } else {
+                        $cols[$properties[$key]] = $cell;
+                    }
+                }
+            }
+
+            $cols['valid'] = false;
+
+            $assocs[] = $cols;
+        }
+
+        event(new ImportInoculationMonitor($id,['class'=>'info','text'=>"Validating data..."]));
+
+        // $this->dumpToSlack($assocs[0],"ROWS");                    
+
+        /**
+         * Validate data
+         */
+        
+        foreach ($assocs as $i => $row) {
+
+            $valids = [true];
+
+            $fullname = "{$row['first_name']} {$row['middle_name']} {$row['last_name']}";
+            event(new ImportInoculationMonitor($id,['class'=>'info','text'=>"Validating {$fullname}'s info"]));
+
+            foreach ($row as $p => $value) {
+
+                if (isset($validations[$p])) {
+
+                    $validation = $validations[$p];
+                    $value = $row[$p];
+
+                    // Check if napanam id exists
+                    // Check if registration exists
+                    if ($p=="qr_pass_id") {
+                        if ($value!="") {
+                            $qr_pass = QrPass::find($value);
+                            if (is_null($qr_pass)) {
+                                $valids[] = false;
+                                event(new ImportInoculationMonitor($id,['class'=>'error','text'=>"{$fullname}'s NAPANAM ID doesn't exists"]));
+                            } else {
+                                $dob = $qr_pass->dob;
+                                $assocs[$i]['birthdate'] = Carbon::parse($dob)->format("Y-m-d");
+                            }
+                            // $qr_pass_reg = Registration::where('qr_pass_id',$value)->first();
+                            // if (is_null($qr_pass_reg)) {
+                            //     $valids[] = false;
+                            //     event(new ImportInoculationMonitor($id,['class'=>'error','text'=>"{$fullname}'s has no registration yet"]));
+                            // }                            
+                        }
+                    }
+                    //          
+
+                    if ($value=="") {
+
+                        if ($validation['default_no']) {
+                            $assocs[$i][$p] = "N";
+                        }
+
+                        if ($validation['na_if_empty']) {
+                            $assocs[$i][$p] = "NA";
+                        }
+
+                        if ($validation['none_if_empty']) {
+                            $assocs[$i][$p] = "NONE";
+                        }
+
+                    }
+                    
+                    $value = $assocs[$i][$p];
+
+                    if (!$validation['required']) {
+
+                        if ((!$validation['formatted']) && ($validation['required_if']===null)) continue;
+
+                        if (($validation['formatted']) && is_null($validation['required_if'])) {
+
+                            if ($value!="") $valids[] = $this->validateFormat($id,$validation,$row,$p,$value);
+
+                        }
+
+                        if ($validation['required_if']!==null) {
+
+                            if (($validation['required_if']=="deferral") && ($row['deferral']=="Y")) {
+
+                                if ($value!="") $valids[] = $this->validateFormat($id,$validation,$row,$p,$value);
+
+                            }
+
+                            if (($validation['required_if']=="has_adverse_event") && ($row['has_adverse_event']=="Y")) {
+
+                                if ($value!="") $valids[] = $this->validateFormat($id,$validation,$row,$p,$value);
+                                
+                            }
+                            
+                        }
+
+                    } else {
+
+                        if ($value=="") {
+
+                            $valids[] = false;
+                            event(new ImportInoculationMonitor($id,['class'=>'error','text'=>$validation['message']]));
+
+                        }
+
+                        if ($validation['formatted']) {
+
+                            $valids[] = $this->validateFormat($id,$validation,$row,$p,$value);
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            $is_valid = !in_array(false,$valids);
+            if ($is_valid) {
+                event(new ImportInoculationMonitor($id,['class'=>'success','text'=>"{$fullname}'s info is valid"]));
+            } else {
+                event(new ImportInoculationMonitor($id,['class'=>'error','text'=>"Please correct {$fullname}'s info"]));
+            }
+            $assocs[$i]['valid'] = $is_valid;
+
+        }
+
+        /**
+         * Check if all validations has passed
+         */
+        $get_validations = collect($assocs)->pluck('valid')->toArray();
+        $ok_for_import = !in_array(false,$get_validations);
+        // $this->dumpToSlack($get_validations,"DEBUG");
+
+        if (!$ok_for_import) {
+            event(new ImportInoculationMonitor($id,['class'=>'info','text'=>"Please correct all the invalid information first, re-upload, then try importing again."]));
+        } else {
+            // Initiate import
+            event(new ImportInoculationMonitor($id,['class'=>'info','text'=>"All patients info are valid"]));
+            $this->import($id,$assocs);
+        }
+
+    }
+
+    private function validateFormat($id,$validation,$row,$p,$value)
+    {
+
+        $valid = true;
+
+        $formats = gettype($validation['formats'])==="object"?$validation['formats']->toArray():$validation['formats'];
+
+        if ($p=="town_city") {
+            $province = $row['province'];
+            $provCode = substr($province,0,3);
+            $town_cities = $this->provMunCityVasValue($provCode);
+            $formats = gettype($town_cities)==="object"?$town_cities->toArray():$town_cities;
+        }
+
+        if (!in_array($value,$formats)) {
+            $valid = false;
+            event(new ImportInoculationMonitor($id,['class'=>'error','text'=>$validation['message_formatted']]));
+        }
+
+        return $valid;
+
+    }
+
+    private function import($id,$data)
+    {
         event(new ImportInoculationMonitor($id,['class'=>'info','text'=>"Initiating import..."]));
 
-        sleep(5);
+        foreach ($data as $d) {
 
-        for ($i=1; $i<=1000; $i++) {
-            event(new ImportInoculationMonitor($id,['class'=>'success','text'=>($i+1).' Imported']));
-        }        
+            $this->dumpToSlack($d,"DEBUG");  
+
+            /**
+             * Registration
+             * 
+             * priority_group
+             * qr_pass_id
+             * pwd_id
+             * indigenous_member
+             * last_name
+             * first_name
+             * middle_name
+             * suffix
+             * contact_no
+             * region
+             * province
+             * town_city
+             * barangay
+             * gender
+             * birthdate
+             */
+
+            $genders = [
+                "M" => "02_Male",
+                "F" => "02_Female",
+            ];
+
+            $province = null;
+            $_province = explode("0",$d['province']);
+            $get_province = Province::where('provCode', $_province[0])->first();
+            if (!is_null($get_province)) $province = $this->toDOHProv($get_province);
+
+            $town_city = null;
+            $_town_city = explode("0",$d['town_city']);
+            $town_city_code = $_town_city[0];
+            $get_town_city = CityMun::where('citymunCode', $town_city_code)->first();
+            if (!is_null($get_town_city)) $town_city = $this->toDOHMun($get_town_city);
+
+            $registration_data = [
+                "priority_group" => $d['priority_group'],
+                "qr_pass_id" => $d['qr_pass_id'],
+                "pwd_id" => $d['pwd_id'],
+                "indigenous_member" => $d['indigenous_member'],
+                "last_name" => $d['last_name'],
+                "first_name" => $d['first_name'],
+                "middle_name" => $d['middle_name'],
+                "suffix" => $d['suffix'],
+                "contact_no" => $d['contact_no'],
+                "region" => $d['region'],
+                "province" => $province,
+                "province_vas" => $d['province'],
+                "town_city" => $town_city,
+                "town_city_vas" => $d['town_city'],
+                "town_city_code" => intval($town_city_code),
+                "barangay" => null,
+                "barangay_vas" => $d['barangay'],
+                "gender" => $genders[$d['gender']],
+                "birthdate" => $d['birthdate'],
+                // "birthdate" => date("Y-m-d",PODate::excelToTimestamp(intval($d['birthdate']))),
+            ];
+            $check_registration = Registration::where('qr_pass_id',$d['qr_pass_id'])->first();
+            if (is_null($check_registration)) {
+                $registration = new Registration;
+                $registration->fill($registration_data);
+                $registration->save();
+            } else {
+                $registration = $check_registration;
+            }
+
+            /**
+             * Vaccine
+             * qr_pass_id
+             */
+            $check_vaccine = Vaccine::where('qr_pass_id',$d['qr_pass_id'])->first();
+            if (is_null($check_vaccine)) {
+                $vaccine = new Vaccine;
+                $vaccine->fill([
+                    "qr_pass_id" => $d['qr_pass_id']
+                ]);
+                $vaccine->save();
+            } else {
+                $vaccine = $check_vaccine;
+            }
+
+            /**
+             * Dosage
+             * vaccine_id
+             * qr_pass_id
+             * date_of_vaccination
+             * brand_name
+             * batch_number                      
+             * lot_number
+             * vaccinator_name
+             * vaccination_facility | cbcr_id
+             * dose
+             */
+            $dose = 1;
+            if ($d['dose2']=="Y") $dose = 2;
+            $vaccination_facility = null;
+            $get_vaccination_facility = Hospital::where('cbcr_id',$d['cbcr_id'])->first();
+            if (!is_null($get_vaccination_facility)) {
+                $vaccination_facility = $get_vaccination_facility->id;
+            }
+            $dosage_data = [
+                "qr_pass_id" => $d['qr_pass_id'],
+                "date_of_vaccination" => Carbon::parse($d['date_of_vaccination'])->format("Y-m-d"),
+                // "date_of_vaccination" => $d['date_of_vaccination'],
+                "brand_name" => $this->brandNameToId($d['brand_name']),
+                "brand_name_vas" => $d['brand_name'],
+                "batch_number" => $d['batch_number'],
+                "lot_number" => $d['lot_number'],
+                "vaccinator_name" => $d['vaccinator_name'],
+                "vaccination_facility" => $vaccination_facility,
+                "dose" => $dose,
+            ];
+            
+            $check_dosage = Dosage::where([['dose',$dose],['qr_pass_id',$d['qr_pass_id']]])->first();
+
+            if (is_null($check_dosage)) {
+                $dosage = new Dosage;
+                $dosage->fill($dosage_data);
+                $vaccine->dosages()->save($dosage);
+            } else {
+                $dosage = $check_dosage;
+            }
+
+            /**
+             * PreAssessment
+             * qr_pass_id
+             * dosage_id
+             * dose
+             * consent 01_Yes | 02_No
+             * reason
+             * assessments
+             */
+            $pre_assessments = config('constants.pre_assessments');
+            
+            $pre_data = [
+                "qr_pass_id" => $d['qr_pass_id'],
+                "dose" => $dose,
+                "consent" => ($d['reason']=="NONE")?"01_Yes":"02_No",
+                "reason" => $d['reason'],
+                "assessments" => $pre_assessments,
+            ];
+            $check_pre = PreAssessment::where([['dose',$dose],['qr_pass_id',$d['qr_pass_id']]])->first();
+            
+            if (is_null($check_pre)) {
+                $pre = new PreAssessment;
+                $pre->fill($pre_data);
+                $dosage->pre_assessment()->save($pre);
+            } else {
+                $pre = $check_pre;
+            }           
+
+            /**
+             * PostAssessment
+             * qr_pass_id
+             * dosage_id
+             * dose
+             * assessments
+             */
+            $post_assessments = config('constants.post_assessments');
+            
+            $post_data = [
+                "qr_pass_id" => $d['qr_pass_id'],
+                "dose" => $dose,
+                "assessments" => $post_assessments,
+            ];
+            $check_post = PostAssessment::where([['dose',$dose],['qr_pass_id',$d['qr_pass_id']]])->first();
+            
+            if (is_null($check_post)) {
+                $post = new PostAssessment;
+                $post->fill($pre_data);
+                $dosage->post_assessment()->save($post);
+            } else {
+                $post = $check_post;
+            }       
+
+            /**
+             * Aefi
+             * qr_pass_id
+             * dosage_id
+             * dose
+             * has_adverse_event
+             * adverse_event_condition
+             */
+            $aefi_data = [
+                "qr_pass_id" => $d['qr_pass_id'],
+                "dose" => $dose,
+                "has_adverse_event" => ($d['has_adverse_event']=="Y")?true:false,
+                "adverse_event_condition" => ($d['adverse_event_condition']=="")?null:$d['adverse_event_condition'],
+            ];
+            $check_aefi = Aefi::where([['dose',$dose],['qr_pass_id',$d['qr_pass_id']]])->first();
+            
+            if (is_null($check_aefi)) {
+                $aefi = new Aefi;
+                $aefi->fill($aefi_data);
+                $dosage->aefi()->save($aefi);
+            } else {
+                $aefi = $check_aefi;
+            }
+            $this->dumpToSlack($check_aefi,"DEBUG");             
+
+            event(new ImportInoculationMonitor($id,['class'=>'success','text'=>"{$d['first_name']} {$d['last_name']}'s info successfully imported"]));
+
+        }
+
+        event(new ImportInoculationMonitor($id,['class'=>'success','text'=>"All records successfully imported"]));
 
     }
     

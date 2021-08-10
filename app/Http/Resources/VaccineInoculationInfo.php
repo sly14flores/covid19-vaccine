@@ -30,10 +30,10 @@ class VaccineInoculationInfo extends JsonResource
             "02_Male" => "Male"
         ];
 
-        $dosage = $this->vaccine->dosages()->where('dose',$dose)->first();
+        $dosage = (is_null($this->vaccine))?null:$this->vaccine->dosages()->where('dose',$dose)->first();
 
-        $dosage_id = (is_null($dosage->first()))?null:$dosage->first()->id;
-        $vitals = (is_null($dosage->first()))?null:$dosage->first()->vitals()->get();        
+        $dosage_id = (is_null($dosage))?null:$dosage->id;
+        $vitals = (is_null($dosage))?null:$dosage->vitals()->get();        
 
         return [
             'id' => $this->id,
