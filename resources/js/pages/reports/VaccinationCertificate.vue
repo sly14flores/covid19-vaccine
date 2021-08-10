@@ -10,13 +10,13 @@
                     </div>
                     <div class="p-field p-col-12 p-md-2">
                         <label for="basic">&nbsp;</label>
-                        <Button class="p-button-sm" label="Go!" @click="filterRegistrations" />
+                        <Button class="p-button-sm" label="Go!" @click="fetchRegistrations({page: 0})" />
                     </div>
                 </div>
             </template>
         </Toolbar>
         <Panel header="List">
-            <DataTable :value="registrations" responsiveLayout="scroll">
+            <DataTable class="p-datatable-sm" :value="registrations" responsiveLayout="scroll">
                 <Column field="qr_pass_id" header="Napanam ID No" :sortable="true"></Column>
                 <Column field="first_name" header="First Name" :sortable="true"></Column>
                 <Column field="middle_name" header="Middle Name" :sortable="true"></Column>
@@ -52,15 +52,76 @@ import Calendar from 'primevue/calendar/sfc';
 import Dropdown from 'primevue/dropdown/sfc';
 import Tag from 'primevue/tag/sfc';
 
-import { useStore } from 'vuex'
+import { reactive, ref, toRefs } from 'vue'
+import Swal from 'sweetalert2'
+
+import {  getRegistrationCertificates } from '../../api/vaccination'
 
 export default {
     setup() {
 
-        const store = useStore()
-        const { state, dispatch } = store
+        const search = ref('')
+        const state = reactive({
+            registrations: [],
+            pagination: {}
+        })
+        
+        const fetchRegistrations = (event) => {
 
-        dispatch('certificates/GET_REGISTRATIONS', { page: 0 })
+            Swal.fire({
+                title: 'Please wait...',
+                willOpen () {
+                Swal.showLoading ()
+                },
+                didClose () {
+                Swal.hideLoading()
+                },
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false
+            })
+
+            const { page } = event
+
+            getRegistrationCertificates({page: page+1, search: search.value}).then(res => {
+
+                const { data: { data: { data, pagination } } } = res
+
+                Object.assign(state, {
+                    registrations: data, 
+                    pagination
+                })
+
+                Swal.close();
+
+            }).catch(err => {
+                
+                if(err?.response?.status === 500){
+                    Swal.fire({
+                        title: '<p>Oops...</p>',
+                        icon: 'error',
+                        html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                        showCancelButton: false,
+                        focusConfirm: true,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        confirmButtonText: 'Reresh this page',
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    })
+                }
+            })
+        }
+
+        return {
+            search,
+            ...toRefs(state),
+            fetchRegistrations
+        }
 
     },  
     components: {
@@ -80,33 +141,12 @@ export default {
     data() {
         return {
             home: {icon: 'pi pi-home', to: '/reports/list/certificate'},
-            items: [{label: 'Certificates', to: '/reports/list/certificate'}],
-            search: '',
+            items: [{label: 'Certificates', to: '/reports/list/certificate'}]
         }
-    },
-    computed: {
-        registrations() {
-            return this.$store.state.certificates.registrations
-        },
-        pagination() {
-            return this.$store.state.certificates.pagination
-        },
-        isAdmin() {
-            return this.$store.state.profile.is_admin
-        }           
-    },
-    methods: {
-        filterRegistrations() {
-            this.fetchRegistrations({ page: 0 })
-        },
-        fetchRegistrations(event) {
-            const { page } = event
-            this.$store.dispatch('certificates/GET_REGISTRATIONS', { page, search: this.search })
-        },
     },
     mounted() {
         this.fetchRegistrations({ page: 0 })
-    },
+    }  
     
 }
 </script>
