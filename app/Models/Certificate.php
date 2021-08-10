@@ -95,7 +95,7 @@ class Certificate extends Model
 
         $group = collect($groups)->where('id',$priority_group)->first();
 
-        return $group['name'] ?? "";
+        return $group['description'] ?? "";
     }
 
 }

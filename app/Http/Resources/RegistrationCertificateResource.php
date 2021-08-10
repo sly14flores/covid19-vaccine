@@ -36,6 +36,7 @@ class RegistrationCertificateResource extends JsonResource
             'first_name' => $this->first_name,
             'middle_name' => $this->middle_name,
             'last_name' => $this->last_name,
+            'suffix' => $this->suffix,
             'birthdate' => $this->birthdate,
             'gender' => $this->gender,
             'dosages' => $dosages,
