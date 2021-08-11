@@ -1,73 +1,56 @@
 <template>
     <div>
         <MyBreadcrumb :home="home" :items="items" />
-        <div class="p-grid p-mt-1">
-            <div class="p-lg-12 p-md-12 p-sm-12">
-                <Panel header="Upload" :toggleable="true" :collapsed="true">
-                    <FileUpload name="excel" :url="uploadUrl" :multiple="false" withCredentials="true" @before-send="setBeforeSend" @upload="uploadComplete" @error="uploadError" :maxFileSize="24000000">
-                        <template #empty>
-                            <div v-if="showTerminal">
-                                <div class="p-d-flex p-p-3">
-                                    <Button type="Button" class="p-button-warning p-mr-2" :disabled="checking">Close</Button>
-                                    <Button type="Button" label="Start Import" class="p-button-danger p-ml-auto" :disabled="checking" />
-                                </div>                     
-                                <div class="terminal">
-                                    <div class=fakeMenu>
-                                        <div class="fakeButtons fakeClose"></div>
-                                        <div class="fakeButtons fakeMinimize"></div>
-                                        <div class="fakeButtons fakeZoom"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </template>
-                    </FileUpload>
-                </Panel>
+        <Panel class="p-mt-2 p-mb-2" header="Upload" :toggleable="true" :collapsed="true">
+            <FileUpload name="excel" :url="uploadUrl" :multiple="false" :withCredentials="true" @before-send="setBeforeSend" @upload="uploadComplete" @error="uploadError" :maxFileSize="24000000">
+                <template #empty>
+                    <div class="p-d-flex p-p-3" v-if="showTerminal">
+                        <Button type="Button" label="Start Import" class="p-button-danger p-ml-auto" :disabled="checking" @click="checkData" />
+                    </div>
+                </template>
+            </FileUpload>
+            <div id="terminal" class="terminal">
+                <p v-for="(c, i) in consoles" :key="i" :class="c.class">{{c.text}}</p>
             </div>
-        </div>
+        </Panel>
         <Toolbar class="p-mb-2">
             <template #left>
                 <div class=" p-fluid p-grid p-formgrid">
-                    <div class="p-field p-col-12 p-md-3">
+                    <!-- <div class="p-field p-col-12 p-md-4">
                         <label for="basic"><small>Napanam ID No, first name or last name</small></label>
                         <InputText class="p-shadow-1 p-inputtext-sm" v-model="search" placeholder="Search . . ." />
-                    </div>
-                    <div class="p-field p-col-12 p-md-2">
-                        <label for="basic"><small>City/Municipality</small></label>
-                        <Dropdown class="p-shadow-1 p-inputtext-sm" optionLabel="name" :options="municipalities" v-model="town_city" optionValue="id" :disabled="!isAdmin" />
-                    </div>
-                    <div class="p-field p-col-12 p-md-2">
+                    </div> -->
+                    <div class="p-field p-col-12 p-md-5">
                         <label for="basic"><small>Start Date:</small></label>
                         <Calendar class="p-shadow-1 p-inputtext-sm" id="start_date" v-model="start_date" />
                     </div>
-                    <div class="p-field p-col-12 p-md-2">
+                    <div class="p-field p-col-12 p-md-5">
                         <label for="basic"><small>End Date:</small></label>
                         <Calendar class="p-shadow-1 p-inputtext-sm" id="end_date" v-model="end_date" />
                     </div>
-                    <div class="p-field p-col-12 p-md-1">
+                    <div class="p-field p-col-12 p-md-2">
                         <label for="basic">&nbsp;</label>
-                        <Button class="p-button-sm" label="Go!" />
+                        <Button class="p-button-sm" label="Go!" @click="fetchRegistrations({page: 0})" />
                     </div>
                 </div>
             </template>
             <template #right>
                 <div class="p-fluid p-grid p-formgrid">
                     <div class="p-field p-col-12 p-md-12">
-                        <Button class="p-button-sm p-mt-2 p-button-success" icon="pi pi-upload" label="Export to Excel" />
+                        <Button class="p-button-sm p-mt-2 p-button-success" icon="pi pi-upload" label="Export to Excel" @click="exportToExcel" />
                     </div>
                 </div>
             </template>
         </Toolbar>
         <Panel header="List">
-            <BlockUI :blocked="blocked">
-                <DataTable class="p-datatable-sm" responsiveLayout="scroll">
-                    <Column field="" header="Napanam ID No" :sortable="true"></Column>
-                    <Column field="" header="Category" :sortable="true"></Column>
-                    <Column field="" header="First Name" :sortable="true"></Column>
-                    <Column field="" header="Middle Name" :sortable="true"></Column>
-                    <Column field="" header="Last Name" :sortable="true"></Column>
-                    <Column field="" header="City/Municipality" :sortable="true"></Column>
-                </DataTable>
-            </BlockUI>
+            <!-- <DataTable class="p-datatable-sm" :value="registrations" responsiveLayout="scroll">
+                <Column field="qr_pass_id" header="Napanam ID No"></Column>
+                <Column field="first_name" header="First Name"></Column>
+                <Column field="middle_name" header="Middle Name"></Column>
+                <Column field="last_name" header="Last Name"></Column>
+                <Column field="town_city" header="Municipality"></Column>
+            </DataTable>
+            <Paginator :rows="pagination.per_page" :totalRecords="pagination.total" @page="fetchRegistrations($event)"></Paginator> -->
         </Panel>
     </div>
 </template>
@@ -89,7 +72,15 @@ import Calendar from 'primevue/calendar/sfc';
 
 import { reactive, ref, toRefs } from 'vue'
 import { useStore } from 'vuex'
-import { getRegistrationsList } from '../../api/vaccination'
+import { getRegistrationCertificates } from '../../api/vaccination'
+
+import { api_url } from '../../url.js'
+
+const uploadUrl = `${api_url}/api/doh/vaccines/inoculation/upload`
+
+const checkVASData = (payload) => {
+    return axios.post(`${api_url}/api/doh/vaccines/inoculation/check`,{...payload})
+}
 
 import Swal from 'sweetalert2'
 
@@ -111,16 +102,102 @@ export default {
     setup() {
 
         const store = useStore()
+        const downloadUrl = `${api_url}/home/reports/vas`
 
+        const consoles = reactive([])
+
+        const publicChannel = window.Echo.channel(
+            `vaccines.import.inoculation.${store.state.profile.id}`
+        );
+
+        publicChannel.listen('.monitor', event => {
+            // console.log(event)
+            const { payload } = event
+            consoles.push({class: payload.class, text: payload.text})
+            const t = document.querySelector('#terminal')
+            t.scrollTo(0, t.scrollHeight)
+        });
+        
         const search = ref('')
+        
+        const date = new Date()
+        date.setDate(1)
+
         const state = reactive({
             registrations: [],
-            pagination: {}
+            pagination: {},
+            start_date: date,
+            end_date: new Date()
         })
+
+        const fetchRegistrations = (event) => {
+
+            Swal.fire({
+                title: 'Please wait...',
+                willOpen () {
+                Swal.showLoading ()
+                },
+                didClose () {
+                Swal.hideLoading()
+                },
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false
+            })
+
+            const { page } = event
+
+            getRegistrationCertificates({page: page+1, search: search.value, start_date: state.start_date, end_date: state.end_date}).then(res => {
+
+                const { data: { data: { data, pagination } } } = res
+                
+                data.map((item) => {
+
+                    const city = item.town_city;
+                    const cityStr = city.replace(/_/g, " ");
+
+                    item.town_city = cityStr.replace(/[0-9]/g, '');
+
+                })
+
+                Object.assign(state, {
+                    registrations: data, 
+                    pagination
+                })
+
+                Swal.close();
+
+            }).catch(err => {
+                
+                if(err?.response?.status === 500){
+                    Swal.fire({
+                        title: '<p>Oops...</p>',
+                        icon: 'error',
+                        html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                        showCancelButton: false,
+                        focusConfirm: true,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false,
+                        confirmButtonText: 'Reresh this page',
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    })
+                }
+            })
+        }
+        
 
         return {
             search,
-            ...toRefs(state)
+            ...toRefs(state),
+            downloadUrl,
+            fetchRegistrations,
+            uploadUrl,
+            consoles,
         }
 
     },
@@ -128,14 +205,79 @@ export default {
         return {
             home: {icon: 'pi pi-file', to: `${this.$route.fullPath}`},
             items: [],
-            start_date: new Date(),
-            end_date: new Date(),
+            checking: false,
+            import: {
+                excel: null,
+                path: null
+            }
         }
     },
     computed: {
-        isAdmin() {
-            return this.$store.state.profile.is_admin
+        showTerminal() {
+            return this.import.excel !== null
         }
-    }
+    },
+    methods: {
+        exportToExcel() {
+
+            const user_id = this.$store.state.profile.id
+
+            window.open(`${this.downloadUrl}?date=${this.start_date.toLocaleDateString()}&start_date=${this.start_date.toLocaleDateString()}&end_date=${this.end_date.toLocaleDateString()}&user_id=${user_id}`)
+           
+        },
+        setBeforeSend(e) {
+            
+            e.xhr.setRequestHeader('Accept', 'application/json')
+            e.xhr.setRequestHeader('Authorization', `Bearer ${this.$store.state.profile.token}`)
+
+        },
+        uploadComplete(e) {
+
+            Object.assign(this, 'consoles', [])
+            // this.consoles = []
+
+            const { xhr: { response } } = e
+
+            const data = JSON.parse(response)
+
+            const { data: { filename, path } } = data
+
+            this.import.excel = filename
+            this.import.path = path
+            this.checking = false
+
+            this.consoles.push({class: 'info', text: "Excel uploaded, click 'START IMPORT' to begin"})
+
+        },
+        uploadError(e) {
+            
+            const { xhr: { response } } = e
+
+            const data = JSON.parse(response)
+
+            const { message } = data
+
+            this.checking = false
+
+            this.consoles.push({class: 'error', text: "Something went wrong, please try again"})
+
+        },
+        checkData() {
+
+            this.checking = true
+            // this.consoles.push({class: 'info', text: "Analyzing data structures..."})
+
+            checkVASData(this.import).then(res => {
+                this.checking = false              
+            }).catch(e => {
+                this.checking = false
+                this.consoles.push({class: 'error', text: "Something went wrong, please try again"})
+            })
+
+        },
+    },
+    mounted() {
+        this.fetchRegistrations({ page: 0 })
+    }  
 }
 </script>

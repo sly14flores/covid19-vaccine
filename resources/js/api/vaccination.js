@@ -118,6 +118,35 @@ const postMonitoringInfo = (payload) => {
     )
 }
 
+/**
+ * Registrations list for reports
+ * 
+ * Search by QR, first name, middle name, last name, dates
+ */
+ const getRegistrationsReports = (payload) => {
+    return axios.get(
+        `${api_url}/api/doh/registrations`,
+        {params: {...payload} }
+    )
+}
+
+/**
+ * Registration Certificates 
+ */
+const getRegistrationCertificates = (payload) => {
+    return axios.get(`${api_url}/api/reports/registrations`,
+        {params: {...payload} }
+    )
+}
+/**
+ * Fetch Registration
+ */
+const getRegistrationCertificate = (payload) => {
+    const { id } = payload
+    const url =  route(`${api_url}/api/reports/registration/:id`, { id })
+    return axios.get(url)
+}
+
 export {
     getRegistrationsList,
     getScreeningPersonalInfo,
@@ -131,5 +160,8 @@ export {
     getHospitals,
     getAdverseEvents,
     getVaccines,
-    getDeferrals
+    getDeferrals,
+    getRegistrationCertificate,
+    getRegistrationCertificates,
+    getRegistrationsReports
 }
