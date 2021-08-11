@@ -29,7 +29,7 @@ const second_facility = {}
 
 const first_dose = "1st Dose"
 const second_dose = "2nd Dose"
-const second_dose_toggle = true
+const second_dose_toggle = ""
 
 const next_vaccination = ""
 const card_first_date = ""
@@ -66,8 +66,10 @@ const mutations = {
         state.first_dosage = {...payload.dosages[0]}
         state.first_facility = {...payload.dosages[0].user.user_hospital}
         
-        state.second_dosage = {...payload.dosages[1]}
-        state.second_facility = {...payload.dosages[1].user.user_hospital}
+        if(payload.dosages.length==2) {
+            state.second_dosage = {...payload.dosages[1]}
+            state.second_facility = {...payload.dosages[1].user.user_hospital}
+        }
     },
     REGISTRATIONS(state, payload) {
         state.registrations = payload
@@ -134,7 +136,7 @@ const actions = {
         const { id } = payload
         try {
             const { data: { data } } = await getRegistration({id})
-            
+
             if(data.gender=='02_Male'){
                 data.gender = 'Male'
             } else{
@@ -171,30 +173,31 @@ const actions = {
                     }
                 })
                 
-                return
+                return;
+                
             }
 
             const first = new Date(data.dosages[0].date_of_vaccination);
 
             const day = `${first.toLocaleString('default', { month: 'long' })+' '+first.getDate()+', '+first.getFullYear()}`
+            data.dosages[0].date_of_vaccination = day;
 
             var first_date = first.toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" })
             state.card_first_date = first_date;
 
-            data.dosages[0].date_of_vaccination = day;
-
             if(data.dosages.length==2) {
 
                 state.status = "Fully Vaccinated";
+                state.second_dose_toggle = true
 
                 const second = new Date(data.dosages[1].date_of_vaccination);
+                
                 const day2 = `${second.toLocaleString('default', { month: 'long' })+' '+second.getDate()+', '+second.getFullYear()}`
-
+                data.dosages[1].date_of_vaccination = day2;
+                
                 var second_date = second.toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" })
                 state.card_second_date = second_date;
 
-                data.dosages[1].date_of_vaccination = day2;
-                
 
             } else {
 
@@ -202,6 +205,7 @@ const actions = {
                 state.status = "Partially Vaccinated";
                 
             }
+
 
             dispatch('GET_REGISTRATION_SUCCESS', data)
 
