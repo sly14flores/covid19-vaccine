@@ -212,6 +212,7 @@ import TabPanel from 'primevue/tabpanel/sfc';
 
 import { reactive, computed, toRefs, toRef, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 
 import useValidate, { useVuelidate } from '@vuelidate/core'
 import { required, requiredIf } from '@vuelidate/validators'
@@ -263,6 +264,7 @@ export default {
         const route = useRoute()
         const { params } = route || {}
         const { qr } = params || null
+        const store = useStore()
 
         const state = reactive({
             personalInfo: {},
@@ -306,6 +308,10 @@ export default {
             getInoculationPersonalInfo({ id: qr, dose: dose.value }).then(res => {
                 const { data: { data } } = res
                 const { vitals, dosage } = data
+
+                if(dosage.encoder_user_id==null) {
+                    dosage.encoder_user_id = store.state.profile.id
+                }
 
                 Object.assign(state, {
                     ...state,

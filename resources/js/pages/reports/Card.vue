@@ -291,7 +291,7 @@ export default {
         },
         cancel() {
 
-          this.$router.push('/reports/list/certificate')
+          this.$router.push('/reports/list/card')
           
         }
     },
