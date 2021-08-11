@@ -119,6 +119,18 @@ const postMonitoringInfo = (payload) => {
 }
 
 /**
+ * Registrations list for reports
+ * 
+ * Search by QR, first name, middle name, last name, dates
+ */
+ const getRegistrationsReports = (payload) => {
+    return axios.get(
+        `${api_url}/api/doh/registrations`,
+        {params: {...payload} }
+    )
+}
+
+/**
  * Registration Certificates 
  */
 const getRegistrationCertificates = (payload) => {
@@ -150,5 +162,6 @@ export {
     getVaccines,
     getDeferrals,
     getRegistrationCertificate,
-    getRegistrationCertificates
+    getRegistrationCertificates,
+    getRegistrationsReports
 }
