@@ -146,7 +146,7 @@ export default {
     },
     mounted() {
         this.fetchRegistrations({ page: 0 })
-    }  
+    }
     
 }
 </script>
