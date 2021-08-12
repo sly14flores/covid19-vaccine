@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\VaccinationSummary;
 use App\Http\Controllers\Api\ChangePassword;
 use App\Http\Controllers\Api\DefaultVaccinator;
 use App\Http\Controllers\Api\VaccinationCertificateController;
+use App\Http\Controllers\Api\DosageReportsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -271,6 +272,15 @@ Route::prefix('reports')->group(function() {
         'registration' => VaccinationCertificateController::class,
     ],[
         'except' => ['index']
+    ]);
+
+    /**
+     * Dosages
+     */
+    Route::apiResources([
+        'dosages' => DosageReportsController::class,
+    ],[
+        'only' => ['index']
     ]);
 
 });
