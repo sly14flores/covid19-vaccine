@@ -238,10 +238,8 @@ export default {
                 second_dosage: state.second_dosage,
                 second_facility: state.second_facility,
                 toggle_second_dose: state.toggle_second_dose,
-                qrcode: `${"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+''+api_url+'/profile#/verify'+data.qr_pass_id}`
+                qrcode: `${"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+''+api_url+'/profile#/verify/'+data.qr_pass_id}`
             })
-
-            console.log(state)
 
         }).catch(err => {
 
