@@ -120,7 +120,6 @@ import Checkbox from 'primevue/checkbox/sfc';
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { reactive, toRefs } from 'vue'
-import QrcodeVue from 'qrcode.vue'
 
 import { api_url } from '../../url.js'
 
@@ -271,8 +270,7 @@ export default {
         RadioButton,
         Menubar,
         ConfirmDialog,
-        Checkbox,
-        QrcodeVue
+        Checkbox
     },
     methods: {
         print() {
