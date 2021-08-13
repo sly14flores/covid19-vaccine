@@ -151,11 +151,7 @@ export default {
             status: "",
             toggle_second_dose: true,
             qrcode: null,
-<<<<<<< HEAD
-            url: 'https://vaccines.launion.gov.ph/profile?/'
-=======
             url: `${api_url}/profile?/`
->>>>>>> refs/remotes/origin/develop
         })
 
         getRegistrationCertificate({ id: registrationId }).then(res => {
@@ -245,7 +241,7 @@ export default {
                 second_dosage: state.second_dosage,
                 second_facility: state.second_facility,
                 toggle_second_dose: state.toggle_second_dose,
-                qrcode: `${pushQrCode+data.qr_pass_id}`
+                qrcode: `${pushQrCode+data.qr_pass_id+'/'}`
             })
 
         }).catch(err => {
