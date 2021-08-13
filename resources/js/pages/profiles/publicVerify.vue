@@ -21,8 +21,9 @@
                                     <label for="napanam_id">Napanam ID No.: <i class="p-error">*</i></label>
                                     <span class="p-input-icon-right">
                                         <i class="pi pi-id-card" />
-                                        <InputText class="p-shadow-1" type="text" :value="napanam_id" disabled />
+                                        <InputText class="p-shadow-1" type="number" placeholder="Enter your Napanam ID No." v-model="id" :class="{'p-invalid': idError}" />
                                     </span>
+                                    <small class="p-error">{{ idError }}</small>
                                 </div>
                             </div>
                             <h6>Birthdate: <small><i class="text-gray">(Araw ng Kapanganakan)</i></small> <i class="p-error">*</i></h6>
@@ -95,12 +96,7 @@ export default {
 
         const onSubmit = handleSubmit((values) => {
             const birthdate = `${values.registration.year}-${values.registration.month}-${values.registration.day}`
-
-            // Get qr_pass_id from URL
-            const URL = window.location.href;
-            const qr_pass_id = URL.split(/\//)[5];
-
-            store.dispatch('profiles/GET_REGISTRATION', { id: qr_pass_id, birthdate })
+            store.dispatch('profiles/GET_REGISTRATION', { id: values.registration.id, birthdate })
         });
 
         watch(
@@ -119,25 +115,21 @@ export default {
             return true;
         }
 
-        // Get qr_pass_id from URL
-        const URL = window.location.href;
-        const qr_pass_id = URL.split(/\//)[5];
-        
-        const napanam_id = qr_pass_id;
+        const { value: id, errorMessage: idError } = useField('registration.id',validateField);
         const { value: year, errorMessage: yearError } = useField('registration.year',validateField);
         const { value: month, errorMessage: monthError } = useField('registration.month',validateField);
         const { value: day, errorMessage: dayError } = useField('registration.day',validateField);
 
-
         return {
+            id,
             year,
             month,
             day,
+            idError,
             yearError,
             monthError,
             dayError,
             onSubmit,
-            napanam_id
         }
 
     },
@@ -179,11 +171,6 @@ export default {
 </script>
 
 <style scoped>
-    input[type="text"]:disabled {
-        background: rgb(219, 219, 219);
-        border-bottom: 1px solid black;
-        cursor: not-allowed; 
-    }
     .navbar {
         overflow: hidden;
         background-color: #92c1bd;

@@ -202,6 +202,7 @@ import { useRouter } from 'vue-router'
 
 import Toast from 'primevue/toast';
 import { useToast } from "primevue/usetoast"
+import { api_url } from '../../url';
 
 export default {
     setup() {
@@ -225,7 +226,7 @@ export default {
 
         const closeProfile = () =>{
 
-           location.reload();
+           window.location.href = `${api_url}`;
 
         }
 

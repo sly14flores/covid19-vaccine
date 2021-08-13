@@ -8,12 +8,16 @@
                     <Button icon="pi pi-fw pi-times" class="btn-right hidden p-button-sm p-button-danger p-mr-2" label="Cancel" @click="cancel()" />
                     <Button icon="pi pi-fw pi-print" class="btn-right hidden p-button-sm p-button-primary p-mr-2" label="Print" @click="print()" />
                   </div>
+                  <div>
+
+                  </div>
                   <div class="main">
                     <img class="banner-header" src="img/header.png" />
                     <h3 class="text-center text-underline text-bold">CoViD-19 VACCINATION <br /> CERTIFICATE</h3> <br />
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This serves as proof that the vaccine whose made name and details appear herein below has been vaccinated against of Covid-19. For any clarification, you may reach us thru email, pglupho.vax@gmail.com or telephone number (072) 242-5580 local 258</p>
                     <br />
                   </div>
+                  
 
                   <br class="hidden" />
                   <div class="text-body">
@@ -77,11 +81,13 @@
                 <br />
                   <div class="row">
                       <div class="qr-code">
-                        <p>Scan QR Code to validate authenticity</p>
-                        <p>The QR Code should be directed to https://vaccines.launion.gov.ph/profile.</p>
+                        <p>&nbsp;</p>
+                        <!-- <p>Scan QR Code to validate authenticity</p>
+                        <p>The QR Code should be directed to https://vaccines.launion.gov.ph/profile.</p> -->
                       </div>
                       <div class="qr-code-img">
-                        <img src="img/qr-profile.png" className="qr-image" />
+                            <img class="qr-image" v-bind:src="qrcode" />
+                            <!-- <img src="img/qr-profile.png" class="qr-image" /> -->
                       </div>
                   </div>
                     <div class="row">
@@ -114,6 +120,7 @@ import Checkbox from 'primevue/checkbox/sfc';
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import { reactive, toRefs } from 'vue'
+import QrcodeVue from 'qrcode.vue'
 
 import { api_url } from '../../url.js'
 
@@ -143,7 +150,8 @@ export default {
             first_facility: "",
             second_facility: "",
             status: "",
-            toggle_second_dose: true
+            toggle_second_dose: true,
+            qrcode: null
         })
 
         getRegistrationCertificate({ id: registrationId }).then(res => {
@@ -230,8 +238,11 @@ export default {
                 first_facility: state.first_facility,
                 second_dosage: state.second_dosage,
                 second_facility: state.second_facility,
-                toggle_second_dose: state.toggle_second_dose
+                toggle_second_dose: state.toggle_second_dose,
+                qrcode: `${"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+''+api_url+'/'+data.qr_pass_id}`
             })
+
+            console.log(state)
 
         }).catch(err => {
 
@@ -240,7 +251,7 @@ export default {
         })
 
         return {
-            ...toRefs(state),
+            ...toRefs(state)
         }
 
     },
@@ -260,10 +271,8 @@ export default {
         RadioButton,
         Menubar,
         ConfirmDialog,
-        Checkbox
-    },
-    computed: {
-
+        Checkbox,
+        QrcodeVue
     },
     methods: {
         print() {
@@ -284,7 +293,7 @@ export default {
 </script>
 
 <style scoped>
-  body {
+body {
     align-items: center;
     justify-content: center;
     height: 100vh;
