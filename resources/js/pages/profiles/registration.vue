@@ -223,8 +223,6 @@ export default {
             }
         }
 
-        console.log(store.state)
-
         const closeProfile = () =>{
 
            location.reload();
