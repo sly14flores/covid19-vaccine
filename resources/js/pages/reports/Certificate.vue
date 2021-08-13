@@ -75,15 +75,15 @@
                     </div>
                 </div>
                 <br />
-                  <!-- <div class="row">
+                  <div class="row">
                       <div class="qr-code">
                         <p>Scan QR Code to validate authenticity</p>
-                        <p>The QR Code should be directed to https://vaccines.launion.gov.ph.</p>
+                        <p>The QR Code should be directed to https://vaccines.launion.gov.ph/profile.</p>
                       </div>
                       <div class="qr-code-img">
-                        <img src="img/qr.png" className="qr-image" />
+                        <img src="img/qr-profile.png" className="qr-image" />
                       </div>
-                  </div> -->
+                  </div>
                     <div class="row">
                         <div class="column">
                           <p class="text-center">This computer-generated document is issued by the Provincial Government of La Union, <br />through the Provincial Health Office. All data made available through <br /> https://vaccines.launion.gov.ph is verified and encrypted</p> <br/>
@@ -337,6 +337,7 @@ export default {
 }
 .qr-code {
   width: 70%;
+  margin-left: 10px;
   float: left;
 }
 .qr-code-img {
