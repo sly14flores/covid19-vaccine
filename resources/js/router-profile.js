@@ -11,12 +11,12 @@ const routes = [
     component: Profile
   },
   {
-    path: "/:id/verify",
+    path: "/verify",
     name: "Verify",
     component: Verify
   },
   {
-    path: "/verify",
+    path: "/public/verify",
     name: "PublicVerify",
     component: PublicVerify
   },

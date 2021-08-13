@@ -115,6 +115,8 @@ export default {
             return true;
         }
 
+        console.log("here")
+
         const { value: id, errorMessage: idError } = useField('registration.id',validateField);
         const { value: year, errorMessage: yearError } = useField('registration.year',validateField);
         const { value: month, errorMessage: monthError } = useField('registration.month',validateField);
