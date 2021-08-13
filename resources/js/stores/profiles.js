@@ -194,6 +194,7 @@ const actions = {
     },
     async GET_REGISTRATION({commit,state}, { id, birthdate }) {
         try {
+
             const { data: { data } } = await getNapanam({ id, birthdate })
             const { dosages } = data
 
