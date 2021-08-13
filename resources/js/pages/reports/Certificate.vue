@@ -150,7 +150,8 @@ export default {
             second_facility: "",
             status: "",
             toggle_second_dose: true,
-            qrcode: null
+            qrcode: null,
+            url: 'https://vaccines.local/profile?/verify/'
         })
 
         getRegistrationCertificate({ id: registrationId }).then(res => {
@@ -238,7 +239,7 @@ export default {
                 second_dosage: state.second_dosage,
                 second_facility: state.second_facility,
                 toggle_second_dose: state.toggle_second_dose,
-                qrcode: `${"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+''+api_url+'/profile#/verify/'+data.qr_pass_id}`
+                qrcode: `${"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+state.url+data.qr_pass_id}`
             })
 
         }).catch(err => {
