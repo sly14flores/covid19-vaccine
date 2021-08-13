@@ -151,7 +151,7 @@ export default {
             status: "",
             toggle_second_dose: true,
             qrcode: null,
-            url: 'https://vaccines.local/profile?/verify/'
+            url: `${api_url}/profile?/verify/`
         })
 
         getRegistrationCertificate({ id: registrationId }).then(res => {
