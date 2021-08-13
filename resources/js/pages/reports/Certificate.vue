@@ -151,7 +151,7 @@ export default {
             status: "",
             toggle_second_dose: true,
             qrcode: null,
-            url: `${api_url}/profile?/verify/`
+            url: `${api_url}/profile?/`
         })
 
         getRegistrationCertificate({ id: registrationId }).then(res => {
