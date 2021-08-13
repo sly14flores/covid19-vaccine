@@ -282,7 +282,7 @@ const actions = {
             const { response } = error
             
             if(response==undefined) return;
-            
+
             // if Not found
             if(response.status==404) {
                 Swal.fire({
@@ -300,6 +300,25 @@ const actions = {
                     // Close
                     }
                 })	
+            }
+
+            // if Not found
+            if(response.status==500) {
+                Swal.fire({
+                    title: '<p>Oops...</p>',
+                    icon: 'error',
+                    html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                    showCancelButton: false,
+                    focusConfirm: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false,
+                    confirmButtonText: 'Refresh this page',
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
             }
 
             commit('FETCH', false)
