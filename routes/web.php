@@ -37,6 +37,10 @@ Route::get('/registration', function () {
     return view('registration');
 });
 
+Route::get('/profile', function () {
+    return view('profile');
+});
+
 Route::get('/home/reports/surveys', ExportSurveys::class);
 Route::get('/home/reports/registrations', ExportRegistrations::class);
 Route::get('/home/reports/vas', VasReportcontroller::class);
