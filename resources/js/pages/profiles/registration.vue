@@ -87,7 +87,7 @@
                                       </div>
                                       <div class="timeline-body">
                                         <div class="timeline-header">
-                                          <span class="userimage"><img src="img/icons/check.png" alt=""></span>
+                                          <span class="userimage"><img src="img/icons/check-icon.png" alt=""></span>
                                           <span class="username"><a href="javascript:;">1st Dose</a> <small></small></span>
                                         </div>
                                         <div class="timeline-content">
