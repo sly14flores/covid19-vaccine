@@ -151,7 +151,7 @@ export default {
             status: "",
             toggle_second_dose: true,
             qrcode: null,
-            url: `${api_url}/profile?/verify/`
+            url: 'https://vaccines.launion.gov.ph/profile?/'
         })
 
         getRegistrationCertificate({ id: registrationId }).then(res => {
@@ -229,6 +229,8 @@ export default {
                 
             }
 
+            const pushQrCode = `${"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+state.url}`
+
             Object.assign(state, {
                 ...state,
                 personalInfo: data,
@@ -239,7 +241,7 @@ export default {
                 second_dosage: state.second_dosage,
                 second_facility: state.second_facility,
                 toggle_second_dose: state.toggle_second_dose,
-                qrcode: `${"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+state.url+data.qr_pass_id}`
+                qrcode: `${pushQrCode+data.qr_pass_id}`
             })
 
         }).catch(err => {

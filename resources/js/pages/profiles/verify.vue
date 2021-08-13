@@ -98,7 +98,7 @@ export default {
 
             // Get qr_pass_id from URL
             const URL = window.location.href;
-            const qr_pass_id = URL.split(/\//)[5];
+            const qr_pass_id = URL.split(/\//)[4];
 
             store.dispatch('profiles/GET_REGISTRATION', { id: qr_pass_id, birthdate })
         });
@@ -121,7 +121,7 @@ export default {
 
         // Get qr_pass_id from URL
         const URL = window.location.href;
-        const qr_pass_id = URL.split(/\//)[5];
+        const qr_pass_id = URL.split(/\//)[4];
         
         const napanam_id = qr_pass_id;
         const { value: year, errorMessage: yearError } = useField('registration.year',validateField);
