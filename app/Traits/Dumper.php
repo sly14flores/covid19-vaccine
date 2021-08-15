@@ -14,4 +14,11 @@ trait Dumper
         }
     }
 
+    public static function _dumpToSlack($message,$description = null)
+    {
+        if (env('LOG_SLACK_DUMP_ENABLED',false)) {
+            Log::channel('dump_debug')->debug("Debug Dump",["description"=>$description,"dump"=>$message]);
+        }
+    }
+
 }
