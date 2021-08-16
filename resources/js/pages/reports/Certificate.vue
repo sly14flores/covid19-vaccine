@@ -1,7 +1,7 @@
 <template>
     <div>
         <MyBreadcrumb :home="home" :items="items" class="hidden"/>
-        <div class="row">
+        <div class="row main-content">
             <div class="column">
                 <div class="card">
                   <div class="row">
@@ -14,23 +14,22 @@
                   <div class="main">
                     <img class="banner-header" src="img/header.png" />
                     <h3 class="text-center text-underline text-bold">CoViD-19 VACCINATION <br /> CERTIFICATE</h3> <br />
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This serves as proof that the vaccine whose made name and details appear herein has been vaccinated against of CoViD-19. For any clarification, you may reach us thru email, pglupho.vax@gmail.com or telephone number (072) 242-5580 local 258</p>
+                    <p class="margin-both-side text-justify">This serves as proof that the patient whose name and details appear herein has been inoculated against CoViD-19. For any clarification, you may reach us thru email, pglupho.vax@gmail.com or telephone number (072) 242-5580 local 258</p>
                     <br />
                   </div>
                   
-
                   <br class="hidden" />
-                  <div class="text-body">
-                    <div class="title">Vaccinee Details</div>
+                  <div class="text-body margin-both-side">
+                    <div class="title">Patient Details</div>
                     <div class="row">
                         <div class="column-25">
-                          <p>Status: {{status}}</p>
+                          <p>Status: <label class="text-bold">{{status}}</label></p>
                         </div>
                         <div class="column-50">
-                        <p label class="text-bold">{{fullname}}</p>
-                        <p label class="text-bold">{{personalInfo.birthdate}}</p>
-                        <p label class="text-bold">{{personalInfo.gender}}</p>
-                        <p label class="text-bold">{{personalInfo.barangay}}, {{personalInfo.townCity}}{{personalInfo.province}}</p>
+                        <p class="text-bold">{{fullname}}</p>
+                        <p class="text-bold">{{personalInfo.birthdate}}</p>
+                        <p class="text-bold">{{personalInfo.gender}}</p>
+                        <p class="text-bold">{{personalInfo.barangay}}, {{personalInfo.townCity}}{{personalInfo.province}}</p>
                         </div>
                         <div class="column-20">
                           <p>Name: </p>
@@ -42,7 +41,7 @@
                   </div>
                 <br />
                 <br />
-                <div class="text-body">
+                <div class="text-body margin-both-side">
                     <div class="title">Vaccination Details</div>
                     <div class="row">
                         <div class="column-25"></div>
@@ -54,7 +53,7 @@
                           <p class="text-bold">&nbsp;{{first_dosage.lot_number}}</p>
                         </div>
                         <div class="column-20">
-                          <p>Vaccine Manufacturer:</p>
+                          <p>Manufacturer:</p>
                           <p>Dose: </p>
                           <p>Vaccination Date: </p>
                           <p>Vaccination Site:</p>
@@ -92,13 +91,19 @@
                             </h1>
                       </div>
                   </div>
-                    <div class="row">
+                  <div class="row hidden">
                         <div class="column">
-                          <p class="text-center">This computer-generated document is issued by the Provincial Government of La Union, <br />through the Provincial Health Office. All data made available through <br /> https://vaccines.launion.gov.ph is verified and encrypted</p> <br/>
+                          <p class="text-center">This computer-generated document is issued by the Provincial Government of La Union, <br />through the Provincial Health Office. All data made available through <br /> https://vaccines.launion.gov.ph is verified and encrypted</p> <br />
                           <p class="text-center">Powered by Provincial Government of La Union - Information Communications and Technology Unit</p>
                         </div>
                     </div>
                     <div class="footer">
+                      <div class="row">
+                          <div class="column">
+                            <p class="text-center">This computer-generated document is issued by the Provincial Government of La Union, <br />through the Provincial Health Office. All data made available through <br /> https://vaccines.launion.gov.ph is verified and encrypted</p> <br /> <br />
+                            <p class="text-center">Powered by Provincial Government of La Union - Information Communications and Technology Unit</p><br /> <br />
+                          </div>
+                      </div>
                       <img class="banner-header" src="img/footer.png" />
                     </div>
                 </div>
@@ -315,6 +320,10 @@ export default {
 </script>
 
 <style scoped>
+.margin-both-side {
+  margin-left: 35px;
+  margin-right: 35px;
+}
 .qr-frame {
   border: 0.25em solid;
   position: relative;
@@ -449,9 +458,11 @@ body {
   margin: -20px 0 0 30px;
   background: #ffffff;
 }
-
 .text-center {
   text-align: center;
+}
+.text-justify {
+  text-align: justify;
 }
 .line-4 {
   border-bottom: 4px solid rgb(45, 45, 45);
@@ -473,8 +484,8 @@ body {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: red;
-  color: white;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   text-align: center;
   display: none;
 }
