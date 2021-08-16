@@ -86,8 +86,10 @@
                         <p>The QR Code should be directed to https://vaccines.launion.gov.ph/profile.</p> -->
                       </div>
                       <div class="qr-code-img">
-                            <img class="qr-image" v-bind:src="qrcode" />
                             <!-- <img src="img/qr-profile.png" class="qr-image" /> -->
+                            <h1 class="qr-frame">
+                              <img class="qr-image qr-body" v-bind:src="qrcode" />
+                            </h1>
                       </div>
                   </div>
                     <div class="row">
@@ -151,7 +153,7 @@ export default {
             status: "",
             toggle_second_dose: true,
             qrcode: null,
-            url: `${api_url}/profile?/`
+            url: `${api_url}/profile?/pr/`
         })
 
         getRegistrationCertificate({ id: registrationId }).then(res => {
@@ -231,6 +233,7 @@ export default {
 
             const pushQrCode = `${"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+state.url}`
 
+
             Object.assign(state, {
                 ...state,
                 personalInfo: data,
@@ -244,9 +247,29 @@ export default {
                 qrcode: `${pushQrCode+data.qr_pass_id+'/'}`
             })
 
+            console.log(state.qrcode)
+
         }).catch(err => {
 
             console.log(err)
+
+            if(err.status==500){
+            Swal.fire({
+                title: '<p>Oops...</p>',
+                icon: 'error',
+                html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                showCancelButton: false,
+                focusConfirm: true,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+                confirmButtonText: 'Refresh this page',
+            }).then((result) => {
+                if (result.value) {
+                    location.reload();
+                }
+            })	
+        }
             
         })
 
@@ -292,6 +315,39 @@ export default {
 </script>
 
 <style scoped>
+.qr-frame {
+  border: 0.25em solid;
+  position: relative;
+  width: 170px;
+}
+.qr-frame::before {
+  top: -0.3em;
+  bottom: -0.3em;
+  left: 1em;
+  right: 1em;
+}
+.qr-frame::after{
+  left: -0.3em;
+  right: -0.5em;
+  top: 1em;
+  bottom: 1em;
+}
+.qr-frame::before, .qr-frame::after {
+  content: '';
+  display: block;
+  position: absolute;
+  background: #fff;
+}
+.qr-body {
+  position: relative;
+  z-index: 1;
+}
+.qr-image{
+    width: 140px;
+    margin-left: 7px;
+    margin-top: 7px;
+}
+
 body {
     align-items: center;
     justify-content: center;
@@ -408,11 +464,6 @@ body {
 }
 .line-1 {
   border-bottom: 1px solid rgb(45, 45, 45);
-}
-  
-.qr-image{
-    width: 150px;
-    margin-top: 5px;
 }
 .btn-right {
   float: right;

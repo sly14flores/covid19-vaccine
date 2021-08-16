@@ -2,7 +2,7 @@ import { createWebHashHistory, createRouter } from "vue-router";
 
 import Profile from "./pages/profiles/registration.vue";
 import Verify from "./pages/profiles/verify.vue";
-import PublicVerify from "./pages/profiles/publicVerify.vue";
+import PrivateVerify from "./pages/profiles/privateVerify.vue";
 
 const routes = [
   {
@@ -16,9 +16,9 @@ const routes = [
     component: Verify
   },
   {
-    path: "/public/verify",
-    name: "PublicVerify",
-    component: PublicVerify
+    path: "/private/verify",
+    name: "PrivateVerify",
+    component: PrivateVerify
   },
 ];
 
