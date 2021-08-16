@@ -7,11 +7,12 @@ use Illuminate\Http\Request;
 
 use App\Traits\Messages;
 use App\Traits\Summary;
+use App\Traits\Dumper;
 
 class VaccinationSummary extends Controller
 {
     
-    use Messages;    
+    use Messages, Dumper;    
 
     public function __construct()
     {

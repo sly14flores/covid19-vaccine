@@ -22,6 +22,8 @@ use App\Http\Controllers\Api\VaccinationSummary;
 use App\Http\Controllers\Api\ChangePassword;
 use App\Http\Controllers\Api\DefaultVaccinator;
 use App\Http\Controllers\Api\VaccinationCertificateController;
+use App\Http\Controllers\Api\DosageReportsController;
+use App\Http\Controllers\Api\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -273,4 +275,15 @@ Route::prefix('reports')->group(function() {
         'except' => ['index']
     ]);
 
+    /**
+     * Dosages
+     */
+    Route::apiResources([
+        'dosages' => DosageReportsController::class,
+    ],[
+        'only' => ['index']
+    ]);
+
 });
+
+Route::get('check/profile/{id}/{birthday}', [ProfileController::class, 'verifyRegistrationQr']);

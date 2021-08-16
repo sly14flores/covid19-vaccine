@@ -215,8 +215,8 @@ return [
             'name' => 'Oxford',
             'vaccines' => [
                 [
-                    'id' => 10,
-                    'name' => 'Oxford Astrazenica'
+                    'id' => 11,
+                    'name' => 'Oxford AstraZenica'
                 ]
             ],
             'dosages' => 3,

@@ -11,12 +11,13 @@ use App\Models\Hospital;
 use Carbon\Carbon;
 
 use App\Traits\UserLocation;
+use App\Traits\Dumper;
 use Illuminate\Database\Eloquent\Builder;
 
 trait Summary
 {
 
-    use UserLocation;
+    use UserLocation, Dumper;
 
     public static function surveys($filter)
     {
@@ -231,7 +232,75 @@ trait Summary
 
     }
 
-    public static function vaccination ($filter)
+    public static function vaccination($filter)
+    {
+
+        $startFilter = Carbon::parse($filter['start'])->format("Y-m-d 00:00:00");
+        $endFilter = Carbon::parse($filter['end'])->addDays(1)->format("Y-m-d 00:00:00");
+
+        // $facility = $filter['facility'];
+        // $priorityGroup = $filter['priority_group'];
+
+        $townCityCode = null;
+        $wheres = [];
+        if (isset($filter['town_city'])) {
+            if ($filter['town_city']!="all") {
+                $townCity = $filter['town_city'];
+                $tc = explode("_",$townCity);
+                $townCityCode = $tc[1];
+                $wheres[] = ['town_city_code',$townCityCode];
+            }
+        }
+
+        $registrations = Registration::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter]);
+        $total_registered = $registrations->count();
+
+        $total_vaccinated = $registrations->firstDose()->orSecondDose()->count();
+        $first_dosage = $registrations->firstDose()->count();
+        $second_dosage = $registrations->secondDose()->count();
+
+        $complete_immunization = $registrations->fullyVaccinated()->count();
+
+        /**
+         * No of individual eligible
+         */
+        $individual_eligible = $registrations->whereIn('priority_group',['01_A1','02_A2','03_A3','04_A4'])->count();
+
+        /**
+         * Total Population
+         */
+        $total_population = config('constants.total_population');
+
+        /**
+         * Immunized vs Total Eligible
+         */
+        // $divisor = ($individual_eligible==0)?1:$individual_eligible;
+        $divisor = ($individual_eligible==0)?1:$total_population;
+        $immunized_vs_eligible = $complete_immunization/$divisor*100;        
+        
+        $data = [
+            'total_registered' => $total_registered,
+            'total_vaccinated' => $total_vaccinated,
+            'dosages' => [
+                'first_dosage' => $first_dosage,
+                'second_dosage' => $second_dosage,
+                'third_dosage' => 0
+            ],
+            'complete_immunization' => $complete_immunization,
+            'waiting' => 0,
+            'individual_eligible' => number_format($individual_eligible),
+            'immunized_vs_eligible'=> round($immunized_vs_eligible,5),
+            'total_doses' => [],
+            'total_vaccines_used' => [],
+        ];
+
+        self::_dumpToSlack($data,"DATA");
+
+        return $data;        
+
+    }
+
+    public static function _vaccination($filter)
     {
 
         $startFilter = Carbon::parse($filter['start'])->format("Y-m-d 00:00:00");
@@ -255,7 +324,6 @@ trait Summary
         $registrations = Registration::where($wheres)->whereHas('vaccine.dosages', function(Builder $query) use ($startFilter,$endFilter) {
             $query->whereBetween('created_at',[$startFilter,$endFilter]);
         })->get();
-        // $registrations_vaccines = Registration::has('vaccine')->where($wheres)->whereBetween('created_at',[$startFilter,$endFilter])->get();
         $registrations_vaccines = Registration::has('vaccine')->where($wheres)->whereHas('vaccine.dosages', function(Builder $query) use ($startFilter,$endFilter) {
             $query->whereBetween('created_at',[$startFilter,$endFilter]);
         })->get();
@@ -295,11 +363,7 @@ trait Summary
                 $dosages = $vaccine->dosages()->get();
                 return collect($dosages)->where('dose',3)->count();
             }
-        });                
-
-        $startDay = Carbon::parse($filter['start'])->format("Y-m-d");
-        $endDay = Carbon::parse($filter['end'])->format("Y-m-d");
-        $day = $startDay;
+        });
 
         $total_registered = $registrations->count();
         $total_vaccinated = $vaccines->count();
@@ -387,7 +451,6 @@ trait Summary
         // $all_adults_with_comorbidity = Registration::has('vaccine.dosages')->where('with_comorbidity','01_Yes')->whereBetween('created_at',[$startFilter,$endFilter])->get();
 
         $total_vaccines_useds = [];
-
         foreach ($facilities as $facility) {
 
             $facility_id = $facility->id;
@@ -626,8 +689,6 @@ trait Summary
                 "total" => $registrations->where('priority_group','01_A1')->where('town_city',$m['code'])->count() + $registrations->where('priority_group','02_A2')->where('town_city',$m['code'])->count() + $registrations->where('priority_group','03_A3')->where('town_city',$m['code'])->count() + $registrations->where('priority_group','04_A4')->where('town_city',$m['code'])->count()
             ];
         };
-
-
 
         $data = [
             'total_registered'=> number_format($total_registration),
