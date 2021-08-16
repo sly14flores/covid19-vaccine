@@ -47,7 +47,7 @@
                     <div class="row">
                         <div class="column-25"></div>
                         <div class="column-50">
-                          <p class="text-bold">&nbsp;{{first_dosage.vaccine_description}}</p>
+                          <p class="text-bold">&nbsp;{{first_dosage.brand_description}}</p>
                           <p class="text-bold">&nbsp;{{first_dose}}</p>
                           <p class="text-bold">&nbsp;{{first_dosage.date_of_vaccination}}</p>
                           <p class="text-bold">&nbsp;{{first_facility}}</p>
