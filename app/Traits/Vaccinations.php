@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Registration;
+use App\Models\QrPass;
 
 trait Vaccinations {
 
@@ -47,7 +48,16 @@ trait Vaccinations {
          * fully_vaccinated
          */
         $registration->first_dose = $value;
-        $registration->fully_vaccinated = $this->isFullyVaccinated($brand);
+        $fully_vaccinated = $this->isFullyVaccinated($brand);
+        $registration->fully_vaccinated = $fully_vaccinated;
+
+        $vax_status = 1;
+        if ($fully_vaccinated) $vax_status = 2;
+        $qrpass = QrPass::find(intval($qr_pass_id));
+        if (!is_null($qrpass)) {
+            $qrpass->vax_status = $vax_status;
+            $qrpass->save();
+        }
 
         $registration->save();
 
@@ -64,7 +74,15 @@ trait Vaccinations {
          * fully_vaccinated
          */
         $registration->second_dose = $value;
-        $registration->fully_vaccinated = $this->isFullyVaccinated($brand);
+        $fully_vaccinated = $this->isFullyVaccinated($brand);
+        $registration->fully_vaccinated = $fully_vaccinated;
+
+        $vax_status = 2;
+        $qrpass = QrPass::find(intval($qr_pass_id));
+        if (!is_null($qrpass)) {
+            $qrpass->vax_status = $vax_status;
+            $qrpass->save();
+        }        
 
         $registration->save();
 
