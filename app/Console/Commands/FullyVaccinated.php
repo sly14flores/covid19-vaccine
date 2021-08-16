@@ -59,11 +59,11 @@ class FullyVaccinated extends Command
             $first_dose = $registration->first_dose;
             $first_dosage = (is_null($dosages)) ? null : $dosages->where('dose', 1)->first();
             $brand_name = (is_null($first_dosage)) ? null : $first_dosage->brand_name;
-            if ($first_dose && !is_null($registration->date_of_vaccination)) $doses[] = true;
+            if ($first_dose) $doses[] = true;
 
             // second dose
             $second_dose = $registration->second_dose;
-            if ($second_dose && !is_null($registration->date_of_vaccination)) $doses[] = true;
+            if ($second_dose) $doses[] = true;
             
             if ($brand_name!=null) {
                 $get_brand = collect($brands)->where('id',$brand_name)->first();

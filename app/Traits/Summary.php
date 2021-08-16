@@ -253,8 +253,7 @@ trait Summary
         $dosages = Dosage::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter]);
         $total_registered = $registrations->count();
 
-        $firstDose = clone $registrations;
-        // self::_dumpToSlack($firstDose->firstDose()->toSql(),"DATA");     
+        $firstDose = clone $registrations;    
         $first_dosage = $firstDose->firstDose()->count();
 
         $secondDose = clone $registrations;        
@@ -263,6 +262,7 @@ trait Summary
         $total_vaccinated = $first_dosage + $second_dosage;
 
         $fullyVaccinated = clone $registrations;
+        // self::_dumpToSlack($fullyVaccinated->fullyVaccinated()->toSql(),"DATA"); 
         $complete_immunization = $fullyVaccinated->fullyVaccinated()->count();
 
         /**
