@@ -87,7 +87,9 @@ const state = () => {
         first_facility: null,
         second_facility: null,
         status: null,
-        toggle_second_dose: true
+        toggle_second_dose: true,
+        color: null,
+        icon: null
     }
 }
 
@@ -240,6 +242,8 @@ const actions = {
                     state.first_facility = dosages[0].user.user_hospital.description
                 }
                 state.toggle_second_dose = false;
+                state.icon = "";
+                state.color = "warning";
                 state.status = "Partially Vaccinated";
                 
             }
@@ -248,6 +252,8 @@ const actions = {
             if(dosages.length==2) {
 
                 state.status = "Fully Vaccinated";
+                state.icon = "pi pi-check";
+                state.color = "success";
                 state.toggle_second_dose = true;
 
                 if(dosages[1].brand_description==""){

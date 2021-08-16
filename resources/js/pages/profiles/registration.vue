@@ -61,7 +61,9 @@
                           </div>
                           <div class="p-field p-col-6 p-md-3">
                               <label for="description">Status</label>
-                              <p class="p-text-bold"><i class="pi pi-check-circle p-text-success" v-if="toggle_second_dose"></i> {{status}}</p>
+                              <!-- <p class="p-text-bold"><i class="pi pi-check-circle p-text-success" v-if="toggle_second_dose"></i> {{status}}</p> -->
+                              <br />
+                              <Tag :icon="icon" :severity="color" :value="status"></Tag>
                           </div>
                       </div>
                   </div>
@@ -195,7 +197,8 @@
 
 import Button from 'primevue/button/sfc';
 import Menubar from 'primevue/menubar/sfc';
-import Card from 'primevue/card';
+import Card from 'primevue/card/sfc';
+import Tag from 'primevue/tag/sfc';
 
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
@@ -213,9 +216,19 @@ export default {
          * Redirection logic using store
          */
         const router = useRouter()
-
+        
         if (store.state.profiles.registration.qr_pass_id == null) {
-            router.push('/verify')
+
+          // Get private from URL
+          const URL = window.location.href;
+          const pr = URL.split(/\//)[4];
+  
+          if(pr=="pr") {
+             router.push('/private/verify')
+          } else {
+             router.push('/verify')
+          }
+
         }
 
         const init = {
@@ -239,12 +252,8 @@ export default {
         Menubar,
         Button,
         Card,
-        Toast
-    },
-    data() {
-        return {
-           
-        }
+        Toast,
+        Tag
     },
     computed: {
         registration() {
@@ -261,6 +270,12 @@ export default {
         },
         status() {
             return this.$store.state.profiles.status
+        },
+        color() {
+            return this.$store.state.profiles.color
+        },
+        icon() {
+            return this.$store.state.profiles.icon
         }
     },
     methods: {
