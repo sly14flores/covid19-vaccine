@@ -134,17 +134,17 @@ trait SelectionsRegistration
     public function vaccinesValue()
     {
         return [
-            ["name"=>"Pfizer", "id"=>1],            
-            ["name"=>"Moderna", "id"=>2],
-            ["name"=>"AstraZeneca ", "id"=>3],
+            ["name"=>"Pfizer Comirnaty (BNT162b2)", "id"=>1],            
+            ["name"=>"Moderna COVID-19 Vaccine (mRNA-1273)", "id"=>2],
+            ["name"=>"Oxford/AstraZeneca (AZD1222) ", "id"=>3],
             ["name"=>"Sputnik V/Gamaleya", "id"=>4],
             ["name"=>"Johnson and Johnson", "id"=>5],
             ["name"=>"Sinovac", "id"=>6],
             ["name"=>"Covaxin", "id"=>7],
-            ["name"=>"EpicVacCorona", "id"=>8],
-            ["name"=>"CoviVac", "id"=>9],
-            ["name"=>"Novavax", "id"=>10],
-            ["name"=>"Oxford Astrazenica", "id"=>11],
+            ["name"=>"EpiVacCorona", "id"=>8],
+            ["name"=>"KoviVac", "id"=>9],
+            ["name"=>"Novavax COVID-19", "id"=>10],
+            ["name"=>"Covishield", "id"=>11],
         ];
     }
 

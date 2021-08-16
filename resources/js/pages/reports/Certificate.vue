@@ -213,7 +213,7 @@ export default {
             }
 
             // Second Dose
-            if(dosages.length==2) {
+            if(dosages.length==2 && dosages.brand_description=="") {
 
                 state.status = "Fully Vaccinated";
                 state.toggle_second_dose = true;
