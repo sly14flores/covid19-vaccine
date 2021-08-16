@@ -277,6 +277,11 @@ class Dosage extends Model
     public function setTimeOfVaccinationAttribute($value)
     {
         $this->attributes['time_of_vaccination'] = Carbon::parse($value)->timezone('Asia/Manila')->format('H:i:s');
+    }
+
+    public function scopeVaccinated($query)
+    {
+        return $query->whereNotNull('date_of_vaccination');
     }    
 
 }

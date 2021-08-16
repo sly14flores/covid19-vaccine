@@ -238,9 +238,6 @@ trait Summary
         $startFilter = Carbon::parse($filter['start'])->format("Y-m-d 00:00:00");
         $endFilter = Carbon::parse($filter['end'])->addDays(1)->format("Y-m-d 00:00:00");
 
-        // $facility = $filter['facility'];
-        // $priorityGroup = $filter['priority_group'];
-
         $townCityCode = null;
         $wheres = [];
         if (isset($filter['town_city'])) {
@@ -253,18 +250,26 @@ trait Summary
         }
 
         $registrations = Registration::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter]);
+        $dosages = Dosage::where($wheres)->whereBetween('created_at',[$startFilter,$endFilter]);
         $total_registered = $registrations->count();
 
-        $total_vaccinated = $registrations->firstDose()->orSecondDose()->count();
-        $first_dosage = $registrations->firstDose()->count();
-        $second_dosage = $registrations->secondDose()->count();
+        $firstDose = clone $registrations;
+        // self::_dumpToSlack($firstDose->firstDose()->toSql(),"DATA");     
+        $first_dosage = $firstDose->firstDose()->count();
 
-        $complete_immunization = $registrations->fullyVaccinated()->count();
+        $secondDose = clone $registrations;        
+        $second_dosage = $secondDose->secondDose()->count();
+
+        $total_vaccinated = $first_dosage + $second_dosage;
+
+        $fullyVaccinated = clone $registrations;
+        $complete_immunization = $fullyVaccinated->fullyVaccinated()->count();
 
         /**
          * No of individual eligible
          */
-        $individual_eligible = $registrations->whereIn('priority_group',['01_A1','02_A2','03_A3','04_A4'])->count();
+        $individualEligible = clone $registrations;
+        $individual_eligible = $individualEligible->whereIn('priority_group',['01_A1','02_A2','03_A3','04_A4'])->count();
 
         /**
          * Total Population
@@ -276,7 +281,89 @@ trait Summary
          */
         // $divisor = ($individual_eligible==0)?1:$individual_eligible;
         $divisor = ($individual_eligible==0)?1:$total_population;
-        $immunized_vs_eligible = $complete_immunization/$divisor*100;        
+        $immunized_vs_eligible = $complete_immunization/$divisor*100;
+
+        $facilities = Hospital::all();
+
+        /**
+         * Dosages
+         */
+        $total_doses = [];
+        $total_vaccines_used = [];
+        foreach ($facilities as $facility) {
+
+            $facility_id = $facility->id;
+
+            $A1 = clone $dosages;
+            $A1 = $A1->where([['priority_group','01_A1'],['vaccination_facility', $facility_id]])->vaccinated()->count();
+            
+            $A2 = clone $dosages;
+            $A2 = $A2->where([['priority_group','02_A2'],['vaccination_facility', $facility_id]])->vaccinated()->count();
+            
+            $A3 = clone $dosages;
+            $A3 = $A3->where([['priority_group','03_A3'],['vaccination_facility', $facility_id]])->vaccinated()->count();
+            
+            $A4 = clone $dosages;
+            $A4 = $A4->where([['priority_group','04_A4'],['vaccination_facility', $facility_id]])->vaccinated()->count();
+
+            $all_doses = $A1 + $A2 + $A3 + $A4;
+            $total_dose = [
+                'id' => $facility_id,
+                'facility_name' => $facility->description,
+                'health_workers' => $A1, # A1
+                'senior_citizens' => $A2, # A2
+                'adults_with_comorbidity' => $A3, # A3
+                'frontliners' => $A4, # A4
+                'total' => $all_doses,
+            ];
+            $total_doses[] = $total_dose;
+            
+            /**
+             * Total vaccines used
+             */
+            $oxford = clone $dosages;
+            $oxford = $oxford->where([['vaccination_facility', $facility_id],['brand_name',11]])->vaccinated()->count();
+            
+            $pfizer = clone $dosages;
+            $pfizer = $pfizer->where([['vaccination_facility', $facility_id],['brand_name',1]])->vaccinated()->count();
+
+            $sinovac = clone $dosages;            
+            $sinovac = $sinovac->where([['vaccination_facility', $facility_id],['brand_name',6]])->vaccinated()->count();
+
+            $novavax = clone $dosages;
+            $novavax = $novavax->where([['vaccination_facility', $facility_id],['brand_name',10]])->vaccinated()->count();
+
+            $moderna = clone $dosages;
+            $moderna = $moderna->where([['vaccination_facility', $facility_id],['brand_name',2]])->vaccinated()->count();
+
+            $janssen = clone $dosages;
+            $janssen = $janssen->where([['vaccination_facility', $facility_id],['brand_name',5]])->vaccinated()->count();
+            
+            $gamaleya = clone $dosages;
+            $gamaleya = $gamaleya->where([['vaccination_facility', $facility_id],['brand_name',4]])->vaccinated()->count();
+
+            $bharat = clone $dosages;
+            $bharat = $bharat->where([['vaccination_facility', $facility_id],['brand_name',7]])->vaccinated()->count();      
+
+            $all_vaccines_used = $oxford + $pfizer + $sinovac + $novavax + $moderna + $janssen + $gamaleya + $bharat;
+            
+            $total_vaccines_used = [
+                'id' => $facility_id,
+                'facility_name' => $facility->description,
+                'oxford' => $oxford, # 11
+                'pfizer' => $pfizer, # 1
+                'sinovac' => $sinovac, # 6
+                'novavax' => $novavax, # 10
+                'moderna' => $moderna, # 2
+                'janssen' => $janssen, # 5
+                'gamaleya' => $gamaleya, # 4
+                'bharat' => $bharat, # 7
+                'total' => $all_vaccines_used
+            ];
+
+            $total_vaccines_useds[] = $total_vaccines_used;            
+            
+        }
         
         $data = [
             'total_registered' => $total_registered,
@@ -290,11 +377,9 @@ trait Summary
             'waiting' => 0,
             'individual_eligible' => number_format($individual_eligible),
             'immunized_vs_eligible'=> round($immunized_vs_eligible,5),
-            'total_doses' => [],
-            'total_vaccines_used' => [],
+            'total_doses' => $total_doses,
+            'total_vaccines_used' => $total_vaccines_useds,
         ];
-
-        self::_dumpToSlack($data,"DATA");
 
         return $data;        
 
