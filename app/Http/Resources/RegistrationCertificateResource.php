@@ -26,7 +26,7 @@ class RegistrationCertificateResource extends JsonResource
             $dosage->index = $i;
             $dosage->vaccinator = $dosage->vaccinator();
             $dosage->brand_description = $dosage->brand($dosage->brand_name);
-            $dosage->vaccine_description = $dosage->vaccine_description($dosage->brand_name,$dosage->vaccine_name);
+            $dosage->vaccine_description = $dosage->vaccine_description($dosage->brand_name,$dosage->brand_name);
             $dosage->vaccination_facility = $dosage->cbcr_id($dosage->vaccination_facility);
         });
 

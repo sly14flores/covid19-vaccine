@@ -14,7 +14,7 @@
                   <div class="main">
                     <img class="banner-header" src="img/header.png" />
                     <h3 class="text-center text-underline text-bold">CoViD-19 VACCINATION <br /> CERTIFICATE</h3> <br />
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This serves as proof that the vaccine whose made name and details appear herein below has been vaccinated against of Covid-19. For any clarification, you may reach us thru email, pglupho.vax@gmail.com or telephone number (072) 242-5580 local 258</p>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This serves as proof that the vaccine whose made name and details appear herein has been vaccinated against of CoViD-19. For any clarification, you may reach us thru email, pglupho.vax@gmail.com or telephone number (072) 242-5580 local 258</p>
                     <br />
                   </div>
                   
@@ -54,7 +54,7 @@
                           <p class="text-bold">&nbsp;{{first_dosage.lot_number}}</p>
                         </div>
                         <div class="column-20">
-                          <p>Vaccine Brand:</p>
+                          <p>Vaccine Manufacturer:</p>
                           <p>Dose: </p>
                           <p>Vaccination Date: </p>
                           <p>Vaccination Site:</p>
@@ -400,7 +400,7 @@ body {
   float: right;
 }
 .qr-code {
-  width: 70%;
+  width: 41%;
   margin-left: 10px;
   float: left;
 }
