@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class RegistrationsCertificateListResourceCollection extends ResourceCollection
+class DosageReportsResourceCollection extends ResourceCollection
 {
 
     public function __construct($resource)

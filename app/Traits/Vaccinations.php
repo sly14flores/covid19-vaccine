@@ -36,22 +36,36 @@ trait Vaccinations {
 
     }     
 
-    public function firstDose($qr_pass_id,$value)
+    public function firstDose($qr_pass_id,$brand,$value)
     {
 
         $registration = Registration::where('qr_pass_id', $qr_pass_id)->first();
-
+        
+        /**
+         * Update:
+         * first_dose
+         * fully_vaccinated
+         */
         $registration->first_dose = $value;
+        $registration->fully_vaccinated = $this->isFullyVaccinated($brand);
+
         $registration->save();
 
     }
 
-    public function secondDose($qr_pass_id,$value)
+    public function secondDose($qr_pass_id,$brand,$value)
     {
 
         $registration = Registration::where('qr_pass_id', $qr_pass_id)->first();
 
+        /**
+         * Update:
+         * second_dose
+         * fully_vaccinated
+         */
         $registration->second_dose = $value;
+        $registration->fully_vaccinated = $this->isFullyVaccinated($brand);
+
         $registration->save();
 
     }
@@ -63,6 +77,25 @@ trait Vaccinations {
 
         $registration->fully_vaccinated = $value;
         $registration->save();        
+
+    }
+
+    public function isFullyVaccinated($brand_doses)
+    {
+
+        $brands = config('constants.brands');
+
+        $fully_vaccinated = false;
+        
+        if ($brand_name!=null) {
+            $get_brand = collect($brands)->where('id',$brand_name)->first();
+            $brand_doses = $get_brand['dosages'];
+            if (count($doses) >= $brand_doses) {
+                $fully_vaccinated = true;
+            }
+        }
+
+        return $fully_vaccinated;
 
     }
 

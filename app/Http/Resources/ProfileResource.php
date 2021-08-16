@@ -8,8 +8,9 @@ use App\Models\CityMun;
 use App\Models\Province;
 use App\Traits\DOHHelpers;
 
-class RegistrationCertificateResource extends JsonResource
+class ProfileResource extends JsonResource
 {
+    
     use DOHHelpers;
 
     /**
@@ -20,6 +21,7 @@ class RegistrationCertificateResource extends JsonResource
      */
     public function toArray($request)
     {
+
         $dosages = $this->dosages()->get()->makeHidden(['created_at']);
 
         $dosages->map(function($dosage, $i) {
@@ -31,22 +33,20 @@ class RegistrationCertificateResource extends JsonResource
         });
 
         return [
-            'id' => $this->id,
-            'qr_pass_id' => $this->qr_pass_id,
-            'first_name' => $this->first_name,
-            'middle_name' => $this->middle_name,
-            'last_name' => $this->last_name,
-            'suffix' => $this->suffix,
-            'birthdate' => $this->birthdate,
-            'gender' => $this->gender,
+            "id" => $this->id,
+            "qr_pass_id" => $this->qr_pass_id,
+            "last_name" => $this->last_name,
+            "first_name" => $this->first_name,
+            "middle_name" => $this->middle_name,
+            "suffix" => $this->suffix,
+            "birthdate" => $this->birthdate,
+            'contact_no' => $this->contact_no,
+            "philhealth" => $this->philhealth,
             'dosages' => $dosages,
             'province' => $this->province,
-            'address' => $this->address,
             'townCity' => (is_null($this->townCity))?"":$this->townCity->citymunDesc,
             'barangay' => $this->barangay,
             'fully_vaccinated' => $this->fully_vaccinated,
-            'contact_no' => $this->contact_no,
-            'philhealth' => $this->philhealth,
             'priority_group' => $this->priority($this->priority_group),
         ];
     }

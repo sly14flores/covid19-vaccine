@@ -147,6 +147,15 @@ const getRegistrationCertificate = (payload) => {
     return axios.get(url)
 }
 
+/**
+ * Dosages
+ */
+ const getDosages = (payload) => {
+    return axios.get(`${api_url}/api/reports/dosages`,
+        {params: {...payload} }
+    )
+}
+
 export {
     getRegistrationsList,
     getScreeningPersonalInfo,
@@ -163,5 +172,6 @@ export {
     getDeferrals,
     getRegistrationCertificate,
     getRegistrationCertificates,
-    getRegistrationsReports
+    getRegistrationsReports,
+    getDosages
 }

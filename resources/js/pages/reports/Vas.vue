@@ -16,21 +16,21 @@
         <Toolbar class="p-mb-2">
             <template #left>
                 <div class=" p-fluid p-grid p-formgrid">
-                    <!-- <div class="p-field p-col-12 p-md-4">
+                    <div class="p-field p-col-12 p-md-4">
                         <label for="basic"><small>Napanam ID No, first name or last name</small></label>
                         <InputText class="p-shadow-1 p-inputtext-sm" v-model="search" placeholder="Search . . ." />
-                    </div> -->
-                    <div class="p-field p-col-12 p-md-5">
+                    </div>
+                    <div class="p-field p-col-12 p-md-3">
                         <label for="basic"><small>Start Date:</small></label>
                         <Calendar class="p-shadow-1 p-inputtext-sm" id="start_date" v-model="start_date" />
                     </div>
-                    <div class="p-field p-col-12 p-md-5">
+                    <div class="p-field p-col-12 p-md-3">
                         <label for="basic"><small>End Date:</small></label>
                         <Calendar class="p-shadow-1 p-inputtext-sm" id="end_date" v-model="end_date" />
                     </div>
                     <div class="p-field p-col-12 p-md-2">
                         <label for="basic">&nbsp;</label>
-                        <Button class="p-button-sm" label="Go!" @click="fetchRegistrations({page: 0})" />
+                        <Button class="p-button-sm" label="Go!" @click="fetchDosages({page: 0})" />
                     </div>
                 </div>
             </template>
@@ -43,14 +43,14 @@
             </template>
         </Toolbar>
         <Panel header="List">
-            <!-- <DataTable class="p-datatable-sm" :value="registrations" responsiveLayout="scroll">
+            <DataTable class="p-datatable-sm" :value="registrations" responsiveLayout="scroll">
                 <Column field="qr_pass_id" header="Napanam ID No"></Column>
                 <Column field="first_name" header="First Name"></Column>
-                <Column field="middle_name" header="Middle Name"></Column>
                 <Column field="last_name" header="Last Name"></Column>
-                <Column field="town_city" header="Municipality"></Column>
+                <Column field="brand_name" header="Brand Name"></Column>
+                <Column field="vaccinator" header="Vaccinator"></Column>
             </DataTable>
-            <Paginator :rows="pagination.per_page" :totalRecords="pagination.total" @page="fetchRegistrations($event)"></Paginator> -->
+            <Paginator :rows="pagination.per_page" :totalRecords="pagination.total" @page="fetchDosages($event)"></Paginator>
         </Panel>
     </div>
 </template>
@@ -58,21 +58,20 @@
 <script>
 
 import MyBreadcrumb from '../../components/MyBreadcrumb.vue';
-import Panel from 'primevue/panel/sfc';
 import DataTable from 'primevue/datatable/sfc';
-import Paginator from 'primevue/paginator/sfc';
 import Column from 'primevue/column/sfc';
-import Button from 'primevue/button/sfc';
-import BlockUI from 'primevue/blockui/sfc';
 import FileUpload from 'primevue/fileupload/sfc';
-import Toolbar from 'primevue/toolbar/sfc';
-import Dropdown from 'primevue/dropdown/sfc';
+import Paginator from 'primevue/paginator/sfc';
+import Panel from 'primevue/panel/sfc';
+import Button from 'primevue/button/sfc';
 import InputText from 'primevue/inputtext/sfc';
+import Toolbar from 'primevue/toolbar/sfc';
 import Calendar from 'primevue/calendar/sfc';
+import Dropdown from 'primevue/dropdown/sfc';
 
 import { reactive, ref, toRefs } from 'vue'
 import { useStore } from 'vuex'
-import { getRegistrationCertificates } from '../../api/vaccination'
+import { getDosages } from '../../api/vaccination'
 
 import { api_url } from '../../url.js'
 
@@ -92,7 +91,6 @@ export default {
         Paginator,
         Column,
         Button,
-        BlockUI,
         FileUpload,
         Toolbar,
         InputText,
@@ -130,7 +128,7 @@ export default {
             end_date: new Date()
         })
 
-        const fetchRegistrations = (event) => {
+        const fetchDosages = (event) => {
 
             Swal.fire({
                 title: 'Please wait...',
@@ -148,19 +146,10 @@ export default {
 
             const { page } = event
 
-            getRegistrationCertificates({page: page+1, search: search.value, start_date: state.start_date, end_date: state.end_date}).then(res => {
+            getDosages({page: page+1, search: search.value, start_date: state.start_date, end_date: state.end_date}).then(res => {
 
                 const { data: { data: { data, pagination } } } = res
                 
-                data.map((item) => {
-
-                    const city = item.town_city;
-                    const cityStr = city.replace(/_/g, " ");
-
-                    item.town_city = cityStr.replace(/[0-9]/g, '');
-
-                })
-
                 Object.assign(state, {
                     registrations: data, 
                     pagination
@@ -189,13 +178,14 @@ export default {
                 }
             })
         }
-        
+
+        console.log(state)
 
         return {
             search,
             ...toRefs(state),
             downloadUrl,
-            fetchRegistrations,
+            fetchDosages,
             uploadUrl,
             consoles,
         }
@@ -209,8 +199,11 @@ export default {
             import: {
                 excel: null,
                 path: null
-            }
+            },
         }
+    },
+    mounted() {
+        this.fetchDosages({ page: 0 });
     },
     computed: {
         showTerminal() {
@@ -275,9 +268,6 @@ export default {
             })
 
         },
-    },
-    mounted() {
-        this.fetchRegistrations({ page: 0 })
-    }  
+    }
 }
 </script>
