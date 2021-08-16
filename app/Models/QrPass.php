@@ -41,6 +41,7 @@ class QrPass extends Model
         'link_status',
         'qrpass_status',
         'health_status',
+        'vax_status',
     ];
 
     protected $hidden = [
