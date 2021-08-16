@@ -458,9 +458,9 @@ export default {
         // teacher_value() {
         //     return this.$store.state.vaccination.vaccination.priority_group.teacher
         // },
-        // individual_eligible_value(){
-        //     return this.$store.state.vaccination.vaccination.individual_eligible
-        // },
+        individual_eligible_value(){
+            return this.$store.state.vaccination.vaccination.individual_eligible
+        },
         immunized_vs_eligible_value(){
             return this.$store.state.vaccination.vaccination.immunized_vs_eligible
         },

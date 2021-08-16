@@ -19,7 +19,7 @@ class VaccinationFlags extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Registration doses flags';
 
     /**
      * Create a new command instance.
