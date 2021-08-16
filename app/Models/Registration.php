@@ -209,7 +209,7 @@ class Registration extends Model
     public function scopeOrFirstDose($query)
     {
         return $query->orWhere('first_dose', 1);
-    }    
+    }
 
     public function scopeSecondDose($query)
     {
