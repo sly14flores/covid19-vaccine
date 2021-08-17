@@ -164,6 +164,8 @@ export default {
         getRegistrationCertificate({ id: registrationId }).then(res => {
             const { data: { data } } = res
             const { dosages } = data
+            
+            dosages.sort((a, b) => (a.dose > b.dose) ? 1 : -1)
 
             if(dosages.length == 0) {
 
@@ -250,8 +252,6 @@ export default {
                 toggle_second_dose: state.toggle_second_dose,
                 qrcode: `${pushQrCode+data.qr_pass_id+'/'}`
             })
-
-            console.log(state.qrcode)
 
         }).catch(err => {
 

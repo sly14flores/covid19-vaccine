@@ -199,6 +199,8 @@ const actions = {
 
             const { data: { data } } = await getNapanam({ id, birthdate })
             const { dosages } = data
+            
+            dosages.sort((a, b) => (a.dose > b.dose) ? 1 : -1)
 
             const province = data.province;
             const barangay = data.barangay;
