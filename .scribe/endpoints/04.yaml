@@ -1,0 +1,169 @@
+name: Screening
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: 'api/doh/vaccines/screening/info/{id}'
+    metadata:
+      title: 'Personal Info for Screening'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the info.'
+        required: true
+        example: voluptas
+        type: string
+    queryParameters: []
+    bodyParameters:
+      dose:
+        name: dose
+        description: ''
+        required: true
+        example: 1
+        type: integer
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/doh/vaccines/screening/update
+    metadata:
+      title: 'Update screening per dose'
+      description: ''
+      authenticated: true
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      id:
+        name: id
+        description: ''
+        required: true
+        example: ea
+        type: string
+      dosage_id:
+        name: dosage_id
+        description: ''
+        required: true
+        example: 4
+        type: integer
+      dose:
+        name: dose
+        description: ''
+        required: true
+        example: 19
+        type: integer
+      screened:
+        name: screened
+        description: ''
+        required: false
+        example: false
+        type: boolean
+      vitals:
+        name: vitals
+        description: ''
+        required: false
+        example:
+          - []
+          - []
+        type: 'object[]'
+      pre_assessment:
+        name: pre_assessment
+        description: ''
+        required: true
+        example: []
+        type: object
+      pre_assessment.dose:
+        name: pre_assessment.dose
+        description: ''
+        required: true
+        example: 15
+        type: integer
+      pre_assessment.dosage_id:
+        name: pre_assessment.dosage_id
+        description: ''
+        required: true
+        example: 10
+        type: integer
+      pre_assessment.consent:
+        name: pre_assessment.consent
+        description: ''
+        required: true
+        example: commodi
+        type: string
+      pre_assessment.user_id:
+        name: pre_assessment.user_id
+        description: ''
+        required: false
+        example: 17
+        type: integer
+      pre_assessment.reason:
+        name: pre_assessment.reason
+        description: ''
+        required: true
+        example: reiciendis
+        type: string
+      pre_assessment.screened:
+        name: pre_assessment.screened
+        description: ''
+        required: true
+        example: false
+        type: boolean
+      pre_assessment.remarks:
+        name: pre_assessment.remarks
+        description: ''
+        required: false
+        example: officia
+        type: string
+      pre_assessment.assessments:
+        name: pre_assessment.assessments
+        description: ''
+        required: false
+        example:
+          - []
+          - []
+        type: 'object[]'
+      'pre_assessment.assessments[].key':
+        name: 'pre_assessment.assessments[].key'
+        description: ''
+        required: false
+        example: 18
+        type: integer
+      'pre_assessment.assessments[].description':
+        name: 'pre_assessment.assessments[].description'
+        description: ''
+        required: false
+        example: quam
+        type: string
+      'pre_assessment.assessments[].value':
+        name: 'pre_assessment.assessments[].value'
+        description: ''
+        required: false
+        example: true
+        type: boolean
+      'vitals[].dose':
+        name: 'vitals[].dose'
+        description: ''
+        required: false
+        example: 9
+        type: integer
+      dels:
+        name: dels
+        description: ''
+        required: false
+        example:
+          - 15
+          - 1
+        type: 'integer[]'
+    responses: []
+    responseFields: []
