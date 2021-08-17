@@ -210,6 +210,8 @@ const actions = {
 
             data.province = provinceStr.replace(/[0-9]/g, '');
             data.barangay = brgyStr.replace(/[0-9]/g, '');
+
+            if(data.suffix=="NA") data.suffix = "";
             
             // const add_zero = yourDate.getMonth() < 9 ? '0': '';
             // const month = yourDate.getMonth()+1;
