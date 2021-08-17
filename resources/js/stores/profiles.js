@@ -213,10 +213,6 @@ const actions = {
 
             if(data.suffix=="NA") data.suffix = "";
             
-            // const add_zero = yourDate.getMonth() < 9 ? '0': '';
-            // const month = yourDate.getMonth()+1;
-            // const date_now = `${yourDate.getFullYear()+'-'+add_zero+month+'-'+yourDate.getDate()}`;
-            
             if(dosages[0].brand_description==""){
 
                 dosages[0].date_of_vaccination = ""
