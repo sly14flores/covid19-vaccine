@@ -26,7 +26,7 @@
                           <p>Status: <label class="text-bold">{{status}}</label></p>
                         </div>
                         <div class="column-50">
-                        <p class="text-bold">{{fullname}}</p>
+                        <p class="text-bold p-text-uppercase">{{fullname}}</p>
                         <p class="text-bold">{{personalInfo.birthdate}}</p>
                         <p class="text-bold">{{personalInfo.gender}}</p>
                         <p class="text-bold">{{personalInfo.barangay}}, {{personalInfo.townCity}}{{personalInfo.province}}</p>
@@ -91,7 +91,7 @@
                             </h1>
                       </div>
                   </div>
-                  <div class="row hidden">
+                  <div class="row hidden footer-size">
                         <div class="column">
                           <p class="text-center">This computer-generated document is issued by the Provincial Government of La Union, <br />through the Provincial Health Office. All data made available through <br /> https://vaccines.launion.gov.ph is verified and encrypted</p> <br />
                           <p class="text-center">Powered by Provincial Government of La Union - Information Communications and Technology Unit</p>
@@ -164,6 +164,8 @@ export default {
         getRegistrationCertificate({ id: registrationId }).then(res => {
             const { data: { data } } = res
             const { dosages } = data
+            
+            dosages.sort((a, b) => (a.dose > b.dose) ? 1 : -1)
 
             if(dosages.length == 0) {
 
@@ -238,11 +240,10 @@ export default {
 
             const pushQrCode = `${"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+state.url}`
 
-
             Object.assign(state, {
                 ...state,
                 personalInfo: data,
-                fullname: `${data.first_name.toUpperCase()+' '+data.last_name.toUpperCase()}`,
+                fullname: `${data.first_name+' '+data.middle_name+' '+data.last_name+' '+data.suffix}`,
                 dosages: dosages,
                 first_dosage: dosages[0],
                 first_facility: state.first_facility,
@@ -251,8 +252,6 @@ export default {
                 toggle_second_dose: state.toggle_second_dose,
                 qrcode: `${pushQrCode+data.qr_pass_id+'/'}`
             })
-
-            console.log(state.qrcode)
 
         }).catch(err => {
 
@@ -488,6 +487,10 @@ body {
   color: rgb(0, 0, 0);
   text-align: center;
   display: none;
+  font-size: 12px;
+}
+.footer-size {
+  font-size: 12px;
 }
 .text-underline {
   text-decoration: underline;
