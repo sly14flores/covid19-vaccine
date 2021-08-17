@@ -98,7 +98,7 @@ trait Vaccinations {
 
     }
 
-    public function isFullyVaccinated($brand_doses)
+    public function isFullyVaccinated($brand_name)
     {
 
         $brands = config('constants.brands');
