@@ -249,37 +249,30 @@ const actions = {
             }
   
             // Second Dose
-            if(dosages.length==2) {
+            if(dosages.length==2 && dosages[1].brand_description!="") {
 
                 state.status = "Fully Vaccinated";
                 state.icon = "pi pi-check";
                 state.color = "success";
                 state.toggle_second_dose = true;
 
-                if(dosages[1].brand_description==""){
+                const dateNow = new Date();
+                
+                const getDayToday = dateNow.getDate();
+                const getDayYesterday = dateNow.getDate()-1;
+                
+                const today = `${dateNow.toLocaleString('default', { month: 'long' })+' '+getDayToday+', '+dateNow.getFullYear()}`;
+                const yesterday = `${dateNow.toLocaleString('default', { month: 'long' })+' '+getDayYesterday+', '+dateNow.getFullYear()}`;
 
-                    dosages[1].date_of_vaccination = ""
-                    dosages[1].time_of_vaccination = "Data not found"
-    
-                } else {
-                    const dateNow = new Date();
+                const second = new Date(dosages[1].date_of_vaccination);
+                const second_date_vaccination = `${second.toLocaleString('default', { month: 'long' })+' '+second.getDate()+', '+second.getFullYear()}`
+                dosages[1].date_of_vaccination = second_date_vaccination;
+
+                if(second_date_vaccination==today) dosages[1].date_of_vaccination = "today";
+                if(second_date_vaccination==yesterday) dosages[1].date_of_vaccination = "yesterday";
+
+                if(dosages[1].user!=null) state.second_facility = dosages[1].user.user_hospital.description;
                     
-                    const getDayToday = dateNow.getDate();
-                    const getDayYesterday = dateNow.getDate()-1;
-                    
-                    const today = `${dateNow.toLocaleString('default', { month: 'long' })+' '+getDayToday+', '+dateNow.getFullYear()}`;
-                    const yesterday = `${dateNow.toLocaleString('default', { month: 'long' })+' '+getDayYesterday+', '+dateNow.getFullYear()}`;
-
-                    const second = new Date(dosages[1].date_of_vaccination);
-                    const second_date_vaccination = `${second.toLocaleString('default', { month: 'long' })+' '+second.getDate()+', '+second.getFullYear()}`
-                    dosages[1].date_of_vaccination = second_date_vaccination;
-
-                    if(second_date_vaccination==today) dosages[1].date_of_vaccination = "today";
-                    if(second_date_vaccination==yesterday) dosages[1].date_of_vaccination = "yesterday";
-
-                    if(dosages[1].user!=null) state.second_facility = dosages[1].user.user_hospital.description;
-                    
-                }
             }
 
             commit('REGISTRATION', data)
