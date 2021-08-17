@@ -211,10 +211,14 @@ export default {
             data.province = provinceStr.replace(/[0-9]/g, '');
             data.barangay = brgyStr.replace(/[0-9]/g, '');
 
+            if(data.suffix=="NA") data.suffix = "";
+
             // First Dose
             const first = new Date(dosages[0].date_of_vaccination);
 
-            const first_date_vaccination = `${first.toLocaleString('default', { month: 'long' })+' '+first.getDate()+', '+first.getFullYear()}`
+            const add_zero = first.getMonth() < 9 ? '0': '';
+            const month = first.getMonth()+1;
+            const first_date_vaccination = `${add_zero+month+'/'+first.getDate()+'/'+first.getFullYear()}`;
             dosages[0].date_of_vaccination = first_date_vaccination;
 
             if(dosages.length >= 1) {
@@ -228,14 +232,15 @@ export default {
             }
 
             // Second Dose
-            if(dosages.length==2) {
+            if(dosages.length==2 && dosages[1].brand_description!="") {
 
                 state.status = "Fully Vaccinated";
                 state.toggle_second_dose = true;
 
                 const second = new Date(dosages[1].date_of_vaccination);
-
-                const second_date_vaccination = `${second.toLocaleString('default', { month: 'long' })+' '+second.getDate()+', '+second.getFullYear()}`
+                const add_zero = second.getMonth() < 9 ? '0': '';
+                const month = second.getMonth()+1;
+                const second_date_vaccination = `${add_zero+month+'/'+second.getDate()+'/'+second.getFullYear()}`;
                 dosages[1].date_of_vaccination = second_date_vaccination;
 
                 state.second_dosage = dosages[1];

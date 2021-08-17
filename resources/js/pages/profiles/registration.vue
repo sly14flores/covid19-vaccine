@@ -163,7 +163,7 @@
                                                   <label>Lot Number </label>
                                                   <p class="p-text-value p-text-bold">{{second_dosage.lot_number}}</p>
                                               </div>
-                                              <div class="p-field p-col-6 p-md-4">
+                                              <div class="p-field p-col-12 p-md-4">
                                                   <label>Vaccinator </label>
                                                   <p class="p-text-value p-text-bold">{{second_dosage.vaccinator}}</p>
                                               </div>
