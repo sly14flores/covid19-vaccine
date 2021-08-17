@@ -9,7 +9,7 @@
           <div class="p-grid p-jc-center p-mt-4">
               <div class="p-lg-10 p-sm-12 p-xs-12">
                   <div class="card p-fluid p-border-top">
-                      <h4> Vaccinee Details</h4>
+                      <h4> Patient Details</h4>
                       <hr />
                       <div class="p-grid">
                           <div class="p-field p-col-6 p-md-3">
