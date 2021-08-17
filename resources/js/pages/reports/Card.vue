@@ -30,16 +30,16 @@
             <br>
             <div class="line-2 row">
               <div class="column-25">
-                <label class="text-bold">{{personalInfo.last_name}}</label>
+                <label class="text-bold p-text-uppercase">{{personalInfo.last_name}}</label>
               </div>
               <div class="column-25">
-                <label class="text-bold"> {{personalInfo.first_name}}</label>
+                <label class="text-bold p-text-uppercase"> {{personalInfo.first_name}}</label>
               </div>
               <div class="column-25">
-                <label class="text-bold">{{personalInfo.middle_name}}</label>
+                <label class="text-bold p-text-uppercase">{{personalInfo.middle_name}}</label>
               </div>
               <div class="column-25">
-                <label class="text-bold">{{personalInfo.suffix}}</label>
+                <label class="text-bold p-text-uppercase">{{personalInfo.suffix}}</label>
               </div>
             </div>
 
@@ -173,6 +173,8 @@ export default {
             const { data: { data } } = res
             const { dosages } = data
 
+            dosages.sort((a, b) => (a.dose > b.dose) ? 1 : -1)
+
             if(dosages.length == 0) {
 
                 Swal.fire({
@@ -243,11 +245,6 @@ export default {
                 }
                 
             }
-
-            data.first_name = data.first_name.toUpperCase();
-            data.last_name = data.last_name.toUpperCase();
-            data.middle_name = data.middle_name.toUpperCase();
-            data.suffix = data.suffix.toUpperCase();
 
             Object.assign(state, {
                 ...state,
