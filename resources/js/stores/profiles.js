@@ -125,6 +125,7 @@ const mutations = {
         state.registration.first_dosage.batch_number = payload.dosages[0].batch_number
         state.registration.first_dosage.lot_number = payload.dosages[0].lot_number
         state.registration.first_dosage.vaccinator = payload.dosages[0].vaccinator
+        state.registration.first_dosage.next_vaccination = payload.dosages[0].next_vaccination
 
         state.registration.second_dosage.date_of_vaccination = payload.dosages[1].date_of_vaccination
         state.registration.second_dosage.time_of_vaccination = payload.dosages[1].time_of_vaccination
