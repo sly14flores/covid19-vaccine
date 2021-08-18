@@ -14,35 +14,34 @@
                   <div class="main">
                     <img class="banner-header" src="img/header.png" />
                     <h3 class="text-center text-underline text-bold">CoViD-19 VACCINATION <br /> CERTIFICATE</h3> <br />
-                    <p class="margin-both-side text-justify">This serves as proof that the patient whose name and details appear herein has been inoculated against CoViD-19. For any clarification, you may reach us thru email, pglupho.vax@gmail.com or telephone number (072) 242-5580 local 258</p>
+                    <p class="margin-both-side text-justify">This serves as proof that the patient whose name and details appear herein has been inoculated against CoViD-19. For any clarification, you may reach us thru email, pglupho.vax@gmail.com or telephone number (072) 242-5580 local 258.</p>
                     <br />
                   </div>
                   
                   <br class="hidden" />
                   <div class="text-body margin-both-side">
-                    <div class="title">Patient Details</div>
+                    <div class="title">Patient Details</div> <br />
                     <div class="row">
-                        <div class="column-25">
-                          <p>Status: <label class="text-bold">{{status}}</label></p>
-                        </div>
+                        <div class="column-25"></div>
                         <div class="column-50">
                         <p class="text-bold p-text-uppercase">{{fullname}}</p>
-                        <p class="text-bold">{{personalInfo.birthdate}}</p>
-                        <p class="text-bold">{{personalInfo.gender}}</p>
+                        <p class="text-bold p-text-uppercase">{{personalInfo.gender}}</p>
                         <p class="text-bold">{{personalInfo.barangay}}, {{personalInfo.townCity}}{{personalInfo.province}}</p>
+                        <p class="text-bold">{{status}}</p>
                         </div>
                         <div class="column-20">
                           <p>Name: </p>
-                          <p>Birthdate: </p>
                           <p>Sex:</p>
                           <p>Address: </p>
+                          <p>Status: </p>
                         </div>
                     </div>
+                    <br />
                   </div>
                 <br />
                 <br />
                 <div class="text-body margin-both-side">
-                    <div class="title">Vaccination Details</div>
+                    <div class="title">Vaccination Details</div><br />
                     <div class="row">
                         <div class="column-25"></div>
                         <div class="column-50">
@@ -76,6 +75,7 @@
                           <p>Lot Number: </p>
                         </div>
                     </div>
+                    <br />
                 </div>
                 <br />
                   <div class="row">
@@ -202,6 +202,8 @@ export default {
 
             data.province = provinceStr.replace(/[0-9]/g, '');
             data.barangay = brgyStr.replace(/[0-9]/g, '');
+
+            if(data.suffix=="NA") data.suffix = "";
 
             // First Dose
             const first = new Date(dosages[0].date_of_vaccination);

@@ -210,10 +210,8 @@ const actions = {
 
             data.province = provinceStr.replace(/[0-9]/g, '');
             data.barangay = brgyStr.replace(/[0-9]/g, '');
-            
-            // const add_zero = yourDate.getMonth() < 9 ? '0': '';
-            // const month = yourDate.getMonth()+1;
-            // const date_now = `${yourDate.getFullYear()+'-'+add_zero+month+'-'+yourDate.getDate()}`;
+
+            if(data.suffix=="NA") data.suffix = "";
             
             if(dosages[0].brand_description==""){
 

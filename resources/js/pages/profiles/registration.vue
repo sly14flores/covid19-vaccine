@@ -69,7 +69,7 @@
                   </div>
                 
                   <div class="card p-fluid p-border-top">
-                    <h4>Vaccination</h4> <hr />
+                    <h4>Vaccination Details</h4> <hr />
                     <div class="row">
                       <div class="col-md-12">
                         <div id="content" class="content content-full-width">
@@ -95,14 +95,14 @@
                                         <div class="timeline-content">
                                           <div class="p-grid">
                                               <div class="p-field p-col-12 p-md-4">
-                                                  <label>Vaccine Manufacturer </label>
+                                                  <label>Manufacturer </label>
                                                   <p class="p-text-value p-text-bold">{{first_dosage.brand_name}}</p>
                                               </div>
-                                              <div class="p-field p-col-6 p-md-4">
+                                              <div class="p-field p-col-12 p-md-4">
                                                   <label>Vaccine Name </label>
                                                   <p class="p-text-value p-text-bold">{{first_dosage.vaccine_name}}</p>
                                               </div>
-                                              <div class="p-field p-col-6 p-md-4">
+                                              <div class="p-field p-col-12 p-md-4">
                                                   <label>Facility</label>
                                                   <p class="p-text-value p-text-bold">{{registration.first_facility}}</p>
                                               </div>
@@ -116,7 +116,7 @@
                                                   <label>Lot Number </label>
                                                   <p class="p-text-value p-text-bold">{{first_dosage.lot_number}}</p>
                                               </div>
-                                              <div class="p-field p-col-6 p-md-4">
+                                              <div class="p-field p-col-12 p-md-4">
                                                   <label>Vaccinator </label>
                                                   <p class="p-text-value p-text-bold">{{first_dosage.vaccinator}}</p>
                                               </div>
@@ -142,14 +142,14 @@
                                         <div class="timeline-content">
                                           <div class="p-grid">
                                               <div class="p-field p-col-12 p-md-4">
-                                                  <label>Vaccine Manufacturer </label>
+                                                  <label>Manufacturer </label>
                                                   <p class="p-text-value p-text-bold">{{second_dosage.brand_name}}</p>
                                               </div>
-                                              <div class="p-field p-col-6 p-md-4">
+                                              <div class="p-field p-col-12 p-md-4">
                                                   <label>Vaccine Name </label>
                                                   <p class="p-text-value p-text-bold">{{second_dosage.vaccine_name}}</p>
                                               </div>
-                                              <div class="p-field p-col-6 p-md-4">
+                                              <div class="p-field p-col-12 p-md-4">
                                                   <label>Facility</label>
                                                   <p class="p-text-value p-text-bold">{{registration.second_facility}}</p>
                                               </div>
@@ -163,7 +163,7 @@
                                                   <label>Lot Number </label>
                                                   <p class="p-text-value p-text-bold">{{second_dosage.lot_number}}</p>
                                               </div>
-                                              <div class="p-field p-col-6 p-md-4">
+                                              <div class="p-field p-col-12 p-md-4">
                                                   <label>Vaccinator </label>
                                                   <p class="p-text-value p-text-bold">{{second_dosage.vaccinator}}</p>
                                               </div>
