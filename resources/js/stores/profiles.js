@@ -230,6 +230,10 @@ const actions = {
                 const first = new Date(dosages[0].date_of_vaccination);
                 const first_date_vaccination = `${first.toLocaleString('default', { month: 'long' })+' '+first.getDate()+', '+first.getFullYear()}`;
                 dosages[0].date_of_vaccination = first_date_vaccination;
+
+                const next = new Date(dosages[0].next_vaccination);
+                const next_vaccination = `${next.toLocaleString('default', { month: 'long' })+' '+next.getDate()+', '+next.getFullYear()}`;
+                dosages[0].next_vaccination = next_vaccination;
                 
                 if(first_date_vaccination==today) dosages[0].date_of_vaccination = "today";
                 if(first_date_vaccination==yesterday) dosages[0].date_of_vaccination = "yesterday";
