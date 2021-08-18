@@ -149,6 +149,11 @@ export default {
             getDosages({page: page+1, search: search.value, start_date: state.start_date, end_date: state.end_date}).then(res => {
 
                 const { data: { data: { data, pagination } } } = res
+                data.map(item => {
+                   item.first_name = item.first_name.toUpperCase();
+                   item.middle_name = item.middle_name.toUpperCase();
+                   item.last_name = item.last_name.toUpperCase();
+                })
                 
                 Object.assign(state, {
                     registrations: data, 

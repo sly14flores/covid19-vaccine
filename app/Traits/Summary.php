@@ -737,9 +737,12 @@ trait Summary
         }
 
         $registrations = Registration::whereBetween('created_at',[$startFilter,$endFilter])->get();
-
         $total_registration = $registrations->count();
-        
+
+        $online = $registrations->where('origin', 'Online')->count();
+        $manual = $registrations->where('origin', 'Manual')->count();
+        $import = $registrations->where('origin', NULL)->count();
+
         $female = $registrations->where('gender','01_Female')->count();
         $male = $registrations->where('gender','02_Male')->count();
 
@@ -785,6 +788,11 @@ trait Summary
                 'female' => number_format($female)
             ],
             'municipalities'=>$municipality,
+            'origin' => [
+                'total_online' => number_format($online),
+                'total_manual' => number_format($manual),
+                'total_import' => number_format($import),
+            ],
         ];
 
         return $data;

@@ -75,12 +75,11 @@
         
         <Panel header="List">
             <DataTable :value="registrations" responsiveLayout="scroll">
-                <Column field="qr_pass_id" header="Napanam ID No" :sortable="true"></Column>
-                <Column field="first_name" header="First Name" :sortable="true"></Column>
-                <Column field="middle_name" header="Middle Name" :sortable="true"></Column>
-                <Column field="last_name" header="Last Name" :sortable="true"></Column>
-                <Column field="townCity" header="Municipality/City" :sortable="true"></Column>
-                <!-- <Column field="" header="Priority Group" :sortable="true"></Column> -->
+                <Column field="qr_pass_id" header="Napanam ID No"></Column>
+                <Column field="first_name" header="First Name"></Column>
+                <Column field="middle_name" header="Middle Name"></Column>
+                <Column field="last_name" header="Last Name"></Column>
+                <Column field="townCity" header="Municipality/City"></Column>
                 <Column field="id" header="Actions">
                     <template #body="slotProps">
                         <router-link :to="`/registrations/registration/${slotProps.data.id}`"><Button icon="pi pi-fw pi-pencil" class="p-button-rounded p-button-success p-mr-2" /></router-link>

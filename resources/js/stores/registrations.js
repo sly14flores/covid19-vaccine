@@ -269,6 +269,12 @@ const actions = {
         try {
             const { page, town_city, start_date, end_date, search, origin } = payload
             const { data: { data: { data, pagination } } } = await getRegistrations({ page, town_city, start_date, end_date, search, origin })
+            data.map(item => {
+                item.first_name = item.first_name.toUpperCase();
+                item.middle_name = item.middle_name.toUpperCase();
+                item.last_name = item.last_name.toUpperCase();
+             })
+             
             dispatch('GET_REGISTRATIONS_SUCCESS', { data, pagination })
         } catch (error) {
             const { response } = error
