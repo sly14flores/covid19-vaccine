@@ -21,6 +21,11 @@ const registered = {
     gender: {
         male: 0,
         female: 0
+    },
+    origin: {
+        total_online: 0,
+        total_manual: 0,
+        total_import: 0,
     }
 }
 

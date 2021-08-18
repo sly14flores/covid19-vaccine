@@ -40,6 +40,47 @@
                         <div class="card card-bg-pg p-shadow-2">
                             <div class="p-grid">
                                 <div class="p-col-4 p-sm-4 p-md-4">
+                                    <img src="img/dashboard-icons/online.png" class="sixty" />
+                                </div>
+                                <div class="p-col-8 p-sm-8 p-md-8">
+                                    <h6 class="card-text-gray">Online</h6>
+                                    <h6 class="card-text-brown">{{total_online}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-col-12 p-md-4">
+                        <div class="card card-bg-pg p-shadow-2">
+                            <div class="p-grid">
+                                <div class="p-col-4 p-sm-4 p-md-4">
+                                    <img src="img/dashboard-icons/manual.png" class="sixty" />
+                                </div>
+                                <div class="p-col-8 p-sm-8 p-md-8">
+                                    <h6 class="card-text-gray">Manual</h6>
+                                    <h6 class="card-text-brown">{{total_manual}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-col-12 p-md-4">
+                        <div class="card card-bg-pg p-shadow-2">
+                            <div class="p-grid">
+                                <div class="p-col-4 p-sm-4 p-md-4">
+                                    <img src="img/dashboard-icons/import.png" class="sixty" />
+                                </div>
+                                <div class="p-col-8 p-sm-8 p-md-8">
+                                    <h6 class="card-text-gray">Import</h6>
+                                    <h6 class="card-text-brown">{{total_import}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-fluid p-grid">
+                    <div class="p-col-12 p-md-4">
+                        <div class="card card-bg-pg p-shadow-2">
+                            <div class="p-grid">
+                                <div class="p-col-4 p-sm-4 p-md-4">
                                     <img src="img/dashboard-icons/groups.png" class="sixty" />
                                 </div>
                                 <div class="p-col-8 p-sm-8 p-md-8">
@@ -330,6 +371,15 @@ export default {
         },
         female_value() {
             return this.$store.state.registered.registered.gender.female
+        },
+        total_online() {
+            return this.$store.state.registered.registered.origin.total_online
+        },
+        total_manual() {
+            return this.$store.state.registered.registered.origin.total_manual
+        },
+        total_import() {
+            return this.$store.state.registered.registered.origin.total_import
         },
         // provinces(){
         //     return this.$store.state.registered.selections.addresses.province_value
