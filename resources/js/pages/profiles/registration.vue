@@ -120,6 +120,10 @@
                                                   <label>Vaccinator </label>
                                                   <p class="p-text-value p-text-bold">{{first_dosage.vaccinator}}</p>
                                               </div>
+                                              <div class="p-field p-col-12 p-md-4">
+                                                  <label>Next Vaccination </label>
+                                                  <p class="p-text-value p-text-bold">{{first_dosage.next_vaccination}}</p>
+                                              </div>
                                           </div>
                                         </div>
                                       </div>
