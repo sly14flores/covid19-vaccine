@@ -1,60 +1,64 @@
 <template>
     <div>
         <MyBreadcrumb :home="home" :items="items" class="hidden"/>
-        <div class="row">
+        <div class="row main-content">
             <div class="column">
                 <div class="card">
                   <div class="row">
                     <Button icon="pi pi-fw pi-times" class="btn-right hidden p-button-sm p-button-danger p-mr-2" label="Cancel" @click="cancel()" />
                     <Button icon="pi pi-fw pi-print" class="btn-right hidden p-button-sm p-button-primary p-mr-2" label="Print" @click="print()" />
                   </div>
+                  <div>
+
+                  </div>
                   <div class="main">
                     <img class="banner-header" src="img/header.png" />
                     <h3 class="text-center text-underline text-bold">CoViD-19 VACCINATION <br /> CERTIFICATE</h3> <br />
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This serves as proof that the vaccine whose made name and details appear herein below has been vaccinated against of Covid-19. For any clarification, you may reach us thru email, pglupho.vax@gmail.com or telephone number (072) 242-5580 local 258</p>
+                    <p class="margin-both-side text-justify">This serves as proof that the patient whose name and details appear herein has been inoculated against CoViD-19. For any clarification, you may reach us thru email, pglupho.vax@gmail.com or telephone number (072) 242-5580 local 258.</p>
                     <br />
                   </div>
-
+                  
                   <br class="hidden" />
-                  <div class="text-body">
-                    <div class="title">Vaccinee Details</div>
-                    <div class="row">
-                        <div class="column-25">
-                          <p>Status: {{status}}</p>
-                        </div>
-                        <div class="column-50">
-                        <p label class="text-bold">{{fullname}}</p>
-                        <p label class="text-bold">{{personalInfo.birthdate}}</p>
-                        <p label class="text-bold">{{personalInfo.gender}}</p>
-                        <p label class="text-bold">{{personalInfo.barangay}}, {{personalInfo.townCity}}{{personalInfo.province}}</p>
-                        </div>
-                        <div class="column-20">
-                          <p>Name: </p>
-                          <p>Birthdate: </p>
-                          <p>Sex:</p>
-                          <p>Address: </p>
-                        </div>
-                    </div>
-                  </div>
-                <br />
-                <br />
-                <div class="text-body">
-                    <div class="title">Vaccination Details</div>
+                  <div class="text-body margin-both-side">
+                    <div class="title">Patient Details</div> <br />
                     <div class="row">
                         <div class="column-25"></div>
                         <div class="column-50">
-                          <p class="text-bold">&nbsp;{{first_dosage.vaccine_description}}</p>
-                          <p class="text-bold">&nbsp;{{first_dose}}</p>
-                          <p class="text-bold">&nbsp;{{first_dosage.date_of_vaccination}}</p>
-                          <p class="text-bold">&nbsp;{{first_facility}}</p>
-                          <p class="text-bold">&nbsp;{{first_dosage.lot_number}}</p>
+                        <p class="text-bold p-text-uppercase">{{fullname}}</p>
+                        <p class="text-bold p-text-uppercase">{{personalInfo.gender}}</p>
+                        <p class="text-bold">{{personalInfo.barangay}}, {{personalInfo.townCity}}{{personalInfo.province}}</p>
+                        <p class="text-bold">{{status}}</p>
                         </div>
                         <div class="column-20">
-                          <p>Vaccine Brand:</p>
+                          <p>Name: </p>
+                          <p>Sex:</p>
+                          <p>Address: </p>
+                          <p>Status: </p>
+                        </div>
+                    </div>
+                    <br />
+                  </div>
+                <br />
+                <br />
+                <div class="text-body margin-both-side">
+                    <div class="title">Vaccination Details</div><br />
+                    <div class="row">
+                        <div class="column-25"></div>
+                        <div class="column-50">
+                          <p class="text-bold">&nbsp;{{first_dosage.brand_description}}</p>
+                          <p class="text-bold">&nbsp;{{first_dose}}</p>
+                          <p class="text-bold">&nbsp;{{first_dosage.date_of_vaccination}} {{first_dosage.time_of_vaccination}}</p>
+                          <p class="text-bold">&nbsp;{{first_facility}}</p>
+                          <p class="text-bold">&nbsp;{{first_dosage.lot_number}}</p>
+                          <p class="text-bold">&nbsp;{{first_dosage.next_vaccination}}</p>
+                        </div>
+                        <div class="column-20">
+                          <p>Manufacturer:</p>
                           <p>Dose: </p>
-                          <p>Vaccination Date: </p>
+                          <p>Vaccination Date/Time: </p>
                           <p>Vaccination Site:</p>
                           <p>Lot Number: </p>
+                          <p>Next Vaccination: </p>
                         </div>
                     </div>
                     <hr>
@@ -62,35 +66,46 @@
                         <div class="column-25"></div>
                         <div class="column-50">
                         <p class="text-bold">&nbsp;{{second_dose}}</p>
-                        <p class="text-bold">&nbsp;{{second_dosage.date_of_vaccination}}</p>
+                        <p class="text-bold">&nbsp;{{second_dosage.date_of_vaccination}} {{first_dosage.time_of_vaccination}}</p>
                         <p class="text-bold">&nbsp;{{second_facility}}</p>
                         <p class="text-bold">&nbsp;{{second_dosage.lot_number}}</p>
                         </div>
                         <div class="column-20">
                           <p>Dose: </p>
-                          <p>Vaccination Date: </p>
+                          <p>Vaccination Date/Time: </p>
                           <p>Vaccination Site:</p>
                           <p>Lot Number: </p>
                         </div>
                     </div>
+                    <br />
                 </div>
                 <br />
-                  <!-- <div class="row">
+                  <div class="row">
                       <div class="qr-code">
-                        <p>Scan QR Code to validate authenticity</p>
-                        <p>The QR Code should be directed to https://vaccines.launion.gov.ph.</p>
+                        <p>&nbsp;</p>
+                        <!-- <p>Scan QR Code to validate authenticity</p>
+                        <p>The QR Code should be directed to https://vaccines.launion.gov.ph/profile.</p> -->
                       </div>
                       <div class="qr-code-img">
-                        <img src="img/qr.png" className="qr-image" />
+                            <!-- <img src="img/qr-profile.png" class="qr-image" /> -->
+                            <h1 class="qr-frame">
+                              <img class="qr-image qr-body" v-bind:src="qrcode" />
+                            </h1>
                       </div>
-                  </div> -->
-                    <div class="row">
+                  </div>
+                  <div class="row hidden footer-size">
                         <div class="column">
-                          <p class="text-center">This computer-generated document is issued by the Provincial Government of La Union, <br />through the Provincial Health Office. All data made available through <br /> https://vaccines.launion.gov.ph is verified and encrypted</p> <br/>
-                          <p class="text-center">Powered by Provincial Government of La Union - Information Communications and Technology Unit</p>
+                          <p class="text-center">This computer-generated document is issued by the Provincial Government of La Union, <br />through the Provincial Health Office. All data made available through <br /> https://vaccines.launion.gov.ph is verified and encrypted</p> <br />
+                          <p class="text-center">Powered by Provincial Government of La Union - Information and Communications Technology Unit</p>
                         </div>
                     </div>
                     <div class="footer">
+                      <div class="row">
+                          <div class="column">
+                            <p class="text-center">This computer-generated document is issued by the Provincial Government of La Union, <br />through the Provincial Health Office. All data made available through <br /> https://vaccines.launion.gov.ph is verified and encrypted</p> <br /> <br />
+                            <p class="text-center">Powered by Provincial Government of La Union - Information and Communications Technology Unit</p><br /> <br />
+                          </div>
+                      </div>
                       <img class="banner-header" src="img/footer.png" />
                     </div>
                 </div>
@@ -143,12 +158,16 @@ export default {
             first_facility: "",
             second_facility: "",
             status: "",
-            toggle_second_dose: true
+            toggle_second_dose: true,
+            qrcode: null,
+            url: `${api_url}/profile?/pr/`
         })
 
         getRegistrationCertificate({ id: registrationId }).then(res => {
             const { data: { data } } = res
             const { dosages } = data
+            
+            dosages.sort((a, b) => (a.dose > b.dose) ? 1 : -1)
 
             if(dosages.length == 0) {
 
@@ -186,11 +205,19 @@ export default {
             data.province = provinceStr.replace(/[0-9]/g, '');
             data.barangay = brgyStr.replace(/[0-9]/g, '');
 
+            if(data.suffix=="NA") data.suffix = "";
+
             // First Dose
             const first = new Date(dosages[0].date_of_vaccination);
 
             const first_date_vaccination = `${first.toLocaleString('default', { month: 'long' })+' '+first.getDate()+', '+first.getFullYear()}`
             dosages[0].date_of_vaccination = first_date_vaccination;
+
+            // First Dose
+            const next = new Date(dosages[0].next_vaccination);
+
+            const next_vaccination = `${next.toLocaleString('default', { month: 'long' })+' '+next.getDate()+', '+next.getFullYear()}`
+            dosages[0].next_vaccination = next_vaccination;
 
             if(dosages.length >= 1) {
 
@@ -203,7 +230,7 @@ export default {
             }
 
             // Second Dose
-            if(dosages.length==2) {
+            if(dosages.length==2 && dosages[1].brand_description!="") {
 
                 state.status = "Fully Vaccinated";
                 state.toggle_second_dose = true;
@@ -221,26 +248,47 @@ export default {
                 
             }
 
+            const pushQrCode = `${"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+state.url}`
+
             Object.assign(state, {
                 ...state,
                 personalInfo: data,
-                fullname: `${data.first_name.toUpperCase()+' '+data.last_name.toUpperCase()}`,
+                fullname: `${data.first_name+' '+data.middle_name+' '+data.last_name+' '+data.suffix}`,
                 dosages: dosages,
                 first_dosage: dosages[0],
                 first_facility: state.first_facility,
                 second_dosage: state.second_dosage,
                 second_facility: state.second_facility,
-                toggle_second_dose: state.toggle_second_dose
+                toggle_second_dose: state.toggle_second_dose,
+                qrcode: `${pushQrCode+data.qr_pass_id+'/'}`
             })
 
         }).catch(err => {
 
             console.log(err)
+
+            if(err.status==500){
+            Swal.fire({
+                title: '<p>Oops...</p>',
+                icon: 'error',
+                html: '<h5 style="font-size: 18px;">Check your internet connection and try again</h5>',
+                showCancelButton: false,
+                focusConfirm: true,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+                confirmButtonText: 'Refresh this page',
+            }).then((result) => {
+                if (result.value) {
+                    location.reload();
+                }
+            })	
+        }
             
         })
 
         return {
-            ...toRefs(state),
+            ...toRefs(state)
         }
 
     },
@@ -262,9 +310,6 @@ export default {
         ConfirmDialog,
         Checkbox
     },
-    computed: {
-
-    },
     methods: {
         print() {
 
@@ -284,7 +329,44 @@ export default {
 </script>
 
 <style scoped>
-  body {
+.margin-both-side {
+  margin-left: 35px;
+  margin-right: 35px;
+}
+.qr-frame {
+  border: 0.25em solid;
+  position: relative;
+  width: 170px;
+}
+.qr-frame::before {
+  top: -0.3em;
+  bottom: -0.3em;
+  left: 1em;
+  right: 1em;
+}
+.qr-frame::after{
+  left: -0.3em;
+  right: -0.5em;
+  top: 1em;
+  bottom: 1em;
+}
+.qr-frame::before, .qr-frame::after {
+  content: '';
+  display: block;
+  position: absolute;
+  background: #fff;
+}
+.qr-body {
+  position: relative;
+  z-index: 1;
+}
+.qr-image{
+    width: 140px;
+    margin-left: 7px;
+    margin-top: 7px;
+}
+
+body {
     align-items: center;
     justify-content: center;
     height: 100vh;
@@ -336,7 +418,8 @@ export default {
   float: right;
 }
 .qr-code {
-  width: 70%;
+  width: 41%;
+  margin-left: 10px;
   float: left;
 }
 .qr-code-img {
@@ -384,9 +467,11 @@ export default {
   margin: -20px 0 0 30px;
   background: #ffffff;
 }
-
 .text-center {
   text-align: center;
+}
+.text-justify {
+  text-align: justify;
 }
 .line-4 {
   border-bottom: 4px solid rgb(45, 45, 45);
@@ -400,11 +485,6 @@ export default {
 .line-1 {
   border-bottom: 1px solid rgb(45, 45, 45);
 }
-  
-.qr-image{
-    width: 150px;
-    margin-top: 5px;
-}
 .btn-right {
   float: right;
 }
@@ -413,10 +493,14 @@ export default {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: red;
-  color: white;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   text-align: center;
   display: none;
+  font-size: 12px;
+}
+.footer-size {
+  font-size: 12px;
 }
 .text-underline {
   text-decoration: underline;

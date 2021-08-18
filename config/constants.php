@@ -92,7 +92,7 @@ return [
     'brands' => [
         [
             'id' => 1,
-            'name' => 'Pfizer, BioNTech Fosun Pharma',
+            'name' => 'Pfizer/BioNTech',
             'vaccines' => [
                 [
                     'id' => 1,
@@ -104,7 +104,7 @@ return [
         ],
         [
             'id' => 2,
-            'name' => 'Moderna Barda NIAID',
+            'name' => 'Moderna',
             'vaccines' => [
                 [
                     'id' => 2,
@@ -116,19 +116,19 @@ return [
         ],
         [
             'id' => 3,
-            'name' => 'BARDA, OWS',
+            'name' => 'Oxford/AstraZeneca',
             'vaccines' => [
                 [
                     'id' => 3,
-                    'name' => 'COVID-19 Vaccine AstraZeneca (AZD1222)'
+                    'name' => 'AZD1222'
                 ]
             ],
             'dosages' => 2,
-            'shortname' => 'BARDA',       
+            'shortname' => 'Oxford/AstraZeneca',
         ],
         [
             'id' => 4,
-            'name' => 'Gamaleya Research Institute, Acellena Contract Drug Research and Development',
+            'name' => 'Gamaleya',
             'vaccines' => [
                 [
                     'id' => 4,
@@ -140,7 +140,7 @@ return [
         ],
         [
             'id' => 5,
-            'name' => 'Johnson & Johnson',
+            'name' => 'Janssen (Johnson & Johnson)',
             'vaccines' => [
                 [
                     'id' => 5,
@@ -148,7 +148,7 @@ return [
                 ]
             ],
             'dosages' => 1,
-            'shortname' => 'Johnson & Johnson',
+            'shortname' => 'Janssen (Johnson & Johnson)',
         ],
         [
             'id' => 6,
@@ -164,7 +164,7 @@ return [
         ],
         [
             'id' => 7,
-            'name' => 'Bharat Biotech, ICMR',
+            'name' => 'Bharat Biotech',
             'vaccines' => [
                 [
                     'id' => 7,
@@ -176,7 +176,7 @@ return [
         ],
         [
             'id' => 8,
-            'name' => 'Federal Budgetary Research Institution State Research Center of Virology and Biotechnology',
+            'name' => 'Federal Budgetary Research Institution (FBRI)',
             'vaccines' => [
                 [
                     'id' => 8,
@@ -188,15 +188,15 @@ return [
         ],
         [
             'id' => 9,
-            'name' => 'Chumakov Federal Scientific Center for Research and Development of Immune and Biological Products',
+            'name' => 'Chumakov Center',
             'vaccines' => [
                 [
                     'id' => 9,
-                    'name' => 'CoviVac'
+                    'name' => 'KoviVac'
                 ]
             ],
             'dosages' => 2,
-            'shortname' => 'Chumakov',       
+            'shortname' => 'Chumakov Center',
         ],
         [
             'id' => 10,
@@ -212,16 +212,16 @@ return [
         ],
         [
             'id' => 11,
-            'name' => 'Oxford',
+            'name' => 'Serum Institute of India',
             'vaccines' => [
                 [
-                    'id' => 10,
-                    'name' => 'Oxford Astrazenica'
+                    'id' => 11,
+                    'name' => 'Covishield'
                 ]
             ],
-            'dosages' => 3,
-            'shortname' => 'Oxford',
-        ],                  
+            'dosages' => 2,
+            'shortname' => 'Serum Institute of India',
+        ],                 
     ],
 
     'sessions' => [

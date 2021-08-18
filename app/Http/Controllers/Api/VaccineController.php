@@ -280,6 +280,8 @@ class VaccineController extends Controller
             $dosage->fill([
                 'qr_pass_id' => $id,
                 'dose' => $dose,
+                'priority_group' => $registration->priority_group,
+                'town_city_code' => $registration->town_city_code,
             ]);
             $vaccine->dosages()->save($dosage);
         } else {
@@ -857,15 +859,18 @@ class VaccineController extends Controller
             return $this->jsonErrorResourceNotFound();
         }
 
+        // $data['priority_group'] = $dosage->vaccine->registration->priority_group ?? null;
+        // $data['town_city_code'] = $dosage->vaccine->registration->town_city_code ?? null;
+
         $dosage->fill($data);
         $dosage->save();
 
         if ($data['dose'] == 1) {
-            $this->firstDose($dosage->qr_pass_id,true);
+            $this->firstDose($dosage->qr_pass_id,$data['brand_name'],true);
         }
 
         if ($data['dose'] == 2) {
-            $this->secondDose($dosage->qr_pass_id,true);
+            $this->secondDose($dosage->qr_pass_id,$data['brand_name'],true);
         }
 
         $registration = Registration::where('qr_pass_id',$dosage->qr_pass_id)->first();

@@ -7,13 +7,13 @@
         <form @submit="onSubmit">
             <div class="p-grid p-jc-center p-mt-4">
                 <div class="p-lg-4 p-sm-12 p-xs-12">
-                    <Card>
+                    <Card class="p-border-top">
                         <template #header>
                             <img alt="user header" src="img/napanam-logo-sm.png">
                         </template>
                         <template #content>
                             <div class="p-grid p-jc-center p-mt-2">
-                                <h6 class="p-text-center">Before you proceed to the registration page, please complete the form below.</h6>
+                                <h6 class="p-text-center">For verification, please complete the form below.</h6>
                             </div>
                             <hr />
                             <div class="p-fluid p-formgrid p-grid">
@@ -50,16 +50,6 @@
                                     <Button label="Proceed" type="submit" class="p-button-raised p-button-primary" />
                                 </div>
                             </div>
-                            <div class="p-grid p-jc-center">
-                                <div class="p-lg-6">
-                                   <p class="text-gray"><small>No NAPANAM QR ID yet. <a href="https://npnm.launion.gov.ph/#/regqrpass">REGISTER HERE</a></small></p>
-                                </div>
-                            </div>
-                            <div class="p-grid p-jc-center">
-                                <div class="p-lg-2">
-                                    <a href="https://vaccines.launion.gov.ph">« Back</a>
-                                </div>
-                            </div>
                         </template>
                     </Card>
                 </div>
@@ -90,11 +80,11 @@ const verification = {
 
 export default {
     setup() {
-
+        
         const router = useRouter()
         const store = useStore()
 
-        store.dispatch('registrations/INIT_REGISTRATION')
+        store.dispatch('profiles/INIT_REGISTRATION')
 
         const init = {
             initialValues: {
@@ -102,29 +92,29 @@ export default {
             }
         }
 
-        const { handleSubmit, setValues } = useForm(init);
+        const { handleSubmit } = useForm(init);
 
         const onSubmit = handleSubmit((values) => {
             const birthdate = `${values.registration.year}-${values.registration.month}-${values.registration.day}`
-            store.dispatch('registrations/GET_NAPANAM', { id: values.registration.id, birthdate })
+            store.dispatch('profiles/GET_REGISTRATION', { id: values.registration.id, birthdate })
         });
 
         watch(
-            () => store.state.registrations.registration.qr_pass_id,
+            () => store.state.profiles.registration.qr_pass_id,
             (data, prevData) => {                
                 if (data) {
                     router.push('/')
                 }
             }
         )
-
+        
         function validateField(value) {
             if (!value) {
                 return "This field is required";
             }
             return true;
         }
-
+        
         const { value: id, errorMessage: idError } = useField('registration.id',validateField);
         const { value: year, errorMessage: yearError } = useField('registration.year',validateField);
         const { value: month, errorMessage: monthError } = useField('registration.month',validateField);
@@ -147,18 +137,18 @@ export default {
     computed:{
         month_value() {
 
-            return this.$store.state.registrations.selections.month_value
+            return this.$store.state.profiles.selections.month_value
 
         },
         day_value() {
 
-            return this.$store.state.registrations.selections.day_value
+            return this.$store.state.profiles.selections.day_value
 
         },
     },
     methods: {
         fetchSelections() {
-            this.$store.dispatch('registrations/GET_SELECTIONS')
+            this.$store.dispatch('profiles/GET_SELECTIONS')
         },
         openConfirmation() {
             this.displayConfirmation = true;
@@ -183,7 +173,7 @@ export default {
 <style scoped>
     .navbar {
         overflow: hidden;
-        background-color: #215266;
+        background-color: #92c1bd;
         position: relative;
         top: 0;
         height: 55px;
@@ -203,11 +193,13 @@ export default {
     }
     @media screen and (max-width: 400px) {
         .napanam {
-        height: 80px;
+            height: 80px;
         }
     }
-    .card {
-        border-top: 3px solid #215266;
+    .p-border-top {
+        border-top: 4px solid #215266;
+        margin-left: 10px;
+        margin-right: 10px;
     }
     .menu-bar{
         background-color: #215266;

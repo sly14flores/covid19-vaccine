@@ -63,11 +63,16 @@ class RegistrationController extends Controller
 
         $search = (isset($request->search))?$request->search:null;
         
+        $origin_import = '';
+
         if($origin=="all") {
-            $origin = '<>';
+            $origin = "<>";
+            $origin_import = NULL;
         }
 
-        $registrations = Registration::where($wheres)->where('origin', $origin,'')->whereBetween('created_at',[$startFilter,$endFilter])->get();
+        if($origin=="Import") $origin_import = NULL;
+        
+        $registrations = Registration::where($wheres)->where('origin', $origin, '')->orWhere('origin', $origin_import)->whereBetween('created_at',[$startFilter,$endFilter])->get();
         
         $registrations = $registrations->filter(function($registration) use ($search) {
             $text = "{$registration->qr_pass_id} {$registration->first_name}, {$registration->middle_name}, {$registration->last_name}";            

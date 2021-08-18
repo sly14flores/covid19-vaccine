@@ -23,7 +23,7 @@
                     <div class="card p-fluid">
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-10 p-md-8">
-                                <h2 class="p-text-bold p-ml-4 name-size"> {{personalInfo.name}} </h2>
+                                <h2 class="p-text-bold p-ml-4 name-size p-text-uppercase"> {{personalInfo.name}} </h2>
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
