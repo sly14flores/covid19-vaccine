@@ -125,6 +125,7 @@ const mutations = {
         state.registration.first_dosage.batch_number = payload.dosages[0].batch_number
         state.registration.first_dosage.lot_number = payload.dosages[0].lot_number
         state.registration.first_dosage.vaccinator = payload.dosages[0].vaccinator
+        state.registration.first_dosage.next_vaccination = payload.dosages[0].next_vaccination
 
         state.registration.second_dosage.date_of_vaccination = payload.dosages[1].date_of_vaccination
         state.registration.second_dosage.time_of_vaccination = payload.dosages[1].time_of_vaccination
@@ -230,6 +231,10 @@ const actions = {
                 const first = new Date(dosages[0].date_of_vaccination);
                 const first_date_vaccination = `${first.toLocaleString('default', { month: 'long' })+' '+first.getDate()+', '+first.getFullYear()}`;
                 dosages[0].date_of_vaccination = first_date_vaccination;
+
+                const next = new Date(dosages[0].next_vaccination);
+                const next_vaccination = `${next.toLocaleString('default', { month: 'long' })+' '+next.getDate()+', '+next.getFullYear()}`;
+                dosages[0].next_vaccination = next_vaccination;
                 
                 if(first_date_vaccination==today) dosages[0].date_of_vaccination = "today";
                 if(first_date_vaccination==yesterday) dosages[0].date_of_vaccination = "yesterday";

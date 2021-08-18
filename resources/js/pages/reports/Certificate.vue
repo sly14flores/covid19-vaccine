@@ -47,16 +47,18 @@
                         <div class="column-50">
                           <p class="text-bold">&nbsp;{{first_dosage.brand_description}}</p>
                           <p class="text-bold">&nbsp;{{first_dose}}</p>
-                          <p class="text-bold">&nbsp;{{first_dosage.date_of_vaccination}}</p>
+                          <p class="text-bold">&nbsp;{{first_dosage.date_of_vaccination}} {{first_dosage.time_of_vaccination}}</p>
                           <p class="text-bold">&nbsp;{{first_facility}}</p>
                           <p class="text-bold">&nbsp;{{first_dosage.lot_number}}</p>
+                          <p class="text-bold">&nbsp;{{first_dosage.next_vaccination}}</p>
                         </div>
                         <div class="column-20">
                           <p>Manufacturer:</p>
                           <p>Dose: </p>
-                          <p>Vaccination Date: </p>
+                          <p>Vaccination Date/Time: </p>
                           <p>Vaccination Site:</p>
                           <p>Lot Number: </p>
+                          <p>Next Vaccination: </p>
                         </div>
                     </div>
                     <hr>
@@ -64,13 +66,13 @@
                         <div class="column-25"></div>
                         <div class="column-50">
                         <p class="text-bold">&nbsp;{{second_dose}}</p>
-                        <p class="text-bold">&nbsp;{{second_dosage.date_of_vaccination}}</p>
+                        <p class="text-bold">&nbsp;{{second_dosage.date_of_vaccination}} {{first_dosage.time_of_vaccination}}</p>
                         <p class="text-bold">&nbsp;{{second_facility}}</p>
                         <p class="text-bold">&nbsp;{{second_dosage.lot_number}}</p>
                         </div>
                         <div class="column-20">
                           <p>Dose: </p>
-                          <p>Vaccination Date: </p>
+                          <p>Vaccination Date/Time: </p>
                           <p>Vaccination Site:</p>
                           <p>Lot Number: </p>
                         </div>
@@ -94,14 +96,14 @@
                   <div class="row hidden footer-size">
                         <div class="column">
                           <p class="text-center">This computer-generated document is issued by the Provincial Government of La Union, <br />through the Provincial Health Office. All data made available through <br /> https://vaccines.launion.gov.ph is verified and encrypted</p> <br />
-                          <p class="text-center">Powered by Provincial Government of La Union - Information Communications and Technology Unit</p>
+                          <p class="text-center">Powered by Provincial Government of La Union - </p>
                         </div>
                     </div>
                     <div class="footer">
                       <div class="row">
                           <div class="column">
                             <p class="text-center">This computer-generated document is issued by the Provincial Government of La Union, <br />through the Provincial Health Office. All data made available through <br /> https://vaccines.launion.gov.ph is verified and encrypted</p> <br /> <br />
-                            <p class="text-center">Powered by Provincial Government of La Union - Information Communications and Technology Unit</p><br /> <br />
+                            <p class="text-center">Powered by Provincial Government of La Union - </p><br /> <br />
                           </div>
                       </div>
                       <img class="banner-header" src="img/footer.png" />
@@ -210,6 +212,12 @@ export default {
 
             const first_date_vaccination = `${first.toLocaleString('default', { month: 'long' })+' '+first.getDate()+', '+first.getFullYear()}`
             dosages[0].date_of_vaccination = first_date_vaccination;
+
+            // First Dose
+            const next = new Date(dosages[0].next_vaccination);
+
+            const next_vaccination = `${next.toLocaleString('default', { month: 'long' })+' '+next.getDate()+', '+next.getFullYear()}`
+            dosages[0].next_vaccination = next_vaccination;
 
             if(dosages.length >= 1) {
 

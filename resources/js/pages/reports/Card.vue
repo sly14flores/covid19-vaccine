@@ -2,13 +2,13 @@
     <div>
       <div class="row">
         <div class="column-100">
-          <div class="row">
+          <div class="row hidden">
             <Button icon="pi pi-fw pi-times" class="btn-right hidden p-button-sm p-button-danger p-mr-2" label="Cancel" @click="cancel()" />
             <Button icon="pi pi-fw pi-print" class="btn-right hidden p-button-sm p-button-primary p-mr-2" label="Print" @click="print()" />
           </div>
           <br />
           <div class="card">
-            <h2 style="margin-top: 5px;">
+            <h2 class="hidden" style="margin-top: 5px;">
                 COVID-19 Vaccination Card
                 <img class="logos" src="img/card/logos/logo.png" alt="logo">
                 <img class="logos" src="img/card/logos/launion-logo.png" alt="logo">
@@ -17,8 +17,8 @@
                 <img class="logos" src="img/card/logos/ntf.png" alt="logo">
             </h2>
             <br/>
-            <div class="line-4"></div>
-            <div class="row line-3">
+            <div class="line-4 hidden"></div>
+            <div class="row line-3 hidden">
               <div class="column-70">
                 <p>Please keep this card, which includes medical <br> information about the vaccines you have received</p>
               </div>
@@ -28,7 +28,7 @@
             </div>
 
             <br>
-            <div class="line-2 row">
+            <div class="row">
               <div class="column-25">
                 <label class="text-bold p-text-uppercase">{{personalInfo.last_name}}</label>
               </div>
@@ -43,7 +43,7 @@
               </div>
             </div>
 
-            <div class="row">
+            <div class="row line-2 hidden">
               <div class="column-25">
                 Surname
               </div>
@@ -61,27 +61,27 @@
             <br>
             <div class="row">
               <div class="column-66">
-                Address: <label class="text-bold text-underline">{{personalInfo.barangay}}, {{personalInfo.townCity}} {{personalInfo.province}}</label>
+                <label class="hidden">Address: </label><label class="text-bold text-underline">{{personalInfo.barangay}}, {{personalInfo.townCity}} {{personalInfo.province}}</label>
               </div>
               <div class="column-33">
-                Contact No.: <label class="text-bold text-underline">{{personalInfo.contact_no}}</label>
+                <label class="hidden">Contact No.: </label><label class="text-bold text-underline">{{personalInfo.contact_no}}</label>
               </div>
             </div>
             <br>
             <div class="row">
               <div class="column-33">
-                Date Of Birth: <label class="text-bold text-underline">{{personalInfo.birthdate}}</label>
+                <label class="hidden">Date Of Birth: </label><label class="text-bold text-underline">{{personalInfo.birthdate}}</label>
               </div>
               <div class="column-33">
-                PhilHealth No.: <label class="text-bold text-underline">{{personalInfo.philhealth}}</label>
+                <label class="hidden">PhilHealth No.: </label><label class="text-bold text-underline">{{personalInfo.philhealth}}</label>
               </div>
               <div class="column-33">
-                Category: <label class="text-bold text-underline">{{personalInfo.priority_group}}</label>
+                <label class="hidden">Category: </label><label class="text-bold text-underline">{{personalInfo.priority_group}}</label>
               </div>
             </div>
 
             <br>
-            <div class="row">
+            <div class="row hidden">
               <table id="table">
                 <tr>
                   <th>Dosage Seq.</th>
@@ -102,7 +102,7 @@
                   <td colspan="2">Signature: </td>
                 </tr>
                 <tr>
-                  <td class="text-center text-bold" rowspan="2">{{first_dose}} <br/><small>(Schedule {{second_dosage.date_of_vaccination}})</small></td>
+                  <td class="text-center text-bold" rowspan="2">{{second_dose}} <br/><small>(Schedule {{second_dosage.date_of_vaccination}})</small></td>
                   <td class="text-center text-bold">{{second_dosage.date_of_vaccination}}</td>
                   <td class="text-center text-bold">{{second_dosage.brand_description}}</td>
                   <td class="text-center text-bold">{{second_dosage.batch_number}}</td>
@@ -117,17 +117,17 @@
             <br>
             <div class="row">
               <div class="column-66">
-                Health Facility Name: <label class="text-bold text-underline">{{first_facility}}</label>
+                <label class="hidden">Health Facility Name: </label> <label class="text-bold text-underline">{{first_facility}}</label>
               </div>
               <div class="column-33">
-                Contact No. <label class="text-bold text-underline">(072) 607-2633</label>
+                <label class="hidden">Contact No. </label> <label class="text-bold text-underline">(072) 607-2633</label>
               </div>
             </div>
             <br/>
           </div>
           
         </div>
-        <span class="vertical-line"><img src="img/card/fb.png" alt="image" class="icon" /> OfficialDOHgov <img src="img/card/twitter.png" alt="image" class="icon" /> DOHgovph <img src="img/card/web.png" alt="image" class="icon" /> doh.gov.ph <img src="img/card/phone.png" alt="image" class="icon" /> (632) 8561 - 7800 loc. 1936 <img src="img/card/email.png" alt="image" class="icon" /> covid19ceir@doh.gov.ph</span>
+        <span class="vertical-line hidden"><img src="img/card/fb.png" alt="image" class="icon" /> OfficialDOHgov <img src="img/card/twitter.png" alt="image" class="icon" /> DOHgovph <img src="img/card/web.png" alt="image" class="icon" /> doh.gov.ph <img src="img/card/phone.png" alt="image" class="icon" /> (632) 8561 - 7800 loc. 1936 <img src="img/card/email.png" alt="image" class="icon" /> covid19ceir@doh.gov.ph</span>
       </div>
     </div>
 </template>
@@ -306,13 +306,13 @@ export default {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 16px;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #f1f1f1;
   float: left;
   width: 100%;
   padding: 0 10px;
   border-right: 35px solid rgb(61, 61, 61);
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
+  top: 0px;
 }
 .line-4 {
   border-bottom: 4px solid rgb(45, 45, 45);
@@ -321,7 +321,7 @@ export default {
   border-bottom: 3px solid rgb(45, 45, 45);
 }
 .line-2 {
-  border-bottom: 2px solid rgb(45, 45, 45);
+  border-top: 2px solid rgb(45, 45, 45);
 }
 .line-1 {
   border-bottom: 1px solid rgb(45, 45, 45);
@@ -408,6 +408,9 @@ export default {
 .btn-right {
   float: right;
 }
+.text-right {
+  float: right;
+}
 .text-underline {
   text-decoration: underline;
 }
@@ -418,6 +421,13 @@ export default {
   .hidden, .hidden *
   {
       display: none !important;
+  }
+  .card, .card *
+  {
+      box-shadow: 0 4px 8px 0 rgba(255, 255, 255);
+      border-right: 1px;
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px;
   }
 }
 </style>
