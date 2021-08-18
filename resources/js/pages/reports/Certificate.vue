@@ -47,14 +47,14 @@
                         <div class="column-50">
                           <p class="text-bold">&nbsp;{{first_dosage.brand_description}}</p>
                           <p class="text-bold">&nbsp;{{first_dose}}</p>
-                          <p class="text-bold">&nbsp;{{first_dosage.date_of_vaccination}}</p>
+                          <p class="text-bold">&nbsp;{{first_dosage.date_of_vaccination}} {{first_dosage.time_of_vaccination}}</p>
                           <p class="text-bold">&nbsp;{{first_facility}}</p>
                           <p class="text-bold">&nbsp;{{first_dosage.lot_number}}</p>
                         </div>
                         <div class="column-20">
                           <p>Manufacturer:</p>
                           <p>Dose: </p>
-                          <p>Vaccination Date: </p>
+                          <p>Vaccination Date/Time: </p>
                           <p>Vaccination Site:</p>
                           <p>Lot Number: </p>
                         </div>
@@ -64,13 +64,13 @@
                         <div class="column-25"></div>
                         <div class="column-50">
                         <p class="text-bold">&nbsp;{{second_dose}}</p>
-                        <p class="text-bold">&nbsp;{{second_dosage.date_of_vaccination}}</p>
+                        <p class="text-bold">&nbsp;{{second_dosage.date_of_vaccination}} {{first_dosage.time_of_vaccination}}</p>
                         <p class="text-bold">&nbsp;{{second_facility}}</p>
                         <p class="text-bold">&nbsp;{{second_dosage.lot_number}}</p>
                         </div>
                         <div class="column-20">
                           <p>Dose: </p>
-                          <p>Vaccination Date: </p>
+                          <p>Vaccination Date/Time: </p>
                           <p>Vaccination Site:</p>
                           <p>Lot Number: </p>
                         </div>
@@ -165,6 +165,7 @@ export default {
             const { data: { data } } = res
             const { dosages } = data
             
+            console.log(dosages)
             dosages.sort((a, b) => (a.dose > b.dose) ? 1 : -1)
 
             if(dosages.length == 0) {

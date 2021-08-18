@@ -2,7 +2,7 @@
     <div>
       <div class="row">
         <div class="column-100">
-          <div class="row">
+          <div class="row hidden">
             <Button icon="pi pi-fw pi-times" class="btn-right hidden p-button-sm p-button-danger p-mr-2" label="Cancel" @click="cancel()" />
             <Button icon="pi pi-fw pi-print" class="btn-right hidden p-button-sm p-button-primary p-mr-2" label="Print" @click="print()" />
           </div>
@@ -313,6 +313,7 @@ export default {
   border-right: 35px solid rgb(61, 61, 61);
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
+  top: 0px;
 }
 .line-4 {
   border-bottom: 4px solid rgb(45, 45, 45);
