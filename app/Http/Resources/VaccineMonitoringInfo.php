@@ -22,7 +22,7 @@ class VaccineMonitoringInfo extends JsonResource
     {
         $dose = $request->dose;
 
-        $name = "[{$this->qr_pass_id}], {$this->last_name}, {$this->first_name}";
+        $name = "[{$this->qr_pass_id}] {$this->last_name}, {$this->first_name}";
 
         if ($this->suffix!=="NA") {
             $name .= " ".$this->suffix;
