@@ -50,6 +50,7 @@
                           <p class="text-bold">&nbsp;{{first_dosage.date_of_vaccination}} {{first_dosage.time_of_vaccination}}</p>
                           <p class="text-bold">&nbsp;{{first_facility}}</p>
                           <p class="text-bold">&nbsp;{{first_dosage.lot_number}}</p>
+                          <p class="text-bold">&nbsp;{{first_dosage.next_vaccination}}</p>
                         </div>
                         <div class="column-20">
                           <p>Manufacturer:</p>
@@ -57,6 +58,7 @@
                           <p>Vaccination Date/Time: </p>
                           <p>Vaccination Site:</p>
                           <p>Lot Number: </p>
+                          <p>Next Vaccination: </p>
                         </div>
                     </div>
                     <hr>
@@ -165,7 +167,6 @@ export default {
             const { data: { data } } = res
             const { dosages } = data
             
-            console.log(dosages)
             dosages.sort((a, b) => (a.dose > b.dose) ? 1 : -1)
 
             if(dosages.length == 0) {
@@ -211,6 +212,12 @@ export default {
 
             const first_date_vaccination = `${first.toLocaleString('default', { month: 'long' })+' '+first.getDate()+', '+first.getFullYear()}`
             dosages[0].date_of_vaccination = first_date_vaccination;
+
+            // First Dose
+            const next = new Date(dosages[0].next_vaccination);
+
+            const next_vaccination = `${next.toLocaleString('default', { month: 'long' })+' '+next.getDate()+', '+next.getFullYear()}`
+            dosages[0].next_vaccination = next_vaccination;
 
             if(dosages.length >= 1) {
 
