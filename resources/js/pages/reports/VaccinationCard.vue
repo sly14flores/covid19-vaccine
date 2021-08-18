@@ -17,11 +17,11 @@
         </Toolbar>
         <Panel header="List">
             <DataTable class="p-datatable-sm" :value="registrations" responsiveLayout="scroll">
-                <Column field="qr_pass_id" header="Napanam ID No" :sortable="true"></Column>
-                <Column field="first_name" header="First Name" :sortable="true"></Column>
-                <Column field="middle_name" header="Middle Name" :sortable="true"></Column>
-                <Column field="last_name" header="Last Name" :sortable="true"></Column>
-                <Column field="color" header="Status" :sortable="true">
+                <Column field="qr_pass_id" header="Napanam ID No"></Column>
+                <Column field="first_name" header="First Name"></Column>
+                <Column field="middle_name" header="Middle Name"></Column>
+                <Column field="last_name" header="Last Name"></Column>
+                <Column field="color" header="Status">
                         <template #body="slotProps">
                             <Tag class="p-mr-2" :severity="slotProps.data.color" :value="slotProps.data.label" rounded></Tag>
                         </template>
@@ -87,6 +87,11 @@ export default {
             getRegistrationCertificates({page: page+1, search: search.value}).then(res => {
 
                 const { data: { data: { data, pagination } } } = res
+                data.map(item => {
+                   item.first_name = item.first_name.toUpperCase();
+                   item.middle_name = item.middle_name.toUpperCase();
+                   item.last_name = item.last_name.toUpperCase();
+                })
 
                 Object.assign(state, {
                     registrations: data, 
