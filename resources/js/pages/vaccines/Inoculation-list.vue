@@ -1,7 +1,7 @@
 <template>
     <div>
         <MyBreadcrumb :home="home" :items="items" />
-        <Panel class="p-mt-4" header="Upload" :toggleable="true" :collapsed="true">
+        <Panel class="p-mt-2" header="Upload" :toggleable="true" :collapsed="true">
             <FileUpload name="excel" :url="uploadUrl" :multiple="false" :withCredentials="true" @before-send="setBeforeSend" @upload="uploadComplete" @error="uploadError" :maxFileSize="24000000">
                 <template #empty>
                     <div class="p-d-flex p-p-3" v-if="showTerminal">
@@ -13,7 +13,7 @@
                 <p v-for="(c, i) in consoles" :key="i" :class="c.class">{{c.text}}</p>
             </div>
         </Panel>  
-        <Panel header="List" class="p-mt-4">
+        <Panel header="List" class="p-mt-2">
             <div class="p-grid">
                 <div class="p-sm-12 p-md-6 p-lg-4">
                     <div class="p-inputgroup">
@@ -30,16 +30,16 @@
             </div>
             <BlockUI :blocked="blocked">
                 <DataTable class="p-mt-4 p-datatable-sm" :value="registrations" responsiveLayout="scroll">
-                    <Column field="qr_pass_id" header="Napanam ID No" :sortable="true"></Column>
-                    <Column field="first_name" header="First Name" :sortable="true"></Column>
-                    <Column field="middle_name" header="Middle Name" :sortable="true"></Column>
-                    <Column field="last_name" header="Last Name" :sortable="true"></Column>
-                    <Column field="status" header="Inoculation For" :sortable="true">
+                    <Column field="qr_pass_id" header="Napanam ID No"></Column>
+                    <Column field="first_name" header="First Name"></Column>
+                    <Column field="middle_name" header="Middle Name"></Column>
+                    <Column field="last_name" header="Last Name"></Column>
+                    <Column field="status" header="Inoculation For">
                         <template #body="slotProps">
                             <Tag class="p-mr-2" :severity="slotProps.data.status" :value="slotProps.data.inoculation_for_dose" rounded></Tag>
                         </template>
                     </Column>
-                    <Column field="townCity" header="Municipality/City" :sortable="true"></Column>
+                    <Column field="townCity" header="Municipality/City"></Column>
                     <Column field="qr_pass_id" header="Actions">
                         <template #body="slotProps">
                             <router-link :to="`/vaccines/${phase}/${slotProps.data.qr_pass_id}`"><Button v-tooltip="'View'" icon="pi pi-fw pi-eye" class="p-button-rounded p-button-success p-mr-2" /></router-link>
@@ -159,6 +159,13 @@ export default {
 
             getRegistrationsList({page: page+1, search: search.value, phase}).then(res => {
                 const { data: { data: { data, pagination } } } = res
+
+                data.map(item => {
+                   item.first_name = item.first_name.toUpperCase();
+                   item.middle_name = item.middle_name.toUpperCase();
+                   item.last_name = item.last_name.toUpperCase();
+                })
+
                 Object.assign(state, {registrations: data, pagination})
                 Swal.close()
             }).catch(err => {
