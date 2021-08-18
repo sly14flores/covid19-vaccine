@@ -96,14 +96,14 @@
                   <div class="row hidden footer-size">
                         <div class="column">
                           <p class="text-center">This computer-generated document is issued by the Provincial Government of La Union, <br />through the Provincial Health Office. All data made available through <br /> https://vaccines.launion.gov.ph is verified and encrypted</p> <br />
-                          <p class="text-center">Powered by Provincial Government of La Union - </p>
+                          <p class="text-center">Powered by Provincial Government of La Union - Information and Communications Technology Unit</p>
                         </div>
                     </div>
                     <div class="footer">
                       <div class="row">
                           <div class="column">
                             <p class="text-center">This computer-generated document is issued by the Provincial Government of La Union, <br />through the Provincial Health Office. All data made available through <br /> https://vaccines.launion.gov.ph is verified and encrypted</p> <br /> <br />
-                            <p class="text-center">Powered by Provincial Government of La Union - </p><br /> <br />
+                            <p class="text-center">Powered by Provincial Government of La Union - Information and Communications Technology Unit</p><br /> <br />
                           </div>
                       </div>
                       <img class="banner-header" src="img/footer.png" />
