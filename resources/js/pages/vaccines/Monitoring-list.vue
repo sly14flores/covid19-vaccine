@@ -105,7 +105,7 @@ export default {
                 const { data: { data: { data, pagination } } } = res
                 data.map(item => {
                    item.first_name = item.first_name.toUpperCase();
-                   item.middle_name = item.middle_name.toUpperCase();
+                   if(item.middle_name!=null) item.middle_name = item.middle_name.toUpperCase();
                    item.last_name = item.last_name.toUpperCase();
                 })
 
