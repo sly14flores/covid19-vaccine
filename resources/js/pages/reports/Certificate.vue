@@ -26,7 +26,7 @@
                         <div class="column-50">
                         <p class="text-bold p-text-uppercase">{{fullname}}</p>
                         <p class="text-bold p-text-uppercase">{{personalInfo.gender}}</p>
-                        <p class="text-bold">{{personalInfo.barangay}}, {{personalInfo.townCity}}{{personalInfo.province}}</p>
+                        <p class="text-bold">{{personalInfo.barangay}}, {{personalInfo.town_city}}{{personalInfo.province}}</p>
                         <p class="text-bold">{{status}}</p>
                         </div>
                         <div class="column-20">
@@ -198,12 +198,15 @@ export default {
 
             const province = data.province;
             const barangay = data.barangay;
+            const city = data.town_city;
 
             const provinceStr = province.replace(/_/g, " ");
             const brgyStr = barangay.replace(/_/g, " ");
+            const cityStr = city.replace(/_/g, " ");
 
             data.province = provinceStr.replace(/[0-9]/g, '');
             data.barangay = brgyStr.replace(/[0-9]/g, '');
+            data.town_city = cityStr.replace(/[0-9]/g, '');
 
             if(data.suffix=="NA") data.suffix = "";
 
@@ -249,6 +252,8 @@ export default {
             }
 
             const pushQrCode = `${"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+state.url}`
+
+            if(data.middle_name==null) data.middle_name = "";
 
             Object.assign(state, {
                 ...state,
