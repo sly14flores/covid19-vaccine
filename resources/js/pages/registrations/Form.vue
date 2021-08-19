@@ -28,17 +28,17 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-3">
                                 <label for="first_name">First Name <small><i>(Pangalan)</i></small> <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" id="first_name " type="text" placeholder="Enter First Name" v-model="first_name" :class="{'p-invalid': first_nameError}" disabled />
+                                <InputText class="p-shadow-1" id="first_name " type="text" placeholder="Enter First Name" v-model="first_name" :class="{'p-invalid': first_nameError}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ first_nameError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-3">
                                 <label for="last_name">Last Name <small><i>(Apelyido)</i></small> <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1" id="last_name" type="text" placeholder="Enter Last Name" v-model="last_name" :class="{'p-invalid': last_nameError}" disabled />
+                                <InputText class="p-shadow-1" id="last_name" type="text" placeholder="Enter Last Name" v-model="last_name" :class="{'p-invalid': last_nameError}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ last_nameError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-3">
                                 <label for="middle_name">Middle Name <small><i>(Gitnang Apelyido)</i></small> </label>
-                                <InputText class="p-shadow-1" id="middle_name" type="text" placeholder="Enter Middle Name" v-model="middle_name" disabled />
+                                <InputText class="p-shadow-1" id="middle_name" type="text" placeholder="Enter Middle Name" v-model="middle_name" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-3">
                                 <label>Suffix/Extension Name <small><i>(Karugtong na Pangalan)</i></small> <i class="p-error">*</i></label>
@@ -49,16 +49,16 @@
                         <div class="p-fluid p-formgrid p-grid">
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Birthdate <small><i>(Araw ng Kapanganakan)</i></small> <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1 disabled" type="date" v-model="birthdate" disabled />
+                                <InputText class="p-shadow-1 " type="date" v-model="birthdate" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Sex <small><i>(Kasarian)</i></small> <i class="p-error">*</i></label>
-                                <Dropdown class="p-shadow-1 disabled" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" placeholder="Select a Gender" disabled />
+                                <Dropdown class="p-shadow-1" optionLabel="name" :options="gender_value" optionValue="id" v-model="gender" placeholder="Select a Gender" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                                 <small class="p-error">{{ genderError }}</small>
                             </div>
                             <div class="p-field p-col-12 p-md-4">
                                 <label>Contact No. <small><i>(Telepono)</i></small> <i class="p-error">*</i></label>
-                                <InputText class="p-shadow-1 disabled" type="text" v-model="contact_no" disabled />
+                                <InputText class="p-shadow-1" type="text" v-model="contact_no" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn"/>
                             </div>
                         </div>
                         <div class="p-fluid p-formgrid p-grid">
