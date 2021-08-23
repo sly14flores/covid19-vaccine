@@ -2,80 +2,90 @@
     <div>
       <div class="row">
         <div class="column-100">
-          <div class="row hidden">
-            <Button icon="pi pi-fw pi-times" class="btn-right hidden p-button-sm p-button-danger p-mr-2" label="Cancel" @click="cancel()" />
-            <Button icon="pi pi-fw pi-print" class="btn-right hidden p-button-sm p-button-primary p-mr-2" label="Print" @click="print()" />
+          <div class="row btn-hide">
+            <Button icon="pi pi-fw pi-times" class="btn-right p-button-sm p-button-danger p-mr-2" label="Cancel" @click="cancel()" />
+            <Button icon="pi pi-fw pi-print" class="btn-right p-button-sm p-button-primary p-mr-2" label="Print" @click="print()" />
           </div>
-          <br />
+          <br class="btn-hide"/>
           <div class="card">
-            <h2 class="hidden" style="margin-top: 5px;">
-                COVID-19 Vaccination Card
-                <img class="logos" src="img/card/logos/logo.png" alt="logo">
-                <img class="logos" src="img/card/logos/launion-logo.png" alt="logo">
-                <img class="logos" src="img/card/logos/doh.png" alt="logo">
-                <img class="logos" src="img/card/logos/iatf.png" alt="logo">
-                <img class="logos" src="img/card/logos/ntf.png" alt="logo">
-            </h2>
-            <br/>
-            <div class="line-4 hidden"></div>
-            <div class="row line-3 hidden">
-              <div class="column-70">
-                <p>Please keep this card, which includes medical <br> information about the vaccines you have received</p>
-              </div>
-              <div class="column-30">
-                <h4></h4>
-              </div>
+            <div class="row">
+
+                <div class="column-75 hidden">
+                    <div class="row line-4">
+                      <h2 class="p-text-bold covid-header">CoViD-19 Vaccination Card</h2>
+                    </div>
+                    <div class="row">
+                      <div class=" column-85">
+                        <div class="covid-logos">
+                          <img class="logos" src="img/card/logos/ntf.png" alt="logo">
+                          <img class="logos" src="img/card/logos/iatf.png" alt="logo">
+                          <img class="logos" src="img/card/logos/doh.png" alt="logo">
+                          <img class="logos" src="img/card/logos/launion-logo.png" alt="logo">
+                          <img class="logos" src="img/card/logos/logo.png" alt="logo">
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="column-25">
+                    <span class="scan-me">Scan Me!</span>
+                   <h1 class="text-center qr-frame">
+                      <img class="qr-image qr-body" v-bind:src="qrcode" />
+                    </h1>
+                </div>
             </div>
 
-            <br>
-            <div class="row">
-              <div class="column-25">
-                <label class="text-bold p-text-uppercase">{{personalInfo.last_name}}</label>
+            <br />
+            <br />
+            <br />
+            <div class="row names">
+              <div class="column-33">
+                <label class="text-bold p-text-uppercase text-font-size">{{personalInfo.last_name}}</label>
               </div>
-              <div class="column-25">
-                <label class="text-bold p-text-uppercase"> {{personalInfo.first_name}}</label>
+              <div class="column-51">
+                <label class="text-bold p-text-uppercase text-font-size"> {{personalInfo.first_name}}</label>
               </div>
-              <div class="column-25">
-                <label class="text-bold p-text-uppercase">{{personalInfo.middle_name}}</label>
+              <div class="column-3">
+                <label class="text-bold p-text-uppercase text-font-size">{{personalInfo.middle_name}}</label>
               </div>
-              <div class="column-25">
-                <label class="text-bold p-text-uppercase">{{personalInfo.suffix}}</label>
+              <div class="column-right-10">
+                <label class="text-bold p-text-uppercase text-font-size">{{personalInfo.suffix}}</label>
               </div>
             </div>
 
             <div class="row line-2 hidden">
-              <div class="column-25">
+              <div class="column-33">
                 Surname
               </div>
-              <div class="column-25">
+              <div class="column-51">
                 First Name
               </div>
-              <div class="column-25">
-                Middle Name
+              <div class="column-3">
+                M.I
               </div>
-              <div class="column-25">
+              <div class="column-right-10">
                 Suffix
               </div>
             </div>
 
             <br>
             <div class="row">
-              <div class="column-66">
+              <div class="column-50">
                 <label class="hidden">Address: </label><label class="text-bold text-underline">{{personalInfo.barangay}}, {{personalInfo.townCity}} {{personalInfo.province}}</label>
               </div>
-              <div class="column-33">
+              <div class="column-50">
                 <label class="hidden">Contact No.: </label><label class="text-bold text-underline">{{personalInfo.contact_no}}</label>
               </div>
             </div>
             <br>
             <div class="row">
-              <div class="column-33">
+              <div class="column-25">
                 <label class="hidden">Date Of Birth: </label><label class="text-bold text-underline">{{personalInfo.birthdate}}</label>
               </div>
-              <div class="column-33">
+              <div class="column-25">
                 <label class="hidden">PhilHealth No.: </label><label class="text-bold text-underline">{{personalInfo.philhealth}}</label>
               </div>
-              <div class="column-33">
+              <div class="column-50">
                 <label class="hidden">Category: </label><label class="text-bold text-underline">{{personalInfo.priority_group}}</label>
               </div>
             </div>
@@ -98,8 +108,9 @@
                   <td class="text-center text-bold">{{first_dosage.lot_number}}</td>
                 </tr>
                 <tr>
-                  <td colspan="2">Vaccinator Name: <span class="text-bold">{{first_dosage.vaccinator}}</span></td>
-                  <td colspan="2">Signature: </td>
+                  <td colspan="2"><small>Vaccinator Name: </small><br /><p class="text-center"><span class="text-bold">{{first_dosage.vaccinator}}</span></p></td>
+                  <td><small>License No.: </small><br /><p class="text-center"><span class="text-bold">123123123</span></p></td>
+                  <td><small>Signature: <br /> &nbsp; </small></td>
                 </tr>
                 <tr>
                   <td class="text-center text-bold" rowspan="2">{{second_dose}} <br/><small>(Schedule {{second_dosage.date_of_vaccination}})</small></td>
@@ -109,8 +120,9 @@
                   <td class="text-center text-bold">{{second_dosage.lot_number}}</td>
                 </tr>
                 <tr>
-                  <td colspan="2">Vaccinator Name: <span class="text-bold">{{second_dosage.vaccinator}}</span></td>
-                  <td colspan="2">Signature: </td>
+                  <td colspan="2"><small>Vaccinator Name: </small><br /><p class="text-center"><span class="text-bold">{{second_dosage.vaccinator}}</span></p></td>
+                  <td><small>License No.: </small><br /><p class="text-center"><span class="text-bold">123123123</span></p></td>
+                  <td><small>Signature: <br /> &nbsp;  </small></td>
                 </tr>
               </table>
             </div>
@@ -127,7 +139,8 @@
           </div>
           
         </div>
-        <span class="vertical-line hidden"><img src="img/card/fb.png" alt="image" class="icon" /> OfficialDOHgov <img src="img/card/twitter.png" alt="image" class="icon" /> DOHgovph <img src="img/card/web.png" alt="image" class="icon" /> doh.gov.ph <img src="img/card/phone.png" alt="image" class="icon" /> (632) 8561 - 7800 loc. 1936 <img src="img/card/email.png" alt="image" class="icon" /> covid19ceir@doh.gov.ph</span>
+        <!-- <span class="vertical-line hidden"><img src="img/card/fb.png" alt="image" class="icon" /> OfficialDOHgov <img src="img/card/twitter.png" alt="image" class="icon" /> DOHgovph <img src="img/card/web.png" alt="image" class="icon" /> doh.gov.ph <img src="img/card/phone.png" alt="image" class="icon" /> (632) 8561 - 7800 loc. 1936 <img src="img/card/email.png" alt="image" class="icon" /> covid19ceir@doh.gov.ph</span> -->
+        <span class="vertical-line hidden">Please keep this card, which includes medical information about the vaccines you have received</span>
       </div>
     </div>
 </template>
@@ -166,7 +179,9 @@ export default {
             first_facility: "",
             second_facility: "",
             status: "",
-            toggle_second_dose: true
+            toggle_second_dose: true,
+            qrcode: null,
+            url: `${api_url}/profile?/pr/`
         })
 
         getRegistrationCertificate({ id: registrationId }).then(res => {
@@ -248,8 +263,13 @@ export default {
                 if(dosages[1].user!=null) {
                     state.second_facility = dosages[1].user.user_hospital.description
                 }
-                
+
             }
+            
+            const pushQrCode = `${"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+state.url}`
+
+            const middle_initial = data.middle_name;
+            data.middle_name = middle_initial.charAt(0);
 
             Object.assign(state, {
                 ...state,
@@ -259,7 +279,8 @@ export default {
                 first_facility: state.first_facility,
                 second_dosage: state.second_dosage,
                 second_facility: state.second_facility,
-                toggle_second_dose: state.toggle_second_dose
+                toggle_second_dose: state.toggle_second_dose,
+                qrcode: `${pushQrCode+data.qr_pass_id+'/'}`
             })
 
         }).catch(err => {
@@ -301,6 +322,47 @@ export default {
 </script>
 
 <style scoped>
+.scan-me {
+  font-weight: bold;
+  font-size: 16px;
+  margin-left: 23%;
+}
+.qr-frame {
+  border: 0.25em solid;
+  position: absolute;
+  width: 195px;
+  margin-left: 20px;
+  margin-top: 13px;
+}
+.qr-frame::before {
+  top: -0.3em;
+  bottom: -0.3em;
+  left: 1em;
+  right: 1em;
+}
+.qr-frame::after{
+  left: -0.3em;
+  right: -0.3em;
+  top: 1em;
+  bottom: 1em;
+}
+.qr-frame::before, .qr-frame::after {
+  content: '';
+  display: block;
+  position: absolute;
+  background: #fff;
+}
+.qr-body {
+  position: relative;
+  z-index: 1;
+}
+.qr-image{
+  width: 173px;
+  margin-left: 2px;
+  margin-top: 7px;
+  margin-right: 7px;
+}
+
 /* Card */
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -309,7 +371,7 @@ export default {
   float: left;
   width: 100%;
   padding: 0 10px;
-  border-right: 35px solid rgb(61, 61, 61);
+  border-right: 35px solid #1d1d1d;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   top: 0px;
@@ -322,6 +384,7 @@ export default {
 }
 .line-2 {
   border-top: 2px solid rgb(45, 45, 45);
+  width: 75%;
 }
 .line-1 {
   border-bottom: 1px solid rgb(45, 45, 45);
@@ -332,17 +395,53 @@ export default {
   clear: both;
 }
 /* Columns */
-.column-30 {
+.column-right-10 {
+  width: 10%;
   float: right;
-  width: 30%;
+}
+.column-3 {
+  width: 3%;
+  float: left;
+}
+.column-12 {
+  width: 12%;
+  float: left;
+}
+.column-13 {
+  width: 13%;
+  float: left;
+}
+.column-15 {
+  width: 15%;
+  float: right;
+}
+.column-20 {
+  width: 20%;
+  float: right;
 }
 .column-25 {
   float: left;
   width: 25%;
 }
+.column-30 {
+  float: right;
+  width: 30%;
+}
 .column-33 {
   float: left;
   width: 33%;
+}
+.column-35 {
+  float: left;
+  width: 35%;
+}
+.column-50 {
+  float: left;
+  width: 50%;
+}
+.column-51 {
+  float: left;
+  width: 51%;
 }
 .column-66 {
   float: left;
@@ -352,12 +451,23 @@ export default {
   float: left;
   width: 70%;
 }
+.column-75 {
+  float: left;
+  width: 75%;
+}
 .column-80 {
   width: 80%;
+  float: left;
 }
-
+.column-85 {
+  width: 85%;
+  float: left;
+}
 .column-100 {
   width: 100%;
+}
+.names {
+  width: 75%;
 }
 
 /* Table */
@@ -368,25 +478,28 @@ export default {
   border-radius: 10px;
 }
 #table td, #customers th {
-  border: 1px solid #ddd;
+  border: .1px solid rgb(108, 108, 108);
   padding: 8px;
 }
-#table tr:nth-child(even){background-color: #f2f2f2;}
-#table tr:hover {background-color: #ddd;}
+#table tr:nth-child(even){background-color: #ffffff;}
+#table tr:hover {background-color: rgb(255, 255, 255);}
 #table th {
   padding-top: 12px;
   padding-bottom: 12px;
-  background-color: #2c2c2c;
-  color: white;
+  background-color: #1d1d1d;
+  color: rgb(255, 255, 255);
   text-align: center;
+  border: .1px solid rgb(108, 108, 108);
 }
 
 /* Others */
 .vertical-line {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  color: white;
-  font-size: 9.5px;
+  color: rgb(255, 255, 255);
+  /* font-size: 9.5px; */
+  text-align: center;
+  font-size: 11.8px;
   margin-left: -2.9%!important;
   z-index: -1;
   white-space: nowrap;
@@ -402,7 +515,9 @@ export default {
 }
 .logos {
   height: 50px; 
-  float: right; 
+  float: left; 
+  margin-top: 2px;
+  margin-bottom: 2px;
   margin-right: 5px;
 }
 .btn-right {
@@ -414,20 +529,54 @@ export default {
 .text-underline {
   text-decoration: underline;
 }
+.text-font-size {
+  font-size: 16px;
+}
+.covid-header {
+  font-size: 33px;
+  margin-left: 30%;
+}
+.covid-logos {
+  margin-left: 45%;
+}
 
 /* On print */
 @media print
 {    
-  .hidden, .hidden *
+  .btn-hide, .btn-hide *
+  {
+      display: none !important;
+  }
+  .scan-me {
+    margin-left: 28%;
+    font-size: 20px;
+  }
+  .qr-frame {
+    margin-left: 10px;
+    margin-top: 9px;
+  }
+  .covid-header {
+    margin-left: 18%;
+  }
+  .covid-logos {
+    margin-left: 35%;
+  }
+  /* .hidden, .hidden *
   {
       display: none !important;
   }
   .card, .card *
-  {
-      box-shadow: 0 4px 8px 0 rgba(255, 255, 255);
-      border-right: 1px;
+  { 
+      box-shadow: 0 0px 0px 0 rgba(255, 255, 255);
+      border-right: .1px;
       border-top-right-radius: 15px;
-      border-bottom-right-radius: 15px;
-  }
+      border-bottom-right-radius: 15px; 
+  }*/
+
+  /* .qr-frame {
+    margin-top: -50px;
+    margin-left: 100px;
+  } */
+
 }
 </style>
