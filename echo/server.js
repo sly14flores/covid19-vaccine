@@ -5,7 +5,7 @@ const {
 	protocol = 'https',
 	port = 7001,
 	database = 'redis',
-	redisHost = 'localhost',
+	redisHost = '10.10.2.49',
 	redisPort = 6380,
 	redisPassword = null,
 } = process.env;
