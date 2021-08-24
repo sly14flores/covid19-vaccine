@@ -6,7 +6,7 @@ const {
 	port = 7001,
 	database = 'redis',
 	redisHost = 'localhost',
-	redisPort = 6379,
+	redisPort = 6380,
 	redisPassword = null,
 } = process.env;
 
