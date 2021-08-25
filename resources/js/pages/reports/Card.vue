@@ -2,106 +2,98 @@
     <div>
       <div class="row">
         <div class="column-100">
-          <div class="row btn-hide">
+          <div class="row hidden">
             <Button icon="pi pi-fw pi-times" class="btn-right p-button-sm p-button-danger p-mr-2" label="Cancel" @click="cancel()" />
             <Button icon="pi pi-fw pi-print" class="btn-right p-button-sm p-button-primary p-mr-2" label="Print" @click="print()" />
           </div>
-          <br class="btn-hide"/>
+          <br class="hidden"/>
           <div class="card">
-            <div class="row">
 
-                <div class="column-75 hidden">
-                    <div class="row line-4">
-                      <h2 class="p-text-bold covid-header">CoViD-19 Vaccination Card</h2>
-                    </div>
-                    <div class="row">
-                      <div class=" column-85">
-                        <div class="covid-logos">
-                          <img class="logos" src="img/card/logos/ntf.png" alt="logo">
-                          <img class="logos" src="img/card/logos/iatf.png" alt="logo">
-                          <img class="logos" src="img/card/logos/doh.png" alt="logo">
-                          <img class="logos" src="img/card/logos/launion-logo.png" alt="logo">
-                          <img class="logos" src="img/card/logos/logo.png" alt="logo">
-                        </div>
-                      </div>
-                    </div>
-                </div>
-
-                <div class="column-25">
-                    <span class="scan-me">Scan Me!</span>
-                   <h1 class="text-center qr-frame">
-                      <img class="qr-image qr-body" v-bind:src="qrcode" />
-                    </h1>
-                </div>
-            </div>
-
-            <br />
-            <br />
-            <br />
-            <div class="row names">
-              <div class="column-33">
-                <label class="text-bold p-text-uppercase text-font-size">{{personalInfo.last_name}}</label>
-              </div>
-              <div class="column-51">
-                <label class="text-bold p-text-uppercase text-font-size"> {{personalInfo.first_name}}</label>
-              </div>
-              <div class="column-3">
-                <label class="text-bold p-text-uppercase text-font-size">{{personalInfo.middle_name}}</label>
-              </div>
-              <div class="column-right-10">
-                <label class="text-bold p-text-uppercase text-font-size">{{personalInfo.suffix}}</label>
-              </div>
-            </div>
-
-            <div class="row line-2 hidden">
-              <div class="column-33">
-                Surname
-              </div>
-              <div class="column-51">
-                First Name
-              </div>
-              <div class="column-3">
-                M.I
-              </div>
-              <div class="column-right-10">
-                Suffix
-              </div>
-            </div>
-
-            <br>
-            <div class="row">
-              <div class="column-50">
-                <label class="hidden">Address: </label><label class="text-bold text-underline">{{personalInfo.barangay}}, {{personalInfo.townCity}} {{personalInfo.province}}</label>
-              </div>
-              <div class="column-50">
-                <label class="hidden">Contact No.: </label><label class="text-bold text-underline">{{personalInfo.contact_no}}</label>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="column-25">
-                <label class="hidden">Date Of Birth: </label><label class="text-bold text-underline">{{personalInfo.birthdate}}</label>
-              </div>
-              <div class="column-25">
-                <label class="hidden">PhilHealth No.: </label><label class="text-bold text-underline">{{personalInfo.philhealth}}</label>
-              </div>
-              <div class="column-50">
-                <label class="hidden">Category: </label><label class="text-bold text-underline">{{personalInfo.priority_group}}</label>
-              </div>
-            </div>
-
-            <br>
+            <!-- Header  -->
             <div class="row hidden">
+              <div class="column-100">
+                <div class="row line-6">
+                  <h1 class="p-text-bold">
+                    CoViD-19 VACCINATION CARD
+                    <img class="logos" src="img/card/logos/logo.png" alt="logo">
+                    <img class="logos" src="img/card/logos/launion-logo.png" alt="logo">
+                    <img class="logos" src="img/card/logos/doh.png" alt="logo">
+                    <img class="logos" src="img/card/logos/iatf.png" alt="logo">
+                    <img class="logos" src="img/card/logos/ntf.png" alt="logo">
+                  </h1>
+                </div>
+              </div>
+            </div>
+
+            <!-- Patient  -->
+            <div class="row">
+              <div class="column-25">
+                  <div class="text-center qr-frame">
+                    <img class="qr-image qr-body" v-bind:src="qrcode" />
+                  </div>
+                  <span class="scan-me">Scan QR Code</span>
+              </div>
+              <div class="column-75">
+                  <div class="row p-mb-2">
+                      <div class="patient-name column-100">
+                        <label>{{personalInfo.first_name}} {{personalInfo.middle_name}} {{personalInfo.last_name}} {{personalInfo.suffix}}</label>
+                      </div>
+                  </div>
+                  <div class="row p-mb-2">
+                      <div class="column-15">
+                        <label class="patient-label">Address </label> &nbsp;
+                      </div>
+                      <div class="column-85">
+                        <label class="patient-info">: {{personalInfo.barangay}}, {{personalInfo.townCity}} {{personalInfo.province}}</label>
+                      </div>
+                  </div>
+                  <div class="row p-mb-2">
+                      <div class="column-15">
+                        <label class="patient-label">Birthdate</label> &nbsp;
+                      </div>
+                      <div class="column-85">
+                        <label class="patient-info">: {{personalInfo.birthdate}}</label>
+                      </div>
+                  </div>
+                  <div class="row p-mb-2">
+                      <div class="column-15">
+                        <label class="patient-label">Contact No. </label> &nbsp;
+                      </div>
+                      <div class="column-85">
+                        <label class="patient-info">: {{personalInfo.contact_no}}</label>
+                      </div>
+                  </div>
+                  <div class="row p-mb-2">
+                      <div class="column-15">
+                        <label class="patient-label">Philhealth </label> &nbsp;
+                      </div>
+                      <div class="column-85">
+                        <label class="patient-info">: {{personalInfo.philhealth}}</label>
+                      </div>
+                  </div>
+                  <div class="row p-mb-2">
+                      <div class="column-15">
+                        <label class="patient-label">Category </label> &nbsp;
+                      </div>
+                      <div class="column-85">
+                        <label class="patient-info">: {{personalInfo.priority_group}}</label>
+                      </div>
+                  </div>
+              </div>
+            </div>
+
+            <!-- Body/Table -->
+            <div class="row p-mt-4 vaccine-table">
               <table id="table">
                 <tr>
                   <th>Dosage Seq.</th>
-                  <th>Date <br/><small>(mm/dd/yyyy)</small></th>
-                  <th>Vaccine Manufacturer</th>
+                  <th>Date</th>
+                  <th>Vaccine <br /> Manufacturer</th>
                   <th>Batch No.</th>
                   <th>Lot No.</th>
                 </tr>
                 <tr>
-                  <td class="text-center text-bold" rowspan="2" >{{first_dose}}</td>
+                  <td class="text-center text-bold" rowspan="2">{{first_dose}}</td>
                   <td class="text-center text-bold">{{first_dosage.date_of_vaccination}}</td>
                   <td class="text-center text-bold">{{first_dosage.brand_description}}</td>
                   <td class="text-center text-bold">{{first_dosage.batch_number}}</td>
@@ -113,7 +105,7 @@
                   <td><small>Signature: <br /> &nbsp; </small></td>
                 </tr>
                 <tr>
-                  <td class="text-center text-bold" rowspan="2">{{second_dose}} <br/><small>(Schedule {{second_dosage.date_of_vaccination}})</small></td>
+                  <td class="text-center text-bold" rowspan="2">{{second_dose}}</td>
                   <td class="text-center text-bold">{{second_dosage.date_of_vaccination}}</td>
                   <td class="text-center text-bold">{{second_dosage.brand_description}}</td>
                   <td class="text-center text-bold">{{second_dosage.batch_number}}</td>
@@ -126,16 +118,15 @@
                 </tr>
               </table>
             </div>
-            <br>
-            <div class="row">
+
+            <div class="row p-mt-4">
               <div class="column-66">
-                <label class="hidden">Health Facility Name: </label> <label class="text-bold text-underline">{{first_facility}}</label>
+                <label class="patient-label">Health Facility Name: </label> <label class="text-bold text-underline text-footer">{{first_facility}}</label>
               </div>
               <div class="column-33">
-                <label class="hidden">Contact No. </label> <label class="text-bold text-underline">(072) 607-2633</label>
+                <label class="patient-label">Contact No. </label> <label class="text-bold text-underline text-footer">(072) 607-2633</label>
               </div>
             </div>
-            <br/>
           </div>
           
         </div>
@@ -268,8 +259,10 @@ export default {
             
             const pushQrCode = `${"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+state.url}`
 
-            const middle_initial = data.middle_name;
-            data.middle_name = middle_initial.charAt(0);
+            if(data.middle_name!=null) {
+              const middle_initial = data.middle_name;
+              data.middle_name = `${middle_initial.charAt(0)+"."}`
+            }
 
             Object.assign(state, {
                 ...state,
@@ -288,8 +281,6 @@ export default {
             console.log(err)
             
         })
-
-        console.log(state)
 
         return {
             ...toRefs(state),
@@ -322,261 +313,252 @@ export default {
 </script>
 
 <style scoped>
-.scan-me {
-  font-weight: bold;
-  font-size: 16px;
-  margin-left: 23%;
-}
-.qr-frame {
-  border: 0.25em solid;
-  position: absolute;
-  width: 195px;
-  margin-left: 20px;
-  margin-top: 13px;
-}
-.qr-frame::before {
-  top: -0.3em;
-  bottom: -0.3em;
-  left: 1em;
-  right: 1em;
-}
-.qr-frame::after{
-  left: -0.3em;
-  right: -0.3em;
-  top: 1em;
-  bottom: 1em;
-}
-.qr-frame::before, .qr-frame::after {
-  content: '';
-  display: block;
-  position: absolute;
-  background: #fff;
-}
-.qr-body {
-  position: relative;
-  z-index: 1;
-}
-.qr-image{
-  width: 173px;
-  margin-left: 2px;
-  margin-top: 7px;
-  margin-right: 7px;
-}
 
-/* Card */
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  float: left;
-  width: 100%;
-  padding: 0 10px;
-  border-right: 35px solid #1d1d1d;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
-  top: 0px;
-}
-.line-4 {
-  border-bottom: 4px solid rgb(45, 45, 45);
-}
-.line-3 {
-  border-bottom: 3px solid rgb(45, 45, 45);
-}
-.line-2 {
-  border-top: 2px solid rgb(45, 45, 45);
-  width: 75%;
-}
-.line-1 {
-  border-bottom: 1px solid rgb(45, 45, 45);
-}
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-/* Columns */
-.column-right-10 {
-  width: 10%;
-  float: right;
-}
-.column-3 {
-  width: 3%;
-  float: left;
-}
-.column-12 {
-  width: 12%;
-  float: left;
-}
-.column-13 {
-  width: 13%;
-  float: left;
-}
-.column-15 {
-  width: 15%;
-  float: right;
-}
-.column-20 {
-  width: 20%;
-  float: right;
-}
-.column-25 {
-  float: left;
-  width: 25%;
-}
-.column-30 {
-  float: right;
-  width: 30%;
-}
-.column-33 {
-  float: left;
-  width: 33%;
-}
-.column-35 {
-  float: left;
-  width: 35%;
-}
-.column-50 {
-  float: left;
-  width: 50%;
-}
-.column-51 {
-  float: left;
-  width: 51%;
-}
-.column-66 {
-  float: left;
-  width: 66%;
-}
-.column-70 {
-  float: left;
-  width: 70%;
-}
-.column-75 {
-  float: left;
-  width: 75%;
-}
-.column-80 {
-  width: 80%;
-  float: left;
-}
-.column-85 {
-  width: 85%;
-  float: left;
-}
-.column-100 {
-  width: 100%;
-}
-.names {
-  width: 75%;
-}
-
-/* Table */
-#table {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  border-radius: 10px;
-}
-#table td, #customers th {
-  border: .1px solid rgb(108, 108, 108);
-  padding: 8px;
-}
-#table tr:nth-child(even){background-color: #ffffff;}
-#table tr:hover {background-color: rgb(255, 255, 255);}
-#table th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  background-color: #1d1d1d;
-  color: rgb(255, 255, 255);
-  text-align: center;
-  border: .1px solid rgb(108, 108, 108);
-}
-
-/* Others */
-.vertical-line {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  color: rgb(255, 255, 255);
-  /* font-size: 9.5px; */
-  text-align: center;
-  font-size: 11.8px;
-  margin-left: -2.9%!important;
-  z-index: -1;
-  white-space: nowrap;
-}
-.text-center {
-  text-align: center;
-}
-.text-bold {
-  font-weight: bold;
-}
-.icon {
-  width: 15px;
-}
-.logos {
-  height: 50px; 
-  float: left; 
-  margin-top: 2px;
-  margin-bottom: 2px;
-  margin-right: 5px;
-}
-.btn-right {
-  float: right;
-}
-.text-right {
-  float: right;
-}
-.text-underline {
-  text-decoration: underline;
-}
-.text-font-size {
-  font-size: 16px;
-}
-.covid-header {
-  font-size: 33px;
-  margin-left: 30%;
-}
-.covid-logos {
-  margin-left: 45%;
-}
-
-/* On print */
-@media print
-{    
-  .btn-hide, .btn-hide *
-  {
-      display: none !important;
+/* Patient  */
+  .patient-name {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  .patient-label {
+    font-size: 18px;
+  }
+  .patient-info {
+    font-weight: bold;
+    font-size: 21px;
   }
   .scan-me {
-    margin-left: 28%;
-    font-size: 20px;
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 20%;
   }
+
+/* QR Code  */
   .qr-frame {
-    margin-left: 10px;
-    margin-top: 9px;
+    border: 0.25em solid;
+    position: relative;
+    width: 195px;
+    margin-left: 20px;
+    margin-top: 13px;
   }
-  .covid-header {
-    margin-left: 18%;
+  .qr-frame::before {
+    top: -0.3em;
+    bottom: -0.3em;
+    left: 1em;
+    right: 1em;
   }
-  .covid-logos {
-    margin-left: 35%;
+  .qr-frame::after{
+    left: -0.3em;
+    right: -0.3em;
+    top: 1em;
+    bottom: 1em;
   }
-  /* .hidden, .hidden *
+  .qr-frame::before, .qr-frame::after {
+    content: '';
+    display: block;
+    position: absolute;
+    background: #fff;
+  }
+  .qr-body {
+    position: relative;
+    z-index: 1;
+  }
+  .qr-image{
+    width: 173px;
+    margin-left: 2px;
+    margin-top: 7px;
+    margin-right: 7px;
+  }
+
+  /* Card */
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    float: left;
+    width: 100%;
+    padding: 0 10px;
+    border-right: 35px solid #1d1d1d;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    top: 0px;
+  }
+  .line-6 {
+    border-bottom: 6px solid rgb(45, 45, 45);
+  }
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+/* Columns */
+  .column-15 {
+    width: 15%;
+    float: left;
+  }
+  .column-20 {
+    width: 20%;
+    float: left;
+  }
+  .column-25 {
+    float: left;
+    width: 25%;
+  }
+  .column-30 {
+    float: left;
+    width: 30%;
+  }
+  .column-33 {
+    float: left;
+    width: 33%;
+  }
+  .column-35 {
+    float: left;
+    width: 35%;
+  }
+  .column-50 {
+    float: left;
+    width: 50%;
+  }
+  .column-51 {
+    float: left;
+    width: 51%;
+  }
+  .column-66 {
+    float: left;
+    width: 66%;
+  }
+  .column-70 {
+    float: left;
+    width: 70%;
+  }
+  .column-75 {
+    float: left;
+    width: 75%;
+  }
+  .column-80 {
+    width: 80%;
+    float: left;
+  }
+  .column-85 {
+    width: 85%;
+    float: left;
+  }
+  .column-100 {
+    width: 100%;
+    float: left;
+  }
+
+/* Table */
+  #table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+  #table td, th {
+    border: .1px solid rgb(108, 108, 108);
+    padding: 8px;
+  }
+  #table tr:nth-child(even){background-color: #ffffff;}
+  #table tr:hover {background-color: rgb(255, 255, 255);}
+  #table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    border: .1px solid rgb(108, 108, 108);
+  }
+
+/* Others */
+  .vertical-line {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    color: rgb(255, 255, 255);
+    /* font-size: 9.5px; */
+    text-align: center;
+    font-size: 12px;
+    margin-left: -2%!important;
+    margin-top: 6%;
+    z-index: -1;
+    white-space: nowrap;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .text-bold {
+    font-weight: bold;
+  }
+  .icon {
+    width: 15px;
+  }
+  .logos {
+    height: 50px; 
+    float: right; 
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right: 5px;
+  }
+  .btn-right {
+    float: right;
+  }
+  .text-right {
+    float: right;
+  }
+  .text-underline {
+    text-decoration: underline;
+  }
+  .text-footer {
+    font-size: 21px;
+  }
+
+/* On print */
+  @media print
   {
-      display: none !important;
-  }
-  .card, .card *
-  { 
+    .hidden, .hidden *
+    {
+        display: none !important;
+    }
+    .scan-me {
+      margin-left: 18%;
+      font-size: 15px;
+    }
+  
+    .qr-frame {
+      width: 195px;
+      margin-left: -10px!important;
+      margin-top: 13px;
+    }
+    .qr-image{
+      width: 173px;
+      margin-left: 2px;
+      margin-top: 7px;
+      margin-right: 7px;
+    }
+    .card
+    { 
       box-shadow: 0 0px 0px 0 rgba(255, 255, 255);
-      border-right: .1px;
-      border-top-right-radius: 15px;
-      border-bottom-right-radius: 15px; 
-  }*/
+      border-right: 0px solid #ffffff;
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px; 
+    }
+    .patient-info {
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 5px!important;
+    }
+    .column-15 {
+      width: 18%;
+    }
+    .column-85 {
+      width: 82%;
+    }
 
-  /* .qr-frame {
-    margin-top: -50px;
-    margin-left: 100px;
-  } */
-
-}
+    #table {
+      margin-left: -10px!important;
+    }
+  }
 </style>
