@@ -45,6 +45,10 @@
                             <label>Profession</label>
                             <Dropdown class="p-shadow-1" :options="professions" optionLabel="name" optionValue="id" v-model="profession" placeholder="Select a Profession" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
                         </div>
+                        <div class="p-field p-col-12 p-md-4">
+                            <label>License No.</label>
+                            <InputText class="p-shadow-1" id="prc_number" type="text" placeholder="Enter License No" v-model="prc_number" :class="{'disabled': editMode && !writeOn}" :disabled="editMode && !writeOn" />
+                        </div>
                     </div>
 
                     <h5><i class="pi pi-lock"></i> Login Credentials</h5>
@@ -192,6 +196,7 @@ export default {
         const { value: hospital } = useField('user.hospital',validField);
         const { value: group_id, errorMessage: group_idError } = useField('user.group_id',validateField);
         const { value: profession } = useField('user.profession',validField);
+        const { value: prc_number } = useField('user.prc_number',validField);
         const { value: username, errorMessage: usernameError } = useField('user.username',validateField);
         const { value: password, errorMessage: passwordError } = useField('user.password',(editMode)?validField:validatePassword);
 
@@ -203,6 +208,7 @@ export default {
             hospital,
             group_id,
             profession,
+            prc_number,
             username,
             password,
             firstnameError,

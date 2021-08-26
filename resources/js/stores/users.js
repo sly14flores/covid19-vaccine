@@ -54,6 +54,7 @@ const user = {
     firstname: null,
     middlename: null,
     lastname: null,
+    prc_number: null,
     email: null,
     username: null,
     password: null

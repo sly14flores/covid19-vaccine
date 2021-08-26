@@ -36,7 +36,7 @@
               <div class="column-75">
                   <div class="row p-mb-2">
                       <div class="patient-name column-100">
-                        <label>{{personalInfo.first_name}} {{personalInfo.middle_name}} {{personalInfo.last_name}} {{personalInfo.suffix}}</label>
+                        <label class="p-text-uppercase">{{personalInfo.first_name}} {{personalInfo.middle_name}} {{personalInfo.last_name}} {{personalInfo.suffix}}</label>
                       </div>
                   </div>
                   <div class="row p-mb-2">
@@ -94,32 +94,41 @@
                 </tr>
                 <tr>
                   <td class="text-center text-bold" rowspan="2">{{first_dose}}</td>
-                  <td class="text-center text-bold">{{first_dosage.date_of_vaccination}}</td>
-                  <td class="text-center text-bold">{{first_dosage.brand_description}}</td>
-                  <td class="text-center text-bold">{{first_dosage.batch_number}}</td>
-                  <td class="text-center text-bold">{{first_dosage.lot_number}}</td>
+                  <td class="text-center text-bold">{{first_dosage.date_of_vaccination}}&nbsp;</td>
+                  <td class="text-center text-bold" :class="vaccine_color">{{first_dosage.brand_description}}&nbsp;</td>
+                  <td class="text-center text-bold">{{first_dosage.batch_number}}&nbsp;</td>
+                  <td class="text-center text-bold">{{first_dosage.lot_number}}&nbsp;</td>
                 </tr>
                 <tr>
-                  <td colspan="2"><small>Vaccinator Name: </small><br /><p class="text-center"><span class="text-bold">{{first_dosage.vaccinator}}</span></p></td>
-                  <td><small>License No.: </small><br /><p class="text-center"><span class="text-bold">123123123</span></p></td>
+                  <td colspan="2"><small>Vaccinator Name: </small><br /><p class="text-center"><span class="text-bold p-text-uppercase">{{first_dosage.vaccinator}}&nbsp;</span></p></td>
+                  <td><small>License No.: </small><br /><p class="text-center"><span class="text-bold">{{first_license}}&nbsp;</span></p></td>
                   <td><small>Signature: <br /> &nbsp; </small></td>
                 </tr>
                 <tr>
                   <td class="text-center text-bold" rowspan="2">{{second_dose}}</td>
-                  <td class="text-center text-bold">{{second_dosage.date_of_vaccination}}</td>
-                  <td class="text-center text-bold">{{second_dosage.brand_description}}</td>
-                  <td class="text-center text-bold">{{second_dosage.batch_number}}</td>
-                  <td class="text-center text-bold">{{second_dosage.lot_number}}</td>
+                  <td class="text-center text-bold">{{second_dosage.date_of_vaccination}}&nbsp;</td>
+                  <td class="text-center text-bold" :class="vaccine_color">{{second_dosage.brand_description}}&nbsp;</td>
+                  <td class="text-center text-bold">{{second_dosage.batch_number}}&nbsp;</td>
+                  <td class="text-center text-bold">{{second_dosage.lot_number}}&nbsp;</td>
                 </tr>
                 <tr>
-                  <td colspan="2"><small>Vaccinator Name: </small><br /><p class="text-center"><span class="text-bold">{{second_dosage.vaccinator}}</span></p></td>
-                  <td><small>License No.: </small><br /><p class="text-center"><span class="text-bold">123123123</span></p></td>
+                  <td colspan="2"><small>Vaccinator Name: </small><br /><p class="text-center"><span class="text-bold p-text-uppercase">{{second_dosage.vaccinator}}&nbsp;</span></p></td>
+                  <td><small>License No.: </small><br /><p class="text-center"><span class="text-bold">{{second_license}}&nbsp;</span></p></td>
                   <td><small>Signature: <br /> &nbsp;  </small></td>
                 </tr>
               </table>
             </div>
-
-            <div class="row p-mt-4">
+            <br />
+            <div class="row footer-hide">
+              <div class="column-66">
+                <label class="patient-label">Health Facility Name: </label> <label class="text-bold text-underline text-footer">{{first_facility}}</label>
+              </div>
+              <div class="column-33">
+                <label class="patient-label">Contact No. </label> <label class="text-bold text-underline text-footer">(072) 607-2633</label>
+              </div>
+            </div>
+            <br class="hidden" />
+            <div class="row footer">
               <div class="column-66">
                 <label class="patient-label">Health Facility Name: </label> <label class="text-bold text-underline text-footer">{{first_facility}}</label>
               </div>
@@ -169,17 +178,22 @@ export default {
             second_dosage: {},
             first_facility: "",
             second_facility: "",
+            first_license: "",
+            second_license: "",
             status: "",
             toggle_second_dose: true,
             qrcode: null,
-            url: `${api_url}/profile?/pr/`
+            url: `${api_url}/profile?/pr/`,
+            vaccine_color: null,
         })
 
         getRegistrationCertificate({ id: registrationId }).then(res => {
             const { data: { data } } = res
             const { dosages } = data
 
-            dosages.sort((a, b) => (a.dose > b.dose) ? 1 : -1)
+            const pushQrCode = `${"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+state.url}`
+
+            dosages.sort((a, b) => (a.dose > b.dose) ? 1 : -1);
 
             if(dosages.length == 0) {
 
@@ -219,26 +233,38 @@ export default {
 
             if(data.suffix=="NA") data.suffix = "";
 
-            // First Dose
-            const first = new Date(dosages[0].date_of_vaccination);
+            if(dosages[0].brand_description=="Pfizer/BioNTech") state.vaccine_color = "pfizer";
+            if(dosages[0].brand_description=="Sinovac") state.vaccine_color = "sinovac";
+            if(dosages[0].brand_description=="Moderna") state.vaccine_color = "moderna";
+            if(dosages[0].brand_description=="Oxford/AstraZeneca") state.vaccine_color = "astrazeneca";
+            if(dosages[0].brand_description=="Janssen (Johnson & Johnson)") state.vaccine_color = "janzen";
 
-            const add_zero = first.getMonth() < 9 ? '0': '';
-            const month = first.getMonth()+1;
-            const first_date_vaccination = `${add_zero+month+'/'+first.getDate()+'/'+first.getFullYear()}`;
-            dosages[0].date_of_vaccination = first_date_vaccination;
-
+            
             if(dosages.length >= 1) {
+              
+              // First Dose
+              if(dosages[0].brand_description!="") {
+                  const first = new Date(dosages[0].date_of_vaccination);
 
+                  const add_zero = first.getMonth() < 9 ? '0': '';
+                  const month = first.getMonth()+1;
+                  const first_date_vaccination = `${add_zero+month+'/'+first.getDate()+'/'+first.getFullYear()}`;
+                  dosages[0].date_of_vaccination = first_date_vaccination;
+              } else { 
+                dosages[0].date_of_vaccination = ""
+              }
+              
               if(dosages[0].user!=null) {
                   state.first_facility = dosages[0].user.user_hospital.description
+                  state.first_license = dosages[0].user.prc_number
               }
-              state.toggle_second_dose = false;
-              state.status = "Partially Vaccinated";
 
             }
 
             // Second Dose
             if(dosages.length==2 && dosages[1].brand_description!="") {
+
+                if(dosages[1].brand_description=="Janssen (Johnson & Johnson)") state.vaccine_color = "janzen";
 
                 state.status = "Fully Vaccinated";
                 state.toggle_second_dose = true;
@@ -253,11 +279,10 @@ export default {
 
                 if(dosages[1].user!=null) {
                     state.second_facility = dosages[1].user.user_hospital.description
+                    state.second_license = dosages[1].user.prc_number
                 }
 
             }
-            
-            const pushQrCode = `${"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+state.url}`
 
             if(data.middle_name!=null) {
               const middle_initial = data.middle_name;
@@ -313,6 +338,22 @@ export default {
 </script>
 
 <style scoped>
+/* Manufacturer Color */
+  .pfizer {
+    color: #183986;
+  }
+  .sinovac {
+    color: rgb(204, 133, 0);
+  }
+  .moderna {
+    color: red;
+  }
+  .astrazeneca {
+    color: purple;
+  }
+  .janzen {
+    color: #305280;
+  }
 
 /* Patient  */
   .patient-name {
@@ -456,7 +497,7 @@ export default {
     border-collapse: collapse;
     width: 100%;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 17.1px;
   }
   #table td, th {
     border: .1px solid rgb(108, 108, 108);
@@ -514,6 +555,16 @@ export default {
   .text-footer {
     font-size: 21px;
   }
+  .footer {
+    margin-bottom: 30px;
+    margin-left: -80px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: rgb(15, 15, 15);
+    text-align: center;
+    display: none;
+  }
 
 /* On print */
   @media print
@@ -559,6 +610,19 @@ export default {
 
     #table {
       margin-left: -10px!important;
+    }
+    .footer {
+      margin-bottom: 30px;
+      margin-left: -80px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      color: rgb(15, 15, 15);
+      text-align: center;
+      display: inline;
+    }
+    .footer-hide {
+      display: none;
     }
   }
 </style>

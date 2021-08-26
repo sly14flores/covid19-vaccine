@@ -29,6 +29,7 @@ const registration = {
     philhealth: null,
     province: null,
     townCity: null,
+    town_city: null,
     barangay: null,
     fully_vaccinated: null,
     priority_group: null,
@@ -117,6 +118,7 @@ const mutations = {
         state.registration.barangay = payload.barangay
         state.registration.fully_vaccinated = payload.fully_vaccinated
         state.registration.priority_group = payload.priority_group
+        state.registration.town_city = payload.town_city
 
         state.registration.first_dosage.date_of_vaccination = payload.dosages[0].date_of_vaccination
         state.registration.first_dosage.time_of_vaccination = payload.dosages[0].time_of_vaccination
@@ -202,15 +204,18 @@ const actions = {
             const { dosages } = data
             
             dosages.sort((a, b) => (a.dose > b.dose) ? 1 : -1)
-
+            
             const province = data.province;
             const barangay = data.barangay;
+            const city = data.town_city;
 
             const provinceStr = province.replace(/_/g, " ");
             const brgyStr = barangay.replace(/_/g, " ");
+            const cityStr = city.replace(/_/g, " ");
 
             data.province = provinceStr.replace(/[0-9]/g, '');
             data.barangay = brgyStr.replace(/[0-9]/g, '');
+            data.town_city = cityStr.replace(/[0-9]/g, '');
 
             if(data.suffix=="NA") data.suffix = "";
             

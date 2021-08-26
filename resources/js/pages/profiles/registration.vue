@@ -13,7 +13,7 @@
                       <hr />
                       <div class="p-grid">
                           <div class="p-field p-col-6 p-md-3">
-                              <label for="description">Napanam QR ID </label>
+                              <label for="description">Napanam ID No. </label>
                               <p class="p-text-bold">{{registration.qr_pass_id}}</p>
                           </div>
                       </div>
@@ -57,7 +57,7 @@
                       <div class="p-grid">
                           <div class="p-field p-col-12 p-md-9">
                               <label for="description">Address <small>(Barangay/Municipality/Province</small></label>
-                              <p class="p-text-bold p-text-uppercase">{{registration.barangay}} {{registration.townCity}},{{registration.province}}</p>
+                              <p class="p-text-bold p-text-uppercase">{{registration.barangay}}, {{registration.town_city}} {{registration.province}}</p>
                           </div>
                           <div class="p-field p-col-6 p-md-3">
                               <label for="description">Status</label>

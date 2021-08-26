@@ -45,6 +45,7 @@ class ProfileResource extends JsonResource
             'dosages' => $dosages,
             'province' => $this->province,
             'townCity' => (is_null($this->townCity))?"":$this->townCity->citymunDesc,
+            'town_city' => $this->town_city,
             'barangay' => $this->barangay,
             'fully_vaccinated' => $this->fully_vaccinated,
             'priority_group' => $this->priority($this->priority_group),

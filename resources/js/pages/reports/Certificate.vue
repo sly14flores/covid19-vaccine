@@ -27,12 +27,14 @@
                         <p class="text-bold p-text-uppercase">{{fullname}}</p>
                         <p class="text-bold p-text-uppercase">{{personalInfo.gender}}</p>
                         <p class="text-bold">{{personalInfo.barangay}}, {{personalInfo.town_city}}{{personalInfo.province}}</p>
+                        <p class="text-bold">{{personalInfo.contact_no}}</p>
                         <p class="text-bold">{{status}}</p>
                         </div>
                         <div class="column-20">
                           <p>Name: </p>
                           <p>Sex:</p>
                           <p>Address: </p>
+                          <p>Contact No.: </p>
                           <p>Status: </p>
                         </div>
                     </div>
