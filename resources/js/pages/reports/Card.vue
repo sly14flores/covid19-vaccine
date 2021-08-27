@@ -83,7 +83,7 @@
             </div>
 
             <!-- Body/Table -->
-            <div class="row p-mt-4 vaccine-table">
+            <div class="row p-mt-4 vaccine-table hidden">
               <table id="table">
                 <tr>
                   <th>Dosage Seq.</th>
@@ -93,38 +93,104 @@
                   <th>Lot No.</th>
                 </tr>
                 <tr>
-                  <td class="text-center text-bold" rowspan="2">{{first_dose}}</td>
-                  <td class="text-center text-bold">{{first_dosage.date_of_vaccination}}&nbsp;</td>
-                  <td class="text-center text-bold" :class="vaccine_color">{{first_dosage.brand_description}}&nbsp;</td>
-                  <td class="text-center text-bold">{{first_dosage.batch_number}}&nbsp;</td>
-                  <td class="text-center text-bold">{{first_dosage.lot_number}}&nbsp;</td>
+                  <td class="text-center text-bold label-first-dose" rowspan="2">{{first_dose}}</td>
+                  <td class="text-center text-bold label-first-date">{{first_dosage.date_of_vaccination}}</td>
+                  <td class="text-center text-bold label-first-brand" :class="vaccine_color">{{first_dosage.brand_description}}&nbsp;</td>
+                  <td class="text-center text-bold label-first-batch">{{first_dosage.batch_number}}&nbsp;</td>
+                  <td class="text-center text-bold label-first-lot">{{first_dosage.lot_number}}&nbsp;</td>
                 </tr>
                 <tr>
-                  <td colspan="2"><small>Vaccinator Name: </small><br /><p class="text-center"><span class="text-bold p-text-uppercase">{{first_dosage.vaccinator}}&nbsp;</span></p></td>
-                  <td><small>License No.: </small><br /><p class="text-center"><span class="text-bold">{{first_license}}&nbsp;</span></p></td>
-                  <td><small>Signature: <br /> &nbsp; </small></td>
+                  <td colspan="2"><small>Vaccinator Name:&nbsp;</small><br /><p class="text-center"><span class="text-bold p-text-uppercase">{{first_dosage.vaccinator}}&nbsp;</span></p></td>
+                  <td><small>License No.:&nbsp;</small><br /><p class="text-center"><span class="text-bold">{{first_license}}&nbsp;</span></p></td>
+                  <td><small>Signature:&nbsp; <br /> &nbsp; </small></td>
                 </tr>
                 <tr>
                   <td class="text-center text-bold" rowspan="2">{{second_dose}}</td>
-                  <td class="text-center text-bold">{{second_dosage.date_of_vaccination}}&nbsp;</td>
+                  <td class="text-center text-bold">{{second_dosage.date_of_vaccination}}</td>
                   <td class="text-center text-bold" :class="vaccine_color">{{second_dosage.brand_description}}&nbsp;</td>
                   <td class="text-center text-bold">{{second_dosage.batch_number}}&nbsp;</td>
                   <td class="text-center text-bold">{{second_dosage.lot_number}}&nbsp;</td>
                 </tr>
                 <tr>
-                  <td colspan="2"><small>Vaccinator Name: </small><br /><p class="text-center"><span class="text-bold p-text-uppercase">{{second_dosage.vaccinator}}&nbsp;</span></p></td>
-                  <td><small>License No.: </small><br /><p class="text-center"><span class="text-bold">{{second_license}}&nbsp;</span></p></td>
-                  <td><small>Signature: <br /> &nbsp;  </small></td>
+                  <td colspan="2"><small>Vaccinator Name:</small><br /><p class="text-center"><span class="text-bold p-text-uppercase">{{second_dosage.vaccinator}}&nbsp;</span></p></td>
+                  <td><small>License No.:</small><br /><p class="text-center"><span class="text-bold">{{second_license}}&nbsp;</span></p></td>
+                  <td><small>Signature:<br /> &nbsp;  </small></td>
                 </tr>
               </table>
             </div>
+
+            <!-- Print -->
+            <div class="row print">
+              <div class="column-first-dose">
+                  <label>&nbsp;</label>
+              </div>
+              <div class="column-first-date">
+                  <div class="label-first-date">{{first_dosage.date_of_vaccination}}</div>
+              </div>
+              <div class="column-first-brand">
+                  <div class="label-first-brand" :class="vaccine_color">{{first_dosage.brand_description}}</div>
+              </div>
+              <div class="column-first-batch">
+                  <div class="label-first-batch">{{first_dosage.batch_number}}</div>
+              </div>
+              <div class="column-first-lot">
+                  <div class="label-first-lot">{{first_dosage.lot_number}}</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="column-first-dose">
+                  <div>&nbsp;</div>
+              </div>
+              <div class="column-first-vaccinator">
+                  <div class="label-first-vaccinator">{{first_dosage.vaccinator}}</div>
+              </div>
+              <div class="column-first-license">
+                  <div class="label-first-license">{{first_license}}</div>
+              </div>
+              <div class="column-first-signature">
+                  <div>&nbsp;</div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="column-second-dose">
+                  <div>&nbsp;</div>
+              </div>
+              <div class="column-second-date">
+                  <div class="label-second-date">{{second_dosage.date_of_vaccination}}</div>
+              </div>
+              <div class="column-second-brand">
+                  <div class="label-second-brand" :class="vaccine_color">{{second_dosage.brand_description}}</div>
+              </div>
+              <div class="column-second-batch">
+                  <div class="label-second-batch">{{second_dosage.batch_number}}</div>
+              </div>
+              <div class="column-second-lot">
+                  <div class="label-second-lot">{{second_dosage.lot_number}}</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="column-second-dose">
+                  <div>&nbsp;</div>
+              </div>
+              <div class="column-second-vaccinator">
+                  <div class="label-second-vaccinator">{{second_dosage.vaccinator}}</div>
+              </div>
+              <div class="column-second-license">
+                  <div class="label-second-license">{{second_license}}</div>
+              </div>
+              <div class="column-second-signature">
+                  <div>&nbsp;</div>
+              </div>
+            </div>
+
             <br />
             <div class="row footer-hide">
               <div class="column-66">
-                <label class="patient-label">Health Facility Name: </label> <label class="text-bold text-underline text-footer">{{first_facility}}</label>
+                <label class="patient-label hidden">Health Facility Name:</label> <label class="text-bold text-underline text-footer">{{first_facility}}</label>
               </div>
               <div class="column-33">
-                <label class="patient-label">Contact No. </label> <label class="text-bold text-underline text-footer">(072) 607-2633</label>
+                <label class="patient-label hidden">Contact No.</label> <label class="text-bold text-underline text-footer">(072) 607-2633</label>
               </div>
             </div>
             <br class="hidden" />
@@ -272,6 +338,7 @@ export default {
                 const second = new Date(dosages[1].date_of_vaccination);
                 const add_zero = second.getMonth() < 9 ? '0': '';
                 const month = second.getMonth()+1;
+                
                 const second_date_vaccination = `${add_zero+month+'/'+second.getDate()+'/'+second.getFullYear()}`;
                 dosages[1].date_of_vaccination = second_date_vaccination;
 
@@ -338,6 +405,9 @@ export default {
 </script>
 
 <style scoped>
+.print {
+  margin-top: 10.5%;
+}
 /* Manufacturer Color */
   .pfizer {
     color: #183986;
@@ -565,10 +635,174 @@ export default {
     text-align: center;
     display: none;
   }
-
+  
 /* On print */
   @media print
   {
+    .patient-name {
+      font-size: 40px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .patient-label {
+      font-size: 20px;
+    }
+    .patient-info {
+      font-weight: bold;
+      font-size: 23px;
+    }
+  
+  /* Print Label */
+    .column-first-dose {
+      width: 20%;
+      position: relative;
+      border: .1px solid rgb(255, 255, 255);
+      text-align: center;
+      float: left;
+      height: 50px;
+    }
+    .column-first-date {
+      width: 18%;
+      text-align: center;
+      border: .1px solid rgb(255, 255, 255);
+      float: left;
+      height: 50px;
+    }
+    .label-first-date {
+      font-size: 18px;
+      padding: 10px;
+      margin-top: 5px;
+    }
+    .column-first-brand {
+      width: 25%;
+      text-align: center;
+      position: relative;
+      border: .1px solid rgb(255, 255, 255);
+      float: left;
+      height: 50px;
+    }
+    .label-first-brand {
+      font-size: 18px;
+      padding: 10px;
+      margin-top: 5px;
+    }
+    .column-first-batch, .column-first-lot {
+      width: 18%;
+      text-align: center;
+      position: relative;
+      border: .1px solid rgb(255, 255, 255);
+      float: left;
+      height: 50px;
+    }
+    .label-first-batch, .label-first-lot {
+      font-size: 18px;
+      padding: 10px;
+      margin-top: 5px;
+    }
+    .column-first-vaccinator {
+      width: 43%;
+      text-align: center;
+      border: .1px solid rgb(255, 255, 255);
+      position: relative;
+      float: left;
+      height: 50px;
+    }
+    .label-first-vaccinator {
+      font-size: 18px;
+      padding: 10px;
+      margin-top: 7px;
+    }
+
+    .column-first-license, .column-first-signature {
+      width: 18%;
+      text-align: center;
+      border: .1px solid rgb(255, 255, 255);
+      position: relative;
+      float: left;
+      height: 50px;
+    }
+    .label-first-license {
+      font-size: 18px;
+      padding: 10px;
+      margin-top: 7px;
+    }
+
+
+  /* 2nd dose */
+    .column-second-dose {
+      width: 20%;
+      position: relative;
+      border: .1px solid rgb(255, 255, 255);
+      text-align: center;
+      float: left;
+      height: 50px;
+    }
+    .column-second-date {
+      width: 18%;
+      text-align: center;
+      border: .1px solid rgb(255, 255, 255);
+      position: relative;
+      float: left;
+      height: 50px;
+    }
+    .label-second-date {
+      font-size: 18px;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    .column-second-brand {
+      width: 25%;
+      text-align: center;
+      border: .1px solid rgb(255, 255, 255);
+      position: relative;
+      float: left;
+      height: 50px;
+    }
+    .label-second-brand {
+      font-size: 18px;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    .column-second-batch, .column-second-lot {
+      width: 18%;
+      text-align: center;
+      border: .1px solid rgb(255, 255, 255);
+      position: relative;
+      float: left;
+      height: 50px;
+    }
+    .label-second-batch, .label-second-lot {
+      font-size: 18px;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    .column-second-vaccinator {
+      width: 43%;
+      text-align: center;
+      position: relative;
+      border: .1px solid rgb(255, 255, 255);
+      float: left;
+      height: 50px;
+    } 
+    .label-second-vaccinator {
+      font-size: 18px;
+      padding: 10px;
+      margin-top: 20px;
+    }
+    .column-second-license, .column-second-signature {
+      width: 18%;
+      text-align: center;
+      position: relative;
+      border: .1px solid rgb(255, 255, 255);
+      float: left;
+      height: 50px;
+    }
+    .label-second-license, .label-second-signature {
+      font-size: 18px;
+      padding: 10px;
+      margin-top: 20px;
+    }
+
     .hidden, .hidden *
     {
         display: none !important;
@@ -579,12 +813,12 @@ export default {
     }
   
     .qr-frame {
-      width: 195px;
+      width: 202px;
       margin-left: -10px!important;
       margin-top: 13px;
     }
     .qr-image{
-      width: 173px;
+      width: 180px;
       margin-left: 2px;
       margin-top: 7px;
       margin-right: 7px;
@@ -602,18 +836,26 @@ export default {
       margin-top: 5px!important;
     }
     .column-15 {
-      width: 18%;
+      width: 20%;
     }
     .column-85 {
-      width: 82%;
+      width: 80%;
     }
 
     #table {
       margin-left: -10px!important;
+      margin-top: 71px;
+      font-size: 17px;
+    }
+    #table th {
+      border: .1px solid rgb(255, 255, 255);
+    }
+    #table td, th {
+      border: .1px solid rgb(255, 255, 255);
     }
     .footer {
-      margin-bottom: 30px;
-      margin-left: -80px;
+      margin-bottom: 25px;
+      margin-left: -90px;
       position: fixed;
       bottom: 0;
       width: 100%;
